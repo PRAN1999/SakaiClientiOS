@@ -1,0 +1,386 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		20BA46AB6298469493ACE379 /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1338FFD86066BBD8BB4FBFD /* Pods_SakaiClientiOS.framework */; };
+		511D757A208DAA9600371998 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D7579208DAA9600371998 /* HomeController.swift */; };
+		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
+		DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */; };
+		DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE0599FC1DFD93B200D19D17 /* Main.storyboard */; };
+		DE059A001DFD93B200D19D17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE0599FF1DFD93B200D19D17 /* Assets.xcassets */; };
+		DE059A031DFD93B200D19D17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		511D7579208DAA9600371998 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		ABA1D6B7E8DD719A6FC7179D /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B1338FFD86066BBD8BB4FBFD /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD07F42FF71C16742D5989D6 /* Pods-SakaiClientiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.release.xcconfig"; sourceTree = "<group>"; };
+		DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakaiClientiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE0599F81DFD93B200D19D17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DE0599FD1DFD93B200D19D17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DE0599FF1DFD93B200D19D17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DE059A021DFD93B200D19D17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DE059A041DFD93B200D19D17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DE0599F21DFD93B100D19D17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20BA46AB6298469493ACE379 /* Pods_SakaiClientiOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0DE7E68B5FD42220BCFEA4FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B1338FFD86066BBD8BB4FBFD /* Pods_SakaiClientiOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9CEAB0C5E884138EBE73A121 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ABA1D6B7E8DD719A6FC7179D /* Pods-SakaiClientiOS.debug.xcconfig */,
+				DD07F42FF71C16742D5989D6 /* Pods-SakaiClientiOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DE0599EC1DFD93B100D19D17 = {
+			isa = PBXGroup;
+			children = (
+				DE0599F71DFD93B200D19D17 /* SakaiClientiOS */,
+				DE0599F61DFD93B200D19D17 /* Products */,
+				9CEAB0C5E884138EBE73A121 /* Pods */,
+				0DE7E68B5FD42220BCFEA4FD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DE0599F61DFD93B200D19D17 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE0599F71DFD93B200D19D17 /* SakaiClientiOS */ = {
+			isa = PBXGroup;
+			children = (
+				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
+				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
+				DE0599FC1DFD93B200D19D17 /* Main.storyboard */,
+				DE0599FF1DFD93B200D19D17 /* Assets.xcassets */,
+				DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */,
+				DE059A041DFD93B200D19D17 /* Info.plist */,
+				511D7579208DAA9600371998 /* HomeController.swift */,
+			);
+			path = SakaiClientiOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DE0599F41DFD93B100D19D17 /* SakaiClientiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE059A071DFD93B200D19D17 /* Build configuration list for PBXNativeTarget "SakaiClientiOS" */;
+			buildPhases = (
+				EC5089D68FA20CA394A37499 /* [CP] Check Pods Manifest.lock */,
+				DE0599F11DFD93B100D19D17 /* Sources */,
+				DE0599F21DFD93B100D19D17 /* Frameworks */,
+				DE0599F31DFD93B100D19D17 /* Resources */,
+				FCDDEEB5E9F078B60482C7EC /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SakaiClientiOS;
+			productName = "web load";
+			productReference = DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE0599ED1DFD93B100D19D17 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = MAGNUMIUM;
+				TargetAttributes = {
+					DE0599F41DFD93B100D19D17 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = JKXA55BNZW;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = DE0599F01DFD93B100D19D17 /* Build configuration list for PBXProject "SakaiClientiOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DE0599EC1DFD93B100D19D17;
+			productRefGroup = DE0599F61DFD93B200D19D17 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DE0599F41DFD93B100D19D17 /* SakaiClientiOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DE0599F31DFD93B100D19D17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE059A031DFD93B200D19D17 /* LaunchScreen.storyboard in Resources */,
+				DE059A001DFD93B200D19D17 /* Assets.xcassets in Resources */,
+				DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EC5089D68FA20CA394A37499 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SakaiClientiOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCDDEEB5E9F078B60482C7EC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DE0599F11DFD93B100D19D17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
+				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
+				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DE0599FC1DFD93B200D19D17 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE0599FD1DFD93B200D19D17 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE059A021DFD93B200D19D17 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DE059A051DFD93B200D19D17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = JKXA55BNZW;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DE059A061DFD93B200D19D17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = JKXA55BNZW;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DE059A081DFD93B200D19D17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABA1D6B7E8DD719A6FC7179D /* Pods-SakaiClientiOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = JKXA55BNZW;
+				INFOPLIST_FILE = "$(SRCROOT)/SakaiClientiOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.PN.sakai-client";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		DE059A091DFD93B200D19D17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD07F42FF71C16742D5989D6 /* Pods-SakaiClientiOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = JKXA55BNZW;
+				INFOPLIST_FILE = "$(SRCROOT)/SakaiClientiOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.PN.sakai-client";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DE0599F01DFD93B100D19D17 /* Build configuration list for PBXProject "SakaiClientiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE059A051DFD93B200D19D17 /* Debug */,
+				DE059A061DFD93B200D19D17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE059A071DFD93B200D19D17 /* Build configuration list for PBXNativeTarget "SakaiClientiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE059A081DFD93B200D19D17 /* Debug */,
+				DE059A091DFD93B200D19D17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DE0599ED1DFD93B100D19D17 /* Project object */;
+}
