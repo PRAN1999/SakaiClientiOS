@@ -13,7 +13,7 @@ import Alamofire
 class HomeController: UIViewController {
     
     override func viewDidLoad() {
-        HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
+        Alamofire.SessionManager.default.session.reset{}
     }
     
     override func didReceiveMemoryWarning() {
@@ -26,23 +26,37 @@ class HomeController: UIViewController {
         let cookies:[HTTPCookie]? = HTTPCookieStorage.shared.cookies!
         for cookie in cookies! {
             print(cookie)
+            print("\n")
         }
     }
     
-    
     @IBAction func makeReq(_ sender: Any) {
-        Alamofire.request("https://sakai.rutgers.edu/direct/user/current.json").responseJSON { response in
-            print("Request: \(String(describing: response.request))")   // original url request
+        Alamofire.SessionManager.default.session.configuration.urlCache = nil
+        let cookies:[HTTPCookie]? = HTTPCookieStorage.shared.cookies!
+        for cookie in cookies! {
+            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
+        }
+        let afManager:SessionManager = Alamofire.SessionManager.default
+        afManager.request("https://sakai.rutgers.edu/direct/session/current.json", method: .get).validate().responseJSON { response in
+            //print("Request: \(String(describing: response.request))")   // original url request
             print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
+            //print("Result: \(response.result)")                         // response serialization result
             
             if let json = response.result.value {
                 print("JSON: \(json)") // serialized json response
             }
             
-            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                print("Data: \(utf8Text)") // original server data as UTF8 string
-            }
+//            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+//                print("Data: \(utf8Text)") // original server data as UTF8 string
+//            }
         }
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        Alamofire.SessionManager.default.session.reset{}
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        Alamofire.SessionManager.default.session.reset{}
     }
 }
