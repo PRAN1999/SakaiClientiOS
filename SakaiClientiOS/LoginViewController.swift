@@ -2,7 +2,6 @@
 import UIKit
 import WebKit
 import Alamofire
-import MaterialComponents.MaterialAppBar
 
 class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
@@ -20,19 +19,25 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         view = webView
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-    
     override func viewDidLoad() {
-        let myURL = URL(string: "https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer")
-        let myRequest = URLRequest(url: myURL!)
-        webView.load(myRequest)
+        super.viewDidLoad()
+        RequestManager.isLoggedIn(completion: {flag in
+            print("completion")
+            if(flag) {
+                self.performSegue(withIdentifier: "loginSegue", sender: self)
+            } else {
+                let myURL = URL(string: "https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer")
+                let myRequest = URLRequest(url: myURL!)
+                self.webView.load(myRequest)
+            }
+        })
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -73,7 +78,7 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         }
         if(webView.url!.absoluteString == "https://sakai.rutgers.edu/portal") {
             decisionHandler(.cancel)
-            navigationController?.popToRootViewController(animated: true)
+            self.performSegue(withIdentifier: "loginSegue", sender: self)
             return
         }
         decisionHandler(.allow)

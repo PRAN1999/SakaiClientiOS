@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.7.2)
-  - MaterialComponents/AppBar (54.11.1):
+  - MaterialComponents/AppBar (54.12.0):
     - MaterialComponents/FlexibleHeader
     - MaterialComponents/HeaderStackView
     - MaterialComponents/NavigationBar
@@ -11,10 +11,10 @@ PODS:
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
     - MDFInternationalization
-  - MaterialComponents/ButtonBar (54.11.1):
+  - MaterialComponents/ButtonBar (54.12.0):
     - MaterialComponents/Buttons
     - MDFInternationalization
-  - MaterialComponents/Buttons (54.11.1):
+  - MaterialComponents/Buttons (54.12.0):
     - MaterialComponents/Ink
     - MaterialComponents/private/Math
     - MaterialComponents/private/Shapes
@@ -23,7 +23,7 @@ PODS:
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
-  - MaterialComponents/CollectionCells (54.11.1):
+  - MaterialComponents/CollectionCells (54.12.0):
     - MaterialComponents/CollectionLayoutAttributes
     - MaterialComponents/Ink
     - MaterialComponents/Palettes
@@ -36,8 +36,8 @@ PODS:
     - MaterialComponents/private/Math
     - MaterialComponents/Typography
     - MDFInternationalization
-  - MaterialComponents/CollectionLayoutAttributes (54.11.1)
-  - MaterialComponents/Collections (54.11.1):
+  - MaterialComponents/CollectionLayoutAttributes (54.12.0)
+  - MaterialComponents/Collections (54.12.0):
     - MaterialComponents/CollectionCells
     - MaterialComponents/CollectionLayoutAttributes
     - MaterialComponents/Ink
@@ -45,46 +45,46 @@ PODS:
     - MaterialComponents/ShadowElevations
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
-  - MaterialComponents/FlexibleHeader (54.11.1):
+  - MaterialComponents/FlexibleHeader (54.12.0):
     - MaterialComponents/private/Application
     - MaterialComponents/private/UIMetrics
     - MDFTextAccessibility
-  - MaterialComponents/HeaderStackView (54.11.1)
-  - MaterialComponents/Ink (54.11.1):
+  - MaterialComponents/HeaderStackView (54.12.0)
+  - MaterialComponents/Ink (54.12.0):
     - MaterialComponents/private/Math
-  - MaterialComponents/NavigationBar (54.11.1):
+  - MaterialComponents/NavigationBar (54.12.0):
     - MaterialComponents/ButtonBar
     - MaterialComponents/private/Math
     - MaterialComponents/Typography
     - MDFInternationalization
     - MDFTextAccessibility
-  - MaterialComponents/Palettes (54.11.1)
-  - MaterialComponents/private/Application (54.11.1)
-  - MaterialComponents/private/Icons/Base (54.11.1)
-  - MaterialComponents/private/Icons/ic_arrow_back (54.11.1):
+  - MaterialComponents/Palettes (54.12.0)
+  - MaterialComponents/private/Application (54.12.0)
+  - MaterialComponents/private/Icons/Base (54.12.0)
+  - MaterialComponents/private/Icons/ic_arrow_back (54.12.0):
     - MaterialComponents/private/Icons/Base
-  - MaterialComponents/private/Icons/ic_check (54.11.1):
+  - MaterialComponents/private/Icons/ic_check (54.12.0):
     - MaterialComponents/private/Icons/Base
-  - MaterialComponents/private/Icons/ic_check_circle (54.11.1):
+  - MaterialComponents/private/Icons/ic_check_circle (54.12.0):
     - MaterialComponents/private/Icons/Base
-  - MaterialComponents/private/Icons/ic_chevron_right (54.11.1):
+  - MaterialComponents/private/Icons/ic_chevron_right (54.12.0):
     - MaterialComponents/private/Icons/Base
-  - MaterialComponents/private/Icons/ic_info (54.11.1):
+  - MaterialComponents/private/Icons/ic_info (54.12.0):
     - MaterialComponents/private/Icons/Base
-  - MaterialComponents/private/Icons/ic_radio_button_unchecked (54.11.1):
+  - MaterialComponents/private/Icons/ic_radio_button_unchecked (54.12.0):
     - MaterialComponents/private/Icons/Base
-  - MaterialComponents/private/Icons/ic_reorder (54.11.1):
+  - MaterialComponents/private/Icons/ic_reorder (54.12.0):
     - MaterialComponents/private/Icons/Base
-  - MaterialComponents/private/Math (54.11.1)
-  - MaterialComponents/private/Shapes (54.11.1):
+  - MaterialComponents/private/Math (54.12.0)
+  - MaterialComponents/private/Shapes (54.12.0):
     - MaterialComponents/private/Math
     - MaterialComponents/ShadowLayer
-  - MaterialComponents/private/UIMetrics (54.11.1):
+  - MaterialComponents/private/UIMetrics (54.12.0):
     - MaterialComponents/private/Application
-  - MaterialComponents/ShadowElevations (54.11.1)
-  - MaterialComponents/ShadowLayer (54.11.1):
+  - MaterialComponents/ShadowElevations (54.12.0)
+  - MaterialComponents/ShadowLayer (54.12.0):
     - MaterialComponents/ShadowElevations
-  - MaterialComponents/Typography (54.11.1):
+  - MaterialComponents/Typography (54.12.0):
     - MaterialComponents/private/Application
   - MDFInternationalization (1.0.4)
   - MDFTextAccessibility (1.2.0)
@@ -108,7 +108,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
-  MaterialComponents: c81c8f9f01308f7599a7847bb2bbe804dd696061
+  MaterialComponents: 9cc85f4fea3adb8b2323094a8baf7a444ad382a1
   MDFInternationalization: e355b0cebecf53d60233bd267084e49366c82513
   MDFTextAccessibility: 94098925e0853551c5a311ce7c1ecefbe297cdb6
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3

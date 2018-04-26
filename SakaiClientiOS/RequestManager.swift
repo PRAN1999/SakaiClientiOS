@@ -22,7 +22,7 @@ class RequestManager {
                     print("Flag set to true")
                     flag = true
                 } else {
-                    reset()
+                    logout()
                     print("Flag is false")
                 }
             }
@@ -45,14 +45,6 @@ class RequestManager {
     }
     
     class func logout() {
-        Alamofire.SessionManager.default.session.configuration.urlCache = nil
-        let cookies:[HTTPCookie]! = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies
-        for cookie in cookies {
-            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.deleteCookie(cookie)
-        }
-    }
-    
-    class func reset() {
         URLCache.shared.removeAllCachedResponses()
         Alamofire.SessionManager.default.session.configuration.urlCache = nil
         let cookies:[HTTPCookie]! = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies
