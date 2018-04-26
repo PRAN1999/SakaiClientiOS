@@ -10,32 +10,26 @@ import Alamofire
 import MaterialComponents.MaterialCollections
 
 class HomeController: UIViewController, UIScrollViewDelegate {
-    let appBar = MDCAppBar()
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var sideMenuView: UIView!
+    @IBOutlet weak var seeThroughButton: UIButton!
+    @IBOutlet weak var sideConstraint: NSLayoutConstraint!
+    
+    var menuShown:Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         //custom logic goes here
-        self.addChildViewController(appBar.headerViewController)
     }
     
     //Resets Alamofire default session on initial view load
     //Temporary measure for debugging purposes - 4/24/18 - PN
     override func viewDidLoad() {
-        Alamofire.SessionManager.default.session.reset{}
-        appBar.headerViewController.headerView.backgroundColor = UIColor(red: 1.0, green: 0.1, blue: 0.1, alpha: 1.0)
-        appBar.navigationBar.tintColor = UIColor.black
-        
-        appBar.headerViewController.view.frame = view.bounds
-        view.addSubview(appBar.headerViewController.view)
-        appBar.headerViewController.didMove(toParentViewController: self)
-        
-        appBar.headerViewController.headerView.trackingScrollView = scrollView
-        scrollView.delegate = appBar.headerViewController
-        appBar.addSubviewsToParent()
-        appBar.navigationBar.observe(navigationItem)
-        
-        title = "Sakai Client"
+        title = "Home"
+    }
+    
+    override func viewDidLayoutSubviews() {
+        //sideConstraint.constant = -221
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,80 +38,47 @@ class HomeController: UIViewController, UIScrollViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        RequestManager.isLoggedIn(completion: {flag in
+            print("completion")
+            if(!flag) {
+                self.navigationController?.pushViewController(LoginViewController(), animated: true)
+            }
+        })
+        
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     //Print cookies for debugging purposes - 4/24/18 - PN
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("Cookies here\n")
-        let cookies:[HTTPCookie]? = HTTPCookieStorage.shared.cookies!
-        for cookie in cookies! {
-            print(cookie)
-            print("\n")
-        }
     }
     
-    //Store all HTTP cookies in Alamofire default configration and make GET request
-    @IBAction func makeReq(_ sender: Any) {
-        let cookies:[HTTPCookie]? = HTTPCookieStorage.shared.cookies!
-        for cookie in cookies! {
-            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
+    @IBAction func menuButtonTapped(_ sender: Any) {
+        if menuShown {
+            hideMenu()
+        } else {
+            showMenu()
         }
-        
-        let afManager:SessionManager = Alamofire.SessionManager.default
-        afManager.request("https://sakai.rutgers.edu/direct/session/current.json", method: .get).validate().responseJSON { response in
-            print("Response: \(String(describing: response.response))")
-            
-            if let json = response.result.value {
-                print("JSON: \(json)") // serialized json response
-            }
-        }
+        menuShown = !menuShown
     }
     
-    //Invalidate user session by resetting Alamofire default session
-    @IBAction func logout(_ sender: Any) {
-        Alamofire.SessionManager.default.session.reset{
-            print("reset logout")
-        }
+    @IBAction func screenButtonTapped(_ sender: Any) {
+        hideMenu()
     }
     
-    //Invalidate session when segueing to LoginViewController
-    //Temporary measure for debugging purposes - 4/24/18 - PN
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("Segue initiation")
-        Alamofire.SessionManager.default.session.reset {
-            print("reset segue")
-        }
+    func showMenu() {
+        //self.sideConstraint.constant = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            self.sideMenuView.alpha = 1
+            self.seeThroughButton.alpha = 1
+        })
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(1)
-        if scrollView == appBar.headerViewController.headerView.trackingScrollView {
-            appBar.headerViewController.headerView.trackingScrollDidScroll()
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print(2)
-        if scrollView == appBar.headerViewController.headerView.trackingScrollView {
-            appBar.headerViewController.headerView.trackingScrollDidEndDecelerating()
-        }
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print(3)
-        let headerView = appBar.headerViewController.headerView
-        if scrollView == headerView.trackingScrollView {
-            headerView.trackingScrollDidEndDraggingWillDecelerate(decelerate)
-        }
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print(4)
-        let headerView = appBar.headerViewController.headerView
-        if scrollView == headerView.trackingScrollView {
-            headerView.trackingScrollWillEndDragging(withVelocity: velocity, targetContentOffset: targetContentOffset)
-        }
+    func hideMenu() {
+        //self.sideConstraint.constant = -221
+        UIView.animate(withDuration: 0.5, animations: {
+            self.sideMenuView.alpha = 0
+            self.seeThroughButton.alpha = 0
+        })
     }
 }

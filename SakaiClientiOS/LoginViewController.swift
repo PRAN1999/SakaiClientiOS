@@ -7,12 +7,9 @@ import MaterialComponents.MaterialAppBar
 class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
     var webView: WKWebView!
-    let appBar = MDCAppBar()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //custom logic goes here
-        self.addChildViewController(appBar.headerViewController)
     }
     
     override func loadView() {
@@ -28,21 +25,6 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        appBar.headerViewController.headerView.backgroundColor = UIColor(red: 1.0, green: 0.1, blue: 0.1, alpha: 1.0)
-        appBar.navigationBar.tintColor = UIColor.black
-        
-        appBar.headerViewController.view.frame = view.bounds
-        view.addSubview(appBar.headerViewController.view)
-        
-        appBar.headerViewController.didMove(toParentViewController: self)
-        
-        appBar.addSubviewsToParent()
-        appBar.navigationBar.observe(navigationItem)
-        
-        title = "Login"
-        
         let myURL = URL(string: "https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
@@ -65,6 +47,7 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
             store.getAllCookies { (cookies) in
                 for cookie in cookies {
                     HTTPCookieStorage.shared.setCookie(cookie as HTTPCookie)
+                    Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
                 }
             }
         } else if (webView.url!.absoluteString == "https://sakai.rutgers.edu/portal") {
@@ -72,6 +55,7 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
             store.getAllCookies { (cookies) in
                 for cookie in cookies {
                     HTTPCookieStorage.shared.setCookie(cookie as HTTPCookie)
+                    Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
                 }
             }
 

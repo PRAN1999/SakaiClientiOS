@@ -11,4 +11,5 @@ target 'SakaiClientiOS' do
   pod 'MaterialComponents/Buttons'
   pod 'MaterialComponents/Collections'
   pod 'MaterialComponents/NavigationBar'
+  pod 'SwiftyJSON', '~> 4.0'
 end

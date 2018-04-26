@@ -88,6 +88,7 @@ PODS:
     - MaterialComponents/private/Application
   - MDFInternationalization (1.0.4)
   - MDFTextAccessibility (1.2.0)
+  - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -95,6 +96,7 @@ DEPENDENCIES:
   - MaterialComponents/Buttons
   - MaterialComponents/Collections
   - MaterialComponents/NavigationBar
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -102,13 +104,15 @@ SPEC REPOS:
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   MaterialComponents: c81c8f9f01308f7599a7847bb2bbe804dd696061
   MDFInternationalization: e355b0cebecf53d60233bd267084e49366c82513
   MDFTextAccessibility: 94098925e0853551c5a311ce7c1ecefbe297cdb6
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: ddf17b7ee1592923cc08d495be49dc403334da5c
+PODFILE CHECKSUM: 7e972e6d2afc63e49c894e5381bdb54b7bc3070d
 
 COCOAPODS: 1.5.0

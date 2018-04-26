@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D0DCBE5F91BA6061D1FE6B5A15E0E3C7"
+               BlueprintIdentifier = "324919B91740F3A434E6950882DD43BD"
                BlueprintName = "Pods-SakaiClientiOS"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "Pods-SakaiClientiOS.framework">
