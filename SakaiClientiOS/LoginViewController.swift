@@ -21,16 +21,9 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        RequestManager.isLoggedIn(completion: {flag in
-            print("completion")
-            if(flag) {
-                self.performSegue(withIdentifier: "loginSegue", sender: self)
-            } else {
-                let myURL = URL(string: "https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer")
-                let myRequest = URLRequest(url: myURL!)
-                self.webView.load(myRequest)
-            }
-        })
+        let myURL = URL(string: "https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer")
+        let myRequest = URLRequest(url: myURL!)
+        self.webView.load(myRequest)
     }
     
     override func viewDidAppear(_ animated: Bool) {

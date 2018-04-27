@@ -32,9 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        window?.rootViewController = storyboard.instantiateInitialViewController()
-        window?.makeKeyAndVisible()
+        RequestManager.isLoggedIn(completion: { flag in
+            if(!flag) {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                self.window?.rootViewController = storyboard.instantiateInitialViewController()
+                self.window?.makeKeyAndVisible()
+            }
+        })
+        
         print("Foreground")
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
