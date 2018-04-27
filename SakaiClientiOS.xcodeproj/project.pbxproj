@@ -12,12 +12,13 @@
 		5113C12920927F28001929DA /* HomeView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C12820927F28001929DA /* HomeView.storyboard */; };
 		5113C12B20928658001929DA /* AnnouncementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C12A20928658001929DA /* AnnouncementController.swift */; };
 		5113C12D20928669001929DA /* AnnouncementView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C12C20928669001929DA /* AnnouncementView.storyboard */; };
-		5113C12F209286B3001929DA /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C12E209286B3001929DA /* AccountController.swift */; };
-		5113C131209286C2001929DA /* AccountView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C130209286C2001929DA /* AccountView.storyboard */; };
+		5113C12F209286B3001929DA /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C12E209286B3001929DA /* SettingsController.swift */; };
+		5113C131209286C2001929DA /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C130209286C2001929DA /* SettingsView.storyboard */; };
 		5113C133209286D9001929DA /* GradebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C132209286D9001929DA /* GradebookController.swift */; };
 		5113C135209286E8001929DA /* GradebookView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C134209286E8001929DA /* GradebookView.storyboard */; };
 		5113C13720928709001929DA /* AssignmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13620928709001929DA /* AssignmentController.swift */; };
 		5113C13920928718001929DA /* AssignmentView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C13820928718001929DA /* AssignmentView.storyboard */; };
+		5113C13C2092BD74001929DA /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13B2092BD74001929DA /* Site.swift */; };
 		511D757A208DAA9600371998 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D7579208DAA9600371998 /* HomeController.swift */; };
 		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
 		DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */; };
@@ -31,12 +32,13 @@
 		5113C12820927F28001929DA /* HomeView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeView.storyboard; sourceTree = "<group>"; };
 		5113C12A20928658001929DA /* AnnouncementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementController.swift; sourceTree = "<group>"; };
 		5113C12C20928669001929DA /* AnnouncementView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AnnouncementView.storyboard; sourceTree = "<group>"; };
-		5113C12E209286B3001929DA /* AccountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
-		5113C130209286C2001929DA /* AccountView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountView.storyboard; sourceTree = "<group>"; };
+		5113C12E209286B3001929DA /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		5113C130209286C2001929DA /* SettingsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsView.storyboard; sourceTree = "<group>"; };
 		5113C132209286D9001929DA /* GradebookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookController.swift; sourceTree = "<group>"; };
 		5113C134209286E8001929DA /* GradebookView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GradebookView.storyboard; sourceTree = "<group>"; };
 		5113C13620928709001929DA /* AssignmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentController.swift; sourceTree = "<group>"; };
 		5113C13820928718001929DA /* AssignmentView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AssignmentView.storyboard; sourceTree = "<group>"; };
+		5113C13B2092BD74001929DA /* Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
 		511D7579208DAA9600371998 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		ABA1D6B7E8DD719A6FC7179D /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B1338FFD86066BBD8BB4FBFD /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,13 +90,13 @@
 			path = GradebookViews;
 			sourceTree = "<group>";
 		};
-		5113C12520927D51001929DA /* AccountViews */ = {
+		5113C12520927D51001929DA /* SettingsViews */ = {
 			isa = PBXGroup;
 			children = (
-				5113C12E209286B3001929DA /* AccountController.swift */,
-				5113C130209286C2001929DA /* AccountView.storyboard */,
+				5113C12E209286B3001929DA /* SettingsController.swift */,
+				5113C130209286C2001929DA /* SettingsView.storyboard */,
 			);
-			path = AccountViews;
+			path = SettingsViews;
 			sourceTree = "<group>";
 		};
 		5113C12620927D5A001929DA /* HomeViews */ = {
@@ -118,6 +120,7 @@
 		5113C13A209298FF001929DA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5113C13B2092BD74001929DA /* Site.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -155,7 +158,7 @@
 				5113C13A209298FF001929DA /* Models */,
 				5113C12720927D6C001929DA /* AnnouncementViews */,
 				5113C12620927D5A001929DA /* HomeViews */,
-				5113C12520927D51001929DA /* AccountViews */,
+				5113C12520927D51001929DA /* SettingsViews */,
 				5113C12420927D44001929DA /* GradebookViews */,
 				5113C12320927D19001929DA /* AssignmentViews */,
 				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
@@ -236,7 +239,7 @@
 				5113C12D20928669001929DA /* AnnouncementView.storyboard in Resources */,
 				DE059A001DFD93B200D19D17 /* Assets.xcassets in Resources */,
 				5113C13920928718001929DA /* AssignmentView.storyboard in Resources */,
-				5113C131209286C2001929DA /* AccountView.storyboard in Resources */,
+				5113C131209286C2001929DA /* SettingsView.storyboard in Resources */,
 				5113C12920927F28001929DA /* HomeView.storyboard in Resources */,
 				DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */,
 			);
@@ -300,7 +303,8 @@
 				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
-				5113C12F209286B3001929DA /* AccountController.swift in Sources */,
+				5113C13C2092BD74001929DA /* Site.swift in Sources */,
+				5113C12F209286B3001929DA /* SettingsController.swift in Sources */,
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,

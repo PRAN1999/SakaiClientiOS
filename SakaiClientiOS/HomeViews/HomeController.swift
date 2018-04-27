@@ -19,6 +19,11 @@ class HomeController: UITableViewController {
     //Temporary measure for debugging purposes - 4/24/18 - PN
     override func viewDidLoad() {
         title = "Home"
+        RequestManager.getSites(completion: { siteList in
+            for site in siteList! {
+                site.printSite()
+            }
+        })
     }
     
     override func viewDidLayoutSubviews() {

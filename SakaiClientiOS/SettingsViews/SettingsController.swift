@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountController: UIViewController {
+class SettingsController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

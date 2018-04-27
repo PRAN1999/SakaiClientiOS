@@ -70,7 +70,7 @@
         <scene sceneID="Fkm-K0-3BT">
             <objects>
                 <navigationController title="Gradebook" automaticallyAdjustsScrollViewInsets="NO" id="lVB-xW-D7w" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Gradebook" image="if_Done_2290849" id="0Og-T9-bdp"/>
+                    <tabBarItem key="tabBarItem" title="Gradebook" image="gradebook" id="0Og-T9-bdp"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="fwu-CL-9sk">
@@ -100,7 +100,7 @@
         <scene sceneID="0iQ-K1-qRS">
             <objects>
                 <navigationController title="Announcements" automaticallyAdjustsScrollViewInsets="NO" id="xOy-Jg-zro" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Announcements" image="if_Notification_2290852" id="bjQ-Yb-Iex"/>
+                    <tabBarItem key="tabBarItem" title="Alerts" image="announcements" id="bjQ-Yb-Iex"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="l6s-og-hG5">
@@ -130,7 +130,7 @@
         <scene sceneID="How-ve-hlX">
             <objects>
                 <navigationController title="Assignments" automaticallyAdjustsScrollViewInsets="NO" id="nbo-G7-vlI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Assignments" image="if_Draw_2290864" id="b8h-HD-Bd2"/>
+                    <tabBarItem key="tabBarItem" title="Assignments" image="assignments" id="b8h-HD-Bd2"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="D0m-UO-6Yn">
@@ -156,11 +156,11 @@
             </objects>
             <point key="canvasLocation" x="953" y="834"/>
         </scene>
-        <!--Account-->
+        <!--Settings-->
         <scene sceneID="1Y5-15-R0c">
             <objects>
-                <navigationController title="Account" automaticallyAdjustsScrollViewInsets="NO" id="YWp-u0-jQp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Account" image="if_41-User_2123927" id="zg7-FI-ENF"/>
+                <navigationController title="Settings" automaticallyAdjustsScrollViewInsets="NO" id="YWp-u0-jQp" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="zg7-FI-ENF"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="OXK-vQ-Hpt">
@@ -176,10 +176,10 @@
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="1541.3793103448277"/>
         </scene>
-        <!--AccountView-->
+        <!--SettingsView-->
         <scene sceneID="P98-WC-j3j">
             <objects>
-                <viewControllerPlaceholder storyboardName="AccountView" referencedIdentifier="AccountView" id="7VF-XS-zBg" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="SettingsView" referencedIdentifier="SettingsView" id="7VF-XS-zBg" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="IhC-NF-i5L"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dhQ-aK-juF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -190,7 +190,7 @@
         <scene sceneID="VEV-YB-qKo">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KBr-vK-S6R" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="home-512" id="l4C-jd-KZb"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home" id="l4C-jd-KZb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="dKI-ep-II6">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -207,10 +207,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="home-512" width="25" height="25"/>
-        <image name="if_41-User_2123927" width="25" height="25"/>
-        <image name="if_Done_2290849" width="25" height="25"/>
-        <image name="if_Draw_2290864" width="25" height="25"/>
-        <image name="if_Notification_2290852" width="25" height="25"/>
+        <image name="announcements" width="25" height="25"/>
+        <image name="assignments" width="25" height="25"/>
+        <image name="gradebook" width="25" height="25"/>
+        <image name="home" width="25" height="25"/>
+        <image name="settings" width="25" height="25"/>
     </resources>
 </document>
