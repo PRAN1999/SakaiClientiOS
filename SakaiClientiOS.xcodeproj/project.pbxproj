@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20BA46AB6298469493ACE379 /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1338FFD86066BBD8BB4FBFD /* Pods_SakaiClientiOS.framework */; };
 		5113C1202090F7B7001929DA /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C11F2090F7B7001929DA /* RequestManager.swift */; };
 		5113C12920927F28001929DA /* HomeView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C12820927F28001929DA /* HomeView.storyboard */; };
 		5113C12B20928658001929DA /* AnnouncementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C12A20928658001929DA /* AnnouncementController.swift */; };
@@ -19,7 +18,9 @@
 		5113C13720928709001929DA /* AssignmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13620928709001929DA /* AssignmentController.swift */; };
 		5113C13920928718001929DA /* AssignmentView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C13820928718001929DA /* AssignmentView.storyboard */; };
 		5113C13C2092BD74001929DA /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13B2092BD74001929DA /* Site.swift */; };
+		5113C13E2092D8F1001929DA /* SiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13D2092D8F1001929DA /* SiteTableViewCell.swift */; };
 		511D757A208DAA9600371998 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D7579208DAA9600371998 /* HomeController.swift */; };
+		AF412FE9DC8C8BBC41E42CFB /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */; };
 		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
 		DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */; };
 		DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE0599FC1DFD93B200D19D17 /* Main.storyboard */; };
@@ -28,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.release.xcconfig"; sourceTree = "<group>"; };
 		5113C11F2090F7B7001929DA /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		5113C12820927F28001929DA /* HomeView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeView.storyboard; sourceTree = "<group>"; };
 		5113C12A20928658001929DA /* AnnouncementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementController.swift; sourceTree = "<group>"; };
@@ -39,10 +42,9 @@
 		5113C13620928709001929DA /* AssignmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentController.swift; sourceTree = "<group>"; };
 		5113C13820928718001929DA /* AssignmentView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AssignmentView.storyboard; sourceTree = "<group>"; };
 		5113C13B2092BD74001929DA /* Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
+		5113C13D2092D8F1001929DA /* SiteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteTableViewCell.swift; sourceTree = "<group>"; };
 		511D7579208DAA9600371998 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
-		ABA1D6B7E8DD719A6FC7179D /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
-		B1338FFD86066BBD8BB4FBFD /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD07F42FF71C16742D5989D6 /* Pods-SakaiClientiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.release.xcconfig"; sourceTree = "<group>"; };
+		B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakaiClientiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F81DFD93B200D19D17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -57,19 +59,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20BA46AB6298469493ACE379 /* Pods_SakaiClientiOS.framework in Frameworks */,
+				AF412FE9DC8C8BBC41E42CFB /* Pods_SakaiClientiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0DE7E68B5FD42220BCFEA4FD /* Frameworks */ = {
+		2FAF2B4998C18CFABEFC9396 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B1338FFD86066BBD8BB4FBFD /* Pods_SakaiClientiOS.framework */,
+				1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */,
+				4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */,
 			);
-			name = Frameworks;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		5113C12320927D19001929DA /* AssignmentViews */ = {
@@ -103,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				511D7579208DAA9600371998 /* HomeController.swift */,
+				5113C13D2092D8F1001929DA /* SiteTableViewCell.swift */,
 				5113C12820927F28001929DA /* HomeView.storyboard */,
 			);
 			path = HomeViews;
@@ -125,13 +129,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		9CEAB0C5E884138EBE73A121 /* Pods */ = {
+		6A04DF0725D71CF9D407734A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ABA1D6B7E8DD719A6FC7179D /* Pods-SakaiClientiOS.debug.xcconfig */,
-				DD07F42FF71C16742D5989D6 /* Pods-SakaiClientiOS.release.xcconfig */,
+				B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */,
 			);
-			name = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		DE0599EC1DFD93B100D19D17 = {
@@ -139,8 +142,8 @@
 			children = (
 				DE0599F71DFD93B200D19D17 /* SakaiClientiOS */,
 				DE0599F61DFD93B200D19D17 /* Products */,
-				9CEAB0C5E884138EBE73A121 /* Pods */,
-				0DE7E68B5FD42220BCFEA4FD /* Frameworks */,
+				2FAF2B4998C18CFABEFC9396 /* Pods */,
+				6A04DF0725D71CF9D407734A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,11 +182,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE059A071DFD93B200D19D17 /* Build configuration list for PBXNativeTarget "SakaiClientiOS" */;
 			buildPhases = (
-				EC5089D68FA20CA394A37499 /* [CP] Check Pods Manifest.lock */,
+				4D1053EB7B6A570595CA4DBE /* [CP] Check Pods Manifest.lock */,
 				DE0599F11DFD93B100D19D17 /* Sources */,
 				DE0599F21DFD93B100D19D17 /* Frameworks */,
 				DE0599F31DFD93B100D19D17 /* Resources */,
-				FCDDEEB5E9F078B60482C7EC /* [CP] Embed Pods Frameworks */,
+				0F6DD87F7C4A76FEA6594FEC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -248,7 +251,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		EC5089D68FA20CA394A37499 /* [CP] Check Pods Manifest.lock */ = {
+		0F6DD87F7C4A76FEA6594FEC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D1053EB7B6A570595CA4DBE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -266,32 +289,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FCDDEEB5E9F078B60482C7EC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
-				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
-				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -301,6 +298,7 @@
 			files = (
 				5113C12B20928658001929DA /* AnnouncementController.swift in Sources */,
 				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
+				5113C13E2092D8F1001929DA /* SiteTableViewCell.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
 				5113C13C2092BD74001929DA /* Site.swift in Sources */,
@@ -431,7 +429,7 @@
 		};
 		DE059A081DFD93B200D19D17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ABA1D6B7E8DD719A6FC7179D /* Pods-SakaiClientiOS.debug.xcconfig */;
+			baseConfigurationReference = 1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JKXA55BNZW;
@@ -447,7 +445,7 @@
 		};
 		DE059A091DFD93B200D19D17 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD07F42FF71C16742D5989D6 /* Pods-SakaiClientiOS.release.xcconfig */;
+			baseConfigurationReference = 4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JKXA55BNZW;

@@ -7,9 +7,5 @@ target 'SakaiClientiOS' do
 
   # Pods for SakaiClientiOS
   pod 'Alamofire', '~> 4.7'
-  pod 'MaterialComponents/AppBar'
-  pod 'MaterialComponents/Buttons'
-  pod 'MaterialComponents/Collections'
-  pod 'MaterialComponents/NavigationBar'
   pod 'SwiftyJSON', '~> 4.0'
 end

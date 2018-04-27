@@ -22,6 +22,12 @@ class SettingsController: UIViewController {
     }
     
 
+    @IBAction func logout(_ sender: UIButton) {
+        RequestManager.logout()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginController = storyboard.instantiateViewController(withIdentifier: "loginViewController")
+        self.present(loginController, animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

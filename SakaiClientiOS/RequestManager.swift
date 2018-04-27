@@ -82,7 +82,8 @@ class RequestManager {
             for siteJSON in sitesJSON {
                 let id:String? = siteJSON["id"].string
                 let title:String? = siteJSON["title"].string
-                let site:Site! = Site(id: id, title: title)
+                let description:String? = siteJSON["htmlDescription"].string
+                let site:Site! = Site(id: id, title: title, description: description)
                 siteList.append(site)
             }
             completion(siteList)
