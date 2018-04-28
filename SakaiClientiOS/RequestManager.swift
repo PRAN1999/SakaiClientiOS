@@ -35,14 +35,42 @@ extension Alamofire.SessionManager {
 
 class RequestManager {
     
-    static var BASE_URL = "https://sakai.rutgers.edu/direct/"
+    static var LOGIN_URL = "https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer"
+    static var COOKIE_URL_1 = "https://sakai.rutgers.edu/sakai-login-tool/container"
+    static var COOKIE_URL_2 = "https://sakai.rutgers.edu/portal"
     
-    static var SITES_URL = BASE_URL + "site.json"
-    static var SESSION_URL = BASE_URL + "session/current.json"
-    static var USER_URL = BASE_URL + "user/current.json"
+    static var BASE_URL:String = "https://sakai.rutgers.edu/direct/"
     
-    class func isLoggedIn(completion: @escaping (Bool) -> Void)  {
-        Alamofire.SessionManager.default.requestWithoutCache(SESSION_URL, method: .get).validate().responseJSON { response in
+    static var SITES_URL:String = BASE_URL + "site.json"
+    static var SESSION_URL:String = BASE_URL + "session/current.json"
+    static var USER_URL:String = BASE_URL + "user/current.json"
+    
+    public class func makeRequest(url:String, method: HTTPMethod, completion: @escaping (_ response:DataResponse<Any>) -> Void) {
+        Alamofire.SessionManager.default.requestWithoutCache(url, method: method).validate().responseJSON { response in
+            completion(response)
+        }
+    }
+    
+    public class func addCookie(cookie:HTTPCookie) {
+        Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
+    }
+    
+    public class func addHeader(value: Any, key: AnyHashable){
+        Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.updateValue(value, forKey: key)
+    }
+    
+    public class func logout() {
+        URLCache.shared.removeAllCachedResponses()
+        Alamofire.SessionManager.default.session.configuration.urlCache = nil
+        let cookies:[HTTPCookie]! = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies
+        for cookie in cookies {
+            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.deleteCookie(cookie)
+        }
+        Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeValue(forKey: AnyHashable("X-Sakai-Session"))
+    }
+    
+    public class func isLoggedIn(completion: @escaping (Bool) -> Void)  {
+        self.makeRequest(url: SESSION_URL, method: .get) { response in
             var flag = false
             if let data = response.result.value {
                 print("JSON: \(data)")
@@ -59,18 +87,8 @@ class RequestManager {
         }
     }
     
-    class func logout() {
-        URLCache.shared.removeAllCachedResponses()
-        Alamofire.SessionManager.default.session.configuration.urlCache = nil
-        let cookies:[HTTPCookie]! = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies
-        for cookie in cookies {
-            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.deleteCookie(cookie)
-        }
-        Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeValue(forKey: AnyHashable("X-Sakai-Session"))
-    }
-    
-    class func getSites(completion: @escaping (_ site: [Site]?) -> Void) {
-        Alamofire.SessionManager.default.requestWithoutCache(SITES_URL, method: .get).validate().responseJSON {response in
+    public class func getSites(completion: @escaping (_ site: [[Site]]?) -> Void) {
+         self.makeRequest(url: SITES_URL, method: .get) {response in
             guard let data = response.result.value else {
                 print("error")
                 return
@@ -80,13 +98,12 @@ class RequestManager {
             let sitesJSON = JSON(data)["site_collection"].array!
             
             for siteJSON in sitesJSON {
-                let id:String? = siteJSON["id"].string
-                let title:String? = siteJSON["title"].string
-                let description:String? = siteJSON["htmlDescription"].string
-                let site:Site! = Site(id: id, title: title, description: description)
+                let site:Site! = Site(data: siteJSON)
                 siteList.append(site)
             }
-            completion(siteList)
+            let sectionList = Site.splitByTerms(siteList: siteList)
+            
+            completion(sectionList)
         }
     }
     

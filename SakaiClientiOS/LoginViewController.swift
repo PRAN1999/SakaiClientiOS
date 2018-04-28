@@ -1,7 +1,6 @@
 
 import UIKit
 import WebKit
-import Alamofire
 
 class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
@@ -21,7 +20,7 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let myURL = URL(string: "https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer")
+        let myURL = URL(string: RequestManager.LOGIN_URL)
         let myRequest = URLRequest(url: myURL!)
         self.webView.load(myRequest)
     }
@@ -40,23 +39,14 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         print(webView.url!.absoluteString)
         
-        if(webView.url!.absoluteString == "https://sakai.rutgers.edu/sakai-login-tool/container") {
+        if webView.url!.absoluteString == RequestManager.COOKIE_URL_1 || webView.url!.absoluteString == RequestManager.COOKIE_URL_2 {
             let store = WKWebsiteDataStore.default().httpCookieStore
             store.getAllCookies { (cookies) in
                 for cookie in cookies {
                     HTTPCookieStorage.shared.setCookie(cookie as HTTPCookie)
-                    Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
+                    RequestManager.addCookie(cookie: cookie)
                 }
             }
-        } else if (webView.url!.absoluteString == "https://sakai.rutgers.edu/portal") {
-            let store = WKWebsiteDataStore.default().httpCookieStore
-            store.getAllCookies { (cookies) in
-                for cookie in cookies {
-                    HTTPCookieStorage.shared.setCookie(cookie as HTTPCookie)
-                    Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
-                }
-            }
-
         }
         decisionHandler(.allow)
         return
@@ -67,9 +57,9 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         let response = navigationResponse.response as? HTTPURLResponse
         let headers = response!.allHeaderFields
         for header in headers {
-            Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.updateValue(header.value, forKey: header.key)
+            RequestManager.addHeader(value: header.value, key: header.key)
         }
-        if(webView.url!.absoluteString == "https://sakai.rutgers.edu/portal") {
+        if(webView.url!.absoluteString == RequestManager.COOKIE_URL_2) {
             decisionHandler(.cancel)
             self.performSegue(withIdentifier: "loginSegue", sender: self)
             return
