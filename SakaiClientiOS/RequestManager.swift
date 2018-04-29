@@ -1,9 +1,7 @@
 //
-//  File.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 4/25/18.
-//  Copyright © 2018 MAGNUMIUM. All rights reserved.
 //
 
 import Foundation
@@ -95,7 +93,10 @@ class RequestManager {
             }
             
             var siteList:[Site] = [Site]()
-            let sitesJSON = JSON(data)["site_collection"].array!
+            guard let sitesJSON = JSON(data)["site_collection"].array else {
+                completion(nil)
+                return
+            }
             
             for siteJSON in sitesJSON {
                 let site:Site! = Site(data: siteJSON)

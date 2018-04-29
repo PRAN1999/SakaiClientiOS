@@ -16,35 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="siteTableViewCell" rowHeight="90" id="LfL-wA-vWE" customClass="SiteTableViewCell" customModule="SakaiClientiOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LfL-wA-vWE" id="S0C-NW-3r1">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="89.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RaN-z0-bGF">
-                                            <rect key="frame" x="16" y="11" width="317" height="68"/>
-                                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="RaN-z0-bGF" secondAttribute="bottom" constant="10.5" id="4gM-0W-lTl"/>
-                                        <constraint firstAttribute="trailing" secondItem="RaN-z0-bGF" secondAttribute="trailing" constant="8" id="4kJ-Uv-raY"/>
-                                        <constraint firstItem="RaN-z0-bGF" firstAttribute="top" secondItem="S0C-NW-3r1" secondAttribute="top" constant="11" id="QvR-TS-k3V"/>
-                                        <constraint firstItem="RaN-z0-bGF" firstAttribute="leading" secondItem="S0C-NW-3r1" secondAttribute="leading" constant="16" id="wy1-pY-qXq"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="titleLabel" destination="RaN-z0-bGF" id="CY4-eF-wG9"/>
-                                    <segue destination="Scz-0x-CfV" kind="show" id="NCz-VC-IHg"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="ceM-kr-SkT" id="aXn-XB-Pls"/>
                             <outlet property="delegate" destination="ceM-kr-SkT" id="HX7-dp-p0Q"/>

@@ -2,9 +2,7 @@
 //  Site.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 4/26/18.
-//  Copyright © 2018 MAGNUMIUM. All rights reserved.
-//
+//  Created by Pranay Neelagiri on 4/26/18.//
 
 import Foundation
 import SwiftyJSON
@@ -24,15 +22,13 @@ class Site {
         let termString:String? = props["term_eid"]?.string
         self.term = Term.getTerm(toParse: termString)
         
-        self.description = stripHTML(description: data["description"].string)
-    }
-    
-    private func stripHTML(description:String?) -> String? {
-        guard let desc = description else {
-            return nil
-        }
-        let str = desc.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-        return str
+//        if let desc = data["description"].string {
+//            self.description = desc.htmlAttributedString
+//        } else {
+//            self.description = NSAttributedString(string: "")
+//        }
+        
+        self.description = data["description"].string
     }
     
     public func getId() -> String {

@@ -1,14 +1,13 @@
 //
-//  GradebookController.swift
+//  AssignmentController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 4/26/18.
-//  Copyright © 2018 MAGNUMIUM. All rights reserved.
 //
 
 import UIKit
 
-class GradebookController: UITableViewController {
+class AssignmentController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

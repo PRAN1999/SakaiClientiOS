@@ -1,9 +1,6 @@
 //
 //  AppDelegate.swift
-//  web load
 //
-//  Created by Sebastian Hette on 11.12.2016.
-//  Copyright © 2016 MAGNUMIUM. All rights reserved.
 //
 
 import UIKit

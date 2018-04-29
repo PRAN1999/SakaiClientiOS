@@ -3,7 +3,6 @@
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 4/26/18.
-//  Copyright © 2018 MAGNUMIUM. All rights reserved.
 //
 
 import UIKit
