@@ -43,21 +43,21 @@ class RequestManager {
     static var SESSION_URL:String = BASE_URL + "session/current.json"
     static var USER_URL:String = BASE_URL + "user/current.json"
     
-    public class func makeRequest(url:String, method: HTTPMethod, completion: @escaping (_ response:DataResponse<Any>) -> Void) {
+    private class func makeRequest(url:String, method: HTTPMethod, completion: @escaping (_ response:DataResponse<Any>) -> Void) {
         Alamofire.SessionManager.default.requestWithoutCache(url, method: method).validate().responseJSON { response in
             completion(response)
         }
     }
     
-    public class func addCookie(cookie:HTTPCookie) {
+    class func addCookie(cookie:HTTPCookie) {
         Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
     }
     
-    public class func addHeader(value: Any, key: AnyHashable){
+    class func addHeader(value: Any, key: AnyHashable){
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.updateValue(value, forKey: key)
     }
     
-    public class func logout() {
+    class func logout() {
         URLCache.shared.removeAllCachedResponses()
         Alamofire.SessionManager.default.session.configuration.urlCache = nil
         let cookies:[HTTPCookie]! = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies
@@ -67,7 +67,7 @@ class RequestManager {
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeValue(forKey: AnyHashable("X-Sakai-Session"))
     }
     
-    public class func isLoggedIn(completion: @escaping (Bool) -> Void)  {
+    class func isLoggedIn(completion: @escaping (Bool) -> Void)  {
         self.makeRequest(url: SESSION_URL, method: .get) { response in
             var flag = false
             if let data = response.result.value {
@@ -85,8 +85,8 @@ class RequestManager {
         }
     }
     
-    public class func getSites(completion: @escaping (_ site: [[Site]]?) -> Void) {
-         self.makeRequest(url: SITES_URL, method: .get) {response in
+    class func getSites(completion: @escaping (_ site: [[Site]]?) -> Void) {
+         self.makeRequest(url: SITES_URL, method: .get) { response in
             guard let data = response.result.value else {
                 print("error")
                 return
@@ -107,5 +107,4 @@ class RequestManager {
             completion(sectionList)
         }
     }
-    
 }

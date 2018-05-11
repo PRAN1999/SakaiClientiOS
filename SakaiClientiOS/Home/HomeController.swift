@@ -19,6 +19,16 @@ class HomeController: UITableViewController {
     
     override func viewDidLoad() {
         title = "Home"
+        tableView.register(SiteTableViewCell.self, forCellReuseIdentifier: "siteTableViewCell")
+        tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: "tableHeaderView")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        numRows = []
+        terms = []
+        sites = []
+        numSections = 0
+        
         RequestManager.getSites(completion: { siteList in
             
             guard let list = siteList else {
@@ -36,8 +46,6 @@ class HomeController: UITableViewController {
             self.isLoading = false
             self.tableView.reloadData()
         })
-        tableView.register(SiteTableViewCell.self, forCellReuseIdentifier: "siteTableViewCell")
-        tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: "tableHeaderView")
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,11 +90,14 @@ class HomeController: UITableViewController {
         return 50.0
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
     func getSectionTitle(section:Int) -> String {
-        if let string = terms[section].getTermString(), let year = terms[section].getYear() {
-            return "\(string) \(year)"
-        } else {
+        guard let string = terms[section].getTermString(), let year = terms[section].getYear() else {
             return "General"
         }
+        return "\(string) \(year)"
     }
 }
