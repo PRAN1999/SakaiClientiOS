@@ -13,6 +13,7 @@ class Site {
     private var title:String;
     private var term:Term
     private var description:String?
+    private var pages:[SitePage]?
     
     init(_ id:String, _ title:String, _ term:Term, _ description: String?) {
         self.id = id
@@ -30,6 +31,7 @@ class Site {
         let term = Term(toParse: termString)
         
         let description = data["description"].string
+        
         self.init(id, title, term, description)
     }
     

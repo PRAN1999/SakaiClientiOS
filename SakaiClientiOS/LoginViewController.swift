@@ -28,6 +28,7 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     override func viewDidAppear(_ animated: Bool) {
         
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
