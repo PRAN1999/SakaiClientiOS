@@ -23,7 +23,7 @@
 		514B623920952B89001A716C /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623820952B89001A716C /* Parsing.swift */; };
 		514B623C209569FE001A716C /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623B209569FE001A716C /* TableHeaderView.swift */; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
-		5182970820A6458000EAD645 /* SitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182970720A6458000EAD645 /* SitePage.swift */; };
+		51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7E920A6555C00DD6696 /* SitePage.swift */; };
 		AF412FE9DC8C8BBC41E42CFB /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */; };
 		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
 		DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */; };
@@ -65,7 +65,7 @@
 		514B623B209569FE001A716C /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		518296DE20A63D1D00EAD645 /* SakaiRequests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SakaiRequests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5182970720A6458000EAD645 /* SitePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SitePage.swift; path = ../../../../.Trash/SakaiClientiOS/SakaiClientiOS/Models/SitePage.swift; sourceTree = "<group>"; };
+		51C4B7E920A6555C00DD6696 /* SitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitePage.swift; sourceTree = "<group>"; };
 		B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakaiClientiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F81DFD93B200D19D17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -152,10 +152,10 @@
 		5113C13A209298FF001929DA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5182970720A6458000EAD645 /* SitePage.swift */,
 				5113C13B2092BD74001929DA /* Site.swift */,
 				514B623820952B89001A716C /* Parsing.swift */,
 				518296D520A631CC00EAD645 /* Term.swift */,
+				51C4B7E920A6555C00DD6696 /* SitePage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,7 +397,7 @@
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
-				5182970820A6458000EAD645 /* SitePage.swift in Sources */,
+				51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
