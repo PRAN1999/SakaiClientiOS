@@ -24,8 +24,10 @@ class SettingsController: UIViewController {
     @IBAction func logout(_ sender: UIButton) {
         RequestManager.logout()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginController = storyboard.instantiateViewController(withIdentifier: "loginViewController")
-        self.present(loginController, animated: true, completion: nil)
+//        let loginController = storyboard.instantiateInitialViewController()!
+//
+//        self.present(loginController, animated: true, completion: nil)
+        UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateInitialViewController()
     }
     /*
     // MARK: - Navigation

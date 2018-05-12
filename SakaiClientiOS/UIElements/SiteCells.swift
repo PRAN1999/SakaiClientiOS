@@ -56,5 +56,4 @@ class SiteTableViewCell: UITableViewCell {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
     }
-
 }

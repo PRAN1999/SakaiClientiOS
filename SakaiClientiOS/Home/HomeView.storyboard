@@ -26,24 +26,14 @@
             </objects>
             <point key="canvasLocation" x="29.600000000000001" y="92.203898050974516"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Class Controller-->
         <scene sceneID="It6-6G-fSd">
             <objects>
-                <tableViewController id="Scz-0x-CfV" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="classController" id="Scz-0x-CfV" customClass="ClassController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BCO-5X-EPL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="AdC-Zq-B8b">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AdC-Zq-B8b" id="Ydq-ew-pKR">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Scz-0x-CfV" id="IVR-2F-2PH"/>
                             <outlet property="delegate" destination="Scz-0x-CfV" id="7sf-h9-bG9"/>

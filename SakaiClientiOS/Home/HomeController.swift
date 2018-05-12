@@ -17,35 +17,21 @@ class HomeController: UITableViewController {
     
     var isLoading:Bool = true
     
+    var indicator: LoadingIndicator!
+    
     override func viewDidLoad() {
         title = "Home"
         tableView.register(SiteTableViewCell.self, forCellReuseIdentifier: "siteTableViewCell")
         tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: "tableHeaderView")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+        
         numRows = []
         terms = []
         sites = []
         numSections = 0
         
-        RequestManager.getSites(completion: { siteList in
-            
-            guard let list = siteList else {
-                return
-            }
-            
-            self.numSections = list.count
-            
-            for index in 0..<list.count {
-                self.numRows.append(list[index].count)
-                self.terms.append(list[index][0].getTerm())
-                self.sites.append(list[index])
-            }
-            
-            self.isLoading = false
-            self.tableView.reloadData()
-        })
+        indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
+        
+        self.loadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,6 +78,39 @@ class HomeController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        /*
+            Programmatic navigation WITHOUT segues
+            Data passing is easier to manage programmatically
+        */
+        let storyboard:UIStoryboard = self.storyboard!
+        let classController:UIViewController = storyboard.instantiateViewController(withIdentifier: "classController")
+        classController.title = self.sites[indexPath.section][indexPath.row].getTitle()
+        self.navigationController?.pushViewController(classController, animated: true)
+    }
+    
+    func loadData() {
+        indicator.startAnimating()
+        
+        RequestManager.getSites(completion: { siteList in
+            
+            guard let list = siteList else {
+                return
+            }
+            
+            self.numSections = list.count
+            
+            for index in 0..<list.count {
+                self.numRows.append(list[index].count)
+                self.terms.append(list[index][0].getTerm())
+                self.sites.append(list[index])
+            }
+            
+            self.isLoading = false
+            self.tableView.reloadData()
+            
+            self.indicator.stopAnimating()
+            self.indicator.hidesWhenStopped = true
+        })
     }
     
     func getSectionTitle(section:Int) -> String {

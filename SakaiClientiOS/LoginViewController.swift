@@ -5,6 +5,7 @@ import WebKit
 class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
     var webView: WKWebView!
+    var indicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,7 +63,10 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         }
         if(webView.url!.absoluteString == RequestManager.COOKIE_URL_2) {
             decisionHandler(.cancel)
-            self.performSegue(withIdentifier: "loginSegue", sender: self)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "tabs") as! UITabBarController
+            self.present(tabController, animated: true, completion: nil)
+            //self.performSegue(withIdentifier: "loginSegue", sender: self)
             return
         }
         decisionHandler(.allow)
