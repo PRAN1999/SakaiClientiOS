@@ -13,13 +13,14 @@ class Site {
     private var title:String;
     private var term:Term
     private var description:String?
-    private var pages:[SitePage]?
+    private var pages:[SitePage]
     
-    init(_ id:String, _ title:String, _ term:Term, _ description: String?) {
+    init(_ id:String, _ title:String, _ term:Term, _ description: String?, _ pages:[SitePage]) {
         self.id = id
         self.title = title
         self.term = term
         self.description = description
+        self.pages = pages
     }
     
     convenience init(data:JSON) {
@@ -32,7 +33,13 @@ class Site {
         
         let description = data["description"].string
         
-        self.init(id, title, term, description)
+        let pages = data["sitePages"].array!
+        var sitePages:[SitePage] = []
+        for page in pages {
+            sitePages.append(SitePage(data: page))
+        }
+        
+        self.init(id, title, term, description, sitePages)
     }
     
     func getId() -> String {
@@ -49,6 +56,10 @@ class Site {
     
     func getDescription() -> String? {
         return self.description
+    }
+    
+    func getPages() -> [SitePage] {
+        return self.pages
     }
     
     class func splitByTerms(siteList:[Site]?) -> [[Site]]? {

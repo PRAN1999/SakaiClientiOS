@@ -87,6 +87,7 @@ class RequestManager {
     
     class func getSites(completion: @escaping (_ site: [[Site]]?) -> Void) {
          self.makeRequest(url: SITES_URL, method: .get) { response in
+            
             guard let data = response.result.value else {
                 print("error")
                 return

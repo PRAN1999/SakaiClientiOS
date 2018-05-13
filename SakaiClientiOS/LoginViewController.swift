@@ -26,10 +26,6 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         self.webView.load(myRequest)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -71,5 +67,4 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         }
         decisionHandler(.allow)
     }
-
 }
