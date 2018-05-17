@@ -26,9 +26,11 @@
 		51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7E920A6555C00DD6696 /* SitePage.swift */; };
 		51C4B7EC20A660FA00DD6696 /* ClassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7EB20A660FA00DD6696 /* ClassController.swift */; };
 		51C4B7F020A7858D00DD6696 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7EF20A7858D00DD6696 /* LoadingIndicator.swift */; };
-		51C4B7F220A8B6FC00DD6696 /* GradebookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F120A8B6FC00DD6696 /* GradebookView.swift */; };
 		51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */; };
 		51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F720A8CAC400DD6696 /* GradeItem.swift */; };
+		51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F920A9247C00DD6696 /* DefaultController.swift */; };
+		51C4B80420AD0DBA00DD6696 /* TabsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B80320AD0DBA00DD6696 /* TabsController.swift */; };
+		51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B80520AD11F300DD6696 /* AppGlobals.swift */; };
 		AF412FE9DC8C8BBC41E42CFB /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */; };
 		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
 		DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */; };
@@ -72,9 +74,11 @@
 		51C4B7E920A6555C00DD6696 /* SitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitePage.swift; sourceTree = "<group>"; };
 		51C4B7EB20A660FA00DD6696 /* ClassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassController.swift; sourceTree = "<group>"; };
 		51C4B7EF20A7858D00DD6696 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
-		51C4B7F120A8B6FC00DD6696 /* GradebookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookView.swift; sourceTree = "<group>"; };
 		51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookCell.swift; sourceTree = "<group>"; };
 		51C4B7F720A8CAC400DD6696 /* GradeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItem.swift; sourceTree = "<group>"; };
+		51C4B7F920A9247C00DD6696 /* DefaultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultController.swift; sourceTree = "<group>"; };
+		51C4B80320AD0DBA00DD6696 /* TabsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
+		51C4B80520AD11F300DD6696 /* AppGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobals.swift; sourceTree = "<group>"; };
 		B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakaiClientiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F81DFD93B200D19D17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 				511D7579208DAA9600371998 /* HomeController.swift */,
 				5113C12820927F28001929DA /* HomeView.storyboard */,
 				51C4B7EB20A660FA00DD6696 /* ClassController.swift */,
+				51C4B7F920A9247C00DD6696 /* DefaultController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -170,7 +175,6 @@
 				5113C13D2092D8F1001929DA /* SiteCells.swift */,
 				514B623B209569FE001A716C /* TableHeaderView.swift */,
 				51C4B7EF20A7858D00DD6696 /* LoadingIndicator.swift */,
-				51C4B7F120A8B6FC00DD6696 /* GradebookView.swift */,
 				51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */,
 			);
 			path = UIElements;
@@ -219,6 +223,8 @@
 				DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */,
 				DE059A041DFD93B200D19D17 /* Info.plist */,
 				5113C11F2090F7B7001929DA /* RequestManager.swift */,
+				51C4B80320AD0DBA00DD6696 /* TabsController.swift */,
+				51C4B80520AD11F300DD6696 /* AppGlobals.swift */,
 			);
 			path = SakaiClientiOS;
 			sourceTree = "<group>";
@@ -347,7 +353,6 @@
 				5113C12B20928658001929DA /* AnnouncementController.swift in Sources */,
 				51C4B7EC20A660FA00DD6696 /* ClassController.swift in Sources */,
 				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
-				51C4B7F220A8B6FC00DD6696 /* GradebookView.swift in Sources */,
 				5113C13E2092D8F1001929DA /* SiteCells.swift in Sources */,
 				518296D620A631CC00EAD645 /* Term.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
@@ -355,12 +360,15 @@
 				5113C13C2092BD74001929DA /* Site.swift in Sources */,
 				5113C12F209286B3001929DA /* SettingsController.swift in Sources */,
 				514B623C209569FE001A716C /* TableHeaderView.swift in Sources */,
+				51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */,
 				514B623920952B89001A716C /* Parsing.swift in Sources */,
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
 				51C4B7F020A7858D00DD6696 /* LoadingIndicator.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
+				51C4B80420AD0DBA00DD6696 /* TabsController.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
+				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,
 				51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */,
 				51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */,
 			);

@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let myURL = URL(string: RequestManager.LOGIN_URL)
+        let myURL = URL(string: AppGlobals.LOGIN_URL)
         let myRequest = URLRequest(url: myURL!)
         self.webView.load(myRequest)
     }
@@ -37,12 +37,13 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         print(webView.url!.absoluteString)
         
-        if webView.url!.absoluteString == RequestManager.COOKIE_URL_1 || webView.url!.absoluteString == RequestManager.COOKIE_URL_2 {
+        if webView.url!.absoluteString == AppGlobals.COOKIE_URL_1 || webView.url!.absoluteString == AppGlobals.COOKIE_URL_2 {
             let store = WKWebsiteDataStore.default().httpCookieStore
             store.getAllCookies { (cookies) in
                 for cookie in cookies {
+                    print(cookie)
                     HTTPCookieStorage.shared.setCookie(cookie as HTTPCookie)
-                    RequestManager.addCookie(cookie: cookie)
+                    RequestManager.shared.addCookie(cookie: cookie)
                 }
             }
         }
@@ -55,9 +56,10 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         let response = navigationResponse.response as? HTTPURLResponse
         let headers = response!.allHeaderFields
         for header in headers {
-            RequestManager.addHeader(value: header.value, key: header.key)
+            print(header)
+            RequestManager.shared.addHeader(value: header.value, key: header.key)
         }
-        if(webView.url!.absoluteString == RequestManager.COOKIE_URL_2) {
+        if(webView.url!.absoluteString == AppGlobals.COOKIE_URL_2) {
             decisionHandler(.cancel)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let tabController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "tabs") as! UITabBarController

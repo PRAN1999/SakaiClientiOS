@@ -41,14 +41,18 @@ class ClassController: UITableViewController {
             fatalError("Not a Site Table View Cell")
         }
         let page:SitePage = self.sitePages[indexPath.row]
-        
         cell.titleLabel.text = page.getTitle()
-        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50.0
+        return 40.0
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let page:SitePage = self.sitePages[indexPath.row]
+        
+        //self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func setPages(pages: [SitePage]) {

@@ -13,7 +13,7 @@ class LoadingIndicator: UIActivityIndicatorView {
         super.init(frame: frame)
     }
     
-    convenience init(frame: CGRect, view: UITableView) {
+    convenience init(frame: CGRect, view: UIView) {
         self.init(frame: frame)
         self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         self.color = UIColor.black

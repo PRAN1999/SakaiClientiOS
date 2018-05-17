@@ -8,7 +8,7 @@
 import Foundation
 
 class Term {
-    private static let mapTerms:[Int:String] = [1:"Spring", 9: "Fall", 6: "Summer", 12: "Winter"]
+    private static let mapTerms:[Int:String] = [1:"Spring", 9: "Fall", 6: "Summer 1", 7: "Summer 2", 12: "Winter"]
     
     private var year:Int?
     private var term:Int?
@@ -25,6 +25,7 @@ class Term {
             self.init(year: nil, term: nil, termString: "None")
             return
         }
+        
         let dataArray = tString.components(separatedBy: ":")
         guard let year = Int(dataArray[0]), let term = Int(dataArray[1]) else {
             self.init(year: nil, term: nil, termString: "None")
@@ -34,20 +35,21 @@ class Term {
     }
     
     func getYear() -> Int? {
-        return year
+        return self.year
     }
     
     func getTerm() -> Int? {
-        return term
+        return self.term
     }
     
     func getTermString() -> String? {
-        return termString
+        return self.termString
     }
 }
 
 extension Term:Comparable {
     static func < (lhs: Term, rhs:Term) -> Bool {
+        
         guard let lYear = lhs.year, let lTerm = lhs.term else {
             return true
         }

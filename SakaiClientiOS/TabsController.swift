@@ -1,21 +1,17 @@
 //
-//  AccountController.swift
+//  TabsControllerViewController.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 4/26/18.
+//  Created by Pranay Neelagiri on 5/16/18.
 //
 
 import UIKit
 
-class SettingsController: UIViewController {
-    
-    var indicator: LoadingIndicator!
+class TabsController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.view)
-        indicator.hidesWhenStopped = true
+
         // Do any additional setup after loading the view.
     }
 
@@ -25,9 +21,6 @@ class SettingsController: UIViewController {
     }
     
 
-    @IBAction func logout(_ sender: UIButton) {
-        RequestManager.shared.logout(indicator: self.indicator)
-    }
     /*
     // MARK: - Navigation
 

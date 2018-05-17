@@ -19,12 +19,18 @@ class HomeController: UITableViewController {
     
     override func viewDidLoad() {
         title = "Home"
-        tableView.register(SiteTableViewCell.self, forCellReuseIdentifier: "siteTableViewCell")
-        tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: "tableHeaderView")
+        self.tableView.register(SiteTableViewCell.self, forCellReuseIdentifier: "siteTableViewCell")
+        self.tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: "tableHeaderView")
         
-        indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
+        indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView as UIView)
         
-        self.loadData()
+        if AppGlobals.TO_RELOAD {
+            print("loading data")
+            AppGlobals.TO_RELOAD = false
+            self.loadData()
+        }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,6 +71,10 @@ class HomeController: UITableViewController {
         return view
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40.0
+    }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50.0
     }
@@ -83,7 +93,7 @@ class HomeController: UITableViewController {
         self.navigationController?.pushViewController(classController, animated: true)
     }
     
-    func loadData() {
+    @objc func loadData() {
         numRows = []
         terms = []
         sites = []
@@ -93,11 +103,16 @@ class HomeController: UITableViewController {
         
         indicator.startAnimating()
         
-        RequestManager.getSites(completion: { siteList in
+        RequestManager.shared.getSites(completion: { siteList in
             
             DispatchQueue.main.async {
                 guard let list = siteList else {
+                    RequestManager.shared.logout()
                     return
+                }
+                
+                if list.count == 0 {
+                    RequestManager.shared.logout()
                 }
                 
                 self.numSections = list.count

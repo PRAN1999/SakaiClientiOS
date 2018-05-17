@@ -29,8 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        RequestManager.isLoggedIn(completion: { flag in
+        RequestManager.shared.isLoggedIn(completion: { flag in
             if(!flag) {
+                AppGlobals.TO_RELOAD = true
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 self.window?.rootViewController = storyboard.instantiateInitialViewController()
                 self.window?.makeKeyAndVisible()

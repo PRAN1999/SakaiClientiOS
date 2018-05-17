@@ -8,15 +8,27 @@
 import UIKit
 
 class GradebookController: UITableViewController {
-
+    
+    var numRows:Int = 0
+    var numSections:Int = 0
+    
+    private var isSitePage:Bool = false
+    private var siteIdToPresent:String?
+    
+    var indicator:LoadingIndicator!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.tableView.register(GradebookCell.self, forCellReuseIdentifier: "gradebookCell")
+        
+        indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
+        
+        if isSitePage {
+            self.loadData(for: siteIdToPresent!)
+        } else {
+            self.loadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,6 +46,19 @@ class GradebookController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 0
+    }
+    
+    func loadData() {
+        
+    }
+    
+    func loadData(for siteId:String) {
+        
+    }
+    
+    func setAsPage(for siteId:String) {
+        self.isSitePage = true
+        self.siteIdToPresent = siteId
     }
 
     /*
