@@ -56,7 +56,6 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         let response = navigationResponse.response as? HTTPURLResponse
         let headers = response!.allHeaderFields
         for header in headers {
-            print(header)
             RequestManager.shared.addHeader(value: header.value, key: header.key)
         }
         if(webView.url!.absoluteString == AppGlobals.COOKIE_URL_2) {

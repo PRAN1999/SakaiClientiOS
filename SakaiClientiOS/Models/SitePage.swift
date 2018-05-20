@@ -15,17 +15,17 @@ class SitePage {
     private static let DEFAULT_STRING:String      = "None"
     
     private static let mapPages:[String:UIViewController.Type] = [ANNOUNCEMENT_STRING: AnnouncementController.self,
-                                                        ASSIGNMENTS_STRING:  AssignmentController.self,
-                                                        GRADEBOOK_STRING:    GradebookController.self,
-                                                        DEFAULT_STRING:      DefaultController.self
+                                                                  ASSIGNMENTS_STRING:  AssignmentController.self,
+                                                                  GRADEBOOK_STRING:    GradebookController.self,
+                                                                  DEFAULT_STRING:      DefaultController.self
     ]
     
     private var id:String
     private var title:String
     private var siteId:String
-    private var siteType:Any
+    private var siteType:UIViewController.Type
     
-    init(_ id:String, _ title:String, _ siteId:String, _ siteType:Any) {
+    init(_ id:String, _ title:String, _ siteId:String, _ siteType:UIViewController.Type) {
         self.id = id
         self.title = title
         self.siteId = siteId
@@ -57,7 +57,7 @@ class SitePage {
         return self.siteId
     }
     
-    func getSiteType() -> Any {
+    func getSiteType() -> UIViewController.Type {
         return self.siteType
     }
 }

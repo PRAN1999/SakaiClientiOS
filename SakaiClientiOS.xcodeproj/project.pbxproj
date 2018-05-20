@@ -29,7 +29,6 @@
 		51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */; };
 		51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F720A8CAC400DD6696 /* GradeItem.swift */; };
 		51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F920A9247C00DD6696 /* DefaultController.swift */; };
-		51C4B80420AD0DBA00DD6696 /* TabsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B80320AD0DBA00DD6696 /* TabsController.swift */; };
 		51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B80520AD11F300DD6696 /* AppGlobals.swift */; };
 		AF412FE9DC8C8BBC41E42CFB /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */; };
 		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
@@ -77,7 +76,6 @@
 		51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookCell.swift; sourceTree = "<group>"; };
 		51C4B7F720A8CAC400DD6696 /* GradeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItem.swift; sourceTree = "<group>"; };
 		51C4B7F920A9247C00DD6696 /* DefaultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultController.swift; sourceTree = "<group>"; };
-		51C4B80320AD0DBA00DD6696 /* TabsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		51C4B80520AD11F300DD6696 /* AppGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobals.swift; sourceTree = "<group>"; };
 		B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakaiClientiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,7 +221,6 @@
 				DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */,
 				DE059A041DFD93B200D19D17 /* Info.plist */,
 				5113C11F2090F7B7001929DA /* RequestManager.swift */,
-				51C4B80320AD0DBA00DD6696 /* TabsController.swift */,
 				51C4B80520AD11F300DD6696 /* AppGlobals.swift */,
 			);
 			path = SakaiClientiOS;
@@ -365,7 +362,6 @@
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
 				51C4B7F020A7858D00DD6696 /* LoadingIndicator.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
-				51C4B80420AD0DBA00DD6696 /* TabsController.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
 				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,

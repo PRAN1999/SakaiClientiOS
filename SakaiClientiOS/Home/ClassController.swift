@@ -52,7 +52,19 @@ class ClassController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let page:SitePage = self.sitePages[indexPath.row]
         
-        //self.navigationController?.pushViewController(controller, animated: true)
+        var controller:UIViewController
+        
+        switch(page.getSiteType()) {
+        case is GradebookController.Type:
+            controller = GradebookController(siteId: page.getSiteId(), style: UITableViewStyle.plain)
+            print("Is Gradebook Controller")
+            break
+        default:
+            controller = DefaultController()
+            print("Is Default")
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func setPages(pages: [SitePage]) {

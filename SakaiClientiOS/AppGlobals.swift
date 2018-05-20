@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AppGlobals {
+final class AppGlobals {
     static var siteTermMap:[String: Term] = [:]
     
     static var TO_RELOAD:Bool = true

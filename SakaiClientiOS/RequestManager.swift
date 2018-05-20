@@ -103,7 +103,7 @@ class RequestManager {
         }
     }
     
-    func getSiteGrades(siteId:String, completion: @escaping () -> Void) {
+    func getSiteGrades(siteId:String, completion: @escaping ([[GradeItem]]?) -> Void) {
         let url:String = AppGlobals.SITE_GRADEBOOK_URL.replacingOccurrences(of: "*", with: siteId)
         self.makeRequest(url: url, method: .get) { response in
             
