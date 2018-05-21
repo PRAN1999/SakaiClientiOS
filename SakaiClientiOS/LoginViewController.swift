@@ -2,6 +2,15 @@
 import UIKit
 import WebKit
 
+/**
+ 
+ A view controller containing a webview allowing users to login to CAS and Sakai
+ 
+ - Author:
+ Pranay Neelagiri
+ 
+ */
+
 class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
     var webView: WKWebView!
@@ -10,6 +19,13 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+ 
+    /**
+     
+     Sets the webview delegates for navigation and UI to the view controller itself,
+     allowing the view controller to directly control the webview appearance and requests
+     
+     */
     
     override func loadView() {
         let webConfiguration = WKWebViewConfiguration()
@@ -19,6 +35,11 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         view = webView
     }
     
+    /**
+     
+     Loads Login URL for CAS Authentication
+     
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         let myURL = URL(string: AppGlobals.LOGIN_URL)
@@ -33,6 +54,12 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print(webView.url!.absoluteString)
     }
+    
+    /**
+     
+     Captures HTTP Cookies from specific URLs and loads them into Alamofire Session, allowing all future requests to be authenticated.
+     
+     */
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         print(webView.url!.absoluteString)
@@ -51,6 +78,13 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         return
     }
     
+    /*
+     
+     Captures all HTTP headers and loads them into Alamofire Session, for request authentication.
+     Stops webview navigation and forces controller transition once target URL is reaches
+     
+     */
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         print("Setting Headers")
         let response = navigationResponse.response as? HTTPURLResponse
@@ -63,7 +97,6 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let tabController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "tabs") as! UITabBarController
             self.present(tabController, animated: true, completion: nil)
-            //self.performSegue(withIdentifier: "loginSegue", sender: self)
             return
         }
         decisionHandler(.allow)

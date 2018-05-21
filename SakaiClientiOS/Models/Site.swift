@@ -7,7 +7,7 @@
 import Foundation
 import SwiftyJSON
 
-class Site {
+class Site: TermSortable {
     
     private var id:String;
     private var title:String;
@@ -60,38 +60,6 @@ class Site {
     
     func getPages() -> [SitePage] {
         return self.pages
-    }
-    
-    class func splitByTerms(siteList:[Site]?) -> [[Site]]? {
-        guard var list = siteList else {
-            return nil
-        }
-        
-        list.sort{$0.getTerm() > $1.getTerm()}
-        
-        var sectionList:[[Site]] = [[Site]]()
-        
-        var terms:[Term] = [Term]()
-        var indices:[Int] = [Int]()
-        
-        for index in 0..<list.count {
-            if !terms.contains(list[index].getTerm()) {
-                terms.append(list[index].getTerm())
-                indices.append(index)
-            }
-        }
-        
-        var i:Int = 0
-        for index in 0..<indices.count {
-            let slice = list[i..<indices[index]]
-            sectionList.append(Array(slice))
-            i = indices[index]
-        }
-        
-        sectionList.append(Array(list[i..<list.count]))
-        sectionList.remove(at: 0)
-        
-        return sectionList
     }
 }
 

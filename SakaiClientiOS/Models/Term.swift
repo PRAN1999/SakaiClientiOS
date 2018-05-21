@@ -45,6 +45,38 @@ class Term {
     func getTermString() -> String? {
         return self.termString
     }
+    
+    class func splitByTerms<T:TermSortable>(listToSort: [T]?) -> [[T]]? {
+        guard var list = listToSort else {
+            return nil
+        }
+        
+        list.sort{$0.getTerm() > $1.getTerm()}
+        
+        var sectionList:[[T]] = [[T]]()
+        
+        var terms:[Term] = [Term]()
+        var indices:[Int] = [Int]()
+        
+        for index in 0..<list.count {
+            if !terms.contains(list[index].getTerm()) {
+                terms.append(list[index].getTerm())
+                indices.append(index)
+            }
+        }
+        
+        var i:Int = 0
+        for index in 0..<indices.count {
+            let slice = list[i..<indices[index]]
+            sectionList.append(Array(slice))
+            i = indices[index]
+        }
+        
+        sectionList.append(Array(list[i..<list.count]))
+        sectionList.remove(at: 0)
+        
+        return sectionList
+    }
 }
 
 extension Term:Comparable {
@@ -97,4 +129,8 @@ extension Term:Comparable {
         }
         return false
     }
+}
+
+protocol TermSortable {
+    func getTerm() -> Term
 }

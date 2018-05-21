@@ -27,6 +27,8 @@ class GradebookCell: UITableViewCell {
         self.titleLabel = UILabel()
         self.gradeLabel = UILabel()
         self.gradeLabel.textAlignment = NSTextAlignment.right
+        self.titleLabel.numberOfLines = 0
+        self.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     }
     
     func addViews() {
@@ -56,7 +58,17 @@ class GradebookCell: UITableViewCell {
             toItem: gradeLabel,
             attribute: .leading,
             multiplier: 1.0,
-            constant: 50.0)
+            constant: 0.0)
+        )
+        
+        self.contentView.addConstraint(NSLayoutConstraint(
+            item: titleLabel,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: margins,
+            attribute: .width,
+            multiplier: 0.5,
+            constant: 0)
         )
     }
 
@@ -64,11 +76,6 @@ class GradebookCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    
-    func setData(item: GradeItem) {
-        self.titleLabel.text = item.getTitle()
-        self.gradeLabel.text = String(item.getGrade())
     }
 
 }
