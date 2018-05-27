@@ -9,6 +9,7 @@ import Foundation
 
 final class AppGlobals {
     static var siteTermMap:[String: Term] = [:]
+    static var siteTitleMap:[String:String] = [:]
     
     static var TO_RELOAD:Bool = true
     
@@ -23,4 +24,9 @@ final class AppGlobals {
     static let USER_URL:String = BASE_URL + "user/current.json"
     static let SITE_GRADEBOOK_URL = BASE_URL + "gradebook/site/*.json"
     static let GRADEBOOK_URL = BASE_URL + "gradebook/my.json"
+    
+    static func flushGlobals() {
+        self.siteTermMap = [:]
+        self.siteTitleMap = [:]
+    }
 }

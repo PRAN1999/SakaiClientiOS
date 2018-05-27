@@ -7,13 +7,14 @@
 import Foundation
 import UIKit
 
-class HomeController: UITableViewController {
+class HomeController: UITableViewController, UIGestureRecognizerDelegate {
     
     var sites:[[Site]] = [[Site]]()
     var terms:[Term] = [Term]()
     
     var numRows:[Int] = [Int]()
     var numSections = 0
+    var isHidden:[Bool] = [Bool]()
     
     var indicator: LoadingIndicator!
     
@@ -47,6 +48,10 @@ class HomeController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        
+        if self.isHidden[section] {
+            return 0
+        }
         return self.numRows[section]
     }
     
@@ -54,6 +59,7 @@ class HomeController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "siteTableViewCell", for: indexPath) as? SiteTableViewCell else {
             fatalError("Not a Site Table View Cell")
         }
+        
         let site:Site = self.sites[indexPath.section][indexPath.row]
             
         cell.titleLabel.text = site.getTitle()
@@ -65,7 +71,20 @@ class HomeController: UITableViewController {
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "tableHeaderView") as? TableHeaderView else {
             fatalError("Not a Table Header View")
         }
-
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapRecognizer.delegate = self
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.numberOfTouchesRequired = 1
+        view.addGestureRecognizer(tapRecognizer)
+        view.tag = section
+        
+        if isHidden[section] {
+            view.setImageHidden()
+        } else {
+            view.setImageShow()
+        }
+        
         view.label.text = "\(getSectionTitle(section: section))"
 
         return view
@@ -93,15 +112,24 @@ class HomeController: UITableViewController {
         self.navigationController?.pushViewController(classController, animated: true)
     }
     
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        let section = (sender.view?.tag)!
+        
+        isHidden[section] = !isHidden[section]
+        
+        self.tableView.reloadSections([section], with: UITableViewRowAnimation.automatic)
+    }
+    
     @objc func loadData() {
-        numRows = []
-        terms = []
-        sites = []
-        numSections = 0
+        self.numRows = []
+        self.terms = []
+        self.sites = []
+        self.isHidden = []
+        self.numSections = 0
         
         self.tableView.reloadData()
         
-        indicator.startAnimating()
+        self.indicator.startAnimating()
         
         RequestManager.shared.getSites(completion: { siteList in
             
@@ -121,7 +149,10 @@ class HomeController: UITableViewController {
                     self.numRows.append(list[index].count)
                     self.terms.append(list[index][0].getTerm())
                     self.sites.append(list[index])
+                    self.isHidden.append(true)
                 }
+                
+                self.isHidden[0] = false
                 
                 self.tableView.reloadData()
                 

@@ -166,6 +166,7 @@ class RequestManager {
                 let site:Site! = Site(data: siteJSON)
                 siteList.append(site)
                 AppGlobals.siteTermMap.updateValue(site.getTerm(), forKey: site.getId())
+                AppGlobals.siteTitleMap.updateValue(site.getTitle(), forKey: site.getId())
             }
             let sectionList = Term.splitByTerms(listToSort: siteList)
             
@@ -173,7 +174,7 @@ class RequestManager {
         }
     }
     
-    func getSiteGrades(siteId:String, completion: @escaping (_ grades: [[GradeItem]]?) -> Void) {
+    func getSiteGrades(siteId:String, completion: @escaping (_ grades: [GradeItem]?) -> Void) {
         let url:String = AppGlobals.SITE_GRADEBOOK_URL.replacingOccurrences(of: "*", with: siteId)
         self.makeRequest(url: url, method: .get) { response in
             guard let data = response.result.value else {
@@ -191,13 +192,11 @@ class RequestManager {
                 gradeList.append(GradeItem(data: gradeJSON, siteId: siteId))
             }
             
-            let grades = Term.splitByTerms(listToSort: gradeList)
-            
-            completion(grades)
+            completion(gradeList)
         }
     }
     
-    func getAllGrades(completion: @escaping (_ grades: [[GradeItem]]?) -> Void) {
+    func getAllGrades(completion: @escaping (_ grades: [[[GradeItem]]]?) -> Void) {
         let url:String = AppGlobals.GRADEBOOK_URL
         self.makeRequest(url: url, method: .get) { response in
             guard let data = response.result.value else {
@@ -224,9 +223,20 @@ class RequestManager {
                 
             }
             
-            let grades = Term.splitByTerms(listToSort: gradeList)
+            guard let termSortedGrades = Term.splitByTerms(listToSort: gradeList) else {
+                completion(nil)
+                return
+            }
+            var sortedGrades:[[[GradeItem]]] = [[[GradeItem]]]()
+            let numTerms:Int = termSortedGrades.count
             
-            completion(grades)
+            for index in 0..<numTerms {
+                sortedGrades.append(Site.splitBySites(listToSort: termSortedGrades[index])!)
+            }
+            
+            print(sortedGrades)
+            
+            completion(sortedGrades)
         }
     }
 }

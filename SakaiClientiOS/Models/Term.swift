@@ -134,3 +134,7 @@ extension Term:Comparable {
 protocol TermSortable {
     func getTerm() -> Term
 }
+
+
+
+

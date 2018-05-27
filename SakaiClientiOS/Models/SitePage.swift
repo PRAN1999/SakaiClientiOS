@@ -16,7 +16,7 @@ class SitePage {
     
     private static let mapPages:[String:UIViewController.Type] = [ANNOUNCEMENT_STRING: AnnouncementController.self,
                                                                   ASSIGNMENTS_STRING:  AssignmentController.self,
-                                                                  GRADEBOOK_STRING:    GradebookController.self,
+                                                                  GRADEBOOK_STRING:    GradebookPageController.self,
                                                                   DEFAULT_STRING:      DefaultController.self
     ]
     

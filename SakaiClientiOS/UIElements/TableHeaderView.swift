@@ -11,11 +11,13 @@ import UIKit
 class TableHeaderView : UITableViewHeaderFooterView {
     
     var label:UILabel!
+    var imageLabel:UIImageView!
     var backgroundHeaderView: UIView!
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         self.label = UILabel()
+        self.imageLabel = UIImageView()
         self.backgroundHeaderView = UIView(frame: self.bounds)
         self.setup()
         self.addViews()
@@ -27,6 +29,7 @@ class TableHeaderView : UITableViewHeaderFooterView {
     }
     
     func setup() {
+        print("setup")
         self.backgroundHeaderView.backgroundColor = UIColor.lightGray
         
         self.label.font = UIFont.systemFont(ofSize: 25.0, weight: UIFont.Weight.heavy)
@@ -34,21 +37,34 @@ class TableHeaderView : UITableViewHeaderFooterView {
     }
     
     func addViews() {
-        self.addSubview(label)
+        print("Views")
+        self.contentView.addSubview(label)
+        self.contentView.addSubview(imageLabel)
         self.backgroundView = backgroundHeaderView
     }
     
     func setupConstraints() {
+        print("Constraints")
+        let margins = self.contentView.layoutMarginsGuide
         
-        let margins = self.layoutMarginsGuide
+        self.label.translatesAutoresizingMaskIntoConstraints = false
+        self.imageLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        label.translatesAutoresizingMaskIntoConstraints = false
+        self.label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        self.label.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        self.label.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         
-        label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        label.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        label.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        label.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        label.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
+        self.imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        self.imageLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        self.imageLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+    }
+    
+    func setImageHidden() {
+        self.imageLabel.image = UIImage(named: "hide_content")
+    }
+    
+    func setImageShow() {
+        self.imageLabel.image = UIImage(named: "show_content")
     }
     
 }

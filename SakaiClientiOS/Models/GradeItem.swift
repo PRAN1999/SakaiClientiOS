@@ -8,18 +8,20 @@
 import Foundation
 import SwiftyJSON
 
-class GradeItem: TermSortable {
+class GradeItem: TermSortable, SiteSortable {
     
     private var grade:Double?
     private var points:Double
     private var title:String
     private var term:Term
+    private var siteId:String
     
-    init(_ grade:Double?, _ points:Double, _ title:String, _ term:Term) {
+    init(_ grade:Double?, _ points:Double, _ title:String, _ term:Term, _ siteId:String) {
         self.grade = grade
         self.points = points
         self.title = title
         self.term = term
+        self.siteId = siteId
     }
     
     convenience init(data: JSON, siteId:String) {
@@ -31,7 +33,7 @@ class GradeItem: TermSortable {
         }
         let term = AppGlobals.siteTermMap[siteId]!
         
-        self.init(grade, points, title, term)
+        self.init(grade, points, title, term, siteId)
     }
     
     func getGrade() -> Double? {
@@ -48,6 +50,10 @@ class GradeItem: TermSortable {
     
     func getTerm() -> Term {
         return self.term
+    }
+    
+    func getSiteId() -> String {
+        return self.siteId
     }
     
 }

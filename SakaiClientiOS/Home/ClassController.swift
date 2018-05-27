@@ -55,8 +55,8 @@ class ClassController: UITableViewController {
         var controller:UIViewController
         
         switch(page.getSiteType()) {
-        case is GradebookController.Type:
-            controller = GradebookController(siteId: page.getSiteId(), style: UITableViewStyle.plain)
+        case is GradebookPageController.Type:
+            controller = GradebookPageController(siteId: page.getSiteId(), style: UITableViewStyle.plain)
             print("Is Gradebook Controller")
             break
         default:

@@ -61,6 +61,38 @@ class Site: TermSortable {
     func getPages() -> [SitePage] {
         return self.pages
     }
+    
+    class func splitBySites<T:SiteSortable>(listToSort:[T]?) -> [[T]]? {
+        guard let list = listToSort else {
+            return nil
+        }
+        
+        var sortedList:[[T]] = [[T]]()
+        
+        var mapSiteIdToIndex:[String:Int] = [:]
+        var i:Int = 0
+        
+        let numItems:Int = list.count
+        
+        for index in 0..<numItems {
+            let sortableItem:T = list[index]
+            
+            if let index = mapSiteIdToIndex[sortableItem.getSiteId()] {
+                sortedList[index].append(sortableItem)
+            } else {
+                mapSiteIdToIndex.updateValue(i, forKey: sortableItem.getSiteId())
+                sortedList.append([T]())
+                sortedList[i].append(sortableItem)
+                i += 1
+            }
+        }
+        
+        return sortedList
+    }
+}
+
+protocol SiteSortable {
+    func getSiteId() -> String
 }
 
 

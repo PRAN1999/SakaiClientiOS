@@ -9,25 +9,16 @@ import UIKit
 
 class GradebookController: UITableViewController {
     
-    var gradeItems:[[GradeItem]] = [[GradeItem]]()
+    var gradeItems:[[[GradeItem]]] = [[[GradeItem]]]()
     var terms:[Term] = [Term]()
     
     var numRows:[Int] = [Int]()
     var numSections:Int = 0
     
-    var isSitePage: Bool = false 
-    var siteId: String?
-    
     var indicator:LoadingIndicator!
     
     override init(style: UITableViewStyle) {
         super.init(style: style)
-    }
-    
-    convenience init(siteId: String, style: UITableViewStyle) {
-        self.init(style: style)
-        self.isSitePage = true
-        self.siteId = siteId
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,15 +29,12 @@ class GradebookController: UITableViewController {
         super.viewDidLoad()
 
         self.tableView.register(GradebookCell.self, forCellReuseIdentifier: "gradebookCell")
+        self.tableView.register(SiteTableViewCell.self, forCellReuseIdentifier: "siteTableViewCell")
         self.tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: "tableHeaderView")
         
         self.indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
         
-        if self.isSitePage {
-            self.loadData(for: self.siteId!)
-        } else {
-            self.loadData()
-        }
+        self.loadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,23 +50,13 @@ class GradebookController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "gradebookCell", for: indexPath) as? GradebookCell else {
-            fatalError("Not a gradebook cell")
-        }
+        let subsectionIndex = getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
         
-        let gradeItem = self.gradeItems[indexPath.section][indexPath.row]
-        
-        var grade:String
-        if gradeItem.getGrade() != nil {
-            grade = "\(gradeItem.getGrade()!)"
+        if subsectionIndex.row == 0 {
+            return getSiteTitleCell(indexPath: indexPath, subsection: subsectionIndex.section)
         } else {
-            grade = ""
+            return getGradebookCell(indexPath: indexPath, subsection: subsectionIndex.section, row: subsectionIndex.row - 1)
         }
-        
-        cell.titleLabel.text = gradeItem.getTitle()
-        cell.gradeLabel.text = "\(grade) / \(gradeItem.getPoints())"
-        
-        return cell
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,11 +68,7 @@ class GradebookController: UITableViewController {
         return 50.0
     }
     
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if isSitePage {
-            return nil
-        }
-        
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "tableHeaderView") as? TableHeaderView else {
             fatalError("Not a Table Header View")
         }
@@ -115,11 +89,16 @@ class GradebookController: UITableViewController {
                 }
                 
                 self.numSections = list.count
+                self.gradeItems = list
                 
-                for index in 0..<list.count {
-                    self.numRows.append(list[index].count)
-                    self.terms.append(list[index][0].getTerm())
-                    self.gradeItems.append(list[index])
+                for i in 0..<self.numSections {
+                    self.terms.append(list[i][0][0].getTerm())
+                    var numRows:Int = list[i].count
+                    
+                    for j in 0..<list[i].count {
+                        numRows += list[i][j].count
+                    }
+                    self.numRows.append(numRows)
                 }
                 
                 self.tableView.reloadData()
@@ -130,28 +109,55 @@ class GradebookController: UITableViewController {
         }
     }
     
-    func loadData(for siteId:String) {
-        self.indicator.startAnimating()
-        RequestManager.shared.getSiteGrades(siteId: siteId) { res in
-            
-            DispatchQueue.main.async {
-                print("Loading Site grades")
-                
-                guard let grades = res else {
-                    return
-                }
-                
-                self.numRows.append(grades[0].count)
-                self.numSections = 1
-                
-                self.gradeItems.append(grades[0])
-                
-                self.tableView.reloadData()
-                
-                self.indicator.stopAnimating()
-                self.indicator.hidesWhenStopped = true
+    func getSubsectionIndexPath(section:Int, row:Int) -> IndexPath {
+        let termSection:[[GradeItem]] = self.gradeItems[section]
+        
+        var startRow:Int = row
+        var subsection:Int = 0
+        
+        while startRow > 0 {
+            //print("Section: \(section) Subsection: \(subsection) StartRow: \(startRow)")
+            startRow -= (termSection[subsection].count + 1)
+            if(startRow >= 0) {
+                subsection += 1
             }
         }
+        
+        let subRow:Int = 0 - startRow
+        
+        return IndexPath(row: subRow, section: subsection)
+    }
+    
+    func getGradebookCell(indexPath: IndexPath, subsection:Int, row:Int) -> UITableViewCell {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "gradebookCell", for: indexPath) as? GradebookCell else {
+            fatalError("Not a gradebook cell")
+        }
+        
+        //print("Subsection: \(subsection) Row: \(row)")
+        let gradeItem:GradeItem = self.gradeItems[indexPath.section][subsection][row]
+        
+        var grade:String
+        if gradeItem.getGrade() != nil {
+            grade = "\(gradeItem.getGrade()!)"
+        } else {
+            grade = ""
+        }
+
+        cell.titleLabel.text = gradeItem.getTitle()
+        cell.gradeLabel.text = "\(grade) / \(gradeItem.getPoints())"
+        
+        return cell
+    }
+    
+    func getSiteTitleCell(indexPath: IndexPath, subsection:Int) -> UITableViewCell {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "siteTableViewCell", for: indexPath) as? SiteTableViewCell else {
+            fatalError("Not a site cell")
+        }
+        
+        cell.titleLabel.text = getSubsectionTitle(section: indexPath.section, subsection: subsection)
+        cell.backgroundColor = UIColor.red
+        
+        return cell
     }
     
     func getSectionTitle(section:Int) -> String {
@@ -159,6 +165,13 @@ class GradebookController: UITableViewController {
             return "General"
         }
         return "\(string) \(year)"
+    }
+    
+    func getSubsectionTitle(section:Int, subsection:Int) -> String? {
+        print("Section: \(section) Subsection: \(subsection)")
+        let siteId:String = self.gradeItems[section][subsection][0].getSiteId()
+        let title:String? = AppGlobals.siteTitleMap[siteId]
+        return title
     }
 
 }
