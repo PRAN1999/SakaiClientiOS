@@ -9,6 +9,8 @@ import UIKit
 
 class GradebookCell: UITableViewCell {
     
+    static var reuseIdentifier: String = "gradebookCell"
+    
     var titleLabel:UILabel!
     var gradeLabel:UILabel!
     

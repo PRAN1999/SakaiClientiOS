@@ -8,6 +8,8 @@
 import UIKit
 
 class SiteTableViewCell: UITableViewCell {
+    
+    static var reuseIdentifier: String = "siteTableViewCell"
 
     var titleLabel: UILabel!
     

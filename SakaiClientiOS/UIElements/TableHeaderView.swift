@@ -10,6 +10,8 @@ import UIKit
 
 class TableHeaderView : UITableViewHeaderFooterView {
     
+    static var reuseIdentifier: String = "tableHeaderView"
+    
     var label:UILabel!
     var imageLabel:UIImageView!
     var backgroundHeaderView: UIView!
@@ -29,7 +31,6 @@ class TableHeaderView : UITableViewHeaderFooterView {
     }
     
     func setup() {
-        print("setup")
         self.backgroundHeaderView.backgroundColor = UIColor.lightGray
         
         self.label.font = UIFont.systemFont(ofSize: 25.0, weight: UIFont.Weight.heavy)
@@ -37,14 +38,12 @@ class TableHeaderView : UITableViewHeaderFooterView {
     }
     
     func addViews() {
-        print("Views")
         self.contentView.addSubview(label)
         self.contentView.addSubview(imageLabel)
         self.backgroundView = backgroundHeaderView
     }
     
     func setupConstraints() {
-        print("Constraints")
         let margins = self.contentView.layoutMarginsGuide
         
         self.label.translatesAutoresizingMaskIntoConstraints = false
@@ -53,10 +52,19 @@ class TableHeaderView : UITableViewHeaderFooterView {
         self.label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         self.label.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         self.label.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        //self.label.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
         
         self.imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         self.imageLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         self.imageLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        
+        self.contentView.addConstraint(NSLayoutConstraint(item: label,
+                                                          attribute: .trailing,
+                                                          relatedBy: .lessThanOrEqual,
+                                                          toItem: imageLabel,
+                                                          attribute: .leading,
+                                                          multiplier: 1.0,
+                                                          constant: 0.0))
     }
     
     func setImageHidden() {
