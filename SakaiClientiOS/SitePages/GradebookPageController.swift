@@ -27,7 +27,7 @@ class GradebookPageController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.register(GradebookCell.self, forCellReuseIdentifier: "gradebookCell")
+        self.tableView.register(GradebookCell.self, forCellReuseIdentifier: GradebookCell.reuseIdentifier)
         
         self.indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
         
@@ -40,7 +40,7 @@ class GradebookPageController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "gradebookCell", for: indexPath) as? GradebookCell else {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: GradebookCell.reuseIdentifier, for: indexPath) as? GradebookCell else {
             fatalError("Not a gradebook cell")
         }
         

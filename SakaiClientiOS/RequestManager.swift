@@ -4,15 +4,17 @@ import SwiftyJSON
 
 /**
  
- A singleton instance around an Alamofire Session to manage all HTTP requests made by the app.
- 
- - Author:
-    Pranay Neelagiri
+ A singleton instance around an Alamofire Session to manage all HTTP requests made by the app and convert response into appropriate model to pass into ViewController
  
  */
 
 class RequestManager {
     
+    /**
+ 
+    The singleton RequestManager instance to be used across the app
+     
+     */
     static let shared = RequestManager()
     
     private init() {
@@ -139,7 +141,7 @@ class RequestManager {
     
     /**
  
-    Makes an HTTP request to determine the list of sites the user is registered for. Instantiates and sorts Sites by Term to construct 2-dimensional array of sites. That array is passed into completion handler for callee to use as needed
+    Makes an HTTP request to determine the list of sites the user is registered for. Instantiates and sorts Sites by Term to construct 2-dimensional array of sites. That array is passed into completion handler for callee to use as needed. Also sets AppGlobal variables to be used throughout app by mapping siteId to Term and to site title
      
     - parameters:
         - completion: A closure called with a [[Site]] object to be implemented by callee
@@ -165,6 +167,9 @@ class RequestManager {
             for siteJSON in sitesJSON {
                 let site:Site! = Site(data: siteJSON)
                 siteList.append(site)
+                
+                //Update AppGlobal map for siteId : Term
+                //                         siteId : Title
                 AppGlobals.siteTermMap.updateValue(site.getTerm(), forKey: site.getId())
                 AppGlobals.siteTitleMap.updateValue(site.getTitle(), forKey: site.getId())
             }
@@ -173,6 +178,17 @@ class RequestManager {
             completion(sectionList)
         }
     }
+    
+    /**
+     
+     Makes HTTP request to get gradebook items for specfic site and constructs array of GradeItem to pass into closure
+     
+     - parameters:
+        - siteId: The siteId representing the site for which grades should be fetched
+        - completion: A closure called with a [GradeItem] object to be implemented by callee
+        - grades: The [GradeItem] object constructed with response and passed to closure
+     
+     */
     
     func getSiteGrades(siteId:String, completion: @escaping (_ grades: [GradeItem]?) -> Void) {
         let url:String = AppGlobals.SITE_GRADEBOOK_URL.replacingOccurrences(of: "*", with: siteId)
@@ -195,6 +211,16 @@ class RequestManager {
             completion(gradeList)
         }
     }
+    
+    /**
+    
+     An HTTP request is made to fetch all grades for all user Sites. The response is parsed into GradeItem objects and are sorted first by Term and then by Site to ultimately pass a 3-dim array [[[GradeItem]]] into the completion handler
+     
+     - parameters:
+         - completion: A closure called with a [[[GradeItem]]] object to be implemented by callee
+         - grades: The [[[Gradeitem]]] object constructed with response and passed into closure
+     
+     */
     
     func getAllGrades(completion: @escaping (_ grades: [[[GradeItem]]]?) -> Void) {
         let url:String = AppGlobals.GRADEBOOK_URL
@@ -223,6 +249,7 @@ class RequestManager {
                 
             }
             
+            //Sort gradeList by Term
             guard let termSortedGrades = Term.splitByTerms(listToSort: gradeList) else {
                 completion(nil)
                 return
@@ -230,6 +257,7 @@ class RequestManager {
             var sortedGrades:[[[GradeItem]]] = [[[GradeItem]]]()
             let numTerms:Int = termSortedGrades.count
             
+            //For each term-specific gradeList, sort by Site and insert into 3-dim array
             for index in 0..<numTerms {
                 sortedGrades.append(Site.splitBySites(listToSort: termSortedGrades[index])!)
             }

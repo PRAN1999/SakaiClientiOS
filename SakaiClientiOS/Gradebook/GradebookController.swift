@@ -17,9 +17,6 @@ class GradebookController: UITableViewController {
     
     var headerCell:SiteTableViewCell!
     
-    var currentSubsection:Int = 0
-    var currentSection:Int = 0
-    
     var indicator:LoadingIndicator!
     
     override init(style: UITableViewStyle) {
@@ -87,14 +84,9 @@ class GradebookController: UITableViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let point = CGPoint(x: 0, y: self.tableView.contentOffset.y + 50)
+        let point = CGPoint(x: 0, y: self.tableView.contentOffset.y + 51)
         guard let topIndex = self.tableView.indexPathForRow(at: point) else {
             return
-        }
-        
-        if topIndex.section != currentSection {
-            currentSection = topIndex.section
-            self.currentSubsection = 0
         }
         
         let subsectionIndex = self.getSubsectionIndexPath(section: topIndex.section, row: topIndex.row)
@@ -229,7 +221,6 @@ class GradebookController: UITableViewController {
     }
     
     func getSubsectionTitle(section:Int, subsection:Int) -> String? {
-        //print("Section: \(section) Subsection: \(subsection)")
         let siteId:String = self.gradeItems[section][subsection][0].getSiteId()
         let title:String? = AppGlobals.siteTitleMap[siteId]
         return title
