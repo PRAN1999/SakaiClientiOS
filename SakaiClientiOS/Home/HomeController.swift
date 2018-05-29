@@ -15,6 +15,7 @@ class HomeController: UITableViewController, UIGestureRecognizerDelegate {
     var numRows:[Int] = [Int]()
     var numSections = 0
     var isHidden:[Bool] = [Bool]()
+    var hasChanged:[Bool] = [Bool]()
     
     var indicator: LoadingIndicator!
     
@@ -25,30 +26,24 @@ class HomeController: UITableViewController, UIGestureRecognizerDelegate {
         
         indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView as UIView)
         
-        if AppGlobals.TO_RELOAD {
-            print("loading data")
-            AppGlobals.TO_RELOAD = false
-            self.loadData()
-        }
+//        if AppGlobals.TO_RELOAD {
+//            AppGlobals.TO_RELOAD = false
+//            self.loadData()
+//        }
+        self.loadData()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return numSections
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        
         if self.isHidden[section] {
             return 0
         }
@@ -79,10 +74,12 @@ class HomeController: UITableViewController, UIGestureRecognizerDelegate {
         view.addGestureRecognizer(tapRecognizer)
         view.tag = section
         
-        if isHidden[section] {
-            view.setImageHidden()
-        } else {
-            view.setImageShow()
+        view.setImage(isHidden: self.isHidden[section])
+        
+        //print("Section: \(section) isHidden: \(isHidden[section]) hasChanged: \(hasChanged[section])")
+        if self.hasChanged[section] {
+            self.hasChanged[section] = false
+            view.rotateImage(isHidden:  self.isHidden[section])
         }
         
         view.label.text = "\(getSectionTitle(section: section))"
@@ -116,6 +113,7 @@ class HomeController: UITableViewController, UIGestureRecognizerDelegate {
         let section = (sender.view?.tag)!
         
         isHidden[section] = !isHidden[section]
+        self.hasChanged[section] = true
         
         self.tableView.reloadSections([section], with: UITableViewRowAnimation.automatic)
     }
@@ -125,6 +123,7 @@ class HomeController: UITableViewController, UIGestureRecognizerDelegate {
         self.terms = []
         self.sites = []
         self.isHidden = []
+        self.hasChanged = []
         self.numSections = 0
         
         self.tableView.reloadData()
@@ -150,6 +149,7 @@ class HomeController: UITableViewController, UIGestureRecognizerDelegate {
                     self.terms.append(list[index][0].getTerm())
                     self.sites.append(list[index])
                     self.isHidden.append(true)
+                    self.hasChanged.append(true)
                 }
                 
                 self.isHidden[0] = false

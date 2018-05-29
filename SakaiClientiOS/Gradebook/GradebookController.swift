@@ -104,7 +104,9 @@ class GradebookController: UITableViewController {
         self.headerCell = SiteTableViewCell()
         self.headerCell.backgroundColor = UIColor.red
         self.tableView.addSubview(headerCell)
-        self.headerCell.widthAnchor.constraint(equalTo: tableView.layoutMarginsGuide.widthAnchor, multiplier: 1.0).isActive = true
+        
+        self.headerCell.translatesAutoresizingMaskIntoConstraints = false
+        
         self.headerCell.accessoryType = UITableViewCellAccessoryType.none
         self.headerCell.isHidden = true
     }
