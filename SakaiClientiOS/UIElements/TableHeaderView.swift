@@ -8,13 +8,14 @@
 import Foundation
 import UIKit
 
-class TableHeaderView : UITableViewHeaderFooterView {
+class TableHeaderView : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     
     static var reuseIdentifier: String = "tableHeaderView"
     
     var label:UILabel!
     var imageLabel:UIImageView!
     var backgroundHeaderView: UIView!
+    var tapRecognizer: UITapGestureRecognizer!
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -29,21 +30,26 @@ class TableHeaderView : UITableViewHeaderFooterView {
     
     func setup() {
         self.label = UILabel()
-        self.imageLabel = UIImageView()
-        self.backgroundHeaderView = UIView(frame: self.bounds)
-        
-        self.backgroundHeaderView.backgroundColor = UIColor.lightGray
-        
         self.label.font = UIFont.systemFont(ofSize: 25.0, weight: UIFont.Weight.heavy)
         self.label.textColor = UIColor.red
         
+        self.backgroundHeaderView = UIView(frame: self.bounds)
+        self.backgroundHeaderView.backgroundColor = UIColor.lightGray
+        
+        self.imageLabel = UIImageView()
         self.imageLabel.tintColor = UIColor.black
+        
+        self.tapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
+        self.tapRecognizer.delegate = self
+        self.tapRecognizer.numberOfTapsRequired = 1
+        self.tapRecognizer.numberOfTouchesRequired = 1
     }
     
     func addViews() {
         self.addSubview(label)
         self.addSubview(imageLabel)
         self.backgroundView = backgroundHeaderView
+        self.addGestureRecognizer(tapRecognizer)
     }
     
     func setupConstraints() {
@@ -86,30 +92,15 @@ class TableHeaderView : UITableViewHeaderFooterView {
     }
     
     func setImage(isHidden: Bool) {
+        self.imageLabel.layer.removeAllAnimations()
         if isHidden {
             self.imageLabel.image = UIImage(named: "show_content")
         } else {
             self.imageLabel.image = UIImage(named: "hide_content")
         }
-        
     }
     
-    func rotateImage(isHidden: Bool) {
-        let rotation: Float
-        if !isHidden {
-            rotation = 1
-        } else {
-            rotation = -1
-        }
-        
-        let animation = CABasicAnimation(keyPath: "transform.rotation")
-        animation.toValue = Float.pi * rotation
-        animation.duration = 0.3
-        animation.repeatCount = 1
-        animation.fillMode = kCAFillModeForwards
-        animation.isRemovedOnCompletion = false
-        
-        self.imageLabel.layer.add(animation, forKey: nil)
+    func setTitle(title: String) {
+        self.label.text = title
     }
-    
 }

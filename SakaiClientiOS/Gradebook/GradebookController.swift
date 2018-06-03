@@ -9,6 +9,8 @@ import UIKit
 
 class GradebookController: UITableViewController {
     
+    let TABLE_HEADER_HEIGHT:CGFloat = 50.0
+    
     var gradeItems:[[[GradeItem]]] = [[[GradeItem]]]()
     var terms:[Term] = [Term]()
     
@@ -18,6 +20,8 @@ class GradebookController: UITableViewController {
     var headerCell:SiteTableViewCell!
     
     var indicator:LoadingIndicator!
+    
+    var isHidden:[Bool] = [Bool]()
     
     override init(style: UITableViewStyle) {
         super.init(style: style)
@@ -65,17 +69,25 @@ class GradebookController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (self.isHidden[section]) {
+            return 0
+        }
         return self.numRows[section]
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50.0
+        return self.TABLE_HEADER_HEIGHT
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.reuseIdentifier) as? TableHeaderView else {
             fatalError("Not a Table Header View")
         }
+        
+        view.tag = section
+        
+        view.setImage(isHidden: self.isHidden[section])
+        view.tapRecognizer.addTarget(self, action: #selector(handleTap))
         
         view.label.text = "\(getSectionTitle(section: section))"
         
@@ -84,7 +96,7 @@ class GradebookController: UITableViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let point = CGPoint(x: 0, y: self.tableView.contentOffset.y + 51)
+        let point = CGPoint(x: 0, y: self.tableView.contentOffset.y + self.TABLE_HEADER_HEIGHT + 1)
         guard let topIndex = self.tableView.indexPathForRow(at: point) else {
             return
         }
@@ -93,7 +105,7 @@ class GradebookController: UITableViewController {
         let headerRow = self.getHeaderRowForSubsection(section: topIndex.section, indexPath: subsectionIndex)
         let cell = self.tableView.cellForRow(at: IndexPath(row: headerRow, section: topIndex.section))
         
-        if(cell != nil && (cell?.frame.maxY)! > self.tableView.contentOffset.y + 50) {
+        if(cell != nil && (cell?.frame.maxY)! > self.tableView.contentOffset.y + self.TABLE_HEADER_HEIGHT) {
             self.hideHeaderCell()
         } else {
             self.makeHeaderCellVisible(section: topIndex.section, subsection: subsectionIndex.section)
@@ -113,7 +125,7 @@ class GradebookController: UITableViewController {
     
     func makeHeaderCellVisible(section:Int, subsection:Int) {
         self.headerCell.isHidden = false
-        self.headerCell.frame = CGRect(x: 0, y: self.tableView.contentOffset.y + 50, width: self.tableView.frame.size.width, height: self.headerCell.frame.size.height)
+        self.headerCell.frame = CGRect(x: 0, y: self.tableView.contentOffset.y + self.TABLE_HEADER_HEIGHT, width: self.tableView.frame.size.width, height: self.headerCell.frame.size.height)
         self.headerCell.titleLabel.text = self.getSubsectionTitle(section: section, subsection: subsection)
         self.tableView.bringSubview(toFront: self.headerCell)
     }
@@ -143,8 +155,10 @@ class GradebookController: UITableViewController {
                         numRows += list[i][j].count
                     }
                     self.numRows.append(numRows)
+                    self.isHidden.append(true)
                 }
                 
+                self.isHidden[0] = false
                 self.tableView.reloadData()
                 
                 self.indicator.stopAnimating()
@@ -227,5 +241,12 @@ class GradebookController: UITableViewController {
         let title:String? = AppGlobals.siteTitleMap[siteId]
         return title
     }
-
+    
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        let section = (sender.view?.tag)!
+        
+        isHidden[section] = !isHidden[section]
+        
+        self.tableView.reloadSections([section], with: UITableViewRowAnimation.automatic)
+    }
 }

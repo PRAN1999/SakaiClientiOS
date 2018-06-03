@@ -26,9 +26,10 @@ class GradebookCell: UITableViewCell {
     }
     
     func setup() {
-        self.titleLabel = UILabel()
         self.gradeLabel = UILabel()
         self.gradeLabel.textAlignment = NSTextAlignment.right
+        
+        self.titleLabel = UILabel()
         self.titleLabel.numberOfLines = 0
         self.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     }

@@ -58,4 +58,8 @@ class SiteTableViewCell: UITableViewCell {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
     }
+    
+    func setTitle(title: String) {
+        self.titleLabel.text = title
+    }
 }

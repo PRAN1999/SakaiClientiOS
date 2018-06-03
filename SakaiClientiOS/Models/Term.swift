@@ -88,6 +88,18 @@ class Term {
     }
     
     /**
+     
+     Gets the full String representation of the Term: i.e "Spring 2018"
+     
+     */
+    func getTitle() -> String {
+        guard let string = self.termString, let year = self.year else {
+            return "General"
+        }
+        return "\(string) \(year)"
+    }
+    
+    /**
     
      Takes an array of T:TermSortable and splits it by Term by putting every item with the same Term in the same array and then returning a 2-dimensional array consisting of those arrays
      

@@ -262,8 +262,6 @@ class RequestManager {
                 sortedGrades.append(Site.splitBySites(listToSort: termSortedGrades[index])!)
             }
             
-            print(sortedGrades)
-            
             completion(sortedGrades)
         }
     }
