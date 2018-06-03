@@ -1,43 +1,46 @@
 //
-//  SiteTableViewCell.swift
+//  FloatingHeaderCell.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 4/27/18.
+//  Created by Pranay Neelagiri on 6/3/18.
 //
 
 import UIKit
 
-class SiteTableViewCell: UITableViewCell {
-    
-    static var reuseIdentifier: String = "siteTableViewCell"
+class FloatingHeaderCell: UITableViewCell {
 
+    static var reuseIdentifier: String = "floatingHeaderCell"
+    
     var titleLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setup()
         self.addViews()
         self.setConstraints()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     func setup() {
+        self.backgroundColor = UIColor.red
+        
         self.titleLabel = UILabel()
         self.titleLabel.textColor = UIColor.black
         self.titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        
+        self.isHidden = true
     }
     
     func addViews() {
         self.contentView.addSubview(titleLabel)
-        self.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
     }
     
     func setConstraints() {
@@ -51,7 +54,12 @@ class SiteTableViewCell: UITableViewCell {
         self.titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
     }
     
-    func setTitle(title: String) {
+    func setTitle(title: String?) {
         self.titleLabel.text = title
+    }
+
+    func setFrameAndMakeVisible(frame: CGRect) {
+        self.frame = frame
+        self.isHidden = false
     }
 }

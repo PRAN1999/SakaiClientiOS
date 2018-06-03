@@ -7,16 +7,13 @@
 
 import UIKit
 
-class CollapsibleSectionController: UITableViewController {
+class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDelegate {
     
-    var isHidden:[Bool] = [Bool]()
-    var dataSource:HideableDataSource!
+    let TABLE_HEADER_HEIGHT:CGFloat = 50.0
+    
+    var dataSource: HideableDataSource!
     
     var indicator: LoadingIndicator!
-    
-    override init(style: UITableViewStyle) {
-        super.init(style: style)
-    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -24,11 +21,6 @@ class CollapsibleSectionController: UITableViewController {
     
     init?(coder aDecoder: NSCoder, dataSource:HideableDataSource) {
         super.init(coder: aDecoder)
-        self.dataSource = dataSource
-    }
-    
-    convenience init(dataSource:HideableDataSource, style: UITableViewStyle) {
-        self.init(style: style)
         self.dataSource = dataSource
     }
     
@@ -53,12 +45,8 @@ class CollapsibleSectionController: UITableViewController {
         return view
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40.0
-    }
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50.0
+        return self.TABLE_HEADER_HEIGHT
     }
 
     override func didReceiveMemoryWarning() {

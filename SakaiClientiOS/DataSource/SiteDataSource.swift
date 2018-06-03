@@ -8,24 +8,11 @@
 import Foundation
 import UIKit
 
-class SiteDataSource: NSObject, HideableDataSource {
-    
-    var isHidden: [Bool] = [Bool]()
+class SiteDataSource: BaseDataSourceImplementation {
     
     var sites:[[Site]] = [[Site]]()
-    var terms:[Term] = [Term]()
     
-    var numRows:[Int] = [Int]()
-    var numSections = 0
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.isHidden[section] {
-            return 0
-        }
-        return self.numRows[section]
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteTableViewCell.reuseIdentifier, for: indexPath) as? SiteTableViewCell else {
             fatalError("Not a Site Table View Cell")
         }
@@ -37,47 +24,38 @@ class SiteDataSource: NSObject, HideableDataSource {
         return cell
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        print("numSections: \(numSections)")
-        return numSections
-    }
-    
-    func resetValues() {
-        self.numRows = []
-        self.terms = []
+    override func resetValues() {
+        super.resetValues()
         self.sites = []
-        self.numSections = 0
-        
-        self.isHidden = []
     }
     
-    func loadData(completion: @escaping () -> Void) {
-        
-        print("Loading")
+    override func loadData(completion: @escaping () -> Void) {
         
         RequestManager.shared.getSites(completion: { siteList in
             
-            guard let list = siteList else {
-                RequestManager.shared.logout()
-                return
+            DispatchQueue.main.async {
+                guard let list = siteList else {
+                    RequestManager.shared.logout()
+                    return
+                }
+                
+                if list.count == 0 {
+                    RequestManager.shared.logout()
+                }
+                
+                self.numSections = list.count
+                
+                for index in 0..<list.count {
+                    self.numRows.append(list[index].count)
+                    self.terms.append(list[index][0].getTerm())
+                    self.sites.append(list[index])
+                    self.isHidden.append(true)
+                }
+                
+                self.isHidden[0] = false
+                
+                completion()
             }
-            
-            if list.count == 0 {
-                RequestManager.shared.logout()
-            }
-            
-            self.numSections = list.count
-            
-            for index in 0..<list.count {
-                self.numRows.append(list[index].count)
-                self.terms.append(list[index][0].getTerm())
-                self.sites.append(list[index])
-                self.isHidden.append(true)
-            }
-            
-            self.isHidden[0] = false
-            
-            completion()
         })
     }
 }
