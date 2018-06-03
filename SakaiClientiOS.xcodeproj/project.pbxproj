@@ -126,7 +126,6 @@
 			isa = PBXGroup;
 			children = (
 				5113C13620928709001929DA /* AssignmentController.swift */,
-				5113C13820928718001929DA /* AssignmentView.storyboard */,
 			);
 			path = Assignment;
 			sourceTree = "<group>";
@@ -135,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				5113C132209286D9001929DA /* GradebookController.swift */,
-				5113C134209286E8001929DA /* GradebookView.storyboard */,
 			);
 			path = Gradebook;
 			sourceTree = "<group>";
@@ -144,7 +142,6 @@
 			isa = PBXGroup;
 			children = (
 				5113C12E209286B3001929DA /* SettingsController.swift */,
-				5113C130209286C2001929DA /* SettingsView.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -153,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				511D7579208DAA9600371998 /* HomeController.swift */,
-				5113C12820927F28001929DA /* HomeView.storyboard */,
 				51C4B7EB20A660FA00DD6696 /* ClassController.swift */,
 				51C4B7F920A9247C00DD6696 /* DefaultController.swift */,
 			);
@@ -164,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				5113C12A20928658001929DA /* AnnouncementController.swift */,
-				5113C12C20928669001929DA /* AnnouncementView.storyboard */,
 			);
 			path = Announcement;
 			sourceTree = "<group>";
@@ -227,6 +222,20 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		51E9DD9320C4A91900275103 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5113C12C20928669001929DA /* AnnouncementView.storyboard */,
+				5113C12820927F28001929DA /* HomeView.storyboard */,
+				5113C130209286C2001929DA /* SettingsView.storyboard */,
+				5113C134209286E8001929DA /* GradebookView.storyboard */,
+				5113C13820928718001929DA /* AssignmentView.storyboard */,
+				DE0599FC1DFD93B200D19D17 /* Main.storyboard */,
+				DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		6A04DF0725D71CF9D407734A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,14 +265,13 @@
 		DE0599F71DFD93B200D19D17 /* SakaiClientiOS */ = {
 			isa = PBXGroup;
 			children = (
+				51E9DD9320C4A91900275103 /* Storyboards */,
 				51C2D15A20C47FA000E4C901 /* Controllers */,
 				514B623A209569AF001A716C /* UIElements */,
 				5113C13A209298FF001929DA /* Models */,
 				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
 				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
-				DE0599FC1DFD93B200D19D17 /* Main.storyboard */,
 				DE0599FF1DFD93B200D19D17 /* Assets.xcassets */,
-				DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */,
 				DE059A041DFD93B200D19D17 /* Info.plist */,
 				5113C11F2090F7B7001929DA /* RequestManager.swift */,
 				51C4B80520AD11F300DD6696 /* AppGlobals.swift */,
