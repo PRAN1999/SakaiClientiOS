@@ -28,8 +28,8 @@
 		51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */; };
 		51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15220C4463700E4C901 /* GradebookDataSource.swift */; };
 		51C2D15520C4471000E4C901 /* BaseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* BaseDataSource.swift */; };
-		51C2D15920C4636A00E4C901 /* DataSourceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15820C4636900E4C901 /* DataSourceProtocols.swift */; };
 		51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */; };
+		51C2D15E20C4A84B00E4C901 /* DataSourceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15D20C4A84B00E4C901 /* DataSourceProtocols.swift */; };
 		51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7E920A6555C00DD6696 /* SitePage.swift */; };
 		51C4B7EC20A660FA00DD6696 /* ClassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7EB20A660FA00DD6696 /* ClassController.swift */; };
 		51C4B7F020A7858D00DD6696 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7EF20A7858D00DD6696 /* LoadingIndicator.swift */; };
@@ -82,8 +82,8 @@
 		51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSectionController.swift; sourceTree = "<group>"; };
 		51C2D15220C4463700E4C901 /* GradebookDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataSource.swift; sourceTree = "<group>"; };
 		51C2D15420C4471000E4C901 /* BaseDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataSource.swift; sourceTree = "<group>"; };
-		51C2D15820C4636900E4C901 /* DataSourceProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataSourceProtocols.swift; path = ../../../../.Trash/DataSourceProtocols.swift; sourceTree = "<group>"; };
 		51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingHeaderCell.swift; sourceTree = "<group>"; };
+		51C2D15D20C4A84B00E4C901 /* DataSourceProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceProtocols.swift; sourceTree = "<group>"; };
 		51C4B7E920A6555C00DD6696 /* SitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitePage.swift; sourceTree = "<group>"; };
 		51C4B7EB20A660FA00DD6696 /* ClassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassController.swift; sourceTree = "<group>"; };
 		51C4B7EF20A7858D00DD6696 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
@@ -181,15 +181,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		5113D57820C35D5600842469 /* DataSource */ = {
+		5113D57820C35D5600842469 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				51C2D15820C4636900E4C901 /* DataSourceProtocols.swift */,
+				51C2D15D20C4A84B00E4C901 /* DataSourceProtocols.swift */,
 				5113D57920C35D6500842469 /* SiteDataSource.swift */,
 				51C2D15220C4463700E4C901 /* GradebookDataSource.swift */,
 				51C2D15420C4471000E4C901 /* BaseDataSource.swift */,
 			);
-			path = DataSource;
+			path = DataSources;
 			sourceTree = "<group>";
 		};
 		514B623A209569AF001A716C /* UIElements */ = {
@@ -212,12 +212,19 @@
 			path = SitePages;
 			sourceTree = "<group>";
 		};
-		51C2D15A20C47FA000E4C901 /* BaseControllers */ = {
+		51C2D15A20C47FA000E4C901 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5113D57820C35D5600842469 /* DataSources */,
+				518CFCAA20B4E64500D5AE8F /* SitePages */,
+				5113C12320927D19001929DA /* Assignment */,
+				5113C12420927D44001929DA /* Gradebook */,
+				5113C12520927D51001929DA /* Settings */,
+				5113C12620927D5A001929DA /* Home */,
+				5113C12720927D6C001929DA /* Announcement */,
 				51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */,
 			);
-			path = BaseControllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		6A04DF0725D71CF9D407734A /* Frameworks */ = {
@@ -249,16 +256,9 @@
 		DE0599F71DFD93B200D19D17 /* SakaiClientiOS */ = {
 			isa = PBXGroup;
 			children = (
-				51C2D15A20C47FA000E4C901 /* BaseControllers */,
-				5113D57820C35D5600842469 /* DataSource */,
-				518CFCAA20B4E64500D5AE8F /* SitePages */,
+				51C2D15A20C47FA000E4C901 /* Controllers */,
 				514B623A209569AF001A716C /* UIElements */,
 				5113C13A209298FF001929DA /* Models */,
-				5113C12720927D6C001929DA /* Announcement */,
-				5113C12620927D5A001929DA /* Home */,
-				5113C12520927D51001929DA /* Settings */,
-				5113C12420927D44001929DA /* Gradebook */,
-				5113C12320927D19001929DA /* Assignment */,
 				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
 				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
 				DE0599FC1DFD93B200D19D17 /* Main.storyboard */,
@@ -394,6 +394,7 @@
 			files = (
 				5113C12B20928658001929DA /* AnnouncementController.swift in Sources */,
 				51C4B7EC20A660FA00DD6696 /* ClassController.swift in Sources */,
+				51C2D15E20C4A84B00E4C901 /* DataSourceProtocols.swift in Sources */,
 				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
 				5113C13E2092D8F1001929DA /* SiteTableViewCell.swift in Sources */,
 				518296D620A631CC00EAD645 /* Term.swift in Sources */,
@@ -417,7 +418,6 @@
 				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,
 				51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */,
 				51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */,
-				51C2D15920C4636A00E4C901 /* DataSourceProtocols.swift in Sources */,
 				51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
