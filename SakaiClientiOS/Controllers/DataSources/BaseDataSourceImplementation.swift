@@ -28,7 +28,7 @@ class BaseDataSourceImplementation: NSObject, HideableDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return numSections
+        return self.numSections
     }
     
     func resetValues() {
