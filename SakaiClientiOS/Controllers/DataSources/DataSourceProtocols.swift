@@ -1,5 +1,5 @@
 //
-//  HideableDataSource.swift
+//  DataSourceProtocols.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 6/2/18.

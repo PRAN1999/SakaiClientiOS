@@ -24,7 +24,7 @@ class BaseDataSourceImplementation: NSObject, HideableDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        fatalError("Must override cellForRowAt for every data source implementation. Should not be instantiating BaseDataSource")
+        fatalError("Must override cellForRowAt for every data source implementation. Should not be instantiating BaseDataSourceImplementation")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,7 +40,7 @@ class BaseDataSourceImplementation: NSObject, HideableDataSource {
     }
     
     func loadData(completion: @escaping () -> Void) {
-        fatalError("Must override loadData for every data source implementation. Should not be instantiating BaseDataSource")
+        fatalError("Must override loadData for every data source implementation. Should not be instantiating BaseDataSourceImplementation")
     }
 }
 
