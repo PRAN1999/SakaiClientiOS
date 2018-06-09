@@ -30,7 +30,7 @@ class TableHeaderView : UITableViewHeaderFooterView , UIGestureRecognizerDelegat
     
     func setup() {
         self.label = UILabel()
-        self.label.font = UIFont.systemFont(ofSize: 25.0, weight: UIFont.Weight.heavy)
+        self.label.font = UIFont.init(name: "Helvetica", size: 25.0)
         self.label.textColor = UIColor.red
         
         self.backgroundHeaderView = UIView(frame: self.bounds)

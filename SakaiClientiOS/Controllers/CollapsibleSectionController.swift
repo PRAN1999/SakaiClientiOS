@@ -16,7 +16,7 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
     var indicator: LoadingIndicator!
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("Must initialize Controller with dataSource")
     }
     
     init?(coder aDecoder: NSCoder, dataSource:HideableDataSource) {

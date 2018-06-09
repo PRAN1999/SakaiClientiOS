@@ -7,44 +7,33 @@
 
 import UIKit
 
-class AssignmentController: UITableViewController {
+class AssignmentController: CollapsibleSectionController {
     
-    var isSitePage: Bool = false
-    var siteId: String?
-
+    let TABLE_CELL_HEIGHT:CGFloat = 40.0
+    
+    var siteDataSource: SiteDataSource = SiteDataSource()
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder, dataSource: siteDataSource)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.tableView.register(SiteTableViewCell.self, forCellReuseIdentifier: SiteTableViewCell.reuseIdentifier)
+        self.tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: TableHeaderView.reuseIdentifier)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
     }
     
-    func loadData() {
-        
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.TABLE_CELL_HEIGHT
     }
     
-    func loadData(for siteId:String) {
-        
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let collectionController = AssignmentCollectionController(collectionViewLayout: UICollectionViewFlowLayout())
+        self.navigationController?.pushViewController(collectionController, animated: true)
     }
 
 }

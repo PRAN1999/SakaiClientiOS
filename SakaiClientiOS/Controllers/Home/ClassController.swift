@@ -15,6 +15,14 @@ class ClassController: UITableViewController {
     
     var indicator: LoadingIndicator!
     
+    override func loadView() {
+        let customTable: UITableView = UITableView(frame: .zero, style: UITableViewStyle.plain)
+        customTable.dataSource = self
+        customTable.delegate = self
+        self.view = customTable
+        self.tableView = customTable
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

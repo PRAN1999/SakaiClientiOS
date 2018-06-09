@@ -37,8 +37,7 @@ class HomeController: CollapsibleSectionController {
     }
     
     func transitionToClass(indexPath: IndexPath) {
-        let storyboard:UIStoryboard = self.storyboard!
-        let classController:ClassController = storyboard.instantiateViewController(withIdentifier: "classController") as! ClassController
+        let classController:ClassController = ClassController()
         let site:Site = self.siteDataSource.sites[indexPath.section][indexPath.row]
         classController.title = site.getTitle()
         classController.setPages(pages: site.getPages())

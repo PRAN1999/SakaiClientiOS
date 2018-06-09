@@ -11,6 +11,11 @@ class DefaultController: UIViewController {
     
     var isSitePage: Bool = false
     var siteId: String?
+    
+    override func loadView() {
+        view = UIView()
+        view.backgroundColor = .white
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
