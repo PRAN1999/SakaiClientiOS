@@ -24,6 +24,7 @@ final class AppGlobals {
     static let USER_URL:String = BASE_URL + "user/current.json"
     static let SITE_GRADEBOOK_URL = BASE_URL + "gradebook/site/*.json"
     static let GRADEBOOK_URL = BASE_URL + "gradebook/my.json"
+    static let ASSIGNMENT_URL = BASE_URL + "assignment/my.json"
     
     static func flushGlobals() {
         self.siteTermMap = [:]

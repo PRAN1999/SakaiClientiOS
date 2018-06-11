@@ -265,6 +265,41 @@ class RequestManager {
             completion(sortedGrades)
         }
     }
+    
+    func getAllAssignments(completion: @escaping (_ assignments: [[[Assignment]]]?) -> Void) {
+        let url:String = AppGlobals.ASSIGNMENT_URL
+        self.makeRequest(url: url, method: .get) { response in
+            guard let data = response.result.value else {
+                print("error")
+                return
+            }
+            
+            guard let collection = JSON(data)["assignment_collection"].array else {
+                completion(nil)
+                return
+            }
+            
+            var assignmentList:[Assignment] = [Assignment]()
+            
+            for assignment in collection {
+                assignmentList.append(Assignment(data: assignment))
+            }
+            
+            guard let termSortedAssignments = Term.splitByTerms(listToSort: assignmentList) else {
+                completion(nil)
+                return
+            }
+            var sortedAssignments:[[[Assignment]]] = [[[Assignment]]]()
+            let numTerms:Int = termSortedAssignments.count
+            
+            //For each term-specific gradeList, sort by Site and insert into 3-dim array
+            for index in 0..<numTerms {
+                sortedAssignments.append(Site.splitBySites(listToSort: termSortedAssignments[index])!)
+            }
+            
+            completion(sortedAssignments)
+        }
+    }
 }
 
 extension Alamofire.SessionManager {

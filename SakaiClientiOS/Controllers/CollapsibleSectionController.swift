@@ -11,7 +11,7 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
     
     let TABLE_HEADER_HEIGHT:CGFloat = 50.0
     
-    var dataSource: HideableDataSource!
+    var dataSource: HideableTableDataSource!
     
     var indicator: LoadingIndicator!
     
@@ -19,7 +19,7 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
         fatalError("Must initialize Controller with dataSource")
     }
     
-    init?(coder aDecoder: NSCoder, dataSource:HideableDataSource) {
+    init?(coder aDecoder: NSCoder, dataSource:HideableTableDataSource) {
         super.init(coder: aDecoder)
         self.dataSource = dataSource
     }
@@ -33,7 +33,7 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UITableViewHeaderFooterView? {
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.reuseIdentifier) as? TableHeaderView else {
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TermHeader.reuseIdentifier) as? TermHeader else {
             fatalError("Not a Table Header View")
         }
         

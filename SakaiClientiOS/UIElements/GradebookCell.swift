@@ -9,7 +9,7 @@ import UIKit
 
 class GradebookCell: UITableViewCell {
     
-    static var reuseIdentifier: String = "gradebookCell"
+    static let reuseIdentifier: String = "gradebookCell"
     
     var titleLabel:UILabel!
     var gradeLabel:UILabel!

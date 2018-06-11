@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol BaseDataSource : UITableViewDataSource {
+protocol BaseTableDataSource : UITableViewDataSource {
     var numRows:[Int] { get set }
     var numSections:Int { get set }
     
@@ -16,7 +16,7 @@ protocol BaseDataSource : UITableViewDataSource {
     func resetValues()
 }
 
-protocol HideableDataSource : BaseDataSource {
+protocol HideableTableDataSource : BaseTableDataSource {
     var isHidden:[Bool] { get set }
     var terms:[Term] { get set }
 }

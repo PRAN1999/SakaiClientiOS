@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5111149620CC43E30077F872 /* AssignmentCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149520CC43E30077F872 /* AssignmentCollectionController.swift */; };
+		5111149A20CD89D20077F872 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149920CD89D20077F872 /* Assignment.swift */; };
+		5111149C20CD97110077F872 /* SiteAssignmentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */; };
+		5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149D20CD972D0077F872 /* AssignmentCell.swift */; };
+		511114A020CDA9B70077F872 /* SiteAssignmentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */; };
+		511114A220CDCABD0077F872 /* AssignmentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A120CDCABD0077F872 /* AssignmentLayout.swift */; };
+		511114A420CE08CB0077F872 /* AssignmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A320CE08CB0077F872 /* AssignmentDataSource.swift */; };
 		5113C1202090F7B7001929DA /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C11F2090F7B7001929DA /* RequestManager.swift */; };
 		5113C12920927F28001929DA /* HomeView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C12820927F28001929DA /* HomeView.storyboard */; };
 		5113C12B20928658001929DA /* AnnouncementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C12A20928658001929DA /* AnnouncementController.swift */; };
@@ -19,16 +24,16 @@
 		5113C13720928709001929DA /* AssignmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13620928709001929DA /* AssignmentController.swift */; };
 		5113C13920928718001929DA /* AssignmentView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C13820928718001929DA /* AssignmentView.storyboard */; };
 		5113C13C2092BD74001929DA /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13B2092BD74001929DA /* Site.swift */; };
-		5113C13E2092D8F1001929DA /* SiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13D2092D8F1001929DA /* SiteTableViewCell.swift */; };
+		5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13D2092D8F1001929DA /* SiteCell.swift */; };
 		5113D57A20C35D6500842469 /* SiteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113D57920C35D6500842469 /* SiteDataSource.swift */; };
 		511D757A208DAA9600371998 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D7579208DAA9600371998 /* HomeController.swift */; };
 		514B623920952B89001A716C /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623820952B89001A716C /* Parsing.swift */; };
-		514B623C209569FE001A716C /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623B209569FE001A716C /* TableHeaderView.swift */; };
+		514B623C209569FE001A716C /* TermHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623B209569FE001A716C /* TermHeader.swift */; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
 		518CFCAC20B4E68200D5AE8F /* GradebookPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */; };
 		51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */; };
 		51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15220C4463700E4C901 /* GradebookDataSource.swift */; };
-		51C2D15520C4471000E4C901 /* BaseDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* BaseDataSourceImplementation.swift */; };
+		51C2D15520C4471000E4C901 /* BaseTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* BaseTableDataSourceImplementation.swift */; };
 		51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */; };
 		51C2D15E20C4A84B00E4C901 /* DataSourceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15D20C4A84B00E4C901 /* DataSourceProtocols.swift */; };
 		51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7E920A6555C00DD6696 /* SitePage.swift */; };
@@ -62,7 +67,12 @@
 /* Begin PBXFileReference section */
 		1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.release.xcconfig"; sourceTree = "<group>"; };
-		5111149520CC43E30077F872 /* AssignmentCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCollectionController.swift; sourceTree = "<group>"; };
+		5111149920CD89D20077F872 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
+		5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentsCell.swift; sourceTree = "<group>"; };
+		5111149D20CD972D0077F872 /* AssignmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell.swift; sourceTree = "<group>"; };
+		5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentsDataSource.swift; sourceTree = "<group>"; };
+		511114A120CDCABD0077F872 /* AssignmentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentLayout.swift; sourceTree = "<group>"; };
+		511114A320CE08CB0077F872 /* AssignmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDataSource.swift; sourceTree = "<group>"; };
 		5113C11F2090F7B7001929DA /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		5113C12820927F28001929DA /* HomeView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeView.storyboard; sourceTree = "<group>"; };
 		5113C12A20928658001929DA /* AnnouncementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementController.swift; sourceTree = "<group>"; };
@@ -74,16 +84,16 @@
 		5113C13620928709001929DA /* AssignmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentController.swift; sourceTree = "<group>"; };
 		5113C13820928718001929DA /* AssignmentView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AssignmentView.storyboard; sourceTree = "<group>"; };
 		5113C13B2092BD74001929DA /* Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
-		5113C13D2092D8F1001929DA /* SiteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteTableViewCell.swift; sourceTree = "<group>"; };
+		5113C13D2092D8F1001929DA /* SiteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCell.swift; sourceTree = "<group>"; };
 		5113D57920C35D6500842469 /* SiteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteDataSource.swift; sourceTree = "<group>"; };
 		511D7579208DAA9600371998 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		514B623820952B89001A716C /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
-		514B623B209569FE001A716C /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
+		514B623B209569FE001A716C /* TermHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermHeader.swift; sourceTree = "<group>"; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookPageController.swift; sourceTree = "<group>"; };
 		51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSectionController.swift; sourceTree = "<group>"; };
 		51C2D15220C4463700E4C901 /* GradebookDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataSource.swift; sourceTree = "<group>"; };
-		51C2D15420C4471000E4C901 /* BaseDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataSourceImplementation.swift; sourceTree = "<group>"; };
+		51C2D15420C4471000E4C901 /* BaseTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableDataSourceImplementation.swift; sourceTree = "<group>"; };
 		51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingHeaderCell.swift; sourceTree = "<group>"; };
 		51C2D15D20C4A84B00E4C901 /* DataSourceProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceProtocols.swift; sourceTree = "<group>"; };
 		51C4B7E920A6555C00DD6696 /* SitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitePage.swift; sourceTree = "<group>"; };
@@ -127,7 +137,8 @@
 		5113C12320927D19001929DA /* Assignment */ = {
 			isa = PBXGroup;
 			children = (
-				5111149520CC43E30077F872 /* AssignmentCollectionController.swift */,
+				511114A320CE08CB0077F872 /* AssignmentDataSource.swift */,
+				5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */,
 				5113C13620928709001929DA /* AssignmentController.swift */,
 			);
 			path = Assignment;
@@ -136,6 +147,7 @@
 		5113C12420927D44001929DA /* Gradebook */ = {
 			isa = PBXGroup;
 			children = (
+				51C2D15220C4463700E4C901 /* GradebookDataSource.swift */,
 				5113C132209286D9001929DA /* GradebookController.swift */,
 			);
 			path = Gradebook;
@@ -152,6 +164,7 @@
 		5113C12620927D5A001929DA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				5113D57920C35D6500842469 /* SiteDataSource.swift */,
 				511D7579208DAA9600371998 /* HomeController.swift */,
 				51C4B7EB20A660FA00DD6696 /* ClassController.swift */,
 			);
@@ -174,29 +187,31 @@
 				518296D520A631CC00EAD645 /* Term.swift */,
 				51C4B7E920A6555C00DD6696 /* SitePage.swift */,
 				51C4B7F720A8CAC400DD6696 /* GradeItem.swift */,
+				5111149920CD89D20077F872 /* Assignment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		5113D57820C35D5600842469 /* DataSources */ = {
+		5113D57820C35D5600842469 /* BaseDataSource */ = {
 			isa = PBXGroup;
 			children = (
 				51C2D15D20C4A84B00E4C901 /* DataSourceProtocols.swift */,
-				5113D57920C35D6500842469 /* SiteDataSource.swift */,
-				51C2D15220C4463700E4C901 /* GradebookDataSource.swift */,
-				51C2D15420C4471000E4C901 /* BaseDataSourceImplementation.swift */,
+				51C2D15420C4471000E4C901 /* BaseTableDataSourceImplementation.swift */,
 			);
-			path = DataSources;
+			path = BaseDataSource;
 			sourceTree = "<group>";
 		};
 		514B623A209569AF001A716C /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
-				5113C13D2092D8F1001929DA /* SiteTableViewCell.swift */,
-				514B623B209569FE001A716C /* TableHeaderView.swift */,
+				5113C13D2092D8F1001929DA /* SiteCell.swift */,
+				514B623B209569FE001A716C /* TermHeader.swift */,
 				51C4B7EF20A7858D00DD6696 /* LoadingIndicator.swift */,
 				51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */,
 				51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */,
+				5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */,
+				5111149D20CD972D0077F872 /* AssignmentCell.swift */,
+				511114A120CDCABD0077F872 /* AssignmentLayout.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -213,7 +228,7 @@
 		51C2D15A20C47FA000E4C901 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5113D57820C35D5600842469 /* DataSources */,
+				5113D57820C35D5600842469 /* BaseDataSource */,
 				518CFCAA20B4E64500D5AE8F /* SitePages */,
 				5113C12320927D19001929DA /* Assignment */,
 				5113C12420927D44001929DA /* Gradebook */,
@@ -403,20 +418,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5111149620CC43E30077F872 /* AssignmentCollectionController.swift in Sources */,
 				5113C12B20928658001929DA /* AnnouncementController.swift in Sources */,
 				51C4B7EC20A660FA00DD6696 /* ClassController.swift in Sources */,
 				51C2D15E20C4A84B00E4C901 /* DataSourceProtocols.swift in Sources */,
 				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
-				5113C13E2092D8F1001929DA /* SiteTableViewCell.swift in Sources */,
+				5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */,
 				518296D620A631CC00EAD645 /* Term.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
 				51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */,
+				511114A220CDCABD0077F872 /* AssignmentLayout.swift in Sources */,
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
 				5113C13C2092BD74001929DA /* Site.swift in Sources */,
 				5113C12F209286B3001929DA /* SettingsController.swift in Sources */,
 				5113D57A20C35D6500842469 /* SiteDataSource.swift in Sources */,
-				514B623C209569FE001A716C /* TableHeaderView.swift in Sources */,
+				511114A420CE08CB0077F872 /* AssignmentDataSource.swift in Sources */,
+				514B623C209569FE001A716C /* TermHeader.swift in Sources */,
 				51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */,
 				514B623920952B89001A716C /* Parsing.swift in Sources */,
 				518CFCAC20B4E68200D5AE8F /* GradebookPageController.swift in Sources */,
@@ -425,12 +441,16 @@
 				51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
-				51C2D15520C4471000E4C901 /* BaseDataSourceImplementation.swift in Sources */,
+				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
+				51C2D15520C4471000E4C901 /* BaseTableDataSourceImplementation.swift in Sources */,
+				511114A020CDA9B70077F872 /* SiteAssignmentsDataSource.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
 				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,
 				51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */,
 				51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */,
+				5111149A20CD89D20077F872 /* Assignment.swift in Sources */,
 				51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */,
+				5111149C20CD97110077F872 /* SiteAssignmentsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,7 +26,7 @@ class ClassController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(SiteTableViewCell.self, forCellReuseIdentifier: SiteTableViewCell.reuseIdentifier)
+        tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,7 +45,7 @@ class ClassController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteTableViewCell.reuseIdentifier, for: indexPath) as? SiteTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
             fatalError("Not a Site Table View Cell")
         }
         let page:SitePage = self.sitePages[indexPath.row]

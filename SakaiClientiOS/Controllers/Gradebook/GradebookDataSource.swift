@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GradebookDataSource: BaseDataSourceImplementation {
+class GradebookDataSource: BaseTableDataSourceImplementation {
     
     var gradeItems:[[[GradeItem]]] = [[[GradeItem]]]()
     
@@ -108,7 +108,7 @@ class GradebookDataSource: BaseDataSourceImplementation {
     }
     
     func getSiteTitleCell(tableView:UITableView, indexPath: IndexPath, subsection:Int) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteTableViewCell.reuseIdentifier, for: indexPath) as? SiteTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
             fatalError("Not a site cell")
         }
         

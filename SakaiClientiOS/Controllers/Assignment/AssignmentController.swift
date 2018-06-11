@@ -11,29 +11,21 @@ class AssignmentController: CollapsibleSectionController {
     
     let TABLE_CELL_HEIGHT:CGFloat = 40.0
     
-    var siteDataSource: SiteDataSource = SiteDataSource()
+    var siteAssignmentsDataSource: SiteAssignmentsDataSource = SiteAssignmentsDataSource()
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder, dataSource: siteDataSource)
+        super.init(coder: aDecoder, dataSource: siteAssignmentsDataSource)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(SiteTableViewCell.self, forCellReuseIdentifier: SiteTableViewCell.reuseIdentifier)
-        self.tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: TableHeaderView.reuseIdentifier)
+        self.tableView.allowsSelection = false
+        self.tableView.register(SiteAssignmentsCell.self, forCellReuseIdentifier: SiteAssignmentsCell.reuseIdentifier)
+        self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.TABLE_CELL_HEIGHT
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let collectionController = AssignmentCollectionController(collectionViewLayout: UICollectionViewFlowLayout())
-        self.navigationController?.pushViewController(collectionController, animated: true)
     }
 
 }

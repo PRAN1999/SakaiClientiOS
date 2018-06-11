@@ -1,5 +1,5 @@
 //
-//  SiteTableViewCell.swift
+//  SiteCell.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 4/27/18.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SiteTableViewCell: UITableViewCell {
+class SiteCell: UITableViewCell {
     
-    static var reuseIdentifier: String = "siteTableViewCell"
+    static let reuseIdentifier: String = "siteTableViewCell"
 
     var titleLabel: UILabel!
     

@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-class SiteDataSource: BaseDataSourceImplementation {
+class SiteDataSource: BaseTableDataSourceImplementation {
     
     var sites:[[Site]] = [[Site]]()
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteTableViewCell.reuseIdentifier, for: indexPath) as? SiteTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
             fatalError("Not a Site Table View Cell")
         }
         

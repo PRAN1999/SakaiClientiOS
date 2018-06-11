@@ -1,5 +1,5 @@
 //
-//  TableViewHeaderView.swift
+//  TermHeader.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 4/28/18.
@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class TableHeaderView : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
+class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     
-    static var reuseIdentifier: String = "tableHeaderView"
+    static let reuseIdentifier: String = "termHeader"
     
     var label:UILabel!
     var imageLabel:UIImageView!
