@@ -13,13 +13,14 @@
             <objects>
                 <viewController storyboardIdentifier="loginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="IDs-zt-7Bw"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <segue destination="iaE-1R-x95" kind="show" identifier="loginSegue" id="0CA-eo-hu5"/>
+                        <segue destination="iaE-1R-x95" kind="show" identifier="loginSegue" id="vih-4G-SDz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1766" y="139"/>
+            <point key="canvasLocation" x="-1761" y="139"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6rX-ec-kpk">
@@ -27,6 +28,7 @@
                 <tabBarController storyboardIdentifier="tabs" automaticallyAdjustsScrollViewInsets="NO" id="iaE-1R-x95" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="9nx-a2-woP"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hu3-lw-Ls4">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>

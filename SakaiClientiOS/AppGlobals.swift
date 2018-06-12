@@ -12,6 +12,7 @@ final class AppGlobals {
     static var siteTitleMap:[String:String] = [:]
     
     static var TO_RELOAD:Bool = true
+    static var IS_LOGGED_IN = false
     
     static let LOGIN_URL:String = "https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer"
     static let COOKIE_URL_1:String = "https://sakai.rutgers.edu/sakai-login-tool/container"

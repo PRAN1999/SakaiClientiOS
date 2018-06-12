@@ -95,11 +95,14 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         }
         if(webView.url!.absoluteString == AppGlobals.COOKIE_URL_2) {
             decisionHandler(.cancel)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let tabController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "tabs") as! UITabBarController
-            self.present(tabController, animated: true, completion: nil)
-            return
+            
+            RequestManager.shared.getSites() { res in
+                AppGlobals.IS_LOGGED_IN = true
+                AppGlobals.TO_RELOAD = false
+                self.performSegue(withIdentifier: "loginSegue", sender: self)
+            }
+        } else {
+            decisionHandler(.allow)
         }
-        decisionHandler(.allow)
     }
 }

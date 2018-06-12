@@ -36,8 +36,14 @@ class RequestManager {
      
      */
     private func makeRequest(url:String, method: HTTPMethod, completion: @escaping (_ response:DataResponse<Any>) -> Void) {
-        Alamofire.SessionManager.default.requestWithoutCache(url, method: method).validate().responseJSON { response in
-            completion(response)
+        self.isLoggedIn { (flag) in
+            if(!flag) {
+                self.logout {}
+            } else {
+                Alamofire.SessionManager.default.requestWithoutCache(url, method: method).validate().responseJSON { response in
+                    completion(response)
+                }
+            }
         }
     }
     
@@ -76,19 +82,17 @@ class RequestManager {
  
     */
     
-    func logout(indicator:LoadingIndicator? = nil) {
-        if indicator != nil {
-            indicator!.startAnimating()
-        }
+    func logout(completion: @escaping () -> Void) {
         
         self.reset()
         AppGlobals.TO_RELOAD = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+        AppGlobals.IS_LOGGED_IN = false
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let oldController = UIApplication.shared.keyWindow?.rootViewController
             UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateInitialViewController()
-            if indicator != nil {
-                indicator!.stopAnimating()
-            }
+            oldController?.dismiss(animated: true, completion: {})
+            completion()
         })
     }
     
@@ -122,10 +126,9 @@ class RequestManager {
      */
     
     func isLoggedIn(completion: @escaping (_ check:Bool) -> Void)  {
-        self.makeRequest(url: AppGlobals.SESSION_URL, method: .get) { response in
+        Alamofire.SessionManager.default.requestWithoutCache(AppGlobals.SESSION_URL, method: .get).validate().responseJSON { response in
             var flag = false
             if let data = response.result.value {
-                print("JSON: \(data)")
                 let json = JSON(data)
                 if json["userEid"].string != nil {
                     print("Flag set to true")

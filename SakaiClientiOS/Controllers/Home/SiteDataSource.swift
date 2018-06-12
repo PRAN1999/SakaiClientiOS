@@ -35,12 +35,11 @@ class SiteDataSource: BaseTableDataSourceImplementation {
             
             DispatchQueue.main.async {
                 guard let list = siteList else {
-                    RequestManager.shared.logout()
                     return
                 }
                 
                 if list.count == 0 {
-                    RequestManager.shared.logout()
+                    return
                 }
                 
                 self.numSections = list.count
@@ -51,6 +50,7 @@ class SiteDataSource: BaseTableDataSourceImplementation {
                     self.sites.append(list[index])
                     self.isHidden.append(true)
                 }
+                
                 
                 self.isHidden[0] = false
                 

@@ -37,12 +37,11 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
             
             DispatchQueue.main.async {
                 guard let list = siteList else {
-                    RequestManager.shared.logout()
                     return
                 }
                 
                 if list.count == 0 {
-                    RequestManager.shared.logout()
+                    return
                 }
                 
                 self.numSections = list.count

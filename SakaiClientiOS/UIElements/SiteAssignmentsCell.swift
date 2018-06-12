@@ -44,13 +44,13 @@ class SiteAssignmentsCell: UITableViewCell {
     }
     
     func addViews() {
-        self.addSubview(titleLabel)
-        self.addSubview(collectionView)
+        self.contentView.addSubview(titleLabel)
+        self.contentView.addSubview(collectionView)
     }
     
     func setConstraints() {
         
-        let margins = self.layoutMarginsGuide
+        let margins = self.contentView.layoutMarginsGuide
         
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +71,7 @@ class SiteAssignmentsCell: UITableViewCell {
                                             attribute: .top,
                                             multiplier: 1.0,
                                             constant: -10.0)
-        self.addConstraint(constraint)
+        self.contentView.addConstraint(constraint)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -12,7 +12,6 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
     let TABLE_HEADER_HEIGHT:CGFloat = 50.0
     
     var dataSource: HideableTableDataSource!
-    
     var indicator: LoadingIndicator!
     
     required init?(coder aDecoder: NSCoder) {

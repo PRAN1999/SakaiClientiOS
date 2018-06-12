@@ -26,7 +26,9 @@ class SettingsController: UIViewController {
     
 
     @IBAction func logout(_ sender: UIButton) {
-        RequestManager.shared.logout(indicator: self.indicator)
+        RequestManager.shared.logout() {
+            //self.tabBarController?.dismiss(animated: true) {}
+        }
     }
     /*
     // MARK: - Navigation

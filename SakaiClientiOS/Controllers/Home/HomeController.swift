@@ -19,6 +19,7 @@ class HomeController: CollapsibleSectionController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Home loaded")
         self.title = "Classes"
         self.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)

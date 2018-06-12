@@ -236,6 +236,7 @@
 				5113C12620927D5A001929DA /* Home */,
 				5113C12720927D6C001929DA /* Announcement */,
 				51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */,
+				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -288,7 +289,6 @@
 				514B623A209569AF001A716C /* UIElements */,
 				5113C13A209298FF001929DA /* Models */,
 				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
-				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
 				DE0599FF1DFD93B200D19D17 /* Assets.xcassets */,
 				DE059A041DFD93B200D19D17 /* Info.plist */,
 				5113C11F2090F7B7001929DA /* RequestManager.swift */,
