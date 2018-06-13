@@ -42,6 +42,7 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
      */
     override func viewDidLoad() {
         //view.addSubview(webView)
+        RequestManager.shared.reset()
         super.viewDidLoad()
         let myURL = URL(string: AppGlobals.LOGIN_URL)
         let myRequest = URLRequest(url: myURL!)

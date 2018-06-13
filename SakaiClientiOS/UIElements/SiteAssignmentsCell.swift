@@ -31,8 +31,12 @@ class SiteAssignmentsCell: UITableViewCell {
     
     func setup() {
         self.titleLabel = UILabel()
-        self.titleLabel.textColor = UIColor.black
         self.titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        self.titleLabel.textColor = UIColor.white
+        self.titleLabel.textAlignment = .center
+        self.titleLabel.backgroundColor = UIColor.black
+        self.titleLabel.layer.cornerRadius = 5
+        self.titleLabel.layer.masksToBounds = true
         
         let layout = AssignmentLayout()
         
@@ -44,13 +48,12 @@ class SiteAssignmentsCell: UITableViewCell {
     }
     
     func addViews() {
-        self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(collectionView)
+        self.addSubview(titleLabel)
+        self.addSubview(collectionView)
     }
     
     func setConstraints() {
-        
-        let margins = self.contentView.layoutMarginsGuide
+        let margins = self.layoutMarginsGuide
         
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +65,8 @@ class SiteAssignmentsCell: UITableViewCell {
         self.collectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         self.collectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         self.collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        self.collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.75).isActive = true
+        self.heightAnchor.constraint(greaterThanOrEqualToConstant: 300).isActive = true
+        self.collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
         
         let constraint = NSLayoutConstraint(item: self.titleLabel,
                                             attribute: .bottom,
@@ -71,7 +75,7 @@ class SiteAssignmentsCell: UITableViewCell {
                                             attribute: .top,
                                             multiplier: 1.0,
                                             constant: -10.0)
-        self.contentView.addConstraint(constraint)
+        self.addConstraint(constraint)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -100,7 +104,7 @@ extension SiteAssignmentsCell: UICollectionViewDelegate {
 
 extension SiteAssignmentsCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: collectionView.bounds.width / 3, height: collectionView.bounds.height)
+        let size = CGSize(width: collectionView.bounds.width / 2.5, height: collectionView.bounds.height)
         return size
     }
 }

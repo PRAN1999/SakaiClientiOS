@@ -20,17 +20,14 @@ class AssignmentDataSource: NSObject, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssignmentCell.reuseIdentifier, for: indexPath) as? AssignmentCell else {
             fatalError("Not an assignment cell")
         }
-        cell.backgroundColor = UIColor.red
         let assignment:Assignment = self.assignments[indexPath.row]
-        cell.titleLabel.text = assignment.getTitle()
-        cell.dueLabel.text = assignment.getDueTimeString()
+        cell.titleLabel.setText(text:assignment.getTitle())
+        cell.dueLabel.setText(text:assignment.getDueTimeString())
         return cell
     }
 
     func loadData(list: [Assignment]) {
         self.assignments = list
         self.numItems = list.count
-        print(list)
-        print(numItems)
     }
 }

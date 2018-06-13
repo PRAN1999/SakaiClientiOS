@@ -13,6 +13,7 @@
 		511114A020CDA9B70077F872 /* SiteAssignmentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */; };
 		511114A220CDCABD0077F872 /* AssignmentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A120CDCABD0077F872 /* AssignmentLayout.swift */; };
 		511114A420CE08CB0077F872 /* AssignmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A320CE08CB0077F872 /* AssignmentDataSource.swift */; };
+		511114A820D0C0D20077F872 /* InsetTextBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A720D0C0D20077F872 /* InsetTextBackgroundView.swift */; };
 		5113C1202090F7B7001929DA /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C11F2090F7B7001929DA /* RequestManager.swift */; };
 		5113C12920927F28001929DA /* HomeView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C12820927F28001929DA /* HomeView.storyboard */; };
 		5113C12B20928658001929DA /* AnnouncementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C12A20928658001929DA /* AnnouncementController.swift */; };
@@ -73,6 +74,7 @@
 		5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentsDataSource.swift; sourceTree = "<group>"; };
 		511114A120CDCABD0077F872 /* AssignmentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentLayout.swift; sourceTree = "<group>"; };
 		511114A320CE08CB0077F872 /* AssignmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDataSource.swift; sourceTree = "<group>"; };
+		511114A720D0C0D20077F872 /* InsetTextBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetTextBackgroundView.swift; sourceTree = "<group>"; };
 		5113C11F2090F7B7001929DA /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		5113C12820927F28001929DA /* HomeView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeView.storyboard; sourceTree = "<group>"; };
 		5113C12A20928658001929DA /* AnnouncementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementController.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */,
 				5111149D20CD972D0077F872 /* AssignmentCell.swift */,
 				511114A120CDCABD0077F872 /* AssignmentLayout.swift */,
+				511114A720D0C0D20077F872 /* InsetTextBackgroundView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
 				51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */,
 				511114A220CDCABD0077F872 /* AssignmentLayout.swift in Sources */,
+				511114A820D0C0D20077F872 /* InsetTextBackgroundView.swift in Sources */,
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
 				5113C13C2092BD74001929DA /* Site.swift in Sources */,
 				5113C12F209286B3001929DA /* SettingsController.swift in Sources */,

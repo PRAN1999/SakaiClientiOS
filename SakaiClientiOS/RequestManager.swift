@@ -89,9 +89,9 @@ class RequestManager {
         AppGlobals.IS_LOGGED_IN = false
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let oldController = UIApplication.shared.keyWindow?.rootViewController
-            UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateInitialViewController()
-            oldController?.dismiss(animated: true, completion: {})
+            UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: {
+                UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateInitialViewController()
+            })
             completion()
         })
     }
@@ -130,6 +130,7 @@ class RequestManager {
             var flag = false
             if let data = response.result.value {
                 let json = JSON(data)
+                print("json: \(json)")
                 if json["userEid"].string != nil {
                     print("Flag set to true")
                     flag = true
