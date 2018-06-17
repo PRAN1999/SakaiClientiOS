@@ -25,10 +25,8 @@ class AssignmentDataSource: NSObject, UICollectionViewDataSource {
         let assignment:Assignment = self.assignments[indexPath.row]
         cell.titleLabel.setText(text:assignment.getTitle())
         cell.dueLabel.setText(text:assignment.getDueTimeString())
-        //cell.descLabel.setText(text: assignment.getInstructions())
         cell.descLabel.attributedText = assignment.getAttributedInstructions()
         cell.webviewDelegate = webviewDelegate
-        //cell.descLabel.setText(text: assignment.getAttributedInstructions()?.string)
         return cell
     }
 

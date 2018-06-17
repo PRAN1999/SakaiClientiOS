@@ -42,12 +42,3 @@ extension AssignmentController: UICollectionViewDelegateFlowLayout {
         return size
     }
 }
-
-extension AssignmentController: WebviewLoaderDelegate {
-    func openWebview(url: URL) {
-        let webController = WebController()
-        webController.setURL(url: url)
-        
-        self.navigationController?.pushViewController(webController, animated: true)
-    }
-}

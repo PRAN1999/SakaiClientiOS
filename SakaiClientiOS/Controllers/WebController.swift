@@ -12,11 +12,26 @@ protocol WebviewLoaderDelegate {
     func openWebview(url:URL)
 }
 
+extension UIViewController: WebviewLoaderDelegate {
+    func openWebview(url: URL) {
+        let webController = WebController()
+        webController.setURL(url: url)
+        
+        self.navigationController?.pushViewController(webController, animated: true)
+    }
+}
+
 class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
     var webView: WKWebView!
     var url:URL?
     
+    /**
+     
+     Sets the webview delegates for navigation and UI to the view controller itself,
+     allowing the view controller to directly control the webview appearance and requests
+     
+     */
     override func loadView() {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = AppGlobals.PROCESS_POOL

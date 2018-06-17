@@ -11,29 +11,12 @@ import WebKit
  
  */
 
-class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
+class LoginViewController: WebController {
 
-    var webView: WKWebView!
     var indicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
- 
-    /**
-     
-     Sets the webview delegates for navigation and UI to the view controller itself,
-     allowing the view controller to directly control the webview appearance and requests
-     
-     */
-    
-    override func loadView() {
-        let configuration = WKWebViewConfiguration()
-        configuration.processPool = AppGlobals.PROCESS_POOL
-        webView = WKWebView(frame: .zero, configuration: configuration)
-        webView.uiDelegate = self
-        webView.navigationDelegate = self;
-        view = webView
     }
     
     /**
@@ -42,12 +25,10 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
      
      */
     override func viewDidLoad() {
-        //view.addSubview(webView)
-        RequestManager.shared.reset()
         super.viewDidLoad()
+        RequestManager.shared.reset()
         let myURL = URL(string: AppGlobals.LOGIN_URL)
-        let myRequest = URLRequest(url: myURL!)
-        self.webView.load(myRequest)
+        self.loadURL(urlOpt: myURL!)
     }
     
     override func didReceiveMemoryWarning() {
