@@ -9,11 +9,12 @@ import UIKit
 
 class GradebookController: CollapsibleSectionController {
     
-    var gradebookDataSource: GradebookDataSource = GradebookDataSource()
+    var gradebookDataSource: GradebookDataSource!
     
     var headerCell:FloatingHeaderCell!
     
     required init?(coder aDecoder: NSCoder) {
+        gradebookDataSource = GradebookDataSource()
         super.init(coder: aDecoder, dataSource: gradebookDataSource)
     }
     
@@ -32,6 +33,14 @@ class GradebookController: CollapsibleSectionController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @objc override func handleTap(sender: UITapGestureRecognizer) {
+        self.hideHeaderCell()
+        super.handleTap(sender: sender)
+    }
+}
+
+extension GradebookController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -68,10 +77,5 @@ class GradebookController: CollapsibleSectionController {
     
     func hideHeaderCell() {
         self.headerCell.isHidden = true
-    }
-    
-    @objc override func handleTap(sender: UITapGestureRecognizer) {
-        self.hideHeaderCell()
-        super.handleTap(sender: sender)
     }
 }

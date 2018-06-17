@@ -13,10 +13,7 @@ class SiteAssignmentsCell: UITableViewCell {
     
     var titleLabel: UILabel!
     var collectionView: UICollectionView!
-    
-    var assignments:[Assignment]!
-    
-    var collectionDataSource:AssignmentDataSource = AssignmentDataSource()
+    var assignmentDataSource:AssignmentDataSource!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -41,9 +38,6 @@ class SiteAssignmentsCell: UITableViewCell {
         let layout = AssignmentLayout()
         
         self.collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        self.collectionView.dataSource = collectionDataSource
-        self.collectionView.delegate = self
-        self.collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
         self.collectionView.backgroundColor = UIColor.white
     }
     
@@ -84,27 +78,4 @@ class SiteAssignmentsCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-}
-
-extension SiteAssignmentsCell {
-    func setAssignments(list: [Assignment]) {
-        self.assignments = list
-        self.collectionDataSource.loadData(list: self.assignments)
-        self.collectionView.reloadData()
-    }
-}
-
-extension SiteAssignmentsCell: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected")
-    }
-    
-}
-
-extension SiteAssignmentsCell: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: collectionView.bounds.width / 2.5, height: collectionView.bounds.height)
-        return size
-    }
 }

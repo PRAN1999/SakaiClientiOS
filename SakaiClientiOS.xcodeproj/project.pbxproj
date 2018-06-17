@@ -15,6 +15,7 @@
 		511114A420CE08CB0077F872 /* AssignmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A320CE08CB0077F872 /* AssignmentDataSource.swift */; };
 		511114A820D0C0D20077F872 /* InsetUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A720D0C0D20077F872 /* InsetUILabel.swift */; };
 		511114AC20D6CD440077F872 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114AB20D6CD440077F872 /* WebController.swift */; };
+		511114B120D6FB800077F872 /* PagedAssignmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114B020D6FB800077F872 /* PagedAssignmentController.swift */; };
 		5113C1202090F7B7001929DA /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C11F2090F7B7001929DA /* RequestManager.swift */; };
 		5113C12920927F28001929DA /* HomeView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C12820927F28001929DA /* HomeView.storyboard */; };
 		5113C12B20928658001929DA /* AnnouncementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C12A20928658001929DA /* AnnouncementController.swift */; };
@@ -77,6 +78,7 @@
 		511114A320CE08CB0077F872 /* AssignmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDataSource.swift; sourceTree = "<group>"; };
 		511114A720D0C0D20077F872 /* InsetUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetUILabel.swift; sourceTree = "<group>"; };
 		511114AB20D6CD440077F872 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
+		511114B020D6FB800077F872 /* PagedAssignmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedAssignmentController.swift; sourceTree = "<group>"; };
 		5113C11F2090F7B7001929DA /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		5113C12820927F28001929DA /* HomeView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeView.storyboard; sourceTree = "<group>"; };
 		5113C12A20928658001929DA /* AnnouncementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				511114A320CE08CB0077F872 /* AssignmentDataSource.swift */,
 				5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */,
 				5113C13620928709001929DA /* AssignmentController.swift */,
+				511114B020D6FB800077F872 /* PagedAssignmentController.swift */,
 			);
 			path = Assignment;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				51C4B7EC20A660FA00DD6696 /* ClassController.swift in Sources */,
 				51C2D15E20C4A84B00E4C901 /* DataSourceProtocols.swift in Sources */,
 				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
+				511114B120D6FB800077F872 /* PagedAssignmentController.swift in Sources */,
 				5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */,
 				518296D620A631CC00EAD645 /* Term.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,

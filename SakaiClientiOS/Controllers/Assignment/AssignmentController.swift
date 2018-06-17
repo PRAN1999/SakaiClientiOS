@@ -8,12 +8,10 @@
 import UIKit
 
 class AssignmentController: CollapsibleSectionController {
-    
-    let TABLE_CELL_HEIGHT:CGFloat = 40.0
-    
-    var siteAssignmentsDataSource: SiteAssignmentsDataSource = SiteAssignmentsDataSource()
+    var siteAssignmentsDataSource: SiteAssignmentsDataSource!
     
     required init?(coder aDecoder: NSCoder) {
+        siteAssignmentsDataSource  = SiteAssignmentsDataSource()
         super.init(coder: aDecoder, dataSource: siteAssignmentsDataSource)
     }
     
@@ -21,6 +19,7 @@ class AssignmentController: CollapsibleSectionController {
         super.viewDidLoad()
         self.tableView.allowsSelection = false
         self.siteAssignmentsDataSource.webviewDelegate = self
+        self.siteAssignmentsDataSource.collectionViewDelegate = self
         self.tableView.register(SiteAssignmentsCell.self, forCellReuseIdentifier: SiteAssignmentsCell.reuseIdentifier)
         self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
     }
@@ -29,6 +28,19 @@ class AssignmentController: CollapsibleSectionController {
         super.didReceiveMemoryWarning()
     }
 
+}
+
+extension AssignmentController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected")
+    }
+}
+
+extension AssignmentController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = CGSize(width: collectionView.bounds.width / 2.5, height: collectionView.bounds.height)
+        return size
+    }
 }
 
 extension AssignmentController: WebviewLoaderDelegate {

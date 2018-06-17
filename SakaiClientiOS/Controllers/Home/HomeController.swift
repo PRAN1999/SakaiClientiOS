@@ -11,9 +11,10 @@ class HomeController: CollapsibleSectionController {
     
     let TABLE_CELL_HEIGHT:CGFloat = 40.0
     
-    var siteDataSource: SiteDataSource = SiteDataSource()
+    var siteDataSource: SiteDataSource!
     
     required init?(coder aDecoder: NSCoder) {
+        siteDataSource = SiteDataSource()
         super.init(coder: aDecoder, dataSource: siteDataSource)
     }
     
