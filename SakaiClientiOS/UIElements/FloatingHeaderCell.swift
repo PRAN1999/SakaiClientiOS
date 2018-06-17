@@ -30,7 +30,7 @@ class FloatingHeaderCell: UITableViewCell {
     }
     
     func setup() {
-        self.backgroundColor = UIColor.red
+        self.backgroundColor = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
         
         self.titleLabel = UILabel()
         self.titleLabel.textColor = UIColor.black

@@ -13,6 +13,8 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
     var assignments:[[[Assignment]]] = [[[Assignment]]]()
     var sites:[[Site]] = [[Site]]()
     
+    var webviewDelegate: WebviewLoaderDelegate?
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteAssignmentsCell.reuseIdentifier, for: indexPath) as? SiteAssignmentsCell else {
             fatalError("Fail to dequeue cell")
@@ -20,7 +22,7 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
         
         let siteId:String = self.assignments[indexPath.section][indexPath.row][0].getSiteId()
         let title:String? = AppGlobals.siteTitleMap[siteId]
-        
+        cell.collectionDataSource.webviewDelegate = webviewDelegate
         cell.titleLabel.text = title
         cell.setAssignments(list: self.assignments[indexPath.section][indexPath.row])
         return cell

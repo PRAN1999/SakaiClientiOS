@@ -37,6 +37,7 @@ class GradebookController: CollapsibleSectionController {
         
         let point = CGPoint(x: 0, y: self.tableView.contentOffset.y + super.TABLE_HEADER_HEIGHT + 1)
         guard let topIndex = self.tableView.indexPathForRow(at: point) else {
+            self.hideHeaderCell()
             return
         }
         
@@ -44,7 +45,7 @@ class GradebookController: CollapsibleSectionController {
         let headerRow = self.gradebookDataSource.getHeaderRowForSubsection(section: topIndex.section, indexPath: subsectionIndex)
         let cell = self.tableView.cellForRow(at: IndexPath(row: headerRow, section: topIndex.section))
         
-        if(cell != nil && (cell?.frame.maxY)! > self.tableView.contentOffset.y + self.TABLE_HEADER_HEIGHT) {
+        if(cell != nil && (cell?.frame.maxY)! > self.tableView.contentOffset.y + self.TABLE_HEADER_HEIGHT * 2) {
             self.hideHeaderCell()
         } else {
             self.makeHeaderCellVisible(section: topIndex.section, subsection: subsectionIndex.section)
@@ -67,5 +68,10 @@ class GradebookController: CollapsibleSectionController {
     
     func hideHeaderCell() {
         self.headerCell.isHidden = true
+    }
+    
+    @objc override func handleTap(sender: UITapGestureRecognizer) {
+        self.hideHeaderCell()
+        super.handleTap(sender: sender)
     }
 }

@@ -31,7 +31,7 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     func setup() {
         self.label = UILabel()
         self.label.font = UIFont.init(name: "Helvetica", size: 25.0)
-        self.label.textColor = UIColor.red
+        self.label.textColor = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
         
         self.backgroundHeaderView = UIView(frame: self.bounds)
         self.backgroundHeaderView.backgroundColor = UIColor.lightGray

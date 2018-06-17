@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WebKit
 
 final class AppGlobals {
     static var siteTermMap:[String: Term] = [:]
@@ -27,8 +28,11 @@ final class AppGlobals {
     static let GRADEBOOK_URL = BASE_URL + "gradebook/my.json"
     static let ASSIGNMENT_URL = BASE_URL + "assignment/my.json"
     
+    static let PROCESS_POOL = WKProcessPool()
+    
     static func flushGlobals() {
         self.siteTermMap = [:]
         self.siteTitleMap = [:]
     }
+    
 }

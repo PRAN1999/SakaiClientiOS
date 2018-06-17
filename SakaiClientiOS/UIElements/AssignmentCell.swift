@@ -11,8 +11,11 @@ class AssignmentCell: UICollectionViewCell {
     
     static let reuseIdentifier:String = "assignmentCell"
     
-    var titleLabel:InsetTextBackgroundView!
-    var dueLabel:InsetTextBackgroundView!
+    var webviewDelegate:WebviewLoaderDelegate?
+    
+    var titleLabel:InsetUILabel!
+    var dueLabel:InsetUILabel!
+    var descLabel:UITextView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,18 +29,28 @@ class AssignmentCell: UICollectionViewCell {
     }
     
     func setup() {
-        self.titleLabel = InsetTextBackgroundView()
-        self.dueLabel = InsetTextBackgroundView()
+        self.titleLabel = InsetUILabel()
+        self.dueLabel = InsetUILabel()
+        self.descLabel = UITextView()
+        
+        //self.descLabel.titleLabel.numberOfLines = 0
+        //self.descLabel.titleLabel.lineBreakMode = .byWordWrapping
+        self.descLabel.isEditable = false
+        self.descLabel.isSelectable = true
+        self.descLabel.backgroundColor = UIColor.white
+        self.descLabel.delegate = self
+        //self.descLabel.addUserInteraction()
         
         self.layer.borderWidth = 1
-        self.layer.cornerRadius = 5
-        self.layer.masksToBounds = true
         self.layer.borderColor = UIColor.black.cgColor
+        self.layer.cornerRadius = 3
+        self.layer.masksToBounds = true
     }
     
     func addViews() {
         self.addSubview(titleLabel)
         self.addSubview(dueLabel)
+        self.addSubview(descLabel)
     }
     
     func setConstraints() {
@@ -46,25 +59,29 @@ class AssignmentCell: UICollectionViewCell {
         
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.dueLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.descLabel.translatesAutoresizingMaskIntoConstraints = false
         
         self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         self.titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        self.titleLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 5).isActive = true
+        self.titleLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
         
         self.dueLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         self.dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         self.dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        self.dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 5).isActive = true
+        self.dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
         
-        let constraint = NSLayoutConstraint(item: self.dueLabel,
-                                            attribute: .top,
-                                            relatedBy: .greaterThanOrEqual,
-                                            toItem: self.titleLabel,
-                                            attribute: .bottom,
-                                            multiplier: 1.0,
-                                            constant: 120.0)
-        self.addConstraint(constraint)
+        self.descLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        self.descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        self.descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        self.descLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
     }
-    
+}
+
+extension AssignmentCell: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        print(URL.absoluteString)
+        self.webviewDelegate?.openWebview(url: URL)
+        return false
+    }
 }

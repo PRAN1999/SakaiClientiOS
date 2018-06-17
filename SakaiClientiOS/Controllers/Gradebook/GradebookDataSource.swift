@@ -114,7 +114,7 @@ class GradebookDataSource: BaseTableDataSourceImplementation {
         
         cell.accessoryType = UITableViewCellAccessoryType.none
         cell.titleLabel.text = getSubsectionTitle(section: indexPath.section, subsection: subsection)
-        cell.backgroundColor = UIColor.red
+        cell.backgroundColor = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
         
         return cell
     }

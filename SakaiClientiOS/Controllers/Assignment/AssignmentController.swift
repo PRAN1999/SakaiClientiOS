@@ -20,6 +20,7 @@ class AssignmentController: CollapsibleSectionController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.allowsSelection = false
+        self.siteAssignmentsDataSource.webviewDelegate = self
         self.tableView.register(SiteAssignmentsCell.self, forCellReuseIdentifier: SiteAssignmentsCell.reuseIdentifier)
         self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
     }
@@ -28,4 +29,13 @@ class AssignmentController: CollapsibleSectionController {
         super.didReceiveMemoryWarning()
     }
 
+}
+
+extension AssignmentController: WebviewLoaderDelegate {
+    func openWebview(url: URL) {
+        let webController = WebController()
+        webController.setURL(url: url)
+        
+        self.navigationController?.pushViewController(webController, animated: true)
+    }
 }

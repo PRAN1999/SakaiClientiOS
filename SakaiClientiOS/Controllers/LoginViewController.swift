@@ -28,8 +28,9 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
      */
     
     override func loadView() {
-        let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        let configuration = WKWebViewConfiguration()
+        configuration.processPool = AppGlobals.PROCESS_POOL
+        webView = WKWebView(frame: .zero, configuration: configuration)
         webView.uiDelegate = self
         webView.navigationDelegate = self;
         view = webView
@@ -96,7 +97,6 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
         }
         if(webView.url!.absoluteString == AppGlobals.COOKIE_URL_2) {
             decisionHandler(.cancel)
-            
             RequestManager.shared.getSites() { res in
                 AppGlobals.IS_LOGGED_IN = true
                 AppGlobals.TO_RELOAD = false
