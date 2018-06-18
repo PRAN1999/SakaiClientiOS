@@ -12,7 +12,7 @@ class AssignmentDataSource: NSObject, UICollectionViewDataSource {
     var assignments:[Assignment]!
     var numItems = 0
     
-    var webviewDelegate: WebviewLoaderDelegate?
+    var textViewDelegate: UITextViewDelegate?
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numItems
@@ -26,7 +26,8 @@ class AssignmentDataSource: NSObject, UICollectionViewDataSource {
         cell.titleLabel.setText(text:assignment.getTitle())
         cell.dueLabel.setText(text:assignment.getDueTimeString())
         cell.descLabel.attributedText = assignment.getAttributedInstructions()
-        cell.webviewDelegate = webviewDelegate
+        
+        cell.descLabel.delegate = textViewDelegate
         return cell
     }
 

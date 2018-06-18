@@ -13,8 +13,8 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
     var assignments:[[[Assignment]]] = [[[Assignment]]]()
     var sites:[[Site]] = [[Site]]()
     
-    var webviewDelegate: WebviewLoaderDelegate?
     var collectionViewDelegate: UICollectionViewDelegate?
+    var textViewDelegate: UITextViewDelegate?
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteAssignmentsCell.reuseIdentifier, for: indexPath) as? SiteAssignmentsCell else {
@@ -28,7 +28,7 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
         cell.collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
         
         cell.assignmentDataSource = AssignmentDataSource()
-        cell.assignmentDataSource.webviewDelegate = webviewDelegate
+        cell.assignmentDataSource.textViewDelegate = textViewDelegate
         cell.assignmentDataSource.loadData(list: self.assignments[indexPath.section][indexPath.row])
         cell.collectionView.dataSource = cell.assignmentDataSource
         

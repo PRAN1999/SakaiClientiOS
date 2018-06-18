@@ -8,19 +8,6 @@
 import UIKit
 import WebKit
 
-protocol WebviewLoaderDelegate {
-    func openWebview(url:URL)
-}
-
-extension UIViewController: WebviewLoaderDelegate {
-    func openWebview(url: URL) {
-        let webController = WebController()
-        webController.setURL(url: url)
-        
-        self.navigationController?.pushViewController(webController, animated: true)
-    }
-}
-
 class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
     var webView: WKWebView!
@@ -57,7 +44,7 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         guard let url = urlOpt else {
             return
         }
-        //let temp = URL(string: "https://sakai.rutgers.edu/portal")
+        
         webView.load(URLRequest(url: url))
     }
     

@@ -6,12 +6,11 @@
 //
 
 import UIKit
+import WebKit
 
 class AssignmentCell: UICollectionViewCell {
     
     static let reuseIdentifier:String = "assignmentCell"
-    
-    var webviewDelegate:WebviewLoaderDelegate?
     
     var titleLabel:InsetUILabel!
     var dueLabel:InsetUILabel!
@@ -38,7 +37,6 @@ class AssignmentCell: UICollectionViewCell {
         self.descLabel.isEditable = false
         self.descLabel.isSelectable = true
         self.descLabel.backgroundColor = UIColor.white
-        self.descLabel.delegate = self
         //self.descLabel.addUserInteraction()
         
         self.layer.borderWidth = 1
@@ -75,13 +73,5 @@ class AssignmentCell: UICollectionViewCell {
         self.descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         self.descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         self.descLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
-    }
-}
-
-extension AssignmentCell: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        print(URL.absoluteString)
-        self.webviewDelegate?.openWebview(url: URL)
-        return false
     }
 }

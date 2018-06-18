@@ -28,11 +28,12 @@ final class AppGlobals {
     static let GRADEBOOK_URL = BASE_URL + "gradebook/my.json"
     static let ASSIGNMENT_URL = BASE_URL + "assignment/my.json"
     
-    static let PROCESS_POOL = WKProcessPool()
+    static var PROCESS_POOL = WKProcessPool()
     
     static func flushGlobals() {
         self.siteTermMap = [:]
         self.siteTitleMap = [:]
+        self.PROCESS_POOL = WKProcessPool()
     }
     
 }

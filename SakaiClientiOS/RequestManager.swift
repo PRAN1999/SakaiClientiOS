@@ -113,6 +113,7 @@ class RequestManager {
         }
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeValue(forKey: AnyHashable("X-Sakai-Session"))
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeAll()
+        AppGlobals.flushGlobals()
     }
     
     /**
