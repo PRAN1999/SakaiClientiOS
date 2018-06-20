@@ -9,28 +9,28 @@ import UIKit
 
 class PagedAssignmentController: UIPageViewController {
 
-    var pages: [UIViewController] = [UIViewController]()
+    var pages: [UIViewController?] = [UIViewController]()
+    var assignments: [Assignment] = [Assignment]()
+    var start:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
         self.setup()
-        // Do any additional setup after loading the view.
-        self.setViewControllers([pages[1]], direction: .forward, animated: false, completion: nil)
+    }
+    
+    func setAssignments(assignments: [Assignment], start: Int) {
+        pages = [UIViewController?](repeating: nil, count: assignments.count)
+        self.assignments = assignments
+        self.start = start
+        self.setPage(assignment: self.assignments[start], index: start)
     }
     
     func setup() {
-        let page1 = AssignmentPageController()
-        page1.view.backgroundColor = UIColor.blue
-        
-        let page2 = AssignmentPageController()
-        page2.view.backgroundColor = UIColor.red
-        
-        let page3 = AssignmentPageController()
-        
-        pages.append(page1)
-        pages.append(page2)
-        pages.append(page3)
+        guard let startPage = pages[start] else {
+            return
+        }
+        self.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +43,6 @@ class PagedAssignmentController: UIPageViewController {
 extension PagedAssignmentController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
@@ -54,8 +53,8 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
             return nil
         }
         
-        guard pages.count > previousIndex else {
-            return nil
+        if self.pages[previousIndex] == nil {
+            self.setPage(assignment: self.assignments[previousIndex], index: previousIndex)
         }
         
         return pages[previousIndex]
@@ -67,18 +66,22 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
         }
         
         let nextIndex = viewControllerIndex + 1
-        let orderedViewControllersCount = pages.count
+        let assignmentsCount = assignments.count
         
-        guard orderedViewControllersCount != nextIndex else {
+        guard nextIndex < assignmentsCount else {
             return nil
         }
         
-        guard orderedViewControllersCount > nextIndex else {
-            return nil
+        if self.pages[nextIndex] == nil {
+            self.setPage(assignment: self.assignments[nextIndex], index: nextIndex)
         }
         
         return pages[nextIndex]
     }
     
-    
+    func setPage(assignment:Assignment, index: Int) {
+        let page = AssignmentPageController()
+        page.assignmentTitle = assignment.getTitle()
+        self.pages[index] = page
+    }
 }

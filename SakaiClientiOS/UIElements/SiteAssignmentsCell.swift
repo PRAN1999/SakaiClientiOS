@@ -52,15 +52,16 @@ class SiteAssignmentsCell: UITableViewCell {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
+        self.titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0).isActive = true
         self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         
-        self.collectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.collectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        self.collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        self.collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         self.collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         self.heightAnchor.constraint(greaterThanOrEqualToConstant: 300).isActive = true
         self.collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
+        self.collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
         
         let constraint = NSLayoutConstraint(item: self.titleLabel,
                                             attribute: .bottom,

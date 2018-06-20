@@ -48,7 +48,6 @@ class GradebookCell: UITableViewCell {
         self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         self.titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         
         self.gradeLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         self.gradeLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true

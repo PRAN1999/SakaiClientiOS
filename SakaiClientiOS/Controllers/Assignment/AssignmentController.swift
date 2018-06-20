@@ -35,6 +35,8 @@ extension AssignmentController: UICollectionViewDelegate {
         print("selected")
         let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagedAssignmentController
+        let dataSource = collectionView.dataSource as! AssignmentDataSource
+        controller.setAssignments(assignments: dataSource.assignments, start: indexPath.row)
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }
