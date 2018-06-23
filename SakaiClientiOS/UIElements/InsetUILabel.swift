@@ -30,7 +30,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         
         self.titleLabel.font = UIFont.systemFont(ofSize: 11.0, weight: UIFont.Weight.light)
         
-        self.backgroundColor = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
+        self.backgroundColor = AppGlobals.SAKAI_RED
         
         self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
@@ -57,6 +57,5 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
     
     func setAttributedText(text: NSAttributedString?) {
         self.titleLabel.attributedText = text
-        
     }
 }

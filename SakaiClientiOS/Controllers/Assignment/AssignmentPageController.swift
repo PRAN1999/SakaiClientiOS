@@ -10,7 +10,7 @@ import UIKit
 class AssignmentPageController: UIViewController {
 
     var pageView: AssignmentPageView!
-    var assignmentTitle:String?
+    var assignment: Assignment?
     
     override func loadView() {
         pageView = AssignmentPageView(frame: .zero)
@@ -20,7 +20,7 @@ class AssignmentPageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pageView.backgroundColor = UIColor.white
-        pageView.titleLabel.setText(text: assignmentTitle)
+        pageView.titleLabel.setText(text: assignment?.getTitle())
         // Do any additional setup after loading the view.
     }
 

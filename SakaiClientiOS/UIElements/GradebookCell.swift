@@ -48,36 +48,16 @@ class GradebookCell: UITableViewCell {
         self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         self.titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        self.titleLabel.trailingAnchor.constraint(equalTo: self.gradeLabel.leadingAnchor).isActive = true
+        self.titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5).isActive = true
         
         self.gradeLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         self.gradeLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         self.gradeLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        
-        self.contentView.addConstraint(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: .trailing,
-            relatedBy: .equal,
-            toItem: gradeLabel,
-            attribute: .leading,
-            multiplier: 1.0,
-            constant: 0.0)
-        )
-        
-        self.contentView.addConstraint(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: .width,
-            relatedBy: .equal,
-            toItem: margins,
-            attribute: .width,
-            multiplier: 0.5,
-            constant: 0)
-        )
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

@@ -31,7 +31,7 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     func setup() {
         self.label = UILabel()
         self.label.font = UIFont.init(name: "Helvetica", size: 25.0)
-        self.label.textColor = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
+        self.label.textColor = AppGlobals.SAKAI_RED
         
         self.backgroundHeaderView = UIView(frame: self.bounds)
         self.backgroundHeaderView.backgroundColor = UIColor.lightGray
@@ -60,25 +60,10 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
         
         self.label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         self.label.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        //self.label.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
         
         self.imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        
-        self.addConstraint(NSLayoutConstraint(item: self.imageLabel,
-                                              attribute: .top,
-                                              relatedBy: .lessThanOrEqual,
-                                              toItem: margins,
-                                              attribute: .top,
-                                              multiplier: 1.0,
-                                              constant: 5.0))
-        
-        self.addConstraint(NSLayoutConstraint(item: self.imageLabel,
-                                              attribute: .bottom,
-                                              relatedBy: .lessThanOrEqual,
-                                              toItem: margins,
-                                              attribute: .bottom,
-                                              multiplier: 1.0,
-                                              constant: 5.0))
+        self.imageLabel.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor, constant: 5.0).isActive = true
+        self.imageLabel.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor, constant: 5.0).isActive = true
         
         let constraint = NSLayoutConstraint(item: label,
                                            attribute: .trailing,

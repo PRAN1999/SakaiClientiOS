@@ -12,6 +12,8 @@ final class AppGlobals {
     static var siteTermMap:[String: Term] = [:]
     static var siteTitleMap:[String:String] = [:]
     
+    static var processPool = WKProcessPool()
+    
     static var TO_RELOAD:Bool = true
     static var IS_LOGGED_IN = false
     
@@ -28,12 +30,12 @@ final class AppGlobals {
     static let GRADEBOOK_URL = BASE_URL + "gradebook/my.json"
     static let ASSIGNMENT_URL = BASE_URL + "assignment/my.json"
     
-    static var PROCESS_POOL = WKProcessPool()
+    static let SAKAI_RED = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
     
     static func flushGlobals() {
         self.siteTermMap = [:]
         self.siteTitleMap = [:]
-        self.PROCESS_POOL = WKProcessPool()
+        self.processPool = WKProcessPool()
     }
     
 }

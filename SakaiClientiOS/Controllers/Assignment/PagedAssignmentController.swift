@@ -81,7 +81,7 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
     
     func setPage(assignment:Assignment, index: Int) {
         let page = AssignmentPageController()
-        page.assignmentTitle = assignment.getTitle()
+        page.assignment = assignment
         self.pages[index] = page
     }
 }

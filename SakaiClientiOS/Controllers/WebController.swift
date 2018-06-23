@@ -21,7 +21,7 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
      */
     override func loadView() {
         let configuration = WKWebViewConfiguration()
-        configuration.processPool = AppGlobals.PROCESS_POOL
+        configuration.processPool = AppGlobals.processPool
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView.uiDelegate = self
         webView.navigationDelegate = self;

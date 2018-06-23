@@ -15,7 +15,6 @@ class FloatingHeaderCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -30,7 +29,7 @@ class FloatingHeaderCell: UITableViewCell {
     }
     
     func setup() {
-        self.backgroundColor = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
+        self.backgroundColor = AppGlobals.SAKAI_RED
         
         self.titleLabel = UILabel()
         self.titleLabel.textColor = UIColor.black

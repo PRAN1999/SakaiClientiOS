@@ -32,12 +32,9 @@ class AssignmentCell: UICollectionViewCell {
         self.dueLabel = InsetUILabel()
         self.descLabel = UITextView()
         
-        //self.descLabel.titleLabel.numberOfLines = 0
-        //self.descLabel.titleLabel.lineBreakMode = .byWordWrapping
         self.descLabel.isEditable = false
         self.descLabel.isSelectable = true
         self.descLabel.backgroundColor = UIColor.white
-        //self.descLabel.addUserInteraction()
         
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
