@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:LNPopupController/LNPopupController.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:SakaiClientiOS.xcodeproj">
    </FileRef>
    <FileRef

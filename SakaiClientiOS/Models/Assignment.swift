@@ -20,9 +20,10 @@ class Assignment: TermSortable, SiteSortable {
     private var maxPoints:Double?
     private var currentGrade:Double?
     private var resubmissionAllowed:Bool?
+    private var attachments:[NSAttributedString]?
     
-    init(_ title:String, _ dueTimeString:String, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?, _ status:String?, _ maxPoints:Double?, _ currentGrade: Double?,
-         _ resubmissionAllowed:Bool?) {
+    private init(_ title:String, _ dueTimeString:String, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?, _ status:String?, _ maxPoints:Double?, _ currentGrade: Double?,
+                 _ resubmissionAllowed:Bool?, _ attachments: [NSAttributedString]?) {
         self.title = title
         self.dueTimeString = dueTimeString
         self.term = term
@@ -33,6 +34,7 @@ class Assignment: TermSortable, SiteSortable {
         self.maxPoints = maxPoints
         self.currentGrade = currentGrade
         self.resubmissionAllowed = resubmissionAllowed
+        self.attachments = attachments
     }
     
     convenience init(data: JSON) {
@@ -47,9 +49,24 @@ class Assignment: TermSortable, SiteSortable {
         if let pointString = data["gradeScaleMaxPoints"].string {
             maxPoints = Double(pointString)
         }
-        var currentGrade:Double?
+        
+        let currentGrade:Double? = nil
         let resubmissionAllowed:Bool? = data["allowResubmission"].bool
-        self.init(title, dueTimeString, term, siteId, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed)
+        
+        var attachmentStrings:[NSAttributedString] = [NSAttributedString]()
+        if let attachmentObjects = data["attachments"].array {
+            for attachmentObject in attachmentObjects {
+                let text = attachmentObject["name"].string!
+                let attachmentString = NSMutableAttributedString(string: text)
+                
+                let url = attachmentObject["url"].string!
+                let range = NSRange(location: 0, length: text.count)
+                attachmentString.addAttribute(.link, value: url, range: range)
+                attachmentStrings.append(attachmentString)
+            }
+        }
+        
+        self.init(title, dueTimeString, term, siteId, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings)
     }
     
     func getTitle() -> String {
@@ -90,5 +107,9 @@ class Assignment: TermSortable, SiteSortable {
     
     func getResubmission() -> Bool? {
         return resubmissionAllowed
+    }
+    
+    func getAttachments() -> [NSAttributedString]? {
+        return attachments
     }
 }

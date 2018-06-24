@@ -56,3 +56,14 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     }
 
 }
+
+extension UIViewController: UITextViewDelegate {
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        let webController = WebController()
+        webController.setURL(url: URL)
+        
+        self.navigationController?.pushViewController(webController, animated: true)
+        
+        return false
+    }
+}

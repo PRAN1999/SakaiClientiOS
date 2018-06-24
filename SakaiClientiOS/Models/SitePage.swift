@@ -25,7 +25,7 @@ class SitePage {
     private var siteId:String
     private var siteType:UIViewController.Type
     
-    init(_ id:String, _ title:String, _ siteId:String, _ siteType:UIViewController.Type) {
+    private init(_ id:String, _ title:String, _ siteId:String, _ siteType:UIViewController.Type) {
         self.id = id
         self.title = title
         self.siteId = siteId

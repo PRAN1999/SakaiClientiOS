@@ -46,7 +46,7 @@ class Site: TermSortable {
      A Site object
      
      */
-    init(_ id:String, _ title:String, _ term:Term, _ description: String?, _ pages:[SitePage]) {
+    private init(_ id:String, _ title:String, _ term:Term, _ description: String?, _ pages:[SitePage]) {
         self.id = id
         self.title = title
         self.term = term

@@ -18,8 +18,7 @@ class AssignmentDetailsView: UIScrollView {
     var submissionLabel:DetailLabel!
     
     var instructionView:UITextView!
-    
-    var bottomView: UIView!
+    var attachmentsView:UITextView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,20 +40,22 @@ class AssignmentDetailsView: UIScrollView {
         gradeLabel = DetailLabel()
         submissionLabel = DetailLabel()
         instructionView = UITextView()
+        attachmentsView = UITextView()
         
-        bottomView = UIView()
+        prepareTextView(instructionView)
+        prepareTextView(attachmentsView)
     }
     
     func addViews() {
         self.addSubview(contentView)
         
-        self.contentView.addSubview(self.statusLabel)
-        self.contentView.addSubview(self.pointsLabel)
-        self.contentView.addSubview(self.dueLabel)
-        self.contentView.addSubview(self.gradeLabel)
-        self.contentView.addSubview(self.submissionLabel)
-        self.contentView.addSubview(self.bottomView)
-        self.contentView.addSubview(self.instructionView)
+        contentView.addSubview(statusLabel)
+        contentView.addSubview(pointsLabel)
+        contentView.addSubview(dueLabel)
+        contentView.addSubview(gradeLabel)
+        contentView.addSubview(submissionLabel)
+        contentView.addSubview(instructionView)
+        contentView.addSubview(attachmentsView)
     }
     
     func setConstraints() {
@@ -68,7 +69,7 @@ class AssignmentDetailsView: UIScrollView {
         gradeLabel.translatesAutoresizingMaskIntoConstraints = false
         submissionLabel.translatesAutoresizingMaskIntoConstraints = false
         instructionView.translatesAutoresizingMaskIntoConstraints = false
-        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        attachmentsView.translatesAutoresizingMaskIntoConstraints = false
         
         let margins = contentView.layoutMarginsGuide
         
@@ -91,14 +92,56 @@ class AssignmentDetailsView: UIScrollView {
         
         submissionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         submissionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        submissionLabel.bottomAnchor.constraint(equalTo: instructionView.topAnchor).isActive = true
+        submissionLabel.bottomAnchor.constraint(equalTo: instructionView.topAnchor, constant: -10.0).isActive = true
         
-        instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        instructionView.bottomAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
+        instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5.0).isActive = true
+        instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5.0).isActive = true
+        instructionView.bottomAnchor.constraint(equalTo: attachmentsView.topAnchor, constant: -10.0).isActive = true
         
-        bottomView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        bottomView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        bottomView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        attachmentsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5.0).isActive = true
+        attachmentsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5.0).isActive = true
+        attachmentsView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+    }
+    
+    func setInstructions(attributedText: NSAttributedString?) {
+        guard let text = attributedText else {
+            return
+        }
+        let instructions = NSMutableAttributedString(attributedString: text)
+        let instructionRange = NSRange(location: 0, length: instructions.string.count)
+        instructions.addAttribute(.font, value: UIFont.systemFont(ofSize: 16.0, weight: .regular), range: instructionRange)
+        
+        let description = NSMutableAttributedString(string: "Instructions: \n\n")
+        let descriptionRange = NSRange(location: 0, length: description.string.count)
+        description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
+        
+        description.append(instructions)
+        instructionView.attributedText = description
+    }
+    
+    func setAttachments(resources:[NSAttributedString]?) {
+        guard let attachments = resources else {
+            return
+        }
+        let description = NSMutableAttributedString(string: "Attachments: \n\n")
+        let descriptionRange = NSRange(location: 0, length: description.string.count)
+        description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
+        
+        for attachment in attachments {
+            let mutableAttachment = NSMutableAttributedString(attributedString: attachment)
+            let mutableAttachmentRange = NSRange(location: 0, length: mutableAttachment.string.count)
+            mutableAttachment.addAttribute(.font, value: UIFont.systemFont(ofSize: 16.0, weight: .regular), range: mutableAttachmentRange)
+            description.append(mutableAttachment)
+            
+            let spaceString = "\n\n"
+            description.append(NSAttributedString(string: spaceString))
+        }
+        attachmentsView.attributedText = description
+    }
+    
+    func prepareTextView(_ textView:UITextView) {
+        textView.isEditable = false
+        textView.isSelectable = true
+        textView.isScrollEnabled = false
     }
 }

@@ -26,7 +26,6 @@ class LoginViewController: WebController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        RequestManager.shared.reset()
         let myURL = URL(string: AppGlobals.LOGIN_URL)
         loadURL(urlOpt: myURL!)
     }

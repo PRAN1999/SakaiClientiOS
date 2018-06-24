@@ -8,15 +8,13 @@
 import Foundation
 import UIKit
 
-protocol BaseTableDataSource : UITableViewDataSource {
+protocol HideableTableDataSource : UITableViewDataSource{
     var numRows:[Int] { get set }
     var numSections:Int { get set }
     
-    func loadData(completion: @escaping () -> Void)
-    func resetValues()
-}
-
-protocol HideableTableDataSource : BaseTableDataSource {
     var isHidden:[Bool] { get set }
     var terms:[Term] { get set }
+    
+    func loadData(completion: @escaping () -> Void)
+    func resetValues()
 }
