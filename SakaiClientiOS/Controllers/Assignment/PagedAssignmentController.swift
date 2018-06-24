@@ -6,25 +6,30 @@
 //
 
 import UIKit
+import LNPopupController
 
 class PagedAssignmentController: UIPageViewController {
 
     var pages: [UIViewController?] = [UIViewController]()
     var assignments: [Assignment] = [Assignment]()
     var start:Int = 0
+    var popupController: WebController = WebController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
+        self.popupInteractionStyle = .drag
         self.setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+        self.tabBarController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
+        self.tabBarController?.dismissPopupBar(animated: true, completion: nil)
     }
     
     func setAssignments(assignments: [Assignment], start: Int) {
@@ -91,5 +96,9 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
         let page = AssignmentPageController()
         page.assignment = assignment
         pages[index] = page
+        guard let url = assignment.getURL() else {
+            return
+        }
+        popupController.setURL(url: URL(string: url)!)
     }
 }

@@ -44,3 +44,12 @@ class AssignmentPageController: UIViewController {
     }
 
 }
+
+extension AssignmentPageController {
+    
+    override func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        
+        return super.textView(textView, shouldInteractWith: URL, in: characterRange)
+    }
+    
+}

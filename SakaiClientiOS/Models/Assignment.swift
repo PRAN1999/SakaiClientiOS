@@ -21,9 +21,10 @@ class Assignment: TermSortable, SiteSortable {
     private var currentGrade:Double?
     private var resubmissionAllowed:Bool?
     private var attachments:[NSAttributedString]?
+    private var siteURL:String?
     
     private init(_ title:String, _ dueTimeString:String, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?, _ status:String?, _ maxPoints:Double?, _ currentGrade: Double?,
-                 _ resubmissionAllowed:Bool?, _ attachments: [NSAttributedString]?) {
+                 _ resubmissionAllowed:Bool?, _ attachments: [NSAttributedString]?, _ siteURL: String?) {
         self.title = title
         self.dueTimeString = dueTimeString
         self.term = term
@@ -35,6 +36,7 @@ class Assignment: TermSortable, SiteSortable {
         self.currentGrade = currentGrade
         self.resubmissionAllowed = resubmissionAllowed
         self.attachments = attachments
+        self.siteURL = siteURL
     }
     
     convenience init(data: JSON) {
@@ -66,7 +68,9 @@ class Assignment: TermSortable, SiteSortable {
             }
         }
         
-        self.init(title, dueTimeString, term, siteId, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings)
+        let siteURL = data["entityURL"].string
+        
+        self.init(title, dueTimeString, term, siteId, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings, siteURL)
     }
     
     func getTitle() -> String {
@@ -111,5 +115,9 @@ class Assignment: TermSortable, SiteSortable {
     
     func getAttachments() -> [NSAttributedString]? {
         return attachments
+    }
+    
+    func getURL() -> String? {
+        return siteURL
     }
 }

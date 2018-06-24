@@ -30,8 +30,13 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadURL(urlOpt: self.url)
+        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadURL(urlOpt: self.url)
     }
 
     override func didReceiveMemoryWarning() {
