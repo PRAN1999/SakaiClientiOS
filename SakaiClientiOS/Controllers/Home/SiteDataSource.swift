@@ -17,7 +17,7 @@ class SiteDataSource: BaseTableDataSourceImplementation {
             fatalError("Not a Site Table View Cell")
         }
         
-        let site:Site = self.sites[indexPath.section][indexPath.row]
+        let site:Site = sites[indexPath.section][indexPath.row]
         
         cell.titleLabel.text = site.getTitle()
         
@@ -26,7 +26,7 @@ class SiteDataSource: BaseTableDataSourceImplementation {
     
     override func resetValues() {
         super.resetValues()
-        self.sites = []
+        sites = []
     }
     
     override func loadData(completion: @escaping () -> Void) {

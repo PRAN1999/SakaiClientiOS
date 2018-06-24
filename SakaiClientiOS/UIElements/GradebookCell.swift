@@ -16,9 +16,9 @@ class GradebookCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setup()
-        self.addViews()
-        self.setConstraints()
+        setup()
+        addViews()
+        setConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,12 +26,12 @@ class GradebookCell: UITableViewCell {
     }
     
     func setup() {
-        self.gradeLabel = UILabel()
-        self.gradeLabel.textAlignment = NSTextAlignment.right
+        gradeLabel = UILabel()
+        gradeLabel.textAlignment = NSTextAlignment.right
         
-        self.titleLabel = UILabel()
-        self.titleLabel.numberOfLines = 0
-        self.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        titleLabel = UILabel()
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     }
     
     func addViews() {
@@ -42,18 +42,18 @@ class GradebookCell: UITableViewCell {
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
         
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.gradeLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        gradeLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        self.titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        self.titleLabel.trailingAnchor.constraint(equalTo: self.gradeLabel.leadingAnchor).isActive = true
-        self.titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: gradeLabel.leadingAnchor).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5).isActive = true
         
-        self.gradeLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        self.gradeLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        self.gradeLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        gradeLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        gradeLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        gradeLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

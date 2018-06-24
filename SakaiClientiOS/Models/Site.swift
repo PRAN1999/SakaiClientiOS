@@ -90,7 +90,7 @@ class Site: TermSortable {
 
     */
     func getId() -> String {
-        return self.id
+        return id
     }
     
     /**
@@ -99,7 +99,7 @@ class Site: TermSortable {
      
     */
     func getTitle() -> String {
-        return self.title
+        return title
     }
     
     /**
@@ -108,7 +108,7 @@ class Site: TermSortable {
      
      */
     func getTerm() -> Term {
-        return self.term
+        return term
     }
     
     /**
@@ -117,7 +117,7 @@ class Site: TermSortable {
      
      */
     func getDescription() -> String? {
-        return self.description
+        return description
     }
     
     /**
@@ -126,7 +126,7 @@ class Site: TermSortable {
      
      */
     func getPages() -> [SitePage] {
-        return self.pages
+        return pages
     }
     
     /**

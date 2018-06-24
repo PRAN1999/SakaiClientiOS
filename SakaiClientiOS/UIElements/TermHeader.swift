@@ -19,9 +19,9 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        self.setup()
-        self.addViews()
-        self.setupConstraints()
+        setup()
+        addViews()
+        setupConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,20 +29,20 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     }
     
     func setup() {
-        self.label = UILabel()
-        self.label.font = UIFont.init(name: "Helvetica", size: 25.0)
-        self.label.textColor = AppGlobals.SAKAI_RED
+        label = UILabel()
+        label.font = UIFont.init(name: "Helvetica", size: 25.0)
+        label.textColor = AppGlobals.SAKAI_RED
         
-        self.backgroundHeaderView = UIView(frame: self.bounds)
-        self.backgroundHeaderView.backgroundColor = UIColor.lightGray
+        backgroundHeaderView = UIView(frame: self.bounds)
+        backgroundHeaderView.backgroundColor = UIColor.lightGray
         
-        self.imageLabel = UIImageView()
-        self.imageLabel.tintColor = UIColor.black
+        imageLabel = UIImageView()
+        imageLabel.tintColor = UIColor.black
         
-        self.tapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
-        self.tapRecognizer.delegate = self
-        self.tapRecognizer.numberOfTapsRequired = 1
-        self.tapRecognizer.numberOfTouchesRequired = 1
+        tapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
+        tapRecognizer.delegate = self
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.numberOfTouchesRequired = 1
     }
     
     func addViews() {
@@ -55,15 +55,15 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     func setupConstraints() {
         let margins = self.layoutMarginsGuide
         
-        self.label.translatesAutoresizingMaskIntoConstraints = false
-        self.imageLabel.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        imageLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.label.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        label.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         
-        self.imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        self.imageLabel.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor, constant: 5.0).isActive = true
-        self.imageLabel.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor, constant: 5.0).isActive = true
+        imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        imageLabel.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor, constant: 5.0).isActive = true
+        imageLabel.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor, constant: 5.0).isActive = true
         
         let constraint = NSLayoutConstraint(item: label,
                                            attribute: .trailing,
@@ -77,15 +77,15 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     }
     
     func setImage(isHidden: Bool) {
-        self.imageLabel.layer.removeAllAnimations()
+        imageLabel.layer.removeAllAnimations()
         if isHidden {
-            self.imageLabel.image = UIImage(named: "show_content")
+            imageLabel.image = UIImage(named: "show_content")
         } else {
-            self.imageLabel.image = UIImage(named: "hide_content")
+            imageLabel.image = UIImage(named: "hide_content")
         }
     }
     
     func setTitle(title: String) {
-        self.label.text = title
+        label.text = title
     }
 }

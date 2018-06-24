@@ -18,10 +18,10 @@ class BaseTableDataSourceImplementation: NSObject, HideableTableDataSource {
     var numSections = 0
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.isHidden[section] {
+        if isHidden[section] {
             return 0
         }
-        return self.numRows[section]
+        return numRows[section]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -29,15 +29,15 @@ class BaseTableDataSourceImplementation: NSObject, HideableTableDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.numSections
+        return numSections
     }
     
     func resetValues() {
-        self.numRows = []
-        self.terms = []
-        self.numSections = 0
+        numRows = []
+        terms = []
+        numSections = 0
         
-        self.isHidden = []
+        isHidden = []
     }
     
     func loadData(completion: @escaping () -> Void) {

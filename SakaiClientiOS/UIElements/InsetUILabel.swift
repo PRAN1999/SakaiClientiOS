@@ -14,9 +14,9 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setup()
-        self.addViews()
-        self.setConstraints()
+        setup()
+        addViews()
+        setConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,11 +24,11 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
     }
     
     func setup() {
-        self.titleLabel = UILabel()
-        self.titleLabel.lineBreakMode = .byWordWrapping
-        self.titleLabel.numberOfLines = 2
+        titleLabel = UILabel()
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.numberOfLines = 2
         
-        self.titleLabel.font = UIFont.systemFont(ofSize: 11.0, weight: UIFont.Weight.light)
+        titleLabel.font = UIFont.systemFont(ofSize: 11.0, weight: UIFont.Weight.light)
         
         self.backgroundColor = AppGlobals.SAKAI_RED
         
@@ -43,19 +43,19 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
     func setConstraints() {
         let margins = self.layoutMarginsGuide
         
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        self.titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
     
     func setText(text:String?) {
-        self.titleLabel.text = text
+        titleLabel.text = text
     }
     
     func setAttributedText(text: NSAttributedString?) {
-        self.titleLabel.attributedText = text
+        titleLabel.attributedText = text
     }
 }

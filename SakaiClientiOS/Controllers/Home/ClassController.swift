@@ -10,10 +10,7 @@ import UIKit
 class ClassController: UITableViewController {
 
     var sitePages:[SitePage] = [SitePage]()
-    
     var numSections = 1
-    
-    var indicator: LoadingIndicator!
     
     override func loadView() {
         let customTable: UITableView = UITableView(frame: .zero, style: UITableViewStyle.plain)
@@ -26,15 +23,12 @@ class ClassController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
+        self.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return numSections
@@ -48,7 +42,7 @@ class ClassController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
             fatalError("Not a Site Table View Cell")
         }
-        let page:SitePage = self.sitePages[indexPath.row]
+        let page:SitePage = sitePages[indexPath.row]
         cell.titleLabel.text = page.getTitle()
         return cell
     }
@@ -76,7 +70,6 @@ class ClassController: UITableViewController {
     }
     
     func setPages(pages: [SitePage]) {
-        self.sitePages = pages
+        sitePages = pages
     }
-
 }

@@ -28,7 +28,7 @@ class LoginViewController: WebController {
         super.viewDidLoad()
         RequestManager.shared.reset()
         let myURL = URL(string: AppGlobals.LOGIN_URL)
-        self.loadURL(urlOpt: myURL!)
+        loadURL(urlOpt: myURL!)
     }
     
     override func didReceiveMemoryWarning() {

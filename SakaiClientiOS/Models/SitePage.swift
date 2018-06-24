@@ -46,18 +46,18 @@ class SitePage {
     }
     
     func getId() -> String {
-        return self.id
+        return id
     }
     
     func getTitle() -> String {
-        return self.title
+        return title
     }
     
     func getSiteId() -> String {
-        return self.siteId
+        return siteId
     }
     
     func getSiteType() -> UIViewController.Type {
-        return self.siteType
+        return siteType
     }
 }

@@ -84,7 +84,7 @@ class RequestManager {
     
     func logout(completion: @escaping () -> Void) {
         
-        self.reset()
+        reset()
         AppGlobals.TO_RELOAD = true
         AppGlobals.IS_LOGGED_IN = false
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
@@ -155,7 +155,7 @@ class RequestManager {
      */
     
     func getSites(completion: @escaping (_ site: [[Site]]?) -> Void) {
-         self.makeRequest(url: AppGlobals.SITES_URL, method: .get) { response in
+         makeRequest(url: AppGlobals.SITES_URL, method: .get) { response in
             
             //print(response)
             guard let data = response.result.value else {
@@ -197,7 +197,7 @@ class RequestManager {
     
     func getSiteGrades(siteId:String, completion: @escaping (_ grades: [GradeItem]?) -> Void) {
         let url:String = AppGlobals.SITE_GRADEBOOK_URL.replacingOccurrences(of: "*", with: siteId)
-        self.makeRequest(url: url, method: .get) { response in
+        makeRequest(url: url, method: .get) { response in
             guard let data = response.result.value else {
                 print("error")
                 return
@@ -229,7 +229,7 @@ class RequestManager {
     
     func getAllGrades(completion: @escaping (_ grades: [[[GradeItem]]]?) -> Void) {
         let url:String = AppGlobals.GRADEBOOK_URL
-        self.makeRequest(url: url, method: .get) { response in
+        makeRequest(url: url, method: .get) { response in
             guard let data = response.result.value else {
                 print("error")
                 return
@@ -273,7 +273,7 @@ class RequestManager {
     
     func getAllAssignments(completion: @escaping (_ assignments: [[[Assignment]]]?) -> Void) {
         let url:String = AppGlobals.ASSIGNMENT_URL
-        self.makeRequest(url: url, method: .get) { response in
+        makeRequest(url: url, method: .get) { response in
             guard let data = response.result.value else {
                 print("error")
                 return

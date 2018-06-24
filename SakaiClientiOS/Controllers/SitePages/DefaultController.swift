@@ -13,27 +13,16 @@ class DefaultController: UIViewController {
     var siteId: String?
     
     override func loadView() {
-        view = UIView()
-        view.backgroundColor = .white
+        self.view = UIView()
+        self.view.backgroundColor = .white
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func loadData() {
-        
-    }
-    
-    func loadData(for siteId:String) {
-        
     }
 
 }

@@ -66,7 +66,7 @@ class Term {
      
      */
     func getYear() -> Int? {
-        return self.year
+        return year
     }
     
     /**
@@ -75,7 +75,7 @@ class Term {
      
      */
     func getTermInt() -> Int? {
-        return self.termInt
+        return termInt
     }
     
     /**
@@ -84,7 +84,7 @@ class Term {
      
      */
     func getTermString() -> String? {
-        return self.termString
+        return termString
     }
     
     /**

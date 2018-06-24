@@ -20,7 +20,6 @@ class HomeController: CollapsibleSectionController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Home loaded")
         self.title = "Classes"
         self.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
@@ -31,16 +30,16 @@ class HomeController: CollapsibleSectionController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.TABLE_CELL_HEIGHT
+        return TABLE_CELL_HEIGHT
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.transitionToClass(indexPath: indexPath)
+        transitionToClass(indexPath: indexPath)
     }
     
     func transitionToClass(indexPath: IndexPath) {
         let classController:ClassController = ClassController()
-        let site:Site = self.siteDataSource.sites[indexPath.section][indexPath.row]
+        let site:Site = siteDataSource.sites[indexPath.section][indexPath.row]
         classController.title = site.getTitle()
         classController.setPages(pages: site.getPages())
         self.navigationController?.pushViewController(classController, animated: true)

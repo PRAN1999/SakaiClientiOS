@@ -16,14 +16,23 @@ class Assignment: TermSortable, SiteSortable {
     private var attributedInstructions:NSAttributedString?
     private var term:Term
     private var siteId:String
+    private var status:String?
+    private var maxPoints:Double?
+    private var currentGrade:Double?
+    private var resubmissionAllowed:Bool?
     
-    init(_ title:String, _ dueTimeString:String, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?) {
+    init(_ title:String, _ dueTimeString:String, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?, _ status:String?, _ maxPoints:Double?, _ currentGrade: Double?,
+         _ resubmissionAllowed:Bool?) {
         self.title = title
         self.dueTimeString = dueTimeString
         self.term = term
         self.siteId = siteId
         self.instructions = instructions
         self.attributedInstructions = attributedInstructions
+        self.status = status
+        self.maxPoints = maxPoints
+        self.currentGrade = currentGrade
+        self.resubmissionAllowed = resubmissionAllowed
     }
     
     convenience init(data: JSON) {
@@ -33,30 +42,53 @@ class Assignment: TermSortable, SiteSortable {
         let attributedInstructions:NSAttributedString? = instructions?.htmlAttributedString
         let siteId:String = data["context"].string!
         let term:Term = AppGlobals.siteTermMap[siteId]!
-        self.init(title, dueTimeString, term, siteId, instructions, attributedInstructions)
+        let status:String? = data["status"].string
+        var maxPoints:Double?
+        if let pointString = data["gradeScaleMaxPoints"].string {
+            maxPoints = Double(pointString)
+        }
+        var currentGrade:Double?
+        let resubmissionAllowed:Bool? = data["allowResubmission"].bool
+        self.init(title, dueTimeString, term, siteId, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed)
     }
     
     func getTitle() -> String {
-        return self.title
+        return title
     }
     
     func getDueTimeString() -> String {
-        return self.dueTimeString
+        return dueTimeString
     }
     
     func getInstructions() -> String? {
-        return self.instructions
+        return instructions
     }
     
     func getAttributedInstructions() -> NSAttributedString? {
-        return self.attributedInstructions
+        return attributedInstructions
     }
     
     func getTerm() -> Term {
-        return self.term
+        return term
     }
     
     func getSiteId() -> String {
-        return self.siteId
+        return siteId
+    }
+    
+    func getStatus() -> String? {
+        return status
+    }
+    
+    func getMaxPoints() -> Double? {
+        return maxPoints
+    }
+    
+    func getCurrentGrade() -> Double? {
+        return currentGrade
+    }
+    
+    func getResubmission() -> Bool? {
+        return resubmissionAllowed
     }
 }

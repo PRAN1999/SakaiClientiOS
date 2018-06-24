@@ -14,19 +14,23 @@ class AssignmentPageController: UIViewController {
     
     override func loadView() {
         pageView = AssignmentPageView(frame: .zero)
-        view = pageView
+        self.view = pageView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.pageView.backgroundColor = UIColor.white
+        pageView.backgroundColor = UIColor.white
         pageView.titleLabel.setText(text: assignment?.getTitle())
-        // Do any additional setup after loading the view.
+        
+        pageView.scrollView.gradeLabel.setKeyVal(key: "Current Grade:", val: assignment?.getCurrentGrade())
+        pageView.scrollView.pointsLabel.setKeyVal(key: "Max Points:", val: assignment?.getMaxPoints())
+        pageView.scrollView.submissionLabel.setKeyVal(key: "Allows Resubmission:", val: assignment?.getResubmission())
+        pageView.scrollView.statusLabel.setKeyVal(key: "Status:", val: assignment?.getStatus())
+        pageView.scrollView.dueLabel.setKeyVal(key: "Due:", val: assignment?.getDueTimeString())
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }

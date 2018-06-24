@@ -18,9 +18,9 @@ class AssignmentCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setup()
-        self.addViews()
-        self.setConstraints()
+        setup()
+        addViews()
+        setConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,13 +28,13 @@ class AssignmentCell: UICollectionViewCell {
     }
     
     func setup() {
-        self.titleLabel = InsetUILabel()
-        self.dueLabel = InsetUILabel()
-        self.descLabel = UITextView()
+        titleLabel = InsetUILabel()
+        dueLabel = InsetUILabel()
+        descLabel = UITextView()
         
-        self.descLabel.isEditable = false
-        self.descLabel.isSelectable = true
-        self.descLabel.backgroundColor = UIColor.white
+        descLabel.isEditable = false
+        descLabel.isSelectable = true
+        descLabel.backgroundColor = UIColor.white
         
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
@@ -52,23 +52,23 @@ class AssignmentCell: UICollectionViewCell {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         let margins = self.layoutMarginsGuide
         
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.dueLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.descLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        dueLabel.translatesAutoresizingMaskIntoConstraints = false
+        descLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        self.titleLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
         
-        self.dueLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        self.dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        self.dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
+        dueLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
         
-        self.descLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        self.descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        self.descLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
+        descLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        descLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
     }
 }

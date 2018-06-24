@@ -17,9 +17,9 @@ class SiteAssignmentsCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setup()
-        self.addViews()
-        self.setConstraints()
+        setup()
+        addViews()
+        setConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,18 +27,18 @@ class SiteAssignmentsCell: UITableViewCell {
     }
     
     func setup() {
-        self.titleLabel = UILabel()
-        self.titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        self.titleLabel.textColor = UIColor.white
-        self.titleLabel.textAlignment = .center
-        self.titleLabel.backgroundColor = UIColor.black
-        self.titleLabel.layer.cornerRadius = 5
-        self.titleLabel.layer.masksToBounds = true
+        titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.backgroundColor = UIColor.black
+        titleLabel.layer.cornerRadius = 5
+        titleLabel.layer.masksToBounds = true
         
         let layout = AssignmentLayout()
         
-        self.collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        self.collectionView.backgroundColor = UIColor.white
+        collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.white
     }
     
     func addViews() {
@@ -52,16 +52,16 @@ class SiteAssignmentsCell: UITableViewCell {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
-        self.titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0).isActive = true
-        self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        self.titleLabel.bottomAnchor.constraint(equalTo: self.collectionView.topAnchor, constant: -10.0).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10.0).isActive = true
         
-        self.collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        self.collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        self.collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
-        self.collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
+        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
+        collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
         
         self.heightAnchor.constraint(greaterThanOrEqualToConstant: 300).isActive = true
     }

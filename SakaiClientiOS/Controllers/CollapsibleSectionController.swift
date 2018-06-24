@@ -26,9 +26,10 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self.dataSource
-        self.indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
-        self.loadDataSource()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadDataSource))
+        
+        indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
+        loadDataSource()
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UITableViewHeaderFooterView? {
@@ -45,12 +46,11 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return self.TABLE_HEADER_HEIGHT
+        return TABLE_HEADER_HEIGHT
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
@@ -62,12 +62,12 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
     }
 
     @objc func loadDataSource() {
-        self.dataSource.resetValues()
+        dataSource.resetValues()
         self.tableView.reloadData()
     
-        self.indicator.startAnimating()
+        indicator.startAnimating()
         
-        self.dataSource.loadData(completion: {
+        dataSource.loadData(completion: {
             self.tableView.reloadData()
             
             self.indicator.stopAnimating()

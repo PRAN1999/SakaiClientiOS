@@ -73,7 +73,7 @@ class GradeItem: TermSortable, SiteSortable {
      
      */
     func getGrade() -> Double? {
-        return self.grade
+        return grade
     }
     
     /**
@@ -82,7 +82,7 @@ class GradeItem: TermSortable, SiteSortable {
      
      */
     func getPoints() -> Double {
-        return self.points
+        return points
     }
     
     /**
@@ -91,7 +91,7 @@ class GradeItem: TermSortable, SiteSortable {
      
      */
     func getTitle() -> String {
-        return self.title
+        return title
     }
     
     /**
@@ -100,7 +100,7 @@ class GradeItem: TermSortable, SiteSortable {
      
      */
     func getTerm() -> Term {
-        return self.term
+        return term
     }
     
     /**
@@ -109,7 +109,7 @@ class GradeItem: TermSortable, SiteSortable {
      
      */
     func getSiteId() -> String {
-        return self.siteId
+        return siteId
     }
     
 }

@@ -17,11 +17,13 @@ class AssignmentController: CollapsibleSectionController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.tableView.allowsSelection = false
-        self.siteAssignmentsDataSource.collectionViewDelegate = self
-        self.siteAssignmentsDataSource.textViewDelegate = self
         self.tableView.register(SiteAssignmentsCell.self, forCellReuseIdentifier: SiteAssignmentsCell.reuseIdentifier)
         self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+        
+        siteAssignmentsDataSource.collectionViewDelegate = self
+        siteAssignmentsDataSource.textViewDelegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,7 +39,7 @@ extension AssignmentController: UICollectionViewDelegate {
         let controller = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagedAssignmentController
         let dataSource = collectionView.dataSource as! AssignmentDataSource
         controller.setAssignments(assignments: dataSource.assignments, start: indexPath.row)
-        self.navigationController?.pushViewController(controller, animated: true)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -53,7 +55,7 @@ extension AssignmentController: UITextViewDelegate {
         let webController = WebController()
         webController.setURL(url: URL)
         
-        self.navigationController?.pushViewController(webController, animated: true)
+        navigationController?.pushViewController(webController, animated: true)
         
         return false
     }

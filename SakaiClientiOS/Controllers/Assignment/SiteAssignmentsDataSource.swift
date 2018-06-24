@@ -21,7 +21,7 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
             fatalError("Fail to dequeue cell")
         }
         
-        let siteId:String = self.assignments[indexPath.section][indexPath.row][0].getSiteId()
+        let siteId:String = assignments[indexPath.section][indexPath.row][0].getSiteId()
         let title:String? = AppGlobals.siteTitleMap[siteId]
         cell.titleLabel.text = title
         
@@ -29,7 +29,7 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
         
         cell.assignmentDataSource = AssignmentDataSource()
         cell.assignmentDataSource.textViewDelegate = textViewDelegate
-        cell.assignmentDataSource.loadData(list: self.assignments[indexPath.section][indexPath.row])
+        cell.assignmentDataSource.loadData(list: assignments[indexPath.section][indexPath.row])
         cell.collectionView.dataSource = cell.assignmentDataSource
         
         cell.collectionView.delegate = collectionViewDelegate
@@ -41,7 +41,7 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
     
     override func resetValues() {
         super.resetValues()
-        self.sites = []
+        sites = []
     }
     
     override func loadData(completion: @escaping () -> Void) {

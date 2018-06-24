@@ -14,9 +14,9 @@ class DetailLabel: UILabel {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setup()
-        self.addViews()
-        self.setConstraints()
+        setup()
+        addViews()
+        setConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,12 +24,15 @@ class DetailLabel: UILabel {
     }
     
     func setup() {
-        self.detailLabel = UILabel()
-        self.detailLabel.textAlignment = NSTextAlignment.right
+        detailLabel = UILabel()
+        detailLabel.textAlignment = NSTextAlignment.right
         
-        self.titleLabel = UILabel()
-        self.titleLabel.numberOfLines = 0
-        self.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        titleLabel = UILabel()
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderWidth = 1
     }
     
     func addViews() {
@@ -40,23 +43,26 @@ class DetailLabel: UILabel {
     func setConstraints() {
         let margins = self.layoutMarginsGuide
         
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.detailLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        detailLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        self.titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        self.titleLabel.trailingAnchor.constraint(equalTo: self.detailLabel.leadingAnchor).isActive = true
-        self.titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5)
+        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: detailLabel.leadingAnchor).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5)
         
-        self.detailLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        self.detailLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        self.detailLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        detailLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        detailLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        detailLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
     
-    func setKeyVal(key: String, val: String) {
-        self.titleLabel.text = key
-        self.detailLabel.text = val
+    func setKeyVal(key: String, val: Any?) {
+        titleLabel.text = key
+        guard let value = val else {
+            return
+        }
+        detailLabel.text = "\(value)"
     }
     
 }

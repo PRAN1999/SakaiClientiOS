@@ -16,21 +16,29 @@ class PagedAssignmentController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
-        self.setup()
+        setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
     }
     
     func setAssignments(assignments: [Assignment], start: Int) {
         pages = [UIViewController?](repeating: nil, count: assignments.count)
         self.assignments = assignments
         self.start = start
-        self.setPage(assignment: self.assignments[start], index: start)
+        setPage(assignment: self.assignments[start], index: start)
     }
     
     func setup() {
         guard let startPage = pages[start] else {
             return
         }
-        self.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
+        setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,8 +61,8 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
             return nil
         }
         
-        if self.pages[previousIndex] == nil {
-            self.setPage(assignment: self.assignments[previousIndex], index: previousIndex)
+        if pages[previousIndex] == nil {
+            setPage(assignment: assignments[previousIndex], index: previousIndex)
         }
         
         return pages[previousIndex]
@@ -72,8 +80,8 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
             return nil
         }
         
-        if self.pages[nextIndex] == nil {
-            self.setPage(assignment: self.assignments[nextIndex], index: nextIndex)
+        if pages[nextIndex] == nil {
+            setPage(assignment: assignments[nextIndex], index: nextIndex)
         }
         
         return pages[nextIndex]
@@ -82,6 +90,6 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
     func setPage(assignment:Assignment, index: Int) {
         let page = AssignmentPageController()
         page.assignment = assignment
-        self.pages[index] = page
+        pages[index] = page
     }
 }

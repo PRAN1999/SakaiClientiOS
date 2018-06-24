@@ -24,7 +24,7 @@ class GradebookDataSource: BaseTableDataSourceImplementation {
     
     override func resetValues() {
         super.resetValues()
-        self.gradeItems = []
+        gradeItems = []
     }
     
     override func loadData(completion: @escaping () -> Void) {
@@ -61,14 +61,14 @@ class GradebookDataSource: BaseTableDataSourceImplementation {
         var row:Int = 0
         
         for index in 0..<indexPath.section {
-            row += self.gradeItems[section][index].count + 1
+            row += gradeItems[section][index].count + 1
         }
         
         return row
     }
     
     func getSubsectionIndexPath(section:Int, row:Int) -> IndexPath {
-        let termSection:[[GradeItem]] = self.gradeItems[section]
+        let termSection:[[GradeItem]] = gradeItems[section]
         
         var startRow:Int = row
         var subsection:Int = 0
@@ -92,7 +92,7 @@ class GradebookDataSource: BaseTableDataSourceImplementation {
         }
         
         //print("Subsection: \(subsection) Row: \(row)")
-        let gradeItem:GradeItem = self.gradeItems[indexPath.section][subsection][row]
+        let gradeItem:GradeItem = gradeItems[indexPath.section][subsection][row]
         
         var grade:String
         if gradeItem.getGrade() != nil {
@@ -120,7 +120,7 @@ class GradebookDataSource: BaseTableDataSourceImplementation {
     }
     
     func getSubsectionTitle(section:Int, subsection:Int) -> String? {
-        let siteId:String = self.gradeItems[section][subsection][0].getSiteId()
+        let siteId:String = gradeItems[section][subsection][0].getSiteId()
         let title:String? = AppGlobals.siteTitleMap[siteId]
         return title
     }

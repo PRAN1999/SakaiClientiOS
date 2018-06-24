@@ -19,9 +19,9 @@ class FloatingHeaderCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setup()
-        self.addViews()
-        self.setConstraints()
+        setup()
+        addViews()
+        setConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,9 +31,9 @@ class FloatingHeaderCell: UITableViewCell {
     func setup() {
         self.backgroundColor = AppGlobals.SAKAI_RED
         
-        self.titleLabel = UILabel()
-        self.titleLabel.textColor = UIColor.black
-        self.titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        titleLabel = UILabel()
+        titleLabel.textColor = UIColor.black
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
         
         self.isHidden = true
     }
@@ -44,17 +44,17 @@ class FloatingHeaderCell: UITableViewCell {
     
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        self.titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 20.0).isActive = true
-        self.titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        self.titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        self.titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 20.0).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
     }
     
     func setTitle(title: String?) {
-        self.titleLabel.text = title
+        titleLabel.text = title
     }
 
     func setFrameAndMakeVisible(frame: CGRect) {
