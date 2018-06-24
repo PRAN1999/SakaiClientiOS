@@ -16,7 +16,7 @@ class PagedAssignmentController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
-        setup()
+        self.setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,10 +28,10 @@ class PagedAssignmentController: UIPageViewController {
     }
     
     func setAssignments(assignments: [Assignment], start: Int) {
-        pages = [UIViewController?](repeating: nil, count: assignments.count)
+        self.pages = [UIViewController?](repeating: nil, count: assignments.count)
         self.assignments = assignments
         self.start = start
-        setPage(assignment: self.assignments[start], index: start)
+        self.setPage(assignment: self.assignments[start], index: start)
     }
     
     func setup() {

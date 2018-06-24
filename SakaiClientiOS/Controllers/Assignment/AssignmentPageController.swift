@@ -13,7 +13,7 @@ class AssignmentPageController: UIViewController {
     var assignment: Assignment?
     
     override func loadView() {
-        pageView = AssignmentPageView(frame: .zero)
+        self.pageView = AssignmentPageView(frame: .zero)
         self.view = pageView
     }
     
@@ -21,7 +21,6 @@ class AssignmentPageController: UIViewController {
         super.viewDidLoad()
         pageView.backgroundColor = UIColor.white
         pageView.titleLabel.setText(text: assignment?.getTitle())
-        
         pageView.scrollView.gradeLabel.setKeyVal(key: "Current Grade:", val: assignment?.getCurrentGrade())
         pageView.scrollView.pointsLabel.setKeyVal(key: "Max Points:", val: assignment?.getMaxPoints())
         pageView.scrollView.submissionLabel.setKeyVal(key: "Allows Resubmission:", val: assignment?.getResubmission())

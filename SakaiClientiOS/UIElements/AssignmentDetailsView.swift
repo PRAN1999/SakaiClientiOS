@@ -40,7 +40,6 @@ class AssignmentDetailsView: UIScrollView {
         dueLabel = DetailLabel()
         gradeLabel = DetailLabel()
         submissionLabel = DetailLabel()
-        
         instructionView = UITextView()
         
         bottomView = UIView()
@@ -71,9 +70,11 @@ class AssignmentDetailsView: UIScrollView {
         instructionView.translatesAutoresizingMaskIntoConstraints = false
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         
+        let margins = contentView.layoutMarginsGuide
+        
         statusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         statusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        statusLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        statusLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         statusLabel.bottomAnchor.constraint(equalTo: pointsLabel.topAnchor).isActive = true
         
         pointsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true

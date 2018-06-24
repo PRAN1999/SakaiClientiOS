@@ -39,7 +39,7 @@ extension AssignmentController: UICollectionViewDelegate {
         let controller = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagedAssignmentController
         let dataSource = collectionView.dataSource as! AssignmentDataSource
         controller.setAssignments(assignments: dataSource.assignments, start: indexPath.row)
-        navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -55,7 +55,7 @@ extension AssignmentController: UITextViewDelegate {
         let webController = WebController()
         webController.setURL(url: URL)
         
-        navigationController?.pushViewController(webController, animated: true)
+        self.navigationController?.pushViewController(webController, animated: true)
         
         return false
     }
