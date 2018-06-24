@@ -18,7 +18,12 @@ class PagedAssignmentController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
+        
         self.popupInteractionStyle = .drag
+        self.popupController.title = "Drag to Submit"
+        self.tabBarController?.popupBar.backgroundStyle = .dark
+        self.tabBarController?.popupBar.barStyle = .compact
+        self.tabBarController?.popupBar.barTintColor = AppGlobals.SAKAI_RED
         self.setup()
     }
     
