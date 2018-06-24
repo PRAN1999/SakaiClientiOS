@@ -1,0 +1,3 @@
+*.rb linguist-language=Swift
+LNPopupController/* linguist-vendored=false
+Pods/* linguist-vendored=false
