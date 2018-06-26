@@ -23,8 +23,7 @@ class AssignmentController: CollapsibleSectionController {
         super.viewDidLoad()
         
         self.tableView.allowsSelection = false
-        self.tableView.register(SiteAssignmentsCell.self, forCellReuseIdentifier: SiteAssignmentsCell.reuseIdentifier)
-        self.tableView.register(DueDateAssignmentCell.self, forCellReuseIdentifier: DueDateAssignmentCell.reuseIdentifier)
+        self.tableView.register(AssignmentTableCell.self, forCellReuseIdentifier: AssignmentTableCell.reuseIdentifier)
         self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
         
         siteAssignmentDataSource.collectionViewDelegate = self
@@ -69,12 +68,7 @@ extension AssignmentController: UICollectionViewDelegate {
 extension AssignmentController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var size:CGSize!
-        if dateSorted {
-            size = CGSize(width: collectionView.bounds.width / 2.3, height: 200)
-        } else {
-            size = CGSize(width: collectionView.bounds.width / 2.5, height: collectionView.bounds.height)
-        }
-        
+        size = CGSize(width: collectionView.bounds.width / 1.8, height: collectionView.bounds.height)
         return size
     }
 }

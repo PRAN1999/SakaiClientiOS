@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5111149A20CD89D20077F872 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149920CD89D20077F872 /* Assignment.swift */; };
-		5111149C20CD97110077F872 /* SiteAssignmentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */; };
+		5111149C20CD97110077F872 /* AssignmentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149B20CD97110077F872 /* AssignmentTableCell.swift */; };
 		5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149D20CD972D0077F872 /* AssignmentCell.swift */; };
 		511114A020CDA9B70077F872 /* SiteAssignmentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */; };
 		511114A220CDCABD0077F872 /* Layouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A120CDCABD0077F872 /* Layouts.swift */; };
@@ -39,7 +39,6 @@
 		517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
 		517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		517F378C20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517F378B20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift */; };
-		517F378E20E1C09F00B21D5A /* DueDateAssignmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517F378D20E1C09F00B21D5A /* DueDateAssignmentCell.swift */; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
 		518CFCAC20B4E68200D5AE8F /* GradebookPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */; };
 		51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */; };
@@ -80,7 +79,7 @@
 		1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.release.xcconfig"; sourceTree = "<group>"; };
 		5111149920CD89D20077F872 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
-		5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentsCell.swift; sourceTree = "<group>"; };
+		5111149B20CD97110077F872 /* AssignmentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTableCell.swift; sourceTree = "<group>"; };
 		5111149D20CD972D0077F872 /* AssignmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell.swift; sourceTree = "<group>"; };
 		5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentsDataSource.swift; sourceTree = "<group>"; };
 		511114A120CDCABD0077F872 /* Layouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouts.swift; sourceTree = "<group>"; };
@@ -110,7 +109,6 @@
 		514B623B209569FE001A716C /* TermHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermHeader.swift; sourceTree = "<group>"; };
 		517F378420E019D900B21D5A /* LNPopupController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		517F378B20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSortedAssignmentDataSource.swift; sourceTree = "<group>"; };
-		517F378D20E1C09F00B21D5A /* DueDateAssignmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDateAssignmentCell.swift; sourceTree = "<group>"; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookPageController.swift; sourceTree = "<group>"; };
 		51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSectionController.swift; sourceTree = "<group>"; };
@@ -235,14 +233,13 @@
 				51C4B7EF20A7858D00DD6696 /* LoadingIndicator.swift */,
 				51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */,
 				51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */,
-				5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */,
+				5111149B20CD97110077F872 /* AssignmentTableCell.swift */,
 				5111149D20CD972D0077F872 /* AssignmentCell.swift */,
 				511114A120CDCABD0077F872 /* Layouts.swift */,
 				511114A720D0C0D20077F872 /* InsetUILabel.swift */,
 				511114B820D881450077F872 /* AssignmentPageView.swift */,
 				511114BA20DB4B770077F872 /* DetailLabel.swift */,
 				511114BC20DDF8DF0077F872 /* AssignmentDetailsView.swift */,
-				517F378D20E1C09F00B21D5A /* DueDateAssignmentCell.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -486,13 +483,12 @@
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
 				511114BD20DDF8DF0077F872 /* AssignmentDetailsView.swift in Sources */,
 				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,
-				517F378E20E1C09F00B21D5A /* DueDateAssignmentCell.swift in Sources */,
 				51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */,
 				51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */,
 				5111149A20CD89D20077F872 /* Assignment.swift in Sources */,
 				51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */,
 				511114BB20DB4B770077F872 /* DetailLabel.swift in Sources */,
-				5111149C20CD97110077F872 /* SiteAssignmentsCell.swift in Sources */,
+				5111149C20CD97110077F872 /* AssignmentTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

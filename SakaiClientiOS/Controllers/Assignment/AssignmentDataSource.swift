@@ -24,7 +24,7 @@ class AssignmentDataSource: NSObject, UICollectionViewDataSource {
         }
         let assignment:Assignment = assignments[indexPath.row]
         cell.titleLabel.setText(text:assignment.getTitle())
-        cell.dueLabel.setText(text:assignment.getDueTimeString())
+        cell.dueLabel.setText(text:"Due: \(assignment.getDueTimeString())")
         cell.descLabel.attributedText = assignment.getAttributedInstructions()
         cell.descLabel.delegate = textViewDelegate
         return cell

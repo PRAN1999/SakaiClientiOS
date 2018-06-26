@@ -18,7 +18,7 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
     var textViewDelegate: UITextViewDelegate?
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteAssignmentsCell.reuseIdentifier, for: indexPath) as? SiteAssignmentsCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentTableCell.reuseIdentifier, for: indexPath) as? AssignmentTableCell else {
             fatalError("Fail to dequeue cell")
         }
         

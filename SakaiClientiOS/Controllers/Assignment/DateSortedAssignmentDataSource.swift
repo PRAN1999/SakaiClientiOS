@@ -16,9 +16,11 @@ class DateSortedAssignmentDataSource: BaseTableDataSourceImplementation {
     var textViewDelegate: UITextViewDelegate?
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DueDateAssignmentCell.reuseIdentifier, for: indexPath) as? DueDateAssignmentCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentTableCell.reuseIdentifier, for: indexPath) as? AssignmentTableCell else {
             fatalError("Fail to dequeue cell")
         }
+        
+        cell.titleLabel.text = "All Assignments"
         
         cell.collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
         
