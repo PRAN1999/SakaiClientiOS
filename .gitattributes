@@ -1,3 +1,2 @@
-*.rb linguist-language=Swift
 LNPopupController/* linguist-vendored=true
 Pods/* linguist-vendored=true
