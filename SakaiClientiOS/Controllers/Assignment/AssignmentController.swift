@@ -8,11 +8,15 @@
 import UIKit
 
 class AssignmentController: CollapsibleSectionController {
-    var siteAssignmentsDataSource: SiteAssignmentsDataSource!
+    var siteAssignmentDataSource: SiteAssignmentsDataSource!
+    var dateSortedAssignmentDataSource: DateSortedAssignmentDataSource!
+    
+    var dateSorted:Bool = true
     
     required init?(coder aDecoder: NSCoder) {
-        siteAssignmentsDataSource  = SiteAssignmentsDataSource()
-        super.init(coder: aDecoder, dataSource: siteAssignmentsDataSource)
+        dateSortedAssignmentDataSource = DateSortedAssignmentDataSource()
+        siteAssignmentDataSource  = SiteAssignmentsDataSource()
+        super.init(coder: aDecoder, dataSource: dateSortedAssignmentDataSource)
     }
     
     override func viewDidLoad() {
@@ -20,14 +24,34 @@ class AssignmentController: CollapsibleSectionController {
         
         self.tableView.allowsSelection = false
         self.tableView.register(SiteAssignmentsCell.self, forCellReuseIdentifier: SiteAssignmentsCell.reuseIdentifier)
+        self.tableView.register(DueDateAssignmentCell.self, forCellReuseIdentifier: DueDateAssignmentCell.reuseIdentifier)
         self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
         
-        siteAssignmentsDataSource.collectionViewDelegate = self
-        siteAssignmentsDataSource.textViewDelegate = self
+        siteAssignmentDataSource.collectionViewDelegate = self
+        siteAssignmentDataSource.textViewDelegate = self
+        
+        dateSortedAssignmentDataSource.collectionViewDelegate = self
+        dateSortedAssignmentDataSource.textViewDelegate = self
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(resort))
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @objc func resort() {
+        if dateSorted {
+            dateSorted = false
+            super.dataSource = siteAssignmentDataSource
+            super.tableView.dataSource = siteAssignmentDataSource
+            super.loadDataSource()
+        } else {
+            dateSorted = true
+            super.dataSource = dateSortedAssignmentDataSource
+            super.tableView.dataSource = dateSortedAssignmentDataSource
+            super.loadDataSource()
+        }
     }
 
 }
@@ -42,9 +66,15 @@ extension AssignmentController: UICollectionViewDelegate {
     }
 }
 
-extension AssignmentController: UICollectionViewDelegateFlowLayout {
+extension AssignmentController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: collectionView.bounds.width / 2.5, height: collectionView.bounds.height)
+        var size:CGSize!
+        if dateSorted {
+            size = CGSize(width: collectionView.bounds.width / 2.3, height: 200)
+        } else {
+            size = CGSize(width: collectionView.bounds.width / 2.5, height: collectionView.bounds.height)
+        }
+        
         return size
     }
 }

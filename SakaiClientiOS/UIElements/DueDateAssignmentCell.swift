@@ -1,19 +1,18 @@
 //
-//  SiteAssignmentsCell.swift
+//  DueDateAssignmentCell.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 6/10/18.
+//  Created by Pranay Neelagiri on 6/25/18.
 //
 
 import UIKit
 
-class SiteAssignmentsCell: UITableViewCell {
+class DueDateAssignmentCell: UITableViewCell {
     
-    static let reuseIdentifier:String = "siteAssignmentsCell"
+    static let reuseIdentifier:String = "dueDateAssignmentsCell"
     
-    var titleLabel: UILabel!
     var collectionView: UICollectionView!
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -26,14 +25,6 @@ class SiteAssignmentsCell: UITableViewCell {
     }
     
     func setup() {
-        titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.backgroundColor = UIColor.black
-        titleLabel.layer.cornerRadius = 5
-        titleLabel.layer.masksToBounds = true
-        
         let layout = HorizontalLayout()
         
         collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
@@ -41,32 +32,31 @@ class SiteAssignmentsCell: UITableViewCell {
     }
     
     func addViews() {
-        self.addSubview(titleLabel)
         self.addSubview(collectionView)
     }
     
     func setConstraints() {
         let margins = self.layoutMarginsGuide
         
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10.0).isActive = true
         
         collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
+        collectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
         
-        self.heightAnchor.constraint(greaterThanOrEqualToConstant: 300).isActive = true
+        self.heightAnchor.constraint(greaterThanOrEqualToConstant: 450).isActive = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
+    func setHeightConstraint(dataSource: AssignmentDataSource) {
+        let list = dataSource.assignments!
+        let height = CGFloat(250 * ceil(Float(list.count / 2)))
+        self.heightAnchor.constraint(greaterThanOrEqualToConstant: height).isActive = true
+        
+    }
 }

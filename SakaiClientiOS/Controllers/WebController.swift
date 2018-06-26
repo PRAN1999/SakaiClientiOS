@@ -30,7 +30,6 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
     }
     
@@ -59,7 +58,6 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     @objc func pop() {
         self.navigationController?.popViewController(animated: true)
     }
-
 }
 
 extension UIViewController: UITextViewDelegate {

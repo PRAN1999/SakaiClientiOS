@@ -19,8 +19,9 @@ class PagedAssignmentController: UIPageViewController {
         super.viewDidLoad()
         self.dataSource = self
         
-        self.popupInteractionStyle = .drag
-        self.popupController.title = "Drag to Submit"
+        popupController.title = "Drag to Submit"
+        
+        self.tabBarController?.popupInteractionStyle = .default
         self.tabBarController?.popupBar.backgroundStyle = .dark
         self.tabBarController?.popupBar.barStyle = .compact
         self.tabBarController?.popupBar.barTintColor = AppGlobals.SAKAI_RED
@@ -41,7 +42,8 @@ class PagedAssignmentController: UIPageViewController {
         self.pages = [UIViewController?](repeating: nil, count: assignments.count)
         self.assignments = assignments
         self.start = start
-        self.setPage(assignment: self.assignments[start], index: start)
+        setPage(assignment: self.assignments[start], index: start)
+        setPopupURL(viewControllerIndex: start)
     }
     
     func setup() {
@@ -64,6 +66,7 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
+        setPopupURL(viewControllerIndex: viewControllerIndex)
         
         let previousIndex = viewControllerIndex - 1
         
@@ -82,6 +85,7 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
+        setPopupURL(viewControllerIndex: viewControllerIndex)
         
         let nextIndex = viewControllerIndex + 1
         let assignmentsCount = assignments.count
@@ -101,6 +105,10 @@ extension PagedAssignmentController: UIPageViewControllerDataSource {
         let page = AssignmentPageController()
         page.assignment = assignment
         pages[index] = page
+    }
+    
+    func setPopupURL(viewControllerIndex:Int) {
+        let assignment = assignments[viewControllerIndex]
         guard let url = assignment.getURL() else {
             return
         }

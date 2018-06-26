@@ -36,7 +36,6 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TermHeader.reuseIdentifier) as? TermHeader else {
             fatalError("Not a Table Header View")
         }
-        
         view.tag = section
         view.setImage(isHidden: dataSource.isHidden[section])
         view.setTitle(title: dataSource.terms[section].getTitle())

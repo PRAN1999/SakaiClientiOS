@@ -12,6 +12,7 @@ class Assignment: TermSortable, SiteSortable {
     
     private var title:String
     private var dueTimeString:String
+    private var dueDate: Date
     private var instructions:String?
     private var attributedInstructions:NSAttributedString?
     private var term:Term
@@ -23,10 +24,11 @@ class Assignment: TermSortable, SiteSortable {
     private var attachments:[NSAttributedString]?
     private var siteURL:String?
     
-    private init(_ title:String, _ dueTimeString:String, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?, _ status:String?, _ maxPoints:Double?, _ currentGrade: Double?,
+    private init(_ title:String, _ dueTimeString:String, _ dueDate: Date, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?, _ status:String?, _ maxPoints:Double?, _ currentGrade: Double?,
                  _ resubmissionAllowed:Bool?, _ attachments: [NSAttributedString]?, _ siteURL: String?) {
         self.title = title
         self.dueTimeString = dueTimeString
+        self.dueDate = dueDate
         self.term = term
         self.siteId = siteId
         self.instructions = instructions
@@ -42,6 +44,8 @@ class Assignment: TermSortable, SiteSortable {
     convenience init(data: JSON) {
         let title: String = data["title"].string!
         let dueTimeString: String = data["dueTimeString"].string!
+        let time = data["dueTime"]["time"].double!
+        let dueDate = Date(timeIntervalSince1970: time)
         let instructions: String? = data["instructions"].string
         let attributedInstructions:NSAttributedString? = instructions?.htmlAttributedString
         let siteId:String = data["context"].string!
@@ -70,7 +74,7 @@ class Assignment: TermSortable, SiteSortable {
         
         let siteURL = data["entityURL"].string
         
-        self.init(title, dueTimeString, term, siteId, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings, siteURL)
+        self.init(title, dueTimeString, dueDate, term, siteId, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings, siteURL)
     }
     
     func getTitle() -> String {
@@ -79,6 +83,10 @@ class Assignment: TermSortable, SiteSortable {
     
     func getDueTimeString() -> String {
         return dueTimeString
+    }
+    
+    func getDueDate() -> Date {
+        return dueDate
     }
     
     func getInstructions() -> String? {

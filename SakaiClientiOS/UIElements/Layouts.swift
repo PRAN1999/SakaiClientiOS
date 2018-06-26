@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AssignmentLayout: UICollectionViewFlowLayout {
+class HorizontalLayout: UICollectionViewFlowLayout {
 
     override init() {
         super.init()

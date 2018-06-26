@@ -1,38 +1,33 @@
 //
-//  SiteAssignmentsDataSource.swift
+//  DateSortedAssignmentDataSource.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 6/10/18.
+//  Created by Pranay Neelagiri on 6/25/18.
 //
 
-import Foundation
 import UIKit
 
-class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
+class DateSortedAssignmentDataSource: BaseTableDataSourceImplementation {
     
-    var assignments:[[[Assignment]]] = [[[Assignment]]]()
+    var assignments:[[Assignment]] = [[Assignment]]()
     var assignmentDataSources:[AssignmentDataSource] = [AssignmentDataSource]()
-    var sites:[[Site]] = [[Site]]()
     
     var collectionViewDelegate: UICollectionViewDelegate?
     var textViewDelegate: UITextViewDelegate?
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteAssignmentsCell.reuseIdentifier, for: indexPath) as? SiteAssignmentsCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DueDateAssignmentCell.reuseIdentifier, for: indexPath) as? DueDateAssignmentCell else {
             fatalError("Fail to dequeue cell")
         }
         
-        let siteId:String = assignments[indexPath.section][indexPath.row][0].getSiteId()
-        let title:String? = AppGlobals.siteTitleMap[siteId]
-        
-        cell.titleLabel.text = title
         cell.collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
         
         let assignmentDataSource = AssignmentDataSource()
         assignmentDataSource.textViewDelegate = textViewDelegate
-        assignmentDataSource.loadData(list: assignments[indexPath.section][indexPath.row])
+        assignmentDataSource.loadData(list: assignments[indexPath.section])
         assignmentDataSources.append(assignmentDataSource)
         
+        //cell.setHeightConstraint(dataSource: assignmentDataSource)
         cell.collectionView.dataSource = assignmentDataSource
         cell.collectionView.delegate = collectionViewDelegate
         cell.collectionView.reloadData()
@@ -42,12 +37,11 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
     
     override func resetValues() {
         super.resetValues()
-        sites = []
-        assignments = []    }
+        assignments = []
+    }
     
     override func loadData(completion: @escaping () -> Void) {
-        
-        RequestManager.shared.getAllAssignmentsBySites(completion: { siteList in
+        RequestManager.shared.getAllAssignments(completion: { siteList in
             
             DispatchQueue.main.async {
                 guard let list = siteList else {
@@ -62,8 +56,8 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
                 self.assignments = list
                 
                 for i in 0..<list.count {
-                    self.terms.append(list[i][0][0].getTerm())
-                    let numRows:Int = list[i].count
+                    self.terms.append(list[i][0].getTerm())
+                    let numRows:Int = 1
                     
                     self.numRows.append(numRows)
                     self.isHidden.append(true)
@@ -75,4 +69,5 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
             }
         })
     }
+    
 }

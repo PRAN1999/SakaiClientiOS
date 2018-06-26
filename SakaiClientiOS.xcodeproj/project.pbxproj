@@ -11,7 +11,7 @@
 		5111149C20CD97110077F872 /* SiteAssignmentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */; };
 		5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149D20CD972D0077F872 /* AssignmentCell.swift */; };
 		511114A020CDA9B70077F872 /* SiteAssignmentsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */; };
-		511114A220CDCABD0077F872 /* AssignmentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A120CDCABD0077F872 /* AssignmentLayout.swift */; };
+		511114A220CDCABD0077F872 /* Layouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A120CDCABD0077F872 /* Layouts.swift */; };
 		511114A420CE08CB0077F872 /* AssignmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A320CE08CB0077F872 /* AssignmentDataSource.swift */; };
 		511114A820D0C0D20077F872 /* InsetUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A720D0C0D20077F872 /* InsetUILabel.swift */; };
 		511114AC20D6CD440077F872 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114AB20D6CD440077F872 /* WebController.swift */; };
@@ -38,6 +38,8 @@
 		514B623C209569FE001A716C /* TermHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623B209569FE001A716C /* TermHeader.swift */; };
 		517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
 		517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		517F378C20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517F378B20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift */; };
+		517F378E20E1C09F00B21D5A /* DueDateAssignmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517F378D20E1C09F00B21D5A /* DueDateAssignmentCell.swift */; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
 		518CFCAC20B4E68200D5AE8F /* GradebookPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */; };
 		51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */; };
@@ -81,7 +83,7 @@
 		5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentsCell.swift; sourceTree = "<group>"; };
 		5111149D20CD972D0077F872 /* AssignmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell.swift; sourceTree = "<group>"; };
 		5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentsDataSource.swift; sourceTree = "<group>"; };
-		511114A120CDCABD0077F872 /* AssignmentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentLayout.swift; sourceTree = "<group>"; };
+		511114A120CDCABD0077F872 /* Layouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouts.swift; sourceTree = "<group>"; };
 		511114A320CE08CB0077F872 /* AssignmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDataSource.swift; sourceTree = "<group>"; };
 		511114A720D0C0D20077F872 /* InsetUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetUILabel.swift; sourceTree = "<group>"; };
 		511114AB20D6CD440077F872 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,8 @@
 		514B623820952B89001A716C /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
 		514B623B209569FE001A716C /* TermHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermHeader.swift; sourceTree = "<group>"; };
 		517F378420E019D900B21D5A /* LNPopupController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		517F378B20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSortedAssignmentDataSource.swift; sourceTree = "<group>"; };
+		517F378D20E1C09F00B21D5A /* DueDateAssignmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDateAssignmentCell.swift; sourceTree = "<group>"; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookPageController.swift; sourceTree = "<group>"; };
 		51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSectionController.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 				5113C13620928709001929DA /* AssignmentController.swift */,
 				511114B420D74D570077F872 /* PagedAssignmentController.swift */,
 				511114B620D752260077F872 /* AssignmentPageController.swift */,
+				517F378B20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift */,
 			);
 			path = Assignment;
 			sourceTree = "<group>";
@@ -232,11 +237,12 @@
 				51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */,
 				5111149B20CD97110077F872 /* SiteAssignmentsCell.swift */,
 				5111149D20CD972D0077F872 /* AssignmentCell.swift */,
-				511114A120CDCABD0077F872 /* AssignmentLayout.swift */,
+				511114A120CDCABD0077F872 /* Layouts.swift */,
 				511114A720D0C0D20077F872 /* InsetUILabel.swift */,
 				511114B820D881450077F872 /* AssignmentPageView.swift */,
 				511114BA20DB4B770077F872 /* DetailLabel.swift */,
 				511114BC20DDF8DF0077F872 /* AssignmentDetailsView.swift */,
+				517F378D20E1C09F00B21D5A /* DueDateAssignmentCell.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -455,7 +461,7 @@
 				518296D620A631CC00EAD645 /* Term.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
 				51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */,
-				511114A220CDCABD0077F872 /* AssignmentLayout.swift in Sources */,
+				511114A220CDCABD0077F872 /* Layouts.swift in Sources */,
 				511114A820D0C0D20077F872 /* InsetUILabel.swift in Sources */,
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
 				5113C13C2092BD74001929DA /* Site.swift in Sources */,
@@ -471,6 +477,7 @@
 				51C4B7F020A7858D00DD6696 /* LoadingIndicator.swift in Sources */,
 				51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
+				517F378C20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
 				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
 				51C2D15520C4471000E4C901 /* BaseTableDataSourceImplementation.swift in Sources */,
@@ -479,6 +486,7 @@
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
 				511114BD20DDF8DF0077F872 /* AssignmentDetailsView.swift in Sources */,
 				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,
+				517F378E20E1C09F00B21D5A /* DueDateAssignmentCell.swift in Sources */,
 				51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */,
 				51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */,
 				5111149A20CD89D20077F872 /* Assignment.swift in Sources */,

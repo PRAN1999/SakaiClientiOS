@@ -29,14 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if(AppGlobals.IS_LOGGED_IN) {
-            RequestManager.shared.isLoggedIn(completion: { flag in
-                if(!flag) {
-                    RequestManager.shared.logout {}
-                }
-            })
-        }
-        
         print("Foreground")
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
