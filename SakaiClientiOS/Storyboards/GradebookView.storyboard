@@ -9,22 +9,32 @@
     </dependencies>
     <scenes>
         <!--Gradebook-->
-        <scene sceneID="abf-OR-KSd">
+        <scene sceneID="UGN-17-Zmc">
             <objects>
-                <tableViewController storyboardIdentifier="GradebookView" title="Gradebook" id="aSO-rg-ygx" customClass="GradebookController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fH2-JX-ddJ">
+                <tableViewController storyboardIdentifier="GradebookView" title="Gradebook" id="v7r-VK-hx9" customClass="GradebookController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kbD-mO-2QM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Hd0-8k-rNW">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hd0-8k-rNW" id="kaB-T9-RNX">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="aSO-rg-ygx" id="wRV-4s-8Wk"/>
-                            <outlet property="delegate" destination="aSO-rg-ygx" id="7r4-Fn-wft"/>
+                            <outlet property="dataSource" destination="v7r-VK-hx9" id="eyF-nJ-Lyy"/>
+                            <outlet property="delegate" destination="v7r-VK-hx9" id="ojv-Zz-mvF"/>
                         </connections>
                     </tableView>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jp4-dG-WSR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Okx-bu-ORE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="70" y="31"/>
+            <point key="canvasLocation" x="-200" y="-168"/>
         </scene>
     </scenes>
 </document>

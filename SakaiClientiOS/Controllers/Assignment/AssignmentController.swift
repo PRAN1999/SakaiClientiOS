@@ -12,6 +12,12 @@ class AssignmentController: CollapsibleSectionController {
     var dateSortedAssignmentDataSource: DateSortedAssignmentDataSource!
     
     var dateSorted:Bool = true
+    var selectedIndex = 0
+    
+    var segments:UISegmentedControl!
+    var button1: UIBarButtonItem!
+    var button2: UIBarButtonItem!
+    var flexButton: UIBarButtonItem!
     
     required init?(coder aDecoder: NSCoder) {
         dateSortedAssignmentDataSource = DateSortedAssignmentDataSource()
@@ -31,8 +37,14 @@ class AssignmentController: CollapsibleSectionController {
         
         dateSortedAssignmentDataSource.collectionViewDelegate = self
         dateSortedAssignmentDataSource.textViewDelegate = self
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(resort))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setToolbar()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.isToolbarHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,17 +54,42 @@ class AssignmentController: CollapsibleSectionController {
     @objc func resort() {
         if dateSorted {
             dateSorted = false
+            selectedIndex = 1
             super.dataSource = siteAssignmentDataSource
             super.tableView.dataSource = siteAssignmentDataSource
             super.loadDataSource()
         } else {
             dateSorted = true
+            selectedIndex = 0
             super.dataSource = dateSortedAssignmentDataSource
             super.tableView.dataSource = dateSortedAssignmentDataSource
             super.loadDataSource()
         }
     }
 
+    func setToolbar() {
+        self.navigationController?.isToolbarHidden = false
+        self.navigationController?.toolbar.barTintColor = UIColor.black
+        
+        segments = UISegmentedControl.init(items: ["Date", "Class"])
+        segments.frame = (self.navigationController?.toolbar.frame)!
+        
+        segments.translatesAutoresizingMaskIntoConstraints = false
+        segments.selectedSegmentIndex = selectedIndex
+        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 0)
+        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 1)
+        segments.addTarget(self, action: #selector(resort), for: UIControlEvents.valueChanged)
+        segments.tintColor = AppGlobals.SAKAI_RED
+        
+        button1 = UIBarButtonItem(customView: segments);
+        button2 = UIBarButtonItem(customView: segments);
+        flexButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        flexButton.width = self.view.frame.size.width / 4 - 15
+        
+        let arr:[UIBarButtonItem] = [flexButton, button1, button2, flexButton]
+        
+        self.navigationController?.toolbar.setItems(arr, animated: true)
+    }
 }
 
 extension AssignmentController: UICollectionViewDelegate {

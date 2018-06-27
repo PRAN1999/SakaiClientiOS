@@ -9,32 +9,32 @@
     </dependencies>
     <scenes>
         <!--Assignments-->
-        <scene sceneID="bSR-KT-7ax">
+        <scene sceneID="jm2-3G-4GA">
             <objects>
-                <tableViewController storyboardIdentifier="AssignmentView" title="Assignments" id="llc-Zv-ktb" customClass="AssignmentController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ceD-a9-7dI">
+                <tableViewController storyboardIdentifier="AssignmentView" title="Assignments" id="mkx-CP-iJe" customClass="AssignmentController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1un-XO-lKL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Xpp-eA-TYc">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cas-uV-yBh">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xpp-eA-TYc" id="V7A-VS-L2q">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cas-uV-yBh" id="gOH-Ak-4iX">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="llc-Zv-ktb" id="DQe-pJ-kdj"/>
-                            <outlet property="delegate" destination="llc-Zv-ktb" id="M8n-Ax-lU5"/>
+                            <outlet property="dataSource" destination="mkx-CP-iJe" id="mIC-8X-Z5L"/>
+                            <outlet property="delegate" destination="mkx-CP-iJe" id="jbE-46-Ndj"/>
                         </connections>
                     </tableView>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pcQ-Ru-oye" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a5X-2H-lg9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="92" y="-101"/>
+            <point key="canvasLocation" x="231" y="-103"/>
         </scene>
         <!--Paged Assignment Controller-->
         <scene sceneID="gqm-n6-YZ2">
