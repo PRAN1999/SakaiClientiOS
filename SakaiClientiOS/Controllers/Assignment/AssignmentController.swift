@@ -13,6 +13,7 @@ class AssignmentController: CollapsibleSectionController {
     
     var dateSorted:Bool = true
     var selectedIndex = 0
+    var hasLoaded:[Bool] = [false, false]
     
     var segments:UISegmentedControl!
     var button1: UIBarButtonItem!
@@ -27,10 +28,11 @@ class AssignmentController: CollapsibleSectionController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hasLoaded[0] = true
         
-        self.tableView.allowsSelection = false
-        self.tableView.register(AssignmentTableCell.self, forCellReuseIdentifier: AssignmentTableCell.reuseIdentifier)
-        self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+        super.tableView.allowsSelection = false
+        super.tableView.register(AssignmentTableCell.self, forCellReuseIdentifier: AssignmentTableCell.reuseIdentifier)
+        super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
         
         siteAssignmentDataSource.collectionViewDelegate = self
         siteAssignmentDataSource.textViewDelegate = self
@@ -43,7 +45,7 @@ class AssignmentController: CollapsibleSectionController {
         setToolbar()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.isToolbarHidden = true
     }
     
@@ -57,13 +59,22 @@ class AssignmentController: CollapsibleSectionController {
             selectedIndex = 1
             super.dataSource = siteAssignmentDataSource
             super.tableView.dataSource = siteAssignmentDataSource
-            super.loadDataSource()
         } else {
             dateSorted = true
             selectedIndex = 0
             super.dataSource = dateSortedAssignmentDataSource
             super.tableView.dataSource = dateSortedAssignmentDataSource
-            super.loadDataSource()
+        }
+        if !super.dataSource.hasLoaded {
+            if !super.dataSource.isLoading {
+                super.loadDataSource()
+            } else {
+                super.tableView.reloadData()
+                super.indicator.startAnimating()
+            }
+        } else {
+            super.indicator.stopAnimating()
+            super.tableView.reloadData()
         }
     }
 

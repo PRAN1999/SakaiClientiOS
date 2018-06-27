@@ -1,6 +1,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import WebKit
 
 /**
  
@@ -16,6 +17,14 @@ class RequestManager {
      
      */
     static let shared = RequestManager()
+    
+    var siteTermMap:[String: Term] = [:]
+    var siteTitleMap:[String:String] = [:]
+    
+    var processPool = WKProcessPool()
+    
+    var loggedIn = false
+    var toReload = true
     
     private init() {
         
@@ -85,8 +94,8 @@ class RequestManager {
     func logout(completion: @escaping () -> Void) {
         
         reset()
-        AppGlobals.TO_RELOAD = true
-        AppGlobals.IS_LOGGED_IN = false
+        toReload = true
+        loggedIn = false
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: {
@@ -113,7 +122,10 @@ class RequestManager {
         }
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeValue(forKey: AnyHashable("X-Sakai-Session"))
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeAll()
-        AppGlobals.flushGlobals()
+        siteTermMap = [:]
+        siteTitleMap = [:]
+        processPool = WKProcessPool()
+        
     }
     
     /**
@@ -175,8 +187,8 @@ class RequestManager {
                 
                 //Update AppGlobal map for siteId : Term
                 //                         siteId : Title
-                AppGlobals.siteTermMap.updateValue(site.getTerm(), forKey: site.getId())
-                AppGlobals.siteTitleMap.updateValue(site.getTitle(), forKey: site.getId())
+                self.siteTermMap.updateValue(site.getTerm(), forKey: site.getId())
+                self.siteTitleMap.updateValue(site.getTitle(), forKey: site.getId())
             }
             let sectionList = Term.splitByTerms(listToSort: siteList)
             

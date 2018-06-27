@@ -17,6 +17,9 @@ class BaseTableDataSourceImplementation: NSObject, HideableTableDataSource {
     var numRows:[Int] = [Int]()
     var numSections = 0
     
+    var hasLoaded:Bool = false
+    var isLoading:Bool = false
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isHidden[section] {
             return 0

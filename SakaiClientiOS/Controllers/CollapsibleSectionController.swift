@@ -29,6 +29,7 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadDataSource))
         
         indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
+        indicator.hidesWhenStopped = true
         loadDataSource()
     }
     
@@ -65,12 +66,15 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
         self.tableView.reloadData()
     
         indicator.startAnimating()
+        dataSource.hasLoaded = false
+        dataSource.isLoading = true
         
         dataSource.loadData(completion: {
             self.tableView.reloadData()
             
             self.indicator.stopAnimating()
-            self.indicator.hidesWhenStopped = true
+            self.dataSource.hasLoaded = true
+            self.dataSource.isLoading = false
         })
     }
 }

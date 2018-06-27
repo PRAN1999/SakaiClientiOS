@@ -24,8 +24,7 @@ class Assignment: TermSortable, SiteSortable {
     private var attachments:[NSAttributedString]?
     private var siteURL:String?
     
-    private init(_ title:String, _ dueTimeString:String, _ dueDate: Date, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?, _ status:String?, _ maxPoints:Double?, _ currentGrade: Double?,
-                 _ resubmissionAllowed:Bool?, _ attachments: [NSAttributedString]?, _ siteURL: String?) {
+    private init(_ title:String, _ dueTimeString:String, _ dueDate: Date, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?, _ status:String?, _ maxPoints:Double?, _ currentGrade: Double?, _ resubmissionAllowed:Bool?, _ attachments: [NSAttributedString]?, _ siteURL: String?) {
         self.title = title
         self.dueTimeString = dueTimeString
         self.dueDate = dueDate
@@ -49,7 +48,7 @@ class Assignment: TermSortable, SiteSortable {
         let instructions: String? = data["instructions"].string
         let attributedInstructions:NSAttributedString? = instructions?.htmlAttributedString
         let siteId:String = data["context"].string!
-        let term:Term = AppGlobals.siteTermMap[siteId]!
+        let term:Term = RequestManager.shared.siteTermMap[siteId]!
         let status:String? = data["status"].string
         var maxPoints:Double?
         if let pointString = data["gradeScaleMaxPoints"].string {

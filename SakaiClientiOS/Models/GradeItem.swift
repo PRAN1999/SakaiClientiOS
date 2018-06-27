@@ -62,7 +62,7 @@ class GradeItem: TermSortable, SiteSortable {
         if data["grade"].string != nil {
             grade = Double(data["grade"].string!)
         }
-        let term = AppGlobals.siteTermMap[siteId]!
+        let term = RequestManager.shared.siteTermMap[siteId]!
         
         self.init(grade, points, title, term, siteId)
     }

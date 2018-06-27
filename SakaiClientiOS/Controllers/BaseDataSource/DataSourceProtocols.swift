@@ -15,6 +15,9 @@ protocol HideableTableDataSource : UITableViewDataSource{
     var isHidden:[Bool] { get set }
     var terms:[Term] { get set }
     
+    var hasLoaded:Bool { get set }
+    var isLoading:Bool { get set }
+    
     func loadData(completion: @escaping () -> Void)
     func resetValues()
 }

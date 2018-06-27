@@ -20,9 +20,9 @@ class HomeController: CollapsibleSectionController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Classes"
-        self.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
-        self.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+        super.title = "Classes"
+        super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
+        super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
     }
     
     override func didReceiveMemoryWarning() {

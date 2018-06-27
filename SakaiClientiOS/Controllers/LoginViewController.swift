@@ -78,8 +78,8 @@ class LoginViewController: WebController {
         if(webView.url!.absoluteString == AppGlobals.COOKIE_URL_2) {
             decisionHandler(.cancel)
             RequestManager.shared.getSites() { res in
-                AppGlobals.IS_LOGGED_IN = true
-                AppGlobals.TO_RELOAD = false
+                RequestManager.shared.loggedIn = true
+                RequestManager.shared.toReload = false
                 self.performSegue(withIdentifier: "loginSegue", sender: self)
             }
         } else {

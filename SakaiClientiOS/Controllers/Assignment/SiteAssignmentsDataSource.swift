@@ -23,7 +23,7 @@ class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
         }
         
         let siteId:String = assignments[indexPath.section][indexPath.row][0].getSiteId()
-        let title:String? = AppGlobals.siteTitleMap[siteId]
+        let title:String? = RequestManager.shared.siteTitleMap[siteId]
         
         cell.titleLabel.text = title
         cell.collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)

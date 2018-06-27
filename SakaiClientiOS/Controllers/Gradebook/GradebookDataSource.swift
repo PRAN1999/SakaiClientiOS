@@ -121,7 +121,7 @@ class GradebookDataSource: BaseTableDataSourceImplementation {
     
     func getSubsectionTitle(section:Int, subsection:Int) -> String? {
         let siteId:String = gradeItems[section][subsection][0].getSiteId()
-        let title:String? = AppGlobals.siteTitleMap[siteId]
+        let title:String? = RequestManager.shared.siteTitleMap[siteId]
         return title
     }
 }
