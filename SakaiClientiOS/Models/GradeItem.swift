@@ -62,6 +62,7 @@ class GradeItem: TermSortable, SiteSortable {
         if data["grade"].string != nil {
             grade = Double(data["grade"].string!)
         }
+        //Get term from shared dictionary because Grade json data doesn't have term data
         let term = RequestManager.shared.siteTermMap[siteId]!
         
         self.init(grade, points, title, term, siteId)

@@ -29,7 +29,6 @@ class DateSortedAssignmentDataSource: BaseTableDataSourceImplementation {
         assignmentDataSource.loadData(list: assignments[indexPath.section])
         assignmentDataSources.append(assignmentDataSource)
         
-        //cell.setHeightConstraint(dataSource: assignmentDataSource)
         cell.collectionView.dataSource = assignmentDataSource
         cell.collectionView.delegate = collectionViewDelegate
         cell.collectionView.reloadData()

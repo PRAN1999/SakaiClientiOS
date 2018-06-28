@@ -7,12 +7,19 @@
 
 import UIKit
 
+/// A default ActivityIndicator to be used across the app
 class LoadingIndicator: UIActivityIndicatorView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
+    
+    /// Instantiates an ActivityIndicatorView and then adds it to the center of a superview
+    ///
+    /// - Parameters:
+    ///   - frame: the frame for the Indicator
+    ///   - view: The view to which the loading indicator should be added
     convenience init(frame: CGRect, view: UIView) {
         self.init(frame: frame)
         self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge

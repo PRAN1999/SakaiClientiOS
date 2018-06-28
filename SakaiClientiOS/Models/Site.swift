@@ -16,19 +16,19 @@ import SwiftyJSON
  */
 class Site: TermSortable {
     
-    //The unique String id for a Site
+    ///The unique String id for a Site
     private var id:String;
     
-    //The title or name of a Site
+    ///The title or name of a Site
     private var title:String;
     
-    //The Term of a Site
+    ///The Term of a Site
     private var term:Term
     
-    //The String description of a Site
+    ///The String description of a Site
     private var description:String?
     
-    //The unique SitePage objects for each individual Site
+    ///The unique SitePage objects for each individual Site
     private var pages:[SitePage]
     
     /**
