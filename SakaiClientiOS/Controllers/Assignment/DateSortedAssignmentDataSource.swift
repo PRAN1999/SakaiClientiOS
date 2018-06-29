@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DateSortedAssignmentDataSource: BaseTableDataSourceImplementation {
+class DateSortedAssignmentDataSource: HideableTableDataSourceImplementation {
     
     var assignments:[[Assignment]] = [[Assignment]]()
     var assignmentDataSources:[AssignmentDataSource] = [AssignmentDataSource]()

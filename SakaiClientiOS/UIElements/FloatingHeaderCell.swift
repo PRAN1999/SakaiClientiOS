@@ -7,10 +7,12 @@
 
 import UIKit
 
+/// The "floating" header used in the gradebook view
 class FloatingHeaderCell: UITableViewCell {
 
     static var reuseIdentifier: String = "floatingHeaderCell"
     
+    /// The UILabel holding the title of the Site
     var titleLabel: UILabel!
     
     override func awakeFromNib() {
@@ -28,6 +30,8 @@ class FloatingHeaderCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
+    
+    /// Instantiate and setup titleLabel
     func setup() {
         self.backgroundColor = AppGlobals.SAKAI_RED
         
@@ -38,10 +42,12 @@ class FloatingHeaderCell: UITableViewCell {
         self.isHidden = true
     }
     
+    /// Add titleLabel to contentView
     func addViews() {
         self.contentView.addSubview(titleLabel)
     }
     
+    /// Constrain titleLabel to edges
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -53,10 +59,17 @@ class FloatingHeaderCell: UITableViewCell {
         titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
     }
     
+    /// Set the text of the titleLabel
+    ///
+    /// - Parameter title: The title text to set
     func setTitle(title: String?) {
         titleLabel.text = title
     }
 
+    
+    /// Make the floating header visible in the specified frame
+    ///
+    /// - Parameter frame: The frame in which the cell should be visible
     func setFrameAndMakeVisible(frame: CGRect) {
         self.frame = frame
         self.isHidden = false

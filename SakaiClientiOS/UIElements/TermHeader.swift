@@ -44,11 +44,7 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
         titleLabel.font = UIFont.init(name: "Helvetica", size: 25.0)
         titleLabel.textColor = AppGlobals.SAKAI_RED
         
-        backgroundHeaderView = UIView(frame: self.bounds)
-        backgroundHeaderView.backgroundColor = UIColor.lightGray
-        
         imageLabel = UIImageView()
-        imageLabel.tintColor = UIColor.black
         
         //Initialize gesture recognizer and set attributes
         tapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
@@ -76,7 +72,6 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
         
         ///Constrain titleLabel to top, bottom and left edge of superview
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         
         //Constrain imageLabel to top, bottom, and right of superview

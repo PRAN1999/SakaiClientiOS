@@ -62,7 +62,7 @@ class AssignmentTableCell: UITableViewCell {
         collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
         collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
         
-        self.heightAnchor.constraint(greaterThanOrEqualToConstant: 350).isActive = true
+        self.heightAnchor.constraint(greaterThanOrEqualToConstant: 320).isActive = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

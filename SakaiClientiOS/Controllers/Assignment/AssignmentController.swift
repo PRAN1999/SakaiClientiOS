@@ -65,13 +65,8 @@ class AssignmentController: CollapsibleSectionController {
             super.dataSource = dateSortedAssignmentDataSource
             super.tableView.dataSource = dateSortedAssignmentDataSource
         }
-        if !super.dataSource.hasLoaded {
-            if !super.dataSource.isLoading {
-                super.loadDataSource()
-            } else {
-                super.tableView.reloadData()
-                super.indicator.startAnimating()
-            }
+        if !super.dataSource.hasLoaded && !super.dataSource.isLoading {
+            super.loadDataSource()
         } else {
             super.indicator.stopAnimating()
             super.tableView.reloadData()
@@ -116,7 +111,7 @@ extension AssignmentController: UICollectionViewDelegate {
 extension AssignmentController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var size:CGSize!
-        size = CGSize(width: collectionView.bounds.width / 1.8, height: collectionView.bounds.height)
+        size = CGSize(width: collectionView.bounds.width / 1.9, height: collectionView.bounds.height)
         return size
     }
 }

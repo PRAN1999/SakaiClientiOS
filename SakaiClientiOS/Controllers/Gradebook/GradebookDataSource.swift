@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GradebookDataSource: BaseTableDataSourceImplementation {
+class GradebookDataSource: HideableTableDataSourceImplementation {
     
     var gradeItems:[[[GradeItem]]] = [[[GradeItem]]]()
     

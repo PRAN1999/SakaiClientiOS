@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SiteDataSource: BaseTableDataSourceImplementation {
+class SiteDataSource: HideableTableDataSourceImplementation {
     
     var sites:[[Site]] = [[Site]]()
     

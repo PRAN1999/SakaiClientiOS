@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SiteAssignmentsDataSource: BaseTableDataSourceImplementation {
+class SiteAssignmentsDataSource: HideableTableDataSourceImplementation {
     
     var assignments:[[[Assignment]]] = [[[Assignment]]]()
     var assignmentDataSources:[AssignmentDataSource] = [AssignmentDataSource]()

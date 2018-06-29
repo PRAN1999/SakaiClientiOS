@@ -43,7 +43,7 @@
 		518CFCAC20B4E68200D5AE8F /* GradebookPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */; };
 		51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */; };
 		51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15220C4463700E4C901 /* GradebookDataSource.swift */; };
-		51C2D15520C4471000E4C901 /* BaseTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* BaseTableDataSourceImplementation.swift */; };
+		51C2D15520C4471000E4C901 /* HideableTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */; };
 		51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */; };
 		51C2D15E20C4A84B00E4C901 /* DataSourceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15D20C4A84B00E4C901 /* DataSourceProtocols.swift */; };
 		51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7E920A6555C00DD6696 /* SitePage.swift */; };
@@ -113,7 +113,7 @@
 		518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookPageController.swift; sourceTree = "<group>"; };
 		51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSectionController.swift; sourceTree = "<group>"; };
 		51C2D15220C4463700E4C901 /* GradebookDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataSource.swift; sourceTree = "<group>"; };
-		51C2D15420C4471000E4C901 /* BaseTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableDataSourceImplementation.swift; sourceTree = "<group>"; };
+		51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableTableDataSourceImplementation.swift; sourceTree = "<group>"; };
 		51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingHeaderCell.swift; sourceTree = "<group>"; };
 		51C2D15D20C4A84B00E4C901 /* DataSourceProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceProtocols.swift; sourceTree = "<group>"; };
 		51C4B7E920A6555C00DD6696 /* SitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitePage.swift; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				51C2D15D20C4A84B00E4C901 /* DataSourceProtocols.swift */,
-				51C2D15420C4471000E4C901 /* BaseTableDataSourceImplementation.swift */,
+				51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */,
 			);
 			path = BaseDataSource;
 			sourceTree = "<group>";
@@ -477,7 +477,7 @@
 				517F378C20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
 				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
-				51C2D15520C4471000E4C901 /* BaseTableDataSourceImplementation.swift in Sources */,
+				51C2D15520C4471000E4C901 /* HideableTableDataSourceImplementation.swift in Sources */,
 				511114A020CDA9B70077F872 /* SiteAssignmentsDataSource.swift in Sources */,
 				511114B920D881450077F872 /* AssignmentPageView.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,

@@ -145,6 +145,8 @@ class Site: TermSortable {
         
         var sortedList:[[T]] = [[T]]()
         
+        //Maintain a map of site Id's to array indices so items can be added to the correct inner array
+        //This is because Site's cannot be compared like Terms, and therefore have to be split
         var mapSiteIdToIndex:[String:Int] = [:]
         var i:Int = 0
         
@@ -154,8 +156,10 @@ class Site: TermSortable {
             let sortableItem:T = list[index]
             
             if let index = mapSiteIdToIndex[sortableItem.getSiteId()] {
+                //If the siteId exists in the dictionary, add the SiteSortable item to the corresponding inner array
                 sortedList[index].append(sortableItem)
             } else {
+                //If the siteId does not exist in the dictionary, add it to the dictionary and update the next open index count
                 mapSiteIdToIndex.updateValue(i, forKey: sortableItem.getSiteId())
                 sortedList.append([T]())
                 sortedList[i].append(sortableItem)
