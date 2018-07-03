@@ -11,6 +11,7 @@ class AssignmentPageController: UIViewController {
 
     var pageView: AssignmentPageView!
     var assignment: Assignment?
+    var delegate:PagedAssignmentController!
     
     override func loadView() {
         self.pageView = AssignmentPageView(frame: .zero)
@@ -39,17 +40,8 @@ class AssignmentPageController: UIViewController {
         pageView.scrollView.setInstructions(attributedText: assignment?.getAttributedInstructions())
         pageView.scrollView.setAttachments(resources: assignment?.getAttachments())
         
-        pageView.scrollView.instructionView.delegate = self
-        pageView.scrollView.attachmentsView.delegate = self
+        pageView.scrollView.instructionView.delegate = delegate
+        pageView.scrollView.attachmentsView.delegate = delegate
     }
 
-}
-
-extension AssignmentPageController {
-    
-    override func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        
-        return super.textView(textView, shouldInteractWith: URL, in: characterRange)
-    }
-    
 }

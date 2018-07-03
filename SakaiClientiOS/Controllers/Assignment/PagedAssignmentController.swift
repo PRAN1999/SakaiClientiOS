@@ -8,17 +8,18 @@
 import UIKit
 import LNPopupController
 
-class PagedAssignmentController: UIPageViewController {
+class PagedAssignmentController: UIViewController {
 
+    @IBOutlet weak var pageControl: UIPageControl!
+    var pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     var pages: [UIViewController?] = [UIViewController]()
     var assignments: [Assignment] = [Assignment]()
     var start:Int = 0
+    var pendingIndex:Int? = 0
     var popupController: WebController = WebController()
-    var pageControl:UIPageControl = UIPageControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dataSource = self
         
         popupController.title = "Drag to Submit"
         
@@ -27,8 +28,30 @@ class PagedAssignmentController: UIPageViewController {
         self.tabBarController?.popupBar.barStyle = .compact
         self.tabBarController?.popupBar.barTintColor = AppGlobals.SAKAI_RED
         
-        self.setup()
+        setup()
         
+    }
+    
+    func setup() {
+        guard let startPage = pages[start] else {
+            return
+        }
+        pageController.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
+        
+        let pageView = pageController.view!
+        view.addSubview(pageView)
+        pageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        pageView.topAnchor.constraint(equalTo: pageControl.bottomAnchor).isActive = true
+        pageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        pageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        pageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        pageController.dataSource = self
+        pageController.delegate = self
+        
+        pageControl.numberOfPages = assignments.count
+        pageControl.currentPage = start
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,13 +70,6 @@ class PagedAssignmentController: UIPageViewController {
         self.start = start
         setPage(assignment: self.assignments[start], index: start)
         setPopupURL(viewControllerIndex: start)
-    }
-    
-    func setup() {
-        guard let startPage = pages[start] else {
-            return
-        }
-        setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,9 +120,23 @@ extension PagedAssignmentController: UIPageViewControllerDataSource, UIPageViewC
         return pages[nextIndex]
     }
     
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        pendingIndex = pages.index(of: pendingViewControllers.first)
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed {
+            let currentIndex = pendingIndex
+            if let index = currentIndex {
+                pageControl.currentPage = index
+            }
+        }
+    }
+    
     func setPage(assignment:Assignment, index: Int) {
         let page = AssignmentPageController()
         page.assignment = assignment
+        page.delegate = self
         pages[index] = page
     }
     

@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -37,12 +38,38 @@
             <point key="canvasLocation" x="231" y="-103"/>
         </scene>
         <!--Paged Assignment Controller-->
-        <scene sceneID="gqm-n6-YZ2">
+        <scene sceneID="FjM-gx-Vgi">
             <objects>
-                <pageViewController storyboardIdentifier="pagedController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="BKJ-VX-gfQ" customClass="PagedAssignmentController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bW4-vE-pyu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="pagedController" id="XUI-3r-Wbd" customClass="PagedAssignmentController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nE8-xi-Pwk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Zp6-p3-2gy">
+                                <rect key="frame" x="0.0" y="20" width="375" height="25"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="7ed-5g-0CR"/>
+                                </constraints>
+                                <color key="pageIndicatorTintColor" red="0.78039215689999997" green="0.047058823530000002" blue="0.096773806680000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Zp6-p3-2gy" firstAttribute="top" secondItem="Dy8-hx-80a" secondAttribute="top" id="Wrz-AH-5VR"/>
+                            <constraint firstItem="Dy8-hx-80a" firstAttribute="trailing" secondItem="Zp6-p3-2gy" secondAttribute="trailing" id="XG6-Ke-u4e"/>
+                            <constraint firstItem="Zp6-p3-2gy" firstAttribute="leading" secondItem="Dy8-hx-80a" secondAttribute="leading" id="fHJ-jA-vWf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Dy8-hx-80a"/>
+                    </view>
+                    <connections>
+                        <outlet property="pageControl" destination="Zp6-p3-2gy" id="VAW-Xg-qKE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R3t-Hh-X5Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1194" y="-101"/>
+            <point key="canvasLocation" x="1229.5999999999999" y="-101.19940029985008"/>
         </scene>
     </scenes>
 </document>

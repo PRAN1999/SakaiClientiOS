@@ -11,6 +11,7 @@ class AssignmentPageView: UIView {
     
     var scrollView:AssignmentDetailsView!
     var titleLabel:InsetUILabel!
+    var pageControl:UIPageControl!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,11 +34,19 @@ class AssignmentPageView: UIView {
         titleLabel.titleLabel.textAlignment = .center
         titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         titleLabel.layer.cornerRadius = 0
+        
+        pageControl = UIPageControl()
+        pageControl.currentPage = 1
+        pageControl.numberOfPages = 10
+        pageControl.pageIndicatorTintColor = AppGlobals.SAKAI_RED
+        pageControl.backgroundColor = UIColor.black
+        pageControl.currentPageIndicatorTintColor = UIColor.white
     }
     
     func addViews() {
         self.addSubview(titleLabel)
         self.addSubview(scrollView)
+        //self.addSubview(pageControl)
     }
     
     func setConstraints() {
@@ -64,7 +73,7 @@ class AssignmentPageView: UIView {
         for view in scrollView.subviews {
             contentRect = contentRect.union(view.frame)
         }
-        scrollView.contentSize = CGSize(width: self.bounds.width, height: contentRect.size.height + titleLabel.bounds.size.height + 20)
+        scrollView.contentSize = CGSize(width: self.bounds.width, height: contentRect.size.height + titleLabel.bounds.size.height + 25 + 20)
         scrollView.contentInset = UIEdgeInsets(top: titleLabel.bounds.size.height - 8, left: 0, bottom: 0, right: 0)
         scrollView.contentOffset = CGPoint(x: 0, y: -titleLabel.bounds.size.height + 8)
     }
