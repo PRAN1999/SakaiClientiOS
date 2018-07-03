@@ -15,7 +15,7 @@
                     <navigationItem key="navigationItem" id="IDs-zt-7Bw"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <segue destination="iaE-1R-x95" kind="show" identifier="loginSegue" id="vih-4G-SDz"/>
+                        <segue destination="iaE-1R-x95" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="vih-4G-SDz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

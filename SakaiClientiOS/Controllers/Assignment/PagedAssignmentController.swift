@@ -14,6 +14,7 @@ class PagedAssignmentController: UIPageViewController {
     var assignments: [Assignment] = [Assignment]()
     var start:Int = 0
     var popupController: WebController = WebController()
+    var pageControl:UIPageControl = UIPageControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,9 @@ class PagedAssignmentController: UIPageViewController {
         self.tabBarController?.popupBar.backgroundStyle = .dark
         self.tabBarController?.popupBar.barStyle = .compact
         self.tabBarController?.popupBar.barTintColor = AppGlobals.SAKAI_RED
+        
         self.setup()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,7 +63,7 @@ class PagedAssignmentController: UIPageViewController {
 
 }
 
-extension PagedAssignmentController: UIPageViewControllerDataSource {
+extension PagedAssignmentController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard let viewControllerIndex = pages.index(of: viewController) else {

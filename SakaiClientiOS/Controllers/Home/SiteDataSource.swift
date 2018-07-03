@@ -11,6 +11,7 @@ import UIKit
 class SiteDataSource: HideableTableDataSourceImplementation {
     
     var sites:[[Site]] = [[Site]]()
+    var controller:UIViewController?
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
@@ -31,12 +32,16 @@ class SiteDataSource: HideableTableDataSourceImplementation {
     
     override func loadData(completion: @escaping () -> Void) {
         
+        disableTabs()
+        
         RequestManager.shared.getSites(completion: { siteList in
             
             DispatchQueue.main.async {
                 guard let list = siteList else {
                     return
                 }
+                
+                self.enableTabs()
                 
                 if list.count == 0 {
                     return
@@ -57,5 +62,25 @@ class SiteDataSource: HideableTableDataSourceImplementation {
                 completion()
             }
         })
+    }
+    
+    func disableTabs() {
+        let items = controller?.tabBarController?.tabBar.items
+        
+        if let arr = items {
+            for i in 1..<5 {
+                arr[i].isEnabled = false
+            }
+        }
+    }
+    
+    func enableTabs() {
+        let items = controller?.tabBarController?.tabBar.items
+        
+        if let arr = items {
+            for i in 1..<5 {
+                arr[i].isEnabled = true
+            }
+        }
     }
 }

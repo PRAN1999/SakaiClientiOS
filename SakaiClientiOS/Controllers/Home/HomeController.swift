@@ -16,11 +16,13 @@ class HomeController: CollapsibleSectionController {
     required init?(coder aDecoder: NSCoder) {
         siteDataSource = SiteDataSource()
         super.init(coder: aDecoder, dataSource: siteDataSource)
+        siteDataSource.controller = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         super.title = "Classes"
+        RequestManager.shared.toReload = false
         super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
     }

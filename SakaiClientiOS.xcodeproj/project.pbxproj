@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5103FDF620E7FDC4009F8BF4 /* AnnouncementDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5103FDF520E7FDC4009F8BF4 /* AnnouncementDataSource.swift */; };
+		5103FDF820E862DD009F8BF4 /* Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5103FDF720E862DD009F8BF4 /* Announcement.swift */; };
+		5103FDFA20E86676009F8BF4 /* AnnouncementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */; };
 		5111149A20CD89D20077F872 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149920CD89D20077F872 /* Assignment.swift */; };
 		5111149C20CD97110077F872 /* AssignmentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149B20CD97110077F872 /* AssignmentTableCell.swift */; };
 		5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149D20CD972D0077F872 /* AssignmentCell.swift */; };
@@ -53,6 +56,7 @@
 		51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F720A8CAC400DD6696 /* GradeItem.swift */; };
 		51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F920A9247C00DD6696 /* DefaultController.swift */; };
 		51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B80520AD11F300DD6696 /* AppGlobals.swift */; };
+		51C6DA2220EB1CC1001BD954 /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C6DA2120EB1CC1001BD954 /* DataHandler.swift */; };
 		AF412FE9DC8C8BBC41E42CFB /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */; };
 		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
 		DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */; };
@@ -78,6 +82,9 @@
 /* Begin PBXFileReference section */
 		1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.release.xcconfig"; sourceTree = "<group>"; };
+		5103FDF520E7FDC4009F8BF4 /* AnnouncementDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementDataSource.swift; sourceTree = "<group>"; };
+		5103FDF720E862DD009F8BF4 /* Announcement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Announcement.swift; sourceTree = "<group>"; };
+		5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementCell.swift; sourceTree = "<group>"; };
 		5111149920CD89D20077F872 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		5111149B20CD97110077F872 /* AssignmentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTableCell.swift; sourceTree = "<group>"; };
 		5111149D20CD972D0077F872 /* AssignmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell.swift; sourceTree = "<group>"; };
@@ -123,6 +130,7 @@
 		51C4B7F720A8CAC400DD6696 /* GradeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItem.swift; sourceTree = "<group>"; };
 		51C4B7F920A9247C00DD6696 /* DefaultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultController.swift; sourceTree = "<group>"; };
 		51C4B80520AD11F300DD6696 /* AppGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobals.swift; sourceTree = "<group>"; };
+		51C6DA2120EB1CC1001BD954 /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakaiClientiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F81DFD93B200D19D17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				5113C12A20928658001929DA /* AnnouncementController.swift */,
+				5103FDF520E7FDC4009F8BF4 /* AnnouncementDataSource.swift */,
 			);
 			path = Announcement;
 			sourceTree = "<group>";
@@ -212,6 +221,7 @@
 				51C4B7E920A6555C00DD6696 /* SitePage.swift */,
 				51C4B7F720A8CAC400DD6696 /* GradeItem.swift */,
 				5111149920CD89D20077F872 /* Assignment.swift */,
+				5103FDF720E862DD009F8BF4 /* Announcement.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,6 +250,7 @@
 				511114B820D881450077F872 /* AssignmentPageView.swift */,
 				511114BA20DB4B770077F872 /* DetailLabel.swift */,
 				511114BC20DDF8DF0077F872 /* AssignmentDetailsView.swift */,
+				5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -323,6 +334,7 @@
 				DE059A041DFD93B200D19D17 /* Info.plist */,
 				5113C11F2090F7B7001929DA /* RequestManager.swift */,
 				51C4B80520AD11F300DD6696 /* AppGlobals.swift */,
+				51C6DA2120EB1CC1001BD954 /* DataHandler.swift */,
 			);
 			path = SakaiClientiOS;
 			sourceTree = "<group>";
@@ -451,9 +463,12 @@
 				5113C12B20928658001929DA /* AnnouncementController.swift in Sources */,
 				51C4B7EC20A660FA00DD6696 /* ClassController.swift in Sources */,
 				51C2D15E20C4A84B00E4C901 /* DataSourceProtocols.swift in Sources */,
+				5103FDF620E7FDC4009F8BF4 /* AnnouncementDataSource.swift in Sources */,
+				51C6DA2220EB1CC1001BD954 /* DataHandler.swift in Sources */,
 				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
 				511114B520D74D570077F872 /* PagedAssignmentController.swift in Sources */,
 				511114B720D752260077F872 /* AssignmentPageController.swift in Sources */,
+				5103FDF820E862DD009F8BF4 /* Announcement.swift in Sources */,
 				5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */,
 				518296D620A631CC00EAD645 /* Term.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
@@ -488,6 +503,7 @@
 				5111149A20CD89D20077F872 /* Assignment.swift in Sources */,
 				51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */,
 				511114BB20DB4B770077F872 /* DetailLabel.swift in Sources */,
+				5103FDFA20E86676009F8BF4 /* AnnouncementCell.swift in Sources */,
 				5111149C20CD97110077F872 /* AssignmentTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

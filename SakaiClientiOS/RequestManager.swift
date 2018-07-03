@@ -41,6 +41,9 @@ class RequestManager {
     ///A flag indicating whether data needs to be reloaded in HomeController; Unused for now
     var toReload = true
     
+    var assignmentData:[JSON]? = nil
+    var assignmentSize:Int = 0
+    
     ///Force the RequestManager to be a singleton
     private init() {
         
@@ -382,6 +385,10 @@ class RequestManager {
             
             completion(termSortedAssignments)
         }
+    }
+    
+    func getAllAnnouncements(offset: Int, limit: Int, completion: @escaping (_ announcements: [Announcement]?) -> Void) {
+        
     }
 }
 
