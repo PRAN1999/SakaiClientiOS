@@ -83,8 +83,8 @@ class Assignment: TermSortable, SiteSortable {
         let instructions: String? = data["instructions"].string
         let attributedInstructions:NSAttributedString? = instructions?.htmlAttributedString
         let siteId:String = data["context"].string!
-        let siteTitle:String? = RequestManager.shared.siteTitleMap[siteId]
-        let term:Term = RequestManager.shared.siteTermMap[siteId]! //Use siteTermMap to fetch Term because assignment JSON doesn't contain that data
+        let siteTitle:String? = DataHandler.shared.siteTitleMap[siteId]
+        let term:Term = DataHandler.shared.siteTermMap[siteId]! //Use siteTermMap to fetch Term because assignment JSON doesn't contain that data
         let status:String? = data["status"].string
         var maxPoints:Double?
         if let pointString = data["gradeScaleMaxPoints"].string {
@@ -160,6 +160,13 @@ class Assignment: TermSortable, SiteSortable {
     /// - Returns: String
     func getSiteId() -> String {
         return siteId
+    }
+    
+    /// Gets the site title for the Assignment
+    ///
+    /// - Returns: String?
+    func getSiteTitle() -> String? {
+        return siteTitle
     }
     
     /// Gets the Assignment status

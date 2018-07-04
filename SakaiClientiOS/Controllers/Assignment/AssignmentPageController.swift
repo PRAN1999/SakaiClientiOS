@@ -32,7 +32,7 @@ class AssignmentPageController: UIViewController {
         
         pageView.titleLabel.setText(text: assignment?.getTitle())
         
-        pageView.scrollView.classLabel.setKeyVal(key: "Class:", val: RequestManager.shared.siteTitleMap[assignment!.getSiteId()])
+        pageView.scrollView.classLabel.setKeyVal(key: "Class:", val: assignment?.getSiteTitle())
         pageView.scrollView.gradeLabel.setKeyVal(key: "Current Grade:", val: assignment?.getCurrentGrade())
         pageView.scrollView.pointsLabel.setKeyVal(key: "Max Points:", val: assignment?.getMaxPoints())
         pageView.scrollView.submissionLabel.setKeyVal(key: "Allows Resubmission:", val: assignment?.getResubmission())

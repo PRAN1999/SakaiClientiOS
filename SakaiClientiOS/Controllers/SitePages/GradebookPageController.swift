@@ -61,7 +61,7 @@ class GradebookPageController: UITableViewController {
     
     func loadData(for siteId:String) {
         indicator.startAnimating()
-        RequestManager.shared.getSiteGrades(siteId: siteId) { res in
+        DataHandler.shared.getSiteGrades(siteId: siteId) { res in
             
             DispatchQueue.main.async {
                 print("Loading Site grades")

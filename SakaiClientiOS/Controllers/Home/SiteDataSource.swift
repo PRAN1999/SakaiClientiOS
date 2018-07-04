@@ -34,7 +34,7 @@ class SiteDataSource: HideableTableDataSourceImplementation {
         
         disableTabs()
         
-        RequestManager.shared.getSites(completion: { siteList in
+        DataHandler.shared.getSites(completion: { siteList in
             
             DispatchQueue.main.async {
                 guard let list = siteList else {

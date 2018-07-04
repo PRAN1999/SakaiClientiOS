@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AnnouncementCell: UICollectionViewCell {
+class AnnouncementCell: UITableViewCell {
     
     static let reuseIdentifier:String = "announcementCell"
     

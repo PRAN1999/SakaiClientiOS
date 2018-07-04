@@ -28,7 +28,7 @@ class GradebookDataSource: HideableTableDataSourceImplementation {
     }
     
     override func loadData(completion: @escaping () -> Void) {
-        RequestManager.shared.getAllGrades { res in
+        DataHandler.shared.getAllGrades { res in
             DispatchQueue.main.async {
                 print("Loading all grades")
                 
@@ -121,7 +121,7 @@ class GradebookDataSource: HideableTableDataSourceImplementation {
     
     func getSubsectionTitle(section:Int, subsection:Int) -> String? {
         let siteId:String = gradeItems[section][subsection][0].getSiteId()
-        let title:String? = RequestManager.shared.siteTitleMap[siteId]
+        let title:String? = DataHandler.shared.siteTitleMap[siteId]
         return title
     }
 }

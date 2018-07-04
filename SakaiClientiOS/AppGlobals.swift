@@ -22,6 +22,7 @@ final class AppGlobals {
     static let SITE_GRADEBOOK_URL = BASE_URL + "gradebook/site/*.json"
     static let GRADEBOOK_URL = BASE_URL + "gradebook/my.json"
     static let ASSIGNMENT_URL = BASE_URL + "assignment/my.json"
+    static let ANNOUNCEMENT_URL = BASE_URL + "announcement/user.json?n=*&d=10000"
     
     static let SAKAI_RED = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
     

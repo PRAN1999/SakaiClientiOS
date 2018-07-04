@@ -23,7 +23,7 @@ class SiteAssignmentsDataSource: HideableTableDataSourceImplementation {
         }
         
         let siteId:String = assignments[indexPath.section][indexPath.row][0].getSiteId()
-        let title:String? = RequestManager.shared.siteTitleMap[siteId]
+        let title:String? = DataHandler.shared.siteTitleMap[siteId]
         
         cell.titleLabel.text = title
         cell.collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
@@ -47,7 +47,7 @@ class SiteAssignmentsDataSource: HideableTableDataSourceImplementation {
     
     override func loadData(completion: @escaping () -> Void) {
         
-        RequestManager.shared.getAllAssignmentsBySites(completion: { siteList in
+        DataHandler.shared.getAllAssignmentsBySites(completion: { siteList in
             
             DispatchQueue.main.async {
                 guard let list = siteList else {

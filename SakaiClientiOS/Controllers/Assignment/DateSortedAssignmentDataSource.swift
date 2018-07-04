@@ -42,7 +42,7 @@ class DateSortedAssignmentDataSource: HideableTableDataSourceImplementation {
     }
     
     override func loadData(completion: @escaping () -> Void) {
-        RequestManager.shared.getAllAssignments(completion: { siteList in
+        DataHandler.shared.getAllAssignments(completion: { siteList in
             
             DispatchQueue.main.async {
                 guard let list = siteList else {

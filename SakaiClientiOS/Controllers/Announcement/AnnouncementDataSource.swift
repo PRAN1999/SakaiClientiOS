@@ -7,20 +7,31 @@
 
 import UIKit
 
-class AnnouncementDataSource: NSObject, UICollectionViewDataSource {
+class AnnouncementDataSource: NSObject, BaseTableDataSource {
+    var numRows: [Int] = [Int]()
     
-    var numItems = 0
-    var announcements:[Announcement] = []
+    var numSections: Int = 1
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numItems
-    }
+    var hasLoaded: Bool = false
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AnnouncementCell.reuseIdentifier, for: indexPath) as? AnnouncementCell else {
-            fatalError("Not an AnnouncementCell")
-        }
+    var isLoading: Bool = false
+    
+    func loadData(completion: @escaping () -> Void) {
         
-        return cell
     }
+    
+    func resetValues() {
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return numRows[section]
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    
+    
 }
