@@ -48,8 +48,8 @@ class AssignmentTableCell: UITableViewCell {
     func setConstraints() {
         let margins = self.layoutMarginsGuide
         
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0).isActive = true
@@ -62,7 +62,7 @@ class AssignmentTableCell: UITableViewCell {
         collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
         collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
         
-        self.heightAnchor.constraint(greaterThanOrEqualToConstant: 320).isActive = true
+        self.heightAnchor.constraint(greaterThanOrEqualToConstant: 280).isActive = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

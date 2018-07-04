@@ -11,25 +11,36 @@ import LNPopupController
 class PagedAssignmentController: UIViewController {
 
     @IBOutlet weak var pageControl: UIPageControl!
-    var pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-    var pages: [UIViewController?] = [UIViewController]()
-    var assignments: [Assignment] = [Assignment]()
+    var pageController:UIPageViewController!
+    var pages: [UIViewController?]!
+    var popupController: WebController!
+    var assignments: [Assignment]!
+    
     var start:Int = 0
     var pendingIndex:Int? = 0
-    var popupController: WebController = WebController()
+    
+    required init?(coder aDecoder: NSCoder) {
+        pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        pages = [UIViewController]()
+        assignments = [Assignment]()
+        popupController = WebController()
+        
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        popupController.title = "Drag to Submit"
+        popupController.title = "DRAG TO SUBMIT"
         
         self.tabBarController?.popupInteractionStyle = .default
         self.tabBarController?.popupBar.backgroundStyle = .dark
         self.tabBarController?.popupBar.barStyle = .compact
-        self.tabBarController?.popupBar.barTintColor = AppGlobals.SAKAI_RED
+        self.tabBarController?.popupBar.barTintColor = UIColor.black
+        
+        self.navigationController?.barHideOnTapGestureRecognizer.addTarget(self, action: #selector(hideToolBar))
         
         setup()
-        
     }
     
     func setup() {
@@ -56,11 +67,15 @@ class PagedAssignmentController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+        self.navigationController?.hidesBarsOnTap = true
+        self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
+        self.navigationController?.hidesBarsOnTap = false
+        self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.dismissPopupBar(animated: true, completion: nil)
     }
     
@@ -75,6 +90,21 @@ class PagedAssignmentController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func hideNavBar() {
+        print("tapped")
+        hideToolBar()
+        guard let hidden = self.navigationController?.isNavigationBarHidden else {
+            return
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.navigationController?.isNavigationBarHidden = !hidden
+        }
+    }
+    
+    @objc func hideToolBar() {
+        self.navigationController?.isToolbarHidden = true
     }
 
 }

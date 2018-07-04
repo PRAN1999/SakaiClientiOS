@@ -33,6 +33,7 @@ class AssignmentController: CollapsibleSectionController {
         super.tableView.allowsSelection = false
         super.tableView.register(AssignmentTableCell.self, forCellReuseIdentifier: AssignmentTableCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+        super.tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "view")
         
         siteAssignmentDataSource.collectionViewDelegate = self
         siteAssignmentDataSource.textViewDelegate = self
@@ -111,7 +112,7 @@ extension AssignmentController: UICollectionViewDelegate {
 extension AssignmentController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var size:CGSize!
-        size = CGSize(width: collectionView.bounds.width / 1.9, height: collectionView.bounds.height)
+        size = CGSize(width: collectionView.bounds.width / 2.2, height: collectionView.bounds.height)
         return size
     }
 }

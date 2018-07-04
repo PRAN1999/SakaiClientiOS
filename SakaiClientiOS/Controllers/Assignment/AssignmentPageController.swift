@@ -32,6 +32,7 @@ class AssignmentPageController: UIViewController {
         
         pageView.titleLabel.setText(text: assignment?.getTitle())
         
+        pageView.scrollView.classLabel.setKeyVal(key: "Class:", val: RequestManager.shared.siteTitleMap[assignment!.getSiteId()])
         pageView.scrollView.gradeLabel.setKeyVal(key: "Current Grade:", val: assignment?.getCurrentGrade())
         pageView.scrollView.pointsLabel.setKeyVal(key: "Max Points:", val: assignment?.getMaxPoints())
         pageView.scrollView.submissionLabel.setKeyVal(key: "Allows Resubmission:", val: assignment?.getResubmission())
@@ -42,6 +43,9 @@ class AssignmentPageController: UIViewController {
         
         pageView.scrollView.instructionView.delegate = delegate
         pageView.scrollView.attachmentsView.delegate = delegate
+        
+        pageView.scrollView.instructionTapRecognizer.addTarget(delegate, action: #selector(delegate.hideNavBar))
+        pageView.scrollView.attachmentsTapRecognizer.addTarget(delegate, action: #selector(delegate.hideNavBar))
     }
 
 }

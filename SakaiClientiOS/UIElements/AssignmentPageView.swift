@@ -46,7 +46,6 @@ class AssignmentPageView: UIView {
     func addViews() {
         self.addSubview(titleLabel)
         self.addSubview(scrollView)
-        //self.addSubview(pageControl)
     }
     
     func setConstraints() {

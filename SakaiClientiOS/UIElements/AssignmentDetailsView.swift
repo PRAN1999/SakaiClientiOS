@@ -11,6 +11,7 @@ class AssignmentDetailsView: UIScrollView {
     
     var contentView:UIView!
     
+    var classLabel:DetailLabel!
     var statusLabel:DetailLabel!
     var pointsLabel:DetailLabel!
     var dueLabel:DetailLabel!
@@ -19,6 +20,9 @@ class AssignmentDetailsView: UIScrollView {
     
     var instructionView:UITextView!
     var attachmentsView:UITextView!
+    
+    var instructionTapRecognizer:UITapGestureRecognizer!
+    var attachmentsTapRecognizer:UITapGestureRecognizer!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,6 +38,7 @@ class AssignmentDetailsView: UIScrollView {
     func setup() {
         contentView = UIView()
         
+        classLabel = DetailLabel()
         statusLabel = DetailLabel()
         pointsLabel = DetailLabel()
         dueLabel = DetailLabel()
@@ -44,11 +49,18 @@ class AssignmentDetailsView: UIScrollView {
         
         prepareTextView(instructionView)
         prepareTextView(attachmentsView)
+        
+        instructionTapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
+        instructionTapRecognizer.cancelsTouchesInView = false
+        
+        attachmentsTapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
+        attachmentsTapRecognizer.cancelsTouchesInView = false
     }
     
     func addViews() {
         self.addSubview(contentView)
         
+        contentView.addSubview(classLabel)
         contentView.addSubview(statusLabel)
         contentView.addSubview(pointsLabel)
         contentView.addSubview(dueLabel)
@@ -56,6 +68,9 @@ class AssignmentDetailsView: UIScrollView {
         contentView.addSubview(submissionLabel)
         contentView.addSubview(instructionView)
         contentView.addSubview(attachmentsView)
+        
+        instructionView.addGestureRecognizer(instructionTapRecognizer)
+        attachmentsView.addGestureRecognizer(attachmentsTapRecognizer)
     }
     
     func setConstraints() {
@@ -63,6 +78,7 @@ class AssignmentDetailsView: UIScrollView {
         
         contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         
+        classLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         pointsLabel.translatesAutoresizingMaskIntoConstraints = false
         dueLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -73,9 +89,13 @@ class AssignmentDetailsView: UIScrollView {
         
         let margins = contentView.layoutMarginsGuide
         
+        classLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        classLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        classLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        classLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor).isActive = true
+        
         statusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         statusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        statusLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         statusLabel.bottomAnchor.constraint(equalTo: pointsLabel.topAnchor).isActive = true
         
         pointsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
