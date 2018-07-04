@@ -22,9 +22,6 @@ class DataHandler {
     ///For use in SiteAssignmentDataSource when setting site title
     var siteTitleMap:[String:String] = [:]
     
-    var assignmentData:[JSON]? = nil
-    var assignmentSize:Int = 0
-    
     private init() {}
     
     func reset() {
@@ -240,13 +237,31 @@ class DataHandler {
         }
     }
     
-    func getAllAnnouncements(offset: Int, limit: Int, completion: @escaping (_ announcements: [Announcement]?) -> Void) {
+    func getAllAnnouncements(limit:Int, completion: @escaping (_ announcements: [Announcement]?) -> Void) {
         let url:String = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: "\(limit)")
         RequestManager.shared.makeRequest(url: url, method: .get) { response in
             guard let data = response.result.value else {
                 print("error")
                 return
             }
+            
+            guard let collection = JSON(data)["announcement_collection"].array else {
+                completion(nil)
+                return
+            }
+            var announcmentList:[Announcement] = [Announcement]()
+            var start = collection.count < 50 ? 0 : collection.count - 50
+            while start < collection.count {
+                let announcement = collection[start]
+                announcmentList.append(Announcement(data: announcement))
+                start += 1
+            }
+            
+            completion(announcmentList)
         }
+    }
+    
+    func getNextAssignments() {
+        
     }
 }

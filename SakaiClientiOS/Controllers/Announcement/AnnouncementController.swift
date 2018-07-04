@@ -7,37 +7,22 @@
 
 import UIKit
 
-class AnnouncementController: UITableViewController {
+class AnnouncementController: BaseTableViewController {
     
-    var isSitePage: Bool = false
-    var siteId: String?
+    var announcementDataSource:AnnouncementDataSource!
+    
+    required init?(coder aDecoder: NSCoder) {
+        announcementDataSource = AnnouncementDataSource()
+        super.init(coder: aDecoder, dataSource: announcementDataSource)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
-    func loadData() {
-        
-    }
-    
-    func loadData(for siteId:String) {
-        
     }
 }

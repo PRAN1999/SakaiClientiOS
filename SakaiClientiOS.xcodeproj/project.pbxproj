@@ -44,6 +44,7 @@
 		517F378C20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517F378B20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift */; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
 		518CFCAC20B4E68200D5AE8F /* GradebookPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */; };
+		5193356820ED68E400469FD4 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356720ED68E400469FD4 /* BaseTableViewController.swift */; };
 		51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */; };
 		51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15220C4463700E4C901 /* GradebookDataSource.swift */; };
 		51C2D15520C4471000E4C901 /* HideableTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */; };
@@ -118,6 +119,7 @@
 		517F378B20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSortedAssignmentDataSource.swift; sourceTree = "<group>"; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookPageController.swift; sourceTree = "<group>"; };
+		5193356720ED68E400469FD4 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSectionController.swift; sourceTree = "<group>"; };
 		51C2D15220C4463700E4C901 /* GradebookDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataSource.swift; sourceTree = "<group>"; };
 		51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableTableDataSourceImplementation.swift; sourceTree = "<group>"; };
@@ -264,9 +266,19 @@
 			path = SitePages;
 			sourceTree = "<group>";
 		};
+		5193356920ED6CF200469FD4 /* BaseController */ = {
+			isa = PBXGroup;
+			children = (
+				51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */,
+				5193356720ED68E400469FD4 /* BaseTableViewController.swift */,
+			);
+			path = BaseController;
+			sourceTree = "<group>";
+		};
 		51C2D15A20C47FA000E4C901 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5193356920ED6CF200469FD4 /* BaseController */,
 				5113D57820C35D5600842469 /* BaseDataSource */,
 				518CFCAA20B4E64500D5AE8F /* SitePages */,
 				5113C12320927D19001929DA /* Assignment */,
@@ -274,7 +286,6 @@
 				5113C12520927D51001929DA /* Settings */,
 				5113C12620927D5A001929DA /* Home */,
 				5113C12720927D6C001929DA /* Announcement */,
-				51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */,
 				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
 				511114AB20D6CD440077F872 /* WebController.swift */,
 			);
@@ -494,6 +505,7 @@
 				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
 				51C2D15520C4471000E4C901 /* HideableTableDataSourceImplementation.swift in Sources */,
 				511114A020CDA9B70077F872 /* SiteAssignmentsDataSource.swift in Sources */,
+				5193356820ED68E400469FD4 /* BaseTableViewController.swift in Sources */,
 				511114B920D881450077F872 /* AssignmentPageView.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
 				511114BD20DDF8DF0077F872 /* AssignmentDetailsView.swift in Sources */,

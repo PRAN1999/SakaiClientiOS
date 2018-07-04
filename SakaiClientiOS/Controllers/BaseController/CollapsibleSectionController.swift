@@ -7,30 +7,27 @@
 
 import UIKit
 
-class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDelegate {
+class CollapsibleSectionController: BaseTableViewController, UIGestureRecognizerDelegate {
     
     let TABLE_HEADER_HEIGHT:CGFloat = 50.0
     
-    var dataSource: HideableTableDataSource!
-    var indicator: LoadingIndicator!
+    var hideableDataSource: HideableTableDataSource!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("Must initialize Controller with dataSource")
     }
     
+    override init?(coder aDecoder: NSCoder, dataSource: BaseTableDataSource) {
+        fatalError("Must use hideableDataSource")
+    }
+    
     init?(coder aDecoder: NSCoder, dataSource:HideableTableDataSource) {
-        super.init(coder: aDecoder)
-        self.dataSource = dataSource
+        super.init(coder: aDecoder, dataSource: dataSource)
+        self.hideableDataSource = dataSource
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.dataSource = self.dataSource
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadDataSource))
-        
-        indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
-        indicator.hidesWhenStopped = true
-        loadDataSource()
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UITableViewHeaderFooterView? {
@@ -38,8 +35,8 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
             fatalError("Not a Table Header View")
         }
         view.tag = section
-        view.setImage(isHidden: dataSource.isHidden[section])
-        view.setTitle(title: dataSource.terms[section].getTitle())
+        view.setImage(isHidden: hideableDataSource.isHidden[section])
+        view.setTitle(title: hideableDataSource.terms[section].getTitle())
         view.tapRecognizer.addTarget(self, action: #selector(handleTap))
         
         return view
@@ -56,25 +53,8 @@ class CollapsibleSectionController: UITableViewController, UIGestureRecognizerDe
     @objc func handleTap(sender: UITapGestureRecognizer) {
         let section = (sender.view?.tag)!
         
-        dataSource.isHidden[section] = !dataSource.isHidden[section]
+        hideableDataSource.isHidden[section] = !hideableDataSource.isHidden[section]
         
         self.tableView.reloadSections([section], with: UITableViewRowAnimation.automatic)
-    }
-
-    @objc func loadDataSource() {
-        dataSource.resetValues()
-        self.tableView.reloadData()
-    
-        indicator.startAnimating()
-        dataSource.hasLoaded = false
-        dataSource.isLoading = true
-        
-        dataSource.loadData(completion: {
-            self.tableView.reloadData()
-            
-            self.indicator.stopAnimating()
-            self.dataSource.hasLoaded = true
-            self.dataSource.isLoading = false
-        })
     }
 }
