@@ -34,7 +34,10 @@ class SitePage {
     ///   - title: The name of the SitePage
     ///   - siteId: The id for the Site to which the SitePage belongs
     ///   - siteType: A ViewController type detailing whether the SitePage is a defined default type
-    private init(_ id:String, _ title:String, _ siteId:String, _ siteType:UIViewController.Type) {
+    private init(_ id:String,
+                 _ title:String,
+                 _ siteId:String,
+                 _ siteType:UIViewController.Type) {
         self.id = id
         self.title = title
         self.siteId = siteId

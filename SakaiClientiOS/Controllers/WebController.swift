@@ -35,13 +35,31 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
         loadURL(urlOpt: self.url)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+        if (self.isMovingFromParentViewController) {
+            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+//    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+//        if toInterfaceOrientation == .landscapeLeft || toInterfaceOrientation == .landscapeRight {
+//            self.tabBarController?.tabBar.isHidden = true
+//        } else {
+//            self.tabBarController?.tabBar.isHidden = false
+//        }
+//    }
     
     func loadURL(urlOpt:URL?) {
         guard let url = urlOpt else {
@@ -57,6 +75,10 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     @objc func pop() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func canRotate() -> Void {
+        
     }
 }
 

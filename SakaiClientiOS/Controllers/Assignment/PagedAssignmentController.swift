@@ -156,8 +156,7 @@ extension PagedAssignmentController: UIPageViewControllerDataSource, UIPageViewC
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
-            let currentIndex = pendingIndex
-            if let index = currentIndex {
+            if let index = pendingIndex {
                 pageControl.currentPage = index
             }
         }

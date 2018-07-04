@@ -18,6 +18,7 @@ class Assignment: TermSortable, SiteSortable {
     private var attributedInstructions:NSAttributedString?
     private var term:Term
     private var siteId:String
+    private var siteTitle:String?
     private var status:String?
     private var maxPoints:Double?
     private var currentGrade:Double?
@@ -41,12 +42,26 @@ class Assignment: TermSortable, SiteSortable {
     ///   - resubmissionAllowed: A Boolean representing whether resubmission is allowed for the Assignment
     ///   - attachments: A List of attachments for the assignment, represented as NSAttributedString with embedded links to the content
     ///   - siteURL: A String containing the URL for the Assignment entity page, where Assignment submission can occur securely
-    private init(_ title:String, _ dueTimeString:String, _ dueDate: Date, _ term:Term, _ siteId:String, _ instructions: String?, _ attributedInstructions: NSAttributedString?, _ status:String?, _ maxPoints:Double?, _ currentGrade: Double?, _ resubmissionAllowed:Bool?, _ attachments: [NSAttributedString]?, _ siteURL: String?) {
+    private init(_ title:String,
+                 _ dueTimeString:String,
+                 _ dueDate: Date,
+                 _ term:Term,
+                 _ siteId:String,
+                 _ siteTitle:String? = nil,
+                 _ instructions: String? = nil,
+                 _ attributedInstructions: NSAttributedString? = nil,
+                 _ status:String? = nil,
+                 _ maxPoints:Double? = nil,
+                 _ currentGrade: Double? = nil,
+                 _ resubmissionAllowed:Bool? = nil,
+                 _ attachments: [NSAttributedString]? = nil,
+                 _ siteURL: String? = nil) {
         self.title = title
         self.dueTimeString = dueTimeString
         self.dueDate = dueDate
         self.term = term
         self.siteId = siteId
+        self.siteTitle = siteTitle
         self.instructions = instructions
         self.attributedInstructions = attributedInstructions
         self.status = status
@@ -68,6 +83,7 @@ class Assignment: TermSortable, SiteSortable {
         let instructions: String? = data["instructions"].string
         let attributedInstructions:NSAttributedString? = instructions?.htmlAttributedString
         let siteId:String = data["context"].string!
+        let siteTitle:String? = RequestManager.shared.siteTitleMap[siteId]
         let term:Term = RequestManager.shared.siteTermMap[siteId]! //Use siteTermMap to fetch Term because assignment JSON doesn't contain that data
         let status:String? = data["status"].string
         var maxPoints:Double?
@@ -94,7 +110,7 @@ class Assignment: TermSortable, SiteSortable {
         
         let siteURL = data["entityURL"].string
         
-        self.init(title, dueTimeString, dueDate, term, siteId, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings, siteURL)
+        self.init(title, dueTimeString, dueDate, term, siteId, siteTitle, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings, siteURL)
     }
     
     /// Gets the title of the Assignment

@@ -15,6 +15,14 @@ class LoginViewController: WebController {
 
     var indicator: UIActivityIndicatorView!
     
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

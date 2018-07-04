@@ -76,22 +76,7 @@ class AssignmentDetailsView: UIScrollView {
     func setConstraints() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
-//        contentView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//        contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-//        contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-//        contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        
-//        let heightConstraint = NSLayoutConstraint(item: contentView,
-//                                                  attribute: .height,
-//                                                  relatedBy: .greaterThanOrEqual,
-//                                                  toItem: self,
-//                                                  attribute: .height,
-//                                                  multiplier: 1.0,
-//                                                  constant: 0.0)
-//        heightConstraint.priority = UILayoutPriority(rawValue: 900)
-//        self.addConstraint(heightConstraint)
-        
         
         classLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +91,7 @@ class AssignmentDetailsView: UIScrollView {
         
         classLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         classLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        classLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        classLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         classLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor).isActive = true
         
         statusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
@@ -135,7 +120,7 @@ class AssignmentDetailsView: UIScrollView {
         
         attachmentsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5.0).isActive = true
         attachmentsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5.0).isActive = true
-        attachmentsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        attachmentsView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
     
     func setInstructions(attributedText: NSAttributedString?) {

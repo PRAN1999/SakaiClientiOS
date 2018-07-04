@@ -38,7 +38,11 @@ class GradeItem: TermSortable, SiteSortable {
      
      */
     
-    private init(_ grade:Double?, _ points:Double, _ title:String, _ term:Term, _ siteId:String) {
+    private init(_ grade:Double? = nil,
+                 _ points:Double,
+                 _ title:String,
+                 _ term:Term,
+                 _ siteId:String) {
         self.grade = grade
         self.points = points
         self.title = title

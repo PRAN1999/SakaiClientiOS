@@ -67,6 +67,6 @@ class AssignmentPageView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        scrollView.contentInset = UIEdgeInsets(top: titleLabel.bounds.size.height, left: 0, bottom: 0, right: 0)
+        scrollView.contentInset = UIEdgeInsets(top: titleLabel.bounds.size.height - 7, left: 0, bottom: 0, right: 0)
     }
 }
