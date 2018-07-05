@@ -26,6 +26,7 @@ class DateSortedAssignmentDataSource: HideableTableDataSourceImplementation {
         
         let assignmentDataSource = AssignmentDataSource()
         assignmentDataSource.textViewDelegate = textViewDelegate
+        assignmentDataSource.collectionViewDelegate = collectionViewDelegate
         assignmentDataSource.loadData(list: assignments[indexPath.section])
         assignmentDataSources.append(assignmentDataSource)
         

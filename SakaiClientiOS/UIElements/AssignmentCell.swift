@@ -16,6 +16,8 @@ class AssignmentCell: UICollectionViewCell {
     var dueLabel:InsetUILabel!
     var descLabel:UITextView!
     
+    var tapRecognizer:IndexRecognizer!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -39,6 +41,9 @@ class AssignmentCell: UICollectionViewCell {
         descLabel.isSelectable = true
         descLabel.backgroundColor = UIColor.white
         
+        tapRecognizer = IndexRecognizer(target: nil, action: nil)
+        tapRecognizer.cancelsTouchesInView = false
+        
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.cornerRadius = 3
@@ -49,6 +54,7 @@ class AssignmentCell: UICollectionViewCell {
         self.addSubview(titleLabel)
         self.addSubview(dueLabel)
         self.addSubview(descLabel)
+        descLabel.addGestureRecognizer(tapRecognizer)
     }
     
     func setConstraints() {
@@ -64,14 +70,21 @@ class AssignmentCell: UICollectionViewCell {
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
         
-        dueLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
-        
         descLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         descLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
+        
+        dueLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
     }
+}
+
+class IndexRecognizer: UITapGestureRecognizer {
+    
+    var collectionView:UICollectionView!
+    var indexPath:IndexPath!
+    
 }

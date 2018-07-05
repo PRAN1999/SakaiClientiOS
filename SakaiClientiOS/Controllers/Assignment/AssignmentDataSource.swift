@@ -13,6 +13,8 @@ class AssignmentDataSource: NSObject, UICollectionViewDataSource {
     var numItems = 0
     
     var textViewDelegate: UITextViewDelegate?
+    var collectionViewDelegate: UICollectionViewDelegate?
+    var delegate: AssignmentController?
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numItems
@@ -27,6 +29,9 @@ class AssignmentDataSource: NSObject, UICollectionViewDataSource {
         cell.dueLabel.setText(text:"Due: \(assignment.getDueTimeString())")
         cell.descLabel.attributedText = assignment.getAttributedInstructions()
         cell.descLabel.delegate = textViewDelegate
+        cell.tapRecognizer.collectionView = collectionView
+        cell.tapRecognizer.indexPath = indexPath
+        cell.tapRecognizer.addTarget(collectionViewDelegate, action: #selector(AssignmentController.handleIndexTap(sender:)))
         return cell
     }
 

@@ -30,6 +30,7 @@ class SiteAssignmentsDataSource: HideableTableDataSourceImplementation {
         
         let assignmentDataSource = AssignmentDataSource()
         assignmentDataSource.textViewDelegate = textViewDelegate
+        assignmentDataSource.collectionViewDelegate = collectionViewDelegate
         assignmentDataSource.loadData(list: assignments[indexPath.section][indexPath.row])
         assignmentDataSources.append(assignmentDataSource)
         

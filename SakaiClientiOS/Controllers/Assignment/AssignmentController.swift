@@ -59,11 +59,13 @@ class AssignmentController: CollapsibleSectionController {
             dateSorted = false
             selectedIndex = 1
             super.dataSource = siteAssignmentDataSource
+            super.hideableDataSource = siteAssignmentDataSource
             super.tableView.dataSource = siteAssignmentDataSource
         } else {
             dateSorted = true
             selectedIndex = 0
             super.dataSource = dateSortedAssignmentDataSource
+            super.hideableDataSource = dateSortedAssignmentDataSource
             super.tableView.dataSource = dateSortedAssignmentDataSource
         }
         if !super.dataSource.hasLoaded && !super.dataSource.isLoading {
@@ -100,6 +102,16 @@ class AssignmentController: CollapsibleSectionController {
 }
 
 extension AssignmentController: UICollectionViewDelegate {
+    
+    @objc func handleIndexTap(sender: Any) {
+        guard let recognizer = sender as? IndexRecognizer else {
+            return
+        }
+        let indexPath = recognizer.indexPath!
+        let collectionView = recognizer.collectionView!
+        self.collectionView(collectionView, didSelectItemAt: indexPath)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagedAssignmentController
@@ -112,7 +124,7 @@ extension AssignmentController: UICollectionViewDelegate {
 extension AssignmentController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var size:CGSize!
-        size = CGSize(width: collectionView.bounds.width / 2.2, height: collectionView.bounds.height)
+        size = CGSize(width: collectionView.bounds.width / 2.25, height: collectionView.bounds.height)
         return size
     }
 }

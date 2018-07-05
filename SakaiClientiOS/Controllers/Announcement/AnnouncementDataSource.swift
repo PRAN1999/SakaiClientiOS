@@ -37,6 +37,4 @@ class AnnouncementDataSource: NSObject, BaseTableDataSource {
         return UITableViewCell()
     }
     
-    
-    
 }
