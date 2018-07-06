@@ -37,21 +37,21 @@ class GradebookDataSource: HideableTableDataSourceImplementation {
                     return
                 }
                 
-                self.numSections = list.count
+                super.numSections = list.count
                 self.gradeItems = list
                 
                 for i in 0..<self.numSections {
-                    self.terms.append(list[i][0][0].getTerm())
+                    super.terms.append(list[i][0][0].getTerm())
                     var numRows:Int = list[i].count
                     
                     for j in 0..<list[i].count {
                         numRows += list[i][j].count
                     }
-                    self.numRows.append(numRows)
-                    self.isHidden.append(true)
+                    super.numRows.append(numRows)
+                    super.isHidden.append(true)
                 }
                 
-                self.isHidden[0] = false
+                super.isHidden[0] = false
                 
                 completion()
             }

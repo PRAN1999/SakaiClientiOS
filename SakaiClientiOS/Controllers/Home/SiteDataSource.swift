@@ -49,17 +49,17 @@ class SiteDataSource: HideableTableDataSourceImplementation {
                     return
                 }
                 
-                self.numSections = list.count
+                super.numSections = list.count
                 
                 for index in 0..<list.count {
-                    self.numRows.append(list[index].count)
-                    self.terms.append(list[index][0].getTerm())
+                    super.numRows.append(list[index].count)
+                    super.terms.append(list[index][0].getTerm())
                     self.sites.append(list[index])
-                    self.isHidden.append(true)
+                    super.isHidden.append(true)
                 }
                 
                 
-                self.isHidden[0] = false
+                super.isHidden[0] = false
                 
                 completion()
             }

@@ -48,8 +48,8 @@ class AnnouncementDataSource: BaseTableDataSourceImplementation {
     }
     
     override func resetValues() {
-        numRows = [0]
-        numSections = 0
+        super.numRows = [0]
+        super.numSections = 0
         announcements = []
         offset = 0
         numToRequest = 50
@@ -64,8 +64,8 @@ class AnnouncementDataSource: BaseTableDataSourceImplementation {
                 return
             }
             
-            self.numSections = 1
-            self.numRows[0] += list.count
+            super.numSections = 1
+            super.numRows[0] += list.count
             
             self.announcements.append(contentsOf: list)
             

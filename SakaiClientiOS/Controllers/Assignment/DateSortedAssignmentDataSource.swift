@@ -56,18 +56,18 @@ class DateSortedAssignmentDataSource: HideableTableDataSourceImplementation {
                     return
                 }
                 
-                self.numSections = list.count
+                super.numSections = list.count
                 self.assignments = list
                 
                 for i in 0..<list.count {
-                    self.terms.append(list[i][0].getTerm())
+                    super.terms.append(list[i][0].getTerm())
                     let numRows:Int = 1
                     
-                    self.numRows.append(numRows)
-                    self.isHidden.append(true)
+                    super.numRows.append(numRows)
+                    super.isHidden.append(true)
                 }
                 
-                self.isHidden[0] = false
+                super.isHidden[0] = false
                 
                 completion()
             }
