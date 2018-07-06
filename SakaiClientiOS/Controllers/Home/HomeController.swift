@@ -46,24 +46,4 @@ class HomeController: CollapsibleSectionController {
         classController.setPages(pages: site.getPages())
         self.navigationController?.pushViewController(classController, animated: true)
     }
-    
-    func disableTabs() {
-        let items = self.tabBarController?.tabBar.items
-        
-        if let arr = items {
-            for i in 1..<5 {
-                arr[i].isEnabled = false
-            }
-        }
-    }
-    
-    func enableTabs() {
-        let items = self.tabBarController?.tabBar.items
-        
-        if let arr = items {
-            for i in 1..<5 {
-                arr[i].isEnabled = true
-            }
-        }
-    }
 }
