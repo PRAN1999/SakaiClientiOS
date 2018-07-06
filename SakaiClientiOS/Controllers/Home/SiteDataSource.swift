@@ -38,12 +38,14 @@ class SiteDataSource: HideableTableDataSourceImplementation {
             
             DispatchQueue.main.async {
                 guard let list = siteList else {
+                    completion()
                     return
                 }
                 
                 self.enableTabs()
                 
                 if list.count == 0 {
+                    completion()
                     return
                 }
                 

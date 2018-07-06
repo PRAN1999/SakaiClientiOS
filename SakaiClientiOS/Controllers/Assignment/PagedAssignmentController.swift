@@ -39,6 +39,7 @@ class PagedAssignmentController: UIViewController {
         self.tabBarController?.popupBar.barTintColor = UIColor.black
         
         self.navigationController?.barHideOnTapGestureRecognizer.addTarget(self, action: #selector(hideToolBar))
+        self.navigationController?.isNavigationBarHidden = true
         
         setup()
     }
@@ -68,14 +69,12 @@ class PagedAssignmentController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
         self.navigationController?.hidesBarsOnTap = true
-        self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
         self.navigationController?.hidesBarsOnTap = false
-        self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.dismissPopupBar(animated: true, completion: nil)
     }
     
@@ -93,7 +92,6 @@ class PagedAssignmentController: UIViewController {
     }
     
     @objc func hideNavBar() {
-        print("tapped")
         hideToolBar()
         guard let hidden = self.navigationController?.isNavigationBarHidden else {
             return
@@ -105,6 +103,7 @@ class PagedAssignmentController: UIViewController {
     
     @objc func hideToolBar() {
         self.navigationController?.isToolbarHidden = true
+        self.view.layoutSubviews()
     }
 
 }

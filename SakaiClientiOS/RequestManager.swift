@@ -135,7 +135,6 @@ class RequestManager {
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeAll()
         DataHandler.shared.reset()
         processPool = WKProcessPool()
-        
     }
     
     /**

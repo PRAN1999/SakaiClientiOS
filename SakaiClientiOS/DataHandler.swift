@@ -237,27 +237,34 @@ class DataHandler {
         }
     }
     
-    func getAllAnnouncements(limit:Int, completion: @escaping (_ announcements: [Announcement]?) -> Void) {
+    func getAllAnnouncements(offset:Int, limit:Int, completion: @escaping (_ announcements: [Announcement]?, _ moreLoads: Bool) -> Void) {
         let url:String = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: "\(limit)")
         RequestManager.shared.makeRequest(url: url, method: .get) { response in
             guard let data = response.result.value else {
                 print("error")
+                completion(nil, false)
                 return
             }
             
             guard let collection = JSON(data)["announcement_collection"].array else {
-                completion(nil)
+                completion(nil, false)
                 return
             }
-            var announcmentList:[Announcement] = [Announcement]()
-            var start = collection.count < 50 ? 0 : collection.count - 50
+            
+            if offset >= collection.count {
+                completion(nil, false)
+                return
+            }
+            
+            var announcementList:[Announcement] = [Announcement]()
+            var start = offset
             while start < collection.count {
                 let announcement = collection[start]
-                announcmentList.append(Announcement(data: announcement))
+                announcementList.append(Announcement(data: announcement))
                 start += 1
             }
             
-            completion(announcmentList)
+            completion(announcementList, true)
         }
     }
     

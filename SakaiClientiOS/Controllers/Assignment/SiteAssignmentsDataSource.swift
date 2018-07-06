@@ -52,10 +52,12 @@ class SiteAssignmentsDataSource: HideableTableDataSourceImplementation {
             
             DispatchQueue.main.async {
                 guard let list = siteList else {
+                    completion()
                     return
                 }
                 
                 if list.count == 0 {
+                    completion()
                     return
                 }
                 

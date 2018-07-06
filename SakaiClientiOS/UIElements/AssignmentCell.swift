@@ -35,7 +35,7 @@ class AssignmentCell: UICollectionViewCell {
         descLabel = UITextView()
         
         titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
-        dueLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
+        dueLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
         
         descLabel.isEditable = false
         descLabel.isSelectable = true

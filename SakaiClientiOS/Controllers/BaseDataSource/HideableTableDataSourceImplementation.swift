@@ -8,43 +8,26 @@
 import Foundation
 import UIKit
 
-class HideableTableDataSourceImplementation: NSObject, HideableTableDataSource {
+class HideableTableDataSourceImplementation: BaseTableDataSourceImplementation, HideableTableDataSource {
     
     var isHidden: [Bool] = [Bool]()
-    
     var terms:[Term] = [Term]()
     
-    var numRows:[Int] = [Int]()
-    var numSections = 0
-    
-    var hasLoaded:Bool = false
-    var isLoading:Bool = false
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isHidden[section] {
             return 0
         }
-        return numRows[section]
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        fatalError("Must override cellForRowAt for every data source implementation. Should not be instantiating BaseDataSourceImplementation")
+        return super.tableView(tableView, numberOfRowsInSection: section)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return numSections
     }
     
-    func resetValues() {
-        numRows = []
+    override func resetValues() {
         terms = []
-        numSections = 0
-        
         isHidden = []
-    }
-    
-    func loadData(completion: @escaping () -> Void) {
-        fatalError("Must override loadData for every data source implementation. Should not be instantiating BaseDataSourceImplementation")
+        super.resetValues()
     }
 }
 

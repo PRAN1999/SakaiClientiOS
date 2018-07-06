@@ -18,7 +18,7 @@ class AnnouncementController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        super.tableView.register(AnnouncementCell.self, forCellReuseIdentifier: AnnouncementCell.reuseIdentifier)
     }
 
     override func didReceiveMemoryWarning() {

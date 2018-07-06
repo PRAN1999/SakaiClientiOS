@@ -33,6 +33,7 @@ class GradebookDataSource: HideableTableDataSourceImplementation {
                 print("Loading all grades")
                 
                 guard let list = res else {
+                    completion()
                     return
                 }
                 

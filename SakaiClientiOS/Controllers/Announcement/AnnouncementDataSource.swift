@@ -7,34 +7,72 @@
 
 import UIKit
 
-class AnnouncementDataSource: NSObject, BaseTableDataSource {
+class AnnouncementDataSource: BaseTableDataSourceImplementation {
     
     var announcements:[Announcement] = [Announcement]()
     
-    var numRows: [Int] = [Int]()
-    var numSections: Int = 0
+    var offset = 0
+    var numToRequest = 50
     
-    var hasLoaded: Bool = false
-    var isLoading: Bool = false
-    
-    func loadData(completion: @escaping () -> Void) {
-        completion()
-    }
-    
-    func resetValues() {
-        
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numRows[section]
-    }
+    var moreLoads = true
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return numSections
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AnnouncementCell.reuseIdentifier, for: indexPath) as? AnnouncementCell else {
+            fatalError("Not an announcement cell")
+        }
+        
+        let announcement = announcements[indexPath.row]
+        cell.setTitle(title: announcement.getTitle())
+        
+        if indexPath.row == announcements.count - 1 && moreLoads {
+            print("load")
+            let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            spinner.startAnimating()
+            spinner.hidesWhenStopped = true
+            spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+            
+            tableView.tableFooterView = spinner
+            tableView.tableFooterView?.isHidden = false
+            loadData {
+                tableView.reloadData()
+                tableView.tableFooterView?.isHidden = true
+                spinner.stopAnimating()
+            }
+        }
+        
+        return cell
     }
     
+    override func resetValues() {
+        numRows = [0]
+        numSections = 0
+        announcements = []
+        offset = 0
+        numToRequest = 50
+        moreLoads = true
+    }
+    
+    override func loadData(completion: @escaping () -> Void) {
+        DataHandler.shared.getAllAnnouncements(offset: offset, limit: numToRequest) { (announcementList, moreLoads) in
+            self.moreLoads = moreLoads
+            guard let list = announcementList else {
+                completion()
+                return
+            }
+            
+            self.numSections = 1
+            self.numRows[0] += list.count
+            
+            self.announcements.append(contentsOf: list)
+            
+            self.offset += list.count
+            self.numToRequest += 50
+            
+            completion()
+        }
+    }
 }
