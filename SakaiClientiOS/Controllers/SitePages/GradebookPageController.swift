@@ -43,14 +43,14 @@ class GradebookPageController: UITableViewController {
         let gradeItem = gradeItems[indexPath.row]
         
         var grade:String
-        if gradeItem.getGrade() != nil {
-            grade = "\(gradeItem.getGrade()!)"
+        if gradeItem.grade != nil {
+            grade = "\(gradeItem.grade!)"
         } else {
             grade = ""
         }
         
-        cell.titleLabel.text = gradeItem.getTitle()
-        cell.gradeLabel.text = "\(grade) / \(gradeItem.getPoints())"
+        cell.titleLabel.text = gradeItem.title
+        cell.gradeLabel.text = "\(grade) / \(gradeItem.points)"
         
         return cell
     }

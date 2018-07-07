@@ -170,7 +170,7 @@ extension PagedAssignmentController: UIPageViewControllerDataSource, UIPageViewC
     
     func setPopupURL(viewControllerIndex:Int) {
         let assignment = assignments[viewControllerIndex]
-        guard let url = assignment.getURL() else {
+        guard let url = assignment.siteURL else {
             return
         }
         popupController.setURL(url: URL(string: url)!)
