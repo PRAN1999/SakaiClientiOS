@@ -26,7 +26,7 @@ class AnnouncementDataSource: BaseTableDataSourceImplementation {
         }
         
         let announcement = announcements[indexPath.row]
-        cell.setTitle(title: announcement.getTitle())
+        cell.setTitle(title: announcement.title)
         
         if indexPath.row == announcements.count - 1 && moreLoads {
             let frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(70))

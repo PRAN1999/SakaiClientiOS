@@ -22,7 +22,7 @@ class SiteAssignmentsDataSource: HideableTableDataSourceImplementation {
             fatalError("Fail to dequeue cell")
         }
         
-        let siteId:String = assignments[indexPath.section][indexPath.row][0].getSiteId()
+        let siteId:String = assignments[indexPath.section][indexPath.row][0].siteId
         let title:String? = DataHandler.shared.siteTitleMap[siteId]
         
         cell.titleLabel.text = title
@@ -65,7 +65,7 @@ class SiteAssignmentsDataSource: HideableTableDataSourceImplementation {
                 self.assignments = list
                 
                 for i in 0..<list.count {
-                    super.terms.append(list[i][0][0].getTerm())
+                    super.terms.append(list[i][0][0].term)
                     let numRows:Int = list[i].count
                     
                     super.numRows.append(numRows)

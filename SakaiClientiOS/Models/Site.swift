@@ -24,7 +24,7 @@ protocol SiteSortable {
  Can be sorted by Term
  
  */
-class Site: TermSortable {
+struct Site: TermSortable {
     
     ///The unique String id for a Site
     let id:String;
@@ -79,7 +79,7 @@ class Site: TermSortable {
      A Site object
      
      */
-    convenience init(data:JSON) {
+    init(data:JSON) {
         let id = data["id"].string!
         let title = data["title"].string!
         
@@ -107,7 +107,7 @@ class Site: TermSortable {
      - Returns: A two-dimensional array of T split by siteId
      
     */
-    class func splitBySites<T:SiteSortable>(listToSort:[T]?) -> [[T]]? {
+    static func splitBySites<T:SiteSortable>(listToSort:[T]?) -> [[T]]? {
         guard let list = listToSort else {
             return nil
         }

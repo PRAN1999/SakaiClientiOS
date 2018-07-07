@@ -58,8 +58,8 @@ class DataHandler {
                 
                 //Update shared map for siteId : Term
                 //                      siteId : Title
-                self.siteTermMap.updateValue(site.getTerm(), forKey: site.getId())
-                self.siteTitleMap.updateValue(site.getTitle(), forKey: site.getId())
+                self.siteTermMap.updateValue(site.term, forKey: site.id)
+                self.siteTitleMap.updateValue(site.title, forKey: site.id)
             }
             let sectionList = Term.splitByTerms(listToSort: siteList) //Split the site list by Term
             
@@ -194,7 +194,7 @@ class DataHandler {
             //For each term-specific gradeList, sort by Site and insert into 3-dim array
             for index in 0..<numTerms {
                 //Sort each array by date before splitting by Site
-                termSortedAssignments[index].sort{$0.getDueDate() > $1.getDueDate()}
+                termSortedAssignments[index].sort{$0.dueDate > $1.dueDate}
                 sortedAssignments.append(Site.splitBySites(listToSort: termSortedAssignments[index])!)
             }
             
@@ -227,7 +227,7 @@ class DataHandler {
             }
             
             //Sort the list by due date before splitting by Term
-            assignmentList.sort{$0.getDueDate() > $1.getDueDate()}
+            assignmentList.sort{$0.dueDate > $1.dueDate}
             guard let termSortedAssignments = Term.splitByTerms(listToSort: assignmentList) else {
                 completion(nil)
                 return

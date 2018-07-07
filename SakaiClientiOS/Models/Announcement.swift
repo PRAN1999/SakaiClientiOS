@@ -8,7 +8,7 @@
 import Foundation
 import SwiftyJSON
 
-class Announcement: TermSortable, SiteSortable {
+struct Announcement: TermSortable, SiteSortable {
     
     let title:String?
     let term:Term
@@ -22,7 +22,7 @@ class Announcement: TermSortable, SiteSortable {
         self.siteId = siteId
     }
     
-    convenience init(data: JSON) {
+    init(data: JSON) {
         let title = data["title"].string
         let siteId = data["siteId"].string!
         let term = DataHandler.shared.siteTermMap[siteId]!

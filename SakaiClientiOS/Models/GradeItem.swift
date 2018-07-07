@@ -16,7 +16,7 @@ import SwiftyJSON
  
  */
 
-class GradeItem: TermSortable, SiteSortable {
+struct GradeItem: TermSortable, SiteSortable {
     
     let grade:Double?
     let points:Double
@@ -59,7 +59,7 @@ class GradeItem: TermSortable, SiteSortable {
      
      */
     
-    convenience init(data: JSON, siteId:String) {
+    init(data: JSON, siteId:String) {
         let title = data["itemName"].string!
         let points = data["points"].double!
         var grade:Double?
