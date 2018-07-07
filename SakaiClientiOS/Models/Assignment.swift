@@ -9,7 +9,7 @@ import Foundation
 import SwiftyJSON
 
 /// The model for an Assignment item
-class Assignment: TermSortable, SiteSortable {
+struct Assignment: TermSortable, SiteSortable {
     
     let title:String
     let dueTimeString:String
@@ -75,7 +75,7 @@ class Assignment: TermSortable, SiteSortable {
     /// Uses a JSON object returned from network request and parses it to instantiate an Assignment object with all available fields
     ///
     /// - Parameter data: A JSON object representing a Sakai Assignment, which contains all relevant information for the assignment
-    convenience init(data: JSON) {
+    init(data: JSON) {
         let title: String = data["title"].string!
         let dueTimeString: String = data["dueTimeString"].string!
         let time = data["dueTime"]["time"].double!

@@ -8,7 +8,7 @@ import Foundation
 import SwiftyJSON
 
 ///SitePage represents the subpages of each Sakai site
-class SitePage {
+struct SitePage {
     
     private static let ANNOUNCEMENT_STRING:String = "Announcements"
     private static let ASSIGNMENTS_STRING:String  = "Assignments"
@@ -47,7 +47,7 @@ class SitePage {
     /// A convenient initializer to take a JSON object and parses it to construct a SitePage
     ///
     /// - Parameter data: The JSON object containing all the information for a SitePage
-    convenience init(data:JSON) {
+    init(data:JSON) {
         let id:String = data["id"].string!
         let title:String = data["title"].string!
         let siteId:String = data["siteId"].string!

@@ -24,12 +24,12 @@ protocol TermSortable {
  
  */
 
-class Term {
+struct Term {
     private static let mapTerms:[Int:String] = [1:"Spring", 9: "Fall", 6: "Summer 1", 7: "Summer 2", 12: "Winter"]
     
-    private var year:Int?
-    private var termInt:Int?
-    private var termString:String?
+    let year:Int?
+    let termInt:Int?
+    let termString:String?
     
     /**
  
@@ -57,7 +57,7 @@ class Term {
     - Returns: A Term object
      
      */
-    convenience init(toParse: String?) {
+    init(toParse: String?) {
         guard let tString = toParse else {
             self.init(year: nil, termInt: nil, termString: "None")
             return
@@ -69,33 +69,6 @@ class Term {
             return
         }
         self.init(year: year, termInt: term, termString: Term.mapTerms[term])
-    }
-    
-    /**
-    
-     Get the year of the Term
-     
-     */
-    func getYear() -> Int? {
-        return year
-    }
-    
-    /**
-     
-     Get the first month of the corresponding Term
-     
-     */
-    func getTermInt() -> Int? {
-        return termInt
-    }
-    
-    /**
-     
-     Get the name of the month of the Term
-     
-     */
-    func getTermString() -> String? {
-        return termString
     }
     
     /**
@@ -121,7 +94,7 @@ class Term {
      Sorts the array by Term and then walks through array building separate arrays
      
      */
-    class func splitByTerms<T:TermSortable>(listToSort: [T]?) -> [[T]]? {
+    static func splitByTerms<T:TermSortable>(listToSort: [T]?) -> [[T]]? {
         guard var list = listToSort else {
             return nil
         }
