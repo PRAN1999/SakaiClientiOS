@@ -18,11 +18,11 @@ import SwiftyJSON
 
 class GradeItem: TermSortable, SiteSortable {
     
-    private var grade:Double?
-    private var points:Double
-    private var title:String
-    private var term:Term
-    private var siteId:String
+    let grade:Double?
+    let points:Double
+    let title:String
+    let term:Term
+    let siteId:String
     
     /**
      
@@ -70,51 +70,6 @@ class GradeItem: TermSortable, SiteSortable {
         let term = DataHandler.shared.siteTermMap[siteId]!
         
         self.init(grade, points, title, term, siteId)
-    }
-    
-    /**
-     
-     Gets grade of entry
-     
-     */
-    func getGrade() -> Double? {
-        return grade
-    }
-    
-    /**
-     
-     Gets total possible points of entry
-     
-     */
-    func getPoints() -> Double {
-        return points
-    }
-    
-    /**
-     
-     Gets title of grade entry
-     
-     */
-    func getTitle() -> String {
-        return title
-    }
-    
-    /**
-     
-     Gets term associated with grade entry
-     
-     */
-    func getTerm() -> Term {
-        return term
-    }
-    
-    /**
-     
-     Gets siteId associated with grade entry
-     
-     */
-    func getSiteId() -> String {
-        return siteId
     }
     
 }

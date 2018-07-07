@@ -20,7 +20,7 @@ class SiteDataSource: HideableTableDataSourceImplementation {
         
         let site:Site = sites[indexPath.section][indexPath.row]
         
-        cell.titleLabel.text = site.getTitle()
+        cell.titleLabel.text = site.title
         
         return cell
     }
@@ -53,7 +53,7 @@ class SiteDataSource: HideableTableDataSourceImplementation {
                 
                 for index in 0..<list.count {
                     super.numRows.append(list[index].count)
-                    super.terms.append(list[index][0].getTerm())
+                    super.terms.append(list[index][0].term)
                     self.sites.append(list[index])
                     super.isHidden.append(true)
                 }

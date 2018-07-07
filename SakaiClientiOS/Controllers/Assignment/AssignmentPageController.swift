@@ -30,16 +30,16 @@ class AssignmentPageController: UIViewController {
     func setup() {
         pageView.backgroundColor = UIColor.white
         
-        pageView.titleLabel.setText(text: assignment?.getTitle())
+        pageView.titleLabel.setText(text: assignment?.title)
         
-        pageView.scrollView.classLabel.setKeyVal(key: "Class:", val: assignment?.getSiteTitle())
-        pageView.scrollView.gradeLabel.setKeyVal(key: "Current Grade:", val: assignment?.getCurrentGrade())
-        pageView.scrollView.pointsLabel.setKeyVal(key: "Max Points:", val: assignment?.getMaxPoints())
-        pageView.scrollView.submissionLabel.setKeyVal(key: "Allows Resubmission:", val: assignment?.getResubmission())
-        pageView.scrollView.statusLabel.setKeyVal(key: "Status:", val: assignment?.getStatus())
-        pageView.scrollView.dueLabel.setKeyVal(key: "Due:", val: assignment?.getDueTimeString())
-        pageView.scrollView.setInstructions(attributedText: assignment?.getAttributedInstructions())
-        pageView.scrollView.setAttachments(resources: assignment?.getAttachments())
+        pageView.scrollView.classLabel.setKeyVal(key: "Class:", val: assignment?.siteTitle)
+        pageView.scrollView.gradeLabel.setKeyVal(key: "Current Grade:", val: assignment?.currentGrade)
+        pageView.scrollView.pointsLabel.setKeyVal(key: "Max Points:", val: assignment?.maxPoints)
+        pageView.scrollView.submissionLabel.setKeyVal(key: "Allows Resubmission:", val: assignment?.resubmissionAllowed)
+        pageView.scrollView.statusLabel.setKeyVal(key: "Status:", val: assignment?.status)
+        pageView.scrollView.dueLabel.setKeyVal(key: "Due:", val: assignment?.dueTimeString)
+        pageView.scrollView.setInstructions(attributedText: assignment?.attributedInstructions)
+        pageView.scrollView.setAttachments(resources: assignment?.attachments)
         
         pageView.scrollView.instructionView.delegate = delegate
         pageView.scrollView.attachmentsView.delegate = delegate

@@ -25,6 +25,7 @@ class GradebookController: CollapsibleSectionController {
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
         
         setupHeaderCell()
+        super.tableView.showsVerticalScrollIndicator = false
         super.viewDidLoad()
     }
 

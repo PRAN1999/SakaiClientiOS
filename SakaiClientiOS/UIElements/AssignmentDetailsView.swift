@@ -160,7 +160,7 @@ class AssignmentDetailsView: UIScrollView {
         attachmentsView.attributedText = description
     }
     
-    func prepareTextView(_ textView:UITextView) {
+    private func prepareTextView(_ textView:UITextView) {
         textView.isEditable = false
         textView.isSelectable = true
         textView.isScrollEnabled = false
