@@ -12,6 +12,9 @@ class LoadingIndicator: UIActivityIndicatorView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        self.color = UIColor.black
+        self.backgroundColor = UIColor.white
     }
     
     
@@ -22,9 +25,6 @@ class LoadingIndicator: UIActivityIndicatorView {
     ///   - view: The view to which the loading indicator should be added
     convenience init(frame: CGRect, view: UIView) {
         self.init(frame: frame)
-        self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-        self.color = UIColor.black
-        self.backgroundColor = UIColor.white
         self.center = CGPoint(x: view.center.x, y: view.center.y - 80)
         view.addSubview(self)
     }

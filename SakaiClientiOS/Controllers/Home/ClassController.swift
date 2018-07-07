@@ -43,7 +43,7 @@ class ClassController: UITableViewController {
             fatalError("Not a Site Table View Cell")
         }
         let page:SitePage = sitePages[indexPath.row]
-        cell.titleLabel.text = page.getTitle()
+        cell.titleLabel.text = page.title
         return cell
     }
     
@@ -56,9 +56,9 @@ class ClassController: UITableViewController {
         
         var controller:UIViewController
         
-        switch(page.getSiteType()) {
+        switch(page.siteType) {
         case is GradebookPageController.Type:
-            controller = GradebookPageController(siteId: page.getSiteId(), style: UITableViewStyle.plain)
+            controller = GradebookPageController(siteId: page.siteId, style: UITableViewStyle.plain)
             print("Is Gradebook Controller")
             break
         default:

@@ -22,10 +22,10 @@ class SitePage {
                                                                   DEFAULT_STRING:      DefaultController.self
     ]
     
-    private var id:String
-    private var title:String
-    private var siteId:String
-    private var siteType:UIViewController.Type
+    let id:String
+    let title:String
+    let siteId:String
+    let siteType:UIViewController.Type
     
     /// Initializes a SitePage object with defined parameters
     ///
@@ -58,33 +58,5 @@ class SitePage {
             siteType = SitePage.mapPages[SitePage.DEFAULT_STRING]!
         }
         self.init(id, title, siteId, siteType)
-    }
-    
-    /// Gets the unique SitePage id
-    ///
-    /// - Returns: String
-    func getId() -> String {
-        return id
-    }
-    
-    /// Gets the title for the SitePage
-    ///
-    /// - Returns: String
-    func getTitle() -> String {
-        return title
-    }
-    
-    /// Gets the id for the Site to which the SitePage belongs
-    ///
-    /// - Returns: String
-    func getSiteId() -> String {
-        return siteId
-    }
-    
-    /// Gets the type of ViewController needed to display the SitePage
-    ///
-    /// - Returns: UIViewController.Type
-    func getSiteType() -> UIViewController.Type {
-        return siteType
     }
 }

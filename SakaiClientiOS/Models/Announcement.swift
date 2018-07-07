@@ -10,9 +10,9 @@ import SwiftyJSON
 
 class Announcement: TermSortable, SiteSortable {
     
-    private var title:String?
-    private var term:Term
-    private var siteId:String
+    let title:String?
+    let term:Term
+    let siteId:String
     
     init(_ title: String?,
          _ term:Term,
@@ -27,17 +27,5 @@ class Announcement: TermSortable, SiteSortable {
         let siteId = data["siteId"].string!
         let term = DataHandler.shared.siteTermMap[siteId]!
         self.init(title, term, siteId)
-    }
-    
-    func getTitle() -> String? {
-        return title
-    }
-    
-    func getTerm() -> Term {
-        return term
-    }
-    
-    func getSiteId() -> String {
-        return siteId
     }
 }

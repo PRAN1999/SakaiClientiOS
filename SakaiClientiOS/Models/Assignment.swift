@@ -11,20 +11,20 @@ import SwiftyJSON
 /// The model for an Assignment item
 class Assignment: TermSortable, SiteSortable {
     
-    private var title:String
-    private var dueTimeString:String
-    private var dueDate: Date
-    private var instructions:String?
-    private var attributedInstructions:NSAttributedString?
-    private var term:Term
-    private var siteId:String
-    private var siteTitle:String?
-    private var status:String?
-    private var maxPoints:Double?
-    private var currentGrade:Double?
-    private var resubmissionAllowed:Bool?
-    private var attachments:[NSAttributedString]?
-    private var siteURL:String?
+    let title:String
+    let dueTimeString:String
+    let dueDate: Date
+    let instructions:String?
+    let attributedInstructions:NSAttributedString?
+    let term:Term
+    let siteId:String
+    let siteTitle:String?
+    let status:String?
+    let maxPoints:Double?
+    let currentGrade:Double?
+    let resubmissionAllowed:Bool?
+    let attachments:[NSAttributedString]?
+    let siteURL:String?
     
     /// Initializes a Assignment item with all relevant information. This initializer is for internal use only
     ///
@@ -111,103 +111,5 @@ class Assignment: TermSortable, SiteSortable {
         let siteURL = data["entityURL"].string
         
         self.init(title, dueTimeString, dueDate, term, siteId, siteTitle, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings, siteURL)
-    }
-    
-    /// Gets the title of the Assignment
-    ///
-    /// - Returns: String
-    func getTitle() -> String {
-        return title
-    }
-    
-    /// Gets the due time string
-    ///
-    /// - Returns: String
-    func getDueTimeString() -> String {
-        return dueTimeString
-    }
-    
-    /// Gets the due date
-    ///
-    /// - Returns: Date
-    func getDueDate() -> Date {
-        return dueDate
-    }
-    
-    /// Gets the raw instructions
-    ///
-    /// - Returns: String?
-    func getInstructions() -> String? {
-        return instructions
-    }
-    
-    /// Gets the HTML parsed string
-    ///
-    /// - Returns: NSAttributedString?
-    func getAttributedInstructions() -> NSAttributedString? {
-        return attributedInstructions
-    }
-    
-    /// Gets the Term for the Assignment
-    ///
-    /// - Returns: Term
-    func getTerm() -> Term {
-        return term
-    }
-    
-    /// Gets the siteId for the Assignment
-    ///
-    /// - Returns: String
-    func getSiteId() -> String {
-        return siteId
-    }
-    
-    /// Gets the site title for the Assignment
-    ///
-    /// - Returns: String?
-    func getSiteTitle() -> String? {
-        return siteTitle
-    }
-    
-    /// Gets the Assignment status
-    ///
-    /// - Returns: String?
-    func getStatus() -> String? {
-        return status
-    }
-    
-    /// Gets the max possible points
-    ///
-    /// - Returns: Double?
-    func getMaxPoints() -> Double? {
-        return maxPoints
-    }
-    
-    /// Gets the current grade, if available
-    ///
-    /// - Returns: Double?
-    func getCurrentGrade() -> Double? {
-        return currentGrade
-    }
-    
-    /// Gets whether resubmission is allowed
-    ///
-    /// - Returns: Bool?
-    func getResubmission() -> Bool? {
-        return resubmissionAllowed
-    }
-    
-    /// Gets an array of attachments with links to content
-    ///
-    /// - Returns: [NSAttributedString]?
-    func getAttachments() -> [NSAttributedString]? {
-        return attachments
-    }
-    
-    ///  Gets the URL for the Assignment entity
-    ///
-    /// - Returns: String?
-    func getURL() -> String? {
-        return siteURL
     }
 }

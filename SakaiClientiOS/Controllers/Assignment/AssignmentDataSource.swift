@@ -24,14 +24,14 @@ class AssignmentDataSource: NSObject, UICollectionViewDataSource {
             fatalError("Not an assignment cell")
         }
         let assignment:Assignment = assignments[indexPath.row]
-        cell.titleLabel.setText(text:assignment.getTitle())
-        cell.dueLabel.setText(text:"Due: \(assignment.getDueTimeString())")
-        cell.descLabel.attributedText = assignment.getAttributedInstructions()
+        cell.titleLabel.setText(text:assignment.title)
+        cell.dueLabel.setText(text:"Due: \(assignment.dueTimeString)")
+        cell.descLabel.attributedText = assignment.attributedInstructions
         cell.descLabel.delegate = textViewDelegate
         
         cell.tapRecognizer.collectionView = collectionView
         cell.tapRecognizer.indexPath = indexPath
-        cell.tapRecognizer.addTarget(collectionViewDelegate, action: #selector(AssignmentController.handleIndexTap(sender:)))
+        cell.tapRecognizer.addTarget(collectionViewDelegate as Any, action: #selector(AssignmentController.handleIndexTap(sender:)))
         return cell
     }
 

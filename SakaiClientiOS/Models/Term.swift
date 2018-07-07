@@ -9,6 +9,17 @@ import Foundation
 
 /**
  
+ A protocol implemented by objects that can be sorted by Term
+ 
+ */
+protocol TermSortable {
+    
+    var term:Term { get }
+}
+
+
+/**
+ 
  A class to represent individual semesters following the Rutgers academic schedule through the years
  
  */
@@ -115,7 +126,7 @@ class Term {
             return nil
         }
         
-        list.sort{$0.getTerm() > $1.getTerm()}
+        list.sort{$0.term > $1.term}
         
         var sectionList:[[T]] = [[T]]()
         
@@ -123,8 +134,8 @@ class Term {
         var indices:[Int] = [Int]()
         
         for index in 0..<list.count {
-            if !terms.contains(list[index].getTerm()) {
-                terms.append(list[index].getTerm())
+            if !terms.contains(list[index].term) {
+                terms.append(list[index].term)
                 indices.append(index)
             }
         }
@@ -209,21 +220,6 @@ extension Term:Comparable {
         }
         return false
     }
-}
-
-/**
- 
- A protocol implemented by objects that can be sorted by Term
- 
- */
-protocol TermSortable {
-    
-    /**
-     
-     Gets the Term of the implementing type
-     
-     */
-    func getTerm() -> Term
 }
 
 

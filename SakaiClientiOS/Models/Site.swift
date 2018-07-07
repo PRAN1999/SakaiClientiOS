@@ -9,6 +9,16 @@ import SwiftyJSON
 
 /**
  
+ A protocol for objects that can be sorted by Site and have a siteId
+ 
+ */
+protocol SiteSortable {
+    
+    var siteId:String { get }
+}
+
+/**
+ 
  A class to represent a user Site object.
  
  Can be sorted by Term
@@ -17,19 +27,19 @@ import SwiftyJSON
 class Site: TermSortable {
     
     ///The unique String id for a Site
-    private var id:String;
+    let id:String;
     
     ///The title or name of a Site
-    private var title:String;
+    let title:String;
     
     ///The Term of a Site
-    private var term:Term
+    let term:Term
     
     ///The String description of a Site
-    private var description:String?
+    let description:String?
     
     ///The unique SitePage objects for each individual Site
-    private var pages:[SitePage]
+    let pages:[SitePage]
     
     /**
      
@@ -89,51 +99,6 @@ class Site: TermSortable {
     }
     
     /**
- 
-    Gets the unique id for the Site
-
-    */
-    func getId() -> String {
-        return id
-    }
-    
-    /**
-     
-     Gets the title for the Site
-     
-    */
-    func getTitle() -> String {
-        return title
-    }
-    
-    /**
-     
-     Gets the Term for the Site
-     
-     */
-    func getTerm() -> Term {
-        return term
-    }
-    
-    /**
-     
-     Gets the description for the Site
-     
-     */
-    func getDescription() -> String? {
-        return description
-    }
-    
-    /**
-     
-     Gets the SitePages for the Site
-     
-     */
-    func getPages() -> [SitePage] {
-        return pages
-    }
-    
-    /**
      
      Sorts and splits an array of T:SiteSortable items by siteid and returns a 2-dimensional array of T where each sub-array represents the items for a specific Site
      
@@ -159,12 +124,12 @@ class Site: TermSortable {
         for index in 0..<numItems {
             let sortableItem:T = list[index]
             
-            if let index = mapSiteIdToIndex[sortableItem.getSiteId()] {
+            if let index = mapSiteIdToIndex[sortableItem.siteId] {
                 //If the siteId exists in the dictionary, add the SiteSortable item to the corresponding inner array
                 sortedList[index].append(sortableItem)
             } else {
                 //If the siteId does not exist in the dictionary, add it to the dictionary and update the next open index count
-                mapSiteIdToIndex.updateValue(i, forKey: sortableItem.getSiteId())
+                mapSiteIdToIndex.updateValue(i, forKey: sortableItem.siteId)
                 sortedList.append([T]())
                 sortedList[i].append(sortableItem)
                 i += 1
@@ -173,21 +138,6 @@ class Site: TermSortable {
         
         return sortedList
     }
-}
-
-/**
- 
- A protocol for objects that can be sorted by Site and have a siteId
- 
- */
-protocol SiteSortable {
-    
-    /**
-     
-     Return the siteId for the implementation
-     
-     */
-    func getSiteId() -> String
 }
 
 

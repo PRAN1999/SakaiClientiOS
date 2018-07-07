@@ -29,11 +29,12 @@ class AnnouncementDataSource: BaseTableDataSourceImplementation {
         cell.setTitle(title: announcement.getTitle())
         
         if indexPath.row == announcements.count - 1 && moreLoads {
-            print("load")
-            let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            let frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(70))
+            let spinner = LoadingIndicator(frame: frame)
+            spinner.activityIndicatorViewStyle = .gray
+            spinner.color = AppGlobals.SAKAI_RED
             spinner.startAnimating()
             spinner.hidesWhenStopped = true
-            spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
             
             tableView.tableFooterView = spinner
             tableView.tableFooterView?.isHidden = false

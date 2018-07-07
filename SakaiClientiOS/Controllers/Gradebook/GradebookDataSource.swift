@@ -41,7 +41,7 @@ class GradebookDataSource: HideableTableDataSourceImplementation {
                 self.gradeItems = list
                 
                 for i in 0..<self.numSections {
-                    super.terms.append(list[i][0][0].getTerm())
+                    super.terms.append(list[i][0][0].term)
                     var numRows:Int = list[i].count
                     
                     for j in 0..<list[i].count {
@@ -96,14 +96,14 @@ class GradebookDataSource: HideableTableDataSourceImplementation {
         let gradeItem:GradeItem = gradeItems[indexPath.section][subsection][row]
         
         var grade:String
-        if gradeItem.getGrade() != nil {
-            grade = "\(gradeItem.getGrade()!)"
+        if let g = gradeItem.grade {
+            grade = "\(g)"
         } else {
             grade = ""
         }
         
-        cell.titleLabel.text = gradeItem.getTitle()
-        cell.gradeLabel.text = "\(grade) / \(gradeItem.getPoints())"
+        cell.titleLabel.text = gradeItem.title
+        cell.gradeLabel.text = "\(grade) / \(gradeItem.points)"
         
         return cell
     }
@@ -121,7 +121,7 @@ class GradebookDataSource: HideableTableDataSourceImplementation {
     }
     
     func getSubsectionTitle(section:Int, subsection:Int) -> String? {
-        let siteId:String = gradeItems[section][subsection][0].getSiteId()
+        let siteId:String = gradeItems[section][subsection][0].siteId
         let title:String? = DataHandler.shared.siteTitleMap[siteId]
         return title
     }
