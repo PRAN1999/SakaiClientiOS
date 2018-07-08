@@ -46,6 +46,7 @@
 		518CFCAC20B4E68200D5AE8F /* GradebookPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */; };
 		5193356820ED68E400469FD4 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356720ED68E400469FD4 /* BaseTableViewController.swift */; };
 		5193356B20EEFC9C00469FD4 /* BaseTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356A20EEFC9C00469FD4 /* BaseTableDataSourceImplementation.swift */; };
+		5193356E20F2A6CC00469FD4 /* GradebookPageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356D20F2A6CC00469FD4 /* GradebookPageDataSource.swift */; };
 		51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */; };
 		51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15220C4463700E4C901 /* GradebookDataSource.swift */; };
 		51C2D15520C4471000E4C901 /* HideableTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */; };
@@ -122,6 +123,7 @@
 		518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookPageController.swift; sourceTree = "<group>"; };
 		5193356720ED68E400469FD4 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		5193356A20EEFC9C00469FD4 /* BaseTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableDataSourceImplementation.swift; sourceTree = "<group>"; };
+		5193356D20F2A6CC00469FD4 /* GradebookPageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookPageDataSource.swift; sourceTree = "<group>"; };
 		51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSectionController.swift; sourceTree = "<group>"; };
 		51C2D15220C4463700E4C901 /* GradebookDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataSource.swift; sourceTree = "<group>"; };
 		51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableTableDataSourceImplementation.swift; sourceTree = "<group>"; };
@@ -263,8 +265,8 @@
 		518CFCAA20B4E64500D5AE8F /* SitePages */ = {
 			isa = PBXGroup;
 			children = (
+				5193356C20F2A6AD00469FD4 /* GradebookPage */,
 				51C4B7F920A9247C00DD6696 /* DefaultController.swift */,
-				518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */,
 			);
 			path = SitePages;
 			sourceTree = "<group>";
@@ -276,6 +278,15 @@
 				5193356720ED68E400469FD4 /* BaseTableViewController.swift */,
 			);
 			path = BaseController;
+			sourceTree = "<group>";
+		};
+		5193356C20F2A6AD00469FD4 /* GradebookPage */ = {
+			isa = PBXGroup;
+			children = (
+				518CFCAB20B4E68200D5AE8F /* GradebookPageController.swift */,
+				5193356D20F2A6CC00469FD4 /* GradebookPageDataSource.swift */,
+			);
+			path = GradebookPage;
 			sourceTree = "<group>";
 		};
 		51C2D15A20C47FA000E4C901 /* Controllers */ = {
@@ -488,6 +499,7 @@
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
 				51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */,
 				511114A220CDCABD0077F872 /* Layouts.swift in Sources */,
+				5193356E20F2A6CC00469FD4 /* GradebookPageDataSource.swift in Sources */,
 				511114A820D0C0D20077F872 /* InsetUILabel.swift in Sources */,
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
 				5113C13C2092BD74001929DA /* Site.swift in Sources */,

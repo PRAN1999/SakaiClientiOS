@@ -40,9 +40,9 @@
 			<key>https://sakai.rutgers.edu/</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
-				<true/>
+				<string>YES</string>
 				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
+				<string>YES</string>
 			</dict>
 		</dict>
 	</dict>

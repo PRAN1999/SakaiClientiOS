@@ -34,6 +34,7 @@ class LoginViewController: WebController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        RequestManager.shared.resetCache()
         let myURL = URL(string: AppGlobals.LOGIN_URL)
         loadURL(urlOpt: myURL!)
     }

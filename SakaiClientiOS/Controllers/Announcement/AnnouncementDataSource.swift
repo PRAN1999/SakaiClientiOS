@@ -59,8 +59,8 @@ class AnnouncementDataSource: BaseTableDataSourceImplementation {
     }
     
     override func resetValues() {
+        super.resetValues()
         super.numRows = [0]
-        super.numSections = 0
         announcements = []
         offset = 0
         numToRequest = 50

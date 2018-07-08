@@ -21,6 +21,11 @@ class BaseTableViewController: UITableViewController {
         self.dataSource = dataSource
     }
     
+    init(dataSource:BaseTableDataSource) {
+        super.init(style: .plain)
+        self.dataSource = dataSource
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self.dataSource
