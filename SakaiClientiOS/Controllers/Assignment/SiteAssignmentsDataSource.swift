@@ -44,7 +44,8 @@ class SiteAssignmentsDataSource: HideableTableDataSourceImplementation {
     override func resetValues() {
         super.resetValues()
         sites = []
-        assignments = []    }
+        assignments = []
+    }
     
     override func loadData(completion: @escaping () -> Void) {
         

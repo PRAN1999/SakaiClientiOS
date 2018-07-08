@@ -56,7 +56,7 @@ class RequestManager {
             if(!flag) {
                 self.logout {}
             } else {
-                Alamofire.SessionManager.default.requestWithoutCache(url, method: method).validate().responseJSON { response in
+                Alamofire.SessionManager.default.request(url, method: method).validate().responseJSON { response in
                     completion(response)
                 }
             }
@@ -111,6 +111,11 @@ class RequestManager {
         })
     }
     
+    func resetCache() {
+        URLCache.shared.removeAllCachedResponses()
+        Alamofire.SessionManager.default.session.configuration.urlCache?.removeAllCachedResponses()
+    }
+    
     /**
      
      Resets Alamofire session by flushing session configuration of all Cookies and Headers. Also resets WKProcessPool, siteTitleMap, and siteTermMap
@@ -119,9 +124,7 @@ class RequestManager {
     func reset() {
         
         //Clear URLcache to ensure no responses can be returned without authentication
-        URLCache.shared.removeAllCachedResponses()
-        Alamofire.SessionManager.default.session.configuration.urlCache?.removeAllCachedResponses()
-        Alamofire.SessionManager.default.session.configuration.urlCache = nil
+        resetCache()
         
         //Flush all HTTP cookies
         let cookies:[HTTPCookie]! = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies

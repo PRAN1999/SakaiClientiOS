@@ -21,10 +21,15 @@ class BaseTableViewController: UITableViewController {
         self.dataSource = dataSource
     }
     
+    init(dataSource:BaseTableDataSource) {
+        super.init(style: .plain)
+        self.dataSource = dataSource
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self.dataSource
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadDataSource))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadDataSourceWithoutCache))
         
         indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
         indicator.hidesWhenStopped = true
@@ -46,5 +51,10 @@ class BaseTableViewController: UITableViewController {
             self.dataSource.hasLoaded = true
             self.dataSource.isLoading = false
         })
+    }
+    
+    @objc func loadDataSourceWithoutCache() {
+        RequestManager.shared.resetCache()
+        loadDataSource()
     }
 }

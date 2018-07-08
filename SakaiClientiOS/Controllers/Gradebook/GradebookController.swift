@@ -35,7 +35,7 @@ class GradebookController: CollapsibleSectionController {
     }
     
     @objc override func handleTap(sender: UITapGestureRecognizer) {
-        hideHeaderCell()
+        //hideHeaderCell()
         super.handleTap(sender: sender)
     }
     
@@ -49,7 +49,7 @@ extension GradebookController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let point = CGPoint(x: 0, y: tableView.contentOffset.y + super.TABLE_HEADER_HEIGHT + 1)
+        let point = CGPoint(x: 0, y: tableView.contentOffset.y)
         guard let topIndex = tableView.indexPathForRow(at: point) else {
             hideHeaderCell()
             return
@@ -59,7 +59,7 @@ extension GradebookController {
         let headerRow = gradebookDataSource.getHeaderRowForSubsection(section: topIndex.section, indexPath: subsectionIndex)
         let cell = tableView.cellForRow(at: IndexPath(row: headerRow, section: topIndex.section))
         
-        if(cell != nil && (cell?.frame.maxY)! > tableView.contentOffset.y + TABLE_HEADER_HEIGHT * 2) {
+        if(cell != nil && (cell?.frame.minY)! > tableView.contentOffset.y ) {
             hideHeaderCell()
         } else {
             makeHeaderCellVisible(section: topIndex.section, subsection: subsectionIndex.section)
@@ -72,7 +72,7 @@ extension GradebookController {
     }
     
     func makeHeaderCellVisible(section:Int, subsection:Int) {
-        let frame = CGRect(x: 0, y: tableView.contentOffset.y + super.TABLE_HEADER_HEIGHT, width: tableView.frame.size.width, height: headerCell.frame.size.height)
+        let frame = CGRect(x: 0, y: tableView.contentOffset.y, width: tableView.frame.size.width, height: headerCell.frame.size.height)
         let title =  gradebookDataSource.getSubsectionTitle(section: section, subsection: subsection)
         
         headerCell.setTitle(title: title)

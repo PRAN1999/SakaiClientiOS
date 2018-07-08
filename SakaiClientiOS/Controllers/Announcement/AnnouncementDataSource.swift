@@ -26,13 +26,23 @@ class AnnouncementDataSource: BaseTableDataSourceImplementation {
         }
         
         let announcement = announcements[indexPath.row]
-        cell.setTitle(title: announcement.title)
+        
+        cell.authorLabel.text = announcement.author
+        cell.titleLabel.text = announcement.title
+        
+        if let content = announcement.attributedContent {
+            let mutableContent = NSMutableAttributedString(attributedString: content)
+            let contentRange = NSRange(location: 0, length: content.string.count)
+            mutableContent.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.light), range: contentRange)
+            cell.contentLabel.attributedText = mutableContent
+        }
+        
+        cell.dateLabel.text = announcement.dateString
         
         if indexPath.row == announcements.count - 1 && moreLoads {
             let frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(70))
             let spinner = LoadingIndicator(frame: frame)
             spinner.activityIndicatorViewStyle = .gray
-            spinner.color = AppGlobals.SAKAI_RED
             spinner.startAnimating()
             spinner.hidesWhenStopped = true
             
@@ -49,8 +59,8 @@ class AnnouncementDataSource: BaseTableDataSourceImplementation {
     }
     
     override func resetValues() {
+        super.resetValues()
         super.numRows = [0]
-        super.numSections = 0
         announcements = []
         offset = 0
         numToRequest = 50

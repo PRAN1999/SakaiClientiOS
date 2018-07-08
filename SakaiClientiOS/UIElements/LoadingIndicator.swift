@@ -14,7 +14,7 @@ class LoadingIndicator: UIActivityIndicatorView {
         super.init(frame: frame)
         self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         self.color = UIColor.black
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
     }
     
     
