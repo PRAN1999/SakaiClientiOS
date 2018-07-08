@@ -20,7 +20,7 @@ protocol TermSortable {
 
 /**
  
- A class to represent individual semesters following the Rutgers academic schedule through the years
+ A struct to represent individual semesters following the Rutgers academic schedule through the years
  
  */
 

@@ -78,8 +78,10 @@ struct Assignment: TermSortable, SiteSortable {
     init(data: JSON) {
         let title: String = data["title"].string!
         let dueTimeString: String = data["dueTimeString"].string!
-        let time = data["dueTime"]["time"].double!
+        
+        let time = data["dueTime"]["time"].double! / 1000
         let dueDate = Date(timeIntervalSince1970: time)
+        
         let instructions: String? = data["instructions"].string
         let attributedInstructions:NSAttributedString? = instructions?.htmlAttributedString
         let siteId:String = data["context"].string!

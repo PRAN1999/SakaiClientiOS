@@ -19,7 +19,7 @@ protocol SiteSortable {
 
 /**
  
- A class to represent a user Site object.
+ A struct to represent a user Site object.
  
  Can be sorted by Term
  
