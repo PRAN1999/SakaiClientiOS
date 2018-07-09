@@ -47,6 +47,8 @@
 		5193356820ED68E400469FD4 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356720ED68E400469FD4 /* BaseTableViewController.swift */; };
 		5193356B20EEFC9C00469FD4 /* BaseTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356A20EEFC9C00469FD4 /* BaseTableDataSourceImplementation.swift */; };
 		5193356E20F2A6CC00469FD4 /* GradebookPageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356D20F2A6CC00469FD4 /* GradebookPageDataSource.swift */; };
+		5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */; };
+		5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */; };
 		51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */; };
 		51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15220C4463700E4C901 /* GradebookDataSource.swift */; };
 		51C2D15520C4471000E4C901 /* HideableTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */; };
@@ -124,6 +126,8 @@
 		5193356720ED68E400469FD4 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		5193356A20EEFC9C00469FD4 /* BaseTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableDataSourceImplementation.swift; sourceTree = "<group>"; };
 		5193356D20F2A6CC00469FD4 /* GradebookPageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookPageDataSource.swift; sourceTree = "<group>"; };
+		5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageView.swift; sourceTree = "<group>"; };
+		5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageController.swift; sourceTree = "<group>"; };
 		51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSectionController.swift; sourceTree = "<group>"; };
 		51C2D15220C4463700E4C901 /* GradebookDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataSource.swift; sourceTree = "<group>"; };
 		51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableTableDataSourceImplementation.swift; sourceTree = "<group>"; };
@@ -214,6 +218,7 @@
 			children = (
 				5113C12A20928658001929DA /* AnnouncementController.swift */,
 				5103FDF520E7FDC4009F8BF4 /* AnnouncementDataSource.swift */,
+				5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */,
 			);
 			path = Announcement;
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 				511114BA20DB4B770077F872 /* DetailLabel.swift */,
 				511114BC20DDF8DF0077F872 /* AssignmentDetailsView.swift */,
 				5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */,
+				5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -501,6 +507,7 @@
 				511114A220CDCABD0077F872 /* Layouts.swift in Sources */,
 				5193356E20F2A6CC00469FD4 /* GradebookPageDataSource.swift in Sources */,
 				511114A820D0C0D20077F872 /* InsetUILabel.swift in Sources */,
+				5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */,
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
 				5113C13C2092BD74001929DA /* Site.swift in Sources */,
 				5113C12F209286B3001929DA /* SettingsController.swift in Sources */,
@@ -522,6 +529,7 @@
 				511114A020CDA9B70077F872 /* SiteAssignmentsDataSource.swift in Sources */,
 				5193356820ED68E400469FD4 /* BaseTableViewController.swift in Sources */,
 				511114B920D881450077F872 /* AssignmentPageView.swift in Sources */,
+				5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
 				511114BD20DDF8DF0077F872 /* AssignmentDetailsView.swift in Sources */,
 				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,
