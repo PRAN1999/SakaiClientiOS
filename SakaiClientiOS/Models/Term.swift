@@ -42,7 +42,9 @@ struct Term {
     - Returns: A Term object
      
      */
-    private init(year:Int?, termInt:Int?, termString:String?) {
+    private init(year:Int?,
+                 termInt:Int?,
+                 termString:String?) {
         self.year = year
         self.termInt = termInt
         self.termString = termString
