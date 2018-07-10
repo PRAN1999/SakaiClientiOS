@@ -9,7 +9,7 @@ import UIKit
 
 class BaseTableViewController: UITableViewController {
 
-    var dataSource: BaseTableDataSource!
+    var baseDataSource: BaseTableDataSource!
     var indicator: LoadingIndicator!
     
     required init?(coder aDecoder: NSCoder) {
@@ -18,43 +18,50 @@ class BaseTableViewController: UITableViewController {
     
     init?(coder aDecoder: NSCoder, dataSource:BaseTableDataSource) {
         super.init(coder: aDecoder)
-        self.dataSource = dataSource
+        self.baseDataSource = dataSource
     }
     
     init(dataSource:BaseTableDataSource) {
         super.init(style: .plain)
-        self.dataSource = dataSource
+        self.baseDataSource = dataSource
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.dataSource = self.dataSource
+        self.tableView.dataSource = self.baseDataSource
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadDataSourceWithoutCache))
         
         indicator = LoadingIndicator(frame: CGRect(x: 0, y: 0, width: 100, height: 100), view: self.tableView)
         indicator.hidesWhenStopped = true
+        
         loadDataSource()
     }
     
     @objc func loadDataSource() {
-        dataSource.resetValues()
+        baseDataSource.resetValues()
         self.tableView.reloadData()
         
         indicator.startAnimating()
-        dataSource.hasLoaded = false
-        dataSource.isLoading = true
+        baseDataSource.hasLoaded = false
+        baseDataSource.isLoading = true
         
-        dataSource.loadData(completion: {
+        baseDataSource.loadData(completion: {
             self.tableView.reloadData()
             
             self.indicator.stopAnimating()
-            self.dataSource.hasLoaded = true
-            self.dataSource.isLoading = false
+            self.baseDataSource.hasLoaded = true
+            self.baseDataSource.isLoading = false
+            
+            self.callBack()
         })
     }
     
     @objc func loadDataSourceWithoutCache() {
         RequestManager.shared.resetCache()
         loadDataSource()
+    }
+    
+    func callBack() {
+        
     }
 }

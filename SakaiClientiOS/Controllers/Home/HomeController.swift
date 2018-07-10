@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class HomeController: CollapsibleSectionController {
+class HomeController: BaseHideableTableViewController {
     
     let TABLE_CELL_HEIGHT:CGFloat = 40.0
     
@@ -25,6 +25,7 @@ class HomeController: CollapsibleSectionController {
         RequestManager.shared.toReload = false
         super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+        self.setupSearchBar()
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,5 +46,21 @@ class HomeController: CollapsibleSectionController {
         classController.title = site.title
         classController.setPages(pages: site.pages)
         self.navigationController?.pushViewController(classController, animated: true)
+    }
+}
+
+extension HomeController: SearchableController {
+    var searchableDataSource: SearchableDataSource {
+        get {
+            return siteDataSource
+        }
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else {
+            return
+        }
+        print(text)
+        searchableDataSource.searchAndFilter(for: text)
     }
 }

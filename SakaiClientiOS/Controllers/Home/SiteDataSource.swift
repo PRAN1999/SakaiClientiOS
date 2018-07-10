@@ -11,6 +11,7 @@ import UIKit
 class SiteDataSource: HideableTableDataSourceImplementation {
     
     var sites:[[Site]] = [[Site]]()
+    lazy var filteredSites:[[Site]] = sites
     var controller:UIViewController?
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -18,7 +19,7 @@ class SiteDataSource: HideableTableDataSourceImplementation {
             fatalError("Not a Site Table View Cell")
         }
         
-        let site:Site = sites[indexPath.section][indexPath.row]
+        let site:Site = filteredSites[indexPath.section][indexPath.row]
         
         cell.titleLabel.text = site.title
         
@@ -58,14 +59,16 @@ class SiteDataSource: HideableTableDataSourceImplementation {
                     super.isHidden.append(true)
                 }
                 
-                
+                self.filteredSites = self.sites
                 super.isHidden[0] = false
                 
                 completion()
             }
         })
     }
-    
+}
+
+extension SiteDataSource {
     func disableTabs() {
         let items = controller?.tabBarController?.tabBar.items
         
@@ -84,5 +87,11 @@ class SiteDataSource: HideableTableDataSourceImplementation {
                 arr[i].isEnabled = true
             }
         }
+    }
+}
+
+extension SiteDataSource: SearchableDataSource {
+    func searchAndFilter(for text: String) {
+        
     }
 }

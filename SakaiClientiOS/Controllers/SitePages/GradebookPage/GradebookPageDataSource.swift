@@ -8,6 +8,7 @@
 import UIKit
 
 class GradebookPageDataSource : BaseTableDataSourceImplementation {
+    typealias T = GradeItem
     
     var siteId:String!
     var gradeItems:[GradeItem] = [GradeItem]()

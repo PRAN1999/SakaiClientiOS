@@ -37,6 +37,11 @@ class GradebookDataSource: HideableTableDataSourceImplementation {
                     return
                 }
                 
+                if list.count == 0 {
+                    completion()
+                    return
+                }
+                
                 super.numSections = list.count
                 self.gradeItems = list
                 

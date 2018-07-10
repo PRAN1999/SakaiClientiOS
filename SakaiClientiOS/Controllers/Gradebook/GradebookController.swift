@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GradebookController: CollapsibleSectionController {
+class GradebookController: BaseHideableTableViewController {
     
     var gradebookDataSource: GradebookDataSource!
     
