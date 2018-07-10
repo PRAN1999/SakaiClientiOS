@@ -49,7 +49,8 @@
 		5193356E20F2A6CC00469FD4 /* GradebookPageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356D20F2A6CC00469FD4 /* GradebookPageDataSource.swift */; };
 		5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */; };
 		5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */; };
-		51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */; };
+		5193357420F44FFE00469FD4 /* SearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357320F44FFE00469FD4 /* SearchDelegate.swift */; };
+		51C2D14F20C394CD00E4C901 /* BaseHideableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* BaseHideableTableViewController.swift */; };
 		51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15220C4463700E4C901 /* GradebookDataSource.swift */; };
 		51C2D15520C4471000E4C901 /* HideableTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */; };
 		51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */; };
@@ -128,7 +129,8 @@
 		5193356D20F2A6CC00469FD4 /* GradebookPageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookPageDataSource.swift; sourceTree = "<group>"; };
 		5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageView.swift; sourceTree = "<group>"; };
 		5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageController.swift; sourceTree = "<group>"; };
-		51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleSectionController.swift; sourceTree = "<group>"; };
+		5193357320F44FFE00469FD4 /* SearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDelegate.swift; sourceTree = "<group>"; };
+		51C2D14E20C394CD00E4C901 /* BaseHideableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHideableTableViewController.swift; sourceTree = "<group>"; };
 		51C2D15220C4463700E4C901 /* GradebookDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataSource.swift; sourceTree = "<group>"; };
 		51C2D15420C4471000E4C901 /* HideableTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableTableDataSourceImplementation.swift; sourceTree = "<group>"; };
 		51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingHeaderCell.swift; sourceTree = "<group>"; };
@@ -280,8 +282,9 @@
 		5193356920ED6CF200469FD4 /* BaseController */ = {
 			isa = PBXGroup;
 			children = (
-				51C2D14E20C394CD00E4C901 /* CollapsibleSectionController.swift */,
+				51C2D14E20C394CD00E4C901 /* BaseHideableTableViewController.swift */,
 				5193356720ED68E400469FD4 /* BaseTableViewController.swift */,
+				5193357320F44FFE00469FD4 /* SearchDelegate.swift */,
 			);
 			path = BaseController;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				5113C12F209286B3001929DA /* SettingsController.swift in Sources */,
 				5113D57A20C35D6500842469 /* SiteDataSource.swift in Sources */,
 				511114A420CE08CB0077F872 /* AssignmentDataSource.swift in Sources */,
+				5193357420F44FFE00469FD4 /* SearchDelegate.swift in Sources */,
 				514B623C209569FE001A716C /* TermHeader.swift in Sources */,
 				51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */,
 				511114AC20D6CD440077F872 /* WebController.swift in Sources */,
@@ -520,7 +524,7 @@
 				518CFCAC20B4E68200D5AE8F /* GradebookPageController.swift in Sources */,
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
 				51C4B7F020A7858D00DD6696 /* LoadingIndicator.swift in Sources */,
-				51C2D14F20C394CD00E4C901 /* CollapsibleSectionController.swift in Sources */,
+				51C2D14F20C394CD00E4C901 /* BaseHideableTableViewController.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
 				517F378C20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,

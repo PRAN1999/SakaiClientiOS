@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CollapsibleSectionController: BaseTableViewController, UIGestureRecognizerDelegate {
+class BaseHideableTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
     
     let TABLE_HEADER_HEIGHT:CGFloat = 50.0
     

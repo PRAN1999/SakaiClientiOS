@@ -34,13 +34,6 @@ class AssignmentPageView: UIView {
         titleLabel.titleLabel.textAlignment = .center
         titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         titleLabel.layer.cornerRadius = 0
-        
-        pageControl = UIPageControl()
-        pageControl.currentPage = 1
-        pageControl.numberOfPages = 10
-        pageControl.pageIndicatorTintColor = AppGlobals.SAKAI_RED
-        pageControl.backgroundColor = UIColor.black
-        pageControl.currentPageIndicatorTintColor = UIColor.white
     }
     
     func addViews() {

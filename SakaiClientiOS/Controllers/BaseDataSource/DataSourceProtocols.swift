@@ -23,3 +23,8 @@ protocol HideableTableDataSource : BaseTableDataSource{
     var isHidden:[Bool] { get set }
     var terms:[Term] { get set }
 }
+
+protocol SearchableDataSource {
+    
+    func searchAndFilter(for text:String)
+}

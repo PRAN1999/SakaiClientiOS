@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AssignmentController: CollapsibleSectionController {
+class AssignmentController: BaseHideableTableViewController {
     var siteAssignmentDataSource: SiteAssignmentsDataSource!
     var dateSortedAssignmentDataSource: DateSortedAssignmentDataSource!
     
@@ -58,17 +58,17 @@ class AssignmentController: CollapsibleSectionController {
         if dateSorted {
             dateSorted = false
             selectedIndex = 1
-            super.dataSource = siteAssignmentDataSource
+            super.baseDataSource = siteAssignmentDataSource
             super.hideableDataSource = siteAssignmentDataSource
             super.tableView.dataSource = siteAssignmentDataSource
         } else {
             dateSorted = true
             selectedIndex = 0
-            super.dataSource = dateSortedAssignmentDataSource
+            super.baseDataSource = dateSortedAssignmentDataSource
             super.hideableDataSource = dateSortedAssignmentDataSource
             super.tableView.dataSource = dateSortedAssignmentDataSource
         }
-        if !super.dataSource.hasLoaded && !super.dataSource.isLoading {
+        if !super.baseDataSource.hasLoaded && !super.baseDataSource.isLoading {
             super.loadDataSource()
         } else {
             super.indicator.stopAnimating()
