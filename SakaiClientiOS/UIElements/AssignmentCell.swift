@@ -8,9 +8,9 @@
 import UIKit
 import WebKit
 
-class AssignmentCell: UICollectionViewCell {
+class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     
-    static let reuseIdentifier:String = "assignmentCell"
+    typealias T = Assignment
     
     var titleLabel:InsetUILabel!
     var dueLabel:InsetUILabel!
@@ -79,6 +79,10 @@ class AssignmentCell: UICollectionViewCell {
         dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
+    }
+    
+    func configure(_ item: Assignment, at indexPath: IndexPath) {
+        
     }
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HideableTableDataSourceImplementation: BaseTableDataSourceImplementation, HideableTableDataSource {
+class BaseHideableTableDataSourceImplementation: BaseTableDataSourceImplementation, BaseHideableTableDataSource {
     
     var isHidden: [Bool] = [Bool]()
     var terms:[Term] = [Term]()

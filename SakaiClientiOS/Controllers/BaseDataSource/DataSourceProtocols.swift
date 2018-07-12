@@ -19,7 +19,7 @@ protocol BaseTableDataSource : UITableViewDataSource {
     func resetValues()
 }
 
-protocol HideableTableDataSource : BaseTableDataSource{
+protocol BaseHideableTableDataSource : BaseTableDataSource{
     var isHidden:[Bool] { get set }
     var terms:[Term] { get set }
 }

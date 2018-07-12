@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SiteDataSource: HideableTableDataSourceImplementation {
+@available(*, deprecated: 1.0) class SiteDataSource: BaseHideableTableDataSourceImplementation {
     
     var sites:[[Site]] = [[Site]]()
     lazy var filteredSites:[[Site]] = sites

@@ -11,7 +11,7 @@ class BaseHideableTableViewController: BaseTableViewController, UIGestureRecogni
     
     let TABLE_HEADER_HEIGHT:CGFloat = 50.0
     
-    var hideableDataSource: HideableTableDataSource!
+    var hideableDataSource: BaseHideableTableDataSource!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("Must initialize Controller with dataSource")
@@ -21,7 +21,7 @@ class BaseHideableTableViewController: BaseTableViewController, UIGestureRecogni
         fatalError("Must use hideableDataSource")
     }
     
-    init?(coder aDecoder: NSCoder, dataSource:HideableTableDataSource) {
+    init?(coder aDecoder: NSCoder, dataSource:BaseHideableTableDataSource) {
         super.init(coder: aDecoder, dataSource: dataSource)
         self.hideableDataSource = dataSource
     }

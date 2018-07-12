@@ -7,9 +7,9 @@
 
 import UIKit
 
-class AnnouncementCell: UITableViewCell {
+class AnnouncementCell: UITableViewCell, ConfigurableCell {
     
-    static let reuseIdentifier:String = "announcementCell"
+    typealias T = Announcement
     
     var authorLabel: UILabel!
     var titleLabel: UILabel!
@@ -88,4 +88,7 @@ class AnnouncementCell: UITableViewCell {
         dateLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -10.0).isActive = true
     }
     
+    func configure(_ item: Announcement, at indexPath: IndexPath) {
+        
+    }
 }

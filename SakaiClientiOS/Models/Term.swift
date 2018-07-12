@@ -88,7 +88,6 @@ struct Term {
     /**
     
      Takes an array of T:TermSortable and splits it by Term by putting every item with the same Term in the same array and then returning a 2-dimensional array consisting of those arrays
-     
      - Parameter listToSort: An array of T:TermSortable to be split by Term
      
      - Returns: A 2-dimensional array of T:TermSortable with each sub-array corresponding to a Term

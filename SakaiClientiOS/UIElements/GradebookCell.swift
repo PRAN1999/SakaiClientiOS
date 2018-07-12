@@ -8,9 +8,8 @@
 import UIKit
 
 /// The table view cell to display a GradeItem in a gradebook
-class GradebookCell: UITableViewCell {
-    
-    static let reuseIdentifier: String = "gradebookCell"
+class GradebookCell: UITableViewCell, ConfigurableCell {
+    typealias T = GradeItem
     
     /// The UILabel for the name of the gradebook entry
     var titleLabel:UILabel!
@@ -73,4 +72,7 @@ class GradebookCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+    func configure(_ item: GradeItem, at indexPath: IndexPath) {
+        
+    }
 }

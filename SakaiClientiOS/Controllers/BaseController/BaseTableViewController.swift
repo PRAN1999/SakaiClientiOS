@@ -51,17 +51,11 @@ class BaseTableViewController: UITableViewController {
             self.indicator.stopAnimating()
             self.baseDataSource.hasLoaded = true
             self.baseDataSource.isLoading = false
-            
-            self.callBack()
         })
     }
     
     @objc func loadDataSourceWithoutCache() {
         RequestManager.shared.resetCache()
         loadDataSource()
-    }
-    
-    func callBack() {
-        
     }
 }

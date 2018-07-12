@@ -7,9 +7,9 @@
 
 import UIKit
 
-class AssignmentTableCell: UITableViewCell {
+class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     
-    static let reuseIdentifier:String = "assignmentTableCell"
+    typealias T = [Assignment]
     
     var titleLabel: UILabel!
     var collectionView: UICollectionView!
@@ -64,9 +64,8 @@ class AssignmentTableCell: UITableViewCell {
         
         self.heightAnchor.constraint(greaterThanOrEqualToConstant: 280).isActive = true
     }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
 
+    func configure(_ item: [Assignment], at indexPath: IndexPath) {
+        
+    }
 }

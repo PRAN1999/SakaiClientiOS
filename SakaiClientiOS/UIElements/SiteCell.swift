@@ -8,10 +8,9 @@
 import UIKit
 
 /// The Tableview Cell to display Site titles
-class SiteCell: UITableViewCell {
+class SiteCell: UITableViewCell, ConfigurableCell {
     
-    ///The reuse identifier to use when registering the SiteCell with a tableview
-    static let reuseIdentifier: String = "siteTableViewCell"
+    typealias T = Site
 
     
     ///The UILabel containing the title text
@@ -68,5 +67,9 @@ class SiteCell: UITableViewCell {
     /// - Parameter title: String to assign to titleLabel.text
     func setTitle(title: String) {
         titleLabel.text = title
+    }
+    
+    func configure(_ item: Site, at indexPath: IndexPath) {
+        titleLabel.text = item.title
     }
 }
