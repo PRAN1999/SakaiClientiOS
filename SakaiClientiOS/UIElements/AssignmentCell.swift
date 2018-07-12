@@ -6,11 +6,11 @@
 //
 
 import UIKit
-import WebKit
+import ReusableSource
 
-class AssignmentCell: UICollectionViewCell {
-    
-    static let reuseIdentifier:String = "assignmentCell"
+class AssignmentCell: UICollectionViewCell, ConfigurableCell {
+
+    typealias T = Assignment
     
     var titleLabel:InsetUILabel!
     var dueLabel:InsetUILabel!
@@ -47,7 +47,7 @@ class AssignmentCell: UICollectionViewCell {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.cornerRadius = 3
-        self.layer.masksToBounds = true
+        self.layer.masksToBounds = false
     }
     
     func addViews() {
@@ -80,11 +80,18 @@ class AssignmentCell: UICollectionViewCell {
         dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
     }
+    
+    func configure(_ item: Assignment, at indexPath: IndexPath) {
+        titleLabel.titleLabel.text = item.title
+        dueLabel.titleLabel.text = "Due: \(item.dueTimeString)"
+        descLabel.attributedText = item.attributedInstructions
+    }
 }
 
 class IndexRecognizer: UITapGestureRecognizer {
     
-    var collectionView:UICollectionView!
+    var collectionDelegate: UICollectionViewDelegate!
+    var collectionView: UICollectionView!
     var indexPath:IndexPath!
     
 }

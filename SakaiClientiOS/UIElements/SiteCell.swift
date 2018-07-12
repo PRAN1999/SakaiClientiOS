@@ -6,14 +6,12 @@
 //
 
 import UIKit
+import ReusableSource
 
 /// The Tableview Cell to display Site titles
-class SiteCell: UITableViewCell {
-    
-    ///The reuse identifier to use when registering the SiteCell with a tableview
-    static let reuseIdentifier: String = "siteTableViewCell"
+class SiteCell: UITableViewCell, ConfigurableCell {
 
-    
+    typealias T = Site
     ///The UILabel containing the title text
     var titleLabel: UILabel!
     
@@ -62,11 +60,7 @@ class SiteCell: UITableViewCell {
         titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
     }
     
-    
-    /// Set titleLabel tect
-    ///
-    /// - Parameter title: String to assign to titleLabel.text
-    func setTitle(title: String) {
-        titleLabel.text = title
+    func configure(_ item: Site, at indexPath: IndexPath) {
+        titleLabel.text = item.title
     }
 }

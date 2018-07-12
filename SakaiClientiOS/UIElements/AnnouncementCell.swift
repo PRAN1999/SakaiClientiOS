@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import ReusableSource
 
-class AnnouncementCell: UITableViewCell {
+class AnnouncementCell: UITableViewCell, ConfigurableCell {
     
-    static let reuseIdentifier:String = "announcementCell"
+    typealias T = Announcement
     
     var authorLabel: UILabel!
     var titleLabel: UILabel!
@@ -88,4 +89,17 @@ class AnnouncementCell: UITableViewCell {
         dateLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -10.0).isActive = true
     }
     
+    func configure(_ item: Announcement, at indexPath: IndexPath) {
+        authorLabel.text = item.author
+        titleLabel.text = item.title
+        
+        if let content = item.attributedContent {
+            let mutableContent = NSMutableAttributedString(attributedString: content)
+            let contentRange = NSRange(location: 0, length: content.string.count)
+            mutableContent.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.light), range: contentRange)
+            contentLabel.attributedText = mutableContent
+        }
+        
+        dateLabel.text = item.dateString
+    }
 }

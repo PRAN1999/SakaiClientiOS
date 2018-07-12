@@ -6,61 +6,62 @@
 
 import Foundation
 import UIKit
+import ReusableSource
 
-class HomeController: BaseHideableTableViewController {
+class HomeController: UITableViewController {
     
-    let TABLE_CELL_HEIGHT:CGFloat = 40.0
-    
-    var siteDataSource: SiteDataSource!
+    var siteTableSource: SiteTableSource!
     
     required init?(coder aDecoder: NSCoder) {
-        siteDataSource = SiteDataSource()
-        super.init(coder: aDecoder, dataSource: siteDataSource)
-        siteDataSource.controller = self
+        super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         super.title = "Classes"
-        RequestManager.shared.toReload = false
         super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
-        self.setupSearchBar()
+        siteTableSource = SiteTableSource(tableView: tableView)
+        siteTableSource.controller = self
+        loadData()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
+        //self.setupSearchBar()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return TABLE_CELL_HEIGHT
+    @objc func loadData() {
+        disableTabs()
+        loadSource() {
+            self.enableTabs()
+        }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        transitionToClass(indexPath: indexPath)
+    func disableTabs() {
+        let items = self.tabBarController?.tabBar.items
+        
+        if let arr = items {
+            for i in 1..<5 {
+                arr[i].isEnabled = false
+            }
+        }
     }
     
-    func transitionToClass(indexPath: IndexPath) {
-        let classController:ClassController = ClassController()
-        let site:Site = siteDataSource.sites[indexPath.section][indexPath.row]
-        classController.title = site.title
-        classController.setPages(pages: site.pages)
-        self.navigationController?.pushViewController(classController, animated: true)
+    func enableTabs() {
+        let items = self.tabBarController?.tabBar.items
+        
+        if let arr = items {
+            for i in 1..<5 {
+                arr[i].isEnabled = true
+            }
+        }
     }
 }
 
-extension HomeController: SearchableController {
-    var searchableDataSource: SearchableDataSource {
-        get {
-            return siteDataSource
-        }
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        print(text)
-        searchableDataSource.searchAndFilter(for: text)
+extension HomeController: NetworkController {
+    var networkSource: SiteTableSource {
+        return siteTableSource
     }
 }

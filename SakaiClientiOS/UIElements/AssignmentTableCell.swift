@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import ReusableSource
 
-class AssignmentTableCell: UITableViewCell {
+class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     
-    static let reuseIdentifier:String = "assignmentTableCell"
+    typealias T = [Assignment]
     
     var titleLabel: UILabel!
     var collectionView: UICollectionView!
+    
+    var dataSourceDelegate: AssignmentCollectionSource!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,6 +41,8 @@ class AssignmentTableCell: UITableViewCell {
         
         collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.white
+        
+        dataSourceDelegate = AssignmentCollectionSource(collectionView: collectionView)
     }
     
     func addViews() {
@@ -65,8 +70,17 @@ class AssignmentTableCell: UITableViewCell {
         self.heightAnchor.constraint(greaterThanOrEqualToConstant: 280).isActive = true
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    func configure(_ item: [Assignment], at indexPath: IndexPath) {
+        guard item.count > 0 else {
+            return
+        }
+        
+        let siteId = item[0].siteId
+        let title = DataHandler.shared.siteTitleMap[siteId]
+        
+        titleLabel.text = title
+        collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
+        dataSourceDelegate.loadItems(payload: item)
+        dataSourceDelegate.reloadData()
     }
-
 }

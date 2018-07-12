@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import ReusableSource
 
 /// The table view cell to display a GradeItem in a gradebook
-class GradebookCell: UITableViewCell {
+class GradebookCell: UITableViewCell, ConfigurableCell {
     
-    static let reuseIdentifier: String = "gradebookCell"
+    typealias T = GradeItem
     
     /// The UILabel for the name of the gradebook entry
     var titleLabel:UILabel!
@@ -72,5 +73,16 @@ class GradebookCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
+    func configure(_ item: GradeItem, at indexPath: IndexPath) {
+        var grade:String
+        if let g = item.grade {
+            grade = "\(g)"
+        } else {
+            grade = ""
+        }
+        
+        titleLabel.text = item.title
+        gradeLabel.text = "\(grade) / \(item.points)"
+    }
 }
