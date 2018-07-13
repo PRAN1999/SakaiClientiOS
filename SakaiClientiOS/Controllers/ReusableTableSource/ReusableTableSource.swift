@@ -51,11 +51,6 @@ open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell, Fetc
         return nil
     }
     
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //Override and implement
-        return 0
-    }
-    
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Override and implement
         return
@@ -66,12 +61,33 @@ open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell, Fetc
         return 0
     }
     
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //Override and implement
+        return
+    }
+    
     public func item(at indexPath: IndexPath) -> Provider.T? {
         return provider.item(at: indexPath)
     }
     
     public func loadDataSource(completion: @escaping () -> Void) {
+        provider.resetValues()
+        self.tableView.reloadData()
         fetcher.loadData { (res) in
+            guard let response = res else {
+                completion()
+                return
+            }
+            self.provider.loadItems(payload: response)
+            self.tableView.reloadData()
+            completion()
+        }
+    }
+    
+    public func loadDataSourceWithoutCache(completion: @escaping () -> Void) {
+        provider.resetValues()
+        self.tableView.reloadData()
+        fetcher.loadDataWithoutCache { (res) in
             guard let response = res else {
                 completion()
                 return

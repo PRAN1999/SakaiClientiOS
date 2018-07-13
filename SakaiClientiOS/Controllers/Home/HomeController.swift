@@ -7,9 +7,15 @@
 import Foundation
 import UIKit
 
-class HomeController: UITableViewController {
-
+class HomeController: UITableViewController, ReusableController {
+    typealias Provider = SiteDataProvider
+    typealias Cell = SiteCell
+    typealias Fetcher = SiteDataFetcher
+    
     var siteTableSource: SiteTableSource!
+    var tableSource: ReusableTableSource<SiteDataProvider, SiteCell, SiteDataFetcher> {
+        return siteTableSource
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -23,13 +29,16 @@ class HomeController: UITableViewController {
         
         siteTableSource = SiteTableSource(tableView: tableView)
         siteTableSource.controller = self
-        siteTableSource.loadDataSource {
-            print("Loaded")
-        }
+        loadTableSource()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
         //self.setupSearchBar()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @objc func loadData() {
+        loadTableSource()
     }
 }

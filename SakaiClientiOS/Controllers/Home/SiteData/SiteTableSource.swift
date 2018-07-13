@@ -7,17 +7,12 @@
 
 import UIKit
 
-class SiteTableSource : HideableTableSource<Site, SiteCell, SiteDataFetcher> {
+class SiteTableSource : HideableTableSource<SiteDataProvider, SiteCell, SiteDataFetcher> {
     
-    let TABLE_CELL_HEIGHT:CGFloat = 40.0
     var controller:HomeController!
     
     init(tableView: UITableView) {
-        super.init(provider: HideableDataProvider<Site>(), fetcher: SiteDataFetcher(), tableView: tableView)
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return TABLE_CELL_HEIGHT
+        super.init(provider: SiteDataProvider(), fetcher: SiteDataFetcher(), tableView: tableView)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

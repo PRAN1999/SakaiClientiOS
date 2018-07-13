@@ -7,9 +7,13 @@
 
 import UIKit
 
-class HideableTableSource<T:TermSortable, Cell: UITableViewCell, Fetcher: DataFetcher> : ReusableTableSource<HideableDataProvider<T>, Cell, Fetcher>, UIGestureRecognizerDelegate where Cell:ConfigurableCell, Cell.T == T, Fetcher.T == [[T]] {
+class HideableTableSource<Provider: HideableDataProvider, Cell: UITableViewCell, Fetcher: DataFetcher> : ReusableTableSource<Provider, Cell, Fetcher>, UIGestureRecognizerDelegate where Cell:ConfigurableCell, Cell.T == Provider.T, Fetcher.T == Provider.V {
     
     let TABLE_HEADER_HEIGHT:CGFloat = 50.0
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return provider.numberOfItemsForHideableSection(section: section)
+    }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TermHeader.reuseIdentifier) as? TermHeader else {

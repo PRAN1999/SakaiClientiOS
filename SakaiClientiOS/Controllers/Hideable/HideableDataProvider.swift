@@ -7,36 +7,25 @@
 
 import UIKit
 
-class HideableDataProvider<T:TermSortable> : ArrayDataProvider<T> {
+protocol HideableDataProvider: class, DataProvider {
+    var terms: [Term] { get set }
+    var isHidden: [Bool] { get set }
+}
+
+extension HideableDataProvider {
     
-    var terms: [Term] = []
-    var isHidden: [Bool] = []
-    
-    override func numberOfItems(in section: Int) -> Int {
+    func numberOfItemsForHideableSection(section: Int) -> Int {
         guard section >= 0, section < isHidden.count else {
             return 0
         }
         if isHidden[section] {
             return 0
         }
-        return super.numberOfItems(in: section)
+        return numberOfItems(in: section)
     }
     
-    override func resetValues() {
+    func resetTerms() {
         terms = []
         isHidden = []
-        super.resetValues()
     }
-    
-    override func loadItems(payload: [[T]]) {
-        for index in 0..<payload.count {
-            terms.append(payload[index][0].term)
-            isHidden.append(true)
-        }
-        if isHidden.count > 0 {
-            isHidden[0] = false
-        }
-        super.loadItems(payload: payload)
-    }
-    
 }

@@ -73,6 +73,14 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
     }
 
     func configure(_ item: GradeItem, at indexPath: IndexPath) {
+        var grade:String
+        if let g = item.grade {
+            grade = "\(g)"
+        } else {
+            grade = ""
+        }
         
+        titleLabel.text = item.title
+        gradeLabel.text = "\(grade) / \(item.points)"
     }
 }
