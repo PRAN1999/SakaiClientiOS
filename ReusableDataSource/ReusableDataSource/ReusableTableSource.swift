@@ -7,13 +7,13 @@
 
 import UIKit
 
-open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell, Fetcher: DataFetcher>: NSObject, UITableViewDataSource, UITableViewDelegate where Cell: ConfigurableCell, Provider.T == Cell.T, Provider.V == Fetcher.T {
+open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell & ConfigurableCell, Fetcher: DataFetcher>: NSObject, UITableViewDataSource, UITableViewDelegate where Provider.T == Cell.T, Provider.V == Fetcher.T {
     
-    let provider: Provider
-    let fetcher: Fetcher
-    let tableView: UITableView
+    public let provider: Provider
+    public let fetcher: Fetcher
+    public let tableView: UITableView
     
-    init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
+    public init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
         self.provider = provider
         self.tableView = tableView
         self.fetcher = fetcher
@@ -21,21 +21,21 @@ open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell, Fetc
         setup()
     }
     
-    func setup() {
+    public func setup() {
         tableView.dataSource = self
         tableView.delegate = self
     }
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return provider.numberOfSections()
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //print("Section: \(section), Rows: \(provider.numberOfItems(in: section))")
         return provider.numberOfItems(in: section)
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as? Cell else {
             return UITableViewCell()
         }
@@ -46,31 +46,31 @@ open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell, Fetc
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         //Override and implement
         return nil
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Override and implement
         return
     }
     
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         //Override and implement
         return 0
     }
     
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //Override and implement
         return
     }
     
-    public func item(at indexPath: IndexPath) -> Provider.T? {
+    open func item(at indexPath: IndexPath) -> Provider.T? {
         return provider.item(at: indexPath)
     }
     
-    public func loadDataSource(completion: @escaping () -> Void) {
+    open func loadDataSource(completion: @escaping () -> Void) {
         provider.resetValues()
         self.tableView.reloadData()
         fetcher.loadData { (res) in
@@ -84,7 +84,7 @@ open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell, Fetc
         }
     }
     
-    public func loadDataSourceWithoutCache(completion: @escaping () -> Void) {
+    open func loadDataSourceWithoutCache(completion: @escaping () -> Void) {
         provider.resetValues()
         self.tableView.reloadData()
         fetcher.loadDataWithoutCache { (res) in

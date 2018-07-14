@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ReusableDataSource
 
 /// The table view cell to display a GradeItem in a gradebook
 class GradebookCell: UITableViewCell, ConfigurableCell {

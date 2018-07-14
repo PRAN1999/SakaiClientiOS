@@ -6,17 +6,11 @@
 //
 
 import UIKit
+import ReusableDataSource
 
-class GradebookController: UITableViewController, ReusableController {
-    
-    typealias Provider = GradebookDataProvider
-    typealias Cell = GradebookCell
-    typealias Fetcher = GradebookDataFetcher
+class GradebookController: UITableViewController {
     
     var gradebookTableSource: GradebookTableSource!
-    var tableSource: ReusableTableSource<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
-        return gradebookTableSource
-    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -43,5 +37,15 @@ class GradebookController: UITableViewController, ReusableController {
     
     @objc func loadData() {
         loadTableSource()
+    }
+}
+
+extension GradebookController: ReusableController {
+    typealias Provider = GradebookDataProvider
+    typealias Cell = GradebookCell
+    typealias Fetcher = GradebookDataFetcher
+    
+    var tableSource: ReusableTableSource<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
+        return gradebookTableSource
     }
 }

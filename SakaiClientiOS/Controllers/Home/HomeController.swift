@@ -6,16 +6,11 @@
 
 import Foundation
 import UIKit
+import ReusableDataSource
 
-class HomeController: UITableViewController, ReusableController {
-    typealias Provider = SiteDataProvider
-    typealias Cell = SiteCell
-    typealias Fetcher = SiteDataFetcher
+class HomeController: UITableViewController {
     
     var siteTableSource: SiteTableSource!
-    var tableSource: ReusableTableSource<SiteDataProvider, SiteCell, SiteDataFetcher> {
-        return siteTableSource
-    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -40,5 +35,15 @@ class HomeController: UITableViewController, ReusableController {
     
     @objc func loadData() {
         loadTableSource()
+    }
+}
+
+extension HomeController: ReusableController {
+    typealias Provider = SiteDataProvider
+    typealias Cell = SiteCell
+    typealias Fetcher = SiteDataFetcher
+    
+    var tableSource: ReusableTableSource<SiteDataProvider, SiteCell, SiteDataFetcher> {
+        return siteTableSource
     }
 }

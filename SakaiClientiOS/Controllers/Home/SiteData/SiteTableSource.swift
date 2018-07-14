@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ReusableDataSource
 
 class SiteTableSource : HideableTableSource<SiteDataProvider, SiteCell, SiteDataFetcher> {
     

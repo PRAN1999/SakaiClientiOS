@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ReusableDataSource
 
 /// The Tableview Cell to display Site titles
 class SiteCell: UITableViewCell, ConfigurableCell {

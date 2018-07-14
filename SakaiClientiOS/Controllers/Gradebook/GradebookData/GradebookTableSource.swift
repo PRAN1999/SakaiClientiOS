@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ReusableDataSource
 
 class GradebookTableSource : HideableTableSource<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     

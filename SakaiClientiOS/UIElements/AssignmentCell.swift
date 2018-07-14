@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import WebKit
+import ReusableDataSource
 
 class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     
