@@ -1,22 +1,20 @@
 //
-//  ReusableTableController.swift
-//  SakaiClientiOS
+//  ReusableTableSource.swift
+//  ReusableSource
 //
-//  Created by Pranay Neelagiri on 7/11/18.
+//  Created by Pranay Neelagiri on 7/14/18.
+//  Copyright © 2018 Pranay Neelagiri. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell & ConfigurableCell, Fetcher: DataFetcher>: NSObject, UITableViewDataSource, UITableViewDelegate where Provider.T == Cell.T, Provider.V == Fetcher.T {
-    
+open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell & ConfigurableCell>: NSObject, UITableViewDataSource, UITableViewDelegate, ReusableSource where Provider.T == Cell.T {
     public let provider: Provider
-    public let fetcher: Fetcher
     public let tableView: UITableView
     
-    public required init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
+    public required init(provider: Provider, tableView: UITableView) {
         self.provider = provider
         self.tableView = tableView
-        self.fetcher = fetcher
         super.init()
         setup()
     }
@@ -70,17 +68,11 @@ open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell & Con
         return provider.item(at: indexPath)
     }
     
-    open func loadDataSource(completion: @escaping () -> Void) {
-        provider.resetValues()
-        self.tableView.reloadData()
-        fetcher.loadData { (res) in
-            guard let response = res else {
-                completion()
-                return
-            }
-            self.provider.loadItems(payload: response)
-            self.tableView.reloadData()
-            completion()
-        }
+    public func reloadData() {
+        tableView.reloadData()
+    }
+    
+    public func loadItems(payload: Provider.V) {
+        provider.loadItems(payload: payload)
     }
 }

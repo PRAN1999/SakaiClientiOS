@@ -5,7 +5,6 @@
 //  Created by Pranay Neelagiri on 7/13/18.
 //
 
-import Foundation
 import ReusableSource
 
 extension DataFetcher {

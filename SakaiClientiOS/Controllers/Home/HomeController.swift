@@ -24,7 +24,7 @@ class HomeController: UITableViewController {
         
         siteTableSource = SiteTableSource(tableView: tableView)
         siteTableSource.controller = self
-        loadTableSource()
+        loadSource()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
         //self.setupSearchBar()
     }
@@ -34,16 +34,12 @@ class HomeController: UITableViewController {
     }
     
     @objc func loadData() {
-        loadTableSource()
+        loadSource()
     }
 }
 
-extension HomeController: ReusableController {
-    typealias Provider = SiteDataProvider
-    typealias Cell = SiteCell
-    typealias Fetcher = SiteDataFetcher
-    
-    var reusableSource: ReusableTableSource<SiteDataProvider, SiteCell, SiteDataFetcher> {
+extension HomeController: NetworkController {
+    var networkSource: SiteTableSource {
         return siteTableSource
     }
 }

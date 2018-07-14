@@ -5,7 +5,6 @@
 //  Created by Pranay Neelagiri on 7/11/18.
 //
 
-import UIKit
 import ReusableSource
 
 protocol HideableDataProvider: class, DataProvider {

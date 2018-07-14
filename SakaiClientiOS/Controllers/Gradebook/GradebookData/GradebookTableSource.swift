@@ -8,17 +8,22 @@
 import UIKit
 import ReusableSource
 
-class GradebookTableSource : HideableTableSource<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
+class GradebookTableSource : HideableTableSource<GradebookDataProvider, GradebookCell>, NetworkSource {
     
+    typealias Provider = GradebookDataProvider
+    typealias Fetcher = GradebookDataFetcher
+    
+    var fetcher: GradebookDataFetcher
     var controller:GradebookController!
     var headerCell:FloatingHeaderCell!
     
-    required init(provider: GradebookDataProvider, fetcher: GradebookDataFetcher, tableView: UITableView) {
-        super.init(provider: provider, fetcher: fetcher, tableView: tableView)
+    required init(provider: GradebookDataProvider, tableView: UITableView) {
+        fetcher = GradebookDataFetcher()
+        super.init(provider: provider, tableView: tableView)
     }
     
     convenience init(tableView: UITableView) {
-        self.init(provider: GradebookDataProvider(), fetcher: GradebookDataFetcher(), tableView: tableView)
+        self.init(provider: GradebookDataProvider(), tableView: tableView)
         setupHeaderCell()
     }
     
@@ -82,10 +87,5 @@ class GradebookTableSource : HideableTableSource<GradebookDataProvider, Gradeboo
     @objc override func handleTap(sender: UITapGestureRecognizer) {
         //hideHeaderCell()
         super.handleTap(sender: sender)
-    }
-    
-    @objc override func loadDataSource(completion: @escaping () -> Void) {
-        hideHeaderCell()
-        super.loadDataSource(completion: completion)
     }
 }

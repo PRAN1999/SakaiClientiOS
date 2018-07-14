@@ -25,7 +25,7 @@ class GradebookController: UITableViewController {
         
         gradebookTableSource = GradebookTableSource(tableView: super.tableView)
         gradebookTableSource.controller = self
-        loadTableSource()
+        loadSource()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
         super.viewDidLoad()
     }
@@ -36,16 +36,13 @@ class GradebookController: UITableViewController {
     }
     
     @objc func loadData() {
-        loadTableSource()
+        loadSource()
     }
 }
 
-extension GradebookController: ReusableController {
-    typealias Provider = GradebookDataProvider
-    typealias Cell = GradebookCell
-    typealias Fetcher = GradebookDataFetcher
+extension GradebookController: NetworkController {
     
-    var reusableSource: ReusableTableSource<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
+    var networkSource: GradebookTableSource {
         return gradebookTableSource
     }
 }

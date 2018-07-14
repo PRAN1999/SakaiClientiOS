@@ -7,12 +7,12 @@
 
 import ReusableSource
 
-extension ReusableController where Self:UIViewController {
-    func loadTableSource() {
+extension NetworkController where Self:UIViewController {
+    func loadSource() {
         let indicator = LoadingIndicator(view: view)
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
-        reusableSource.loadDataSourceWithoutCache {
+        networkSource.loadDataSourceWithoutCache {
             indicator.stopAnimating()
             indicator.removeFromSuperview()
             print("Loaded")
