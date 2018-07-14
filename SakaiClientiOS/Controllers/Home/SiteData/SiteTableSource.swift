@@ -6,14 +6,18 @@
 //
 
 import UIKit
-import ReusableDataSource
+import ReusableSource
 
 class SiteTableSource : HideableTableSource<SiteDataProvider, SiteCell, SiteDataFetcher> {
     
     var controller:HomeController!
     
-    init(tableView: UITableView) {
-        super.init(provider: SiteDataProvider(), fetcher: SiteDataFetcher(), tableView: tableView)
+    convenience init(tableView: UITableView) {
+        self.init(provider: SiteDataProvider(), fetcher: SiteDataFetcher(), tableView: tableView)
+    }
+    
+    required init(provider: SiteDataProvider, fetcher: SiteDataFetcher, tableView: UITableView) {
+        super.init(provider: provider, fetcher: fetcher, tableView: tableView)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

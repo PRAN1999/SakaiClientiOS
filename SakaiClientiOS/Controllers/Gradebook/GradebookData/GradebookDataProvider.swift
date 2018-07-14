@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import ReusableDataSource
+import ReusableSource
 
 class GradebookDataProvider: HideableDataProvider {
     

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import ReusableDataSource
+import ReusableSource
 
 class GradebookController: UITableViewController {
     
@@ -45,7 +45,7 @@ extension GradebookController: ReusableController {
     typealias Cell = GradebookCell
     typealias Fetcher = GradebookDataFetcher
     
-    var tableSource: ReusableTableSource<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
+    var reusableSource: ReusableTableSource<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
         return gradebookTableSource
     }
 }

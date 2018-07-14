@@ -37,8 +37,6 @@
 		5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13D2092D8F1001929DA /* SiteCell.swift */; };
 		5113D57A20C35D6500842469 /* SiteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113D57920C35D6500842469 /* SiteDataSource.swift */; };
 		511D757A208DAA9600371998 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D7579208DAA9600371998 /* HomeController.swift */; };
-		512D259020F99B8100FC51AB /* ReusableDataSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C9794A20F9951500191DD6 /* ReusableDataSource.framework */; };
-		512D259120F99B8100FC51AB /* ReusableDataSource.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 51C9794A20F9951500191DD6 /* ReusableDataSource.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		514B623920952B89001A716C /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623820952B89001A716C /* Parsing.swift */; };
 		514B623C209569FE001A716C /* TermHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623B209569FE001A716C /* TermHeader.swift */; };
 		517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
@@ -56,6 +54,13 @@
 		5193357A20F6E26700469FD4 /* SiteTableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357920F6E26700469FD4 /* SiteTableSource.swift */; };
 		51A472D120F99FA600CC95F0 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D020F99FA600CC95F0 /* DataFetcher.swift */; };
 		51A472D520F9A30700CC95F0 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D420F9A30700CC95F0 /* LoadingIndicator.swift */; };
+		51A472D720F9A93B00CC95F0 /* ReusableTableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D620F9A93B00CC95F0 /* ReusableTableSource.swift */; };
+		51A472D920F9A97D00CC95F0 /* ReusableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D820F9A97D00CC95F0 /* ReusableController.swift */; };
+		51A472DC20F9C13000CC95F0 /* AssignmentDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472DB20F9C13000CC95F0 /* AssignmentDataProvider.swift */; };
+		51A472DE20F9C14200CC95F0 /* AssignmentTableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472DD20F9C14200CC95F0 /* AssignmentTableSource.swift */; };
+		51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472DF20F9C15700CC95F0 /* AssignmentDataFetcher.swift */; };
+		51A4731120F9CA3E00CC95F0 /* ReusableSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51A472E120F9C59E00CC95F0 /* ReusableSource.framework */; };
+		51A4731220F9CA3E00CC95F0 /* ReusableSource.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 51A472E120F9C59E00CC95F0 /* ReusableSource.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		51C2D14F20C394CD00E4C901 /* BaseHideableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D14E20C394CD00E4C901 /* BaseHideableTableViewController.swift */; };
 		51C2D15320C4463700E4C901 /* GradebookDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15220C4463700E4C901 /* GradebookDataSource.swift */; };
 		51C2D15520C4471000E4C901 /* BaseHideableTableDataSourceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15420C4471000E4C901 /* BaseHideableTableDataSourceImplementation.swift */; };
@@ -99,7 +104,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				512D259120F99B8100FC51AB /* ReusableDataSource.framework in Embed Frameworks */,
+				51A4731220F9CA3E00CC95F0 /* ReusableSource.framework in Embed Frameworks */,
 				517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -156,6 +161,12 @@
 		5193357920F6E26700469FD4 /* SiteTableSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteTableSource.swift; sourceTree = "<group>"; };
 		51A472D020F99FA600CC95F0 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
 		51A472D420F9A30700CC95F0 /* LoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		51A472D620F9A93B00CC95F0 /* ReusableTableSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableTableSource.swift; sourceTree = "<group>"; };
+		51A472D820F9A97D00CC95F0 /* ReusableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableController.swift; sourceTree = "<group>"; };
+		51A472DB20F9C13000CC95F0 /* AssignmentDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDataProvider.swift; sourceTree = "<group>"; };
+		51A472DD20F9C14200CC95F0 /* AssignmentTableSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTableSource.swift; sourceTree = "<group>"; };
+		51A472DF20F9C15700CC95F0 /* AssignmentDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDataFetcher.swift; sourceTree = "<group>"; };
+		51A472E120F9C59E00CC95F0 /* ReusableSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ReusableSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51C2D14E20C394CD00E4C901 /* BaseHideableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHideableTableViewController.swift; sourceTree = "<group>"; };
 		51C2D15220C4463700E4C901 /* GradebookDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataSource.swift; sourceTree = "<group>"; };
 		51C2D15420C4471000E4C901 /* BaseHideableTableDataSourceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHideableTableDataSourceImplementation.swift; sourceTree = "<group>"; };
@@ -192,8 +203,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF412FE9DC8C8BBC41E42CFB /* Pods_SakaiClientiOS.framework in Frameworks */,
-				512D259020F99B8100FC51AB /* ReusableDataSource.framework in Frameworks */,
 				517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */,
+				51A4731120F9CA3E00CC95F0 /* ReusableSource.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +223,7 @@
 		5113C12320927D19001929DA /* Assignment */ = {
 			isa = PBXGroup;
 			children = (
+				51A472DA20F9AC2700CC95F0 /* AssignmentData */,
 				511114A320CE08CB0077F872 /* AssignmentDataSource.swift */,
 				5111149F20CDA9B70077F872 /* SiteAssignmentsDataSource.swift */,
 				5113C13620928709001929DA /* AssignmentController.swift */,
@@ -337,15 +349,27 @@
 			isa = PBXGroup;
 			children = (
 				51A472D020F99FA600CC95F0 /* DataFetcher.swift */,
+				51A472D620F9A93B00CC95F0 /* ReusableTableSource.swift */,
+				51A472D820F9A97D00CC95F0 /* ReusableController.swift */,
 			);
 			path = ReusableExtensions;
+			sourceTree = "<group>";
+		};
+		51A472DA20F9AC2700CC95F0 /* AssignmentData */ = {
+			isa = PBXGroup;
+			children = (
+				51A472DB20F9C13000CC95F0 /* AssignmentDataProvider.swift */,
+				51A472DD20F9C14200CC95F0 /* AssignmentTableSource.swift */,
+				51A472DF20F9C15700CC95F0 /* AssignmentDataFetcher.swift */,
+			);
+			path = AssignmentData;
 			sourceTree = "<group>";
 		};
 		51C2D15A20C47FA000E4C901 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				51A472CF20F99F8D00CC95F0 /* ReusableExtensions */,
 				51C9790F20F7007500191DD6 /* OldDataSource */,
+				51A472CF20F99F8D00CC95F0 /* ReusableExtensions */,
 				51C9790D20F6FDCE00191DD6 /* Hideable */,
 				5193356920ED6CF200469FD4 /* BaseController */,
 				5113D57820C35D5600842469 /* BaseDataSource */,
@@ -423,6 +447,7 @@
 		6A04DF0725D71CF9D407734A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51A472E120F9C59E00CC95F0 /* ReusableSource.framework */,
 				51C9794520F9951500191DD6 /* ReusableDataSource.xcodeproj */,
 				51C9794320F994FF00191DD6 /* SakaiClientiOS */,
 				517F378420E019D900B21D5A /* LNPopupController.framework */,
@@ -608,8 +633,10 @@
 				51C2D15E20C4A84B00E4C901 /* DataSourceProtocols.swift in Sources */,
 				5103FDF620E7FDC4009F8BF4 /* AnnouncementDataSource.swift in Sources */,
 				51C6DA2220EB1CC1001BD954 /* DataHandler.swift in Sources */,
+				51A472D720F9A93B00CC95F0 /* ReusableTableSource.swift in Sources */,
 				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
 				511114B520D74D570077F872 /* PagedAssignmentController.swift in Sources */,
+				51A472D920F9A97D00CC95F0 /* ReusableController.swift in Sources */,
 				511114B720D752260077F872 /* AssignmentPageController.swift in Sources */,
 				5103FDF820E862DD009F8BF4 /* Announcement.swift in Sources */,
 				5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */,
@@ -639,10 +666,13 @@
 				51C9791920F83D3300191DD6 /* GradebookDataFetcher.swift in Sources */,
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
 				51C9791520F81A3E00191DD6 /* GradebookDataProvider.swift in Sources */,
+				51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */,
 				51C2D14F20C394CD00E4C901 /* BaseHideableTableViewController.swift in Sources */,
 				5193357A20F6E26700469FD4 /* SiteTableSource.swift in Sources */,
+				51A472DE20F9C14200CC95F0 /* AssignmentTableSource.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
 				517F378C20E1BEA400B21D5A /* DateSortedAssignmentDataSource.swift in Sources */,
+				51A472DC20F9C13000CC95F0 /* AssignmentDataProvider.swift in Sources */,
 				5193357820F5AA7100469FD4 /* HideableTableSource.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
 				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
@@ -790,7 +820,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = B9QTN8GJXZ;
@@ -811,7 +840,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = B9QTN8GJXZ;

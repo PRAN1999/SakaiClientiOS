@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ReusableDataSource
+import ReusableSource
 
 extension DataFetcher {
     func loadDataWithoutCache(completion: @escaping (T?) -> Void) {

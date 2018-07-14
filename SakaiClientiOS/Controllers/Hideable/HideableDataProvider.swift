@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import ReusableDataSource
+import ReusableSource
 
 protocol HideableDataProvider: class, DataProvider {
     var terms: [Term] { get set }

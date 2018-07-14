@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import ReusableDataSource
+import ReusableSource
 
 class HideableTableSource<Provider: HideableDataProvider, Cell: UITableViewCell & ConfigurableCell, Fetcher: DataFetcher> : ReusableTableSource<Provider, Cell, Fetcher>, UIGestureRecognizerDelegate where Cell.T == Provider.T, Fetcher.T == Provider.V {
     

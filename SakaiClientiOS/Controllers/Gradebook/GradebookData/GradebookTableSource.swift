@@ -6,15 +6,19 @@
 //
 
 import UIKit
-import ReusableDataSource
+import ReusableSource
 
 class GradebookTableSource : HideableTableSource<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
     var controller:GradebookController!
     var headerCell:FloatingHeaderCell!
     
-    init(tableView: UITableView) {
-        super.init(provider: GradebookDataProvider(), fetcher: GradebookDataFetcher(), tableView: tableView)
+    required init(provider: GradebookDataProvider, fetcher: GradebookDataFetcher, tableView: UITableView) {
+        super.init(provider: provider, fetcher: fetcher, tableView: tableView)
+    }
+    
+    convenience init(tableView: UITableView) {
+        self.init(provider: GradebookDataProvider(), fetcher: GradebookDataFetcher(), tableView: tableView)
         setupHeaderCell()
     }
     

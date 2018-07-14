@@ -7,29 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		512D256620F999AE00FC51AB /* ReusableDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 512D256420F999AE00FC51AB /* ReusableDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		512D258220F99A9E00FC51AB /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512D257B20F99A9E00FC51AB /* DataProvider.swift */; };
-		512D258420F99A9E00FC51AB /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512D257D20F99A9E00FC51AB /* ReusableCell.swift */; };
-		512D258520F99A9E00FC51AB /* ReusableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512D257E20F99A9E00FC51AB /* ReusableController.swift */; };
-		512D258620F99A9E00FC51AB /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512D257F20F99A9E00FC51AB /* ConfigurableCell.swift */; };
-		512D258720F99A9E00FC51AB /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512D258020F99A9E00FC51AB /* DataFetcher.swift */; };
-		512D258820F99A9E00FC51AB /* ReusableTableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512D258120F99A9E00FC51AB /* ReusableTableSource.swift */; };
+		51A472FF20F9C9E700CC95F0 /* ReusableSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 51A472FD20F9C9E700CC95F0 /* ReusableSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		51A4730B20F9CA1800CC95F0 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4730520F9CA1800CC95F0 /* DataProvider.swift */; };
+		51A4730C20F9CA1800CC95F0 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4730620F9CA1800CC95F0 /* ReusableCell.swift */; };
+		51A4730D20F9CA1800CC95F0 /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4730720F9CA1800CC95F0 /* ConfigurableCell.swift */; };
+		51A4730E20F9CA1800CC95F0 /* ReusableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4730820F9CA1800CC95F0 /* ReusableController.swift */; };
+		51A4730F20F9CA1800CC95F0 /* ReusableTableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4730920F9CA1800CC95F0 /* ReusableTableSource.swift */; };
+		51A4731020F9CA1800CC95F0 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4730A20F9CA1800CC95F0 /* DataFetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		512D256120F999AE00FC51AB /* ReusableDataSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReusableDataSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		512D256420F999AE00FC51AB /* ReusableDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReusableDataSource.h; sourceTree = "<group>"; };
-		512D256520F999AE00FC51AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		512D257B20F99A9E00FC51AB /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
-		512D257D20F99A9E00FC51AB /* ReusableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
-		512D257E20F99A9E00FC51AB /* ReusableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableController.swift; sourceTree = "<group>"; };
-		512D257F20F99A9E00FC51AB /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
-		512D258020F99A9E00FC51AB /* DataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
-		512D258120F99A9E00FC51AB /* ReusableTableSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableTableSource.swift; sourceTree = "<group>"; };
+		51A472FA20F9C9E700CC95F0 /* ReusableSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReusableSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51A472FD20F9C9E700CC95F0 /* ReusableSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReusableSource.h; sourceTree = "<group>"; };
+		51A472FE20F9C9E700CC95F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		51A4730520F9CA1800CC95F0 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		51A4730620F9CA1800CC95F0 /* ReusableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
+		51A4730720F9CA1800CC95F0 /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
+		51A4730820F9CA1800CC95F0 /* ReusableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableController.swift; sourceTree = "<group>"; };
+		51A4730920F9CA1800CC95F0 /* ReusableTableSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableTableSource.swift; sourceTree = "<group>"; };
+		51A4730A20F9CA1800CC95F0 /* DataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		512D255D20F999AE00FC51AB /* Frameworks */ = {
+		51A472F620F9C9E700CC95F0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,103 +39,103 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		512D255720F999AE00FC51AB = {
+		51A472F020F9C9E700CC95F0 = {
 			isa = PBXGroup;
 			children = (
-				512D256320F999AE00FC51AB /* ReusableDataSource */,
-				512D256220F999AE00FC51AB /* Products */,
+				51A472FC20F9C9E700CC95F0 /* ReusableSource */,
+				51A472FB20F9C9E700CC95F0 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		512D256220F999AE00FC51AB /* Products */ = {
+		51A472FB20F9C9E700CC95F0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				512D256120F999AE00FC51AB /* ReusableDataSource.framework */,
+				51A472FA20F9C9E700CC95F0 /* ReusableSource.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		512D256320F999AE00FC51AB /* ReusableDataSource */ = {
+		51A472FC20F9C9E700CC95F0 /* ReusableSource */ = {
 			isa = PBXGroup;
 			children = (
-				512D257F20F99A9E00FC51AB /* ConfigurableCell.swift */,
-				512D258020F99A9E00FC51AB /* DataFetcher.swift */,
-				512D257B20F99A9E00FC51AB /* DataProvider.swift */,
-				512D257D20F99A9E00FC51AB /* ReusableCell.swift */,
-				512D257E20F99A9E00FC51AB /* ReusableController.swift */,
-				512D258120F99A9E00FC51AB /* ReusableTableSource.swift */,
-				512D256420F999AE00FC51AB /* ReusableDataSource.h */,
-				512D256520F999AE00FC51AB /* Info.plist */,
+				51A4730720F9CA1800CC95F0 /* ConfigurableCell.swift */,
+				51A4730A20F9CA1800CC95F0 /* DataFetcher.swift */,
+				51A4730520F9CA1800CC95F0 /* DataProvider.swift */,
+				51A4730620F9CA1800CC95F0 /* ReusableCell.swift */,
+				51A4730820F9CA1800CC95F0 /* ReusableController.swift */,
+				51A4730920F9CA1800CC95F0 /* ReusableTableSource.swift */,
+				51A472FD20F9C9E700CC95F0 /* ReusableSource.h */,
+				51A472FE20F9C9E700CC95F0 /* Info.plist */,
 			);
-			path = ReusableDataSource;
+			path = ReusableSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		512D255E20F999AE00FC51AB /* Headers */ = {
+		51A472F720F9C9E700CC95F0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				512D256620F999AE00FC51AB /* ReusableDataSource.h in Headers */,
+				51A472FF20F9C9E700CC95F0 /* ReusableSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		512D256020F999AE00FC51AB /* ReusableDataSource */ = {
+		51A472F920F9C9E700CC95F0 /* ReusableSource */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 512D256920F999AE00FC51AB /* Build configuration list for PBXNativeTarget "ReusableDataSource" */;
+			buildConfigurationList = 51A4730220F9C9E700CC95F0 /* Build configuration list for PBXNativeTarget "ReusableSource" */;
 			buildPhases = (
-				512D255C20F999AE00FC51AB /* Sources */,
-				512D255D20F999AE00FC51AB /* Frameworks */,
-				512D255E20F999AE00FC51AB /* Headers */,
-				512D255F20F999AE00FC51AB /* Resources */,
+				51A472F520F9C9E700CC95F0 /* Sources */,
+				51A472F620F9C9E700CC95F0 /* Frameworks */,
+				51A472F720F9C9E700CC95F0 /* Headers */,
+				51A472F820F9C9E700CC95F0 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ReusableDataSource;
-			productName = ReusableDataSource;
-			productReference = 512D256120F999AE00FC51AB /* ReusableDataSource.framework */;
+			name = ReusableSource;
+			productName = ReusableSource;
+			productReference = 51A472FA20F9C9E700CC95F0 /* ReusableSource.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		512D255820F999AE00FC51AB /* Project object */ = {
+		51A472F120F9C9E700CC95F0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Pranay Neelagiri";
 				TargetAttributes = {
-					512D256020F999AE00FC51AB = {
+					51A472F920F9C9E700CC95F0 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 0940;
 					};
 				};
 			};
-			buildConfigurationList = 512D255B20F999AE00FC51AB /* Build configuration list for PBXProject "ReusableDataSource" */;
+			buildConfigurationList = 51A472F420F9C9E700CC95F0 /* Build configuration list for PBXProject "ReusableSource" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 512D255720F999AE00FC51AB;
-			productRefGroup = 512D256220F999AE00FC51AB /* Products */;
+			mainGroup = 51A472F020F9C9E700CC95F0;
+			productRefGroup = 51A472FB20F9C9E700CC95F0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				512D256020F999AE00FC51AB /* ReusableDataSource */,
+				51A472F920F9C9E700CC95F0 /* ReusableSource */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		512D255F20F999AE00FC51AB /* Resources */ = {
+		51A472F820F9C9E700CC95F0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -145,23 +145,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		512D255C20F999AE00FC51AB /* Sources */ = {
+		51A472F520F9C9E700CC95F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				512D258820F99A9E00FC51AB /* ReusableTableSource.swift in Sources */,
-				512D258620F99A9E00FC51AB /* ConfigurableCell.swift in Sources */,
-				512D258220F99A9E00FC51AB /* DataProvider.swift in Sources */,
-				512D258720F99A9E00FC51AB /* DataFetcher.swift in Sources */,
-				512D258520F99A9E00FC51AB /* ReusableController.swift in Sources */,
-				512D258420F99A9E00FC51AB /* ReusableCell.swift in Sources */,
+				51A4730D20F9CA1800CC95F0 /* ConfigurableCell.swift in Sources */,
+				51A4730C20F9CA1800CC95F0 /* ReusableCell.swift in Sources */,
+				51A4730E20F9CA1800CC95F0 /* ReusableController.swift in Sources */,
+				51A4731020F9CA1800CC95F0 /* DataFetcher.swift in Sources */,
+				51A4730F20F9CA1800CC95F0 /* ReusableTableSource.swift in Sources */,
+				51A4730B20F9CA1800CC95F0 /* DataProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		512D256720F999AE00FC51AB /* Debug */ = {
+		51A4730020F9C9E700CC95F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -224,7 +224,7 @@
 			};
 			name = Debug;
 		};
-		512D256820F999AE00FC51AB /* Release */ = {
+		51A4730120F9C9E700CC95F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -281,7 +281,7 @@
 			};
 			name = Release;
 		};
-		512D256A20F999AE00FC51AB /* Debug */ = {
+		51A4730320F9C9E700CC95F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -292,7 +292,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ReusableDataSource/Info.plist;
+				INFOPLIST_FILE = ReusableSource/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -300,7 +300,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = PN.ReusableDataSource;
+				PRODUCT_BUNDLE_IDENTIFIER = PN.ReusableSource;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -309,7 +309,7 @@
 			};
 			name = Debug;
 		};
-		512D256B20F999AE00FC51AB /* Release */ = {
+		51A4730420F9C9E700CC95F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -320,7 +320,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ReusableDataSource/Info.plist;
+				INFOPLIST_FILE = ReusableSource/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -328,7 +328,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = PN.ReusableDataSource;
+				PRODUCT_BUNDLE_IDENTIFIER = PN.ReusableSource;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -339,25 +339,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		512D255B20F999AE00FC51AB /* Build configuration list for PBXProject "ReusableDataSource" */ = {
+		51A472F420F9C9E700CC95F0 /* Build configuration list for PBXProject "ReusableSource" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				512D256720F999AE00FC51AB /* Debug */,
-				512D256820F999AE00FC51AB /* Release */,
+				51A4730020F9C9E700CC95F0 /* Debug */,
+				51A4730120F9C9E700CC95F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		512D256920F999AE00FC51AB /* Build configuration list for PBXNativeTarget "ReusableDataSource" */ = {
+		51A4730220F9C9E700CC95F0 /* Build configuration list for PBXNativeTarget "ReusableSource" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				512D256A20F999AE00FC51AB /* Debug */,
-				512D256B20F999AE00FC51AB /* Release */,
+				51A4730320F9C9E700CC95F0 /* Debug */,
+				51A4730420F9C9E700CC95F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 512D255820F999AE00FC51AB /* Project object */;
+	rootObject = 51A472F120F9C9E700CC95F0 /* Project object */;
 }

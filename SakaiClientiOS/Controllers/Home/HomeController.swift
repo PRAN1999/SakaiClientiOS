@@ -6,7 +6,7 @@
 
 import Foundation
 import UIKit
-import ReusableDataSource
+import ReusableSource
 
 class HomeController: UITableViewController {
     
@@ -43,7 +43,7 @@ extension HomeController: ReusableController {
     typealias Cell = SiteCell
     typealias Fetcher = SiteDataFetcher
     
-    var tableSource: ReusableTableSource<SiteDataProvider, SiteCell, SiteDataFetcher> {
+    var reusableSource: ReusableTableSource<SiteDataProvider, SiteCell, SiteDataFetcher> {
         return siteTableSource
     }
 }

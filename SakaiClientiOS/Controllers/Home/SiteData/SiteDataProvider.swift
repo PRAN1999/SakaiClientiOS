@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ReusableDataSource
+import ReusableSource
 
 class SiteDataProvider : HideableDataProvider {
     typealias T = Site
