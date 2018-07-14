@@ -8,14 +8,15 @@
 
 import Foundation
 
-public protocol NetworkSource: ReusableSource {
+public protocol NetworkSource {
     
+    associatedtype Provider: DataProvider
     associatedtype Fetcher : DataFetcher where Provider.V == Fetcher.T
     
     var fetcher : Fetcher { get }
 }
 
-public extension NetworkSource {
+public extension NetworkSource where Self:ReusableSource {
     func loadDataSource(completion: @escaping () -> Void) {
         provider.resetValues()
         reloadData()

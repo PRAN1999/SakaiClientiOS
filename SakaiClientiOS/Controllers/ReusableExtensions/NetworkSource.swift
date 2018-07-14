@@ -7,7 +7,7 @@
 
 import ReusableSource
 
-extension NetworkSource {
+extension NetworkSource where Self: ReusableSource {
     func loadDataSourceWithoutCache(completion: @escaping () -> Void) {
         RequestManager.shared.resetCache()
         loadDataSource(completion: completion)

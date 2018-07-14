@@ -1,14 +1,15 @@
 //
-//  ReusableController.swift
-//  SakaiClientiOS
+//  NetworkController.swift
+//  ReusableSource
 //
-//  Created by Pranay Neelagiri on 7/12/18.
+//  Created by Pranay Neelagiri on 7/14/18.
+//  Copyright © 2018 Pranay Neelagiri. All rights reserved.
 //
 
 import UIKit
 
 public protocol NetworkController {
-    associatedtype Source : NetworkSource
+    associatedtype Source : NetworkSource, ReusableSource
     
     var networkSource: Source { get }
 }
