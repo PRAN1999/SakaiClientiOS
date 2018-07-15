@@ -25,7 +25,7 @@ public extension NetworkSource where Self:ReusableSource {
                 completion()
                 return
             }
-            self.provider.loadItems(payload: response)
+            self.loadItems(payload: response)
             self.reloadData()
             completion()
         }

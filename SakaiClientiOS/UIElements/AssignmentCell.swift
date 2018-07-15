@@ -9,7 +9,7 @@ import UIKit
 import ReusableSource
 
 class AssignmentCell: UICollectionViewCell, ConfigurableCell {
-    
+
     typealias T = Assignment
     
     var titleLabel:InsetUILabel!
@@ -47,7 +47,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.cornerRadius = 3
-        self.layer.masksToBounds = true
+        self.layer.masksToBounds = false
     }
     
     func addViews() {
@@ -82,13 +82,16 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     }
     
     func configure(_ item: Assignment, at indexPath: IndexPath) {
-        
+        titleLabel.titleLabel.text = item.title
+        dueLabel.titleLabel.text = "Due: \(item.dueTimeString)"
+        descLabel.attributedText = item.attributedInstructions
     }
 }
 
 class IndexRecognizer: UITapGestureRecognizer {
     
-    var collectionView:UICollectionView!
+    var collectionDelegate: UICollectionViewDelegate!
+    var collectionView: UICollectionView!
     var indexPath:IndexPath!
     
 }

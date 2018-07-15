@@ -1,5 +1,5 @@
 //
-//  ReusableCell.swift
+//  Reusable.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/11/18.

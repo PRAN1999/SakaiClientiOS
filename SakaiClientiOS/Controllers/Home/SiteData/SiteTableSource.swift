@@ -10,11 +10,10 @@ import ReusableSource
 
 class SiteTableSource : HideableTableSource<SiteDataProvider, SiteCell>, NetworkSource {
 
-    typealias Provider = SiteDataProvider
     typealias Fetcher = SiteDataFetcher
     
     var fetcher: SiteDataFetcher
-    var controller:HomeController!
+    var controller:HomeController?
     
     convenience init(tableView: UITableView) {
         self.init(provider: SiteDataProvider(), tableView: tableView)
@@ -36,6 +35,6 @@ class SiteTableSource : HideableTableSource<SiteDataProvider, SiteCell>, Network
         }
         classController.title = site.title
         classController.setPages(pages: site.pages)
-        controller.navigationController?.pushViewController(classController, animated: true)
+        controller?.navigationController?.pushViewController(classController, animated: true)
     }
 }

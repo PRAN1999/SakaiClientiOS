@@ -68,7 +68,7 @@ import UIKit
     }
 }
 
-extension SiteDataSource {
+@available(*, deprecated: 1.0) extension SiteDataSource {
     func disableTabs() {
         let items = controller?.tabBarController?.tabBar.items
         
@@ -87,11 +87,5 @@ extension SiteDataSource {
                 arr[i].isEnabled = true
             }
         }
-    }
-}
-
-extension SiteDataSource: SearchableDataSource {
-    func searchAndFilter(for text: String) {
-        
     }
 }

@@ -5,7 +5,7 @@ import WebKit
 
 /**
  
- A singleton instance around an Alamofire Session to manage all HTTP requests made by the app and convert response into appropriate model to pass into ViewController
+ A singleton instance around an Alamofire Session to manage all HTTP requests made by the app by ensuring the user is logged in with every request. Provides app-wide mechanism for logging use out and manages process pool for internal WebViews
  
  - author: Pranay Neelagiri
  
@@ -87,14 +87,10 @@ class RequestManager {
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.updateValue(value, forKey: key)
     }
     
-    /**
-     
-     Ends Sakai session by resetting Alamofire Session and uses main thread to reroute app control to LoginViewController. Optionally starts and stops a loading indicator on callee.
-     
-     - parameters:
-        - indicator: An object of type LoadingIndicator that is optionally started and stopped
- 
-    */
+    
+    /// Ends Sakai session by resetting Alamofire Session and uses main thread to reroute app control to LoginViewController.
+    ///
+    /// - Parameter completion: A callback to execute once user has been logged out
     func logout(completion: @escaping () -> Void) {
         
         reset()
@@ -106,11 +102,13 @@ class RequestManager {
             //Dismiss tab bar controller, and then reinstantiate initial view controller for login
             UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: {
                 UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateInitialViewController()
+                completion()
             })
-            completion()
         })
     }
     
+    
+    /// Resets URL cache for Alamofire session to force new data requests
     func resetCache() {
         URLCache.shared.removeAllCachedResponses()
         Alamofire.SessionManager.default.session.configuration.urlCache?.removeAllCachedResponses()
@@ -142,10 +140,10 @@ class RequestManager {
     
     /**
      
-     Makes an HTTP request to determine if user is logged in. Sakai server returns valid response whether or not user is logged in, so result of check is passed into completion handler to be implemented by callee
+     Makes an HTTP request to determine if user is logged in. Sakai server returns valid response whether or not user is logged in, so result of check is passed into callback
      
      - parameters:
-        - completion: A closure that is called with a Boolean result of whether the user is logged in or not
+        - completion: A completion handler that is called with a Boolean result of whether the user is logged in or not
         - check: Boolean flag determining if user is logged in, passed into closure - acted on by callee
      
      */

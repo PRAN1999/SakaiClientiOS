@@ -10,10 +10,8 @@ import ReusableSource
 
 /// The Tableview Cell to display Site titles
 class SiteCell: UITableViewCell, ConfigurableCell {
-    
-    typealias T = Site
 
-    
+    typealias T = Site
     ///The UILabel containing the title text
     var titleLabel: UILabel!
     
@@ -60,14 +58,6 @@ class SiteCell: UITableViewCell, ConfigurableCell {
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
-    }
-    
-    
-    /// Set titleLabel tect
-    ///
-    /// - Parameter title: String to assign to titleLabel.text
-    func setTitle(title: String) {
-        titleLabel.text = title
     }
     
     func configure(_ item: Site, at indexPath: IndexPath) {

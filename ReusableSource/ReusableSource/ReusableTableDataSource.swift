@@ -1,14 +1,15 @@
 //
-//  ReusableTableSource.swift
+//  ReusableTableDataSource.swift
 //  ReusableSource
 //
-//  Created by Pranay Neelagiri on 7/14/18.
+//  Created by Pranay Neelagiri on 7/15/18.
 //  Copyright © 2018 Pranay Neelagiri. All rights reserved.
 //
 
 import Foundation
 
-open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell & ConfigurableCell>: NSObject, UITableViewDataSource, UITableViewDelegate, ReusableSource where Provider.T == Cell.T {
+open class ReusableTableDataSource<Provider:DataProvider, Cell:UITableViewCell & ConfigurableCell>: NSObject, UITableViewDataSource, ReusableSource where Provider.T == Cell.T {
+    
     public let provider: Provider
     public let tableView: UITableView
     
@@ -21,7 +22,6 @@ open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell & Con
     
     public func setup() {
         tableView.dataSource = self
-        tableView.delegate = self
     }
     
     open func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,28 +40,9 @@ open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell & Con
         let item = provider.item(at: indexPath)
         if let item = item {
             cell.configure(item, at: indexPath)
+            configureBehavior(for: cell, at: indexPath)
         }
         return cell
-    }
-    
-    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        //Override and implement
-        return nil
-    }
-    
-    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Override and implement
-        return
-    }
-    
-    open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        //Override and implement
-        return 0
-    }
-    
-    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //Override and implement
-        return
     }
     
     open func item(at indexPath: IndexPath) -> Provider.T? {
@@ -74,5 +55,10 @@ open class ReusableTableSource<Provider:DataProvider, Cell:UITableViewCell & Con
     
     public func loadItems(payload: Provider.V) {
         provider.loadItems(payload: payload)
+    }
+    
+    open func configureBehavior(for cell: Cell, at indexPath: IndexPath) {
+        //Override and implement
+        return
     }
 }

@@ -10,7 +10,6 @@ import ReusableSource
 
 class GradebookTableSource : HideableTableSource<GradebookDataProvider, GradebookCell>, NetworkSource {
     
-    typealias Provider = GradebookDataProvider
     typealias Fetcher = GradebookDataFetcher
     
     var fetcher: GradebookDataFetcher

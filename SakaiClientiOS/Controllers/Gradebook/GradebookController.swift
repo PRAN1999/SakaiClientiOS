@@ -25,7 +25,7 @@ class GradebookController: UITableViewController {
         
         gradebookTableSource = GradebookTableSource(tableView: super.tableView)
         gradebookTableSource.controller = self
-        loadSource()
+        loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
         super.viewDidLoad()
     }
@@ -36,7 +36,8 @@ class GradebookController: UITableViewController {
     }
     
     @objc func loadData() {
-        loadSource()
+        gradebookTableSource.hideHeaderCell()
+        loadSource() {}
     }
 }
 

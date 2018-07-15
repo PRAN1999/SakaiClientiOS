@@ -6,40 +6,32 @@
 //
 
 import UIKit
+import ReusableSource
 
-class AssignmentController: BaseHideableTableViewController {
-    var siteAssignmentDataSource: SiteAssignmentsDataSource!
-    var dateSortedAssignmentDataSource: DateSortedAssignmentDataSource!
+class AssignmentController: UITableViewController {
     
-    var dateSorted:Bool = true
-    var selectedIndex = 0
-    var hasLoaded:[Bool] = [false, false]
+    var assignmentsTableSource: AssignmentTableSource!
     
     var segments:UISegmentedControl!
     var button1: UIBarButtonItem!
     var button2: UIBarButtonItem!
     var flexButton: UIBarButtonItem!
     
+    var selectedIndex = 0
+    
     required init?(coder aDecoder: NSCoder) {
-        dateSortedAssignmentDataSource = DateSortedAssignmentDataSource()
-        siteAssignmentDataSource  = SiteAssignmentsDataSource()
-        super.init(coder: aDecoder, dataSource: dateSortedAssignmentDataSource)
+        super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        hasLoaded[0] = true
-        
         super.tableView.allowsSelection = false
         super.tableView.register(AssignmentTableCell.self, forCellReuseIdentifier: AssignmentTableCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
-        super.tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "view")
         
-        siteAssignmentDataSource.collectionViewDelegate = self
-        siteAssignmentDataSource.textViewDelegate = self
-        
-        dateSortedAssignmentDataSource.collectionViewDelegate = self
-        dateSortedAssignmentDataSource.textViewDelegate = self
+        assignmentsTableSource = AssignmentTableSource(tableView: super.tableView)
+        assignmentsTableSource.controller = self
+        loadData()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,37 +42,11 @@ class AssignmentController: BaseHideableTableViewController {
         self.navigationController?.isToolbarHidden = true
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    @objc func resort() {
-        if dateSorted {
-            dateSorted = false
-            selectedIndex = 1
-            super.baseDataSource = siteAssignmentDataSource
-            super.hideableDataSource = siteAssignmentDataSource
-            super.tableView.dataSource = siteAssignmentDataSource
-        } else {
-            dateSorted = true
-            selectedIndex = 0
-            super.baseDataSource = dateSortedAssignmentDataSource
-            super.hideableDataSource = dateSortedAssignmentDataSource
-            super.tableView.dataSource = dateSortedAssignmentDataSource
-        }
-        if !super.baseDataSource.hasLoaded && !super.baseDataSource.isLoading {
-            super.loadDataSource()
-        } else {
-            super.indicator.stopAnimating()
-            super.tableView.reloadData()
-        }
-    }
-
     func setToolbar() {
         self.navigationController?.isToolbarHidden = false
         self.navigationController?.toolbar.barTintColor = UIColor.black
         
-        segments = UISegmentedControl.init(items: ["Date", "Class"])
+        segments = UISegmentedControl.init(items: ["Class", "Date"])
         segments.frame = (self.navigationController?.toolbar.frame)!
         
         segments.translatesAutoresizingMaskIntoConstraints = false
@@ -99,32 +65,20 @@ class AssignmentController: BaseHideableTableViewController {
         
         self.navigationController?.toolbar.setItems(arr, animated: true)
     }
-}
-
-extension AssignmentController: UICollectionViewDelegate {
     
-    @objc func handleIndexTap(sender: Any) {
-        guard let recognizer = sender as? IndexRecognizer else {
-            return
-        }
-        let indexPath = recognizer.indexPath!
-        let collectionView = recognizer.collectionView!
-        self.collectionView(collectionView, didSelectItemAt: indexPath)
+    @objc func resort() {
+        
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagedAssignmentController
-        let dataSource = collectionView.dataSource as! AssignmentDataSource
-        controller.setAssignments(assignments: dataSource.assignments, start: indexPath.row)
-        self.navigationController?.pushViewController(controller, animated: true)
+    @objc func loadData() {
+        loadSource() {}
     }
+    
 }
 
-extension AssignmentController: UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var size:CGSize!
-        size = CGSize(width: collectionView.bounds.width / 2.25, height: collectionView.bounds.height)
-        return size
+extension AssignmentController: NetworkController {
+    
+    var networkSource : AssignmentTableSource {
+        return assignmentsTableSource
     }
 }

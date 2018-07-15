@@ -8,9 +8,7 @@
 import UIKit
 import ReusableSource
 
-class AnnouncementCell: UITableViewCell, ConfigurableCell {
-    
-    typealias T = Announcement
+class AnnouncementCell: UITableViewCell, ReusableCell {
     
     var authorLabel: UILabel!
     var titleLabel: UILabel!
@@ -87,9 +85,5 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         dateLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         dateLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         dateLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -10.0).isActive = true
-    }
-    
-    func configure(_ item: Announcement, at indexPath: IndexPath) {
-        
     }
 }

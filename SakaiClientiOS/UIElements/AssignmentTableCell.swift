@@ -14,6 +14,8 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     
     var titleLabel: UILabel!
     var collectionView: UICollectionView!
+    
+    var dataSourceDelegate: AssignmentCollectionSource!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,6 +41,8 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         
         collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.white
+        
+        dataSourceDelegate = AssignmentCollectionSource(collectionView: collectionView)
     }
     
     func addViews() {
@@ -65,8 +69,18 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         
         self.heightAnchor.constraint(greaterThanOrEqualToConstant: 280).isActive = true
     }
-
+    
     func configure(_ item: [Assignment], at indexPath: IndexPath) {
+        guard item.count > 0 else {
+            return
+        }
         
+        let siteId = item[0].siteId
+        let title = DataHandler.shared.siteTitleMap[siteId]
+        
+        titleLabel.text = title
+        collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
+        dataSourceDelegate.loadItems(payload: item)
+        dataSourceDelegate.reloadData()
     }
 }

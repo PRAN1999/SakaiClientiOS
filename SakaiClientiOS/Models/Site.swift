@@ -27,10 +27,10 @@ protocol SiteSortable {
 struct Site: TermSortable {
     
     ///The unique String id for a Site
-    let id:String;
+    let id:String
     
     ///The title or name of a Site
-    let title:String;
+    let title:String
     
     ///The Term of a Site
     let term:Term

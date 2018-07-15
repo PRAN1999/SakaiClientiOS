@@ -50,12 +50,4 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
-    
-    func setText(text:String?) {
-        titleLabel.text = text
-    }
-    
-    func setAttributedText(text: NSAttributedString?) {
-        titleLabel.attributedText = text
-    }
 }

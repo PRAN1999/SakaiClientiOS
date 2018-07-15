@@ -19,6 +19,17 @@ struct Announcement: TermSortable, SiteSortable {
     let date:Date
     let dateString:String
     
+    /// Instantiates an Announcement object with relevant fields
+    ///
+    /// - Parameters:
+    ///   - author: The author of the Announcement
+    ///   - title: The title of the Announcement
+    ///   - content: The message body of the Announcement. Is often in html or similar raw format
+    ///   - attributedContent: The parsed message body to display to the user
+    ///   - term: The Term to which the Announcement belongs
+    ///   - siteId: The siteId corresponding to the Site to which this Announcement belongs
+    ///   - date: The date-time when the Announcement was published
+    ///   - dateString: The string to display to inform user of when this Announcment was published. Use custom date string parser in Parser.swift to display information in the correct format
     init(_ author: String,
          _ title: String?,
          _ content: String?,
@@ -37,6 +48,9 @@ struct Announcement: TermSortable, SiteSortable {
         self.dateString = dateString
     }
     
+    /// Uses a JSON object returned from network request and parses it to instantiate an Announcement object with all available fields
+    ///
+    /// - Parameter data: A JSON object representing a Sakai Announcement, which contains all relevant information for the assignment
     init(data: JSON) {
         let author = data["createdByDisplayName"].string!
         let title = data["title"].string

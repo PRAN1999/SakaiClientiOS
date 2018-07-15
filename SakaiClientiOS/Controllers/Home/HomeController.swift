@@ -24,7 +24,7 @@ class HomeController: UITableViewController {
         
         siteTableSource = SiteTableSource(tableView: tableView)
         siteTableSource.controller = self
-        loadSource()
+        loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
         //self.setupSearchBar()
     }
@@ -34,7 +34,30 @@ class HomeController: UITableViewController {
     }
     
     @objc func loadData() {
-        loadSource()
+        disableTabs()
+        loadSource() {
+            self.enableTabs()
+        }
+    }
+    
+    func disableTabs() {
+        let items = self.tabBarController?.tabBar.items
+        
+        if let arr = items {
+            for i in 1..<5 {
+                arr[i].isEnabled = false
+            }
+        }
+    }
+    
+    func enableTabs() {
+        let items = self.tabBarController?.tabBar.items
+        
+        if let arr = items {
+            for i in 1..<5 {
+                arr[i].isEnabled = true
+            }
+        }
     }
 }
 

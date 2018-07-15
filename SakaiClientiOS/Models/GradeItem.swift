@@ -37,7 +37,6 @@ struct GradeItem: TermSortable, SiteSortable {
      - Returns: a new GradeItem
      
      */
-    
     private init(_ grade:Double? = nil,
                  _ points:Double,
                  _ title:String,

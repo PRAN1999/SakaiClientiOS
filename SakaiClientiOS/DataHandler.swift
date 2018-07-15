@@ -8,6 +8,8 @@
 import Foundation
 import SwiftyJSON
 
+
+/// A singleton service to manage user data after requests have been made by serializing and sorting it
 class DataHandler {
     
     static let shared = DataHandler()
@@ -71,6 +73,8 @@ class DataHandler {
      
      Makes HTTP request to get gradebook items for specfic site and constructs array of GradeItem to pass into closure
      
+     This method is used for a Site-specific gradebook
+     
      - parameters:
      - siteId: The siteId representing the site for which grades should be fetched
      - completion: A closure called with a [GradeItem] object to be implemented by callee
@@ -100,17 +104,13 @@ class DataHandler {
         }
     }
     
-    /**
-     
-     An HTTP request is made to fetch all grades for all user Sites. The response is parsed into GradeItem objects and are sorted first by Term and then by Site to ultimately pass a 3-dim array [[[GradeItem]]] into the completion handler
-     
-     This method is called by the GradebookDataSource
-     
-     - parameters:
-     - completion: A closure called with a [[[GradeItem]]] object to be implemented by callee
-     - grades: The [[[Gradeitem]]] object constructed with response and passed into closure
-     
-     */
+    
+    /// An HTTP request is made to fetch all grades for all user Sites. The response is parsed into GradeItem objects and are sorted first by Term and then by Site before being passed to callback function
+    ///
+    /// This method is used for a user's entire gradebook history
+    ///
+    /// - Parameter completion: A closure called with a [[[GradeItem]]] object to be implemented by callee
+    /// - Parameter grades: The [[[Gradeitem]]] object constructed with response and passed into closure
     func getAllGrades(completion: @escaping (_ grades: [[[GradeItem]]]?) -> Void) {
         let url:String = AppGlobals.GRADEBOOK_URL
         RequestManager.shared.makeRequest(url: url, method: .get) { response in
@@ -159,7 +159,7 @@ class DataHandler {
     
     /// Makes a request to retrieve all assignment data for a user and then parses them into Assignment objects. Then it splits Assignment's by Term and Site, and then sorts each innermost array by Due Date to pass [[[Assignment]]] object into completion handler
     ///
-    /// This method is called by SiteAssignmentDataSource
+    /// This method is used to retrive a user's Assignment history by Site
     ///
     /// - Parameter completion: A closure called with a 3-dimensional Assignment array to be implemented by caller
     /// - Parameter assignments: The 3-dimensional array of Assignments to be passed into the completion handler
@@ -237,6 +237,15 @@ class DataHandler {
         }
     }
     
+    
+    /// Requests announcement data and retrieves the Announcement feed for a user based on a specific offset and limit. Passes parsed list back into callback along with information as to whether more data exists to be loaded on the server
+    ///
+    /// **Example**: A request with offset 50 and limit 100 will retrieve 50 announcements from #50 to the end of the retrieved list
+    ///
+    /// - Parameters:
+    ///   - offset: The offset position to begin parsing the retrieved list data
+    ///   - limit: The limit for how many records should be retrieved from Sakai
+    ///   - completion: The callback to execute with the parsed list of Announcement objects
     func getAllAnnouncements(offset:Int, limit:Int, completion: @escaping (_ announcements: [Announcement]?, _ moreLoads: Bool) -> Void) {
         let url:String = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: "\(limit)")
         RequestManager.shared.makeRequest(url: url, method: .get) { response in
@@ -266,9 +275,5 @@ class DataHandler {
             
             completion(announcementList, true)
         }
-    }
-    
-    func getNextAssignments() {
-        
     }
 }
