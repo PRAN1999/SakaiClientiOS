@@ -30,6 +30,7 @@ class AssignmentController: UITableViewController {
         
         assignmentsTableSource = AssignmentTableSource(tableView: super.tableView)
         assignmentsTableSource.controller = self
+        createSegmentedControl()
         loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
     }
@@ -42,23 +43,29 @@ class AssignmentController: UITableViewController {
         self.navigationController?.isToolbarHidden = true
     }
     
-    func setToolbar() {
-        self.navigationController?.isToolbarHidden = false
-        self.navigationController?.toolbar.barTintColor = UIColor.black
-        
+    func createSegmentedControl() {
         segments = UISegmentedControl.init(items: ["Class", "Date"])
-        segments.frame = (self.navigationController?.toolbar.frame)!
         
-        segments.translatesAutoresizingMaskIntoConstraints = false
         segments.selectedSegmentIndex = selectedIndex
-        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 0)
-        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 1)
         segments.addTarget(self, action: #selector(resort), for: UIControlEvents.valueChanged)
         segments.tintColor = AppGlobals.SAKAI_RED
+        segments.setEnabled(false, forSegmentAt: 1)
         
         button1 = UIBarButtonItem(customView: segments);
         button2 = UIBarButtonItem(customView: segments);
         flexButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+    }
+    
+    func setToolbar() {
+        self.navigationController?.isToolbarHidden = false
+        self.navigationController?.toolbar.barTintColor = UIColor.black
+        
+        segments.frame = (self.navigationController?.toolbar.frame)!
+        
+        segments.translatesAutoresizingMaskIntoConstraints = false
+        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 0)
+        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 1)
+        
         flexButton.width = self.view.frame.size.width / 4 - 15
         
         let arr:[UIBarButtonItem] = [flexButton, button1, button2, flexButton]
@@ -67,11 +74,16 @@ class AssignmentController: UITableViewController {
     }
     
     @objc func resort() {
-        
+        assignmentsTableSource.switchSort()
     }
     
     @objc func loadData() {
-        loadSource() {}
+        segments.selectedSegmentIndex = 0
+        segments.setEnabled(false, forSegmentAt: 1)
+        assignmentsTableSource.resetSort()
+        loadSource() {
+            self.segments.setEnabled(true, forSegmentAt: 1)
+        }
     }
     
 }

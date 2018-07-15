@@ -26,4 +26,13 @@ class AssignmentTableSource: HideableTableSource<AssignmentTableDataProvider, As
     override func configureBehavior(for cell: AssignmentTableCell, at indexPath: IndexPath) {
         cell.dataSourceDelegate.controller = controller
     }
+    
+    func resetSort() {
+        provider.dateSorted = false
+    }
+    
+    func switchSort() {
+        provider.dateSorted = !provider.dateSorted
+        reloadData()
+    }
 }
