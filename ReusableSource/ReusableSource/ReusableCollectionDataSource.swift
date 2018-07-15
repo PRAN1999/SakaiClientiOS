@@ -39,6 +39,7 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
         let item = provider.item(at: indexPath)
         if let item = item {
             cell.configure(item, at: indexPath)
+            configureBehavior(for: cell, at: indexPath)
         }
         return cell
     }
