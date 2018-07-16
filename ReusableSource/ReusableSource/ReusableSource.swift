@@ -14,6 +14,7 @@ public protocol ReusableSource {
     
     var provider: Provider { get }
     
+    func resetValues()
     func reloadData()
     func loadItems(payload: Provider.V)
     

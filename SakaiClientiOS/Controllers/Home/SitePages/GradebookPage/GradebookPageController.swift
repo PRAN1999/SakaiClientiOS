@@ -7,13 +7,7 @@
 
 import UIKit
 
-class GradebookPageController: BaseTableViewController {
-    var gradebookPageDataSource: GradebookPageDataSource!
-    
-    init() {
-        gradebookPageDataSource = GradebookPageDataSource()
-        super.init(dataSource: gradebookPageDataSource)
-    }
+class GradebookPageController: UITableViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

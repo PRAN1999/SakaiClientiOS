@@ -52,6 +52,10 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
         provider.loadItems(payload: payload)
     }
     
+    open func resetValues() {
+        provider.resetValues()
+    }
+    
     open func configureBehavior(for cell: Cell, at indexPath: IndexPath) {
         //Override and implement
         return

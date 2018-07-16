@@ -22,7 +22,6 @@ class GradebookController: UITableViewController {
         super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
         super.tableView.showsVerticalScrollIndicator = false
-        
         gradebookTableSource = GradebookTableSource(tableView: super.tableView)
         gradebookTableSource.controller = self
         loadData()

@@ -8,7 +8,9 @@
 import UIKit
 import ReusableSource
 
-class AnnouncementCell: UITableViewCell, ReusableCell {
+class AnnouncementCell: UITableViewCell, ConfigurableCell {
+    
+    typealias T = Announcement
     
     var authorLabel: UILabel!
     var titleLabel: UILabel!
@@ -85,5 +87,19 @@ class AnnouncementCell: UITableViewCell, ReusableCell {
         dateLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         dateLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         dateLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -10.0).isActive = true
+    }
+    
+    func configure(_ item: Announcement, at indexPath: IndexPath) {
+        authorLabel.text = item.author
+        titleLabel.text = item.title
+        
+        if let content = item.attributedContent {
+            let mutableContent = NSMutableAttributedString(attributedString: content)
+            let contentRange = NSRange(location: 0, length: content.string.count)
+            mutableContent.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.light), range: contentRange)
+            contentLabel.attributedText = mutableContent
+        }
+        
+        dateLabel.text = item.dateString
     }
 }

@@ -27,7 +27,6 @@ class AssignmentController: UITableViewController {
         super.tableView.allowsSelection = false
         super.tableView.register(AssignmentTableCell.self, forCellReuseIdentifier: AssignmentTableCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
-        
         assignmentsTableSource = AssignmentTableSource(tableView: super.tableView)
         assignmentsTableSource.controller = self
         createSegmentedControl()

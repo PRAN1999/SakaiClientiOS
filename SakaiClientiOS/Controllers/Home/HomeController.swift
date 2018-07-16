@@ -21,7 +21,6 @@ class HomeController: UITableViewController {
         super.title = "Classes"
         super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
-        
         siteTableSource = SiteTableSource(tableView: tableView)
         siteTableSource.controller = self
         loadData()

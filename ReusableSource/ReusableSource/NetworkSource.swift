@@ -18,7 +18,7 @@ public protocol NetworkSource {
 
 public extension NetworkSource where Self:ReusableSource {
     func loadDataSource(completion: @escaping () -> Void) {
-        provider.resetValues()
+        resetValues()
         reloadData()
         fetcher.loadData { (res) in
             guard let response = res else {

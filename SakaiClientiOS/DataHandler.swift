@@ -202,41 +202,6 @@ class DataHandler {
         }
     }
     
-    /// Makes a request to retrieve all assignment data for a user and then parses them into Assignment objects. Then it splits Assignment's by Term, and then sorts each inner array by Due Date to pass [[Assignment]] object into completion handler
-    ///
-    /// - Parameter completion: A closure called with a 2-dimensional Assignment array to be implemented by caller
-    /// - Parameter assignments: The 2-dimensional array of Assignments to be passed into the completion handler
-    func getAllAssignments(completion: @escaping (_ assignments: [[Assignment]]?) -> Void) {
-        let url:String = AppGlobals.ASSIGNMENT_URL
-        RequestManager.shared.makeRequest(url: url, method: .get) { response in
-            guard let data = response.result.value else {
-                print("error")
-                return
-            }
-            
-            guard let collection = JSON(data)["assignment_collection"].array else {
-                completion(nil)
-                return
-            }
-            
-            var assignmentList:[Assignment] = [Assignment]()
-            
-            for assignment in collection {
-                //Instantiate Assignment object from JSON and add to list
-                assignmentList.append(Assignment(data: assignment))
-            }
-            
-            //Sort the list by due date before splitting by Term
-            assignmentList.sort{$0.dueDate > $1.dueDate}
-            guard let termSortedAssignments = Term.splitByTerms(listToSort: assignmentList) else {
-                completion(nil)
-                return
-            }
-            
-            completion(termSortedAssignments)
-        }
-    }
-    
     
     /// Requests announcement data and retrieves the Announcement feed for a user based on a specific offset and limit. Passes parsed list back into callback along with information as to whether more data exists to be loaded on the server
     ///

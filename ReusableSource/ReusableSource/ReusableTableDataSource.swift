@@ -57,6 +57,10 @@ open class ReusableTableDataSource<Provider:DataProvider, Cell:UITableViewCell &
         provider.loadItems(payload: payload)
     }
     
+    open func resetValues() {
+        provider.resetValues()
+    }
+    
     open func configureBehavior(for cell: Cell, at indexPath: IndexPath) {
         //Override and implement
         return
