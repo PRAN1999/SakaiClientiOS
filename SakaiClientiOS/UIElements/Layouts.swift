@@ -1,5 +1,5 @@
 //
-//  AssignmentLayout.swift
+//  HorizontalLayout.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 6/10/18.
@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// A CollectionViewLayout to scroll horizontally
 class HorizontalLayout: UICollectionViewFlowLayout {
 
     override init() {

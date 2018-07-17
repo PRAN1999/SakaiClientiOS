@@ -27,9 +27,6 @@ class AssignmentCollectionSource : ReusableCollectionDataSourceFlowDelegate<Assi
     
     override func configureBehavior(for cell: AssignmentCell, at indexPath: IndexPath) {
         cell.descLabel.delegate = controller
-        cell.tapRecognizer.indexPath = indexPath
-        cell.tapRecognizer.collectionDelegate = self
-        cell.tapRecognizer.collectionView = collectionView
         cell.tapRecognizer.addTarget(self, action: #selector(handleIndexTap(sender:)))
     }
     

@@ -1,5 +1,5 @@
 //
-//  InsetTextBackgroundView.swift
+//  InsetUILabel.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 6/12/18.
@@ -7,9 +7,13 @@
 
 import UIKit
 
+/// A UILabel inset with padding around the edges
 class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
 
+    /// The titleLabel containing the inset content of the view
     var titleLabel:UILabel!
+    
+    /// A recognizer to detect taps in the view
     var tapRecognizer: UITapGestureRecognizer!
     
     override init(frame: CGRect) {
@@ -23,6 +27,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Setup titleLabel and add attributes
     func setup() {
         titleLabel = UILabel()
         titleLabel.lineBreakMode = .byWordWrapping
@@ -32,6 +37,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         
         self.backgroundColor = AppGlobals.SAKAI_RED
         
+        // Round the edges of outer view
         self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
     }
@@ -40,11 +46,13 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         self.addSubview(titleLabel)
     }
     
+    /// Set titleLabel constraints
     func setConstraints() {
         let margins = self.layoutMarginsGuide
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        // Constrain titleLabel to margins to ensure padding between content and view border
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true

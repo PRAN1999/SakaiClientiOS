@@ -8,14 +8,27 @@
 import UIKit
 import ReusableSource
 
+/// A CollectionViewCell to represent an Assignment model
 class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
+    /// Specify an Assignment as the model the cell uses to configure itself
     typealias T = Assignment
     
+    /// The UILabel to hold the Assignment title
     var titleLabel:InsetUILabel!
+    
+    /// The UILabel to hold the due date for the Assignment
     var dueLabel:InsetUILabel!
+    
+    /// A TextView to hold the instructions for the Assignment
+    ///
+    /// May scroll based on content size and may contain links to content
     var descLabel:UITextView!
     
+    
+    /// Since the textView has its own recognizers, a tap on the textView will not register as a cell selection
+    ///
+    /// The tapRecognizer forwards the taps to the UICollectionViewDelegate
     var tapRecognizer:IndexRecognizer!
     
     override init(frame: CGRect) {
@@ -29,6 +42,8 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Instantiate titleLabel, dueLabel, and descLabel and set attributes.
+    /// Also create tapRecognizer and configure
     func setup() {
         titleLabel = InsetUILabel()
         dueLabel = InsetUILabel()
@@ -50,6 +65,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         self.layer.masksToBounds = false
     }
     
+    /// Add subviews to cell and add tapRecognizer as gestureRecognizer to descLabel
     func addViews() {
         self.addSubview(titleLabel)
         self.addSubview(dueLabel)
@@ -65,33 +81,49 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         dueLabel.translatesAutoresizingMaskIntoConstraints = false
         descLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        // Constrain the titleLabel to the right, left, and top of cell
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        
+        // Ensure height of titleLabel is 1/4 of cell height
         titleLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
         
+        // Constrain descLabel to right and left anchors of cell
+        // Constrain descLabel to bottom of titleLabel and top of dueLabel
         descLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         descLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
         
+        // Constrain the dueLabel to the right, left, and bottom of cell
         dueLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        
+        // Ensure height of dueLabel is 1/4 of cell height
         dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
     }
     
+    /// Configure the AssignmentCell with a Assignment object
+    ///
+    /// - Parameters:
+    ///   - item: The Assignment to be used as the model for the cell
+    ///   - indexPath: The indexPath at which the AssignmentCell will be displayed in the UICollectionView
     func configure(_ item: Assignment, at indexPath: IndexPath) {
         titleLabel.titleLabel.text = item.title
         dueLabel.titleLabel.text = "Due: \(item.dueTimeString)"
         descLabel.attributedText = item.attributedInstructions
+        tapRecognizer.indexPath = indexPath
     }
 }
 
+
+/// A UITapGestureRecognizer that contains an indexPath object to indicate tapped object
+///
+/// For use with textView within AssignmentCell
 class IndexRecognizer: UITapGestureRecognizer {
     
-    var collectionDelegate: UICollectionViewDelegate!
-    var collectionView: UICollectionView!
     var indexPath:IndexPath!
     
 }

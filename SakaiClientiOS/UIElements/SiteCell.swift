@@ -11,7 +11,9 @@ import ReusableSource
 /// The Tableview Cell to display Site titles
 class SiteCell: UITableViewCell, ConfigurableCell {
 
+    /// Specify a Site as the model the cell uses to configure itself
     typealias T = Site
+    
     ///The UILabel containing the title text
     var titleLabel: UILabel!
     
@@ -60,6 +62,11 @@ class SiteCell: UITableViewCell, ConfigurableCell {
         titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
     }
     
+    /// Configure the SiteCell with a GradeItem object
+    ///
+    /// - Parameters:
+    ///   - item: The Site to be used as the model for the cell
+    ///   - indexPath: The indexPath at which the SiteCell will be displayed in the UITableView
     func configure(_ item: Site, at indexPath: IndexPath) {
         titleLabel.text = item.title
     }

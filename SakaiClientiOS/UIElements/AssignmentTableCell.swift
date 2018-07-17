@@ -1,5 +1,5 @@
 //
-//  SiteAssignmentsCell.swift
+//  AssignmentTableCell.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 6/10/18.
@@ -8,15 +8,24 @@
 import UIKit
 import ReusableSource
 
+/// A TableViewCell to represent a group of Assignment objects, either for a specific class or for an entire Term
 class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     
+    /// Specify an Assignment list as the model the cell uses to configure itself
     typealias T = [Assignment]
     
+    /// The title of the cell, whether it be for a Site or for all assignments in a Term
     var titleLabel: UILabel!
+    
+    /// The UICollectionView to hold the AssignmentCells for each Assignment in the Assignment list for the cell
+    ///
+    /// Scrolls horizontally
     var collectionView: UICollectionView!
     
+    /// The data source and delegate object for the CollectionView
     var dataSourceDelegate: AssignmentCollectionSource!
 
+    /// Setup subviews, add them to cell, and set constraints
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -28,6 +37,8 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         super.init(coder: aDecoder)
     }
     
+    
+    /// Setup titleLabel and collectionView, along with collectionView data source and delegate
     func setup() {
         titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
@@ -37,48 +48,69 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         titleLabel.layer.cornerRadius = 5
         titleLabel.layer.masksToBounds = true
         
+        // Create a horizontal flow layout so the collectionView can scroll horizontally
         let layout = HorizontalLayout()
         
         collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.white
         
+        //Construct Data Source and Delegate for collectionView as an AssignmentCollectionSource object
         dataSourceDelegate = AssignmentCollectionSource(collectionView: collectionView)
     }
     
+    /// Add titleLabel and collectionView to cell
     func addViews() {
         self.addSubview(titleLabel)
         self.addSubview(collectionView)
     }
     
+    /// Add constraints to titleLabel and collectionView
     func setConstraints() {
         let margins = self.layoutMarginsGuide
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
+        // Constrain titleLabel to top, left, and right margins of cell
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        
+        // Constrain titleLabel bottom anchor to top of collectionView
         titleLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10.0).isActive = true
         
+        // Constrain collectionView to left, right and bottom of cell
         collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        
+        // Ensure the collectionView takes up 80% of the cell
         collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
         collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
         
+        // Force the cell to be at least 280 pixels in height
         self.heightAnchor.constraint(greaterThanOrEqualToConstant: 280).isActive = true
     }
     
+    
+    /// Configure the AssignmentTableCell with a [Assignment] object
+    ///
+    /// - Parameters:
+    ///   - item: The [Assignment] to be used as the model for the cell
+    ///   - indexPath: The indexPath at which the AssignmentTableCell will be displayed in the UITableView
     func configure(_ item: [Assignment], at indexPath: IndexPath) {
         guard item.count > 0 else {
             return
         }
-        
-        let siteId = item[0].siteId
-        let title = DataHandler.shared.siteTitleMap[siteId]
-        
-        titleLabel.text = title
+        if item.count == 1 {
+            titleLabel.text = "All Assignments"
+        } else {
+            let siteId = item[0].siteId
+            let title = DataHandler.shared.siteTitleMap[siteId]
+            
+            titleLabel.text = title
+        }
+
         collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
         dataSourceDelegate.loadItems(payload: item)
         dataSourceDelegate.reloadData()

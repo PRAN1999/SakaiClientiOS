@@ -1,5 +1,5 @@
 //
-//  GradebookPageControllerTableViewController.swift
+//  GradebookPageController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 5/22/18.

@@ -11,6 +11,7 @@ import ReusableSource
 /// The table view cell to display a GradeItem in a gradebook
 class GradebookCell: UITableViewCell, ConfigurableCell {
     
+    /// Specify a GradeItem as the model the cell uses to configure itself
     typealias T = GradeItem
     
     /// The UILabel for the name of the gradebook entry
@@ -74,6 +75,11 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
         super.setSelected(selected, animated: animated)
     }
     
+    /// Configure the GradebookCell with a GradeItem object
+    ///
+    /// - Parameters:
+    ///   - item: The GradeItem to be used as the model for the cell
+    ///   - indexPath: The indexPath at which the GradebookCell will be displayed in the UITableView
     func configure(_ item: GradeItem, at indexPath: IndexPath) {
         var grade:String
         if let g = item.grade {

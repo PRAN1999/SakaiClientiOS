@@ -1,5 +1,5 @@
 //
-//  AccountController.swift
+//  SettingsController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 4/26/18.
