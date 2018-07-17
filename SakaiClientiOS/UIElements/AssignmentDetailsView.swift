@@ -7,15 +7,27 @@
 
 import UIKit
 
+/// A customized scrollView containing views for all the information needed for an Assignment
 class AssignmentDetailsView: UIScrollView {
     
     var contentView:UIView!
     
+    /// A label for the class associated with the Assignment
     var classLabel:DetailLabel!
+    
+    /// A label detailing the status of the Assignment
     var statusLabel:DetailLabel!
+    
+    /// The label containing the max points of the Assignment
     var pointsLabel:DetailLabel!
+    
+    /// A label containing the due date of the Assignment
     var dueLabel:DetailLabel!
+    
+    /// A label for the current grade of the Assignment
     var gradeLabel:DetailLabel!
+    
+    /// A label for the submission status of the Assignment
     var submissionLabel:DetailLabel!
     
     var instructionView:UITextView!
@@ -123,6 +135,9 @@ class AssignmentDetailsView: UIScrollView {
         attachmentsView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
     
+    /// Configure and format instructionText before displaying in instructionView
+    ///
+    /// - Parameter attributedText: The body of the instruction content for the Assignment
     func setInstructions(attributedText: NSAttributedString?) {
         guard let text = attributedText else {
             return
@@ -139,6 +154,9 @@ class AssignmentDetailsView: UIScrollView {
         instructionView.attributedText = description
     }
     
+    /// Format Assignment attachment links and add them to the attachmentsView
+    ///
+    /// - Parameter resources: The resources for the Assignment to add to the attachmentsView
     func setAttachments(resources:[NSAttributedString]?) {
         guard let attachments = resources else {
             return
@@ -160,6 +178,9 @@ class AssignmentDetailsView: UIScrollView {
         attachmentsView.attributedText = description
     }
     
+    /// Remove editable functionality of textView and remove ability to scroll because it will be added to another scrollView
+    ///
+    /// - Parameter textView: The textView to configure
     private func prepareTextView(_ textView:UITextView) {
         textView.isEditable = false
         textView.isSelectable = true
@@ -168,6 +189,8 @@ class AssignmentDetailsView: UIScrollView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        // Set the content size of self (scrollView) to the size of the content view by using the maxY of the attachmentsView (the farthest down point of all the content)
         let maxY = attachmentsView.frame.maxY
         contentSize = CGSize(width: self.frame.width, height: maxY + 10)
     }

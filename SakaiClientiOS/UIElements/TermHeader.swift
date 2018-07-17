@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-/// The default section header to be used across the app to divide by Term in CollapsibleSectionController
+/// The default section header to be used across the app to separate by Term in a HideableTableSource
 class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     
     static let reuseIdentifier: String = "termHeader"

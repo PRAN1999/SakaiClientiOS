@@ -12,6 +12,8 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
 
     var webView: WKWebView!
     var url:URL?
+    var shouldLoad: Bool = true
+    var needsToolbar: Bool = true
     
     /**
      
@@ -30,14 +32,18 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
-        self.navigationController?.isNavigationBarHidden = false
+        if needsToolbar {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
+            self.navigationController?.isNavigationBarHidden = false
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
-        loadURL(urlOpt: self.url)
+        if shouldLoad {
+            loadURL(urlOpt: url)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -54,20 +60,13 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-//    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-//        if toInterfaceOrientation == .landscapeLeft || toInterfaceOrientation == .landscapeRight {
-//            self.tabBarController?.tabBar.isHidden = true
-//        } else {
-//            self.tabBarController?.tabBar.isHidden = false
-//        }
-//    }
-    
     func loadURL(urlOpt:URL?) {
         guard let url = urlOpt else {
             return
         }
         
         webView.load(URLRequest(url: url))
+        shouldLoad = false
     }
     
     func setURL(url:URL) {
@@ -80,6 +79,15 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     @objc func canRotate() -> Void {
         
+    }
+}
+
+class WebViewNavigationController: UINavigationController {
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        // fix webview input-file dismiss-twice bug
+        if let _ = self.presentedViewController {
+            super.dismiss(animated: flag, completion: completion)
+        }
     }
 }
 

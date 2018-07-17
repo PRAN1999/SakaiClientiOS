@@ -1,5 +1,5 @@
 //
-//  AnnouncementView.swift
+//  AnnouncementPageView.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/8/18.

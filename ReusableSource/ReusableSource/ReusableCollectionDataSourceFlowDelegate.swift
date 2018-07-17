@@ -1,5 +1,5 @@
 //
-//  ReusableCollectionSource.swift
+//  ReusableCollectionDataSourceDelegate.swift
 //  ReusableSource
 //
 //  Created by Pranay Neelagiri on 7/15/18.

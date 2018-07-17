@@ -13,7 +13,8 @@ class PagedAssignmentController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     var pageController:UIPageViewController!
     var pages: [UIViewController?]!
-    var popupController: WebController!
+    var webController: WebController
+    var popupController: WebViewNavigationController!
     var assignments: [Assignment]!
     
     var start:Int = 0
@@ -23,7 +24,8 @@ class PagedAssignmentController: UIViewController {
         pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pages = [UIViewController]()
         assignments = [Assignment]()
-        popupController = WebController()
+        webController = WebController()
+        popupController = WebViewNavigationController(rootViewController: webController)
         
         super.init(coder: aDecoder)
     }
@@ -173,6 +175,8 @@ extension PagedAssignmentController: UIPageViewControllerDataSource, UIPageViewC
         guard let url = assignment.siteURL else {
             return
         }
-        popupController.setURL(url: URL(string: url)!)
+        webController.setURL(url: URL(string: url)!)
+        webController.shouldLoad = true
+        webController.needsToolbar = false
     }
 }

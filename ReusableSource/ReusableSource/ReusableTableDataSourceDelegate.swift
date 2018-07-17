@@ -1,5 +1,5 @@
 //
-//  ReusableTableSource.swift
+//  ReusableTableDataSourceDelegate.swift
 //  ReusableSource
 //
 //  Created by Pranay Neelagiri on 7/14/18.
