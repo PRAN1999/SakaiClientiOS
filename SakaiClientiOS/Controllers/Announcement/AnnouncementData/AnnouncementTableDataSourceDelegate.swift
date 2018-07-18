@@ -7,7 +7,7 @@
 
 import ReusableSource
 
-class AnnouncementTableSource: ReusableTableDataSourceDelegate<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
+class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
     
     typealias Fetcher = AnnouncementDataFetcher
     

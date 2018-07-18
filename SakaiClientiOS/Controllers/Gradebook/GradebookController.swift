@@ -10,7 +10,7 @@ import ReusableSource
 
 class GradebookController: UITableViewController {
     
-    var gradebookTableSource: GradebookTableSource!
+    var gradebookTableDataSourceDelegate: GradebookTableDataSourceDelegate!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -22,8 +22,8 @@ class GradebookController: UITableViewController {
         super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
         super.tableView.showsVerticalScrollIndicator = false
-        gradebookTableSource = GradebookTableSource(tableView: super.tableView)
-        gradebookTableSource.controller = self
+        gradebookTableDataSourceDelegate = GradebookTableDataSourceDelegate(tableView: super.tableView)
+        gradebookTableDataSourceDelegate.controller = self
         loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
         super.viewDidLoad()
@@ -35,14 +35,14 @@ class GradebookController: UITableViewController {
     }
     
     @objc func loadData() {
-        gradebookTableSource.hideHeaderCell()
+        gradebookTableDataSourceDelegate.hideHeaderCell()
         loadSource() {}
     }
 }
 
 extension GradebookController: NetworkController {
     
-    var networkSource: GradebookTableSource {
-        return gradebookTableSource
+    var networkSource: GradebookTableDataSourceDelegate {
+        return gradebookTableDataSourceDelegate
     }
 }

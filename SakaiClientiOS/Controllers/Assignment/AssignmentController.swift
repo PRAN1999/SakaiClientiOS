@@ -10,7 +10,7 @@ import ReusableSource
 
 class AssignmentController: UITableViewController {
     
-    var assignmentsTableSource: AssignmentTableSource!
+    var assignmentsTableDataSourceDelegate: AssignmentTableDataSourceDelegate!
     
     var segments:UISegmentedControl!
     var button1: UIBarButtonItem!
@@ -27,8 +27,8 @@ class AssignmentController: UITableViewController {
         super.tableView.allowsSelection = false
         super.tableView.register(AssignmentTableCell.self, forCellReuseIdentifier: AssignmentTableCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
-        assignmentsTableSource = AssignmentTableSource(tableView: super.tableView)
-        assignmentsTableSource.controller = self
+        assignmentsTableDataSourceDelegate = AssignmentTableDataSourceDelegate(tableView: super.tableView)
+        assignmentsTableDataSourceDelegate.controller = self
         createSegmentedControl()
         loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
@@ -73,13 +73,13 @@ class AssignmentController: UITableViewController {
     }
     
     @objc func resort() {
-        assignmentsTableSource.switchSort()
+        assignmentsTableDataSourceDelegate.switchSort()
     }
     
     @objc func loadData() {
         segments.selectedSegmentIndex = 0
         segments.setEnabled(false, forSegmentAt: 1)
-        assignmentsTableSource.resetSort()
+        assignmentsTableDataSourceDelegate.resetSort()
         loadSource() {
             self.segments.setEnabled(true, forSegmentAt: 1)
         }
@@ -89,7 +89,7 @@ class AssignmentController: UITableViewController {
 
 extension AssignmentController: NetworkController {
     
-    var networkSource : AssignmentTableSource {
-        return assignmentsTableSource
+    var networkSource : AssignmentTableDataSourceDelegate {
+        return assignmentsTableDataSourceDelegate
     }
 }

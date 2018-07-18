@@ -8,7 +8,7 @@
 import UIKit
 import ReusableSource
 
-class SiteTableSource : HideableTableSource<SiteDataProvider, SiteCell>, NetworkSource {
+class SiteTableDataSourceDelegate : HideableTableSource<SiteDataProvider, SiteCell>, NetworkSource {
 
     typealias Fetcher = SiteDataFetcher
     
