@@ -20,6 +20,7 @@ class AnnouncementController: UITableViewController {
         super.viewDidLoad()
         super.tableView.register(AnnouncementCell.self, forCellReuseIdentifier: AnnouncementCell.reuseIdentifier)
         announcementTableDataSourceDelegate = AnnouncementTableSource(tableView: tableView)
+        announcementTableDataSourceDelegate.controller = self
         loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
     }

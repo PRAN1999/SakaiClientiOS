@@ -8,8 +8,16 @@
 
 import Foundation
 
+/// An asynchronous data loader for a generic payload type
 public protocol DataFetcher {
+    
+    
+    /// The payload type for the data fetcher
     associatedtype T
     
+    
+    /// Asynchronously load data and execute callback with payload of type T.
+    ///
+    /// - Parameter completion: The callback function to execute with payload
     func loadData(completion: @escaping (T?) -> Void)
 }
