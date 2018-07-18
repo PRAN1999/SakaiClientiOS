@@ -10,7 +10,7 @@ import ReusableSource
 
 class HomeController: UITableViewController {
     
-    var siteTableSource: SiteTableSource!
+    var siteTableDataSourceDelegate: SiteTableDataSourceDelegate!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -21,8 +21,8 @@ class HomeController: UITableViewController {
         super.title = "Classes"
         super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
-        siteTableSource = SiteTableSource(tableView: tableView)
-        siteTableSource.controller = self
+        siteTableDataSourceDelegate = SiteTableDataSourceDelegate(tableView: tableView)
+        siteTableDataSourceDelegate.controller = self
         loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
         //self.setupSearchBar()
@@ -61,7 +61,7 @@ class HomeController: UITableViewController {
 }
 
 extension HomeController: NetworkController {
-    var networkSource: SiteTableSource {
-        return siteTableSource
+    var networkSource: SiteTableDataSourceDelegate {
+        return siteTableDataSourceDelegate
     }
 }

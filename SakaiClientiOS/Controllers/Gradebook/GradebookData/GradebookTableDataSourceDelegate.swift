@@ -8,7 +8,7 @@
 import UIKit
 import ReusableSource
 
-class GradebookTableSource : HideableTableSource<GradebookDataProvider, GradebookCell>, NetworkSource {
+class GradebookTableDataSourceDelegate : HideableTableSource<GradebookDataProvider, GradebookCell>, NetworkSource {
     
     typealias Fetcher = GradebookDataFetcher
     

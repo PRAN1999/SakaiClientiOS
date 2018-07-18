@@ -10,7 +10,7 @@ import ReusableSource
 
 class AnnouncementController: UITableViewController {
     
-    var announcementTableDataSourceDelegate : AnnouncementTableSource!
+    var announcementTableDataSourceDelegate : AnnouncementTableDataSourceDelegate!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -19,7 +19,7 @@ class AnnouncementController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         super.tableView.register(AnnouncementCell.self, forCellReuseIdentifier: AnnouncementCell.reuseIdentifier)
-        announcementTableDataSourceDelegate = AnnouncementTableSource(tableView: tableView)
+        announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
         announcementTableDataSourceDelegate.controller = self
         loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
@@ -36,7 +36,7 @@ class AnnouncementController: UITableViewController {
 }
 
 extension AnnouncementController: NetworkController {
-    var networkSource: AnnouncementTableSource {
+    var networkSource: AnnouncementTableDataSourceDelegate {
         return announcementTableDataSourceDelegate
     }
 }

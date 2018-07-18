@@ -35,10 +35,9 @@ class PagedAssignmentController: UIViewController {
         
         popupController.title = "DRAG TO SUBMIT"
         
-        self.tabBarController?.popupInteractionStyle = .default
-        self.tabBarController?.popupBar.backgroundStyle = .dark
-        self.tabBarController?.popupBar.barStyle = .compact
-        self.tabBarController?.popupBar.barTintColor = UIColor.black
+        self.popupInteractionStyle = .default
+        self.popupBar.backgroundStyle = .regular
+        self.popupBar.barStyle = .compact
         
         self.navigationController?.barHideOnTapGestureRecognizer.addTarget(self, action: #selector(hideToolBar))
         self.navigationController?.isNavigationBarHidden = true
@@ -71,13 +70,15 @@ class PagedAssignmentController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
         self.navigationController?.hidesBarsOnTap = true
-        self.tabBarController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
+        self.tabBarController?.tabBar.isHidden = true
+        self.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
         self.navigationController?.hidesBarsOnTap = false
-        self.tabBarController?.dismissPopupBar(animated: true, completion: nil)
+        self.tabBarController?.tabBar.isHidden = false
+        self.dismissPopupBar(animated: true, completion: nil)
     }
     
     func setAssignments(assignments: [Assignment], start: Int) {

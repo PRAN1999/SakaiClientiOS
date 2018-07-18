@@ -7,7 +7,7 @@
 
 import ReusableSource
 
-class AssignmentTableSource: HideableTableSource<AssignmentTableDataProvider, AssignmentTableCell>, NetworkSource {
+class AssignmentTableDataSourceDelegate: HideableTableSource<AssignmentTableDataProvider, AssignmentTableCell>, NetworkSource {
     
     typealias Fetcher = AssignmentDataFetcher
     
