@@ -30,11 +30,8 @@ class AssignmentDetailsView: UIScrollView {
     /// A label for the submission status of the Assignment
     var submissionLabel:DetailLabel!
     
-    var instructionView:UITextView!
-    var attachmentsView:UITextView!
-    
-    var instructionTapRecognizer:UITapGestureRecognizer!
-    var attachmentsTapRecognizer:UITapGestureRecognizer!
+    var instructionView:TappableTextView!
+    var attachmentsView:TappableTextView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,17 +53,9 @@ class AssignmentDetailsView: UIScrollView {
         dueLabel = DetailLabel()
         gradeLabel = DetailLabel()
         submissionLabel = DetailLabel()
-        instructionView = UITextView()
-        attachmentsView = UITextView()
+        instructionView = TappableTextView(); instructionView.isScrollEnabled = false
+        attachmentsView = TappableTextView(); attachmentsView.isScrollEnabled = false
         
-        prepareTextView(instructionView)
-        prepareTextView(attachmentsView)
-        
-        instructionTapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
-        instructionTapRecognizer.cancelsTouchesInView = false
-        
-        attachmentsTapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
-        attachmentsTapRecognizer.cancelsTouchesInView = false
     }
     
     func addViews() {
@@ -80,9 +69,6 @@ class AssignmentDetailsView: UIScrollView {
         contentView.addSubview(submissionLabel)
         contentView.addSubview(instructionView)
         contentView.addSubview(attachmentsView)
-        
-        instructionView.addGestureRecognizer(instructionTapRecognizer)
-        attachmentsView.addGestureRecognizer(attachmentsTapRecognizer)
     }
     
     func setConstraints() {
@@ -176,15 +162,6 @@ class AssignmentDetailsView: UIScrollView {
             description.append(NSAttributedString(string: spaceString))
         }
         attachmentsView.attributedText = description
-    }
-    
-    /// Remove editable functionality of textView and remove ability to scroll because it will be added to another scrollView
-    ///
-    /// - Parameter textView: The textView to configure
-    private func prepareTextView(_ textView:UITextView) {
-        textView.isEditable = false
-        textView.isSelectable = true
-        textView.isScrollEnabled = false
     }
     
     override func layoutSubviews() {

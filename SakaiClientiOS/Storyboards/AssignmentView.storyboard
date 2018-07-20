@@ -37,10 +37,10 @@
             </objects>
             <point key="canvasLocation" x="231" y="-103"/>
         </scene>
-        <!--Paged Assignment Controller-->
+        <!--Pages Controller-->
         <scene sceneID="FjM-gx-Vgi">
             <objects>
-                <viewController storyboardIdentifier="pagedController" id="XUI-3r-Wbd" customClass="PagedAssignmentController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="pagedController" id="XUI-3r-Wbd" customClass="PagesController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nE8-xi-Pwk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

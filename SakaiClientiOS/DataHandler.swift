@@ -211,8 +211,13 @@ class DataHandler {
     ///   - offset: The offset position to begin parsing the retrieved list data
     ///   - limit: The limit for how many records should be retrieved from Sakai
     ///   - completion: The callback to execute with the parsed list of Announcement objects
-    func getAllAnnouncements(offset:Int, limit:Int, completion: @escaping (_ announcements: [Announcement]?, _ moreLoads: Bool) -> Void) {
-        let url:String = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: "\(limit)")
+    func getAllAnnouncements(offset:Int, limit:Int, completion: @escaping (_ announcements: [Announcement]?, _ moreLoads: Bool) -> Void, siteId: String? = nil) {
+        var url: String
+        if let id = siteId {
+            url = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: id).replacingOccurrences(of: "#", with: "\(limit)")
+        } else {
+            url = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: "\(limit)")
+        }
         RequestManager.shared.makeRequest(url: url, method: .get) { response in
             guard let data = response.result.value else {
                 print("error")

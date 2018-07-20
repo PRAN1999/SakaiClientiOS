@@ -18,6 +18,7 @@ struct Announcement: TermSortable, SiteSortable {
     let siteId:String
     let date:Date
     let dateString:String
+    let attachments:[NSAttributedString]?
     
     /// Instantiates an Announcement object with relevant fields
     ///
@@ -37,7 +38,8 @@ struct Announcement: TermSortable, SiteSortable {
          _ term:Term,
          _ siteId:String,
          _ date: Date,
-         _ dateString: String) {
+         _ dateString: String,
+         _ attachments: [NSAttributedString]?) {
         self.author = author
         self.title = title
         self.content = content
@@ -46,6 +48,7 @@ struct Announcement: TermSortable, SiteSortable {
         self.siteId = siteId
         self.date = date
         self.dateString = dateString
+        self.attachments = attachments
     }
     
     /// Uses a JSON object returned from network request and parses it to instantiate an Announcement object with all available fields
@@ -61,6 +64,20 @@ struct Announcement: TermSortable, SiteSortable {
         let time = data["createdOn"].double! / 1000
         let date = Date(timeIntervalSince1970: time)
         let dateString = String.getDateString(date: date)
-        self.init(author, title, content, attributedContent, term, siteId, date, dateString)
+        
+        var attachmentStrings:[NSAttributedString] = [NSAttributedString]()
+        if let attachmentObjects = data["attachments"].array {
+            //Convert attachment into HTML attributed string with link to content through NSMutableAttributedString
+            for attachmentObject in attachmentObjects {
+                let text = attachmentObject["name"].string!
+                let attachmentString = NSMutableAttributedString(string: text)
+                
+                let url = attachmentObject["url"].string!
+                let range = NSRange(location: 0, length: text.count)
+                attachmentString.addAttribute(.link, value: url, range: range)
+                attachmentStrings.append(attachmentString)
+            }
+        }
+        self.init(author, title, content, attributedContent, term, siteId, date, dateString, attachmentStrings)
     }
 }

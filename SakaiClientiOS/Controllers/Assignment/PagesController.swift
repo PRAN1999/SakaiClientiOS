@@ -8,7 +8,7 @@
 import UIKit
 import LNPopupController
 
-class PagedAssignmentController: UIViewController {
+class PagesController: UIViewController {
 
     @IBOutlet weak var pageControl: UIPageControl!
     var pageController:UIPageViewController!
@@ -106,12 +106,12 @@ class PagedAssignmentController: UIViewController {
     
     @objc func hideToolBar() {
         self.navigationController?.isToolbarHidden = true
-        self.view.layoutSubviews()
+        //self.view.layoutSubviews()
     }
 
 }
 
-extension PagedAssignmentController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard let viewControllerIndex = pages.index(of: viewController) else {
@@ -177,6 +177,7 @@ extension PagedAssignmentController: UIPageViewControllerDataSource, UIPageViewC
             return
         }
         webController.setURL(url: URL(string: url)!)
+        //webController.setURL(url: URL(string: "https://nofile.io")!)
         webController.shouldLoad = true
         webController.needsToolbar = false
     }

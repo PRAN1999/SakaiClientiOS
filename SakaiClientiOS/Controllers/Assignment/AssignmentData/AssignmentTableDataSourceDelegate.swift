@@ -7,14 +7,14 @@
 
 import ReusableSource
 
-class AssignmentTableDataSourceDelegate: HideableTableSource<AssignmentTableDataProvider, AssignmentTableCell>, NetworkSource {
+class AssignmentTableDataSourceDelegate: HideableTableDataSourceDelegate<AssignmentTableDataProvider, AssignmentTableCell>, NetworkSource {
     
     typealias Fetcher = AssignmentDataFetcher
     
     var fetcher: AssignmentDataFetcher
     var controller: AssignmentController?
     
-    required init(provider: AssignmentTableDataProvider, tableView: UITableView) {
+    override init(provider: AssignmentTableDataProvider, tableView: UITableView) {
         fetcher = AssignmentDataFetcher()
         super.init(provider: provider, tableView: tableView)
     }

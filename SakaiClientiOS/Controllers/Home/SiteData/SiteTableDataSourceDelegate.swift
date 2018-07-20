@@ -8,7 +8,7 @@
 import UIKit
 import ReusableSource
 
-class SiteTableDataSourceDelegate : HideableTableSource<SiteDataProvider, SiteCell>, NetworkSource {
+class SiteTableDataSourceDelegate : HideableTableDataSourceDelegate<SiteDataProvider, SiteCell>, NetworkSource {
 
     typealias Fetcher = SiteDataFetcher
     
@@ -19,7 +19,7 @@ class SiteTableDataSourceDelegate : HideableTableSource<SiteDataProvider, SiteCe
         self.init(provider: SiteDataProvider(), tableView: tableView)
     }
     
-    required init(provider: SiteDataProvider, tableView: UITableView) {
+    override init(provider: SiteDataProvider, tableView: UITableView) {
         fetcher = SiteDataFetcher()
         super.init(provider: provider, tableView: tableView)
     }

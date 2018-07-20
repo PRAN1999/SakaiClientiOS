@@ -7,7 +7,9 @@
 
 import ReusableSource
 
-class AnnouncementDataFetcher: DataFetcher {
+class AnnouncementDataFetcher: DataFetcher, FeedDataFetcher {
+    
+    var siteId: String?
     
     typealias T = [Announcement]
     
@@ -17,7 +19,7 @@ class AnnouncementDataFetcher: DataFetcher {
     var moreLoads = true
     
     func loadData(completion: @escaping ([Announcement]?) -> Void) {
-        DataHandler.shared.getAllAnnouncements(offset: offset, limit: numToRequest) { (announcementList, moreLoads) in
+        DataHandler.shared.getAllAnnouncements(offset: offset, limit: numToRequest, completion: { (announcementList, moreLoads) in
             self.moreLoads = moreLoads
             
             guard let list = announcementList else {
@@ -28,7 +30,7 @@ class AnnouncementDataFetcher: DataFetcher {
             self.numToRequest += 50
             
             completion(announcementList)
-        }
+        }, siteId: siteId)
     }
     
     func resetOffset() {
