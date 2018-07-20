@@ -7,7 +7,7 @@
 
 import ReusableSource
 
-class GradebookPageDataFetcher: DataFetcher {
+class SiteGradebookDataFetcher: DataFetcher {
     typealias T = [GradeItem]
     
     let siteId: String

@@ -9,6 +9,7 @@ import Foundation
 import ReusableSource
 
 class SiteDataProvider : HideableDataProvider {
+    
     typealias T = Site
     typealias V = [[Site]]
     
@@ -16,17 +17,18 @@ class SiteDataProvider : HideableDataProvider {
     var isHidden: [Bool] = []
     
     var sites: [[Site]] = []
+    lazy var filteredSites = sites
     
     // MARK: - DataProvider
     func numberOfSections() -> Int {
-        return sites.count
+        return filteredSites.count
     }
     
     func numberOfItems(in section: Int) -> Int {
-        guard section >= 0 && section < sites.count else {
+        guard section >= 0 && section < filteredSites.count else {
             return 0
         }
-        return sites[section].count
+        return filteredSites[section].count
     }
     
     func item(at indexPath: IndexPath) -> Site? {
@@ -34,12 +36,13 @@ class SiteDataProvider : HideableDataProvider {
             indexPath.row >= 0 && indexPath.row < sites[indexPath.section].count else {
                 return nil
         }
-        return sites[indexPath.section][indexPath.row]
+        return filteredSites[indexPath.section][indexPath.row]
     }
     
     func resetValues() {
         resetTerms()
         sites = []
+        filteredSites = []
     }
     
     func loadItems(payload: [[Site]]) {
@@ -53,6 +56,6 @@ class SiteDataProvider : HideableDataProvider {
         }
         isHidden[0] = false
         sites = payload
+        filteredSites = sites
     }
-    
 }

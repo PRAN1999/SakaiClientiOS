@@ -7,14 +7,16 @@
 
 import ReusableSource
 
-class AnnouncementDataFetcher: DataFetcher, FeedDataFetcher {
+class AnnouncementDataFetcher: DataFetcher {
     
-    var siteId: String?
+    private static let REQUEST_LIMIT = 25
     
     typealias T = [Announcement]
     
     var offset = 0
-    var numToRequest = 50
+    var numToRequest = AnnouncementDataFetcher.REQUEST_LIMIT
+    
+    var siteId: String?
     
     var moreLoads = true
     
@@ -27,7 +29,7 @@ class AnnouncementDataFetcher: DataFetcher, FeedDataFetcher {
                 return
             }
             self.offset += list.count
-            self.numToRequest += 50
+            self.numToRequest += AnnouncementDataFetcher.REQUEST_LIMIT
             
             completion(announcementList)
         }, siteId: siteId)
@@ -35,7 +37,7 @@ class AnnouncementDataFetcher: DataFetcher, FeedDataFetcher {
     
     func resetOffset() {
         offset = 0
-        numToRequest = 50
+        numToRequest = AnnouncementDataFetcher.REQUEST_LIMIT
         moreLoads = true
     }
 }

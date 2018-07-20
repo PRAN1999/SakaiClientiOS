@@ -33,8 +33,8 @@ class SiteTableDataSourceDelegate : HideableTableDataSourceDelegate<SiteDataProv
         guard let site:Site = item(at: indexPath) else {
             return
         }
-        classController.title = site.title
         classController.setPages(pages: site.pages)
+        classController.siteTitle = site.title
         controller?.navigationController?.pushViewController(classController, animated: true)
     }
 }

@@ -16,9 +16,9 @@ struct SitePage {
     private static let DEFAULT_STRING:String      = "None"
     
     /// A map for the common site pages shared by most classes
-    private static let mapPages:[String:UIViewController.Type] = [ANNOUNCEMENT_STRING: AnnouncementController.self,
+    private static let mapPages:[String:UIViewController.Type] = [ANNOUNCEMENT_STRING: SiteAnnouncementController.self,
                                                                   ASSIGNMENTS_STRING:  AssignmentController.self,
-                                                                  GRADEBOOK_STRING:    GradebookPageController.self,
+                                                                  GRADEBOOK_STRING:    SiteGradebookController.self,
                                                                   DEFAULT_STRING:      DefaultController.self
     ]
     

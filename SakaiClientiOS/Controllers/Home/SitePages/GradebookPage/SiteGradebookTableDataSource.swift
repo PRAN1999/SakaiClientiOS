@@ -7,13 +7,13 @@
 
 import ReusableSource
 
-class GradebookPageTableDataSource: ReusableTableDataSource<SingleSectionDataProvider<GradeItem>, GradebookCell>, NetworkSource {
-    var fetcher: GradebookPageDataFetcher
+class SiteGradebookTableDataSource: ReusableTableDataSource<SingleSectionDataProvider<GradeItem>, GradebookCell>, NetworkSource {
+    typealias Fetcher = SiteGradebookDataFetcher
     
-    typealias Fetcher = GradebookPageDataFetcher
+    var fetcher: SiteGradebookDataFetcher
     
     init(tableView: UITableView, siteId: String) {
-        fetcher = GradebookPageDataFetcher(siteId: siteId)
+        fetcher = SiteGradebookDataFetcher(siteId: siteId)
         super.init(provider: SingleSectionDataProvider<GradeItem>(), tableView: tableView)
     }
 }

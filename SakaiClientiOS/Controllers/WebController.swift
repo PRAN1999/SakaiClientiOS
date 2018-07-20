@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
+class WebController: UIViewController {
 
     var webView: WKWebView!
     var url:URL?
@@ -25,8 +25,6 @@ class WebController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = RequestManager.shared.processPool
         webView = WKWebView(frame: .zero, configuration: configuration)
-        webView.uiDelegate = self
-        webView.navigationDelegate = self;
         self.view = webView
     }
     

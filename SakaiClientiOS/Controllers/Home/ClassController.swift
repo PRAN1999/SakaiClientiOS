@@ -10,20 +10,12 @@ import UIKit
 class ClassController: UITableViewController {
 
     var sitePages:[SitePage] = [SitePage]()
+    var siteTitle: String?
     var numSections = 1
-    
-    override func loadView() {
-        let customTable: UITableView = UITableView(frame: .zero, style: UITableViewStyle.plain)
-        customTable.dataSource = self
-        customTable.delegate = self
-        self.view = customTable
-        self.tableView = customTable
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
+        super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,21 +39,21 @@ class ClassController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40.0
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let page:SitePage = self.sitePages[indexPath.row]
         
         var controller:UIViewController
         
         switch(page.siteType) {
-        case is GradebookPageController.Type:
-            controller = GradebookPageController()
-            let gradePageController = controller as! GradebookPageController
+        case is SiteGradebookController.Type:
+            controller = SiteGradebookController()
+            let gradePageController = controller as! SiteGradebookController
             gradePageController.siteId = page.siteId
             break
+        case is SiteAnnouncementController.Type:
+            controller = SiteAnnouncementController()
+            let announcementPageController = controller as! SiteAnnouncementController
+            announcementPageController.siteId = page.siteId
         default:
             controller = DefaultController()
             print("Is Default")
