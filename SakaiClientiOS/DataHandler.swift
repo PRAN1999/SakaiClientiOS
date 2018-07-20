@@ -214,7 +214,7 @@ class DataHandler {
     func getAllAnnouncements(offset:Int, limit:Int, completion: @escaping (_ announcements: [Announcement]?, _ moreLoads: Bool) -> Void, siteId: String? = nil) {
         var url: String
         if let id = siteId {
-            url = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: id).replacingOccurrences(of: "#", with: "\(limit)")
+            url = AppGlobals.SITE_ANNOUNCEMENTS_URL.replacingOccurrences(of: "*", with: id).replacingOccurrences(of: "#", with: "\(limit)")
         } else {
             url = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: "\(limit)")
         }

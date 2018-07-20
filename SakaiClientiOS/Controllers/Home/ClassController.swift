@@ -57,11 +57,15 @@ class ClassController: UITableViewController {
         var controller:UIViewController
         
         switch(page.siteType) {
-        case is GradebookPageController.Type:
-            controller = GradebookPageController()
-            let gradePageController = controller as! GradebookPageController
+        case is SiteGradebookController.Type:
+            controller = SiteGradebookController()
+            let gradePageController = controller as! SiteGradebookController
             gradePageController.siteId = page.siteId
             break
+        case is SiteAnnouncementController.Type:
+            controller = SiteAnnouncementController()
+            let announcementPageController = controller as! SiteAnnouncementController
+            announcementPageController.siteId = page.siteId
         default:
             controller = DefaultController()
             print("Is Default")

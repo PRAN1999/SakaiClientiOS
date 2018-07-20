@@ -7,17 +7,17 @@
 
 import ReusableSource
 
-class GradebookPageController: UITableViewController {
+class SiteGradebookController: UITableViewController {
     
     var siteId: String!
-    var siteGradebookTableDataSource: GradebookPageTableDataSource!
+    var siteGradebookTableDataSource: SiteGradebookTableDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         super.tableView.allowsSelection = false
         super.tableView.register(GradebookCell.self, forCellReuseIdentifier: GradebookCell.reuseIdentifier)
         
-        siteGradebookTableDataSource = GradebookPageTableDataSource(tableView: super.tableView, siteId: siteId)
+        siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: super.tableView, siteId: siteId)
         loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
     }
@@ -27,8 +27,8 @@ class GradebookPageController: UITableViewController {
     }
 }
 
-extension GradebookPageController: NetworkController {
-    var networkSource: GradebookPageTableDataSource {
+extension SiteGradebookController: NetworkController {
+    var networkSource: SiteGradebookTableDataSource {
         return siteGradebookTableDataSource
     }
 }

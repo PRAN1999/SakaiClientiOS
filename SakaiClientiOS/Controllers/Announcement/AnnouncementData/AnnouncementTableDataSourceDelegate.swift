@@ -9,7 +9,16 @@ import ReusableSource
 
 class AnnouncementTableDataSourceDelegate: FeedTableDataSourceDelegate<Announcement, AnnouncementDataProvider, AnnouncementCell, AnnouncementDataFetcher> {
     
-    var controller: AnnouncementController?
+    var controller: UIViewController?
+    
+    var siteId: String? {
+        get {
+            return fetcher.siteId
+        }
+        set {
+            fetcher.siteId = newValue
+        }
+    }
     
     init(tableView: UITableView) {
         super.init(provider: AnnouncementDataProvider(), fetcher: AnnouncementDataFetcher(), tableView: tableView)

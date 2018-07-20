@@ -75,10 +75,10 @@ class PagesController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        self.dismissPopupBar(animated: true, completion: nil)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
         self.navigationController?.hidesBarsOnTap = false
         self.tabBarController?.tabBar.isHidden = false
-        self.dismissPopupBar(animated: true, completion: nil)
     }
     
     func setAssignments(assignments: [Assignment], start: Int) {
