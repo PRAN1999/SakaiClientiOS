@@ -13,7 +13,7 @@ open class ReusableTableDataSource<Provider:DataProvider, Cell:UITableViewCell &
     public let provider: Provider
     public let tableView: UITableView
     
-    public required init(provider: Provider, tableView: UITableView) {
+    public init(provider: Provider, tableView: UITableView) {
         self.provider = provider
         self.tableView = tableView
         super.init()

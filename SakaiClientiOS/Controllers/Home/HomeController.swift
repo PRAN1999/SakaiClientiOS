@@ -34,7 +34,7 @@ class HomeController: UITableViewController {
     
     @objc func loadData() {
         disableTabs()
-        loadSource() {
+        loadSourceWithoutCache() {
             self.enableTabs()
         }
     }

@@ -58,17 +58,16 @@ class ClassController: UITableViewController {
         
         switch(page.siteType) {
         case is GradebookPageController.Type:
-//            controller = GradebookPageController()
-//            let gradePageController = controller as! GradebookPageController
-//            gradePageController.gradebookPageDataSource.siteId = page.siteId
-//            print("Is Gradebook Controller")
+            controller = GradebookPageController()
+            let gradePageController = controller as! GradebookPageController
+            gradePageController.siteId = page.siteId
             break
         default:
             controller = DefaultController()
             print("Is Default")
         }
         
-        //self.navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func setPages(pages: [SitePage]) {

@@ -36,7 +36,7 @@ class GradebookController: UITableViewController {
     
     @objc func loadData() {
         gradebookTableDataSourceDelegate.hideHeaderCell()
-        loadSource() {}
+        loadSourceWithoutCache() {}
     }
 }
 

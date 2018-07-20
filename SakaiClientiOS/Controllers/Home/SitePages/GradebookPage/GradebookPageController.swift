@@ -5,18 +5,30 @@
 //  Created by Pranay Neelagiri on 5/22/18.
 //
 
-import UIKit
+import ReusableSource
 
 class GradebookPageController: UITableViewController {
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var siteId: String!
+    var siteGradebookTableDataSource: GradebookPageTableDataSource!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         super.tableView.allowsSelection = false
         super.tableView.register(GradebookCell.self, forCellReuseIdentifier: GradebookCell.reuseIdentifier)
         
-        super.viewDidLoad()
+        siteGradebookTableDataSource = GradebookPageTableDataSource(tableView: super.tableView, siteId: siteId)
+        loadData()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
+    }
+    
+    @objc func loadData() {
+        loadSource() {}
+    }
+}
+
+extension GradebookPageController: NetworkController {
+    var networkSource: GradebookPageTableDataSource {
+        return siteGradebookTableDataSource
     }
 }

@@ -80,7 +80,7 @@ class AssignmentController: UITableViewController {
         segments.selectedSegmentIndex = 0
         segments.setEnabled(false, forSegmentAt: 1)
         assignmentsTableDataSourceDelegate.resetSort()
-        loadSource() {
+        loadSourceWithoutCache() {
             self.segments.setEnabled(true, forSegmentAt: 1)
         }
     }

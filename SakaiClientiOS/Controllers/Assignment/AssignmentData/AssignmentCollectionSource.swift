@@ -16,7 +16,7 @@ class AssignmentCollectionSource : ReusableCollectionDataSourceFlowDelegate<Assi
         self.init(provider: AssignmentCollectionDataProvider(), collectionView: collectionView)
     }
     
-    required init(provider: Provider, collectionView: UICollectionView) {
+    override init(provider: Provider, collectionView: UICollectionView) {
         super.init(provider: provider, collectionView: collectionView)
     }
     
@@ -42,7 +42,7 @@ class AssignmentCollectionSource : ReusableCollectionDataSourceFlowDelegate<Assi
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
         let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
-        let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagedAssignmentController
+        let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagesController
         pages.setAssignments(assignments: provider.assignments, start: indexPath.row)
         controller?.navigationController?.pushViewController(pages, animated: true)
     }

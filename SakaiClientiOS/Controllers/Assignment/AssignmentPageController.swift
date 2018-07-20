@@ -11,7 +11,7 @@ class AssignmentPageController: UIViewController {
 
     var pageView: AssignmentPageView!
     var assignment: Assignment?
-    var delegate:PagedAssignmentController!
+    var delegate:PagesController!
     
     override func loadView() {
         self.pageView = AssignmentPageView(frame: .zero)
@@ -44,8 +44,8 @@ class AssignmentPageController: UIViewController {
         pageView.scrollView.instructionView.delegate = delegate
         pageView.scrollView.attachmentsView.delegate = delegate
         
-        pageView.scrollView.instructionTapRecognizer.addTarget(delegate, action: #selector(delegate.hideNavBar))
-        pageView.scrollView.attachmentsTapRecognizer.addTarget(delegate, action: #selector(delegate.hideNavBar))
+        pageView.scrollView.instructionView.tapRecognizer.addTarget(delegate, action: #selector(delegate.hideNavBar))
+        pageView.scrollView.attachmentsView.tapRecognizer.addTarget(delegate, action: #selector(delegate.hideNavBar))
     }
 
 }

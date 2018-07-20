@@ -7,35 +7,14 @@
 
 import ReusableSource
 
-class AnnouncementDataProvider: DataProvider {
+class AnnouncementDataProvider: SingleSectionDataProvider<Announcement> {
     
-    typealias T = Announcement
-    typealias V = [Announcement]
-    
-    var announcements: [Announcement] = []
-    
-    func numberOfSections() -> Int {
-        return 1
+    override func resetValues() {
+        items = []
     }
     
-    func numberOfItems(in section: Int) -> Int {
-        return announcements.count
-    }
-    
-    func item(at indexPath: IndexPath) -> Announcement? {
-        return announcements[indexPath.row]
-    }
-    
-    func resetValues() {
-        announcements = []
-    }
-    
-    func loadItems(payload: [Announcement]) {
-        announcements.append(contentsOf: payload)
-    }
-    
-    func lastAssignmentIndex() -> Int {
-        return announcements.count - 1
+    override func loadItems(payload: [Announcement]) {
+        items.append(contentsOf: payload)
     }
     
 }

@@ -13,7 +13,7 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
     public let provider: Provider
     public let collectionView: UICollectionView
     
-    public required init(provider: Provider, collectionView: UICollectionView) {
+    public init(provider: Provider, collectionView: UICollectionView) {
         self.provider = provider
         self.collectionView = collectionView
         super.init()

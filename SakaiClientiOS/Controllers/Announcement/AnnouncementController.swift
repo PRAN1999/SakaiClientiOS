@@ -31,7 +31,7 @@ class AnnouncementController: UITableViewController {
     }
     
     @objc func loadData() {
-        loadSource() {}
+        loadSourceWithoutCache() {}
     }
 }
 
