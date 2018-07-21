@@ -50,7 +50,6 @@
 		51A4731120F9CA3E00CC95F0 /* ReusableSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51A472E120F9C59E00CC95F0 /* ReusableSource.framework */; };
 		51A4731220F9CA3E00CC95F0 /* ReusableSource.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 51A472E120F9C59E00CC95F0 /* ReusableSource.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		51A4731420FA7F4500CC95F0 /* NetworkSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4731320FA7F4500CC95F0 /* NetworkSource.swift */; };
-		51A4732420FB049100CC95F0 /* AssignmentCollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4732320FB049100CC95F0 /* AssignmentCollectionDataProvider.swift */; };
 		51A4732620FB04AA00CC95F0 /* AssignmentCollectionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4732520FB04AA00CC95F0 /* AssignmentCollectionSource.swift */; };
 		51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */; };
 		51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7E920A6555C00DD6696 /* SitePage.swift */; };
@@ -154,7 +153,6 @@
 		51A472DF20F9C15700CC95F0 /* AssignmentDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDataFetcher.swift; sourceTree = "<group>"; };
 		51A472E120F9C59E00CC95F0 /* ReusableSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ReusableSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51A4731320FA7F4500CC95F0 /* NetworkSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSource.swift; sourceTree = "<group>"; };
-		51A4732320FB049100CC95F0 /* AssignmentCollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCollectionDataProvider.swift; sourceTree = "<group>"; };
 		51A4732520FB04AA00CC95F0 /* AssignmentCollectionSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCollectionSource.swift; sourceTree = "<group>"; };
 		51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingHeaderCell.swift; sourceTree = "<group>"; };
 		51C4B7E920A6555C00DD6696 /* SitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitePage.swift; sourceTree = "<group>"; };
@@ -346,7 +344,6 @@
 				51DEE53B20FEFAF2008E709D /* AssignmentTableDataSourceDelegate.swift */,
 				51A472DB20F9C13000CC95F0 /* AssignmentTableDataProvider.swift */,
 				51A472DF20F9C15700CC95F0 /* AssignmentDataFetcher.swift */,
-				51A4732320FB049100CC95F0 /* AssignmentCollectionDataProvider.swift */,
 				51A4732520FB04AA00CC95F0 /* AssignmentCollectionSource.swift */,
 			);
 			path = AssignmentData;
@@ -662,7 +659,6 @@
 				51C9791520F81A3E00191DD6 /* GradebookDataProvider.swift in Sources */,
 				51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */,
 				51DEE54020FEFB41008E709D /* SiteTableDataSourceDelegate.swift in Sources */,
-				51A4732420FB049100CC95F0 /* AssignmentCollectionDataProvider.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
 				51A472DC20F9C13000CC95F0 /* AssignmentTableDataProvider.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
