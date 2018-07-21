@@ -13,37 +13,28 @@ import Foundation
 /// Also provides methods for number of data sections and number of data objects per section for direct interfacing from corresponding DataSource methods
 public protocol DataProvider {
     
-    
     /// The item type associated with the Provider and to be returned to the DataSource cellForRowAt methods
     associatedtype T
-    
     
     /// The payload type to load into the Provider to manage a data structure containing items of type T
     associatedtype V
     
-    /// Returns the number of sections in the data
-    ///
-    /// Provides entire implementation for corresponding UITableViewDataSource and UICollectionViewDataSource methods
+    /// Returns the number of sections in the data for corresponding UITableViewDataSource and UICollectionViewDataSource methods
     ///
     /// - Returns: number of different sections in managed data
     func numberOfSections() -> Int
     
-    
-    /// Returns the number of data objects for a specific section
-    ///
-    /// Provides entire implementation for corresponding UITableViewDataSource and UICollectionViewDataSource methods
+    /// Returns the number of data objects for a specific section for corresponding UITableViewDataSource and UICollectionViewDataSource methods
     ///
     /// - Parameter section: The section of the tableView/collectionView requesting data
     /// - Returns: The number of items in a section
     func numberOfItems(in section: Int) -> Int
-    
     
     /// Returns the item needed to configure a UITableViewCell / UICollectionViewCell
     ///
     /// - Parameter indexPath: The indexPath for the cell that will be configured
     /// - Returns: Item of type T to configure cell
     func item(at indexPath: IndexPath) -> T?
-    
     
     /// Reset internal managed data, often for reloading ReusableSource
     func resetValues()
@@ -54,7 +45,5 @@ public protocol DataProvider {
     /// Often used in conjunction with DataFetcher in a NetworkSource, but does not have to be
     ///
     /// - Parameter payload: An item of type V to load into DataProvider managed data - is often a nested Array of type T.
-    ///
-    /// As long as the DataProvider can extract the necessary information from the payload to populate the      UITableView/UICollectionView, it does not matter
     func loadItems(payload: V)
 }

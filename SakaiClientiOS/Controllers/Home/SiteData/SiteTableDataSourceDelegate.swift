@@ -34,6 +34,7 @@ class SiteTableDataSourceDelegate : HideableTableDataSourceDelegate<SiteDataProv
             return
         }
         classController.setPages(pages: site.pages)
+        classController.siteTitle = site.title
         controller?.navigationController?.pushViewController(classController, animated: true)
     }
 }

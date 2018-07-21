@@ -8,9 +8,9 @@
 import ReusableSource
 
 class SiteGradebookTableDataSource: ReusableTableDataSource<SingleSectionDataProvider<GradeItem>, GradebookCell>, NetworkSource {
-    var fetcher: SiteGradebookDataFetcher
-    
     typealias Fetcher = SiteGradebookDataFetcher
+    
+    var fetcher: SiteGradebookDataFetcher
     
     init(tableView: UITableView, siteId: String) {
         fetcher = SiteGradebookDataFetcher(siteId: siteId)

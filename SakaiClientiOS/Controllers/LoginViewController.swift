@@ -11,9 +11,7 @@ import WebKit
  
  */
 
-class LoginViewController: WebController {
-
-    var indicator: UIActivityIndicatorView!
+class LoginViewController: WebController, WKUIDelegate, WKNavigationDelegate {
     
     override var shouldAutorotate: Bool {
         return false
@@ -23,10 +21,6 @@ class LoginViewController: WebController {
         return .portrait
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     /**
      
      Loads Login URL for CAS Authentication
@@ -34,6 +28,8 @@ class LoginViewController: WebController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        super.webView.uiDelegate = self
+        super.webView.navigationDelegate = self;
         RequestManager.shared.resetCache()
         let myURL = URL(string: AppGlobals.LOGIN_URL)
         loadURL(urlOpt: myURL!)
@@ -43,18 +39,12 @@ class LoginViewController: WebController {
         super.didReceiveMemoryWarning()
     }
     
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print(webView.url!.absoluteString)
-    }
-    
     /**
      
      Captures HTTP Cookies from specific URLs and loads them into Alamofire Session, allowing all future requests to be authenticated.
      
      */
-    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        print(webView.url!.absoluteString)
         
         if webView.url!.absoluteString == AppGlobals.COOKIE_URL_1 || webView.url!.absoluteString == AppGlobals.COOKIE_URL_2 {
             let store = WKWebsiteDataStore.default().httpCookieStore
@@ -76,7 +66,6 @@ class LoginViewController: WebController {
      Stops webview navigation and forces controller transition once target URL is reaches
      
      */
-    
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         print("Setting Headers")
         let response = navigationResponse.response as? HTTPURLResponse

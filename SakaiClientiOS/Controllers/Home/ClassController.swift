@@ -10,20 +10,12 @@ import UIKit
 class ClassController: UITableViewController {
 
     var sitePages:[SitePage] = [SitePage]()
+    var siteTitle: String?
     var numSections = 1
-    
-    override func loadView() {
-        let customTable: UITableView = UITableView(frame: .zero, style: UITableViewStyle.plain)
-        customTable.dataSource = self
-        customTable.delegate = self
-        self.view = customTable
-        self.tableView = customTable
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
+        super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,10 +37,6 @@ class ClassController: UITableViewController {
         let page:SitePage = sitePages[indexPath.row]
         cell.titleLabel.text = page.title
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40.0
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

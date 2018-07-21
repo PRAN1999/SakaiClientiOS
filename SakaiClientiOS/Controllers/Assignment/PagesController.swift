@@ -71,6 +71,9 @@ class PagesController: UIViewController {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
         self.navigationController?.hidesBarsOnTap = true
         self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         self.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
     }
     

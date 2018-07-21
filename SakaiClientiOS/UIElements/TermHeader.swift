@@ -108,7 +108,7 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     /// Set the text of the titleLabel
     ///
     /// - Parameter title: a String title to assign to the titleLabel.text
-    func setTitle(title: String) {
+    func setTitle(title: String?) {
         titleLabel.text = title
     }
 }
