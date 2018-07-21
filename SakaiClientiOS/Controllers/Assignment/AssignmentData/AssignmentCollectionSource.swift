@@ -7,13 +7,13 @@
 
 import ReusableSource
 
-class AssignmentCollectionSource : ReusableCollectionDataSourceFlowDelegate<AssignmentCollectionDataProvider, AssignmentCell> {
+class AssignmentCollectionSource : ReusableCollectionDataSourceFlowDelegate<SingleSectionDataProvider<Assignment>, AssignmentCell> {
     
     var controller: AssignmentController?
     var siteId: String?
     
     convenience init(collectionView: UICollectionView) {
-        self.init(provider: AssignmentCollectionDataProvider(), collectionView: collectionView)
+        self.init(provider: SingleSectionDataProvider<Assignment>(), collectionView: collectionView)
     }
     
     override init(provider: Provider, collectionView: UICollectionView) {
@@ -43,7 +43,7 @@ class AssignmentCollectionSource : ReusableCollectionDataSourceFlowDelegate<Assi
         print(indexPath)
         let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
         let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagesController
-        pages.setAssignments(assignments: provider.assignments, start: indexPath.row)
+        pages.setAssignments(assignments: provider.items, start: indexPath.row)
         controller?.navigationController?.pushViewController(pages, animated: true)
     }
 }
