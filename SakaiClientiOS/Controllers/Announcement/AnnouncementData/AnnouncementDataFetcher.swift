@@ -9,7 +9,7 @@ import ReusableSource
 
 class AnnouncementDataFetcher: DataFetcher {
     
-    private static let REQUEST_LIMIT = 25
+    private static let REQUEST_LIMIT = 35
     
     typealias T = [Announcement]
     

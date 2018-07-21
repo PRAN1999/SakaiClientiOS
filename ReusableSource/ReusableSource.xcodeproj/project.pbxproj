@@ -21,6 +21,7 @@
 		51DEE52B20FBF274008E709D /* ReusableTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE52A20FBF274008E709D /* ReusableTableDataSource.swift */; };
 		51DEE52D20FBF287008E709D /* ReusableCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE52C20FBF287008E709D /* ReusableCollectionDataSource.swift */; };
 		51DEE53A20FC53D3008E709D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 51DEE53920FC53D3008E709D /* README.md */; };
+		51DEE5662103D0B7008E709D /* SingleSectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE5652103D0B7008E709D /* SingleSectionDataProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		51DEE52A20FBF274008E709D /* ReusableTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableTableDataSource.swift; sourceTree = "<group>"; };
 		51DEE52C20FBF287008E709D /* ReusableCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCollectionDataSource.swift; sourceTree = "<group>"; };
 		51DEE53920FC53D3008E709D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		51DEE5652103D0B7008E709D /* SingleSectionDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleSectionDataProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				51A4732720FB081D00CC95F0 /* ReusableCollectionDataSourceFlowDelegate.swift */,
 				51A4731F20FA9B6F00CC95F0 /* NetworkController.swift */,
 				51A4732120FA9B8800CC95F0 /* ReusableController.swift */,
+				51DEE5652103D0B7008E709D /* SingleSectionDataProvider.swift */,
 				51A472FD20F9C9E700CC95F0 /* ReusableSource.h */,
 				51A472FE20F9C9E700CC95F0 /* Info.plist */,
 				51DEE53920FC53D3008E709D /* README.md */,
@@ -171,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51DEE5662103D0B7008E709D /* SingleSectionDataProvider.swift in Sources */,
 				51A4732020FA9B6F00CC95F0 /* NetworkController.swift in Sources */,
 				51A4731620FA7F6400CC95F0 /* ReusableTableDataSourceDelegate.swift in Sources */,
 				51A4731A20FA84EA00CC95F0 /* NetworkSource.swift in Sources */,
