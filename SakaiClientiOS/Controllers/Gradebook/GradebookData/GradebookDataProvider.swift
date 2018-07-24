@@ -8,14 +8,15 @@
 import UIKit
 import ReusableSource
 
-class GradebookDataProvider: HideableDataProvider {
+class GradebookDataProvider: HideableNetworkDataProvider {
     
     var terms: [Term] = []
     var isHidden: [Bool] = []
     var gradeItems:[[[GradeItem]]] = []
+    var hasLoaded: [Bool] = []
     
     typealias T = GradeItem
-    typealias V = [[[GradeItem]]]
+    typealias V = [[GradeItem]]
     
     func numberOfSections() -> Int {
         return gradeItems.count
@@ -33,6 +34,7 @@ class GradebookDataProvider: HideableDataProvider {
         let subsection = getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
         
         guard subsection.row != 0 else {
+            print("subsection is 0")
             return nil
         }
         
@@ -42,20 +44,17 @@ class GradebookDataProvider: HideableDataProvider {
     
     func resetValues() {
         resetTerms()
-        gradeItems = []
+        gradeItems = [[[GradeItem]]].init(repeating: [[GradeItem]](), count: terms.count)
     }
     
-    func loadItems(payload: [[[GradeItem]]]) {
-        if payload.count == 0 {
-            return
+    func loadItems(payload: [[GradeItem]], for section: Int) {
+        var res = payload
+        for index in 0..<payload.count {
+            if payload[index].count == 0 {
+                res.remove(at: index)
+            }
         }
-        
-        for i in 0..<payload.count {
-            terms.append(payload[i][0][0].term)
-            isHidden.append(true)
-        }
-        isHidden[0] = false
-        gradeItems = payload
+        gradeItems[section] = res
     }
     
     func getHeaderRowForSubsection(section:Int, indexPath:IndexPath) -> Int {

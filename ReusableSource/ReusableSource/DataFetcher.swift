@@ -15,7 +15,6 @@ public protocol DataFetcher {
     /// The payload type for the data fetcher
     associatedtype T
     
-    
     /// Asynchronously load data and execute callback with payload of type T.
     ///
     /// - Parameter completion: The callback function to execute with payload

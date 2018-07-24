@@ -53,6 +53,10 @@ open class ReusableTableDataSource<Provider:DataProvider, Cell:UITableViewCell &
         tableView.reloadData()
     }
     
+    public func reloadData(for section: Int) {
+        tableView.reloadSections([section], with: .automatic)
+    }
+    
     public func loadItems(payload: Provider.V) {
         provider.loadItems(payload: payload)
     }

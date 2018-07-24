@@ -8,21 +8,13 @@
 import UIKit
 import ReusableSource
 
-class GradebookTableDataSourceDelegate : HideableTableDataSourceDelegate<GradebookDataProvider, GradebookCell>, NetworkSource {
+class GradebookTableDataSourceDelegate : HideableNetworkTableDataSourceDelegate<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
-    typealias Fetcher = GradebookDataFetcher
-    
-    var fetcher: GradebookDataFetcher
     var controller:GradebookController!
     var headerCell:FloatingHeaderCell!
     
-    override init(provider: GradebookDataProvider, tableView: UITableView) {
-        fetcher = GradebookDataFetcher()
-        super.init(provider: provider, tableView: tableView)
-    }
-    
-    convenience init(tableView: UITableView) {
-        self.init(provider: GradebookDataProvider(), tableView: tableView)
+    init(tableView: UITableView) {
+        super.init(provider: GradebookDataProvider(), fetcher: GradebookDataFetcher(), tableView: tableView)
         setupHeaderCell()
     }
     

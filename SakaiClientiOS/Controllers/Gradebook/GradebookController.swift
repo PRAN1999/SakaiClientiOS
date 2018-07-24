@@ -40,7 +40,7 @@ class GradebookController: UITableViewController {
     }
 }
 
-extension GradebookController: NetworkController {
+extension GradebookController: HideableNetworkController {
     
     var networkSource: GradebookTableDataSourceDelegate {
         return gradebookTableDataSourceDelegate

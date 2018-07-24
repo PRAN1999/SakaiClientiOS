@@ -1,8 +1,8 @@
 //
-//  HideableDataSource.swift
+//  HideableTableDataSourceDelegate.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 7/10/18.
+//  Created by Pranay Neelagiri on 7/22/18.
 //
 
 import UIKit

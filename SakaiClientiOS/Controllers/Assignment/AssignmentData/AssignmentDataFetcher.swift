@@ -7,12 +7,18 @@
 
 import ReusableSource
 
-class AssignmentDataFetcher: DataFetcher {
+class AssignmentDataFetcher: HideableDataFetcher {
+    
     typealias T = [[[Assignment]]]
     
     func loadData(completion: @escaping ([[[Assignment]]]?) -> Void) {
         DataHandler.shared.getAllAssignmentsBySites { (res) in
             completion(res)
         }
+    }
+    
+    
+    func loadData(for section: Int, completion: @escaping ([[[Assignment]]]?) -> Void) {
+        
     }
 }

@@ -8,12 +8,12 @@
 import Foundation
 import ReusableSource
 
-class GradebookDataFetcher : DataFetcher {
+class GradebookDataFetcher : HideableDataFetcher {
+    typealias T = [[GradeItem]]
     
-    typealias T = [[[GradeItem]]]
-    
-    func loadData(completion: @escaping ([[[GradeItem]]]?) -> Void) {
-        DataHandler.shared.getAllGrades { (res) in
+    func loadData(for section: Int, completion: @escaping ([[GradeItem]]?) -> Void) {
+        let sites = DataHandler.shared.termMap[section].1
+        DataHandler.shared.getTermGrades(for: sites) { (res) in
             completion(res)
         }
     }

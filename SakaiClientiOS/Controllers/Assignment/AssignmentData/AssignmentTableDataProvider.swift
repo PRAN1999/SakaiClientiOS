@@ -15,6 +15,7 @@ class AssignmentTableDataProvider: HideableDataProvider {
     
     var terms: [Term] = []
     var isHidden: [Bool] = []
+    var hasLoaded: [Bool] = []
     
     var assignments: [[[Assignment]]] = []
     

@@ -84,7 +84,6 @@ class AssignmentController: UITableViewController {
             self.segments.setEnabled(true, forSegmentAt: 1)
         }
     }
-    
 }
 
 extension AssignmentController: NetworkController {

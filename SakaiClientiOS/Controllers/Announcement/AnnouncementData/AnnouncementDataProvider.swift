@@ -12,7 +12,7 @@ class AnnouncementDataProvider: SingleSectionDataProvider<Announcement> {
         items.append(contentsOf: payload)
     }
     
-    func lastAssignmentIndex() -> Int {
+    func lastIndex() -> Int {
         return items.count - 1
     }
     

@@ -48,6 +48,10 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
         collectionView.reloadData()
     }
     
+    public func reloadData(for section: Int) {
+        collectionView.reloadSections([section])
+    }
+    
     public func loadItems(payload: Provider.V) {
         provider.loadItems(payload: payload)
     }

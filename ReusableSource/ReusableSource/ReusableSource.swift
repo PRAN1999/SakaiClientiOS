@@ -16,6 +16,7 @@ public protocol ReusableSource {
     
     func resetValues()
     func reloadData()
+    func reloadData(for section: Int)
     func loadItems(payload: Provider.V)
     
     func configureBehavior(for cell: Cell, at indexPath: IndexPath)
