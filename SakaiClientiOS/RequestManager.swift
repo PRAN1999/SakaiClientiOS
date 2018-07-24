@@ -50,13 +50,21 @@ class RequestManager {
         - response: The HTTP response returned by Alamofire call to be passed into closure - acted on by callee
      
      */
-    func makeRequest(url:String, method: HTTPMethod, completion: @escaping (_ response:DataResponse<Any>) -> Void) {
+    func makeRequest(url:String, method: HTTPMethod, completion: @escaping (_ response:DataResponse<Any>?) -> Void) {
         //Check if user is logged in before making request, and initiate logout procedure if they aren't
         self.isLoggedIn { (flag) in
             if(!flag) {
                 self.logout {}
             } else {
-                Alamofire.SessionManager.default.request(url, method: method).validate().responseJSON { response in
+                Alamofire.SessionManager.default.request(url, method: method).responseJSON { response in
+                    guard let code = response.response?.statusCode else {
+                        completion(nil)
+                        return
+                    }
+                    if code >= 400 {
+                        completion(nil)
+                        return
+                    }
                     completion(response)
                 }
             }
@@ -152,13 +160,8 @@ class RequestManager {
             var flag = false
             if let data = response.result.value {
                 let json = JSON(data)
-                print("json: \(json)")
                 if json["userEid"].string != nil { //If the userEid field is not null, the user's session is active and they are logged in
-                    print("Flag set to true")
                     flag = true
-                } else {
-                    //self.reset()
-                    print("Flag is false")
                 }
             }
             completion(flag)

@@ -22,6 +22,7 @@ final class AppGlobals {
     static let SITE_GRADEBOOK_URL = BASE_URL + "gradebook/site/*.json"
     static let GRADEBOOK_URL = BASE_URL + "gradebook/my.json"
     static let ASSIGNMENT_URL = BASE_URL + "assignment/my.json"
+    static let SITE_ASSIGNMENT_URL = BASE_URL + "assignment/site/*.json"
     static let ANNOUNCEMENT_URL = BASE_URL + "announcement/user.json?n=*&d=10000"
     static let SITE_ANNOUNCEMENTS_URL = BASE_URL + "announcement/site/*.json?n=#&d=10000"
     

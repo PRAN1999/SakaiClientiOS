@@ -12,10 +12,8 @@ import Foundation
 /// A protocol for any UITableViewCell or UICollectionViewCell subclass to configure its views according to a model object at a certain indexPath
 public protocol ConfigurableCell: ReusableCell {
     
-    
     /// The specified model type for the cell to configure itself with
     associatedtype T
-    
     
     /// Configure the cell accordingly based on the model associated with the specified indexPath
     ///

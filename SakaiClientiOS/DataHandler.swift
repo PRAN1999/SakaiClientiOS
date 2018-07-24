@@ -24,11 +24,14 @@ class DataHandler {
     ///For use in SiteAssignmentDataSource when setting site title
     var siteTitleMap:[String:String] = [:]
     
+    var termMap: [(Term, [String])] = []
+    
     private init() {}
     
     func reset() {
         siteTermMap = [:]
         siteTitleMap = [:]
+        termMap = []
     }
     
     /**
@@ -40,11 +43,15 @@ class DataHandler {
      
      */
     func getSites(completion: @escaping (_ site: [[Site]]?) -> Void) {
-        RequestManager.shared.makeRequest(url: AppGlobals.SITES_URL, method: .get) { response in
+        RequestManager.shared.makeRequest(url: AppGlobals.SITES_URL, method: .get) { res in
             
+            guard let response = res else {
+                completion(nil)
+                return
+            }
             //print(response)
             guard let data = response.result.value else {
-                print("error")
+                completion(nil)
                 return
             }
             
@@ -63,7 +70,20 @@ class DataHandler {
                 self.siteTermMap.updateValue(site.term, forKey: site.id)
                 self.siteTitleMap.updateValue(site.title, forKey: site.id)
             }
-            let sectionList = Term.splitByTerms(listToSort: siteList) //Split the site list by Term
+            guard let sectionList = Term.splitByTerms(listToSort: siteList) else {
+                completion(nil)
+                return
+            } //Split the site list by Term
+            
+            let listMap = sectionList.map {
+                ($0[0].term, $0.map { $0.id })
+            }
+            
+            for index in 0..<listMap.count {
+                if listMap[index].0.exists() {
+                    self.termMap.append(listMap[index])
+                }
+            }
             
             completion(sectionList)
         }
@@ -76,14 +96,20 @@ class DataHandler {
      This method is used for a Site-specific gradebook
      
      - parameters:
-     - siteId: The siteId representing the site for which grades should be fetched
-     - completion: A closure called with a [GradeItem] object to be implemented by callee
-     - grades: The [GradeItem] object constructed with response and passed to closure
+        - siteId: The siteId representing the site for which grades should be fetched
+        - completion: A closure called with a [GradeItem] object to be implemented by callee
+        - grades: The [GradeItem] object constructed with response and passed to closure
      
      */
     func getSiteGrades(siteId:String, completion: @escaping (_ grades: [GradeItem]?) -> Void) {
         let url:String = AppGlobals.SITE_GRADEBOOK_URL.replacingOccurrences(of: "*", with: siteId)
-        RequestManager.shared.makeRequest(url: url, method: .get) { response in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+            
+            guard let response = res else {
+                completion(nil)
+                return
+            }
+            
             guard let data = response.result.value else {
                 print("error")
                 return
@@ -113,7 +139,13 @@ class DataHandler {
     /// - Parameter grades: The [[[Gradeitem]]] object constructed with response and passed into closure
     func getAllGrades(completion: @escaping (_ grades: [[[GradeItem]]]?) -> Void) {
         let url:String = AppGlobals.GRADEBOOK_URL
-        RequestManager.shared.makeRequest(url: url, method: .get) { response in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+            
+            guard let response = res else {
+                completion(nil)
+                return
+            }
+            
             guard let data = response.result.value else {
                 print("error")
                 return
@@ -165,9 +197,16 @@ class DataHandler {
     /// - Parameter assignments: The 3-dimensional array of Assignments to be passed into the completion handler
     func getAllAssignmentsBySites(completion: @escaping (_ assignments: [[[Assignment]]]?) -> Void) {
         let url:String = AppGlobals.ASSIGNMENT_URL
-        RequestManager.shared.makeRequest(url: url, method: .get) { response in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+            
+            guard let response = res else {
+                completion(nil)
+                return
+            }
+            
             guard let data = response.result.value else {
                 print("error")
+                completion(nil)
                 return
             }
             
@@ -202,6 +241,38 @@ class DataHandler {
         }
     }
     
+    func getSiteAssignments(for siteId: String, completion: @escaping (_ assignments: [Assignment]?) -> Void) {
+        let url:String = AppGlobals.SITE_ASSIGNMENT_URL.replacingOccurrences(of: "*", with: siteId)
+        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+            
+            guard let response = res else {
+                completion(nil)
+                return
+            }
+            
+            guard let data = response.result.value else {
+                print("error")
+                completion(nil)
+                return
+            }
+            
+            var assignments:[Assignment] = [Assignment]()
+            guard let assignmentsJSON = JSON(data)["assignment_collection"].array else { //Ensure the JSON data has an "assignments" array
+                completion(nil)
+                return
+            }
+            
+            for assignmentJSON in assignmentsJSON {
+                //Construct a GradeItem object and add it to the gradeList
+                assignments.append(Assignment(data: assignmentJSON))
+            }
+            
+            assignments.sort { $0.dueDate > $1.dueDate }
+            
+            completion(assignments)
+        }
+    }
+    
     
     /// Requests announcement data and retrieves the Announcement feed for a user based on a specific offset and limit. Passes parsed list back into callback along with information as to whether more data exists to be loaded on the server
     ///
@@ -218,7 +289,13 @@ class DataHandler {
         } else {
             url = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: "\(limit)")
         }
-        RequestManager.shared.makeRequest(url: url, method: .get) { response in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+            
+            guard let response = res else {
+                completion(nil, false)
+                return
+            }
+            
             guard let data = response.result.value else {
                 print("error")
                 completion(nil, false)
@@ -245,5 +322,49 @@ class DataHandler {
             
             completion(announcementList, true)
         }
+    }
+    
+    func getTermGrades(for sites: [String], completion: @escaping (_ gradeItems: [[GradeItem]]?) -> Void) {
+        let group = DispatchGroup()
+        var termGradeArray: [[GradeItem]] = []
+        
+        for site in sites {
+            group.enter()
+            getSiteGrades(siteId: site) { (res) in
+                DispatchQueue.global().async {
+                    if let response = res {
+                        termGradeArray.append(response)
+                    }
+                    group.leave()
+                }
+            }
+        }
+        
+        group.notify(queue: .main, work: .init(block: {
+            completion(termGradeArray)
+        }))
+        
+    }
+    
+    func getTermAssignments(for sites: [String], completion: @escaping (_ gradeItems: [[Assignment]]?) -> Void) {
+        let group = DispatchGroup()
+        var termAssignmentArray: [[Assignment]] = []
+        
+        for site in sites {
+            group.enter()
+            getSiteAssignments(for: site) { (res) in
+                DispatchQueue.global().async {
+                    if let response = res {
+                        termAssignmentArray.append(response)
+                    }
+                    group.leave()
+                }
+            }
+        }
+        
+        group.notify(queue: .main, work: .init(block: {
+            completion(termAssignmentArray)
+        }))
+        
     }
 }

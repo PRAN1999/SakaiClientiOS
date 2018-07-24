@@ -10,14 +10,13 @@ import ReusableSource
 protocol HideableDataProvider: class, DataProvider {
     var terms: [Term] { get set }
     var isHidden: [Bool] { get set }
+    
+    func resetTerms()
 }
 
 extension HideableDataProvider {
     
     func numberOfItemsForHideableSection(section: Int) -> Int {
-        guard section >= 0, section < isHidden.count else {
-            return 0
-        }
         if isHidden[section] {
             return 0
         }

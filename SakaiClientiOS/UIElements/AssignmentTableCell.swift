@@ -102,14 +102,10 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         guard item.count > 0 else {
             return
         }
-        if item.count == 1 {
-            titleLabel.text = "All Assignments"
-        } else {
-            let siteId = item[0].siteId
-            let title = DataHandler.shared.siteTitleMap[siteId]
-            
-            titleLabel.text = title
-        }
+        let siteId = item[0].siteId
+        let title = DataHandler.shared.siteTitleMap[siteId]
+        
+        titleLabel.text = title
 
         collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
         dataSourceDelegate.loadItems(payload: item)

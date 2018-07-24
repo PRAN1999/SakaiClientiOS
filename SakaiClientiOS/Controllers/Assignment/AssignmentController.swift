@@ -24,9 +24,6 @@ class AssignmentController: UITableViewController {
     }
     
     override func viewDidLoad() {
-        super.tableView.allowsSelection = false
-        super.tableView.register(AssignmentTableCell.self, forCellReuseIdentifier: AssignmentTableCell.reuseIdentifier)
-        super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
         assignmentsTableDataSourceDelegate = AssignmentTableDataSourceDelegate(tableView: super.tableView)
         assignmentsTableDataSourceDelegate.controller = self
         createSegmentedControl()
@@ -84,10 +81,9 @@ class AssignmentController: UITableViewController {
             self.segments.setEnabled(true, forSegmentAt: 1)
         }
     }
-    
 }
 
-extension AssignmentController: NetworkController {
+extension AssignmentController: HideableNetworkController {
     
     var networkSource : AssignmentTableDataSourceDelegate {
         return assignmentsTableDataSourceDelegate

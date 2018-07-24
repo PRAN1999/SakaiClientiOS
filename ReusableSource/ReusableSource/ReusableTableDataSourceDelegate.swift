@@ -10,8 +10,8 @@ import Foundation
 
 open class ReusableTableDataSourceDelegate<Provider:DataProvider, Cell:UITableViewCell & ConfigurableCell>: ReusableTableDataSource<Provider, Cell>, UITableViewDelegate where Provider.T == Cell.T {
     
-    public override func setup() {
-        tableView.dataSource = self
+    open override func setup() {
+        super.setup()
         tableView.delegate = self
     }
     

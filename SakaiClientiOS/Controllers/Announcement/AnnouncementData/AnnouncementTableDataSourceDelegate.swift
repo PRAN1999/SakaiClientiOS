@@ -36,7 +36,7 @@ class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<Annou
             return UITableViewCell()
         }
         
-        if indexPath.row == provider.lastAssignmentIndex() - 15 && fetcher.moreLoads {
+        if indexPath.row == provider.lastIndex() - 15 && fetcher.moreLoads {
             let frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(70))
             let spinner = LoadingIndicator(frame: frame)
             spinner.activityIndicatorViewStyle = .gray
@@ -45,14 +45,16 @@ class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<Annou
             
             tableView.tableFooterView = spinner
             tableView.tableFooterView?.isHidden = false
-            fetcher.loadData { (announcements) in
-                spinner.stopAnimating()
-                guard let items = announcements else {
-                    return
+            fetcher.loadData(completion: { (announcements) in
+                DispatchQueue.main.async {
+                    spinner.stopAnimating()
+                    guard let items = announcements else {
+                        return
+                    }
+                    self.loadItems(payload: items)
+                    self.reloadData()
                 }
-                self.loadItems(payload: items)
-                self.reloadData()
-            }
+            })
         }
         
         return cell

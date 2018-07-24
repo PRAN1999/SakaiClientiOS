@@ -39,7 +39,6 @@ public protocol DataProvider {
     /// Reset internal managed data, often for reloading ReusableSource
     func resetValues()
     
-    
     /// Load or set internal managed data with payload of type V
     ///
     /// Often used in conjunction with DataFetcher in a NetworkSource, but does not have to be

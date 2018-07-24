@@ -85,6 +85,10 @@ struct Term {
         return "\(string) \(year)"
     }
     
+    func exists() -> Bool {
+        return year != nil
+    }
+    
     /**
     
      Takes an array of T:TermSortable and splits it by Term by putting every item with the same Term in the same array and then returning a 2-dimensional array consisting of those arrays

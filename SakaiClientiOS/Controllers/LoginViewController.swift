@@ -67,7 +67,6 @@ class LoginViewController: WebController, WKUIDelegate, WKNavigationDelegate {
      
      */
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        print("Setting Headers")
         let response = navigationResponse.response as? HTTPURLResponse
         let headers = response!.allHeaderFields
         for header in headers {

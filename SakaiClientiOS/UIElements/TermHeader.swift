@@ -19,6 +19,8 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     ///The label holding the arrow indicator
     var imageLabel:UIImageView!
     
+    var activityIndicator: UIActivityIndicatorView!
+    
     ///The background for the view
     var backgroundHeaderView: UIView!
     
@@ -46,6 +48,10 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
         
         imageLabel = UIImageView()
         
+        activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = AppGlobals.SAKAI_RED
+        
         //Initialize gesture recognizer and set attributes
         tapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
         tapRecognizer.delegate = self
@@ -58,6 +64,7 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     func addViews() {
         self.addSubview(titleLabel)
         self.addSubview(imageLabel)
+        self.addSubview(activityIndicator)
         self.backgroundView = backgroundHeaderView
         self.addGestureRecognizer(tapRecognizer)
     }
@@ -69,26 +76,32 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         imageLabel.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         ///Constrain titleLabel to top, bottom and left edge of superview
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: activityIndicator.leadingAnchor, constant: -20.0).isActive = true
+        
+        activityIndicator.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor, constant: 5.0).isActive = true
+        activityIndicator.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        //activityIndicator.trailingAnchor.constraint(lessThanOrEqualTo: imageLabel.leadingAnchor, constant: -20.0).isActive = true
+        
+        let constraint = NSLayoutConstraint(item: activityIndicator,
+                                            attribute: .trailing,
+                                            relatedBy: .lessThanOrEqual,
+                                            toItem: imageLabel,
+                                            attribute: .leading,
+                                            multiplier: 1.0,
+                                            constant: -20)
+        constraint.priority = UILayoutPriority(999)
+        self.addConstraint(constraint)
         
         //Constrain imageLabel to top, bottom, and right of superview
         imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         imageLabel.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor, constant: 5.0).isActive = true
         imageLabel.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor, constant: 5.0).isActive = true
         
-        //Constrain the trailing anchor of the titleLable to be less than or equal to the leading anchor of the imageLabel
-        let constraint = NSLayoutConstraint(item: titleLabel,
-                                           attribute: .trailing,
-                                           relatedBy: .lessThanOrEqual,
-                                           toItem: imageLabel,
-                                           attribute: .leading,
-                                           multiplier: 1.0,
-                                           constant: 0.0)
-        constraint.priority = UILayoutPriority(rawValue: 999) //lower the priority to ensure constraints can be overridden
-        self.addConstraint(constraint)
     }
     
     

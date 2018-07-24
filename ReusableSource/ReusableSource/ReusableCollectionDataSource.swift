@@ -20,8 +20,9 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
         setup()
     }
     
-    public func setup() {
+    open func setup() {
         collectionView.dataSource = self
+        collectionView.register(Cell.self, forCellWithReuseIdentifier: Cell.reuseIdentifier)
     }
     
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -46,6 +47,10 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
     
     public func reloadData() {
         collectionView.reloadData()
+    }
+    
+    public func reloadData(for section: Int) {
+        collectionView.reloadSections([section])
     }
     
     public func loadItems(payload: Provider.V) {

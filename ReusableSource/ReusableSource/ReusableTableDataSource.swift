@@ -20,8 +20,10 @@ open class ReusableTableDataSource<Provider:DataProvider, Cell:UITableViewCell &
         setup()
     }
     
-    public func setup() {
+    open func setup() {
         tableView.dataSource = self
+        
+        tableView.register(Cell.self, forCellReuseIdentifier: Cell.reuseIdentifier)
     }
     
     open func numberOfSections(in tableView: UITableView) -> Int {
@@ -51,6 +53,10 @@ open class ReusableTableDataSource<Provider:DataProvider, Cell:UITableViewCell &
     
     public func reloadData() {
         tableView.reloadData()
+    }
+    
+    public func reloadData(for section: Int) {
+        tableView.reloadSections([section], with: .automatic)
     }
     
     public func loadItems(payload: Provider.V) {
