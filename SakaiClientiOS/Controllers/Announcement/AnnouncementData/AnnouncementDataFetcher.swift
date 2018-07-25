@@ -21,7 +21,7 @@ class AnnouncementDataFetcher: DataFetcher {
     var moreLoads = true
     
     func loadData(completion: @escaping ([Announcement]?) -> Void) {
-        DataHandler.shared.getAllAnnouncements(offset: offset, limit: numToRequest, completion: { (announcementList, moreLoads) in
+        SakaiService.shared.getAllAnnouncements(offset: offset, limit: numToRequest, completion: { (announcementList, moreLoads) in
             self.moreLoads = moreLoads
             
             guard let list = announcementList else {

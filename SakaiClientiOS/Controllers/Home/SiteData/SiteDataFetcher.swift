@@ -13,7 +13,7 @@ class SiteDataFetcher: HideableDataFetcher {
     typealias T = [[Site]]
     
     func loadData(completion: @escaping ([[Site]]?) -> Void) {
-        DataHandler.shared.getSites { siteList in
+        SakaiService.shared.getSites { siteList in
             completion(siteList)
         }
     }

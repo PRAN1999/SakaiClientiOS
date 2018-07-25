@@ -23,7 +23,7 @@ extension HideableNetworkDataProvider {
     }
     
     func resetTerms() {
-        terms = DataHandler.shared.termMap.map { $0.0 }
+        terms = SakaiService.shared.termMap.map { $0.0 }
         isHidden = [Bool].init(repeating: true, count: terms.count)
         hasLoaded = [Bool].init(repeating: false, count: terms.count)
     }

@@ -60,7 +60,7 @@ struct Announcement: TermSortable, SiteSortable {
         let content = data["body"].string
         let attributedContent = content?.htmlAttributedString
         let siteId = data["siteId"].string!
-        let term = DataHandler.shared.siteTermMap[siteId]!
+        let term = SakaiService.shared.siteTermMap[siteId]!
         let time = data["createdOn"].double! / 1000
         let date = Date(timeIntervalSince1970: time)
         let dateString = String.getDateString(date: date)

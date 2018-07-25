@@ -5,7 +5,7 @@
 //  Created by Pranay Neelagiri on 7/24/18.
 //
 
-import Foundation
+import UIKit
 
 protocol SitePageController: class {
     

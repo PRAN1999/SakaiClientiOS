@@ -1,5 +1,5 @@
 //
-//  DataHandler.swift
+//  SakaiService.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/2/18.
@@ -10,9 +10,9 @@ import SwiftyJSON
 
 
 /// A singleton service to manage user data after requests have been made by serializing and sorting it
-class DataHandler {
+class SakaiService {
     
-    static let shared = DataHandler()
+    static let shared = SakaiService()
     
     ///A dictionary mapping siteID's for all the user Site's to their respective Term objects.
     ///
