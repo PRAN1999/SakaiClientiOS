@@ -23,7 +23,6 @@ protocol TermSortable {
  A struct to represent individual semesters following the Rutgers academic schedule through the years
  
  */
-
 struct Term {
     private static let mapTerms:[Int:String] = [1:"Spring", 9: "Fall", 6: "Summer 1", 7: "Summer 2", 12: "Winter"]
     

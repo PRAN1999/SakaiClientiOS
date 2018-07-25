@@ -142,7 +142,7 @@ class RequestManager {
         //Flush all HTTP headers
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeValue(forKey: AnyHashable("X-Sakai-Session"))
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeAll()
-        DataHandler.shared.reset()
+        SakaiService.shared.reset()
         processPool = WKProcessPool()
     }
     

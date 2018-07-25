@@ -17,7 +17,7 @@ class SiteAssignmentDataFetcher: DataFetcher {
     }
     
     func loadData(completion: @escaping ([Assignment]?) -> Void) {
-        DataHandler.shared.getSiteAssignments(for: siteId) { (res) in
+        SakaiService.shared.getSiteAssignments(for: siteId) { (res) in
             completion(res)
         }
     }

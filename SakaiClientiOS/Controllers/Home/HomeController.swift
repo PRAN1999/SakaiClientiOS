@@ -19,6 +19,7 @@ class HomeController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Classes"
+        
         siteTableDataSourceDelegate = SiteTableDataSourceDelegate(tableView: tableView)
         siteTableDataSourceDelegate.controller = self
         loadData()
@@ -32,6 +33,7 @@ class HomeController: UITableViewController {
     
     @objc func loadData() {
         disableTabs()
+        SakaiService.shared.reset()
         loadSourceWithoutCache() {
             self.enableTabs()
         }

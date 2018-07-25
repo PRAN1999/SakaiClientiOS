@@ -66,7 +66,7 @@ struct GradeItem: TermSortable, SiteSortable {
             grade = Double(data["grade"].string!)
         }
         //Get term from shared dictionary because Grade json data doesn't have term data
-        let term = DataHandler.shared.siteTermMap[siteId]!
+        let term = SakaiService.shared.siteTermMap[siteId]!
         
         self.init(grade, points, title, term, siteId)
     }

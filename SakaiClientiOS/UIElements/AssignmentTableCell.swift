@@ -103,7 +103,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
             return
         }
         let siteId = item[0].siteId
-        let title = DataHandler.shared.siteTitleMap[siteId]
+        let title = SakaiService.shared.siteTitleMap[siteId]
         
         titleLabel.text = title
 

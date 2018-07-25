@@ -42,6 +42,6 @@ class HideableTableDataSourceDelegate<Provider: HideableDataProvider, Cell: UITa
         
         provider.isHidden[section] = !provider.isHidden[section]
         
-        super.tableView.reloadSections([section], with: UITableViewRowAnimation.automatic)
+        reloadData(for: section)
     }
 }
