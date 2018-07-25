@@ -42,21 +42,12 @@ class ClassController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let page:SitePage = self.sitePages[indexPath.row]
         
-        var controller:UIViewController
+        var sitePage:SitePageController
+        sitePage = page.siteType.init()
+        sitePage.siteId = page.siteId
         
-        switch(page.siteType) {
-        case is SiteGradebookController.Type:
-            controller = SiteGradebookController()
-            let gradePageController = controller as! SiteGradebookController
-            gradePageController.siteId = page.siteId
-            break
-        case is SiteAnnouncementController.Type:
-            controller = SiteAnnouncementController()
-            let announcementPageController = controller as! SiteAnnouncementController
-            announcementPageController.siteId = page.siteId
-        default:
-            controller = DefaultController()
-            print("Is Default")
+        guard let controller = sitePage as? UIViewController else {
+            return
         }
         
         self.navigationController?.pushViewController(controller, animated: true)

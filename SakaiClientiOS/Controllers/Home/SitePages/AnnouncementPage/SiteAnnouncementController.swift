@@ -7,16 +7,20 @@
 
 import ReusableSource
 
-class SiteAnnouncementController: UITableViewController {
+class SiteAnnouncementController: UITableViewController, SitePageController {
     var announcementTableDataSourceDelegate : AnnouncementTableDataSourceDelegate!
     var siteId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.tableView.register(AnnouncementCell.self, forCellReuseIdentifier: AnnouncementCell.reuseIdentifier)
+        
+        guard let id = siteId else {
+            return
+        }
+        
         announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
         announcementTableDataSourceDelegate.controller = self
-        announcementTableDataSourceDelegate.siteId = siteId
+        announcementTableDataSourceDelegate.siteId = id
         loadSource {}
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
     }

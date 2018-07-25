@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DefaultController: UIViewController {
+class DefaultController: UIViewController, SitePageController {
     
     var isSitePage: Bool = false
     var siteId: String?
