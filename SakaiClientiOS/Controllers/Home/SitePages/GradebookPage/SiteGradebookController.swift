@@ -7,17 +7,20 @@
 
 import ReusableSource
 
-class SiteGradebookController: UITableViewController {
+class SiteGradebookController: UITableViewController, SitePageController {
     
-    var siteId: String!
+    var siteId: String?
     var siteGradebookTableDataSource: SiteGradebookTableDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         super.tableView.allowsSelection = false
-        super.tableView.register(GradebookCell.self, forCellReuseIdentifier: GradebookCell.reuseIdentifier)
         
-        siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: super.tableView, siteId: siteId)
+        guard let id = siteId else {
+            return
+        }
+        
+        siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: super.tableView, siteId: id)
         loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
     }

@@ -23,7 +23,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     var collectionView: UICollectionView!
     
     /// The data source and delegate object for the CollectionView
-    var dataSourceDelegate: AssignmentCollectionSource!
+    var dataSourceDelegate: AssignmentCollectionDataSourceDelegate!
 
     /// Setup subviews, add them to cell, and set constraints
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -55,7 +55,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         collectionView.backgroundColor = UIColor.white
         
         //Construct Data Source and Delegate for collectionView as an AssignmentCollectionSource object
-        dataSourceDelegate = AssignmentCollectionSource(collectionView: collectionView)
+        dataSourceDelegate = AssignmentCollectionDataSourceDelegate(collectionView: collectionView)
     }
     
     /// Add titleLabel and collectionView to cell
@@ -107,7 +107,6 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         
         titleLabel.text = title
 
-        collectionView.register(AssignmentCell.self, forCellWithReuseIdentifier: AssignmentCell.reuseIdentifier)
         dataSourceDelegate.loadItems(payload: item)
         dataSourceDelegate.reloadData()
     }

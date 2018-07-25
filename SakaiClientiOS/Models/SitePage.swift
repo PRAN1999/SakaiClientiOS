@@ -16,8 +16,8 @@ struct SitePage {
     private static let DEFAULT_STRING:String      = "None"
     
     /// A map for the common site pages shared by most classes
-    private static let mapPages:[String:UIViewController.Type] = [ANNOUNCEMENT_STRING: SiteAnnouncementController.self,
-                                                                  ASSIGNMENTS_STRING:  AssignmentController.self,
+    private static let mapPages:[String:SitePageController.Type] = [ANNOUNCEMENT_STRING: SiteAnnouncementController.self,
+                                                                  ASSIGNMENTS_STRING:  SiteAssignmentController.self,
                                                                   GRADEBOOK_STRING:    SiteGradebookController.self,
                                                                   DEFAULT_STRING:      DefaultController.self
     ]
@@ -25,7 +25,7 @@ struct SitePage {
     let id:String
     let title:String
     let siteId:String
-    let siteType:UIViewController.Type
+    let siteType:SitePageController.Type
     
     /// Initializes a SitePage object with defined parameters
     ///
@@ -37,7 +37,7 @@ struct SitePage {
     private init(_ id:String,
                  _ title:String,
                  _ siteId:String,
-                 _ siteType:UIViewController.Type) {
+                 _ siteType:SitePageController.Type) {
         self.id = id
         self.title = title
         self.siteId = siteId
@@ -51,7 +51,7 @@ struct SitePage {
         let id:String = data["id"].string!
         let title:String = data["title"].string!
         let siteId:String = data["siteId"].string!
-        let siteType:UIViewController.Type
+        let siteType:SitePageController.Type
         if SitePage.mapPages[title] != nil {
             siteType = SitePage.mapPages[title]!
         } else {

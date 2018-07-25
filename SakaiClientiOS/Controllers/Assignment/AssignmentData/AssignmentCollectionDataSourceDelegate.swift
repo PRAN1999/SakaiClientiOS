@@ -7,17 +7,12 @@
 
 import ReusableSource
 
-class AssignmentCollectionSource : ReusableCollectionDataSourceFlowDelegate<SingleSectionDataProvider<Assignment>, AssignmentCell> {
+class AssignmentCollectionDataSourceDelegate : ReusableCollectionDataSourceFlowDelegate<SingleSectionDataProvider<Assignment>, AssignmentCell> {
     
-    var controller: AssignmentController?
-    var siteId: String?
+    var controller: UIViewController?
     
-    convenience init(collectionView: UICollectionView) {
-        self.init(provider: SingleSectionDataProvider<Assignment>(), collectionView: collectionView)
-    }
-    
-    override init(provider: Provider, collectionView: UICollectionView) {
-        super.init(provider: provider, collectionView: collectionView)
+    init(collectionView: UICollectionView) {
+        super.init(provider: SingleSectionDataProvider<Assignment>(), collectionView: collectionView)
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
