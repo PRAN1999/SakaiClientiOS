@@ -18,7 +18,6 @@ class AnnouncementController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.tableView.register(AnnouncementCell.self, forCellReuseIdentifier: AnnouncementCell.reuseIdentifier)
         announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
         announcementTableDataSourceDelegate.controller = self
         loadData()

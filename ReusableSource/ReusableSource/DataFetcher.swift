@@ -11,7 +11,6 @@ import Foundation
 /// An asynchronous data loader for a generic payload type
 public protocol DataFetcher {
     
-    
     /// The payload type for the data fetcher
     associatedtype T
     

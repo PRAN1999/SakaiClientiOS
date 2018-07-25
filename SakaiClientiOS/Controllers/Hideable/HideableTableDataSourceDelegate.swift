@@ -12,6 +12,11 @@ class HideableTableDataSourceDelegate<Provider: HideableDataProvider, Cell: UITa
     
     let TABLE_HEADER_HEIGHT:CGFloat = 50.0
     
+    override func setup() {
+        super.setup()
+        tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return provider.numberOfItemsForHideableSection(section: section)
     }

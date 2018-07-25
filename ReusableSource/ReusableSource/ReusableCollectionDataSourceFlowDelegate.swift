@@ -10,8 +10,8 @@ import UIKit
 
 open class ReusableCollectionDataSourceFlowDelegate<Provider: DataProvider, Cell: UICollectionViewCell & ConfigurableCell> : ReusableCollectionDataSource<Provider, Cell>, UICollectionViewDelegateFlowLayout where Provider.T == Cell.T {
     
-    public override func setup() {
-        collectionView.dataSource = self
+    open override func setup() {
+        super.setup()
         collectionView.delegate = self
     }
     

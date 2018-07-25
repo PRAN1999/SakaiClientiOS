@@ -18,9 +18,7 @@ class HomeController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.title = "Classes"
-        super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
-        super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+        self.title = "Classes"
         siteTableDataSourceDelegate = SiteTableDataSourceDelegate(tableView: tableView)
         siteTableDataSourceDelegate.controller = self
         loadData()

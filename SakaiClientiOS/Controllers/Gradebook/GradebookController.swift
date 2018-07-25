@@ -18,8 +18,6 @@ class GradebookController: UITableViewController {
     
     override func viewDidLoad() {
         super.tableView.allowsSelection = false
-        super.tableView.register(GradebookCell.self, forCellReuseIdentifier: GradebookCell.reuseIdentifier)
-        super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         super.tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
         super.tableView.showsVerticalScrollIndicator = false
         gradebookTableDataSourceDelegate = GradebookTableDataSourceDelegate(tableView: super.tableView)

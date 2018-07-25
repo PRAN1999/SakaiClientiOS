@@ -31,6 +31,7 @@ class DataHandler {
     func reset() {
         siteTermMap = [:]
         siteTitleMap = [:]
+        termMap = []
     }
     
     /**
@@ -205,6 +206,7 @@ class DataHandler {
             
             guard let data = response.result.value else {
                 print("error")
+                completion(nil)
                 return
             }
             
@@ -236,6 +238,38 @@ class DataHandler {
             }
             
             completion(sortedAssignments)
+        }
+    }
+    
+    func getSiteAssignments(for siteId: String, completion: @escaping (_ assignments: [Assignment]?) -> Void) {
+        let url:String = AppGlobals.SITE_ASSIGNMENT_URL.replacingOccurrences(of: "*", with: siteId)
+        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+            
+            guard let response = res else {
+                completion(nil)
+                return
+            }
+            
+            guard let data = response.result.value else {
+                print("error")
+                completion(nil)
+                return
+            }
+            
+            var assignments:[Assignment] = [Assignment]()
+            guard let assignmentsJSON = JSON(data)["assignment_collection"].array else { //Ensure the JSON data has an "assignments" array
+                completion(nil)
+                return
+            }
+            
+            for assignmentJSON in assignmentsJSON {
+                //Construct a GradeItem object and add it to the gradeList
+                assignments.append(Assignment(data: assignmentJSON))
+            }
+            
+            assignments.sort { $0.dueDate > $1.dueDate }
+            
+            completion(assignments)
         }
     }
     
@@ -308,6 +342,28 @@ class DataHandler {
         
         group.notify(queue: .main, work: .init(block: {
             completion(termGradeArray)
+        }))
+        
+    }
+    
+    func getTermAssignments(for sites: [String], completion: @escaping (_ gradeItems: [[Assignment]]?) -> Void) {
+        let group = DispatchGroup()
+        var termAssignmentArray: [[Assignment]] = []
+        
+        for site in sites {
+            group.enter()
+            getSiteAssignments(for: site) { (res) in
+                DispatchQueue.global().async {
+                    if let response = res {
+                        termAssignmentArray.append(response)
+                    }
+                    group.leave()
+                }
+            }
+        }
+        
+        group.notify(queue: .main, work: .init(block: {
+            completion(termAssignmentArray)
         }))
         
     }

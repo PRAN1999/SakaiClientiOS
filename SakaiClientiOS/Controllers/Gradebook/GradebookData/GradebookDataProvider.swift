@@ -49,10 +49,13 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     
     func loadItems(payload: [[GradeItem]], for section: Int) {
         var res = payload
-        for index in 0..<payload.count {
-            if payload[index].count == 0 {
+        var index = 0
+        while index < res.count {
+            if res[index].count == 0 {
                 res.remove(at: index)
+                index -= 1
             }
+            index += 1
         }
         gradeItems[section] = res
     }

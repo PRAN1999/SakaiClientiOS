@@ -160,13 +160,8 @@ class RequestManager {
             var flag = false
             if let data = response.result.value {
                 let json = JSON(data)
-                print("json: \(json)")
                 if json["userEid"].string != nil { //If the userEid field is not null, the user's session is active and they are logged in
-                    print("Flag set to true")
                     flag = true
-                } else {
-                    //self.reset()
-                    print("Flag is false")
                 }
             }
             completion(flag)

@@ -7,23 +7,22 @@
 
 import ReusableSource
 
-class AssignmentTableDataSourceDelegate: HideableTableDataSourceDelegate<AssignmentTableDataProvider, AssignmentTableCell>, NetworkSource {
-    
-    typealias Fetcher = AssignmentDataFetcher
-    
-    var fetcher: AssignmentDataFetcher
+class AssignmentTableDataSourceDelegate: HideableNetworkTableDataSourceDelegate<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
     var controller: AssignmentController?
     
-    override init(provider: AssignmentTableDataProvider, tableView: UITableView) {
-        fetcher = AssignmentDataFetcher()
-        super.init(provider: provider, tableView: tableView)
+    init(tableView: UITableView) {
+        super.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
     }
     
-    convenience init(tableView: UITableView) {
-        self.init(provider: AssignmentTableDataProvider(), tableView: tableView)
+    override func setup() {
+        super.setup()
+        tableView.allowsSelection = false
     }
     
     override func configureBehavior(for cell: AssignmentTableCell, at indexPath: IndexPath) {
+        if provider.dateSorted {
+            cell.titleLabel.text = "All Assignments"
+        }
         cell.dataSourceDelegate.controller = controller
     }
     

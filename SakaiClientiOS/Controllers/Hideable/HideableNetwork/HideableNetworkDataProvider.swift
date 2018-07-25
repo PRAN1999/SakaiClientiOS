@@ -7,7 +7,7 @@
 
 import ReusableSource
 
-protocol HideableNetworkDataProvider: class, HideableDataProvider {
+protocol HideableNetworkDataProvider: HideableDataProvider {
     var hasLoaded: [Bool] { get set }
     
     func loadItems(payload: V, for section: Int)

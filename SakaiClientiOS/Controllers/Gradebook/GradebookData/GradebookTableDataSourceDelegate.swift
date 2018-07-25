@@ -18,6 +18,11 @@ class GradebookTableDataSourceDelegate : HideableNetworkTableDataSourceDelegate<
         setupHeaderCell()
     }
     
+    override func setup() {
+        super.setup()
+        tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let subsectionIndex = provider.getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
         
