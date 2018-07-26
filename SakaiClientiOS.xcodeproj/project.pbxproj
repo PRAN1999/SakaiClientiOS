@@ -643,11 +643,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -865,10 +867,7 @@
 				DEVELOPMENT_TEAM = B9QTN8GJXZ;
 				INFOPLIST_FILE = "$(SRCROOT)/SakaiClientiOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.PRN.sakai-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos11.3;
@@ -885,10 +884,7 @@
 				DEVELOPMENT_TEAM = B9QTN8GJXZ;
 				INFOPLIST_FILE = "$(SRCROOT)/SakaiClientiOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.PRN.sakai-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos11.3;
