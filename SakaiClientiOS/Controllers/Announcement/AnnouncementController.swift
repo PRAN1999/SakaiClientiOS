@@ -23,6 +23,14 @@ class AnnouncementController: UITableViewController {
         loadData()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.hidesBarsOnSwipe = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.hidesBarsOnSwipe = false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
