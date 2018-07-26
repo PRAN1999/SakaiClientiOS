@@ -29,6 +29,14 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.hidesBarsOnSwipe = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.hidesBarsOnSwipe = false
+    }
     
     @objc func loadData() {
         loadSourceWithoutCache() {}

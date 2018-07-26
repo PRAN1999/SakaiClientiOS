@@ -36,7 +36,7 @@ class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<Annou
             return UITableViewCell()
         }
         
-        if indexPath.row == provider.lastIndex() - 15 && fetcher.moreLoads {
+        if indexPath.row == provider.lastIndex() && fetcher.moreLoads {
             let frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(70))
             let spinner = LoadingIndicator(frame: frame)
             spinner.activityIndicatorViewStyle = .gray
