@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (4.7.2)
+  - RATreeView (2.1.2)
   - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - RATreeView (~> 2.1.2)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - RATreeView
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  RATreeView: 380cde0090cfde21dc6ac29137f49d3b768fdd28
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 05b835ad1fe05c3c51c6138d350fc4fd27a0dc41
+PODFILE CHECKSUM: e316410e38e9dd6792ea96367c1189c1b1933e29
 
 COCOAPODS: 1.5.0

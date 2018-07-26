@@ -8,4 +8,5 @@ target 'SakaiClientiOS' do
   # Pods for SakaiClientiOS
   pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'RATreeView', '~> 2.1.2'
 end
