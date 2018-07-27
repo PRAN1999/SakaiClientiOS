@@ -23,20 +23,11 @@ class HomeController: UITableViewController {
         siteTableDataSourceDelegate = SiteTableDataSourceDelegate(tableView: tableView)
         siteTableDataSourceDelegate.controller = self
         loadData()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
-        //self.setupSearchBar()
+        self.configureNavigationItem()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    @objc func loadData() {
-        disableTabs()
-        SakaiService.shared.reset()
-        loadSourceWithoutCache() {
-            self.enableTabs()
-        }
     }
     
     func disableTabs() {
@@ -56,6 +47,16 @@ class HomeController: UITableViewController {
             for i in 1..<5 {
                 arr[i].isEnabled = true
             }
+        }
+    }
+}
+
+extension HomeController: LoadableController {
+    @objc func loadData() {
+        disableTabs()
+        SakaiService.shared.reset()
+        self.loadSourceWithoutCache() {
+            self.enableTabs()
         }
     }
 }

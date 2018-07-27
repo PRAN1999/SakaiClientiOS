@@ -39,7 +39,7 @@ class PagesController: UIViewController {
         self.popupBar.backgroundStyle = .regular
         self.popupBar.barStyle = .compact
         
-        self.navigationController?.barHideOnTapGestureRecognizer.addTarget(self, action: #selector(hideToolBar))
+        self.configureNavigationTapRecognizer()
         self.navigationController?.isNavigationBarHidden = true
         
         setup()
@@ -49,12 +49,13 @@ class PagesController: UIViewController {
         guard let startPage = pages[start] else {
             return
         }
+        
         pageController.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
         
         let pageView = pageController.view!
         view.addSubview(pageView)
-        pageView.translatesAutoresizingMaskIntoConstraints = false
         
+        pageView.translatesAutoresizingMaskIntoConstraints = false
         pageView.topAnchor.constraint(equalTo: pageControl.bottomAnchor).isActive = true
         pageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         pageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -69,8 +70,7 @@ class PagesController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
-        self.navigationController?.hidesBarsOnTap = true
-        self.tabBarController?.tabBar.isHidden = true
+        self.configureBarsForTaps(appearing: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,12 +80,11 @@ class PagesController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         self.dismissPopupBar(animated: true, completion: nil)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
-        self.navigationController?.hidesBarsOnTap = false
-        self.tabBarController?.tabBar.isHidden = false
+        self.configureBarsForTaps(appearing: false)
     }
     
     func setAssignments(assignments: [Assignment], start: Int) {
-        self.pages = [UIViewController?](repeating: nil, count: assignments.count)
+        pages = [UIViewController?](repeating: nil, count: assignments.count)
         self.assignments = assignments
         self.start = start
         setPage(assignment: self.assignments[start], index: start)
@@ -96,22 +95,6 @@ class PagesController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @objc func hideNavBar() {
-        hideToolBar()
-        guard let hidden = self.navigationController?.isNavigationBarHidden else {
-            return
-        }
-        UIView.animate(withDuration: 0.3) {
-            self.navigationController?.isNavigationBarHidden = !hidden
-        }
-    }
-    
-    @objc func hideToolBar() {
-        self.navigationController?.isToolbarHidden = true
-        //self.view.layoutSubviews()
-    }
-
 }
 
 extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -180,7 +163,6 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
             return
         }
         webController.setURL(url: URL(string: url)!)
-        //webController.setURL(url: URL(string: "https://nofile.io")!)
         webController.shouldLoad = true
         webController.needsToolbar = false
     }

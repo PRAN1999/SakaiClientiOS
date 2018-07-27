@@ -21,8 +21,8 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
         announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
         announcementTableDataSourceDelegate.controller = self
         announcementTableDataSourceDelegate.siteId = id
-        loadSource {}
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
+        self.loadSource {}
+        self.configureNavigationItem()
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,16 +30,24 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.hidesBarsOnSwipe = true
+    override func viewDidAppear(_ animated: Bool) {
+        self.addBarSwipeHider()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.hidesBarsOnSwipe = false
+    override func viewDidDisappear(_ animated: Bool) {
+        self.removeBarSwipeHider()
     }
-    
+}
+
+extension SiteAnnouncementController: LoadableController {
     @objc func loadData() {
-        loadSourceWithoutCache() {}
+        self.loadSourceWithoutCache() {}
+    }
+}
+
+extension SiteAnnouncementController: FeedController {
+    @objc func swipeTarget() {
+        setTabBarVisibility()
     }
 }
 

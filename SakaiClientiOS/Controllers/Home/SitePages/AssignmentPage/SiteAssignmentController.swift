@@ -20,20 +20,21 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.collectionView?.backgroundColor = UIColor.white
-        super.collectionView?.contentInset = UIEdgeInsetsMake(10, 10, 10, 10)
         
         guard let id = siteId else {
             return
         }
+        
         siteAssignmentDataSourceDelegate = SiteAssignmentCollectionDataSourceDelegate(collectionView: super.collectionView!, siteId: id)
         siteAssignmentDataSourceDelegate.controller = self
         loadData()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
+        self.configureNavigationItem()
     }
+}
 
+extension SiteAssignmentController: LoadableController {
     @objc func loadData() {
-        loadSource() {}
+        self.loadSource() {}
     }
 }
 

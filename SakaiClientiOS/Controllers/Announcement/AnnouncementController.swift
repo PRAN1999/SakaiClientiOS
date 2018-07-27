@@ -21,24 +21,32 @@ class AnnouncementController: UITableViewController {
         announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
         announcementTableDataSourceDelegate.controller = self
         loadData()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
+        self.configureNavigationItem()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.hidesBarsOnSwipe = true
+        self.addBarSwipeHider()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        self.navigationController?.hidesBarsOnSwipe = false
+        self.removeBarSwipeHider()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+}
+
+extension AnnouncementController: LoadableController {
     @objc func loadData() {
-        loadSourceWithoutCache() {}
+        self.loadSourceWithoutCache() {}
+    }
+}
+
+extension AnnouncementController: FeedController {
+    @objc func swipeTarget() {
+        self.setTabBarVisibility()
     }
 }
 

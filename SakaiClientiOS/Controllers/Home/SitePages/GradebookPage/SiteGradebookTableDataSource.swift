@@ -16,4 +16,9 @@ class SiteGradebookTableDataSource: ReusableTableDataSource<SingleSectionDataPro
         fetcher = SiteGradebookDataFetcher(siteId: siteId)
         super.init(provider: SingleSectionDataProvider<GradeItem>(), tableView: tableView)
     }
+    
+    override func setup() {
+        super.setup()
+        tableView.allowsSelection = false
+    }
 }

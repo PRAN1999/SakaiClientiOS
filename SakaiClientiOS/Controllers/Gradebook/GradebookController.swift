@@ -17,24 +17,22 @@ class GradebookController: UITableViewController {
     }
     
     override func viewDidLoad() {
-        super.tableView.allowsSelection = false
-        super.tableView.showsVerticalScrollIndicator = false
-        
+        super.viewDidLoad()
         gradebookTableDataSourceDelegate = GradebookTableDataSourceDelegate(tableView: super.tableView)
         gradebookTableDataSourceDelegate.controller = self
         loadData()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
-        super.viewDidLoad()
+        self.configureNavigationItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
+}
+
+extension GradebookController: LoadableController {
     @objc func loadData() {
         gradebookTableDataSourceDelegate.hideHeaderCell()
-        loadSourceWithoutCache() {}
+        self.loadSourceWithoutCache() {}
     }
 }
 
