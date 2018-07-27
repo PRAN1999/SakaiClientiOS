@@ -21,6 +21,8 @@ class GradebookTableDataSourceDelegate : HideableNetworkTableDataSourceDelegate<
     override func setup() {
         super.setup()
         tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
+        tableView.allowsSelection = false
+        tableView.showsVerticalScrollIndicator = false
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

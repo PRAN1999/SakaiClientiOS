@@ -24,11 +24,12 @@ class AssignmentController: UITableViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         assignmentsTableDataSourceDelegate = AssignmentTableDataSourceDelegate(tableView: super.tableView)
         assignmentsTableDataSourceDelegate.controller = self
         createSegmentedControl()
         loadData()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
+        self.configureNavigationItem()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -72,12 +73,14 @@ class AssignmentController: UITableViewController {
     @objc func resort() {
         assignmentsTableDataSourceDelegate.switchSort()
     }
-    
+}
+
+extension AssignmentController: LoadableController {
     @objc func loadData() {
         segments.selectedSegmentIndex = 0
         segments.setEnabled(false, forSegmentAt: 1)
         assignmentsTableDataSourceDelegate.resetSort()
-        loadSourceWithoutCache() {
+        self.loadSourceWithoutCache() {
             self.segments.setEnabled(true, forSegmentAt: 1)
         }
     }

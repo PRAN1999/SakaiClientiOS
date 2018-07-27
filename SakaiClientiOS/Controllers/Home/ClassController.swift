@@ -11,7 +11,6 @@ class ClassController: UITableViewController {
 
     var sitePages:[SitePage] = [SitePage]()
     var siteTitle: String?
-    var numSections = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +22,7 @@ class ClassController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return numSections
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

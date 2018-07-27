@@ -14,7 +14,6 @@ class SiteGradebookController: UITableViewController, SitePageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.tableView.allowsSelection = false
         
         guard let id = siteId else {
             return
@@ -22,11 +21,13 @@ class SiteGradebookController: UITableViewController, SitePageController {
         
         siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: super.tableView, siteId: id)
         loadData()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
+        self.configureNavigationItem()
     }
-    
+}
+
+extension SiteGradebookController: LoadableController {
     @objc func loadData() {
-        loadSource() {}
+        self.loadSource() {}
     }
 }
 

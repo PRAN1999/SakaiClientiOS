@@ -21,38 +21,19 @@ class AnnouncementPageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        self.navigationController?.barHideOnTapGestureRecognizer.addTarget(self, action: #selector(hideToolBar))
-        UIApplication.shared.statusBarStyle = .default
+        self.configureNavigationTapRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = true
-        self.navigationController?.hidesBarsOnTap = true
+        self.configureBarsForTaps(appearing: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
-        self.navigationController?.hidesBarsOnTap = false
-        self.navigationController?.isNavigationBarHidden = false
+        self.configureBarsForTaps(appearing: false)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    @objc func hideToolBar() {
-        self.navigationController?.isToolbarHidden = true
-    }
-    
-    @objc func hideNavBar() {
-        hideToolBar()
-        announcementPageView.contentView.selectedTextRange = nil
-        guard let hidden = self.navigationController?.isNavigationBarHidden else {
-            return
-        }
-        UIView.animate(withDuration: 0.3) {
-            self.navigationController?.isNavigationBarHidden = !hidden
-        }
     }
     
     func setAnnouncement(_ announcement: Announcement) {
@@ -65,7 +46,7 @@ class AnnouncementPageController: UIViewController {
         }
         
         announcementPageView.contentView.delegate = self
-        announcementPageView.contentView.tapRecognizer.addTarget(self, action: #selector(hideNavBar))
+        self.configureNavigationTapRecognizer(for: announcementPageView.contentView.tapRecognizer)
         
         announcementPageView.titleLabel.titleLabel.text = item.title
         announcementPageView.authorLabel.titleLabel.text = item.author

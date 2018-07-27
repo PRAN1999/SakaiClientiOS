@@ -18,6 +18,12 @@ class SiteAssignmentCollectionDataSourceDelegate: AssignmentCollectionDataSource
         super.init(collectionView: collectionView)
     }
     
+    override func setup() {
+        super.setup()
+        collectionView.backgroundColor = UIColor.white
+        collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size:CGSize = CGSize(width: collectionView.bounds.width / 2.25, height: collectionView.frame.height / 2.8)
         return size
