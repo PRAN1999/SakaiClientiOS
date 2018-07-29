@@ -81,9 +81,4 @@ class GradebookTableDataSourceDelegate : HideableNetworkTableDataSourceDelegate<
     func hideHeaderCell() {
         headerCell.isHidden = true
     }
-    
-    @objc override func handleTap(sender: UITapGestureRecognizer) {
-        //hideHeaderCell()
-        super.handleTap(sender: sender)
-    }
 }

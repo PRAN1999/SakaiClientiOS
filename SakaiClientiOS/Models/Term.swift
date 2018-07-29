@@ -26,9 +26,9 @@ protocol TermSortable {
 struct Term {
     private static let mapTerms:[Int:String] = [1:"Spring", 9: "Fall", 6: "Summer 1", 7: "Summer 2", 12: "Winter"]
     
-    let year:Int?
-    let termInt:Int?
-    let termString:String?
+    let year        :Int?
+    let termInt     :Int?
+    let termString  :String?
     
     /**
  
@@ -41,11 +41,11 @@ struct Term {
     - Returns: A Term object
      
      */
-    private init(year:Int?,
-                 termInt:Int?,
-                 termString:String?) {
-        self.year = year
-        self.termInt = termInt
+    private init(year       :Int?,
+                 termInt    :Int?,
+                 termString :String?) {
+        self.year       = year
+        self.termInt    = termInt
         self.termString = termString
     }
     

@@ -18,11 +18,11 @@ import SwiftyJSON
 
 struct GradeItem: TermSortable, SiteSortable {
     
-    let grade:Double?
-    let points:Double
-    let title:String
-    let term:Term
-    let siteId:String
+    let grade   :Double?
+    let points  :Double
+    let title   :String
+    let term    :Term
+    let siteId  :String
     
     /**
      
@@ -37,16 +37,16 @@ struct GradeItem: TermSortable, SiteSortable {
      - Returns: a new GradeItem
      
      */
-    private init(_ grade:Double? = nil,
-                 _ points:Double,
-                 _ title:String,
-                 _ term:Term,
-                 _ siteId:String) {
-        self.grade = grade
-        self.points = points
-        self.title = title
-        self.term = term
-        self.siteId = siteId
+    private init(_ grade    :Double? = nil,
+                 _ points   :Double,
+                 _ title    :String,
+                 _ term     :Term,
+                 _ siteId   :String) {
+        self.grade      = grade
+        self.points     = points
+        self.title      = title
+        self.term       = term
+        self.siteId     = siteId
     }
     
     /**
@@ -59,14 +59,14 @@ struct GradeItem: TermSortable, SiteSortable {
      */
     
     init(data: JSON, siteId:String) {
-        let title = data["itemName"].string!
-        let points = data["points"].double!
+        let title       = data["itemName"].string!
+        let points      = data["points"].double!
+        let term        = SakaiService.shared.siteTermMap[siteId]!
+        
         var grade:Double?
         if data["grade"].string != nil {
             grade = Double(data["grade"].string!)
         }
-        //Get term from shared dictionary because Grade json data doesn't have term data
-        let term = SakaiService.shared.siteTermMap[siteId]!
         
         self.init(grade, points, title, term, siteId)
     }

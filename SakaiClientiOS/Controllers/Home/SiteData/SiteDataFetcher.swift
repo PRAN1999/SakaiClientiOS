@@ -8,7 +8,7 @@
 import Foundation
 import ReusableSource
 
-class SiteDataFetcher: HideableDataFetcher {
+class SiteDataFetcher: DataFetcher {
     
     typealias T = [[Site]]
     
@@ -16,10 +16,6 @@ class SiteDataFetcher: HideableDataFetcher {
         SakaiService.shared.getSites { siteList in
             completion(siteList)
         }
-    }
-    
-    func loadData(for section: Int, completion: @escaping ([[Site]]?) -> Void) {
-        
     }
     
 }

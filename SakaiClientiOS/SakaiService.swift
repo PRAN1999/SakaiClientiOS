@@ -256,16 +256,12 @@ class SakaiService {
                 return
             }
             
-            var assignments:[Assignment] = [Assignment]()
             guard let assignmentsJSON = JSON(data)["assignment_collection"].array else { //Ensure the JSON data has an "assignments" array
                 completion(nil)
                 return
             }
             
-            for assignmentJSON in assignmentsJSON {
-                //Construct a GradeItem object and add it to the gradeList
-                assignments.append(Assignment(data: assignmentJSON))
-            }
+            var assignments = assignmentsJSON.map { Assignment(data: $0) }
             
             assignments.sort { $0.dueDate > $1.dueDate }
             
@@ -366,5 +362,32 @@ class SakaiService {
             completion(termAssignmentArray)
         }))
         
+    }
+    
+    func getSiteResources(for siteId: String, completion: @escaping ([ResourceNode]?) -> Void) {
+        let url:String = AppGlobals.SITE_RESOURCES_URL.replacingOccurrences(of: "*", with: siteId)
+        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+            guard let response = res else {
+                completion(nil)
+                return
+            }
+            
+            guard let data = response.result.value else {
+                print("error")
+                completion(nil)
+                return
+            }
+            
+            guard let collection = JSON(data)["content_collection"].array else {
+                completion(nil)
+                return
+            }
+            
+            let resourceCollection = collection.map { ResourceItem(data: $0) }
+            
+            let tree = ResourceNode(data: resourceCollection)
+            print(tree.totalCount())
+            completion(tree.children)
+        }
     }
 }

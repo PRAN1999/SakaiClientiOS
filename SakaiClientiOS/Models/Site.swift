@@ -26,20 +26,11 @@ protocol SiteSortable {
  */
 struct Site: TermSortable {
     
-    ///The unique String id for a Site
-    let id:String
-    
-    ///The title or name of a Site
-    let title:String
-    
-    ///The Term of a Site
-    let term:Term
-    
-    ///The String description of a Site
-    let description:String?
-    
-    ///The unique SitePage objects for each individual Site
-    let pages:[SitePage]
+    let id          :String
+    let title       :String
+    let term        :Term
+    let description :String?
+    let pages       :[SitePage]
     
     /**
      
@@ -56,16 +47,16 @@ struct Site: TermSortable {
      A Site object
      
      */
-    private init(_ id:String,
-                 _ title:String,
-                 _ term:Term,
-                 _ description: String? = nil,
-                 _ pages:[SitePage]) {
-        self.id = id
-        self.title = title
-        self.term = term
-        self.description = description
-        self.pages = pages
+    private init(_ id           :String,
+                 _ title        :String,
+                 _ term         :Term,
+                 _ description  :String? = nil,
+                 _ pages        :[SitePage]) {
+        self.id             = id
+        self.title          = title
+        self.term           = term
+        self.description    = description
+        self.pages          = pages
     }
     
     /**
@@ -80,17 +71,15 @@ struct Site: TermSortable {
      
      */
     init(data:JSON) {
-        let id = data["id"].string!
-        let title = data["title"].string!
-        
-        let props = data["props"].dictionary!
-        let termString:String? = props["term_eid"]?.string
-        let term = Term(toParse: termString)
-        
+        let id          = data["id"].string!
+        let title       = data["title"].string!
+        let props       = data["props"].dictionary!
+        let termString  = props["term_eid"]?.string
+        let term        = Term(toParse: termString)
         let description = data["description"].string
+        let pages       = data["sitePages"].array!
         
-        let pages = data["sitePages"].array!
-        var sitePages:[SitePage] = []
+        var sitePages   = [SitePage]()
         for page in pages {
             sitePages.append(SitePage(data: page))
         }
