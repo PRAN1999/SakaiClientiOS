@@ -56,11 +56,10 @@ class ResourceCell: UITableViewCell, ReusableCell {
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
     }
     
     func configure(_ item: ResourceItem, at level: Int) {
         titleLabel.text = item.title
-        self.contentView.layoutMargins.left = CGFloat(11 + level * 20)
+        self.contentView.layoutMargins.left = CGFloat(level * 20)
     }
 }

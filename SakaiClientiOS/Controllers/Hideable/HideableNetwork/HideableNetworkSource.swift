@@ -7,18 +7,10 @@
 
 import ReusableSource
 
-protocol HideableNetworkSource: NetworkSource where Self.Fetcher: HideableDataFetcher, Self.Provider: HideableNetworkDataProvider {
-    
+protocol HideableNetworkSource: NetworkSource where Self.Fetcher: HideableDataFetcher {
 }
 
-extension HideableNetworkSource where Self:ReusableSource {
-    func loadDataSource(completion: @escaping () -> Void) {
-        resetValues()
-        reloadData()
-        loadDataSource(for: 0) {
-            completion()
-        }
-    }
+extension HideableNetworkSource where Self:ReusableSource, Self.Provider: HideableNetworkDataProvider, Self.Provider.V == Fetcher.T {
     
     func loadDataSource(for section:Int, completion: @escaping () -> Void) {
         fetcher.loadData(for: section) { (res) in

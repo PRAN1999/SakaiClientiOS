@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol NetworkController {
-    associatedtype Source : NetworkSource, ReusableSource
+    associatedtype Source : NetworkSource
     
     var networkSource: Source { get }
 }

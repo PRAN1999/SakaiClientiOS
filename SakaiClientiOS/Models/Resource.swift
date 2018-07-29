@@ -88,6 +88,10 @@ class ResourceNode {
         var index = 0
         for _ in 0..<numChildren {
             
+            guard index < data.count else {
+                continue
+            }
+            
             let nodeItem = data[index]
             var node: ResourceNode?
             

@@ -10,15 +10,14 @@ import Foundation
 
 public protocol NetworkSource {
     
-    associatedtype Provider: DataProvider
-    associatedtype Fetcher : DataFetcher where Provider.V == Fetcher.T
+    associatedtype Fetcher : DataFetcher
     
     var fetcher : Fetcher { get }
     
     func loadDataSource(completion: @escaping () -> Void)
 }
 
-public extension NetworkSource where Self:ReusableSource {
+public extension NetworkSource where Self:ReusableSource, Self.Provider.V == Fetcher.T {
     func loadDataSource(completion: @escaping () -> Void) {
         resetValues()
         reloadData()

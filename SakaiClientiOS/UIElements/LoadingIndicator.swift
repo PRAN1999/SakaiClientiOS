@@ -32,6 +32,7 @@ class LoadingIndicator: UIActivityIndicatorView {
         self.init(frame: frame)
         self.center = CGPoint(x: view.center.x, y: view.center.y - 80)
         view.addSubview(self)
+        view.bringSubview(toFront: self)
     }
     
     
