@@ -14,6 +14,7 @@ class SiteGradebookController: UITableViewController, SitePageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Gradebook"
         
         guard let id = siteId else {
             return

@@ -13,34 +13,23 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     
     static let reuseIdentifier: String = "termHeader"
     
-    ///The label holding the text
     var titleLabel:UILabel!
-    
-    ///The label holding the arrow indicator
     var imageLabel:UIImageView!
-    
     var activityIndicator: UIActivityIndicatorView!
-    
-    ///The background for the view
     var backgroundHeaderView: UIView!
-    
-    ///A gesture recognizer to catch taps
     var tapRecognizer: UITapGestureRecognizer!
     
-    ///Sets up subviews, adds them to self, adds constraints
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setup()
         addViews()
-        setupConstraints()
+        setConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    
-    /// Initializes and sets non-constraint attributes of subviews
     func setup() {
         titleLabel = UILabel()
         titleLabel.font = UIFont.init(name: "Helvetica", size: 25.0)
@@ -52,15 +41,12 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
         activityIndicator.hidesWhenStopped = true
         activityIndicator.color = AppGlobals.SAKAI_RED
         
-        //Initialize gesture recognizer and set attributes
         tapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
         tapRecognizer.delegate = self
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTouchesRequired = 1
     }
     
-    
-    /// Add subviews to self and set background view
     func addViews() {
         self.addSubview(titleLabel)
         self.addSubview(imageLabel)
@@ -69,9 +55,7 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
         self.addGestureRecognizer(tapRecognizer)
     }
     
-    
-    /// Set subview constraints between titleLabel and imageLabel. The titleLabel will cover the left side of the view while the imageLabel will take over the right side
-    func setupConstraints() {
+    func setConstraints() {
         let margins = self.layoutMarginsGuide
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +69,6 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
         
         activityIndicator.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor, constant: 5.0).isActive = true
         activityIndicator.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        //activityIndicator.trailingAnchor.constraint(lessThanOrEqualTo: imageLabel.leadingAnchor, constant: -20.0).isActive = true
         
         let constraint = NSLayoutConstraint(item: activityIndicator,
                                             attribute: .trailing,
@@ -105,7 +88,7 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
     }
     
     
-    /// Change the image of the header on tap
+    /// Change the image of the header on tap to indicate a collapsed or expanded section
     ///
     /// - Parameter isHidden: A variable to determine which image should be shown based on whether the section is hidden or open
     func setImage(isHidden: Bool) {
@@ -115,13 +98,5 @@ class TermHeader : UITableViewHeaderFooterView , UIGestureRecognizerDelegate {
         } else {
             imageLabel.image = UIImage(named: "hide_content")
         }
-    }
-    
-    
-    /// Set the text of the titleLabel
-    ///
-    /// - Parameter title: a String title to assign to the titleLabel.text
-    func setTitle(title: String?) {
-        titleLabel.text = title
     }
 }

@@ -13,7 +13,8 @@ public protocol ReusableCell {
 }
 
 public extension ReusableCell {
-    /// To allow any class to adopt the ReusableCell protocol without any further configuration, the standard reuseIdentifier will be the class name.
+    /// To allow any class to adopt the ReusableCell protocol without any further configuration, the standard reuseIdentifier
+    /// will be the class name.
     ///
     /// **Example**: The reuseIdentifier for:
     ///

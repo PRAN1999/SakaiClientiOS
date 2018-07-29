@@ -13,6 +13,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Announcements"
         
         guard let id = siteId else {
             return
@@ -30,11 +31,11 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.addBarSwipeHider()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.removeBarSwipeHider()
     }
 }

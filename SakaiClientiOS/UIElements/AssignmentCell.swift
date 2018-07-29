@@ -11,20 +11,11 @@ import ReusableSource
 /// A CollectionViewCell to represent an Assignment model
 class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
-    /// Specify an Assignment as the model the cell uses to configure itself
     typealias T = Assignment
     
-    /// The UILabel to hold the Assignment title
     var titleLabel:InsetUILabel!
-    
-    /// The UILabel to hold the due date for the Assignment
     var dueLabel:InsetUILabel!
-    
-    /// A TextView to hold the instructions for the Assignment
-    ///
-    /// May scroll based on content size and may contain links to content
     var descLabel:UITextView!
-    
     
     /// Since the textView has its own recognizers, a tap on the textView will not register as a cell selection
     ///
@@ -42,8 +33,6 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Instantiate titleLabel, dueLabel, and descLabel and set attributes.
-    /// Also create tapRecognizer and configure
     func setup() {
         titleLabel = InsetUILabel()
         dueLabel = InsetUILabel()
@@ -65,7 +54,6 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         self.layer.masksToBounds = false
     }
     
-    /// Add subviews to cell and add tapRecognizer as gestureRecognizer to descLabel
     func addViews() {
         self.addSubview(titleLabel)
         self.addSubview(dueLabel)

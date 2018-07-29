@@ -10,7 +10,6 @@ import ReusableSource
 
 class AnnouncementCell: UITableViewCell, ConfigurableCell {
     
-    /// Specify an Announcement as the model the cell uses to configure itself
     typealias T = Announcement
     
     var authorLabel: UILabel!
@@ -22,7 +21,6 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         super.awakeFromNib()
     }
     
-    ///Setup subviews, add them to superview, and set constraints
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -34,7 +32,6 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         super.init(coder: aDecoder)
     }
     
-    ///Setup subviews
     func setup() {
         
         authorLabel = UILabel()
@@ -54,7 +51,6 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         
     }
     
-    ///Add subviews to self
     func addViews() {
         self.contentView.addSubview(authorLabel)
         self.contentView.addSubview(titleLabel)
@@ -62,7 +58,6 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         self.contentView.addSubview(dateLabel)
     }
     
-    ///Set constraints of titleLabel, authorLabel, contentLabel, and dateLabel
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
         

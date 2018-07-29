@@ -12,22 +12,11 @@ class AssignmentDetailsView: UIScrollView {
     
     var contentView:UIView!
     
-    /// A label for the class associated with the Assignment
     var classLabel:DetailLabel!
-    
-    /// A label detailing the status of the Assignment
     var statusLabel:DetailLabel!
-    
-    /// The label containing the max points of the Assignment
     var pointsLabel:DetailLabel!
-    
-    /// A label containing the due date of the Assignment
     var dueLabel:DetailLabel!
-    
-    /// A label for the current grade of the Assignment
     var gradeLabel:DetailLabel!
-    
-    /// A label for the submission status of the Assignment
     var submissionLabel:DetailLabel!
     
     var instructionView:TappableTextView!

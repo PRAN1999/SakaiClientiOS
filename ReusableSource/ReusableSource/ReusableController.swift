@@ -8,8 +8,12 @@
 
 import Foundation
 
+/// A controller that manages a ReusableSource implementation
 public protocol ReusableController {
-    associatedtype Source: ReusableSource
     
+    /// An associated type that implements ReusableSource
+    associatedtype Source: ReusableSource
     var reusableSource: Source { get }
+    
+    
 }

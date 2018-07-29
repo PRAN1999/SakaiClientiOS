@@ -6,13 +6,11 @@
 //
 
 import UIKit
+import ReusableSource
 
 /// The "floating" header used in the gradebook view
-class FloatingHeaderCell: UITableViewCell {
-
-    static var reuseIdentifier: String = "floatingHeaderCell"
+class FloatingHeaderCell: UITableViewCell, ReusableCell {
     
-    /// The UILabel holding the title of the Site
     var titleLabel: UILabel!
     
     override func awakeFromNib() {

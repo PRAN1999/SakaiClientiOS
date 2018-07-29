@@ -29,7 +29,6 @@ class AnnouncementPageView: UIView {
         titleLabel = InsetUILabel()
         titleLabel.titleLabel.numberOfLines = 0
         titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        //titleLabel.titleLabel.textAlignment = .center
         titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
         titleLabel.layer.cornerRadius = 0
         

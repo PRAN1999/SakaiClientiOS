@@ -20,6 +20,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Assignments"
         
         guard let id = siteId else {
             return

@@ -7,25 +7,26 @@
 import Foundation
 import SwiftyJSON
 
-///SitePage represents the subpages of each Sakai site
+/// SitePage represents the subpages of each Sakai site
 struct SitePage {
     
     private static let ANNOUNCEMENT_STRING:String = "Announcements"
     private static let ASSIGNMENTS_STRING:String  = "Assignments"
     private static let GRADEBOOK_STRING:String    = "Gradebook"
+    private static let RESOURCES_STRING:String    = "Resources"
     private static let DEFAULT_STRING:String      = "None"
     
     /// A map for the common site pages shared by most classes
     private static let mapPages:[String:SitePageController.Type] = [ANNOUNCEMENT_STRING: SiteAnnouncementController.self,
-                                                                  ASSIGNMENTS_STRING:  SiteAssignmentController.self,
-                                                                  GRADEBOOK_STRING:    SiteGradebookController.self,
-                                                                  DEFAULT_STRING:      DefaultController.self
-    ]
+                                                                    ASSIGNMENTS_STRING:  SiteAssignmentController.self,
+                                                                    GRADEBOOK_STRING:    SiteGradebookController.self,
+                                                                    RESOURCES_STRING:    ResourcePageController.self,
+                                                                    DEFAULT_STRING:      DefaultController.self]
     
-    let id:String
-    let title:String
-    let siteId:String
-    let siteType:SitePageController.Type
+    let id          :String
+    let title       :String
+    let siteId      :String
+    let siteType    :SitePageController.Type
     
     /// Initializes a SitePage object with defined parameters
     ///
@@ -34,10 +35,10 @@ struct SitePage {
     ///   - title: The name of the SitePage
     ///   - siteId: The id for the Site to which the SitePage belongs
     ///   - siteType: A ViewController type detailing whether the SitePage is a defined default type
-    private init(_ id:String,
-                 _ title:String,
-                 _ siteId:String,
-                 _ siteType:SitePageController.Type) {
+    private init(_ id       :String,
+                 _ title    :String,
+                 _ siteId   :String,
+                 _ siteType :SitePageController.Type) {
         self.id = id
         self.title = title
         self.siteId = siteId
