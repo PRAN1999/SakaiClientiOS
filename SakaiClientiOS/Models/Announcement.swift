@@ -8,6 +8,7 @@
 import Foundation
 import SwiftyJSON
 
+/// A model for the Announcement item
 struct Announcement: TermSortable, SiteSortable {
     
     let author              :String

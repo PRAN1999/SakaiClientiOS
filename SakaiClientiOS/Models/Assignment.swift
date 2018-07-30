@@ -110,7 +110,6 @@ struct Assignment: TermSortable, SiteSortable {
                 attachmentString.addAttribute(.link, value: url, range: range)
                 attachmentStrings.append(attachmentString)
             }
-            
         }
         
         self.init(title, dueTimeString, dueDate, term, siteId, siteTitle, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings, siteURL)

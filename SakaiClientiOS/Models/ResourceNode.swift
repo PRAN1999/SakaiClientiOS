@@ -1,61 +1,32 @@
 //
-//  Resource.swift
+//  ResourceNode.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 7/26/18.
+//  Created by Pranay Neelagiri on 7/29/18.
 //
 
 import Foundation
-import SwiftyJSON
 
-struct ResourceItem {
-    
-    enum ContentType {
-        case collection(Int)
-        case resource
-    }
-    
-    let author      :String?
-    let title       :String?
-    let type        :ContentType
-    let url         :String?
-    let numChildren :Int
-    
-    init(_ author       :String?,
-         _ title        :String?,
-         _ type         :ContentType,
-         _ url          :String?,
-         _ numChildren  :Int?) {
-        self.author      = author
-        self.title       = title
-        self.type        = type
-        self.url         = url
-        self.numChildren = (numChildren != nil) ? numChildren! : 0
-    }
-    
-    init(data: JSON) {
-        let author      = data["author"].string
-        let title       = data["title"].string
-        let typeString  = data["type"].string
-        let size        = data["size"].int
-        let type        = (typeString == "collection" && size != nil) ? ContentType.collection(size!) : ContentType.resource
-        let url         = data["url"].string
-        let numChildren = data["numChildren"].int
-        
-        self.init(author, title, type, url, numChildren)
-    }
-}
-
+/// A Node item to represent a Tree structure for Resources
 class ResourceNode {
+    
     let resourceItem    :ResourceItem
     let children        :[ResourceNode]?
     
+    /// Initialize a ResourceNode with a data ResourceItem and children Nodes
+    ///
+    /// - Parameters:
+    ///   - resourceItem: The data item specific to the ResourceNode
+    ///   - children: The children of the ResourceNode
     init(_ resourceItem :ResourceItem,
          _ children     :[ResourceNode]?) {
         self.resourceItem   = resourceItem
         self.children       = children
     }
     
+    /// Initialize a ResourceNode with the first element in the data as the root of the ResourceNode tree
+    ///
+    /// - Parameter data: A flattened data tree with the root of the tree as the first element
     convenience init(data: [ResourceItem]) {
         let root = data[0]
         guard data.count > 1 else {
@@ -67,17 +38,12 @@ class ResourceNode {
         self.init(root, children)
     }
     
-    func totalCount() -> Int {
-        guard let children = self.children else {
-            return 0
-        }
-        var count = children.count
-        for child in children {
-            count += child.totalCount()
-        }
-        return count
-    }
-    
+    /// Recursively construct an array of child ResourceNode's given the flattened subtree and a given number of children
+    ///
+    /// - Parameters:
+    ///   - data: The flattened subtree representing all the child subtrees
+    ///   - numChildren: The number of child trees contained within the data array
+    /// - Returns: An array of child ResourceNode's
     static func constructTree(data: [ResourceItem], numChildren: Int) -> [ResourceNode]? {
         guard data.count > 0 else {
             return nil
@@ -101,7 +67,9 @@ class ResourceNode {
                 guard size > 0 else {
                     break
                 }
+                // Create an array slice of all the children of the collection based on the size of the collection
                 let childrenItems = Array(data[index+1...index+size])
+                // Recursively construct the child subtrees based on the number of direct children in the collection and the children data slice
                 let children = constructTree(data: childrenItems, numChildren: nodeItem.numChildren)
                 node = ResourceNode(nodeItem, children)
                 index += size

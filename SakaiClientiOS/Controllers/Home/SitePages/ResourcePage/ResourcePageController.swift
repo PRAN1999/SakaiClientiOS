@@ -7,6 +7,7 @@
 
 import ReusableSource
 import RATreeView
+import UIKit
 
 class ResourcePageController: UIViewController, SitePageController {
     
@@ -15,7 +16,8 @@ class ResourcePageController: UIViewController, SitePageController {
     var siteId: String?
     
     override func loadView() {
-        view = UIView()
+        treeView = RATreeView(frame: .zero)
+        self.view = treeView
         view.backgroundColor = UIColor.white
     }
 
@@ -26,22 +28,19 @@ class ResourcePageController: UIViewController, SitePageController {
             return
         }
         
-        treeView = RATreeView(frame: view.bounds)
         resourceDataSourceDelegate = ResourceTreeDataSourceDelegate(treeView: treeView, siteId: siteId)
-        self.view.addSubview(treeView)
-        
+
         loadData()
         configureNavigationItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
 extension ResourcePageController: LoadableController {
-    func loadData() {
+    @objc func loadData() {
         loadSource() {}
     }
 }

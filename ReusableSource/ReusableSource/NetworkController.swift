@@ -12,4 +12,6 @@ public protocol NetworkController {
     associatedtype Source : NetworkSource
     
     var networkSource: Source { get }
+    
+    func loadSource(completion: @escaping () -> Void)
 }

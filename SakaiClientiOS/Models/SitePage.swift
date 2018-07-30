@@ -7,7 +7,7 @@
 import Foundation
 import SwiftyJSON
 
-///SitePage represents the subpages of each Sakai site
+/// SitePage represents the subpages of each Sakai site
 struct SitePage {
     
     private static let ANNOUNCEMENT_STRING:String = "Announcements"

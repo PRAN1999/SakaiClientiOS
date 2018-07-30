@@ -7,23 +7,12 @@
 import Foundation
 import SwiftyJSON
 
-/**
- 
- A protocol for objects that can be sorted by Site and have a siteId
- 
- */
+/// A protocol for objects that can be sorted by Site and have a siteId
 protocol SiteSortable {
-    
     var siteId:String { get }
 }
 
-/**
- 
- A struct to represent a user Site object.
- 
- Can be sorted by Term
- 
- */
+/// A model to represent a user Site object.
 struct Site: TermSortable {
     
     let id          :String
@@ -32,21 +21,14 @@ struct Site: TermSortable {
     let description :String?
     let pages       :[SitePage]
     
-    /**
-     
-     Initializes a Site object with the provided specifications
-     
-     - parameters:
-         - id: The unique String identifier for a Site
-         - title: The title or name of the Site
-         - term: The Term during which this Site was active
-         - description: A description of the Site's content
-         - pages: An array of SitePages unique to the Site
-     
-     - returns:
-     A Site object
-     
-     */
+    /// Initializes a Site object with the provided specifications
+    ///
+    /// - Parameters:
+    ///   - id: The unique String identifier for a Site
+    ///   - title: The title or name of the Site
+    ///   - term: The Term during which this Site was active
+    ///   - description: A description of the Site's content
+    ///   - pages: An array of SitePages unique to the Site
     private init(_ id           :String,
                  _ title        :String,
                  _ term         :Term,
@@ -59,17 +41,9 @@ struct Site: TermSortable {
         self.pages          = pages
     }
     
-    /**
-     
-     Takes a JSON object that represents a Site and parses it for specifications specific to Site before initializing Site object
-     
-     - parameters:
-        - data: JSON object representing Site from HTTP call
-     
-     - returns:
-     A Site object
-     
-     */
+    /// Takes a JSON object that represents a Site and parses it for specifications specific to Site before initializing Site object
+    ///
+    /// - Parameter data: JSON object representing Site from HTTP call
     init(data:JSON) {
         let id          = data["id"].string!
         let title       = data["title"].string!
@@ -87,15 +61,11 @@ struct Site: TermSortable {
         self.init(id, title, term, description, sitePages)
     }
     
-    /**
-     
-     Sorts and splits an array of T:SiteSortable items by siteid and returns a 2-dimensional array of T where each sub-array represents the items for a specific Site
-     
-     - Parameter listToSort: The [T:SiteSortable] array that needs to be sorted by Site
-     
-     - Returns: A two-dimensional array of T split by siteId
-     
-    */
+    /// Sorts and splits an array of T:SiteSortable items by siteid and returns a 2-dimensional array of T where each sub-array represents the items for a specific Site
+    ///
+    /// - Parameter listToSort: The [T:SiteSortable] array that needs to be sorted by Site
+    ///
+    /// - Returns: A two-dimensional array of T split by siteId
     static func splitBySites<T:SiteSortable>(listToSort:[T]?) -> [[T]]? {
         guard let list = listToSort else {
             return nil
@@ -103,8 +73,7 @@ struct Site: TermSortable {
         
         var sortedList:[[T]] = [[T]]()
         
-        //Maintain a map of site Id's to array indices so items can be added to the correct inner array
-        //This is because Site's cannot be compared like Terms, and therefore have to be split
+        // Maintain a map of site Id's to array indices so items can be added to the correct inner array. This is because Site's cannot be compared like Terms, and therefore have to be split
         var mapSiteIdToIndex:[String:Int] = [:]
         var i:Int = 0
         
