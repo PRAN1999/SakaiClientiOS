@@ -8,12 +8,16 @@
 
 import UIKit
 
+/// Subclass ReusableCollectionDataSource to add UICollectionViewDelegate conformance for added flexibility managing collectionView
 open class ReusableCollectionDataSourceFlowDelegate<Provider: DataProvider, Cell: UICollectionViewCell & ConfigurableCell> : ReusableCollectionDataSource<Provider, Cell>, UICollectionViewDelegateFlowLayout where Provider.T == Cell.T {
     
+    /// Assign dataSource and delegate of collectionView to and register Cell.self with collectionView
     open override func setup() {
         super.setup()
         collectionView.delegate = self
     }
+    
+    // MARK: Delegate methods implemented here because subclasses cannot provide protocol method implementation, so they must be overridden
     
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //Override and implement

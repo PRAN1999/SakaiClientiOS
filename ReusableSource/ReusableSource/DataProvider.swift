@@ -36,7 +36,7 @@ public protocol DataProvider {
     /// - Returns: Item of type T to configure cell
     func item(at indexPath: IndexPath) -> T?
     
-    /// Reset internal managed data, often for reloading ReusableSource
+    /// Reset internal managed data, often for reloading/resetting ReusableSource
     func resetValues()
     
     /// Load or set internal managed data with payload of type V

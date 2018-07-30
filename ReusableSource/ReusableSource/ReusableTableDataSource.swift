@@ -8,11 +8,17 @@
 
 import Foundation
 
-open class ReusableTableDataSource<Provider:DataProvider, Cell:UITableViewCell & ConfigurableCell>: NSObject, UITableViewDataSource, ReusableSource where Provider.T == Cell.T {
+/// A generic implementation for a UITableViewDataSource with a DataProvider and ConfigurableCell where the Provider and Cell deal with the same associated model
+open class ReusableTableDataSource<Provider: DataProvider, Cell: UITableViewCell & ConfigurableCell>: NSObject, UITableViewDataSource, ReusableSource where Provider.T == Cell.T {
     
     public let provider: Provider
     public let tableView: UITableView
     
+    /// Initialize the DataSource
+    ///
+    /// - Parameters:
+    ///   - provider: A Provider object to populate the DataSource
+    ///   - tableView: The UITableView to manage within the data source
     public init(provider: Provider, tableView: UITableView) {
         self.provider = provider
         self.tableView = tableView
@@ -20,6 +26,7 @@ open class ReusableTableDataSource<Provider:DataProvider, Cell:UITableViewCell &
         setup()
     }
     
+    /// Assign the tableView dataSource and register the associated Cell class with the tableView
     open func setup() {
         tableView.dataSource = self
         
@@ -31,10 +38,10 @@ open class ReusableTableDataSource<Provider:DataProvider, Cell:UITableViewCell &
     }
     
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print("Section: \(section), Rows: \(provider.numberOfItems(in: section))")
         return provider.numberOfItems(in: section)
     }
     
+    /// Provide a default implementation for returning and configuring a UITableViewCell making use of DataProvider and ConfigurableCell methods
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as? Cell else {
             return UITableViewCell()
