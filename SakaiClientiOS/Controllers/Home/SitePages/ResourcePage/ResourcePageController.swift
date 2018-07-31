@@ -23,6 +23,7 @@ class ResourcePageController: UIViewController, SitePageController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Resources"
         
         guard let siteId = siteId else {
             return

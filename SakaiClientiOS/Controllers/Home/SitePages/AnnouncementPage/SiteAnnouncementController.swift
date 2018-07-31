@@ -13,6 +13,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Announcements"
         
         guard let id = siteId else {
             return
