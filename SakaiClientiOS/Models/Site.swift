@@ -83,10 +83,10 @@ struct Site: TermSortable {
             let sortableItem:T = list[index]
             
             if let index = mapSiteIdToIndex[sortableItem.siteId] {
-                //If the siteId exists in the dictionary, add the SiteSortable item to the corresponding inner array
+                // If the siteId exists in the dictionary, add the SiteSortable item to the corresponding inner array
                 sortedList[index].append(sortableItem)
             } else {
-                //If the siteId does not exist in the dictionary, add it to the dictionary and update the next open index count
+                // If the siteId does not exist in the dictionary, add it to the dictionary and update the next open index count
                 mapSiteIdToIndex.updateValue(i, forKey: sortableItem.siteId)
                 sortedList.append([T]())
                 sortedList[i].append(sortableItem)

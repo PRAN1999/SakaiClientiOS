@@ -25,17 +25,10 @@ class SiteDataProvider : HideableDataProvider {
     }
     
     func numberOfItems(in section: Int) -> Int {
-        guard section >= 0 && section < filteredSites.count else {
-            return 0
-        }
         return filteredSites[section].count
     }
     
     func item(at indexPath: IndexPath) -> Site? {
-        guard indexPath.section >= 0 && indexPath.section < sites.count &&
-            indexPath.row >= 0 && indexPath.row < sites[indexPath.section].count else {
-                return nil
-        }
         return filteredSites[indexPath.section][indexPath.row]
     }
     

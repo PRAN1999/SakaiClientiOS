@@ -7,7 +7,7 @@
 
 import ReusableSource
 
-extension NetworkController where Self:UIViewController {
+extension NetworkController where Self: UIViewController {
     
     func loadSource(completion: @escaping () -> Void) {
         let indicator = LoadingIndicator(view: view)

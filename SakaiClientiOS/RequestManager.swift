@@ -70,7 +70,6 @@ class RequestManager {
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.updateValue(value, forKey: key)
     }
     
-    
     /// Ends Sakai session by resetting Alamofire Session and uses main thread to reroute app control to LoginViewController.
     ///
     /// - Parameter completion: A callback to execute once user has been logged out

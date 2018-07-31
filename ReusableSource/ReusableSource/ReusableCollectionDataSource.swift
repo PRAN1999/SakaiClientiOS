@@ -14,7 +14,7 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
     public let provider: Provider
     public let collectionView: UICollectionView
     
-    /// Initialize the DataSource
+    /// Initialize the DataSource and setup the managed UICollectionView
     ///
     /// - Parameters:
     ///   - provider: A Provider object to populate the DataSource

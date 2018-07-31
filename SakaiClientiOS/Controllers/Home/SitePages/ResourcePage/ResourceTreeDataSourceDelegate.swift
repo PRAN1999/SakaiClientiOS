@@ -14,6 +14,8 @@ class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeView
     let treeView: RATreeView
     let fetcher: ResourceDataFetcher
     
+    var controller: UIViewController?
+    
     var resources: [ResourceNode] = []
     
     init(treeView: RATreeView, siteId: String) {
@@ -56,7 +58,36 @@ class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeView
         }
         
         cell.configure(item.resourceItem, at: treeView.levelForCell(forItem: item))
+        
         return cell
+    }
+    
+    // MARK: Treeview Delegate
+    
+    func treeView(_ treeView: RATreeView, canEditRowForItem item: Any) -> Bool {
+        return false
+    }
+    
+    func treeView(_ treeView: RATreeView, didSelectRowForItem item: Any) {
+        guard let resource = item as? ResourceNode else {
+            return
+        }
+        
+        switch(resource.resourceItem.type) {
+        case .collection:
+            return
+        case .resource:
+            let webController = WebController()
+            guard let urlString = resource.resourceItem.url else {
+                return
+            }
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            webController.setURL(url: url)
+            controller?.navigationController?.pushViewController(webController, animated: true)
+        }
+        treeView.deselectRow(forItem: item, animated: false)
     }
     
     func loadDataSource(completion: @escaping () -> Void) {

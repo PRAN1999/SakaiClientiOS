@@ -29,6 +29,7 @@ class ResourcePageController: UIViewController, SitePageController {
         }
         
         resourceDataSourceDelegate = ResourceTreeDataSourceDelegate(treeView: treeView, siteId: siteId)
+        resourceDataSourceDelegate.controller = self
 
         loadData()
         configureNavigationItem()

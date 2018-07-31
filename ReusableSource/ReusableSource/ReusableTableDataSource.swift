@@ -14,7 +14,7 @@ open class ReusableTableDataSource<Provider: DataProvider, Cell: UITableViewCell
     public let provider: Provider
     public let tableView: UITableView
     
-    /// Initialize the DataSource
+    /// Initialize the DataSource and setup the managed UITableView
     ///
     /// - Parameters:
     ///   - provider: A Provider object to populate the DataSource
