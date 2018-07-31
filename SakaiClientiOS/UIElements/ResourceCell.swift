@@ -23,7 +23,6 @@ class ResourceCell: UITableViewCell, ReusableCell {
         super.awakeFromNib()
     }
     
-    ///Setup subviews, add them to superview, and set constraints
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -35,9 +34,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
         super.init(coder: aDecoder)
     }
     
-    ///Setup subviews
     func setup() {
-        //Instantiate titleLabel and set attributes
         titleLabel = InsetUILabel()
         titleLabel.textColor = UIColor.black
         titleLabel.titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.light)
@@ -56,7 +53,6 @@ class ResourceCell: UITableViewCell, ReusableCell {
         spaceView = UIView()
     }
     
-    ///Add subviews to self
     func addViews() {
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(leftBorder)
@@ -64,7 +60,6 @@ class ResourceCell: UITableViewCell, ReusableCell {
         self.contentView.addSubview(spaceView)
     }
     
-    ///Set constraints of titleLabel
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
         
@@ -93,7 +88,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
         spaceView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
     
-    func configure(_ item: ResourceItem, at level: Int) {
+    func configure(_ item: ResourceItem, at level: Int, isExpanded: Bool) {
         titleLabel.titleLabel.text = item.title
         leftBorder.backgroundColor = getColor(for: level)
         let left = CGFloat(level == 0 ? 0 : level * 20 + 10)
@@ -104,6 +99,11 @@ class ResourceCell: UITableViewCell, ReusableCell {
             self.accessoryType = .none
             sizeLabel.text = String(item.numChildren)
             sizeLabel.isHidden = false
+            if isExpanded {
+                sizeLabel.backgroundColor = getColor(for: level)
+            } else {
+                sizeLabel.backgroundColor = UIColor.lightGray
+            }
             break
         case .resource:
             self.selectionStyle = .default
@@ -117,13 +117,13 @@ class ResourceCell: UITableViewCell, ReusableCell {
         let mod = level % 4
         switch(mod) {
         case 0:
-            return AppGlobals.SAKAI_RED
+            return UIColor(red: 199.0 / 256.0, green: 26.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
         case 1:
-            return UIColor.red
+            return UIColor(red: 199.0 / 256.0, green: 66.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
         case 2:
-            return UIColor(red: 244.0 / 256.0, green: 86.0 / 255.0, blue: 66.0 / 255.0, alpha: 1.0)
+            return UIColor(red: 199.0 / 256.0, green: 104.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
         case 3:
-            return UIColor.orange
+            return UIColor(red: 199.0 / 256.0, green: 142.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
         default:
             return UIColor.black
         }
@@ -133,5 +133,9 @@ class ResourceCell: UITableViewCell, ReusableCell {
         super.layoutSubviews()
         contentView.layoutSubviews()
         sizeLabel.layer.cornerRadius = sizeLabel.bounds.size.height / 2
+    }
+    
+    override func prepareForReuse() {
+        sizeLabel.backgroundColor = UIColor.lightGray
     }
 }

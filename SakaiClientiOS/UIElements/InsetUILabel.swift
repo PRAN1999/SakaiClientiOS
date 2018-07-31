@@ -12,8 +12,6 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
 
     /// The titleLabel containing the inset content of the view
     var titleLabel:UILabel!
-    
-    /// A recognizer to detect taps in the view
     var tapRecognizer: UITapGestureRecognizer!
     
     override init(frame: CGRect) {
@@ -27,7 +25,6 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Setup titleLabel and add attributes
     func setup() {
         titleLabel = UILabel()
         titleLabel.lineBreakMode = .byWordWrapping
@@ -46,7 +43,6 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         self.addSubview(titleLabel)
     }
     
-    /// Set titleLabel constraints
     func setConstraints() {
         let margins = self.layoutMarginsGuide
         

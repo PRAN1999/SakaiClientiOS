@@ -27,7 +27,7 @@ class HideableTableDataSourceDelegate<Provider: HideableDataProvider, Cell: UITa
         }
         view.tag = section
         view.setImage(isHidden: provider.isHidden[section])
-        view.setTitle(title: provider.terms[section].getTitle())
+        view.titleLabel.text = provider.terms[section].getTitle()
         view.tapRecognizer.delegate = self
         view.tapRecognizer.addTarget(self, action: #selector(handleTap))
         return view

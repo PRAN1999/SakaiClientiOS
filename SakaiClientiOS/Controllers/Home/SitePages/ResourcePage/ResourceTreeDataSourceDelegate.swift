@@ -57,7 +57,9 @@ class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeView
             return UITableViewCell()
         }
         
-        cell.configure(item.resourceItem, at: treeView.levelForCell(forItem: item))
+        let isExpanded = treeView.isCell(forItemExpanded: item)
+        
+        cell.configure(item.resourceItem, at: treeView.levelForCell(forItem: item), isExpanded: isExpanded)
         
         return cell
     }
@@ -73,8 +75,17 @@ class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeView
             return
         }
         
+        guard let cell = treeView.cell(forItem: item) as? ResourceCell else {
+            return
+        }
+        
+        let level = treeView.level(for: cell)
+        
+        let isExpanded = !treeView.isCellExpanded(cell)
+        
         switch(resource.resourceItem.type) {
         case .collection:
+            cell.configure(resource.resourceItem, at: level, isExpanded: isExpanded)
             return
         case .resource:
             let webController = WebController()
@@ -86,8 +97,8 @@ class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeView
             }
             webController.setURL(url: url)
             controller?.navigationController?.pushViewController(webController, animated: true)
+            treeView.deselectRow(forItem: item, animated: false)
         }
-        treeView.deselectRow(forItem: item, animated: false)
     }
     
     func loadDataSource(completion: @escaping () -> Void) {

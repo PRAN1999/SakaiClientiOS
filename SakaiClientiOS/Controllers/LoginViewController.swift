@@ -11,7 +11,7 @@ import WebKit
  
  */
 
-class LoginViewController: WebController, WKUIDelegate, WKNavigationDelegate {
+class LoginViewController: WebController {
     
     override var shouldAutorotate: Bool {
         return false
@@ -28,8 +28,6 @@ class LoginViewController: WebController, WKUIDelegate, WKNavigationDelegate {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.webView.uiDelegate = self
-        super.webView.navigationDelegate = self;
         RequestManager.shared.resetCache()
         let myURL = URL(string: AppGlobals.LOGIN_URL)
         loadURL(urlOpt: myURL!)
@@ -44,7 +42,7 @@ class LoginViewController: WebController, WKUIDelegate, WKNavigationDelegate {
      Captures HTTP Cookies from specific URLs and loads them into Alamofire Session, allowing all future requests to be authenticated.
      
      */
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    override func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         if webView.url!.absoluteString == AppGlobals.COOKIE_URL_1 || webView.url!.absoluteString == AppGlobals.COOKIE_URL_2 {
             let store = WKWebsiteDataStore.default().httpCookieStore
@@ -66,7 +64,7 @@ class LoginViewController: WebController, WKUIDelegate, WKNavigationDelegate {
      Stops webview navigation and forces controller transition once target URL is reaches
      
      */
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+    override func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         let response = navigationResponse.response as? HTTPURLResponse
         let headers = response!.allHeaderFields
         for header in headers {

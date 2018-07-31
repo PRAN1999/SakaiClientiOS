@@ -14,20 +14,18 @@ class ResourcePageController: UIViewController, SitePageController {
     var treeView: RATreeView!
     var resourceDataSourceDelegate: ResourceTreeDataSourceDelegate!
     var siteId: String?
-    
-    override func loadView() {
-        treeView = RATreeView(frame: .zero)
-        self.view = treeView
-        view.backgroundColor = UIColor.white
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.white
         self.title = "Resources"
         
         guard let siteId = siteId else {
             return
         }
+        
+        treeView = RATreeView(frame: view.bounds)
+        view.addSubview(treeView)
         
         resourceDataSourceDelegate = ResourceTreeDataSourceDelegate(treeView: treeView, siteId: siteId)
         resourceDataSourceDelegate.controller = self

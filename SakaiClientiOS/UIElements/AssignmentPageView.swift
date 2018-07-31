@@ -12,8 +12,6 @@ class AssignmentPageView: UIView {
     
     /// A scrollView containing all the relevant Assignment information
     var scrollView:AssignmentDetailsView!
-    
-    /// A UILabel for the Assignment title, will be static
     var titleLabel:InsetUILabel!
     
     override init(frame: CGRect) {

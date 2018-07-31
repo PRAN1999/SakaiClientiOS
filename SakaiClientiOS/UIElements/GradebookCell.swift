@@ -11,13 +11,8 @@ import ReusableSource
 /// The table view cell to display a GradeItem in a gradebook
 class GradebookCell: UITableViewCell, ConfigurableCell {
     
-    /// Specify a GradeItem as the model the cell uses to configure itself
     typealias T = GradeItem
-    
-    /// The UILabel for the name of the gradebook entry
     var titleLabel:UILabel!
-    
-    /// The UILabel for the points earned and max grade of the gradebook item
     var gradeLabel:UILabel!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -31,7 +26,6 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
         super.init(coder: aDecoder)
     }
     
-    /// Instantiate UILabels and set alignment and text-wrapping properties
     func setup() {
         gradeLabel = UILabel()
         gradeLabel.textAlignment = NSTextAlignment.right
@@ -41,13 +35,11 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     }
     
-    ///Add subviews to tableview contentView
     func addViews() {
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(gradeLabel)
     }
     
-    /// Constrain titleLabel and imageLabel within contentView
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
         

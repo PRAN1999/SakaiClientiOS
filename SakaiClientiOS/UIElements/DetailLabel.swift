@@ -10,10 +10,7 @@ import UIKit
 /// A UILabel to represent any key-value pair
 class DetailLabel: UILabel {
     
-    /// A label to represent a key in a key-value pair
     var titleLabel:UILabel!
-    
-    /// A label to show the value in a key-value pair
     var detailLabel:UILabel!
 
     override init(frame: CGRect) {
@@ -27,7 +24,6 @@ class DetailLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Instantiate and configure titleLabel and detailLabel
     func setup() {
         detailLabel = UILabel()
         detailLabel.textAlignment = NSTextAlignment.right
@@ -65,7 +61,7 @@ class DetailLabel: UILabel {
         detailLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
     
-    /// Set the key-value text of the titleLabel
+    /// Set the key-value text of the view
     ///
     /// - Parameters:
     ///   - key: The key string in the key-value pair

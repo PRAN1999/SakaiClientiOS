@@ -30,7 +30,7 @@ class LoadingIndicator: UIActivityIndicatorView {
     ///   - view: The view to which the loading indicator should be added
     convenience init(frame: CGRect, view: UIView) {
         self.init(frame: frame)
-        self.center = CGPoint(x: view.center.x, y: view.center.y - 80)
+        self.center = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2 - 80)
         view.addSubview(self)
         view.bringSubview(toFront: self)
     }

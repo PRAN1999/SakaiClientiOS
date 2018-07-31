@@ -11,21 +11,13 @@ import ReusableSource
 /// A TableViewCell to represent a group of Assignment objects, either for a specific class or for an entire Term
 class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     
-    /// Specify an Assignment list as the model the cell uses to configure itself
     typealias T = [Assignment]
     
-    /// The title of the cell, whether it be for a Site or for all assignments in a Term
     var titleLabel: UILabel!
     
-    /// The UICollectionView to hold the AssignmentCells for each Assignment in the Assignment list for the cell
-    ///
-    /// Scrolls horizontally
     var collectionView: UICollectionView!
-    
-    /// The data source and delegate object for the CollectionView
     var dataSourceDelegate: AssignmentCollectionDataSourceDelegate!
 
-    /// Setup subviews, add them to cell, and set constraints
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -37,8 +29,6 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         super.init(coder: aDecoder)
     }
     
-    
-    /// Setup titleLabel and collectionView, along with collectionView data source and delegate
     func setup() {
         titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
@@ -58,13 +48,11 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         dataSourceDelegate = AssignmentCollectionDataSourceDelegate(collectionView: collectionView)
     }
     
-    /// Add titleLabel and collectionView to cell
     func addViews() {
         self.addSubview(titleLabel)
         self.addSubview(collectionView)
     }
     
-    /// Add constraints to titleLabel and collectionView
     func setConstraints() {
         let margins = self.layoutMarginsGuide
         
