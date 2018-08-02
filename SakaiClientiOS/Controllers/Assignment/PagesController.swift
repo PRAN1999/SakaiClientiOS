@@ -10,22 +10,29 @@ import LNPopupController
 
 class PagesController: UIViewController {
 
-    @IBOutlet weak var pageControl: UIPageControl!
+    var pageControl: UIPageControl!
+    var pageControlView: UIView!
     var pageController:UIPageViewController!
     var pages: [UIViewController?]!
+    
     var webController: WebController
     var popupController: WebViewNavigationController!
-    var assignments: [Assignment]!
     
+    var assignments: [Assignment]!
     var start:Int = 0
     var pendingIndex:Int? = 0
     
     required init?(coder aDecoder: NSCoder) {
         pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pages = [UIViewController]()
+        
         assignments = [Assignment]()
+        
         webController = WebController()
         popupController = WebViewNavigationController(rootViewController: webController)
+        
+        pageControl = UIPageControl()
+        pageControlView = UIView()
         
         super.init(coder: aDecoder)
     }
@@ -33,14 +40,10 @@ class PagesController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        popupController.title = "DRAG TO SUBMIT"
-        
-        self.popupInteractionStyle = .default
-        self.popupBar.backgroundStyle = .regular
-        self.popupBar.barStyle = .compact
-        
-        self.configureNavigationTapRecognizer()
-        self.navigationController?.isNavigationBarHidden = true
+        webController.title = "DRAG TO SUBMIT"
+        self.navigationController?.popupInteractionStyle = .default
+        self.navigationController?.popupBar.backgroundStyle = .regular
+        self.navigationController?.popupBar.barStyle = .compact
         
         setup()
     }
@@ -55,8 +58,15 @@ class PagesController: UIViewController {
         let pageView = pageController.view!
         view.addSubview(pageView)
         
+        pageControl.tintColor = UIColor.white
+        pageControl.currentPageIndicatorTintColor = AppGlobals.SAKAI_RED
+        
+        pageControlView.addSubview(pageControl)
+        
+        self.navigationItem.titleView = pageControlView
+        
         pageView.translatesAutoresizingMaskIntoConstraints = false
-        pageView.topAnchor.constraint(equalTo: pageControl.bottomAnchor).isActive = true
+        pageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         pageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         pageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -70,17 +80,18 @@ class PagesController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
-        self.configureBarsForTaps(appearing: true)
+        self.navigationController?.isToolbarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
+        self.navigationController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.dismissPopupBar(animated: true, completion: nil)
+        self.navigationController?.dismissPopupBar(animated: true, completion: nil)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
-        self.configureBarsForTaps(appearing: false)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func setAssignments(assignments: [Assignment], start: Int) {
@@ -95,6 +106,11 @@ class PagesController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func openSubmit(_ sender: Any) {
+        self.navigationController?.pushViewController(webController, animated: true)
+    }
+    
 }
 
 extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -164,6 +180,6 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         }
         webController.setURL(url: URL(string: url)!)
         webController.shouldLoad = true
-        webController.needsToolbar = false
+        webController.needsNav = false
     }
 }

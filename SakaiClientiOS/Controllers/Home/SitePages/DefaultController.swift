@@ -9,12 +9,11 @@ import UIKit
 
 class DefaultController: UIViewController, SitePageController {
     
-    var isSitePage: Bool = false
     var siteId: String?
     
     override func loadView() {
         self.view = UIView()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor.white
     }
 
     override func viewDidLoad() {

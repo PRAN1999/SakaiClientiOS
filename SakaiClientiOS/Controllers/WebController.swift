@@ -14,14 +14,22 @@ class WebController: UIViewController {
     var progressView: UIProgressView!
     var url:URL?
     var shouldLoad: Bool = true
-    var needsToolbar: Bool = true
+    var needsNav: Bool = true
     
-    /**
-     
-     Sets the webview delegates for navigation and UI to the view controller itself,
-     allowing the view controller to directly control the webview appearance and requests
-     
-     */
+    var backButton: UIBarButtonItem?
+    var forwardButton: UIBarButtonItem?
+    var flexButton: UIBarButtonItem?
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
+    }
+    
+    /// Sets the webview delegates for navigation and UI to the view controller itself, allowing the view controller to directly control the webview appearance and requests
     override func loadView() {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = RequestManager.shared.processPool
@@ -41,19 +49,22 @@ class WebController: UIViewController {
     }
     
     deinit {
-        //remove all observers
+        guard webView != nil else {
+            return
+        }
         webView.removeObserver(self, forKeyPath: "estimatedProgress")
-        //remove progress bar from navigation bar
         progressView.removeFromSuperview()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         webView.allowsBackForwardNavigationGestures = true
-        if needsToolbar {
+        if needsNav {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadWebview))
             self.navigationController?.isNavigationBarHidden = false
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadWebview))
+        } else {
+            self.navigationController?.isNavigationBarHidden = true
         }
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
@@ -61,21 +72,27 @@ class WebController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
         if shouldLoad {
             loadURL(urlOpt: url)
         }
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupToolbar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
         if (self.isMovingFromParentViewController) {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
-        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.setToolbarHidden(true, animated: true)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -87,6 +104,30 @@ class WebController: UIViewController {
         }
     }
     
+    func setupToolbar() {
+        flexButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        backButton = UIBarButtonItem(title: "Back", style: .plain,target: self, action: #selector(goBack))
+        forwardButton = UIBarButtonItem(title: "Forward", style: .plain,target: self, action: #selector(goForward))
+        
+        let arr = [backButton!, flexButton!, forwardButton!]
+        
+        self.navigationController?.toolbar.setItems(arr, animated: true)
+        self.navigationController?.toolbar.barTintColor = UIColor.black
+        self.navigationController?.toolbar.tintColor = AppGlobals.SAKAI_RED
+    }
+    
+    @objc func goBack() {
+        if webView.canGoBack {
+            webView.goBack()
+        }
+    }
+    
+    @objc func goForward() {
+        if webView.canGoForward {
+            webView.goForward()
+        }
+    }
+    
     @objc func loadWebview() {
         loadURL(urlOpt: url)
     }
@@ -95,7 +136,6 @@ class WebController: UIViewController {
         guard let url = urlOpt else {
             return
         }
-        
         webView.load(URLRequest(url: url))
         shouldLoad = false
     }
@@ -108,9 +148,7 @@ class WebController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func canRotate() -> Void {
-        
-    }
+    @objc func canRotate() -> Void {}
 }
 
 extension WebController: WKUIDelegate, WKNavigationDelegate {
@@ -130,13 +168,32 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.progressView.isHidden = true
         }
+        webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
     }
 }
 
 class WebViewNavigationController: UINavigationController {
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        // fix webview input-file dismiss-twice bug
-        if let _ = self.presentedViewController {
+    
+    private weak var documentPicker: UIDocumentPickerViewController?
+
+    public override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        if viewControllerToPresent is UIDocumentPickerViewController {
+            self.documentPicker = viewControllerToPresent as? UIDocumentPickerViewController
+        }
+        super.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+
+    override public func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        if self.presentedViewController == nil && self.documentPicker != nil {
+            self.documentPicker = nil
+        }else{
             super.dismiss(animated: flag, completion: completion)
         }
     }

@@ -20,6 +20,8 @@ class SakaiService {
     ///A dictionary mapping siteID's for all the user Site's to the respective Site name.
     var siteTitleMap:[String:String] = [:]
     
+    var siteAssignmentToolMap:[String:String] = [:]
+    
     /// An Array of Term-[SiteId] mappings that act as the source of truth for loading data by Term in a HideableNetworkSource
     var termMap: [(Term, [String])] = []
     
@@ -29,6 +31,7 @@ class SakaiService {
     func reset() {
         siteTermMap = [:]
         siteTitleMap = [:]
+        siteAssignmentToolMap = [:]
         termMap = []
     }
 

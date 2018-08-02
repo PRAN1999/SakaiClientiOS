@@ -47,8 +47,19 @@ class ClassController: UITableViewController {
         sitePage = page.siteType.init()
         sitePage.siteId = page.siteId
         
-        guard let controller = sitePage as? UIViewController else {
+        guard var controller = sitePage as? UIViewController else {
             return
+        }
+        
+        if page.siteType == DefaultController.self {
+            controller = WebController()
+            guard let controller = controller as? WebController else {
+                return
+            }
+            guard let url = URL(string: page.url) else {
+                return
+            }
+            controller.setURL(url: url)
         }
         
         self.navigationController?.pushViewController(controller, animated: true)

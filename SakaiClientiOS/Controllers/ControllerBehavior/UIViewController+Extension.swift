@@ -25,6 +25,7 @@ extension UIViewController {
     func configureBarsForTaps(appearing: Bool) {
         self.navigationController?.hidesBarsOnTap = appearing
         self.tabBarController?.tabBar.isHidden = appearing
+        self.navigationController?.setToolbarHidden(true, animated: true)
         if !appearing {
             self.navigationController?.isNavigationBarHidden = false
         }

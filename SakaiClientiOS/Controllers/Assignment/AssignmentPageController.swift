@@ -43,9 +43,6 @@ class AssignmentPageController: UIViewController {
         
         pageView.scrollView.instructionView.delegate = delegate
         pageView.scrollView.attachmentsView.delegate = delegate
-        
-        delegate.configureNavigationTapRecognizer(for: pageView.scrollView.instructionView.tapRecognizer)
-        delegate.configureNavigationTapRecognizer(for: pageView.scrollView.attachmentsView.tapRecognizer)
     }
 
 }

@@ -23,7 +23,7 @@ extension String {
         let calendar = Calendar(identifier: .gregorian)
         
         if calendar.isDateInToday(date) {
-            formatter.dateFormat = "HH:mm a"
+            formatter.dateFormat = "hh:mm a"
             return formatter.string(from:date)
         }
         

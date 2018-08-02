@@ -49,6 +49,7 @@ extension SiteAnnouncementController: LoadableController {
 extension SiteAnnouncementController: FeedController {
     @objc func swipeTarget() {
         setTabBarVisibility()
+        self.navigationController?.setToolbarHidden(true, animated: true)
     }
 }
 
