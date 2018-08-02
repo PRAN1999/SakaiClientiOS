@@ -27,6 +27,7 @@ struct SitePage {
     let title       :String
     let siteId      :String
     let siteType    :SitePageController.Type
+    let url         :String
     
     /// Initializes a SitePage object with defined parameters
     ///
@@ -38,11 +39,13 @@ struct SitePage {
     private init(_ id       :String,
                  _ title    :String,
                  _ siteId   :String,
-                 _ siteType :SitePageController.Type) {
+                 _ siteType :SitePageController.Type,
+                 _ url      :String) {
         self.id = id
         self.title = title
         self.siteId = siteId
         self.siteType = siteType
+        self.url = url
     }
     
     /// A convenient initializer to take a JSON object and parses it to construct a SitePage
@@ -52,12 +55,16 @@ struct SitePage {
         let id:String = data["id"].string!
         let title:String = data["title"].string!
         let siteId:String = data["siteId"].string!
+        let url:String = data["url"].string!
         let siteType:SitePageController.Type
         if SitePage.mapPages[title] != nil {
             siteType = SitePage.mapPages[title]!
         } else {
             siteType = SitePage.mapPages[SitePage.DEFAULT_STRING]!
         }
-        self.init(id, title, siteId, siteType)
+        if title == "Assignments" {
+            SakaiService.shared.siteAssignmentToolMap.updateValue(url, forKey: siteId)
+        }
+        self.init(id, title, siteId, siteType, url)
     }
 }

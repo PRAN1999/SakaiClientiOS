@@ -89,7 +89,11 @@ struct Assignment: TermSortable, SiteSortable {
         let term                    = SakaiService.shared.siteTermMap[siteId]!
         let status                  = data["status"].string
         let resubmissionAllowed     = data["allowResubmission"].bool
-        let siteURL                 = data["entityURL"].string
+        let reference               = data["entityReference"].string!
+        var siteUrl: String?
+        if let assignmentsUrl = SakaiService.shared.siteAssignmentToolMap[siteId] {
+            siteUrl = assignmentsUrl + "?assignmentReference=\(reference)&sakai_action=doView_submission"
+        }
         
         var maxPoints:Double?
         if let pointString          = data["gradeScaleMaxPoints"].string {
@@ -112,6 +116,6 @@ struct Assignment: TermSortable, SiteSortable {
             }
         }
         
-        self.init(title, dueTimeString, dueDate, term, siteId, siteTitle, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings, siteURL)
+        self.init(title, dueTimeString, dueDate, term, siteId, siteTitle, instructions, attributedInstructions, status, maxPoints, currentGrade, resubmissionAllowed, attachmentStrings, siteUrl)
     }
 }
