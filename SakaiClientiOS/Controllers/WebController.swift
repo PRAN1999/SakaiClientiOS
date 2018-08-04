@@ -16,12 +16,20 @@ class WebController: UIViewController {
     var shouldLoad: Bool = true
     var needsNav: Bool = true
     
-    /**
-     
-     Sets the webview delegates for navigation and UI to the view controller itself,
-     allowing the view controller to directly control the webview appearance and requests
-     
-     */
+    var backButton: UIBarButtonItem?
+    var forwardButton: UIBarButtonItem?
+    var flexButton: UIBarButtonItem?
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = true
+    }
+    
+    /// Sets the webview delegates for navigation and UI to the view controller itself, allowing the view controller to directly control the webview appearance and requests
     override func loadView() {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = RequestManager.shared.processPool
@@ -44,9 +52,7 @@ class WebController: UIViewController {
         guard webView != nil else {
             return
         }
-        //remove all observers
         webView.removeObserver(self, forKeyPath: "estimatedProgress")
-        //remove progress bar from navigation bar
         progressView.removeFromSuperview()
     }
     
@@ -66,19 +72,25 @@ class WebController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
         if shouldLoad {
             loadURL(urlOpt: url)
         }
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupToolbar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
         if (self.isMovingFromParentViewController) {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
-        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.setToolbarHidden(true, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,6 +101,30 @@ class WebController: UIViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress" {
             progressView.progress = Float(webView.estimatedProgress)
+        }
+    }
+    
+    func setupToolbar() {
+        flexButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        backButton = UIBarButtonItem(title: "Back", style: .plain,target: self, action: #selector(goBack))
+        forwardButton = UIBarButtonItem(title: "Forward", style: .plain,target: self, action: #selector(goForward))
+        
+        let arr = [backButton!, flexButton!, forwardButton!]
+        
+        self.navigationController?.toolbar.setItems(arr, animated: true)
+        self.navigationController?.toolbar.barTintColor = UIColor.black
+        self.navigationController?.toolbar.tintColor = AppGlobals.SAKAI_RED
+    }
+    
+    @objc func goBack() {
+        if webView.canGoBack {
+            webView.goBack()
+        }
+    }
+    
+    @objc func goForward() {
+        if webView.canGoForward {
+            webView.goForward()
         }
     }
     
@@ -112,9 +148,7 @@ class WebController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func canRotate() -> Void {
-        
-    }
+    @objc func canRotate() -> Void {}
 }
 
 extension WebController: WKUIDelegate, WKNavigationDelegate {
@@ -135,6 +169,13 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
             self.progressView.isHidden = true
         }
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
     }
 }
 

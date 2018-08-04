@@ -106,6 +106,7 @@ class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeView
         treeView.reloadData()
         fetcher.loadData { (res) in
             guard let res = res else {
+                completion()
                 return
             }
             self.resources = res
