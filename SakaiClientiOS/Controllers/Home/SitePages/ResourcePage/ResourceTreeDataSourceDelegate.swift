@@ -14,9 +14,9 @@ class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeView
     let treeView: RATreeView
     let fetcher: ResourceDataFetcher
     
-    var controller: UIViewController?
-    
     var resources: [ResourceNode] = []
+    
+    var didSelectResource = Delegated<URL, Void>()
     
     init(treeView: RATreeView, siteId: String) {
         self.treeView  = treeView
@@ -88,16 +88,14 @@ class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeView
             cell.configure(resource.resourceItem, at: level, isExpanded: isExpanded)
             return
         case .resource:
-            let webController = WebController()
+            treeView.deselectRow(forItem: item, animated: false)
             guard let urlString = resource.resourceItem.url else {
                 return
             }
             guard let url = URL(string: urlString) else {
                 return
             }
-            webController.setURL(url: url)
-            controller?.navigationController?.pushViewController(webController, animated: true)
-            treeView.deselectRow(forItem: item, animated: false)
+            didSelectResource.call(url)
         }
     }
     

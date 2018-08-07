@@ -20,7 +20,6 @@ class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<Annou
     }
     
     var fetcher: AnnouncementDataFetcher
-    var controller: UIViewController?
     
     convenience init(tableView: UITableView) {
         self.init(provider: AnnouncementDataProvider(), tableView: tableView)
@@ -58,17 +57,6 @@ class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<Annou
         }
         
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let announcement = provider.item(at: indexPath) else {
-            return
-        }
-        
-        let announcementPage = AnnouncementPageController()
-        announcementPage.setAnnouncement(announcement)
-        
-        controller?.navigationController?.pushViewController(announcementPage, animated: true)
     }
     
     override func resetValues() {

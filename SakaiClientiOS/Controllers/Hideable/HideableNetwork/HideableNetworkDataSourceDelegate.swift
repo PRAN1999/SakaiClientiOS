@@ -43,16 +43,16 @@ class HideableNetworkTableDataSourceDelegate<Provider: HideableNetworkDataProvid
     }
     
     func loadDataSource(for section:Int, completion: @escaping () -> Void) {
-        fetcher.loadData(for: section) { (res) in
+        fetcher.loadData(for: section) { [weak self] (res) in
             DispatchQueue.main.async {
-                self.provider.hasLoaded[section] = true
-                self.provider.isHidden[section] = false
+                self?.provider.hasLoaded[section] = true
+                self?.provider.isHidden[section] = false
                 guard let payload = res else {
                     completion()
                     return
                 }
-                self.provider.loadItems(payload: payload, for: section)
-                self.reloadData(for: section)
+                self?.provider.loadItems(payload: payload, for: section)
+                self?.reloadData(for: section)
                 completion()
             }
         }

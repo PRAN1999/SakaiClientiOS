@@ -19,7 +19,14 @@ class AnnouncementController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
-        announcementTableDataSourceDelegate.controller = self
+        announcementTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            guard let announcement = self.announcementTableDataSourceDelegate.item(at: indexPath) else {
+                return
+            }
+            let announcementPage = AnnouncementPageController()
+            announcementPage.setAnnouncement(announcement)
+            self.navigationController?.pushViewController(announcementPage, animated: true)
+        }
         loadData()
         self.configureNavigationItem()
     }

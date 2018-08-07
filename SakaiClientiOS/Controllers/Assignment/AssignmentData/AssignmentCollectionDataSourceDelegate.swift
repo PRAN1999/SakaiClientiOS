@@ -9,7 +9,9 @@ import ReusableSource
 
 class AssignmentCollectionDataSourceDelegate : ReusableCollectionDataSourceFlowDelegate<SingleSectionDataProvider<Assignment>, AssignmentCell> {
     
-    var controller: UIViewController?
+    var getTextViewDelegate: (() -> UITextViewDelegate?)?
+    
+    var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     
     init(collectionView: UICollectionView) {
         super.init(provider: SingleSectionDataProvider<Assignment>(), collectionView: collectionView)
@@ -21,7 +23,7 @@ class AssignmentCollectionDataSourceDelegate : ReusableCollectionDataSourceFlowD
     }
     
     override func configureBehavior(for cell: AssignmentCell, at indexPath: IndexPath) {
-        cell.descLabel.delegate = controller
+        cell.descLabel.delegate = getTextViewDelegate?()
         cell.tapRecognizer.addTarget(self, action: #selector(handleIndexTap(sender:)))
     }
     
@@ -32,13 +34,5 @@ class AssignmentCollectionDataSourceDelegate : ReusableCollectionDataSourceFlowD
         if let indexPath = recognizer.indexPath {
             collectionView(collectionView, didSelectItemAt: indexPath)
         }
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-        let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
-        let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagesController
-        pages.setAssignments(assignments: provider.items, start: indexPath.row)
-        controller?.navigationController?.pushViewController(pages, animated: true)
     }
 }

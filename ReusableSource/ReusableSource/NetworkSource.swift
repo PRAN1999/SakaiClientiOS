@@ -9,7 +9,7 @@
 import Foundation
 
 /// An abstraction for a network delegate used to retrieve network data and populate a data source
-public protocol NetworkSource {
+public protocol NetworkSource: class {
     
     /// The DataFetcher implementation type associated with the NetworkSource
     associatedtype Fetcher : DataFetcher
@@ -34,14 +34,14 @@ public extension NetworkSource where Self:ReusableSource, Self.Provider.V == Sel
     func loadDataSource(completion: @escaping () -> Void) {
         resetValues()
         reloadData()
-        fetcher.loadData(completion: { (res) in
+        fetcher.loadData(completion: { [weak self] (res) in
             guard let response = res else {
                 completion()
                 return
             }
             DispatchQueue.main.async {
-                self.loadItems(payload: response)
-                self.reloadData()
+                self?.loadItems(payload: response)
+                self?.reloadData()
                 completion()
             }
         })

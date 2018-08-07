@@ -26,7 +26,21 @@ class AssignmentController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         assignmentsTableDataSourceDelegate = AssignmentTableDataSourceDelegate(tableView: super.tableView)
-        assignmentsTableDataSourceDelegate.controller = self
+        assignmentsTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
+            let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagesController
+            guard let assignments = self.assignmentsTableDataSourceDelegate.item(at: indexPath) else {
+                return
+            }
+            guard let start = self.assignmentsTableDataSourceDelegate.lastSelectedIndex else {
+                return
+            }
+            pages.setAssignments(assignments: assignments, start: start)
+            self.navigationController?.pushViewController(pages, animated: true)
+        }
+        assignmentsTableDataSourceDelegate.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
+            return self
+        }
         createSegmentedControl()
         loadData()
         self.configureNavigationItem()

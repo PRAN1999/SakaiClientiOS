@@ -20,8 +20,15 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
         }
         
         announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
-        announcementTableDataSourceDelegate.controller = self
         announcementTableDataSourceDelegate.siteId = id
+        announcementTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            guard let announcement = self.announcementTableDataSourceDelegate.item(at: indexPath) else {
+                return
+            }
+            let announcementPage = AnnouncementPageController()
+            announcementPage.setAnnouncement(announcement)
+            self.navigationController?.pushViewController(announcementPage, animated: true)
+        }
         self.loadSource {}
         self.configureNavigationItem()
     }

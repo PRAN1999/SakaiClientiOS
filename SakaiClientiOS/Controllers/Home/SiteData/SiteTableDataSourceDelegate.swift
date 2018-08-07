@@ -13,7 +13,6 @@ class SiteTableDataSourceDelegate : HideableTableDataSourceDelegate<SiteDataProv
     typealias Fetcher = SiteDataFetcher
     
     var fetcher: SiteDataFetcher
-    var controller:HomeController?
     
     convenience init(tableView: UITableView) {
         self.init(provider: SiteDataProvider(), tableView: tableView)
@@ -22,19 +21,5 @@ class SiteTableDataSourceDelegate : HideableTableDataSourceDelegate<SiteDataProv
     override init(provider: SiteDataProvider, tableView: UITableView) {
         fetcher = SiteDataFetcher()
         super.init(provider: provider, tableView: tableView)
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        transitionToClass(indexPath: indexPath)
-    }
-    
-    func transitionToClass(indexPath: IndexPath) {
-        let classController:ClassController = ClassController()
-        guard let site:Site = item(at: indexPath) else {
-            return
-        }
-        classController.setPages(pages: site.pages)
-        classController.siteTitle = site.title
-        controller?.navigationController?.pushViewController(classController, animated: true)
     }
 }

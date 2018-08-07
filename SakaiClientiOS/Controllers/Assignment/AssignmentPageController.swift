@@ -11,7 +11,7 @@ class AssignmentPageController: UIViewController {
 
     var pageView: AssignmentPageView!
     var assignment: Assignment?
-    var delegate:PagesController!
+    var delegate: PagesController!
     
     override func loadView() {
         self.pageView = AssignmentPageView(frame: .zero)

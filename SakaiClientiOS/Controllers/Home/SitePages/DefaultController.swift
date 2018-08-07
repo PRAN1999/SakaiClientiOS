@@ -7,21 +7,16 @@
 
 import UIKit
 
-class DefaultController: UIViewController, SitePageController {
+class DefaultController: WebController, SitePageController {
     
     var siteId: String?
     
-    override func loadView() {
-        self.view = UIView()
-        self.view.backgroundColor = UIColor.white
+    required override init() {
+        super.init()
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
 }
