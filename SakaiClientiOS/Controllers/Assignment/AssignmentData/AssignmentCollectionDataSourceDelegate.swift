@@ -8,9 +8,7 @@
 import ReusableSource
 
 class AssignmentCollectionDataSourceDelegate : ReusableCollectionDataSourceFlowDelegate<SingleSectionDataProvider<Assignment>, AssignmentCell> {
-    
-    var getTextViewDelegate: (() -> UITextViewDelegate?)?
-    
+
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     
     init(collectionView: UICollectionView) {
@@ -23,7 +21,7 @@ class AssignmentCollectionDataSourceDelegate : ReusableCollectionDataSourceFlowD
     }
     
     override func configureBehavior(for cell: AssignmentCell, at indexPath: IndexPath) {
-        cell.descLabel.delegate = getTextViewDelegate?()
+        cell.descLabel.delegate = textViewDelegate.call()
         cell.tapRecognizer.addTarget(self, action: #selector(handleIndexTap(sender:)))
     }
     

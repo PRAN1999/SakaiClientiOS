@@ -12,7 +12,6 @@ class AssignmentTableDataSourceDelegate: HideableNetworkTableDataSourceDelegate<
     var lastSelectedIndex: Int?
     
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
-    var getTextViewDelegate: (() -> UITextViewDelegate?)?
     
     init(tableView: UITableView) {
         super.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
