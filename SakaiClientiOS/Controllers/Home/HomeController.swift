@@ -21,7 +21,16 @@ class HomeController: UITableViewController {
         self.title = "Classes"
         
         siteTableDataSourceDelegate = SiteTableDataSourceDelegate(tableView: tableView)
-        siteTableDataSourceDelegate.controller = self
+        siteTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            let classController:ClassController = ClassController()
+            guard let site:Site = self.siteTableDataSourceDelegate.item(at: indexPath) else {
+                return
+            }
+            classController.setPages(pages: site.pages)
+            classController.siteTitle = site.title
+            self.navigationController?.pushViewController(classController, animated: true)
+        }
+        
         loadData()
         self.configureNavigationItem()
     }
@@ -55,7 +64,7 @@ extension HomeController: LoadableController {
     @objc func loadData() {
         disableTabs()
         SakaiService.shared.reset()
-        self.loadSourceWithoutCache() {
+        self.loadControllerWithoutCache() {
             self.enableTabs()
         }
     }

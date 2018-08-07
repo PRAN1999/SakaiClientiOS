@@ -28,7 +28,7 @@ class SiteGradebookController: UITableViewController, SitePageController {
 
 extension SiteGradebookController: LoadableController {
     @objc func loadData() {
-        self.loadSource() {}
+        self.loadController() {}
     }
 }
 

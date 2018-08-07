@@ -27,7 +27,16 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
         }
         
         siteAssignmentDataSourceDelegate = SiteAssignmentCollectionDataSourceDelegate(collectionView: super.collectionView!, siteId: id)
-        siteAssignmentDataSourceDelegate.controller = self
+        siteAssignmentDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
+            let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagesController
+            let assignments = self.siteAssignmentDataSourceDelegate.provider.items
+            pages.setAssignments(assignments: assignments, start: indexPath.row)
+            self.navigationController?.pushViewController(pages, animated: true)
+        }
+        siteAssignmentDataSourceDelegate.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
+            return self
+        }
         loadData()
         self.configureNavigationItem()
     }
@@ -35,7 +44,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
 
 extension SiteAssignmentController: LoadableController {
     @objc func loadData() {
-        self.loadSource() {}
+        self.loadController {}
     }
 }
 

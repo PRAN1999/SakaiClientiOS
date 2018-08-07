@@ -13,23 +13,22 @@ class AnnouncementPageController: UIViewController {
     var announcement: Announcement?
     
     override func loadView() {
-        announcementPageView = AnnouncementPageView()
-        self.view = announcementPageView
+        self.view = UIView()
         self.view.backgroundColor = UIColor.white
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        self.configureNavigationTapRecognizer()
+        self.navigationController?.isNavigationBarHidden = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.configureBarsForTaps(appearing: true)
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.configureBarsForTaps(appearing: false)
+        self.tabBarController?.tabBar.isHidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,13 +44,26 @@ class AnnouncementPageController: UIViewController {
             return
         }
         
-        announcementPageView.contentView.delegate = self
-        self.configureNavigationTapRecognizer(for: announcementPageView.contentView.tapRecognizer)
+        announcementPageView = AnnouncementPageView()
+        self.view.addSubview(announcementPageView)
+        
+        guard let margins = self.view else {
+            return
+        }
+        
+        announcementPageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        announcementPageView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        announcementPageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        announcementPageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        announcementPageView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        
+        announcementPageView.messageView.delegate = self
         
         announcementPageView.titleLabel.titleLabel.text = item.title
         announcementPageView.authorLabel.titleLabel.text = item.author
         announcementPageView.dateLabel.titleLabel.text = item.dateString
-        announcementPageView.setContent(attributedText: item.attributedContent, resources: item.attachments)
+        announcementPageView.setMessage(attributedText: item.attributedContent, resources: item.attachments)
     }
 
 }

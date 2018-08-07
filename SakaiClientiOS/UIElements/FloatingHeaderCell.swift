@@ -28,8 +28,6 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         super.init(coder: aDecoder)
     }
     
-    
-    /// Instantiate and setup titleLabel
     func setup() {
         self.backgroundColor = AppGlobals.SAKAI_RED
         
@@ -40,12 +38,10 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         self.isHidden = true
     }
     
-    /// Add titleLabel to contentView
     func addViews() {
         self.contentView.addSubview(titleLabel)
     }
     
-    /// Constrain titleLabel to edges
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

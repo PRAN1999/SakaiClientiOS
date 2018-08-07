@@ -20,9 +20,16 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
         }
         
         announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
-        announcementTableDataSourceDelegate.controller = self
         announcementTableDataSourceDelegate.siteId = id
-        self.loadSource {}
+        announcementTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            guard let announcement = self.announcementTableDataSourceDelegate.item(at: indexPath) else {
+                return
+            }
+            let announcementPage = AnnouncementPageController()
+            announcementPage.setAnnouncement(announcement)
+            self.navigationController?.pushViewController(announcementPage, animated: true)
+        }
+        self.loadController {}
         self.configureNavigationItem()
     }
     
@@ -42,7 +49,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
 
 extension SiteAnnouncementController: LoadableController {
     @objc func loadData() {
-        self.loadSourceWithoutCache() {}
+        self.loadControllerWithoutCache() {}
     }
 }
 

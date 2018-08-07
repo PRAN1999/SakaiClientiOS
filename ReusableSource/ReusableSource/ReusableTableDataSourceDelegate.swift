@@ -11,6 +11,8 @@ import Foundation
 /// Subclass ReusableTableDataSource to add UITableViewDelegate conformance for added flexibility managing tableView
 open class ReusableTableDataSourceDelegate<Provider:DataProvider, Cell:UITableViewCell & ConfigurableCell>: ReusableTableDataSource<Provider, Cell>, UITableViewDelegate where Provider.T == Cell.T {
     
+    public var selectedAt = Delegated<IndexPath, Void>()
+    
     /// Assign dataSource and delegate of tableView to and register Cell.self with tableView
     open override func setup() {
         super.setup()
@@ -25,8 +27,7 @@ open class ReusableTableDataSourceDelegate<Provider:DataProvider, Cell:UITableVi
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Override and implement
-        return
+        selectedAt.call(indexPath)
     }
     
     open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

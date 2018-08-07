@@ -8,7 +8,10 @@
 import ReusableSource
 
 class AssignmentTableDataSourceDelegate: HideableNetworkTableDataSourceDelegate<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
-    var controller: AssignmentController?
+    
+    var lastSelectedIndex: Int?
+    
+    var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     
     init(tableView: UITableView) {
         super.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
@@ -23,7 +26,13 @@ class AssignmentTableDataSourceDelegate: HideableNetworkTableDataSourceDelegate<
         if provider.dateSorted {
             cell.titleLabel.text = "All Assignments"
         }
-        cell.dataSourceDelegate.controller = controller
+        cell.dataSourceDelegate.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
+            self.lastSelectedIndex = cellIndexPath.row
+            self.selectedAt.call(indexPath)
+        }
+        cell.dataSourceDelegate.textViewDelegate.delegate(to: self) { (self, voidInput) -> UITextViewDelegate? in
+            return self.textViewDelegate.call()
+        }
     }
     
     func resetSort() {

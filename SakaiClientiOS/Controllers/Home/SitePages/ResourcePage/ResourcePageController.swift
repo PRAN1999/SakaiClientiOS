@@ -28,7 +28,11 @@ class ResourcePageController: UIViewController, SitePageController {
         view.addSubview(treeView)
         
         resourceDataSourceDelegate = ResourceTreeDataSourceDelegate(treeView: treeView, siteId: siteId)
-        resourceDataSourceDelegate.controller = self
+        resourceDataSourceDelegate.didSelectResource.delegate(to: self) { (self, url) -> Void in
+            let webController = WebController()
+            webController.setURL(url: url)
+            self.navigationController?.pushViewController(webController, animated: true)
+        }
 
         loadData()
         configureNavigationItem()
@@ -41,7 +45,7 @@ class ResourcePageController: UIViewController, SitePageController {
 
 extension ResourcePageController: LoadableController {
     @objc func loadData() {
-        loadSource() {}
+        loadController() {}
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		511895622119378700BD86D1 /* Delegated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511895612119378700BD86D1 /* Delegated.swift */; };
 		51A472FF20F9C9E700CC95F0 /* ReusableSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 51A472FD20F9C9E700CC95F0 /* ReusableSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		51A4730B20F9CA1800CC95F0 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4730520F9CA1800CC95F0 /* DataProvider.swift */; };
 		51A4730C20F9CA1800CC95F0 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4730620F9CA1800CC95F0 /* ReusableCell.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		511895612119378700BD86D1 /* Delegated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Delegated.swift; sourceTree = "<group>"; };
 		51A472FA20F9C9E700CC95F0 /* ReusableSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReusableSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51A472FD20F9C9E700CC95F0 /* ReusableSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReusableSource.h; sourceTree = "<group>"; };
 		51A472FE20F9C9E700CC95F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		511895632119379B00BD86D1 /* Delegated */ = {
+			isa = PBXGroup;
+			children = (
+				511895612119378700BD86D1 /* Delegated.swift */,
+			);
+			path = Delegated;
+			sourceTree = "<group>";
+		};
 		51A472F020F9C9E700CC95F0 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +84,7 @@
 		51A472FC20F9C9E700CC95F0 /* ReusableSource */ = {
 			isa = PBXGroup;
 			children = (
+				511895632119379B00BD86D1 /* Delegated */,
 				51A4730A20F9CA1800CC95F0 /* DataFetcher.swift */,
 				51A4730520F9CA1800CC95F0 /* DataProvider.swift */,
 				51A4730620F9CA1800CC95F0 /* ReusableCell.swift */,
@@ -183,6 +194,7 @@
 				51A4731820FA842C00CC95F0 /* ReusableSource.swift in Sources */,
 				51A4732220FA9B8800CC95F0 /* ReusableController.swift in Sources */,
 				51DEE52B20FBF274008E709D /* ReusableTableDataSource.swift in Sources */,
+				511895622119378700BD86D1 /* Delegated.swift in Sources */,
 				51A4731020F9CA1800CC95F0 /* DataFetcher.swift in Sources */,
 				51A4730B20F9CA1800CC95F0 /* DataProvider.swift in Sources */,
 				51A4732820FB081D00CC95F0 /* ReusableCollectionDataSourceFlowDelegate.swift in Sources */,

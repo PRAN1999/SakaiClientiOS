@@ -32,7 +32,7 @@ class GradebookController: UITableViewController {
 extension GradebookController: LoadableController {
     @objc func loadData() {
         gradebookTableDataSourceDelegate.hideHeaderCell()
-        self.loadSourceWithoutCache() {}
+        self.loadControllerWithoutCache() {}
     }
 }
 

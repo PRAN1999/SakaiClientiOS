@@ -20,5 +20,5 @@ public protocol NetworkController {
     /// Will often use networkSource loadDataSource method and will layer callbacks
     ///
     /// - Parameter completion: Callback to execute once networkSource has loaded
-    func loadSource(completion: @escaping () -> Void)
+    func loadController(completion: @escaping () -> Void)
 }
