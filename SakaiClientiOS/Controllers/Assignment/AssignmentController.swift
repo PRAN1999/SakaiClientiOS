@@ -94,7 +94,7 @@ extension AssignmentController: LoadableController {
         segments.selectedSegmentIndex = 0
         segments.setEnabled(false, forSegmentAt: 1)
         assignmentsTableDataSourceDelegate.resetSort()
-        self.loadSourceWithoutCache() {
+        self.loadControllerWithoutCache() {
             self.segments.setEnabled(true, forSegmentAt: 1)
         }
     }

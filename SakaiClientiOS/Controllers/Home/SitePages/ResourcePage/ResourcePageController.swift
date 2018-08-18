@@ -45,7 +45,7 @@ class ResourcePageController: UIViewController, SitePageController {
 
 extension ResourcePageController: LoadableController {
     @objc func loadData() {
-        loadSource() {}
+        loadController() {}
     }
 }
 

@@ -29,7 +29,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
             announcementPage.setAnnouncement(announcement)
             self.navigationController?.pushViewController(announcementPage, animated: true)
         }
-        self.loadSource {}
+        self.loadController {}
         self.configureNavigationItem()
     }
     
@@ -49,7 +49,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
 
 extension SiteAnnouncementController: LoadableController {
     @objc func loadData() {
-        self.loadSourceWithoutCache() {}
+        self.loadControllerWithoutCache() {}
     }
 }
 

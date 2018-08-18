@@ -44,7 +44,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
 
 extension SiteAssignmentController: LoadableController {
     @objc func loadData() {
-        self.loadSource() {}
+        self.loadController {}
     }
 }
 

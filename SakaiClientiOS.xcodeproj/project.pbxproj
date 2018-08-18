@@ -46,6 +46,8 @@
 		517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
 		517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
+		51835043211E9A75008F2CF2 /* WebNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51835042211E9A75008F2CF2 /* WebNavigationController.swift */; };
+		51835045211FA47A008F2CF2 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51835044211FA47A008F2CF2 /* Downloader.swift */; };
 		518903A12106BAE500C551AE /* HideableNetworkSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A02106BAE500C551AE /* HideableNetworkSource.swift */; };
 		518903A52106C35900C551AE /* HideableNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */; };
 		518903A72106C67E00C551AE /* HideableNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A62106C67E00C551AE /* HideableNetworkController.swift */; };
@@ -167,6 +169,8 @@
 		514B623B209569FE001A716C /* TermHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermHeader.swift; sourceTree = "<group>"; };
 		517F378420E019D900B21D5A /* LNPopupController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
+		51835042211E9A75008F2CF2 /* WebNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebNavigationController.swift; sourceTree = "<group>"; };
+		51835044211FA47A008F2CF2 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		518903A02106BAE500C551AE /* HideableNetworkSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkSource.swift; sourceTree = "<group>"; };
 		518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkDataProvider.swift; sourceTree = "<group>"; };
 		518903A62106C67E00C551AE /* HideableNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkController.swift; sourceTree = "<group>"; };
@@ -349,6 +353,17 @@
 			path = UIElements;
 			sourceTree = "<group>";
 		};
+		51835041211E9A49008F2CF2 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
+				511114AB20D6CD440077F872 /* WebController.swift */,
+				51835042211E9A75008F2CF2 /* WebNavigationController.swift */,
+				51835044211FA47A008F2CF2 /* Downloader.swift */,
+			);
+			path = Web;
+			sourceTree = "<group>";
+		};
 		518903A82106C89900C551AE /* HideableNetwork */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,6 +442,7 @@
 		51C2D15A20C47FA000E4C901 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				51835041211E9A49008F2CF2 /* Web */,
 				518903BB210AADEA00C551AE /* ControllerBehavior */,
 				51A472CF20F99F8D00CC95F0 /* ReusableExtensions */,
 				51C9790D20F6FDCE00191DD6 /* Hideable */,
@@ -436,8 +452,6 @@
 				5113C12520927D51001929DA /* Settings */,
 				5113C12620927D5A001929DA /* Home */,
 				5113C12720927D6C001929DA /* Announcement */,
-				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
-				511114AB20D6CD440077F872 /* WebController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -734,6 +748,7 @@
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
 				512748C7210D851200A5A74E /* HideableNetworkDataSourceDelegate.swift in Sources */,
 				51A472D520F9A30700CC95F0 /* LoadingIndicator.swift in Sources */,
+				51835043211E9A75008F2CF2 /* WebNavigationController.swift in Sources */,
 				518903C3210AC3B200C551AE /* ResourceItem.swift in Sources */,
 				511114A220CDCABD0077F872 /* Layouts.swift in Sources */,
 				512748BD210D29A400A5A74E /* ResourcePageController.swift in Sources */,
@@ -773,6 +788,7 @@
 				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
 				51DEE56D210527BC008E709D /* HideableTableDataSourceDelegate.swift in Sources */,
 				51DEE55B21016B0D008E709D /* TappableTextView.swift in Sources */,
+				51835045211FA47A008F2CF2 /* Downloader.swift in Sources */,
 				518903AE2108154E00C551AE /* SiteAssignmentDataFetcher.swift in Sources */,
 				511114B920D881450077F872 /* AssignmentPageView.swift in Sources */,
 				51DEE550210041A5008E709D /* SiteGradebookTableDataSource.swift in Sources */,

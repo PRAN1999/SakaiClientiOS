@@ -107,10 +107,6 @@ class PagesController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func openSubmit(_ sender: Any) {
-        self.navigationController?.pushViewController(webController, animated: true)
-    }
-    
 }
 
 extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {

@@ -64,7 +64,7 @@ extension HomeController: LoadableController {
     @objc func loadData() {
         disableTabs()
         SakaiService.shared.reset()
-        self.loadSourceWithoutCache() {
+        self.loadControllerWithoutCache() {
             self.enableTabs()
         }
     }

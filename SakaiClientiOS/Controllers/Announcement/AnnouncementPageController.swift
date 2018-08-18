@@ -21,15 +21,7 @@ class AnnouncementPageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        self.configureNavigationTapRecognizer()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.configureBarsForTaps(appearing: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.configureBarsForTaps(appearing: false)
+        self.navigationController?.isNavigationBarHidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,7 +38,6 @@ class AnnouncementPageController: UIViewController {
         }
         
         announcementPageView.contentView.delegate = self
-        self.configureNavigationTapRecognizer(for: announcementPageView.contentView.tapRecognizer)
         
         announcementPageView.titleLabel.titleLabel.text = item.title
         announcementPageView.authorLabel.titleLabel.text = item.author

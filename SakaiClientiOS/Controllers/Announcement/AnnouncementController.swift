@@ -47,13 +47,14 @@ class AnnouncementController: UITableViewController {
 
 extension AnnouncementController: LoadableController {
     @objc func loadData() {
-        self.loadSourceWithoutCache() {}
+        self.loadControllerWithoutCache() {}
     }
 }
 
 extension AnnouncementController: FeedController {
     @objc func swipeTarget() {
         self.setTabBarVisibility()
+        self.navigationController?.setToolbarHidden(true, animated: true)
     }
 }
 

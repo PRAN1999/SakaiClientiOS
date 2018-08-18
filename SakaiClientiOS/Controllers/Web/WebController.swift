@@ -37,15 +37,6 @@ class WebController: UIViewController {
         webView.uiDelegate = self
         webView.navigationDelegate = self;
         self.view = webView
-        
-        progressView = UIProgressView(progressViewStyle: .default)
-        progressView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-        progressView.tintColor = AppGlobals.SAKAI_RED
-        navigationController?.navigationBar.addSubview(progressView)
-        guard let navigationBarBounds = self.navigationController?.navigationBar.bounds else {
-            return
-        }
-        progressView.frame = CGRect(x: 0, y: navigationBarBounds.size.height - 2, width: navigationBarBounds.size.width, height: 8)
     }
     
     deinit {
@@ -59,6 +50,7 @@ class WebController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         webView.allowsBackForwardNavigationGestures = true
+        setupProgressBar()
         if needsNav {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
             self.navigationController?.isNavigationBarHidden = false
@@ -102,6 +94,17 @@ class WebController: UIViewController {
         if keyPath == "estimatedProgress" {
             progressView.progress = Float(webView.estimatedProgress)
         }
+    }
+    
+    func setupProgressBar() {
+        progressView = UIProgressView(progressViewStyle: .default)
+        progressView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        progressView.tintColor = AppGlobals.SAKAI_RED
+        navigationController?.navigationBar.addSubview(progressView)
+        guard let navigationBarBounds = self.navigationController?.navigationBar.bounds else {
+            return
+        }
+        progressView.frame = CGRect(x: 0, y: navigationBarBounds.size.height - 2, width: navigationBarBounds.size.width, height: 8)
     }
     
     func setupToolbar() {
@@ -176,26 +179,6 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
             webView.load(navigationAction.request)
         }
         return nil
-    }
-}
-
-class WebViewNavigationController: UINavigationController {
-    
-    private weak var documentPicker: UIDocumentPickerViewController?
-
-    public override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        if viewControllerToPresent is UIDocumentPickerViewController {
-            self.documentPicker = viewControllerToPresent as? UIDocumentPickerViewController
-        }
-        super.present(viewControllerToPresent, animated: flag, completion: completion)
-    }
-
-    override public func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        if self.presentedViewController == nil && self.documentPicker != nil {
-            self.documentPicker = nil
-        }else{
-            super.dismiss(animated: flag, completion: completion)
-        }
     }
 }
 

@@ -9,7 +9,7 @@ import ReusableSource
 
 extension NetworkController where Self: UIViewController {
     
-    func loadSource(completion: @escaping () -> Void) {
+    func loadController(completion: @escaping () -> Void) {
         let indicator = LoadingIndicator(view: view)
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
@@ -20,7 +20,7 @@ extension NetworkController where Self: UIViewController {
         }
     }
     
-    func loadSourceWithoutCache(completion: @escaping () -> Void) {
+    func loadControllerWithoutCache(completion: @escaping () -> Void) {
         let indicator = LoadingIndicator(view: view)
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
