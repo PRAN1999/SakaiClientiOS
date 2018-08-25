@@ -30,7 +30,7 @@ class AssignmentPageController: UIViewController {
     func setup() {
         pageView.backgroundColor = UIColor.white
         
-        pageView.titleLabel.titleLabel.text = assignment?.title
+        pageView.scrollView.titleLabel.titleLabel.text = assignment?.title
         
         pageView.scrollView.classLabel.setKeyVal(key: "Class:", val: assignment?.siteTitle)
         pageView.scrollView.gradeLabel.setKeyVal(key: "Current Grade:", val: assignment?.currentGrade)

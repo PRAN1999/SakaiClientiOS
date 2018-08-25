@@ -7,12 +7,14 @@
 
 import UIKit
 
-class AnnouncementPageView: UIView {
+class AnnouncementPageView: UIScrollView {
+    
+    var contentView: UIView!
     
     var titleLabel: InsetUILabel!
     var authorLabel: InsetUILabel!
     var dateLabel: InsetUILabel!
-    var contentView: TappableTextView!
+    var messageView: TappableTextView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +28,8 @@ class AnnouncementPageView: UIView {
     }
     
     func setup() {
+        contentView = UIView()
+        
         titleLabel = InsetUILabel()
         titleLabel.titleLabel.numberOfLines = 0
         titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -35,54 +39,59 @@ class AnnouncementPageView: UIView {
         authorLabel = InsetUILabel()
         authorLabel.titleLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
         authorLabel.layer.cornerRadius = 0
+        authorLabel.backgroundColor = UIColor.white
         
         dateLabel = InsetUILabel()
         dateLabel.titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .light)
         dateLabel.titleLabel.textAlignment = .right
-        dateLabel.titleLabel.textColor = UIColor.white
         dateLabel.layer.cornerRadius = 0
+        dateLabel.backgroundColor = UIColor.white
         
-        contentView = TappableTextView()
-        
+        messageView = TappableTextView(); messageView.isScrollEnabled = false
     }
     
     func addViews() {
-        self.addSubview(titleLabel)
-        self.addSubview(authorLabel)
-        self.addSubview(dateLabel)
         self.addSubview(contentView)
+        
+        self.contentView.addSubview(titleLabel)
+        self.contentView.addSubview(authorLabel)
+        self.contentView.addSubview(dateLabel)
+        self.contentView.addSubview(messageView)
     }
     
     func setConstraints() {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         
-        let margins = self.layoutMarginsGuide
+        contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        
+        let margins = contentView.layoutMarginsGuide
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+        messageView.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.1).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 75).isActive = true
         
-        contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5.0).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5.0).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
-        
-        authorLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        authorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        authorLabel.bottomAnchor.constraint(equalTo: messageView.topAnchor).isActive = true
+        authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
-        authorLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.60).isActive = true
+        authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.60).isActive = true
         
         dateLabel.topAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
-        dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         dateLabel.bottomAnchor.constraint(equalTo: authorLabel.bottomAnchor).isActive = true
+        
+        messageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        messageView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        messageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
     
-    func setContent(attributedText: NSAttributedString?, resources:[NSAttributedString]?) {
+    func setMessage(attributedText: NSAttributedString?, resources:[NSAttributedString]?) {
         guard let text = attributedText else {
             return
         }
@@ -95,10 +104,10 @@ class AnnouncementPageView: UIView {
             content.append(attachmentString)
         }
         
-        contentView.attributedText = content
+        messageView.attributedText = content
     }
     
-    func getAttachments(resources:[NSAttributedString]?) -> NSAttributedString? {
+    private func getAttachments(resources:[NSAttributedString]?) -> NSAttributedString? {
         guard let attachments = resources else {
             return nil
         }
@@ -124,5 +133,9 @@ class AnnouncementPageView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        // Set the content size of self (scrollView) to the size of the content view by using the maxY of the attachmentsView (the farthest down point of all the content)
+        let maxY = messageView.frame.maxY
+        self.contentSize = CGSize(width: self.frame.width, height: maxY + 10)
     }
 }

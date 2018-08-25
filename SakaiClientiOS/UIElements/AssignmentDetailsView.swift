@@ -12,6 +12,7 @@ class AssignmentDetailsView: UIScrollView {
     
     var contentView:UIView!
     
+    var titleLabel:InsetUILabel!
     var classLabel:DetailLabel!
     var statusLabel:DetailLabel!
     var pointsLabel:DetailLabel!
@@ -36,6 +37,14 @@ class AssignmentDetailsView: UIScrollView {
     func setup() {
         contentView = UIView()
         
+        titleLabel = InsetUILabel()
+        titleLabel.backgroundColor = AppGlobals.SAKAI_RED
+        titleLabel.titleLabel.numberOfLines = 0
+        titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        titleLabel.titleLabel.textAlignment = .center
+        titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        titleLabel.layer.cornerRadius = 0
+        
         classLabel = DetailLabel()
         statusLabel = DetailLabel()
         pointsLabel = DetailLabel()
@@ -50,6 +59,7 @@ class AssignmentDetailsView: UIScrollView {
     func addViews() {
         self.addSubview(contentView)
         
+        contentView.addSubview(titleLabel)
         contentView.addSubview(classLabel)
         contentView.addSubview(statusLabel)
         contentView.addSubview(pointsLabel)
@@ -65,6 +75,7 @@ class AssignmentDetailsView: UIScrollView {
         
         contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         classLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         pointsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -76,9 +87,15 @@ class AssignmentDetailsView: UIScrollView {
         
         let margins = contentView.layoutMarginsGuide
         
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: classLabel.topAnchor).isActive = true
+        // Constrain titleLabel height to be 12% of view height
+        titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.12).isActive = true
+        
         classLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         classLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        classLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         classLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor).isActive = true
         
         statusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
@@ -158,6 +175,6 @@ class AssignmentDetailsView: UIScrollView {
         
         // Set the content size of self (scrollView) to the size of the content view by using the maxY of the attachmentsView (the farthest down point of all the content)
         let maxY = attachmentsView.frame.maxY
-        contentSize = CGSize(width: self.frame.width, height: maxY + 10)
+        self.contentSize = CGSize(width: self.frame.width, height: maxY + 30)
     }
 }
