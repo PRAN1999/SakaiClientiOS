@@ -11,13 +11,7 @@ class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<Annou
     
     typealias Fetcher = AnnouncementDataFetcher
     
-    var siteId: String? {
-        get {
-            return fetcher.siteId
-        } set {
-            fetcher.siteId = newValue
-        }
-    }
+    static let filterOptions = [("One Week", 7), ("One Month", 30), ("Six Months", 180), ("One Year", 365), ("Two Years", 730), ("Four Years", 1460)]
     
     var fetcher: AnnouncementDataFetcher
     
@@ -62,5 +56,23 @@ class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<Annou
     override func resetValues() {
         fetcher.resetOffset()
         provider.resetValues()
+    }
+}
+
+extension AnnouncementTableDataSourceDelegate {
+    var siteId: String? {
+        get {
+            return fetcher.siteId
+        } set {
+            fetcher.siteId = newValue
+        }
+    }
+    
+    var daysBack: Int {
+        get {
+            return fetcher.daysBack
+        } set {
+            fetcher.daysBack = newValue
+        }
     }
 }

@@ -2,15 +2,7 @@
 import UIKit
 import WebKit
 
-/**
- 
- A view controller containing a webview allowing users to login to CAS and Sakai
- 
- - Author:
- Pranay Neelagiri
- 
- */
-
+///  A view controller containing a webview allowing users to login to CAS and Sakai
 class LoginViewController: WebController {
     
     override var shouldAutorotate: Bool {
@@ -21,11 +13,7 @@ class LoginViewController: WebController {
         return .portrait
     }
     
-    /**
-     
-     Loads Login URL for CAS Authentication
-     
-     */
+    /// Loads Login URL for CAS Authentication
     override func viewDidLoad() {
         super.viewDidLoad()
         RequestManager.shared.resetCache()
@@ -37,11 +25,7 @@ class LoginViewController: WebController {
         super.didReceiveMemoryWarning()
     }
     
-    /**
-     
-     Captures HTTP Cookies from specific URLs and loads them into Alamofire Session, allowing all future requests to be authenticated.
-     
-     */
+    /// Captures HTTP Cookies from specific URLs and loads them into Alamofire Session, allowing all future requests to be authenticated.
     override func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         if webView.url!.absoluteString == AppGlobals.COOKIE_URL_1 || webView.url!.absoluteString == AppGlobals.COOKIE_URL_2 {
@@ -58,12 +42,8 @@ class LoginViewController: WebController {
         return
     }
     
-    /*
-     
-     Captures all HTTP headers and loads them into Alamofire Session, for request authentication.
-     Stops webview navigation and forces controller transition once target URL is reaches
-     
-     */
+    /// Captures all HTTP headers and loads them into Alamofire Session, for request authentication.
+    /// Stops webview navigation and forces controller transition once target URL is reaches
     override func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         let response = navigationResponse.response as? HTTPURLResponse
         let headers = response!.allHeaderFields

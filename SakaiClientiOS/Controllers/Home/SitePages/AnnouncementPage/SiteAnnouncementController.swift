@@ -19,6 +19,8 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
             return
         }
         
+        self.clearsSelectionOnViewWillAppear = true
+        
         announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
         announcementTableDataSourceDelegate.siteId = id
         announcementTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
@@ -40,6 +42,9 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.addBarSwipeHider()
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
