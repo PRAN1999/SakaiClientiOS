@@ -13,7 +13,7 @@ class AnnouncementDataFetcher: DataFetcher {
     
     typealias T = [Announcement]
     
-    var daysBack = 120
+    var daysBack = 180
     var offset = 0
     var numToRequest = AnnouncementDataFetcher.REQUEST_LIMIT
     

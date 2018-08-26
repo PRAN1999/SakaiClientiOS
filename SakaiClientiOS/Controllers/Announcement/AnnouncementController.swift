@@ -11,6 +11,7 @@ import ReusableSource
 class AnnouncementController: UITableViewController {
     
     var announcementTableDataSourceDelegate : AnnouncementTableDataSourceDelegate!
+    var dateActionSheet: UIAlertController!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,6 +30,7 @@ class AnnouncementController: UITableViewController {
         }
         loadData()
         self.configureNavigationItem()
+        configureActionSheet()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,6 +44,29 @@ class AnnouncementController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func configureActionSheet() {
+        let timer = UIImage(named: "timer")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: timer, style: .plain, target: self, action: #selector(presentFilterOptions))
+        
+        dateActionSheet = UIAlertController(title: "SINCE:", message: "How far back should we request announcements?", preferredStyle: .actionSheet)
+        
+        for option in AnnouncementTableDataSourceDelegate.filterOptions {
+            let action = UIAlertAction(title: option.0, style: .default) { [weak self] (action) in
+                self?.announcementTableDataSourceDelegate.daysBack = option.1
+                self?.loadData()
+            }
+            dateActionSheet.addAction(action)
+        }
+        
+        dateActionSheet.view.tintColor = AppGlobals.SAKAI_RED
+        
+        dateActionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in }))
+    }
+    
+    @objc func presentFilterOptions() {
+        self.present(dateActionSheet, animated: true, completion: nil)
     }
 }
 
