@@ -26,6 +26,10 @@ class GradebookTableDataSourceDelegate : HideableNetworkTableDataSourceDelegate<
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if provider.isEmpty(section: indexPath.section) {
+            return super.tableView(tableView, cellForRowAt: indexPath)
+        }
+        
         let subsectionIndex = provider.getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
         
         if subsectionIndex.row == 0 {
@@ -50,6 +54,10 @@ class GradebookTableDataSourceDelegate : HideableNetworkTableDataSourceDelegate<
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let point = CGPoint(x: 0, y: tableView.contentOffset.y)
         guard let topIndex = tableView.indexPathForRow(at: point) else {
+            hideHeaderCell()
+            return
+        }
+        if provider.isEmpty(section: topIndex.section) {
             hideHeaderCell()
             return
         }

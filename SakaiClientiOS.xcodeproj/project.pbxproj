@@ -24,7 +24,6 @@
 		5113C12920927F28001929DA /* HomeView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C12820927F28001929DA /* HomeView.storyboard */; };
 		5113C12B20928658001929DA /* AnnouncementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C12A20928658001929DA /* AnnouncementController.swift */; };
 		5113C12D20928669001929DA /* AnnouncementView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C12C20928669001929DA /* AnnouncementView.storyboard */; };
-		5113C12F209286B3001929DA /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C12E209286B3001929DA /* SettingsController.swift */; };
 		5113C131209286C2001929DA /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C130209286C2001929DA /* SettingsView.storyboard */; };
 		5113C133209286D9001929DA /* GradebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C132209286D9001929DA /* GradebookController.swift */; };
 		5113C135209286E8001929DA /* GradebookView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C134209286E8001929DA /* GradebookView.storyboard */; };
@@ -149,7 +148,6 @@
 		5113C12820927F28001929DA /* HomeView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeView.storyboard; sourceTree = "<group>"; };
 		5113C12A20928658001929DA /* AnnouncementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementController.swift; sourceTree = "<group>"; };
 		5113C12C20928669001929DA /* AnnouncementView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AnnouncementView.storyboard; sourceTree = "<group>"; };
-		5113C12E209286B3001929DA /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		5113C130209286C2001929DA /* SettingsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsView.storyboard; sourceTree = "<group>"; };
 		5113C132209286D9001929DA /* GradebookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookController.swift; sourceTree = "<group>"; };
 		5113C134209286E8001929DA /* GradebookView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GradebookView.storyboard; sourceTree = "<group>"; };
@@ -273,14 +271,6 @@
 				5113C132209286D9001929DA /* GradebookController.swift */,
 			);
 			path = Gradebook;
-			sourceTree = "<group>";
-		};
-		5113C12520927D51001929DA /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				5113C12E209286B3001929DA /* SettingsController.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		5113C12620927D5A001929DA /* Home */ = {
@@ -449,7 +439,6 @@
 				5193356920ED6CF200469FD4 /* Searchable */,
 				5113C12320927D19001929DA /* Assignment */,
 				5113C12420927D44001929DA /* Gradebook */,
-				5113C12520927D51001929DA /* Settings */,
 				5113C12620927D5A001929DA /* Home */,
 				5113C12720927D6C001929DA /* Announcement */,
 			);
@@ -760,7 +749,6 @@
 				5113C13C2092BD74001929DA /* Site.swift in Sources */,
 				51DEE53220FC2639008E709D /* AnnouncementDataFetcher.swift in Sources */,
 				51C9791720F82C0E00191DD6 /* SiteDataProvider.swift in Sources */,
-				5113C12F209286B3001929DA /* SettingsController.swift in Sources */,
 				51A4731420FA7F4500CC95F0 /* NetworkSource+Extension.swift in Sources */,
 				5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */,
 				518903A52106C35900C551AE /* HideableNetworkDataProvider.swift in Sources */,
