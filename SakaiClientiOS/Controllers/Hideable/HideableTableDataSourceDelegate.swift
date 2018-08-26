@@ -15,6 +15,16 @@ class HideableTableDataSourceDelegate<Provider: HideableDataProvider, Cell: UITa
     override func setup() {
         super.setup()
         tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if provider.isEmpty(section: indexPath.section) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            cell.textLabel?.text = "Looks like there's nothing here"
+            return cell
+        }
+        return super.tableView(tableView, cellForRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

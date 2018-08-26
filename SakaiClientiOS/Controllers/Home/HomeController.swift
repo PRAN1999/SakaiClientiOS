@@ -11,6 +11,7 @@ import ReusableSource
 class HomeController: UITableViewController {
     
     var siteTableDataSourceDelegate: SiteTableDataSourceDelegate!
+    var logoutController: UIAlertController!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -33,6 +34,8 @@ class HomeController: UITableViewController {
         
         loadData()
         self.configureNavigationItem()
+        setupLogoutController()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentLogoutController))
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,7 +46,7 @@ class HomeController: UITableViewController {
         let items = self.tabBarController?.tabBar.items
         
         if let arr = items {
-            for i in 1..<5 {
+            for i in 1..<arr.count {
                 arr[i].isEnabled = false
             }
         }
@@ -53,10 +56,23 @@ class HomeController: UITableViewController {
         let items = self.tabBarController?.tabBar.items
         
         if let arr = items {
-            for i in 1..<5 {
+            for i in 1..<arr.count {
                 arr[i].isEnabled = true
             }
         }
+    }
+    
+    func setupLogoutController() {
+        logoutController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
+            RequestManager.shared.logout() {}
+        }
+        logoutController.addAction(logoutAction)
+        logoutController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+    }
+    
+    @objc func presentLogoutController() {
+        self.present(logoutController, animated: true, completion: nil)
     }
 }
 

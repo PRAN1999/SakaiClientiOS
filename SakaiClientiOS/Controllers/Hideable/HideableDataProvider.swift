@@ -12,13 +12,22 @@ protocol HideableDataProvider: class, DataProvider {
     var isHidden: [Bool] { get set }
     
     func resetTerms()
+    
+    func isEmpty(section: Int) -> Bool
 }
 
 extension HideableDataProvider {
     
+    func isEmpty(section: Int) -> Bool {
+        return numberOfItems(in: section) == 0
+    }
+    
     func numberOfItemsForHideableSection(section: Int) -> Int {
         if isHidden[section] {
             return 0
+        }
+        if isEmpty(section: section) {
+            return 1
         }
         return numberOfItems(in: section)
     }
