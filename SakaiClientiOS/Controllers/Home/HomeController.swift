@@ -63,7 +63,7 @@ class HomeController: UITableViewController {
     }
     
     func setupLogoutController() {
-        logoutController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        logoutController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
             RequestManager.shared.logout() {}
         }

@@ -14,6 +14,7 @@ struct SitePage {
     private static let ASSIGNMENTS_STRING:String  = "Assignments"
     private static let GRADEBOOK_STRING:String    = "Gradebook"
     private static let RESOURCES_STRING:String    = "Resources"
+    private static let CHAT_ROOM_STRING:String    = "Chat Room"
     private static let DEFAULT_STRING:String      = "None"
     
     /// A map for the common site pages shared by most classes
@@ -21,6 +22,7 @@ struct SitePage {
                                                                     ASSIGNMENTS_STRING:  SiteAssignmentController.self,
                                                                     GRADEBOOK_STRING:    SiteGradebookController.self,
                                                                     RESOURCES_STRING:    ResourcePageController.self,
+                                                                    CHAT_ROOM_STRING:    ChatRoomController.self,
                                                                     DEFAULT_STRING:      DefaultController.self]
     
     let id          :String

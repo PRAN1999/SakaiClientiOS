@@ -50,6 +50,16 @@ class ClassController: UITableViewController {
             return
         }
         
+        if page.siteType == ChatRoomController.self {
+            guard let controller = controller as? ChatRoomController else {
+                return
+            }
+            guard let url = URL(string: page.url) else {
+                return
+            }
+            controller.setURL(url: url)
+        }
+        
         if page.siteType == DefaultController.self {
             guard let controller = controller as? DefaultController else {
                 return

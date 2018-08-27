@@ -35,7 +35,7 @@ class WebController: UIViewController {
         configuration.processPool = RequestManager.shared.processPool
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView.uiDelegate = self
-        webView.navigationDelegate = self;
+        webView.navigationDelegate = self
         self.view = webView
     }
     
@@ -85,17 +85,6 @@ class WebController: UIViewController {
         self.navigationController?.setToolbarHidden(true, animated: true)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "estimatedProgress" {
-            progressView.progress = Float(webView.estimatedProgress)
-        }
-    }
-    
     func setupProgressBar() {
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
@@ -108,15 +97,40 @@ class WebController: UIViewController {
     }
     
     func setupToolbar() {
+        let backButtonImage = UIImage(named: "back_button")
+        let forwardButtonImage = UIImage(named: "forward_button")
         flexButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        backButton = UIBarButtonItem(title: "Back", style: .plain,target: self, action: #selector(goBack))
-        forwardButton = UIBarButtonItem(title: "Forward", style: .plain,target: self, action: #selector(goForward))
+        backButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(goBack))
+        forwardButton = UIBarButtonItem(image: forwardButtonImage, style: .plain,target: self, action: #selector(goForward))
         
-        let arr = [backButton!, flexButton!, forwardButton!]
+        let arr = [backButton!, flexButton!, flexButton!, forwardButton!]
         
         self.navigationController?.toolbar.setItems(arr, animated: true)
         self.navigationController?.toolbar.barTintColor = UIColor.black
         self.navigationController?.toolbar.tintColor = AppGlobals.SAKAI_RED
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            progressView.progress = Float(webView.estimatedProgress)
+        }
+    }
+    
+    func loadURL(urlOpt:URL?) {
+        guard let url = urlOpt else {
+            return
+        }
+        webView.load(URLRequest(url: url))
+        shouldLoad = false
+    }
+    
+    func setURL(url:URL) {
+        self.url = url
     }
     
     @objc func goBack() {
@@ -135,18 +149,6 @@ class WebController: UIViewController {
         loadURL(urlOpt: url)
     }
     
-    func loadURL(urlOpt:URL?) {
-        guard let url = urlOpt else {
-            return
-        }
-        webView.load(URLRequest(url: url))
-        shouldLoad = false
-    }
-    
-    func setURL(url:URL) {
-        self.url = url
-    }
-    
     @objc func pop() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -160,6 +162,7 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        self.url = navigationResponse.response.url
         decisionHandler(.allow)
     }
     
@@ -179,16 +182,5 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
             webView.load(navigationAction.request)
         }
         return nil
-    }
-}
-
-extension UIViewController: UITextViewDelegate {
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        let webController = WebController()
-        webController.setURL(url: URL)
-        
-        self.navigationController?.pushViewController(webController, animated: true)
-        
-        return false
     }
 }

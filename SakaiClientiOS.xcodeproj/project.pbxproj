@@ -63,6 +63,8 @@
 		5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */; };
 		5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */; };
 		5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357320F44FFE00469FD4 /* SearchableController.swift */; };
+		5197E6BB213396DD0019DCC9 /* ChatRoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */; };
+		5197E6BD2134317F0019DCC9 /* UIViewControllerWebExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6BC2134317F0019DCC9 /* UIViewControllerWebExtension.swift */; };
 		51A472D120F99FA600CC95F0 /* DataFetcher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D020F99FA600CC95F0 /* DataFetcher+Extension.swift */; };
 		51A472D520F9A30700CC95F0 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D420F9A30700CC95F0 /* LoadingIndicator.swift */; };
 		51A472D920F9A97D00CC95F0 /* NetworkController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D820F9A97D00CC95F0 /* NetworkController+Extension.swift */; };
@@ -185,6 +187,8 @@
 		5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageView.swift; sourceTree = "<group>"; };
 		5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageController.swift; sourceTree = "<group>"; };
 		5193357320F44FFE00469FD4 /* SearchableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableController.swift; sourceTree = "<group>"; };
+		5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomController.swift; sourceTree = "<group>"; };
+		5197E6BC2134317F0019DCC9 /* UIViewControllerWebExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerWebExtension.swift; sourceTree = "<group>"; };
 		51A472D020F99FA600CC95F0 /* DataFetcher+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFetcher+Extension.swift"; sourceTree = "<group>"; };
 		51A472D420F9A30700CC95F0 /* LoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		51A472D820F9A97D00CC95F0 /* NetworkController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkController+Extension.swift"; sourceTree = "<group>"; };
@@ -350,6 +354,7 @@
 				511114AB20D6CD440077F872 /* WebController.swift */,
 				51835042211E9A75008F2CF2 /* WebNavigationController.swift */,
 				51835044211FA47A008F2CF2 /* Downloader.swift */,
+				5197E6BC2134317F0019DCC9 /* UIViewControllerWebExtension.swift */,
 			);
 			path = Web;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 		518CFCAA20B4E64500D5AE8F /* SitePages */ = {
 			isa = PBXGroup;
 			children = (
+				5197E6B9213396C60019DCC9 /* ChatRoom */,
 				512748BB210CCE6000A5A74E /* ResourcePage */,
 				51DEE5672103D3C7008E709D /* AssignmentPage */,
 				51DEE55C210171A5008E709D /* AnnouncementPage */,
@@ -406,6 +412,14 @@
 				518CFCAB20B4E68200D5AE8F /* SiteGradebookController.swift */,
 			);
 			path = GradebookPage;
+			sourceTree = "<group>";
+		};
+		5197E6B9213396C60019DCC9 /* ChatRoom */ = {
+			isa = PBXGroup;
+			children = (
+				5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */,
+			);
+			path = ChatRoom;
 			sourceTree = "<group>";
 		};
 		51A472CF20F99F8D00CC95F0 /* ReusableExtensions */ = {
@@ -735,6 +749,7 @@
 				518296D620A631CC00EAD645 /* Term.swift in Sources */,
 				512748C1210D75D700A5A74E /* ResourceTreeDataSourceDelegate.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
+				5197E6BD2134317F0019DCC9 /* UIViewControllerWebExtension.swift in Sources */,
 				512748C7210D851200A5A74E /* HideableNetworkDataSourceDelegate.swift in Sources */,
 				51A472D520F9A30700CC95F0 /* LoadingIndicator.swift in Sources */,
 				51835043211E9A75008F2CF2 /* WebNavigationController.swift in Sources */,
@@ -761,6 +776,7 @@
 				51DEE53620FC3D76008E709D /* SearchableDataSource.swift in Sources */,
 				514B623920952B89001A716C /* Parsing.swift in Sources */,
 				518903B221092E5600C551AE /* SakaiService.swift in Sources */,
+				5197E6BB213396DD0019DCC9 /* ChatRoomController.swift in Sources */,
 				518CFCAC20B4E68200D5AE8F /* SiteGradebookController.swift in Sources */,
 				51C9791920F83D3300191DD6 /* GradebookDataFetcher.swift in Sources */,
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
