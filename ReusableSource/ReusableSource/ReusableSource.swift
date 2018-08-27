@@ -9,7 +9,7 @@
 import Foundation
 
 /// An abstraction representing a DataSource for a UITableView OR UICollectionView with a unique DataProvider and ConfigurableCell
-public protocol ReusableSource {
+public protocol ReusableSource: class {
     
     /// The ConfigurableCell associated with the DataSource
     associatedtype Cell: ConfigurableCell

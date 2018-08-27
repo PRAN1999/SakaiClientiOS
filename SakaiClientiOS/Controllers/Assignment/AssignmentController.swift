@@ -10,7 +10,7 @@ import ReusableSource
 
 class AssignmentController: UITableViewController {
     
-    var assignmentsTableDataSourceDelegate: AssignmentTableDataSourceDelegate!
+    var assignmentsTableManager: AssignmentTableManager!
     
     var segments:UISegmentedControl!
     var button1: UIBarButtonItem!
@@ -19,39 +19,31 @@ class AssignmentController: UITableViewController {
     
     var selectedIndex = 0
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        assignmentsTableDataSourceDelegate = AssignmentTableDataSourceDelegate(tableView: super.tableView)
-        assignmentsTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+        assignmentsTableManager = AssignmentTableManager(tableView: super.tableView)
+        assignmentsTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
-            let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagesController
-            guard let assignments = self.assignmentsTableDataSourceDelegate.item(at: indexPath) else {
+            guard let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as? PagesController else {
                 return
             }
-            guard let start = self.assignmentsTableDataSourceDelegate.lastSelectedIndex else {
+            guard let assignments = self.assignmentsTableManager.item(at: indexPath) else {
+                return
+            }
+            guard let start = self.assignmentsTableManager.lastSelectedIndex else {
                 return
             }
             pages.setAssignments(assignments: assignments, start: start)
             self.navigationController?.pushViewController(pages, animated: true)
         }
-        assignmentsTableDataSourceDelegate.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
+        assignmentsTableManager.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
             return self
         }
+        assignmentsTableManager.delegate = self
+        
         createSegmentedControl()
         loadData()
         self.configureNavigationItem()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        setToolbar()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.isToolbarHidden = true
     }
     
     func createSegmentedControl() {
@@ -64,45 +56,48 @@ class AssignmentController: UITableViewController {
         
         button1 = UIBarButtonItem(customView: segments);
         button2 = UIBarButtonItem(customView: segments);
-        flexButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-    }
-    
-    func setToolbar() {
-        self.navigationController?.isToolbarHidden = false
-        self.navigationController?.toolbar.barTintColor = UIColor.black
+        flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        segments.frame = (self.navigationController?.toolbar.frame)!
+        self.navigationController?.toolbar.barTintColor = UIColor.black
+        let frame = self.view.frame
         
         segments.translatesAutoresizingMaskIntoConstraints = false
-        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 0)
-        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 1)
-        
-        flexButton.width = self.view.frame.size.width / 4 - 15
+        segments.setWidth(frame.size.width / 4, forSegmentAt: 0)
+        segments.setWidth(frame.size.width / 4, forSegmentAt: 1)
         
         let arr:[UIBarButtonItem] = [flexButton, button1, button2, flexButton]
         
-        self.navigationController?.toolbar.setItems(arr, animated: true)
+        self.setToolbarItems(arr, animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(false, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(true, animated: false)
     }
     
     @objc func resort() {
-        assignmentsTableDataSourceDelegate.switchSort()
+        assignmentsTableManager.switchSort()
     }
 }
 
 extension AssignmentController: LoadableController {
     @objc func loadData() {
-        segments.selectedSegmentIndex = 0
-        segments.setEnabled(false, forSegmentAt: 1)
-        assignmentsTableDataSourceDelegate.resetSort()
-        self.loadControllerWithoutCache() {
-            self.segments.setEnabled(true, forSegmentAt: 1)
-        }
+        assignmentsTableManager.loadDataSource()
     }
 }
 
-extension AssignmentController: HideableNetworkController {
-    
-    var networkSource : AssignmentTableDataSourceDelegate {
-        return assignmentsTableDataSourceDelegate
+extension AssignmentController: NetworkSourceDelegate {
+    func networkSource<Source>(willBeginLoadingDataSource networkSource: Source) -> (() -> ())? where Source : NetworkSource {
+        segments.selectedSegmentIndex = 0
+        segments.setEnabled(false, forSegmentAt: 1)
+        assignmentsTableManager.resetSort()
+        return self.addLoadingIndicator()
+    }
+
+    func networkSource<Source>(successfullyLoadedDataSource networkSource: Source?) where Source : NetworkSource {
+        self.segments.setEnabled(true, forSegmentAt: 1)
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 import ReusableSource
 
-class HideableTableDataSourceDelegate<Provider: HideableDataProvider, Cell: UITableViewCell & ConfigurableCell> : ReusableTableDataSourceDelegate<Provider, Cell>, UIGestureRecognizerDelegate where Provider.T == Cell.T {
+class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell & ConfigurableCell> : ReusableTableManager<Provider, Cell>, UIGestureRecognizerDelegate where Provider.T == Cell.T {
     
     let TABLE_HEADER_HEIGHT:CGFloat = 50.0
     

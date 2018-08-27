@@ -7,8 +7,9 @@
 
 import ReusableSource
 
-class SiteAssignmentCollectionDataSourceDelegate: AssignmentCollectionDataSourceDelegate, NetworkSource {
-    
+class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSource {
+    weak var delegate: NetworkSourceDelegate?
+
     typealias Fetcher = SiteAssignmentDataFetcher
     
     let fetcher: SiteAssignmentDataFetcher

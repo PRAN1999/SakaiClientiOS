@@ -7,7 +7,7 @@
 
 import ReusableSource
 
-class AssignmentTableDataSourceDelegate: HideableNetworkTableDataSourceDelegate<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
+class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
     
     var lastSelectedIndex: Int?
     
@@ -26,11 +26,11 @@ class AssignmentTableDataSourceDelegate: HideableNetworkTableDataSourceDelegate<
         if provider.dateSorted {
             cell.titleLabel.text = "All Assignments"
         }
-        cell.dataSourceDelegate.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
+        cell.manager.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
             self.lastSelectedIndex = cellIndexPath.row
             self.selectedAt.call(indexPath)
         }
-        cell.dataSourceDelegate.textViewDelegate.delegate(to: self) { (self, voidInput) -> UITextViewDelegate? in
+        cell.manager.textViewDelegate.delegate(to: self) { (self, voidInput) -> UITextViewDelegate? in
             return self.textViewDelegate.call()
         }
     }

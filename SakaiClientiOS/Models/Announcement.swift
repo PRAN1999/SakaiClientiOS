@@ -10,17 +10,17 @@ import SwiftyJSON
 
 /// A model for the Announcement item
 struct Announcement: TermSortable, SiteSortable {
-    
-    let author              :String
-    let title               :String?
-    let content             :String?
-    let attributedContent   :NSAttributedString?
-    let term                :Term
-    let siteId              :String
-    let date                :Date
-    let dateString          :String
-    let attachments         :[NSAttributedString]?
-    
+
+    let author: String
+    let title: String?
+    let content: String?
+    let attributedContent: NSAttributedString?
+    let term: Term
+    let siteId: String
+    let date: Date
+    let dateString: String
+    let attachments: [NSAttributedString]?
+
     /// Instantiates an Announcement object with relevant fields
     ///
     /// - Parameters:
@@ -31,16 +31,17 @@ struct Announcement: TermSortable, SiteSortable {
     ///   - term: The Term to which the Announcement belongs
     ///   - siteId: The siteId corresponding to the Site to which this Announcement belongs
     ///   - date: The date-time when the Announcement was published
-    ///   - dateString: The string to display to inform user of when this Announcment was published. Use custom date string parser in Parser.swift to display information in the correct format
-    init(_ author               :String,
-         _ title                :String?,
-         _ content              :String?,
-         _ attributedContent    :NSAttributedString?,
-         _ term                 :Term,
-         _ siteId               :String,
-         _ date                 :Date,
-         _ dateString           :String,
-         _ attachments          :[NSAttributedString]?) {
+    ///   - dateString: The string to display to inform user of when this Announcment was published. Use custom date
+    ///     string parser in Parser.swift to display information in the correct format
+    init(_ author: String,
+         _ title: String?,
+         _ content: String?,
+         _ attributedContent: NSAttributedString?,
+         _ term: Term,
+         _ siteId: String,
+         _ date: Date,
+         _ dateString: String,
+         _ attachments: [NSAttributedString]?) {
         self.author             = author
         self.title              = title
         self.content            = content
@@ -51,10 +52,12 @@ struct Announcement: TermSortable, SiteSortable {
         self.dateString         = dateString
         self.attachments        = attachments
     }
-    
-    /// Uses a JSON object returned from network request and parses it to instantiate an Announcement object with all available fields
+
+    /// Uses a JSON object returned from network request and parses it to instantiate an Announcement object with all
+    /// available fields
     ///
-    /// - Parameter data: A JSON object representing a Sakai Announcement, which contains all relevant information for the assignment
+    /// - Parameter data: A JSON object representing a Sakai Announcement, which contains all relevant information for
+    ///   the assignment
     init(data: JSON) {
         let author               = data["createdByDisplayName"].string!
         let title                = data["title"].string
@@ -66,7 +69,6 @@ struct Announcement: TermSortable, SiteSortable {
         let date                 = Date(timeIntervalSince1970: time)
         let dateString           = String.getDateString(date: date)
         var attachmentStrings    = [NSAttributedString]()
-        
         if let attachmentObjects = data["attachments"].array {
             //Convert attachment into HTML attributed string with link to content through NSMutableAttributedString
             for attachmentObject in attachmentObjects {
@@ -74,7 +76,6 @@ struct Announcement: TermSortable, SiteSortable {
                 let attachmentString    = NSMutableAttributedString(string: text)
                 let url                 = attachmentObject["url"].string!
                 let range               = NSRange(location: 0, length: text.count)
-                
                 attachmentString.addAttribute(.link, value: url, range: range)
                 attachmentStrings.append(attachmentString)
             }

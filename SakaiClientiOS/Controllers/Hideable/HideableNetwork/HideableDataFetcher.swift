@@ -8,13 +8,13 @@
 import ReusableSource
 
 protocol HideableDataFetcher: DataFetcher {
-    func loadData(for section: Int, completion: @escaping (T?) -> Void)
+    func loadData(for section: Int, completion: @escaping (T?, Error?) -> Void)
 }
 
 extension HideableDataFetcher {
-    func loadData(completion: @escaping (T?) -> Void) {
-        loadData(for: 0) { (payload) in
-            completion(payload)
+    func loadData(completion: @escaping (T?, Error?) -> Void) {
+        loadData(for: 0) { payload, err in
+            completion(payload, err)
         }
     }
 }

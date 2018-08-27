@@ -15,10 +15,10 @@ class SiteAssignmentDataFetcher: DataFetcher {
     init(siteId: String) {
         self.siteId = siteId
     }
-    
-    func loadData(completion: @escaping ([Assignment]?) -> Void) {
+
+    func loadData(completion: @escaping ([Assignment]?, Error?) -> Void) {
         SakaiService.shared.getSiteAssignments(for: siteId) { (res) in
-            completion(res)
+            completion(res, nil)
         }
     }
 }

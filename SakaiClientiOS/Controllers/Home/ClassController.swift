@@ -18,6 +18,11 @@ class ClassController: UITableViewController {
         super.tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -45,19 +50,10 @@ class ClassController: UITableViewController {
         
         let sitePage:SitePageController = page.siteType.init()
         sitePage.siteId = page.siteId
+        sitePage.siteUrl = page.url
         
         guard let controller = sitePage as? UIViewController else {
             return
-        }
-        
-        if page.siteType == DefaultController.self {
-            guard let controller = controller as? DefaultController else {
-                return
-            }
-            guard let url = URL(string: page.url) else {
-                return
-            }
-            controller.setURL(url: url)
         }
         
         self.navigationController?.pushViewController(controller, animated: true)

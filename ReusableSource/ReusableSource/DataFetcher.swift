@@ -17,5 +17,5 @@ public protocol DataFetcher {
     /// Asynchronously load data and execute callback with payload of type T.
     ///
     /// - Parameter completion: The callback function to execute with payload
-    func loadData(completion: @escaping (T?) -> Void)
+    func loadData(completion: @escaping (T?, Error?) -> Void)
 }

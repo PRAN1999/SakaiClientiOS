@@ -9,8 +9,6 @@ import UIKit
 
 /// A default ActivityIndicator to be used across the app
 class LoadingIndicator: UIActivityIndicatorView {
-
-    
     /// Instantiates a ActivityIndicatorView and configures it appropriately
     ///
     /// - Parameter frame: The frame of the LoadingIndicator
@@ -20,9 +18,9 @@ class LoadingIndicator: UIActivityIndicatorView {
         self.color = UIColor.black
         // Set the background color to be clear
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        self.hidesWhenStopped = true
     }
-    
-    
+
     /// Instantiates an ActivityIndicatorView and then adds it to the center of a superview
     ///
     /// - Parameters:
@@ -34,8 +32,7 @@ class LoadingIndicator: UIActivityIndicatorView {
         view.addSubview(self)
         view.bringSubview(toFront: self)
     }
-    
-    
+
     /// Instantiates ActivityIndicatorView in a 100 x 100 square and adds to center of superview
     ///
     /// - Parameter view: The view to which the indicator should be added
@@ -43,9 +40,8 @@ class LoadingIndicator: UIActivityIndicatorView {
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         self.init(frame: frame, view: view)
     }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
 
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

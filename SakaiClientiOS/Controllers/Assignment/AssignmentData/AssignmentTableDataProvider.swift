@@ -45,7 +45,6 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
                 res.sort { $0.dueDate > $1.dueDate }
                 dateSortedAssignments[indexPath.section] = res
             }
-            
             return dateSortedAssignments[indexPath.section]
         }
         return assignments[indexPath.section][indexPath.row]

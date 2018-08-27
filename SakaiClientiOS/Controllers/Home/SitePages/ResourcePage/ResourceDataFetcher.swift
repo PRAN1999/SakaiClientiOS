@@ -17,9 +17,9 @@ class ResourceDataFetcher: DataFetcher {
     
     typealias T = [ResourceNode]
     
-    func loadData(completion: @escaping ([ResourceNode]?) -> Void) {
+    func loadData(completion: @escaping ([ResourceNode]?, Error?) -> Void) {
         SakaiService.shared.getSiteResources(for: siteId) { (res) in
-            completion(res)
+            completion(res, nil)
         }
     }
 }

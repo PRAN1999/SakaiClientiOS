@@ -12,8 +12,9 @@ import UIKit
 class ResourcePageController: UIViewController, SitePageController {
     
     var treeView: RATreeView!
-    var resourceDataSourceDelegate: ResourceTreeDataSourceDelegate!
+    var resourceTreeManager: ResourceTreeManager!
     var siteId: String?
+    var siteUrl: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +28,13 @@ class ResourcePageController: UIViewController, SitePageController {
         treeView = RATreeView(frame: view.bounds)
         view.addSubview(treeView)
         
-        resourceDataSourceDelegate = ResourceTreeDataSourceDelegate(treeView: treeView, siteId: siteId)
-        resourceDataSourceDelegate.didSelectResource.delegate(to: self) { (self, url) -> Void in
+        resourceTreeManager = ResourceTreeManager(treeView: treeView, siteId: siteId)
+        resourceTreeManager.didSelectResource.delegate(to: self) { (self, url) -> Void in
             let webController = WebController()
             webController.setURL(url: url)
             self.navigationController?.pushViewController(webController, animated: true)
         }
+        resourceTreeManager.delegate = self
 
         loadData()
         configureNavigationItem()
@@ -45,12 +47,8 @@ class ResourcePageController: UIViewController, SitePageController {
 
 extension ResourcePageController: LoadableController {
     @objc func loadData() {
-        loadController() {}
+        resourceTreeManager.loadDataSource()
     }
 }
 
-extension ResourcePageController: NetworkController {
-    var networkSource: ResourceTreeDataSourceDelegate {
-        return resourceDataSourceDelegate
-    }
-}
+extension ResourcePageController: NetworkSourceDelegate {}

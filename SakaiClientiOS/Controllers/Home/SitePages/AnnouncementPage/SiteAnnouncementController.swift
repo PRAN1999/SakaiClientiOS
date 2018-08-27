@@ -8,8 +8,9 @@
 import ReusableSource
 
 class SiteAnnouncementController: UITableViewController, SitePageController {
-    var announcementTableDataSourceDelegate : AnnouncementTableDataSourceDelegate!
+    var announcementTableManager : AnnouncementTableManager!
     var siteId: String?
+    var siteUrl: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,17 +22,18 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
         
         self.clearsSelectionOnViewWillAppear = true
         
-        announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
-        announcementTableDataSourceDelegate.siteId = id
-        announcementTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
-            guard let announcement = self.announcementTableDataSourceDelegate.item(at: indexPath) else {
+        announcementTableManager = AnnouncementTableManager(tableView: tableView)
+        announcementTableManager.siteId = id
+        announcementTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            guard let announcement = self.announcementTableManager.item(at: indexPath) else {
                 return
             }
             let announcementPage = AnnouncementPageController()
             announcementPage.setAnnouncement(announcement)
             self.navigationController?.pushViewController(announcementPage, animated: true)
         }
-        self.loadController {}
+        announcementTableManager.delegate = self
+        loadData()
         self.configureNavigationItem()
     }
     
@@ -54,7 +56,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
 
 extension SiteAnnouncementController: LoadableController {
     @objc func loadData() {
-        self.loadControllerWithoutCache() {}
+        announcementTableManager.loadDataSourceWithoutCache()
     }
 }
 
@@ -65,8 +67,4 @@ extension SiteAnnouncementController: FeedController {
     }
 }
 
-extension SiteAnnouncementController: NetworkController {
-    var networkSource: AnnouncementTableDataSourceDelegate {
-        return announcementTableDataSourceDelegate
-    }
-}
+extension SiteAnnouncementController: NetworkSourceDelegate {}

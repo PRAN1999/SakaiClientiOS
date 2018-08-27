@@ -21,18 +21,18 @@ class AnnouncementDataFetcher: DataFetcher {
     
     var moreLoads = true
     
-    func loadData(completion: @escaping ([Announcement]?) -> Void) {
+    func loadData(completion: @escaping ([Announcement]?, Error?) -> Void) {
         SakaiService.shared.getAllAnnouncements(offset: offset, limit: numToRequest, daysBack: daysBack, completion: { (announcementList, moreLoads) in
             self.moreLoads = moreLoads
             
             guard let list = announcementList else {
-                completion(nil)
+                completion(nil, nil)
                 return
             }
             self.offset += list.count
             self.numToRequest += AnnouncementDataFetcher.REQUEST_LIMIT
             
-            completion(announcementList)
+            completion(announcementList, nil)
         }, siteId: siteId)
     }
     

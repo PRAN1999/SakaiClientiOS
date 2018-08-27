@@ -10,6 +10,7 @@ import ReusableSource
 class SiteGradebookController: UITableViewController, SitePageController {
     
     var siteId: String?
+    var siteUrl: String?
     var siteGradebookTableDataSource: SiteGradebookTableDataSource!
     
     override func viewDidLoad() {
@@ -21,6 +22,7 @@ class SiteGradebookController: UITableViewController, SitePageController {
         }
         
         siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: super.tableView, siteId: id)
+        siteGradebookTableDataSource.delegate = self
         loadData()
         self.configureNavigationItem()
     }
@@ -28,12 +30,8 @@ class SiteGradebookController: UITableViewController, SitePageController {
 
 extension SiteGradebookController: LoadableController {
     @objc func loadData() {
-        self.loadController() {}
+        siteGradebookTableDataSource.loadDataSource()
     }
 }
 
-extension SiteGradebookController: NetworkController {
-    var networkSource: SiteGradebookTableDataSource {
-        return siteGradebookTableDataSource
-    }
-}
+extension SiteGradebookController: NetworkSourceDelegate {}

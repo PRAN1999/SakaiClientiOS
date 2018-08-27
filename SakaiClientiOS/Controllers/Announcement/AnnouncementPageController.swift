@@ -23,22 +23,6 @@ class AnnouncementPageController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    func setAnnouncement(_ announcement: Announcement) {
-        self.announcement = announcement
-    }
-    
     func setupView() {
         guard let item = announcement else {
             return
@@ -65,5 +49,16 @@ class AnnouncementPageController: UIViewController {
         announcementPageView.dateLabel.titleLabel.text = item.dateString
         announcementPageView.setMessage(attributedText: item.attributedContent, resources: item.attachments)
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    func setAnnouncement(_ announcement: Announcement) {
+        self.announcement = announcement
+    }
 }

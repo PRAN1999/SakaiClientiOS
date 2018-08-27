@@ -13,39 +13,35 @@ class PagesController: UIViewController {
     var pageControl: UIPageControl!
     var pageControlView: UIView!
     var pageController:UIPageViewController!
-    var pages: [UIViewController?]!
     
-    var webController: WebController
+    var webController: WebController!
     var popupController: WebViewNavigationController!
     
-    var assignments: [Assignment]!
-    var start:Int = 0
-    var pendingIndex:Int? = 0
+    var pages: [UIViewController?] = []
+    var assignments: [Assignment] = []
+    var start: Int = 0
+    var pendingIndex: Int? = 0
     
-    required init?(coder aDecoder: NSCoder) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initializeControllers()
+        setPage(assignment: self.assignments[start], index: start)
+        setPopupURL(viewControllerIndex: start)
+        webController.title = "DRAG TO SUBMIT"
+        self.navigationController?.popupInteractionStyle = .default
+        self.navigationController?.popupBar.backgroundStyle = .regular
+        self.navigationController?.popupBar.barStyle = .compact
+        setup()
+    }
+    
+    func initializeControllers() {
         pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        pages = [UIViewController]()
-        
-        assignments = [Assignment]()
         
         webController = WebController()
         popupController = WebViewNavigationController(rootViewController: webController)
         
         pageControl = UIPageControl()
         pageControlView = UIView()
-        
-        super.init(coder: aDecoder)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        webController.title = "DRAG TO SUBMIT"
-        self.navigationController?.popupInteractionStyle = .default
-        self.navigationController?.popupBar.backgroundStyle = .regular
-        self.navigationController?.popupBar.barStyle = .compact
-        
-        setup()
     }
     
     func setup() {
@@ -80,7 +76,6 @@ class PagesController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
-        self.navigationController?.isToolbarHidden = true
         self.tabBarController?.tabBar.isHidden = true
     }
     
@@ -98,8 +93,6 @@ class PagesController: UIViewController {
         pages = [UIViewController?](repeating: nil, count: assignments.count)
         self.assignments = assignments
         self.start = start
-        setPage(assignment: self.assignments[start], index: start)
-        setPopupURL(viewControllerIndex: start)
     }
 
     override func didReceiveMemoryWarning() {

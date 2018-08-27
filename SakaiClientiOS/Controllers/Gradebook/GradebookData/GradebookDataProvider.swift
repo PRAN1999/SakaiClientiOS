@@ -12,7 +12,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     
     var terms: [Term] = []
     var isHidden: [Bool] = []
-    var gradeItems:[[[GradeItem]]] = []
+    var gradeItems: [[[GradeItem]]] = []
     var hasLoaded: [Bool] = []
     
     typealias T = GradeItem
@@ -60,7 +60,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         gradeItems[section] = res
     }
     
-    func getHeaderRowForSubsection(section:Int, indexPath:IndexPath) -> Int {
+    func getHeaderRowForSubsection(section: Int, indexPath: IndexPath) -> Int {
         var row:Int = 0
         
         for index in 0..<indexPath.section {
@@ -70,7 +70,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         return row
     }
     
-    func getSubsectionIndexPath(section:Int, row:Int) -> IndexPath {
+    func getSubsectionIndexPath(section: Int, row: Int) -> IndexPath {
         let termSection:[[GradeItem]] = gradeItems[section]
         
         var startRow:Int = row
@@ -89,7 +89,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         return IndexPath(row: subRow, section: subsection)
     }
     
-    func getSubsectionTitle(section:Int, subsection:Int) -> String? {
+    func getSubsectionTitle(section: Int, subsection: Int) -> String? {
         let siteId:String = gradeItems[section][subsection][0].siteId
         let title:String? = SakaiService.shared.siteTitleMap[siteId]
         return title

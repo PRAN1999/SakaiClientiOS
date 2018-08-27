@@ -8,6 +8,8 @@
 import ReusableSource
 
 class SiteGradebookTableDataSource: ReusableTableDataSource<SingleSectionDataProvider<GradeItem>, GradebookCell>, NetworkSource {
+    weak var delegate: NetworkSourceDelegate?
+
     typealias Fetcher = SiteGradebookDataFetcher
     
     var fetcher: SiteGradebookDataFetcher

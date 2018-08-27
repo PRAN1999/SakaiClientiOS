@@ -9,7 +9,7 @@
 import UIKit
 
 /// Subclass ReusableCollectionDataSource to add UICollectionViewDelegate conformance for added flexibility managing collectionView
-open class ReusableCollectionDataSourceFlowDelegate<Provider: DataProvider, Cell: UICollectionViewCell & ConfigurableCell> : ReusableCollectionDataSource<Provider, Cell>, UICollectionViewDelegateFlowLayout where Provider.T == Cell.T {
+open class ReusableCollectionManager<Provider: DataProvider, Cell: UICollectionViewCell & ConfigurableCell> : ReusableCollectionDataSource<Provider, Cell>, UICollectionViewDelegateFlowLayout where Provider.T == Cell.T {
     
     public var selectedAt = Delegated<IndexPath, Void>()
     

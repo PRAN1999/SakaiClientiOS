@@ -10,7 +10,7 @@ import ReusableSource
 
 class GradebookController: UITableViewController {
     
-    var gradebookTableDataSourceDelegate: GradebookTableDataSourceDelegate!
+    var gradebookTableManager: GradebookTableManager!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -18,8 +18,8 @@ class GradebookController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        gradebookTableDataSourceDelegate = GradebookTableDataSourceDelegate(tableView: super.tableView)
-        gradebookTableDataSourceDelegate.controller = self
+        gradebookTableManager = GradebookTableManager(tableView: super.tableView)
+        gradebookTableManager.delegate = self
         loadData()
         self.configureNavigationItem()
     }
@@ -31,14 +31,9 @@ class GradebookController: UITableViewController {
 
 extension GradebookController: LoadableController {
     @objc func loadData() {
-        gradebookTableDataSourceDelegate.hideHeaderCell()
-        self.loadControllerWithoutCache() {}
+        gradebookTableManager.hideHeaderCell()
+        gradebookTableManager.loadDataSourceWithoutCache()
     }
 }
 
-extension GradebookController: HideableNetworkController {
-    
-    var networkSource: GradebookTableDataSourceDelegate {
-        return gradebookTableDataSourceDelegate
-    }
-}
+extension GradebookController: NetworkSourceDelegate {}
