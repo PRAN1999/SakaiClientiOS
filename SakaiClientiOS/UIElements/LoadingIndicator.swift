@@ -20,6 +20,7 @@ class LoadingIndicator: UIActivityIndicatorView {
         self.color = UIColor.black
         // Set the background color to be clear
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        self.hidesWhenStopped = true
     }
     
     

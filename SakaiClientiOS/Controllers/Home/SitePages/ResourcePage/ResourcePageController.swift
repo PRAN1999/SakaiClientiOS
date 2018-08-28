@@ -14,6 +14,7 @@ class ResourcePageController: UIViewController, SitePageController {
     var treeView: RATreeView!
     var resourceDataSourceDelegate: ResourceTreeDataSourceDelegate!
     var siteId: String?
+    var siteUrl: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()

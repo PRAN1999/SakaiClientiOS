@@ -399,4 +399,18 @@ class SakaiService {
             completion(tree.children)
         }
     }
+    
+    // MARK: Chat Room Service
+    
+    func submitMessage(text: String, csrftoken: String, chatChannelId: String, completion: @escaping () -> Void) {
+        let parameters = [
+            "body": text,
+            "chatChannelId": chatChannelId,
+            "csrftoken": csrftoken
+        ]
+        let url = AppGlobals.NEW_CHAT_MESSAGE_URL
+        RequestManager.shared.makeRequest(url: url, method: .post, parameters: parameters) { (res) in
+            completion()
+        }
+    }
 }

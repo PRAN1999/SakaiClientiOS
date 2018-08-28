@@ -10,6 +10,7 @@ import ReusableSource
 class SiteGradebookController: UITableViewController, SitePageController {
     
     var siteId: String?
+    var siteUrl: String?
     var siteGradebookTableDataSource: SiteGradebookTableDataSource!
     
     override func viewDidLoad() {

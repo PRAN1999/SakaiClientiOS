@@ -12,4 +12,5 @@ protocol SitePageController: class {
     init()
     
     var siteId: String? { get set }
+    var siteUrl: String? { get set }
 }

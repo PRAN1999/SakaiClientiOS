@@ -10,6 +10,7 @@ import ReusableSource
 class SiteAnnouncementController: UITableViewController, SitePageController {
     var announcementTableDataSourceDelegate : AnnouncementTableDataSourceDelegate!
     var siteId: String?
+    var siteUrl: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -45,29 +45,10 @@ class ClassController: UITableViewController {
         
         let sitePage:SitePageController = page.siteType.init()
         sitePage.siteId = page.siteId
+        sitePage.siteUrl = page.url
         
         guard let controller = sitePage as? UIViewController else {
             return
-        }
-        
-        if page.siteType == ChatRoomController.self {
-            guard let controller = controller as? ChatRoomController else {
-                return
-            }
-            guard let url = URL(string: page.url) else {
-                return
-            }
-            controller.setURL(url: url)
-        }
-        
-        if page.siteType == DefaultController.self {
-            guard let controller = controller as? DefaultController else {
-                return
-            }
-            guard let url = URL(string: page.url) else {
-                return
-            }
-            controller.setURL(url: url)
         }
         
         self.navigationController?.pushViewController(controller, animated: true)

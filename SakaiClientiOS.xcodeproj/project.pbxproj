@@ -65,6 +65,9 @@
 		5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357320F44FFE00469FD4 /* SearchableController.swift */; };
 		5197E6BB213396DD0019DCC9 /* ChatRoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */; };
 		5197E6BD2134317F0019DCC9 /* UIViewControllerWebExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6BC2134317F0019DCC9 /* UIViewControllerWebExtension.swift */; };
+		5197E6C3213498550019DCC9 /* MessageBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6C2213498550019DCC9 /* MessageBar.swift */; };
+		5197E6C521349AE00019DCC9 /* ChatRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6C421349AE00019DCC9 /* ChatRoomView.swift */; };
+		5197E6CB2134E8D80019DCC9 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6CA2134E8D80019DCC9 /* ChatTextView.swift */; };
 		51A472D120F99FA600CC95F0 /* DataFetcher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D020F99FA600CC95F0 /* DataFetcher+Extension.swift */; };
 		51A472D520F9A30700CC95F0 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D420F9A30700CC95F0 /* LoadingIndicator.swift */; };
 		51A472D920F9A97D00CC95F0 /* NetworkController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D820F9A97D00CC95F0 /* NetworkController+Extension.swift */; };
@@ -189,6 +192,9 @@
 		5193357320F44FFE00469FD4 /* SearchableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableController.swift; sourceTree = "<group>"; };
 		5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomController.swift; sourceTree = "<group>"; };
 		5197E6BC2134317F0019DCC9 /* UIViewControllerWebExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerWebExtension.swift; sourceTree = "<group>"; };
+		5197E6C2213498550019DCC9 /* MessageBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBar.swift; sourceTree = "<group>"; };
+		5197E6C421349AE00019DCC9 /* ChatRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomView.swift; sourceTree = "<group>"; };
+		5197E6CA2134E8D80019DCC9 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
 		51A472D020F99FA600CC95F0 /* DataFetcher+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFetcher+Extension.swift"; sourceTree = "<group>"; };
 		51A472D420F9A30700CC95F0 /* LoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		51A472D820F9A97D00CC95F0 /* NetworkController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkController+Extension.swift"; sourceTree = "<group>"; };
@@ -343,6 +349,9 @@
 				5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */,
 				51DEE55A21016B0D008E709D /* TappableTextView.swift */,
 				512748BE210D3A8700A5A74E /* ResourceCell.swift */,
+				5197E6C2213498550019DCC9 /* MessageBar.swift */,
+				5197E6C421349AE00019DCC9 /* ChatRoomView.swift */,
+				5197E6CA2134E8D80019DCC9 /* ChatTextView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -768,6 +777,7 @@
 				5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */,
 				518903A52106C35900C551AE /* HideableNetworkDataProvider.swift in Sources */,
 				514B623C209569FE001A716C /* TermHeader.swift in Sources */,
+				5197E6C521349AE00019DCC9 /* ChatRoomView.swift in Sources */,
 				51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */,
 				511114AC20D6CD440077F872 /* WebController.swift in Sources */,
 				518903A72106C67E00C551AE /* HideableNetworkController.swift in Sources */,
@@ -778,6 +788,7 @@
 				518903B221092E5600C551AE /* SakaiService.swift in Sources */,
 				5197E6BB213396DD0019DCC9 /* ChatRoomController.swift in Sources */,
 				518CFCAC20B4E68200D5AE8F /* SiteGradebookController.swift in Sources */,
+				5197E6CB2134E8D80019DCC9 /* ChatTextView.swift in Sources */,
 				51C9791920F83D3300191DD6 /* GradebookDataFetcher.swift in Sources */,
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
 				51C9791520F81A3E00191DD6 /* GradebookDataProvider.swift in Sources */,
@@ -812,6 +823,7 @@
 				511114BB20DB4B770077F872 /* DetailLabel.swift in Sources */,
 				512748BF210D3A8700A5A74E /* ResourceCell.swift in Sources */,
 				51DEE56B21051631008E709D /* HideableDataFetcher.swift in Sources */,
+				5197E6C3213498550019DCC9 /* MessageBar.swift in Sources */,
 				5103FDFA20E86676009F8BF4 /* AnnouncementCell.swift in Sources */,
 				5111149C20CD97110077F872 /* AssignmentTableCell.swift in Sources */,
 			);

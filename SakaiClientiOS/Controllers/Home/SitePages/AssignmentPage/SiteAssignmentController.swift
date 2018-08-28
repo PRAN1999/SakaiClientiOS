@@ -11,6 +11,7 @@ import UIKit
 class SiteAssignmentController: UICollectionViewController, SitePageController {
     
     var siteId: String?
+    var siteUrl: String?
     
     var siteAssignmentDataSourceDelegate: SiteAssignmentCollectionDataSourceDelegate!
     

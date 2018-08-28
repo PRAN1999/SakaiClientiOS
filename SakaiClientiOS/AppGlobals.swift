@@ -26,6 +26,7 @@ final class AppGlobals {
     static let ANNOUNCEMENT_URL         = BASE_URL + "announcement/user.json?n=*&d=$"
     static let SITE_ANNOUNCEMENTS_URL   = BASE_URL + "announcement/site/*.json?n=#&d=$"
     static let SITE_RESOURCES_URL       = BASE_URL + "content/site/*.json"
+    static let NEW_CHAT_MESSAGE_URL     = BASE_URL + "chat-message/new"
     
     static let SAKAI_RED = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
     
