@@ -19,10 +19,6 @@ class AssignmentController: UITableViewController {
     
     var selectedIndex = 0
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         assignmentsTableDataSourceDelegate = AssignmentTableDataSourceDelegate(tableView: super.tableView)
@@ -41,17 +37,10 @@ class AssignmentController: UITableViewController {
         assignmentsTableDataSourceDelegate.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
             return self
         }
+        
         createSegmentedControl()
         loadData()
         self.configureNavigationItem()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        setToolbar()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.isToolbarHidden = true
     }
     
     func createSegmentedControl() {
@@ -64,24 +53,26 @@ class AssignmentController: UITableViewController {
         
         button1 = UIBarButtonItem(customView: segments);
         button2 = UIBarButtonItem(customView: segments);
-        flexButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-    }
-    
-    func setToolbar() {
-        self.navigationController?.isToolbarHidden = false
-        self.navigationController?.toolbar.barTintColor = UIColor.black
+        flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        segments.frame = (self.navigationController?.toolbar.frame)!
+        self.navigationController?.toolbar.barTintColor = UIColor.black
+        let frame = self.view.frame
         
         segments.translatesAutoresizingMaskIntoConstraints = false
-        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 0)
-        segments.setWidth(self.view.frame.size.width / 4, forSegmentAt: 1)
-        
-        flexButton.width = self.view.frame.size.width / 4 - 15
+        segments.setWidth(frame.size.width / 4, forSegmentAt: 0)
+        segments.setWidth(frame.size.width / 4, forSegmentAt: 1)
         
         let arr:[UIBarButtonItem] = [flexButton, button1, button2, flexButton]
         
-        self.navigationController?.toolbar.setItems(arr, animated: true)
+        self.setToolbarItems(arr, animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(false, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(true, animated: false)
     }
     
     @objc func resort() {
@@ -101,7 +92,6 @@ extension AssignmentController: LoadableController {
 }
 
 extension AssignmentController: HideableNetworkController {
-    
     var networkSource : AssignmentTableDataSourceDelegate {
         return assignmentsTableDataSourceDelegate
     }

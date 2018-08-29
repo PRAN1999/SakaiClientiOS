@@ -36,6 +36,7 @@ class HomeController: UITableViewController {
         self.configureNavigationItem()
         setupLogoutController()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentLogoutController))
+        self.navigationController?.toolbar.barTintColor = UIColor.black
     }
     
     override func didReceiveMemoryWarning() {

@@ -9,8 +9,6 @@ import UIKit
 
 /// A default ActivityIndicator to be used across the app
 class LoadingIndicator: UIActivityIndicatorView {
-
-    
     /// Instantiates a ActivityIndicatorView and configures it appropriately
     ///
     /// - Parameter frame: The frame of the LoadingIndicator
@@ -45,8 +43,8 @@ class LoadingIndicator: UIActivityIndicatorView {
         self.init(frame: frame, view: view)
     }
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
+    
 }

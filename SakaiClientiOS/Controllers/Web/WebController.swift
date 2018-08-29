@@ -45,14 +45,6 @@ class WebController: UIViewController {
         self.view = webView
     }
     
-    deinit {
-        guard webView != nil else {
-            return
-        }
-        webView.removeObserver(self, forKeyPath: "estimatedProgress")
-        progressView.removeFromSuperview()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProgressBar()
@@ -105,7 +97,7 @@ class WebController: UIViewController {
     
     private func setupActionSheet() {
         let downloadAction = UIAlertAction(title: "Download", style: .default) { (action) in
-            self.downloadAndPresentInteractionController()
+            self.downloadAndPresentInteractionController(url: self.url)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -141,7 +133,7 @@ class WebController: UIViewController {
         self.url = url
     }
     
-    func downloadAndPresentInteractionController() {
+    func downloadAndPresentInteractionController(url:URL?) {
         guard let url = url else {
             return
         }

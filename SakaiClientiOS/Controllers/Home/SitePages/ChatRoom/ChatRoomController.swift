@@ -139,8 +139,8 @@ class ChatRoomController: UIViewController, SitePageController {
     }
     
     func updateMonitor() {
-        webView.evaluateJavaScript("updateNow();") { (data, err) in
-            self.scrollToBottom()
+        webView.evaluateJavaScript("updateNow();") { [weak self] (data, err) in
+            self?.scrollToBottom()
         }
     }
 }

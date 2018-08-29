@@ -17,8 +17,7 @@ class TappableTextView: UITextView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setup() {

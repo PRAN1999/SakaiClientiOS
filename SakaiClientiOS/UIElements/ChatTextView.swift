@@ -18,8 +18,7 @@ class ChatTextView: UITextView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.delegate = self
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
