@@ -49,8 +49,8 @@ class ChatRoomView: UIView {
         messageBar.translatesAutoresizingMaskIntoConstraints = false
         
         webView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        webView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        webView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        webView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        webView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         webView.bottomAnchor.constraint(equalTo: messageBar.topAnchor).isActive = true
         
         messageBar.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true

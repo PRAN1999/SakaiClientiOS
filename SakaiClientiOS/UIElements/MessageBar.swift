@@ -34,11 +34,12 @@ class MessageBar: UIView {
         inputField.textColor = AppGlobals.SAKAI_RED
         inputField.tintColor = AppGlobals.SAKAI_RED
         inputField.font = UIFont.systemFont(ofSize: 16)
+        inputField.backgroundColor = UIColor.white
         inputField.layer.cornerRadius = 5
-        inputField.backgroundColor = UIColor.lightGray
+        inputField.layer.borderWidth = 1
+        inputField.layer.borderColor = UIColor.lightGray.cgColor
         
-        sendButton = UIButton(type: .system)
-        sendButton.setTitle("Send", for: .normal)
+        sendButton = UIButton(type: .contactAdd)
         sendButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         sendButton.tintColor = AppGlobals.SAKAI_RED
     }

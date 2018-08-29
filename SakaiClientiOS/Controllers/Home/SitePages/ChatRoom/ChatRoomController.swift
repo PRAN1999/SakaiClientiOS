@@ -14,7 +14,6 @@ class ChatRoomController: UIViewController, SitePageController {
     var siteUrl: String?
     
     var chatRoomView: ChatRoomView!
-    
     var chatChannelId: String?
     var csrftoken: String?
     
@@ -40,10 +39,6 @@ class ChatRoomController: UIViewController, SitePageController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -131,8 +126,7 @@ class ChatRoomController: UIViewController, SitePageController {
             return
         }
         submitMessage(text)
-        chatRoomView.messageBar.inputField.text = ""
-        chatRoomView.messageBar.inputField.resignFirstResponder()
+        chatRoomView.messageBar.inputField.text = nil
     }
     
     func submitMessage(_ text: String) {
@@ -154,6 +148,7 @@ class ChatRoomController: UIViewController, SitePageController {
 extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
         webView.evaluateJavaScript("currentChatChannelId") { [weak self] (data, err) in
             guard err == nil else {
                 self?.navigationController?.popViewController(animated: true)
@@ -168,6 +163,7 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
                 self?.setInput(enabled: true)
             }
         }
+        
         webView.evaluateJavaScript("var csrftoken = document.getElementById('topForm:csrftoken').value; var selectedElement = document.querySelector('#Monitor');document.body.innerHTML = selectedElement.innerHTML; csrftoken;", completionHandler: { [weak self] (data, err) in
             guard err == nil else {
                 self?.navigationController?.popViewController(animated: true)
@@ -185,19 +181,5 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
             
             self?.indicator.stopAnimating()
         })
-        
-    }
-}
-
-class NativeWebViewScrollViewDelegate: NSObject, UIScrollViewDelegate {
-    // MARK: - Shared delegate
-    static var shared = NativeWebViewScrollViewDelegate()
-    
-    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        scrollView.pinchGestureRecognizer?.isEnabled = false
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y)
     }
 }

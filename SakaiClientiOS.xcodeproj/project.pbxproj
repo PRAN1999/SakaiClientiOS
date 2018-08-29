@@ -46,7 +46,6 @@
 		517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
 		51835043211E9A75008F2CF2 /* WebNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51835042211E9A75008F2CF2 /* WebNavigationController.swift */; };
-		51835045211FA47A008F2CF2 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51835044211FA47A008F2CF2 /* Downloader.swift */; };
 		518903A12106BAE500C551AE /* HideableNetworkSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A02106BAE500C551AE /* HideableNetworkSource.swift */; };
 		518903A52106C35900C551AE /* HideableNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */; };
 		518903A72106C67E00C551AE /* HideableNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A62106C67E00C551AE /* HideableNetworkController.swift */; };
@@ -64,10 +63,11 @@
 		5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */; };
 		5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357320F44FFE00469FD4 /* SearchableController.swift */; };
 		5197E6BB213396DD0019DCC9 /* ChatRoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */; };
-		5197E6BD2134317F0019DCC9 /* UIViewControllerWebExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6BC2134317F0019DCC9 /* UIViewControllerWebExtension.swift */; };
+		5197E6BD2134317F0019DCC9 /* WebExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6BC2134317F0019DCC9 /* WebExtension.swift */; };
 		5197E6C3213498550019DCC9 /* MessageBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6C2213498550019DCC9 /* MessageBar.swift */; };
 		5197E6C521349AE00019DCC9 /* ChatRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6C421349AE00019DCC9 /* ChatRoomView.swift */; };
 		5197E6CB2134E8D80019DCC9 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6CA2134E8D80019DCC9 /* ChatTextView.swift */; };
+		5197E6CF2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5197E6CE2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift */; };
 		51A472D120F99FA600CC95F0 /* DataFetcher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D020F99FA600CC95F0 /* DataFetcher+Extension.swift */; };
 		51A472D520F9A30700CC95F0 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D420F9A30700CC95F0 /* LoadingIndicator.swift */; };
 		51A472D920F9A97D00CC95F0 /* NetworkController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472D820F9A97D00CC95F0 /* NetworkController+Extension.swift */; };
@@ -173,7 +173,6 @@
 		517F378420E019D900B21D5A /* LNPopupController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		51835042211E9A75008F2CF2 /* WebNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebNavigationController.swift; sourceTree = "<group>"; };
-		51835044211FA47A008F2CF2 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		518903A02106BAE500C551AE /* HideableNetworkSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkSource.swift; sourceTree = "<group>"; };
 		518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkDataProvider.swift; sourceTree = "<group>"; };
 		518903A62106C67E00C551AE /* HideableNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkController.swift; sourceTree = "<group>"; };
@@ -191,10 +190,11 @@
 		5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageController.swift; sourceTree = "<group>"; };
 		5193357320F44FFE00469FD4 /* SearchableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableController.swift; sourceTree = "<group>"; };
 		5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomController.swift; sourceTree = "<group>"; };
-		5197E6BC2134317F0019DCC9 /* UIViewControllerWebExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerWebExtension.swift; sourceTree = "<group>"; };
+		5197E6BC2134317F0019DCC9 /* WebExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebExtension.swift; sourceTree = "<group>"; };
 		5197E6C2213498550019DCC9 /* MessageBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBar.swift; sourceTree = "<group>"; };
 		5197E6C421349AE00019DCC9 /* ChatRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomView.swift; sourceTree = "<group>"; };
 		5197E6CA2134E8D80019DCC9 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
+		5197E6CE2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebViewScrollDelegate.swift; sourceTree = "<group>"; };
 		51A472D020F99FA600CC95F0 /* DataFetcher+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFetcher+Extension.swift"; sourceTree = "<group>"; };
 		51A472D420F9A30700CC95F0 /* LoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		51A472D820F9A97D00CC95F0 /* NetworkController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkController+Extension.swift"; sourceTree = "<group>"; };
@@ -362,8 +362,8 @@
 				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
 				511114AB20D6CD440077F872 /* WebController.swift */,
 				51835042211E9A75008F2CF2 /* WebNavigationController.swift */,
-				51835044211FA47A008F2CF2 /* Downloader.swift */,
-				5197E6BC2134317F0019DCC9 /* UIViewControllerWebExtension.swift */,
+				5197E6BC2134317F0019DCC9 /* WebExtension.swift */,
+				5197E6CE2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift */,
 			);
 			path = Web;
 			sourceTree = "<group>";
@@ -758,7 +758,7 @@
 				518296D620A631CC00EAD645 /* Term.swift in Sources */,
 				512748C1210D75D700A5A74E /* ResourceTreeDataSourceDelegate.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
-				5197E6BD2134317F0019DCC9 /* UIViewControllerWebExtension.swift in Sources */,
+				5197E6BD2134317F0019DCC9 /* WebExtension.swift in Sources */,
 				512748C7210D851200A5A74E /* HideableNetworkDataSourceDelegate.swift in Sources */,
 				51A472D520F9A30700CC95F0 /* LoadingIndicator.swift in Sources */,
 				51835043211E9A75008F2CF2 /* WebNavigationController.swift in Sources */,
@@ -780,6 +780,7 @@
 				5197E6C521349AE00019DCC9 /* ChatRoomView.swift in Sources */,
 				51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */,
 				511114AC20D6CD440077F872 /* WebController.swift in Sources */,
+				5197E6CF2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift in Sources */,
 				518903A72106C67E00C551AE /* HideableNetworkController.swift in Sources */,
 				518903AA210814B900C551AE /* SiteAssignmentCollectionDataSourceDelegate.swift in Sources */,
 				518903A12106BAE500C551AE /* HideableNetworkSource.swift in Sources */,
@@ -803,7 +804,6 @@
 				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
 				51DEE56D210527BC008E709D /* HideableTableDataSourceDelegate.swift in Sources */,
 				51DEE55B21016B0D008E709D /* TappableTextView.swift in Sources */,
-				51835045211FA47A008F2CF2 /* Downloader.swift in Sources */,
 				518903AE2108154E00C551AE /* SiteAssignmentDataFetcher.swift in Sources */,
 				511114B920D881450077F872 /* AssignmentPageView.swift in Sources */,
 				51DEE550210041A5008E709D /* SiteGradebookTableDataSource.swift in Sources */,

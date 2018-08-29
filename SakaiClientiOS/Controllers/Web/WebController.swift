@@ -7,18 +7,24 @@
 
 import UIKit
 import WebKit
+import Alamofire
 
 class WebController: UIViewController {
 
     var webView: WKWebView!
     var progressView: UIProgressView!
+    
+    var backButton: UIBarButtonItem!
+    var forwardButton: UIBarButtonItem!
+    var interactionButton: UIBarButtonItem!
+    var flexButton: UIBarButtonItem!
+    
+    var actionController: UIAlertController!
+    var interactionController: UIDocumentInteractionController!
+    
     var url:URL?
     var shouldLoad: Bool = true
     var needsNav: Bool = true
-    
-    var backButton: UIBarButtonItem?
-    var forwardButton: UIBarButtonItem?
-    var flexButton: UIBarButtonItem?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -49,8 +55,21 @@ class WebController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        webView.allowsBackForwardNavigationGestures = true
         setupProgressBar()
+        setupNavBar()
+        setupToolbar()
+        setupActionSheet()
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+        self.navigationController?.toolbar.tintColor = AppGlobals.SAKAI_RED
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            progressView.progress = Float(webView.estimatedProgress)
+        }
+    }
+    
+    private func setupNavBar() {
         if needsNav {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
             self.navigationController?.isNavigationBarHidden = false
@@ -58,34 +77,9 @@ class WebController: UIViewController {
         } else {
             self.navigationController?.isNavigationBarHidden = true
         }
-        
-        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if shouldLoad {
-            loadURL(urlOpt: url)
-        }
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        self.navigationController?.setToolbarHidden(false, animated: true)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setupToolbar()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if (self.isMovingFromParentViewController) {
-            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
-        }
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        self.navigationController?.setToolbarHidden(true, animated: true)
-    }
-    
-    func setupProgressBar() {
+    private func setupProgressBar() {
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         progressView.tintColor = AppGlobals.SAKAI_RED
@@ -96,29 +90,43 @@ class WebController: UIViewController {
         progressView.frame = CGRect(x: 0, y: navigationBarBounds.size.height - 2, width: navigationBarBounds.size.width, height: 8)
     }
     
-    func setupToolbar() {
+    private func setupToolbar() {
         let backButtonImage = UIImage(named: "back_button")
         let forwardButtonImage = UIImage(named: "forward_button")
-        flexButton = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         backButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(goBack))
+        interactionButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentDownloadOption))
         forwardButton = UIBarButtonItem(image: forwardButtonImage, style: .plain,target: self, action: #selector(goForward))
         
-        let arr = [backButton!, flexButton!, flexButton!, forwardButton!]
+        let arr: [UIBarButtonItem] = [backButton, flexButton, interactionButton, flexButton, forwardButton]
         
-        self.navigationController?.toolbar.setItems(arr, animated: true)
-        self.navigationController?.toolbar.barTintColor = UIColor.black
-        self.navigationController?.toolbar.tintColor = AppGlobals.SAKAI_RED
+        self.setToolbarItems(arr, animated: true)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "estimatedProgress" {
-            progressView.progress = Float(webView.estimatedProgress)
+    private func setupActionSheet() {
+        let downloadAction = UIAlertAction(title: "Download", style: .default) { (action) in
+            self.downloadAndPresentInteractionController()
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionController.addAction(downloadAction)
+        actionController.addAction(cancelAction)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if shouldLoad {
+            loadURL(urlOpt: url)
+        }
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if (self.isMovingFromParentViewController) {
+            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        }
+        self.navigationController?.setToolbarHidden(true, animated: true)
     }
     
     func loadURL(urlOpt:URL?) {
@@ -133,24 +141,52 @@ class WebController: UIViewController {
         self.url = url
     }
     
-    @objc func goBack() {
+    func downloadAndPresentInteractionController() {
+        guard let url = url else {
+            return
+        }
+        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
+        interactionButton.isEnabled = false
+        Alamofire.download(URLRequest(url: url), to: destination).response { [weak self] (res) in
+            guard let fileUrl = res.destinationURL else {
+                return
+            }
+            guard let button = self?.interactionButton else {
+                return
+            }
+            print(fileUrl)
+            self?.interactionController = UIDocumentInteractionController(url: fileUrl)
+            DispatchQueue.main.async {
+                self?.interactionController.presentOpenInMenu(from: button, animated: true)
+                self?.interactionButton.isEnabled = true
+            }
+        }
+    }
+}
+
+extension WebController {
+    @objc private func goBack() {
         if webView.canGoBack {
             webView.goBack()
         }
     }
     
-    @objc func goForward() {
+    @objc private func goForward() {
         if webView.canGoForward {
             webView.goForward()
         }
     }
     
-    @objc func loadWebview() {
+    @objc private func loadWebview() {
         loadURL(urlOpt: url)
     }
     
-    @objc func pop() {
+    @objc private func pop() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func presentDownloadOption() {
+        self.present(actionController, animated: true, completion: nil)
     }
     
     @objc func canRotate() -> Void {}
@@ -162,7 +198,6 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        self.url = navigationResponse.response.url
         decisionHandler(.allow)
     }
     
@@ -175,6 +210,7 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
             self.progressView.isHidden = true
         }
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
+        webView.evaluateJavaScript("$('.Mrphs-topHeader').remove();$('.Mrphs-siteHierarchy').remove();$('#toolMenuWrap').remove();$('#skipNav').remove();var selectedElement = document.querySelector('#content');document.body.innerHTML = selectedElement.innerHTML;")
     }
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
