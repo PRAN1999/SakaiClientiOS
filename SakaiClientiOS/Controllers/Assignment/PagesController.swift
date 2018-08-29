@@ -19,13 +19,14 @@ class PagesController: UIViewController {
     
     var pages: [UIViewController?] = []
     var assignments: [Assignment] = []
-    var start:Int = 0
-    var pendingIndex:Int? = 0
+    var start: Int = 0
+    var pendingIndex: Int? = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeControllers()
-        
+        setPage(assignment: self.assignments[start], index: start)
+        setPopupURL(viewControllerIndex: start)
         webController.title = "DRAG TO SUBMIT"
         self.navigationController?.popupInteractionStyle = .default
         self.navigationController?.popupBar.backgroundStyle = .regular
@@ -92,8 +93,6 @@ class PagesController: UIViewController {
         pages = [UIViewController?](repeating: nil, count: assignments.count)
         self.assignments = assignments
         self.start = start
-        setPage(assignment: self.assignments[start], index: start)
-        setPopupURL(viewControllerIndex: start)
     }
 
     override func didReceiveMemoryWarning() {

@@ -108,16 +108,6 @@
 		DE059A031DFD93B200D19D17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		51C9794920F9951500191DD6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 51C9794520F9951500191DD6 /* ReusableDataSource.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 51C9792A20F9934C00191DD6;
-			remoteInfo = ReusableDataSource;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		517F378A20E01AED00B21D5A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -215,7 +205,6 @@
 		51C9791620F82C0E00191DD6 /* SiteDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteDataProvider.swift; sourceTree = "<group>"; };
 		51C9791820F83D3300191DD6 /* GradebookDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataFetcher.swift; sourceTree = "<group>"; };
 		51C9794320F994FF00191DD6 /* SakaiClientiOS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SakaiClientiOS; sourceTree = "<group>"; };
-		51C9794520F9951500191DD6 /* ReusableDataSource.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReusableDataSource.xcodeproj; path = ReusableDataSource/ReusableDataSource.xcodeproj; sourceTree = "<group>"; };
 		51DEE52F20FC250A008E709D /* AnnouncementDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementDataProvider.swift; sourceTree = "<group>"; };
 		51DEE53120FC2639008E709D /* AnnouncementDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementDataFetcher.swift; sourceTree = "<group>"; };
 		51DEE53520FC3D76008E709D /* SearchableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableDataSource.swift; sourceTree = "<group>"; };
@@ -498,14 +487,6 @@
 			path = GradebookData;
 			sourceTree = "<group>";
 		};
-		51C9794620F9951500191DD6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				51C9794A20F9951500191DD6 /* ReusableDataSource.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		51DEE52E20FC219C008E709D /* AnnouncementData */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,7 +533,6 @@
 			isa = PBXGroup;
 			children = (
 				51A472E120F9C59E00CC95F0 /* ReusableSource.framework */,
-				51C9794520F9951500191DD6 /* ReusableDataSource.xcodeproj */,
 				51C9794320F994FF00191DD6 /* SakaiClientiOS */,
 				517F378420E019D900B21D5A /* LNPopupController.framework */,
 				B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */,
@@ -651,28 +631,12 @@
 			mainGroup = DE0599EC1DFD93B100D19D17;
 			productRefGroup = DE0599F61DFD93B200D19D17 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 51C9794620F9951500191DD6 /* Products */;
-					ProjectRef = 51C9794520F9951500191DD6 /* ReusableDataSource.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				DE0599F41DFD93B100D19D17 /* SakaiClientiOS */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		51C9794A20F9951500191DD6 /* ReusableDataSource.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ReusableDataSource.framework;
-			remoteRef = 51C9794920F9951500191DD6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DE0599F31DFD93B100D19D17 /* Resources */ = {

@@ -10,27 +10,28 @@ import Foundation
 extension String {
     /// Converts HTML string to a `NSAttributedString` with HTML markup
     var htmlAttributedString: NSAttributedString? {
-        return try? NSAttributedString(data: Data(utf8), options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        return try? NSAttributedString(data: Data(utf8),
+                                       options: [.documentType: NSAttributedString.DocumentType.html,
+                                                 .characterEncoding: String.Encoding.utf8.rawValue],
+                                       documentAttributes: nil)
     }
-    
-    static func getDateString(date:Date) -> String {
+
+    static func getDateString(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale.current
         formatter.dateFormat = "MM-dd-yyyy"
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
-        
+
         let calendar = Calendar(identifier: .gregorian)
-        
         if calendar.isDateInToday(date) {
             formatter.dateFormat = "hh:mm a"
-            return formatter.string(from:date)
+            return formatter.string(from: date)
         }
-        
         if calendar.isDateInYesterday(date) {
             return "Yesterday"
         }
-        
+
         var dateComponent = DateComponents()
         dateComponent.day = -7
         let current = Date()
@@ -39,11 +40,10 @@ extension String {
                 return getDayString(weekday: calendar.component(.weekday, from: date))
             }
         }
-        
-        return formatter.string(from:date)
+        return formatter.string(from: date)
     }
-    
-    static func getDayString(weekday:Int) -> String {
+
+    static func getDayString(weekday: Int) -> String {
         switch weekday {
         case 1:
             return "Sun"

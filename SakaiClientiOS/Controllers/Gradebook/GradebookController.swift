@@ -19,7 +19,6 @@ class GradebookController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         gradebookTableDataSourceDelegate = GradebookTableDataSourceDelegate(tableView: super.tableView)
-        gradebookTableDataSourceDelegate.controller = self
         loadData()
         self.configureNavigationItem()
     }

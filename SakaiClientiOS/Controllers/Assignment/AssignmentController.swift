@@ -24,7 +24,9 @@ class AssignmentController: UITableViewController {
         assignmentsTableDataSourceDelegate = AssignmentTableDataSourceDelegate(tableView: super.tableView)
         assignmentsTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
-            let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagesController
+            guard let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as? PagesController else {
+                return
+            }
             guard let assignments = self.assignmentsTableDataSourceDelegate.item(at: indexPath) else {
                 return
             }

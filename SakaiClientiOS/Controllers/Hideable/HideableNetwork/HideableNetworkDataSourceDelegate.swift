@@ -22,7 +22,9 @@ class HideableNetworkTableDataSourceDelegate<Provider: HideableNetworkDataProvid
     
     @objc override func handleTap(sender: UITapGestureRecognizer) {
         let section = (sender.view?.tag)!
-        let view = sender.view as! TermHeader
+        guard let view = sender.view as? TermHeader else {
+            return
+        }
         
         if provider.hasLoaded[section] {
             super.handleTap(sender: sender)

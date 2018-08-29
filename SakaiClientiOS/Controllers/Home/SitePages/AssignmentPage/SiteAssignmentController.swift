@@ -30,7 +30,9 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
         siteAssignmentDataSourceDelegate = SiteAssignmentCollectionDataSourceDelegate(collectionView: super.collectionView!, siteId: id)
         siteAssignmentDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
-            let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as! PagesController
+            guard let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as? PagesController else {
+                return
+            }
             let assignments = self.siteAssignmentDataSourceDelegate.provider.items
             pages.setAssignments(assignments: assignments, start: indexPath.row)
             self.navigationController?.pushViewController(pages, animated: true)

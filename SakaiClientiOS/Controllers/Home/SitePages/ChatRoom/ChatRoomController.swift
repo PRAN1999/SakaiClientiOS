@@ -164,7 +164,12 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
             }
         }
         
-        webView.evaluateJavaScript("var csrftoken = document.getElementById('topForm:csrftoken').value; var selectedElement = document.querySelector('#Monitor');document.body.innerHTML = selectedElement.innerHTML; csrftoken;", completionHandler: { [weak self] (data, err) in
+        webView.evaluateJavaScript("""
+            var csrftoken = document.getElementById('topForm:csrftoken').value;
+            var selectedElement = document.querySelector('#Monitor');
+            document.body.innerHTML = selectedElement.innerHTML;
+            csrftoken;
+            """, completionHandler: { [weak self] (data, err) in
             guard err == nil else {
                 self?.navigationController?.popViewController(animated: true)
                 return

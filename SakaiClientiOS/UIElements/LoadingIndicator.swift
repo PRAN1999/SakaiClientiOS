@@ -21,7 +21,6 @@ class LoadingIndicator: UIActivityIndicatorView {
         self.hidesWhenStopped = true
     }
     
-    
     /// Instantiates an ActivityIndicatorView and then adds it to the center of a superview
     ///
     /// - Parameters:
@@ -33,7 +32,6 @@ class LoadingIndicator: UIActivityIndicatorView {
         view.addSubview(self)
         view.bringSubview(toFront: self)
     }
-    
     
     /// Instantiates ActivityIndicatorView in a 100 x 100 square and adds to center of superview
     ///

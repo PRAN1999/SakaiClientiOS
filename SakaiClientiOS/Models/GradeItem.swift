@@ -12,13 +12,13 @@ import SwiftyJSON
 ///
 /// Can be sorted by Term and by Site
 struct GradeItem: TermSortable, SiteSortable {
-    
-    let grade   :Double?
-    let points  :Double
-    let title   :String
-    let term    :Term
-    let siteId  :String
-    
+
+    let grade: Double?
+    let points: Double
+    let title: String
+    let term: Term
+    let siteId: String
+
     /// Instantiates a GradeItem with a grade and title for a specific Term and SiteId
     ///
     /// - Parameter grade: The points earned by the user on this gradebook entry
@@ -28,33 +28,30 @@ struct GradeItem: TermSortable, SiteSortable {
     /// - Parameter siteId: The siteId corresponding to the Site to which this entry belongs
     ///
     /// - Returns: a new GradeItem
-    private init(_ grade    :Double? = nil,
-                 _ points   :Double,
-                 _ title    :String,
-                 _ term     :Term,
-                 _ siteId   :String) {
+    private init(_ grade: Double? = nil,
+                 _ points: Double,
+                 _ title: String,
+                 _ term: Term,
+                 _ siteId: String) {
         self.grade      = grade
         self.points     = points
         self.title      = title
         self.term       = term
         self.siteId     = siteId
     }
-    
+
     /// Parses a JSON object that represents a Grade entry and instantiates a GradeItem accordingly
     ///
     /// - Parameter data: The JSON object containing the grade information
     /// - Parameter siteId: The siteId for the Site associated with this GradeItem
-    init(data: JSON, siteId:String) {
+    init(data: JSON, siteId: String) {
         let title       = data["itemName"].string!
         let points      = data["points"].double!
         let term        = SakaiService.shared.siteTermMap[siteId]!
-        
-        var grade:Double?
+        var grade: Double?
         if data["grade"].string != nil {
             grade = Double(data["grade"].string!)
         }
-        
         self.init(grade, points, title, term, siteId)
     }
-    
 }

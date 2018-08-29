@@ -45,20 +45,18 @@ class HomeController: UITableViewController {
     
     func disableTabs() {
         let items = self.tabBarController?.tabBar.items
-        
         if let arr = items {
-            for i in 1..<arr.count {
-                arr[i].isEnabled = false
+            for index in 1..<arr.count {
+                arr[index].isEnabled = false
             }
         }
     }
     
     func enableTabs() {
         let items = self.tabBarController?.tabBar.items
-        
         if let arr = items {
-            for i in 1..<arr.count {
-                arr[i].isEnabled = true
+            for index in 1..<arr.count {
+                arr[index].isEnabled = true
             }
         }
     }
