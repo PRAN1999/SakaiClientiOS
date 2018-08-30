@@ -40,23 +40,26 @@ class RequestManager {
     func makeRequest(url: String,
                      method: HTTPMethod,
                      parameters: Parameters? = nil,
-                     completion: @escaping (_ response: DataResponse<Any>?) -> Void) {
+                     completion: @escaping (_ response: DataResponse<Any>?,
+                                            _ err: SakaiError?) -> Void) {
         // Check if user is logged in before making request, and initiate logout procedure if they aren't
         self.isLoggedIn { (flag) in
             if !flag {
-                self.logout {}
+                self.logout()
             } else {
                 Alamofire.SessionManager.default
                 .request(url, method: method, parameters: parameters).responseJSON { response in
                     guard let code = response.response?.statusCode else {
-                        completion(nil)
+                        let err = SakaiError.networkException(nil, "Server timed out or failed to send a response")
+                        completion(nil, err)
                         return
                     }
                     if code >= 300 {
-                        completion(nil)
+                        let err = SakaiError.networkException(code, response.error?.localizedDescription)
+                        completion(nil, err)
                         return
                     }
-                    completion(response)
+                    completion(response, nil)
                 }
             }
         }
@@ -82,17 +85,19 @@ class RequestManager {
     /// LoginViewController.
     ///
     /// - Parameter completion: A callback to execute once user has been logged out
-    func logout(completion: @escaping () -> Void) {
+    func logout() {
         reset()
         toReload = true
         loggedIn = false
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginController = LoginViewController()
+            let rootController = UIApplication.shared.keyWindow?.rootViewController
+            loginController.onLogin = {
+                rootController?.dismiss(animated: true, completion: nil)
+            }
+            let navController = WebViewNavigationController(rootViewController: loginController)
+            rootController?.present(navController, animated: true, completion: nil)
             //Dismiss tab bar controller, and then reinstantiate initial view controller for login
-            UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: {
-                UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateInitialViewController()
-                completion()
-            })
         })
     }
 

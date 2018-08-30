@@ -10,7 +10,7 @@ import ReusableSource
 
 class AnnouncementController: UITableViewController {
     
-    var announcementTableDataSourceDelegate : AnnouncementTableDataSourceDelegate!
+    var announcementTableManager : AnnouncementTableManager!
     var dateActionSheet: UIAlertController!
     
     required init?(coder aDecoder: NSCoder) {
@@ -19,15 +19,17 @@ class AnnouncementController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        announcementTableDataSourceDelegate = AnnouncementTableDataSourceDelegate(tableView: tableView)
-        announcementTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
-            guard let announcement = self.announcementTableDataSourceDelegate.item(at: indexPath) else {
+        announcementTableManager = AnnouncementTableManager(tableView: tableView)
+        announcementTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            guard let announcement = self.announcementTableManager.item(at: indexPath) else {
                 return
             }
             let announcementPage = AnnouncementPageController()
             announcementPage.setAnnouncement(announcement)
             self.navigationController?.pushViewController(announcementPage, animated: true)
         }
+        announcementTableManager.delegate = self
+        
         loadData()
         self.configureNavigationItem()
         configureActionSheet()
@@ -52,9 +54,9 @@ class AnnouncementController: UITableViewController {
         
         dateActionSheet = UIAlertController(title: "SINCE:", message: "How far back should we request announcements?", preferredStyle: .actionSheet)
         
-        for option in AnnouncementTableDataSourceDelegate.filterOptions {
+        for option in AnnouncementTableManager.filterOptions {
             let action = UIAlertAction(title: option.0, style: .default) { [weak self] (action) in
-                self?.announcementTableDataSourceDelegate.daysBack = option.1
+                self?.announcementTableManager.daysBack = option.1
                 self?.loadData()
             }
             dateActionSheet.addAction(action)
@@ -72,7 +74,7 @@ class AnnouncementController: UITableViewController {
 
 extension AnnouncementController: LoadableController {
     @objc func loadData() {
-        self.loadControllerWithoutCache() {}
+        self.announcementTableManager.loadDataSource()
     }
 }
 
@@ -83,8 +85,4 @@ extension AnnouncementController: FeedController {
     }
 }
 
-extension AnnouncementController: NetworkController {
-    var networkSource: AnnouncementTableDataSourceDelegate {
-        return announcementTableDataSourceDelegate
-    }
-}
+extension AnnouncementController: NetworkSourceDelegate {}

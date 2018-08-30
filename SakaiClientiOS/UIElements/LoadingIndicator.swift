@@ -20,7 +20,7 @@ class LoadingIndicator: UIActivityIndicatorView {
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.hidesWhenStopped = true
     }
-    
+
     /// Instantiates an ActivityIndicatorView and then adds it to the center of a superview
     ///
     /// - Parameters:
@@ -32,7 +32,7 @@ class LoadingIndicator: UIActivityIndicatorView {
         view.addSubview(self)
         view.bringSubview(toFront: self)
     }
-    
+
     /// Instantiates ActivityIndicatorView in a 100 x 100 square and adds to center of superview
     ///
     /// - Parameter view: The view to which the indicator should be added
@@ -40,9 +40,8 @@ class LoadingIndicator: UIActivityIndicatorView {
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         self.init(frame: frame, view: view)
     }
-    
+
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return .allButUpsideDown;
             }
         }
-        
+
         // Only allow portrait (standard behaviour)
         return .portrait;
     }
@@ -62,6 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return rootViewController
     }
-    
+
 }
 

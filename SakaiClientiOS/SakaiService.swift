@@ -44,26 +44,27 @@ class SakaiService {
     ///
     /// - Parameter completion: A closure called with a [[Site]] object to be implemented by callee
     /// - Parameter site: A [[Site]] object passed into closure for callee to use as needed
-    func getSites(completion: @escaping (_ site: [[Site]]?) -> Void) {
-        RequestManager.shared.makeRequest(url: AppGlobals.SITES_URL, method: .get) { [weak self] res in
-            guard let response = res else {
-                completion(nil)
-                return
-            }
-            guard let data = response.result.value else {
-                completion(nil)
+    func getSites(completion: @escaping (_ site: [[Site]]?, _ err: SakaiError?) -> Void) {
+        RequestManager.shared.makeRequest(url: AppGlobals.SITES_URL, method: .get) { [weak self] res, err in
+            guard err == nil, let data = res?.result.value else {
+                completion(nil, err)
                 return
             }
             var siteList: [Site] = [Site]()
             // Ensure the JSON date has a "site_collection" array
             guard let sitesJSON = JSON(data)["site_collection"].array else {
-                completion(nil)
+                let err = SakaiError.parseException("Error: Failed to find Site Collection in Data")
+                completion(nil, err)
                 return
             }
+
+            var parseError: SakaiError? = nil
             for siteJSON in sitesJSON {
                 guard let site = Site(data: siteJSON) else {
-                    completion(nil)
-                    return
+                    if parseError == nil {
+                        parseError = SakaiError.parseException("Missing Information: Failed to parse one or more sites")
+                    }
+                    continue
                 } // Construct a Site from a JSON object
                 siteList.append(site)
 
@@ -71,10 +72,8 @@ class SakaiService {
                 self?.siteTermMap.updateValue(site.term, forKey: site.id)
                 self?.siteTitleMap.updateValue(site.title, forKey: site.id)
             }
-            guard let sectionList = Term.splitByTerms(listToSort: siteList) else {
-                completion(nil)
-                return
-            }
+
+            let sectionList = Term.splitByTerms(listToSort: siteList)
             // Split the site list by Term
             let listMap = sectionList.map {
                 ($0[0].term, $0.map { $0.id })
@@ -84,7 +83,7 @@ class SakaiService {
                     self?.termMap.append(listMap[index])
                 }
             }
-            completion(sectionList)
+            completion(sectionList, parseError)
         }
     }
 
@@ -99,7 +98,7 @@ class SakaiService {
     /// - Parameter grades: The [[[Gradeitem]]] object constructed with response and passed into closure
     func getAllGrades(completion: @escaping (_ grades: [[[GradeItem]]]?) -> Void) {
         let url: String = AppGlobals.GRADEBOOK_URL
-        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res, err in
             guard let response = res else {
                 completion(nil)
                 return
@@ -128,10 +127,7 @@ class SakaiService {
             }
 
             //Sort gradeList by Term
-            guard let termSortedGrades = Term.splitByTerms(listToSort: gradeList) else {
-                completion(nil)
-                return
-            }
+            let termSortedGrades = Term.splitByTerms(listToSort: gradeList)
             var sortedGrades: [[[GradeItem]]] = [[[GradeItem]]]()
             let numTerms: Int = termSortedGrades.count
 
@@ -152,7 +148,7 @@ class SakaiService {
     ///   - grades: The [GradeItem] object constructed with response and passed to closure
     func getSiteGrades(siteId: String, completion: @escaping (_ grades: [GradeItem]?) -> Void) {
         let url: String = AppGlobals.SITE_GRADEBOOK_URL.replacingOccurrences(of: "*", with: siteId)
-        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res, err in
             guard let response = res else {
                 completion(nil)
                 return
@@ -207,7 +203,7 @@ class SakaiService {
     /// - Parameter assignments: The 3-dimensional array of Assignments to be passed into the completion handler
     func getAllAssignments(completion: @escaping (_ assignments: [[[Assignment]]]?) -> Void) {
         let url: String = AppGlobals.ASSIGNMENT_URL
-        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res, err in
             guard let response = res else {
                 completion(nil)
                 return
@@ -223,10 +219,7 @@ class SakaiService {
             }
             let assignmentList = collection.map { Assignment(data: $0) }
             //Get 2-dimensional Assignment array split by Term
-            guard var termSortedAssignments = Term.splitByTerms(listToSort: assignmentList) else {
-                completion(nil)
-                return
-            }
+            var termSortedAssignments = Term.splitByTerms(listToSort: assignmentList)
             var sortedAssignments: [[[Assignment]]] = [[[Assignment]]]()
             let numTerms: Int = termSortedAssignments.count
             //For each term-specific gradeList, sort by Site and insert into 3-dim array
@@ -246,7 +239,7 @@ class SakaiService {
     ///   - completion: The callback to be executed with an [Assignment] array
     func getSiteAssignments(for siteId: String, completion: @escaping (_ assignments: [Assignment]?) -> Void) {
         let url: String = AppGlobals.SITE_ASSIGNMENT_URL.replacingOccurrences(of: "*", with: siteId)
-        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res, err in
             guard let response = res else {
                 completion(nil)
                 return
@@ -318,7 +311,7 @@ class SakaiService {
             url = AppGlobals.ANNOUNCEMENT_URL.replacingOccurrences(of: "*", with: "\(limit)")
         }
         url = url.replacingOccurrences(of: "$", with: "\(daysBack)")
-        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res, err in
             guard let response = res else {
                 completion(nil, false)
                 return
@@ -356,7 +349,7 @@ class SakaiService {
     ///   - completion: A callback to execute with a [ResourceNode] parameter
     func getSiteResources(for siteId: String, completion: @escaping ([ResourceNode]?) -> Void) {
         let url: String = AppGlobals.SITE_RESOURCES_URL.replacingOccurrences(of: "*", with: siteId)
-        RequestManager.shared.makeRequest(url: url, method: .get) { res in
+        RequestManager.shared.makeRequest(url: url, method: .get) { res, err in
             guard let response = res else {
                 completion(nil)
                 return
@@ -385,7 +378,7 @@ class SakaiService {
             "csrftoken": csrftoken
         ]
         let url = AppGlobals.NEW_CHAT_MESSAGE_URL
-        RequestManager.shared.makeRequest(url: url, method: .post, parameters: parameters) { (res) in
+        RequestManager.shared.makeRequest(url: url, method: .post, parameters: parameters) { res, err in
             completion()
         }
     }

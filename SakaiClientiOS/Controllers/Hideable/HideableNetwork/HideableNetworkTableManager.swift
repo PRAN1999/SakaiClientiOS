@@ -7,8 +7,10 @@
 
 import ReusableSource
 
-class HideableNetworkTableDataSourceDelegate<Provider: HideableNetworkDataProvider, Cell: UITableViewCell & ConfigurableCell, Fetcher: HideableDataFetcher> : HideableTableDataSourceDelegate<Provider, Cell>, HideableNetworkSource where Provider.T == Cell.T, Provider.V == Fetcher.T {
-    
+class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: UITableViewCell & ConfigurableCell, Fetcher: HideableDataFetcher> : HideableTableManager<Provider, Cell>, HideableNetworkSource where Provider.T == Cell.T, Provider.V == Fetcher.T {
+
+    weak var delegate: NetworkSourceDelegate?
+
     var fetcher: Fetcher
     
     init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
@@ -35,28 +37,17 @@ class HideableNetworkTableDataSourceDelegate<Provider: HideableNetworkDataProvid
             }
         }
     }
-    
-    func loadDataSource(completion: @escaping () -> Void) {
-        resetValues()
-        reloadData()
-        loadDataSource(for: 0) {
-            completion()
+
+    func handleSectionLoad(forSection section: Int) {
+        guard section < self.provider.hasLoaded.count, section < self.provider.isHidden.count else {
+            return
         }
+        self.provider.hasLoaded[section] = true
+        self.provider.isHidden[section] = false
     }
-    
-    func loadDataSource(for section:Int, completion: @escaping () -> Void) {
-        fetcher.loadData(for: section) { [weak self] (res) in
-            DispatchQueue.main.async {
-                self?.provider.hasLoaded[section] = true
-                self?.provider.isHidden[section] = false
-                guard let payload = res else {
-                    completion()
-                    return
-                }
-                self?.provider.loadItems(payload: payload, for: section)
-                self?.reloadData(for: section)
-                completion()
-            }
-        }
+
+    func populateDataSource(with payload: Fetcher.T, forSection section: Int) {
+        self.provider.loadItems(payload: payload, for: section)
+        self.reloadData(for: section)
     }
 }

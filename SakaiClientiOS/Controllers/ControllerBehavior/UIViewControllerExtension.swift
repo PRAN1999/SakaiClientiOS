@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ReusableSource
 
 extension UIViewController {
     @objc func hideNavBar() {
@@ -37,5 +38,24 @@ extension UIViewController {
     
     func configureNavigationTapRecognizer(for tapRecognizer: UITapGestureRecognizer) {
         tapRecognizer.addTarget(self, action: #selector(hideNavBar))
+    }
+
+    func addLoadingIndicator() -> (() -> ())? {
+        let indicator = LoadingIndicator(view: view)
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        let afterLoad = {
+            indicator.stopAnimating()
+            indicator.removeFromSuperview()
+        }
+        return afterLoad
+    }
+
+    func presentErrorAlert(error: Error?) {
+        let errorMessage = error?.localizedDescription
+        let alert = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let alertController = UIAlertController(title: "ERROR", message: errorMessage, preferredStyle: .alert)
+        alertController.addAction(alert)
+        self.present(alertController, animated: true, completion: nil)
     }
 }

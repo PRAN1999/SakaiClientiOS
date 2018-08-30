@@ -11,6 +11,14 @@ class WebViewNavigationController: UINavigationController {
 
     private weak var documentPicker: UIDocumentPickerViewController?
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationBar.tintColor = AppGlobals.SAKAI_RED
+        self.navigationBar.barStyle = .blackTranslucent
+        self.toolbar.tintColor = AppGlobals.SAKAI_RED
+        self.toolbar.barStyle = .blackTranslucent
+    }
+
     public override func present(_ viewControllerToPresent: UIViewController,
                                  animated flag: Bool,
                                  completion: (() -> Void)? = nil) {

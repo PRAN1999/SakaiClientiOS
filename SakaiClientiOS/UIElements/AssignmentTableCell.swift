@@ -16,7 +16,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     var titleLabel: UILabel!
 
     var collectionView: UICollectionView!
-    var dataSourceDelegate: AssignmentCollectionDataSourceDelegate!
+    var manager: AssignmentCollectionManager!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -45,7 +45,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         collectionView.backgroundColor = UIColor.white
 
         //Construct Data Source and Delegate for collectionView as an AssignmentCollectionSource object
-        dataSourceDelegate = AssignmentCollectionDataSourceDelegate(collectionView: collectionView)
+        manager = AssignmentCollectionManager(collectionView: collectionView)
     }
 
     func addViews() {
@@ -93,7 +93,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         let title = SakaiService.shared.siteTitleMap[siteId]
         titleLabel.text = title
 
-        dataSourceDelegate.loadItems(payload: item)
-        dataSourceDelegate.reloadData()
+        manager.loadItems(payload: item)
+        manager.reloadData()
     }
 }

@@ -7,7 +7,7 @@
 
 import ReusableSource
 
-class AssignmentCollectionDataSourceDelegate : ReusableCollectionDataSourceFlowDelegate<SingleSectionDataProvider<Assignment>, AssignmentCell> {
+class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataProvider<Assignment>, AssignmentCell> {
 
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     

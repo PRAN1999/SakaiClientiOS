@@ -10,7 +10,7 @@ import ReusableSource
 
 class AssignmentController: UITableViewController {
     
-    var assignmentsTableDataSourceDelegate: AssignmentTableDataSourceDelegate!
+    var assignmentsTableManager: AssignmentTableManager!
     
     var segments:UISegmentedControl!
     var button1: UIBarButtonItem!
@@ -21,24 +21,25 @@ class AssignmentController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assignmentsTableDataSourceDelegate = AssignmentTableDataSourceDelegate(tableView: super.tableView)
-        assignmentsTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+        assignmentsTableManager = AssignmentTableManager(tableView: super.tableView)
+        assignmentsTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
             guard let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as? PagesController else {
                 return
             }
-            guard let assignments = self.assignmentsTableDataSourceDelegate.item(at: indexPath) else {
+            guard let assignments = self.assignmentsTableManager.item(at: indexPath) else {
                 return
             }
-            guard let start = self.assignmentsTableDataSourceDelegate.lastSelectedIndex else {
+            guard let start = self.assignmentsTableManager.lastSelectedIndex else {
                 return
             }
             pages.setAssignments(assignments: assignments, start: start)
             self.navigationController?.pushViewController(pages, animated: true)
         }
-        assignmentsTableDataSourceDelegate.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
+        assignmentsTableManager.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
             return self
         }
+        assignmentsTableManager.delegate = self
         
         createSegmentedControl()
         loadData()
@@ -78,23 +79,25 @@ class AssignmentController: UITableViewController {
     }
     
     @objc func resort() {
-        assignmentsTableDataSourceDelegate.switchSort()
+        assignmentsTableManager.switchSort()
     }
 }
 
 extension AssignmentController: LoadableController {
     @objc func loadData() {
-        segments.selectedSegmentIndex = 0
-        segments.setEnabled(false, forSegmentAt: 1)
-        assignmentsTableDataSourceDelegate.resetSort()
-        self.loadControllerWithoutCache() {
-            self.segments.setEnabled(true, forSegmentAt: 1)
-        }
+        assignmentsTableManager.loadDataSource()
     }
 }
 
-extension AssignmentController: HideableNetworkController {
-    var networkSource : AssignmentTableDataSourceDelegate {
-        return assignmentsTableDataSourceDelegate
+extension AssignmentController: NetworkSourceDelegate {
+    func networkSource<Source>(willBeginLoadingDataSource networkSource: Source) -> (() -> ())? where Source : NetworkSource {
+        segments.selectedSegmentIndex = 0
+        segments.setEnabled(false, forSegmentAt: 1)
+        assignmentsTableManager.resetSort()
+        return self.addLoadingIndicator()
+    }
+
+    func networkSource<Source>(successfullyLoadedDataSource networkSource: Source?) where Source : NetworkSource {
+        self.segments.setEnabled(true, forSegmentAt: 1)
     }
 }

@@ -8,8 +8,8 @@
 import ReusableSource
 
 extension NetworkSource {
-    func loadDataSourceWithoutCache(completion: @escaping () -> Void) {
+    func loadDataSourceWithoutCache() {
         RequestManager.shared.resetCache()
-        loadDataSource(completion: completion)
+        loadDataSource()
     }
 }

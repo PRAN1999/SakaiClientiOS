@@ -41,8 +41,6 @@ class WebController: UIViewController {
         }
     }
 
-    /// Sets the webview delegates for navigation and UI to the view controller itself, allowing the view controller to
-    /// directly control the webview appearance and requests
     override func loadView() {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = RequestManager.shared.processPool
@@ -59,7 +57,7 @@ class WebController: UIViewController {
         setupToolbar()
         setupActionSheet()
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        self.navigationController?.toolbar.tintColor = AppGlobals.SAKAI_RED
+        webView.allowsBackForwardNavigationGestures = true
     }
 
     override func observeValue(forKeyPath keyPath: String?,
@@ -73,13 +71,15 @@ class WebController: UIViewController {
 
     private func setupNavBar() {
         if needsNav {
-            self.navigationController?.isNavigationBarHidden = false
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
                                                                      target: self,
                                                                      action: #selector(loadWebview))
         } else {
-            self.navigationController?.isNavigationBarHidden = true
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
+        self.navigationController?.toolbar.tintColor = AppGlobals.SAKAI_RED
     }
 
     private func setupProgressBar() {
@@ -116,8 +116,8 @@ class WebController: UIViewController {
     }
 
     private func setupActionSheet() {
-        let downloadAction = UIAlertAction(title: "Download", style: .default) { (_) in
-            self.downloadAndPresentInteractionController(url: self.url)
+        let downloadAction = UIAlertAction(title: "Download", style: .default) { [weak self] (_) in
+            self?.downloadAndPresentInteractionController(url: self?.url)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -131,6 +131,7 @@ class WebController: UIViewController {
             loadURL(urlOpt: url)
         }
         self.navigationController?.setToolbarHidden(false, animated: true)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -139,6 +140,7 @@ class WebController: UIViewController {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
         self.navigationController?.setToolbarHidden(true, animated: true)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
     func loadURL(urlOpt: URL?) {
@@ -149,7 +151,7 @@ class WebController: UIViewController {
         shouldLoad = false
     }
 
-    func setURL(url: URL) {
+    func setURL(url: URL?) {
         self.url = url
     }
 
@@ -222,8 +224,8 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.progressView.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.progressView.isHidden = true
         }
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
         webView.evaluateJavaScript("""

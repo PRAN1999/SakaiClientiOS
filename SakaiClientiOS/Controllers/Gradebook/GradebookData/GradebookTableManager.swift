@@ -8,7 +8,7 @@
 import UIKit
 import ReusableSource
 
-class GradebookTableDataSourceDelegate : HideableNetworkTableDataSourceDelegate<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
+class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
     var headerCell: FloatingHeaderCell!
     

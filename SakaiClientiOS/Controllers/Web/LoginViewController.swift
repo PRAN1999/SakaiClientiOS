@@ -1,8 +1,11 @@
 import UIKit
 import WebKit
+import ReusableSource
 
 ///  A view controller containing a webview allowing users to login to CAS and Sakai
 class LoginViewController: WebController {
+
+    var onLogin: (() -> ())?
 
     override var shouldAutorotate: Bool {
         return false
@@ -14,10 +17,11 @@ class LoginViewController: WebController {
 
     /// Loads Login URL for CAS Authentication
     override func viewDidLoad() {
-        super.viewDidLoad()
         RequestManager.shared.resetCache()
-        let myURL = URL(string: AppGlobals.LOGIN_URL)
-        loadURL(urlOpt: myURL!)
+        let url = URL(string: AppGlobals.LOGIN_URL)
+        setURL(url: url)
+        super.viewDidLoad()
+        self.navigationItem.leftBarButtonItem = nil
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,7 +61,7 @@ class LoginViewController: WebController {
         if webView.url!.absoluteString == AppGlobals.COOKIE_URL_2 {
             decisionHandler(.cancel)
             RequestManager.shared.loggedIn = true
-            self.performSegue(withIdentifier: "loginSegue", sender: self)
+            onLogin?()
         } else {
             decisionHandler(.allow)
         }

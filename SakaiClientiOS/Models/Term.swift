@@ -74,10 +74,8 @@ struct Term {
     ///
     /// - Parameter listToSort: An array of T:TermSortable to be split by Term
     /// - Returns: A 2-dimensional array of T:TermSortable with each sub-array corresponding to a Term
-    static func splitByTerms<T: TermSortable>(listToSort: [T]?) -> [[T]]? {
-        guard var list = listToSort else {
-            return nil
-        }
+    static func splitByTerms<T: TermSortable>(listToSort: [T]) -> [[T]] {
+        var list = listToSort
         list.sort { $0.term > $1.term }
         var sectionList: [[T]] = [[T]]()
         var terms: [Term] = [Term]()

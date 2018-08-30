@@ -8,7 +8,9 @@
 import RATreeView
 import ReusableSource
 
-class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeViewDelegate, NetworkSource {
+class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, NetworkSource {
+    weak var delegate: NetworkSourceDelegate?
+
     typealias Fetcher = ResourceDataFetcher
     
     let treeView: RATreeView
@@ -98,18 +100,14 @@ class ResourceTreeDataSourceDelegate: NSObject, RATreeViewDataSource, RATreeView
             didSelectResource.call(url)
         }
     }
-    
-    func loadDataSource(completion: @escaping () -> Void) {
+
+    func prepareDataSourceForLoad() {
         resources = []
         treeView.reloadData()
-        fetcher.loadData { (res) in
-            guard let res = res else {
-                completion()
-                return
-            }
-            self.resources = res
-            self.treeView.reloadData()
-            completion()
-        }
+    }
+
+    func populateDataSource(with payload: [ResourceNode]) {
+        self.resources = payload
+        self.treeView.reloadData()
     }
 }

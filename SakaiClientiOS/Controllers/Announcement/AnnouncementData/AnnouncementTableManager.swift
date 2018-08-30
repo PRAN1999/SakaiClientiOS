@@ -7,9 +7,11 @@
 
 import ReusableSource
 
-class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
-    
+class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
+
     typealias Fetcher = AnnouncementDataFetcher
+
+    weak var delegate: NetworkSourceDelegate?
     
     static let filterOptions = [("One Week", 7), ("One Month", 30), ("Six Months", 180), ("One Year", 365), ("Two Years", 730), ("Four Years", 1460)]
     
@@ -38,7 +40,7 @@ class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<Annou
             
             tableView.tableFooterView = spinner
             tableView.tableFooterView?.isHidden = false
-            fetcher.loadData(completion: { (announcements) in
+            fetcher.loadData(completion: { announcements, err in
                 DispatchQueue.main.async {
                     spinner.stopAnimating()
                     guard let items = announcements else {
@@ -59,7 +61,7 @@ class AnnouncementTableDataSourceDelegate: ReusableTableDataSourceDelegate<Annou
     }
 }
 
-extension AnnouncementTableDataSourceDelegate {
+extension AnnouncementTableManager {
     var siteId: String? {
         get {
             return fetcher.siteId

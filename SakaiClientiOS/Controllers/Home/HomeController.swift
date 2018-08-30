@@ -10,7 +10,7 @@ import ReusableSource
 
 class HomeController: UITableViewController {
     
-    var siteTableDataSourceDelegate: SiteTableDataSourceDelegate!
+    var siteTableManager: SiteTableManager!
     var logoutController: UIAlertController!
     
     required init?(coder aDecoder: NSCoder) {
@@ -20,27 +20,33 @@ class HomeController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Classes"
-        
-        siteTableDataSourceDelegate = SiteTableDataSourceDelegate(tableView: tableView)
-        siteTableDataSourceDelegate.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+        disableTabs()
+        siteTableManager = SiteTableManager(tableView: tableView)
+        siteTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             let classController:ClassController = ClassController()
-            guard let site:Site = self.siteTableDataSourceDelegate.item(at: indexPath) else {
+            guard let site:Site = self.siteTableManager.item(at: indexPath) else {
                 return
             }
             classController.setPages(pages: site.pages)
             classController.siteTitle = site.title
             self.navigationController?.pushViewController(classController, animated: true)
         }
-        
-        loadData()
+        siteTableManager.delegate = self
+
         self.configureNavigationItem()
         setupLogoutController()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentLogoutController))
         self.navigationController?.toolbar.barTintColor = UIColor.black
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+
+        let loginController = LoginViewController()
+        loginController.onLogin = { [weak self] in
+            self?.loadData()
+            self?.tabBarController?.dismiss(animated: true, completion: nil)
+        }
+        let navController = WebViewNavigationController(rootViewController: loginController)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.tabBarController?.present(navController, animated: true, completion: nil)
+        }
     }
     
     func disableTabs() {
@@ -50,6 +56,7 @@ class HomeController: UITableViewController {
                 arr[index].isEnabled = false
             }
         }
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     func enableTabs() {
@@ -59,12 +66,13 @@ class HomeController: UITableViewController {
                 arr[index].isEnabled = true
             }
         }
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     func setupLogoutController() {
         logoutController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
-            RequestManager.shared.logout() {}
+            RequestManager.shared.logout()
         }
         logoutController.addAction(logoutAction)
         logoutController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -77,16 +85,19 @@ class HomeController: UITableViewController {
 
 extension HomeController: LoadableController {
     @objc func loadData() {
-        disableTabs()
-        SakaiService.shared.reset()
-        self.loadControllerWithoutCache() {
-            self.enableTabs()
-        }
+        self.siteTableManager.loadDataSource()
     }
 }
 
-extension HomeController: NetworkController {
-    var networkSource: SiteTableDataSourceDelegate {
-        return siteTableDataSourceDelegate
+extension HomeController: NetworkSourceDelegate {
+
+    func networkSource<Source>(willBeginLoadingDataSource networkSource: Source) -> (() -> ())? where Source : NetworkSource {
+        disableTabs()
+        SakaiService.shared.reset()
+        return self.addLoadingIndicator()
+    }
+
+    func networkSource<Source>(successfullyLoadedDataSource networkSource: Source?) where Source : NetworkSource {
+        enableTabs()
     }
 }

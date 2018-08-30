@@ -8,7 +8,7 @@
 import ReusableSource
 
 extension DataFetcher {
-    func loadDataWithoutCache(completion: @escaping (T?) -> Void) {
+    func loadDataWithoutCache(completion: @escaping (T?, Error?) -> Void) {
         RequestManager.shared.resetCache()
         loadData(completion: completion)
     }
