@@ -78,13 +78,13 @@ class WebController: UIViewController {
         } else {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
-        self.navigationController?.toolbar.tintColor = AppGlobals.SAKAI_RED
+        self.navigationController?.toolbar.tintColor = AppGlobals.sakaiRed
     }
 
     private func setupProgressBar() {
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-        progressView.tintColor = AppGlobals.SAKAI_RED
+        progressView.tintColor = AppGlobals.sakaiRed
         navigationController?.navigationBar.addSubview(progressView)
         guard let navigationBarBounds = self.navigationController?.navigationBar.bounds else {
             return

@@ -62,7 +62,7 @@ class AnnouncementController: UITableViewController {
             dateActionSheet.addAction(action)
         }
         
-        dateActionSheet.view.tintColor = AppGlobals.SAKAI_RED
+        dateActionSheet.view.tintColor = AppGlobals.sakaiRed
         
         dateActionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in }))
     }

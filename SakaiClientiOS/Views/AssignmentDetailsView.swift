@@ -38,7 +38,7 @@ class AssignmentDetailsView: UIScrollView {
         contentView = UIView()
 
         titleLabel = InsetUILabel()
-        titleLabel.backgroundColor = AppGlobals.SAKAI_RED
+        titleLabel.backgroundColor = AppGlobals.sakaiRed
         titleLabel.titleLabel.numberOfLines = 0
         titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.titleLabel.textAlignment = .center

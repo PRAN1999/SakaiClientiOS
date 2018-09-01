@@ -13,9 +13,9 @@ class WebViewNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.tintColor = AppGlobals.SAKAI_RED
+        self.navigationBar.tintColor = AppGlobals.sakaiRed
         self.navigationBar.barStyle = .blackTranslucent
-        self.toolbar.tintColor = AppGlobals.SAKAI_RED
+        self.toolbar.tintColor = AppGlobals.sakaiRed
         self.toolbar.barStyle = .blackTranslucent
     }
 

@@ -55,7 +55,7 @@ class PagesController: UIViewController {
         view.addSubview(pageView)
         
         pageControl.tintColor = UIColor.white
-        pageControl.currentPageIndicatorTintColor = AppGlobals.SAKAI_RED
+        pageControl.currentPageIndicatorTintColor = AppGlobals.sakaiRed
         
         pageControlView.addSubview(pageControl)
         

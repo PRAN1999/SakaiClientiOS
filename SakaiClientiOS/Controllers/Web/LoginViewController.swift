@@ -18,7 +18,7 @@ class LoginViewController: WebController {
     /// Loads Login URL for CAS Authentication
     override func viewDidLoad() {
         RequestManager.shared.resetCache()
-        let url = URL(string: AppGlobals.LOGIN_URL)
+        let url = URL(string: AppGlobals.loginUrl)
         setURL(url: url)
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = nil
@@ -33,8 +33,8 @@ class LoginViewController: WebController {
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationAction: WKNavigationAction,
                           decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if webView.url!.absoluteString == AppGlobals.COOKIE_URL_1 ||
-            webView.url!.absoluteString == AppGlobals.COOKIE_URL_2 {
+        if webView.url!.absoluteString == AppGlobals.cookieUrl1 ||
+            webView.url!.absoluteString == AppGlobals.cookieUrl2 {
             let store = WKWebsiteDataStore.default().httpCookieStore
             store.getAllCookies { (cookies) in
                 for cookie in cookies {
@@ -58,7 +58,7 @@ class LoginViewController: WebController {
         for header in headers {
             RequestManager.shared.addHeader(value: header.value, key: header.key)
         }
-        if webView.url!.absoluteString == AppGlobals.COOKIE_URL_2 {
+        if webView.url!.absoluteString == AppGlobals.cookieUrl2 {
             decisionHandler(.cancel)
             onLogin?()
         } else {

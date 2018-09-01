@@ -28,8 +28,8 @@ class MessageBar: UIView {
         inputField = ChatTextView()
         inputField.isScrollEnabled = false
         inputField.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        inputField.textColor = AppGlobals.SAKAI_RED
-        inputField.tintColor = AppGlobals.SAKAI_RED
+        inputField.textColor = AppGlobals.sakaiRed
+        inputField.tintColor = AppGlobals.sakaiRed
         inputField.font = UIFont.systemFont(ofSize: 16)
         inputField.backgroundColor = UIColor.white
         inputField.layer.cornerRadius = 5
@@ -38,7 +38,7 @@ class MessageBar: UIView {
 
         sendButton = UIButton(type: .contactAdd)
         sendButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        sendButton.tintColor = AppGlobals.SAKAI_RED
+        sendButton.tintColor = AppGlobals.sakaiRed
     }
 
     func addViews() {

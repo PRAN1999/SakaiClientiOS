@@ -33,13 +33,13 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate {
     func setup() {
         titleLabel = UILabel()
         titleLabel.font = UIFont.init(name: "Helvetica", size: 25.0)
-        titleLabel.textColor = AppGlobals.SAKAI_RED
+        titleLabel.textColor = AppGlobals.sakaiRed
 
         imageLabel = UIImageView()
 
         activityIndicator = UIActivityIndicatorView()
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = AppGlobals.SAKAI_RED
+        activityIndicator.color = AppGlobals.sakaiRed
 
         tapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
         tapRecognizer.delegate = self

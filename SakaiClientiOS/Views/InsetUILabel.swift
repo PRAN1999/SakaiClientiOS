@@ -30,7 +30,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         titleLabel.numberOfLines = 2
         titleLabel.font = UIFont.systemFont(ofSize: 11.0, weight: UIFont.Weight.light)
 
-        self.backgroundColor = AppGlobals.SAKAI_RED
+        self.backgroundColor = AppGlobals.sakaiRed
         // Round the edges of outer view
         self.layer.cornerRadius = 3
         self.layer.masksToBounds = true

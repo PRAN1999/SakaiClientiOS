@@ -19,7 +19,7 @@ protocol HideableNetworkSource: NetworkSource where Self.Fetcher: HideableDataFe
 extension HideableNetworkSource {
 
     func loadDataSource() {
-        let callback = self.delegate?.networkSource(willBeginLoadingDataSource: self)
+        let callback = self.delegate?.networkSourceWillBeginLoadingData(self)
         prepareDataSourceForLoad()
         loadDataSource(for: 0, completion: callback)
     }
@@ -30,11 +30,11 @@ extension HideableNetworkSource {
                 completion?()
                 self?.handleSectionLoad(forSection: section)
                 if err != nil {
-                    self?.delegate?.networkSource(errorLoadingDataSource: self, withError: err!)
+                    self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
                 }
                 if let response = res {
                     self?.populateDataSource(with: response, forSection: section)
-                    self?.delegate?.networkSource(successfullyLoadedDataSource: self)
+                    self?.delegate?.networkSourceSuccessfullyLoadedData(self)
                 }
             }
         }

@@ -9,15 +9,15 @@ import UIKit
 import ReusableSource
 
 extension NetworkSourceDelegate where Self: UIViewController {
-    func networkSource<Source>(willBeginLoadingDataSource networkSource: Source) -> (() -> ())? where Source : NetworkSource {
+    func networkSourceWillBeginLoadingData<Source: NetworkSource>(_ networkSource: Source) -> (() -> ())? {
         return self.addLoadingIndicator()
     }
 
-    func networkSource<Source>(successfullyLoadedDataSource networkSource: Source?) where Source : NetworkSource {
+    func networkSourceSuccessfullyLoadedData<Source: NetworkSource>(_ networkSource: Source?) {
         // No default implementation
     }
-
-    func networkSource<Source>(errorLoadingDataSource networkSource: Source?, withError error: Error) where Source : NetworkSource {
+    
+    func networkSourceFailedToLoadData<Source: NetworkSource>(_ networkSource: Source?, withError error: Error) {
         self.presentErrorAlert(error: error)
     }
 }

@@ -29,16 +29,16 @@ public protocol NetworkSource: class {
 public extension NetworkSource {
     func loadDataSource() {
         prepareDataSourceForLoad()
-        let callback = delegate?.networkSource(willBeginLoadingDataSource: self)
+        let callback = delegate?.networkSourceWillBeginLoadingData(self)
         fetcher.loadData() { [weak self] res, err in
             DispatchQueue.main.async {
                 callback?()
                 if err != nil {
-                    self?.delegate?.networkSource(errorLoadingDataSource: self, withError: err!)
+                    self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
                 }
                 if let response = res {
                     self?.populateDataSource(with: response)
-                    self?.delegate?.networkSource(successfullyLoadedDataSource: self)
+                    self?.delegate?.networkSourceSuccessfullyLoadedData(self)
                 }
             }
         }

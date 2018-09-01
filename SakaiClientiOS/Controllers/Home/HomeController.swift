@@ -89,7 +89,7 @@ extension HomeController: LoadableController {
 
 extension HomeController: NetworkSourceDelegate {
 
-    func networkSource<Source>(willBeginLoadingDataSource networkSource: Source) -> (() -> ())? where Source : NetworkSource {
+    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> ())? where Source : NetworkSource {
         disableTabs()
         SakaiService.shared.reset()
         self.navigationItem.rightBarButtonItem?.isEnabled = false
@@ -100,7 +100,7 @@ extension HomeController: NetworkSourceDelegate {
         }
     }
 
-    func networkSource<Source>(successfullyLoadedDataSource networkSource: Source?) where Source : NetworkSource {
+    func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {
         enableTabs()
     }
 }

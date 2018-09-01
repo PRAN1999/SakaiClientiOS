@@ -55,7 +55,7 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
         fetcher.loadData(completion: { [weak self] announcements, err in
             DispatchQueue.main.async {
                 guard err == nil else {
-                    self?.delegate?.networkSource(errorLoadingDataSource: self, withError: err!)
+                    self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
                     return
                 }
                 spinner.stopAnimating()
