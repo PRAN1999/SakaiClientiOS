@@ -36,7 +36,7 @@ class ResourcePageController: UIViewController, SitePageController {
         }
         resourceTreeManager.delegate = self
 
-        loadData()
+        resourceTreeManager.loadDataSource()
         configureNavigationItem()
     }
 
@@ -47,7 +47,7 @@ class ResourcePageController: UIViewController, SitePageController {
 
 extension ResourcePageController: LoadableController {
     @objc func loadData() {
-        resourceTreeManager.loadDataSource()
+        resourceTreeManager.loadDataSourceWithoutCache()
     }
 }
 

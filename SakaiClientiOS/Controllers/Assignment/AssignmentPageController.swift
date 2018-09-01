@@ -39,7 +39,10 @@ class AssignmentPageController: UIViewController {
         pageView.scrollView.statusLabel.setKeyVal(key: "Status:", val: assignment?.status)
         pageView.scrollView.dueLabel.setKeyVal(key: "Due:", val: assignment?.dueTimeString)
         pageView.scrollView.setInstructions(attributedText: assignment?.attributedInstructions)
-        pageView.scrollView.setAttachments(resources: assignment?.attachments)
+        let resourceStrings = assignment?.attachments?.map({ (attachment) -> NSAttributedString in
+            return attachment.toAttributedString()
+        })
+        pageView.scrollView.setAttachments(resources: resourceStrings)
         
         pageView.scrollView.instructionView.delegate = delegate
         pageView.scrollView.attachmentsView.delegate = delegate

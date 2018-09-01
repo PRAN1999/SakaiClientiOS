@@ -19,7 +19,7 @@ public protocol ReusableSource: class {
     
     var provider: Provider { get }
     
-    /// Reset data source by purging provider managed data from data source
+    /// Reset data source by purging provider managed data
     func resetValues()
     
     /// A wrapper to reload the data for the managed tableView/collectionView

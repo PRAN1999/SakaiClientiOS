@@ -1,5 +1,5 @@
 //
-//  NetworkManagerDelegate.swift
+//  NetworkSourceDelegate.swift
 //  ReusableSource
 //
 //  Created by Pranay Neelagiri on 8/29/18.
@@ -9,8 +9,27 @@
 import Foundation
 import UIKit
 
+/// A delegate to respond to NetworkSource events, usually to configure changes to the UI
 public protocol NetworkSourceDelegate: class {
-    func networkSource<Source: NetworkSource>(willBeginLoadingDataSource networkSource: Source) -> (() -> ())?
-    func networkSource<Source: NetworkSource>(successfullyLoadedDataSource networkSource: Source?)
-    func networkSource<Source: NetworkSource>(errorLoadingDataSource networkSource: Source?, withError error: Error?)
+
+    /// Execute tasks before networkSource begins data load and returns callback to execute immediately after load
+    /// whether or not load is successful.
+    ///
+    /// i.e. Can be used to add and remove ActivityIndicator from view
+    ///
+    /// - Parameter networkSource: a NetworkSource implementation
+    /// - Returns: a callback to execute immediately after data load
+    func networkSourceWillBeginLoadingData<Source: NetworkSource>(_ networkSource: Source) -> (() -> Void)?
+
+    /// Execute tasks when networkSource successfully loads data into data source
+    ///
+    /// - Parameter networkSource: a NetworkSource implementation
+    func networkSourceSuccessfullyLoadedData<Source: NetworkSource>(_ networkSource: Source?)
+
+    /// Execute tasks when networkSource encounters error on data load
+    ///
+    /// - Parameters:
+    ///   - networkSource: a NetworkSource implementation
+    ///   - error: the Error thrown when trying to fetch and parse data from network request
+    func networkSourceFailedToLoadData<Source: NetworkSource>(_ networkSource: Source?, withError error: Error)
 }

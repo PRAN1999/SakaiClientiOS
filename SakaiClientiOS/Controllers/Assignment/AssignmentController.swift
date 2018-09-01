@@ -51,7 +51,7 @@ class AssignmentController: UITableViewController {
         
         segments.selectedSegmentIndex = selectedIndex
         segments.addTarget(self, action: #selector(resort), for: UIControlEvents.valueChanged)
-        segments.tintColor = AppGlobals.SAKAI_RED
+        segments.tintColor = AppGlobals.sakaiRed
         segments.setEnabled(false, forSegmentAt: 1)
         
         button1 = UIBarButtonItem(customView: segments);
@@ -71,11 +71,11 @@ class AssignmentController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setToolbarHidden(false, animated: false)
+        self.navigationController?.setToolbarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setToolbarHidden(true, animated: false)
+        self.navigationController?.setToolbarHidden(true, animated: true)
     }
     
     @objc func resort() {
@@ -85,19 +85,19 @@ class AssignmentController: UITableViewController {
 
 extension AssignmentController: LoadableController {
     @objc func loadData() {
-        assignmentsTableManager.loadDataSource()
+        assignmentsTableManager.loadDataSourceWithoutCache()
     }
 }
 
 extension AssignmentController: NetworkSourceDelegate {
-    func networkSource<Source>(willBeginLoadingDataSource networkSource: Source) -> (() -> ())? where Source : NetworkSource {
+    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         segments.selectedSegmentIndex = 0
         segments.setEnabled(false, forSegmentAt: 1)
         assignmentsTableManager.resetSort()
         return self.addLoadingIndicator()
     }
 
-    func networkSource<Source>(successfullyLoadedDataSource networkSource: Source?) where Source : NetworkSource {
+    func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {
         self.segments.setEnabled(true, forSegmentAt: 1)
     }
 }

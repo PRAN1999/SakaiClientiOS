@@ -9,10 +9,9 @@ import RATreeView
 import ReusableSource
 
 class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, NetworkSource {
-    weak var delegate: NetworkSourceDelegate?
-
     typealias Fetcher = ResourceDataFetcher
-    
+
+    weak var delegate: NetworkSourceDelegate?
     let treeView: RATreeView
     let fetcher: ResourceDataFetcher
     
@@ -76,13 +75,10 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
         guard let resource = item as? ResourceNode else {
             return
         }
-        
         guard let cell = treeView.cell(forItem: item) as? ResourceCell else {
             return
         }
-        
         let level = treeView.level(for: cell)
-        
         let isExpanded = !treeView.isCellExpanded(cell)
         
         switch(resource.resourceItem.type) {

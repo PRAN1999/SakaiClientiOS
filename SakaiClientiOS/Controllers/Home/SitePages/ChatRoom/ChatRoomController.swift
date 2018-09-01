@@ -12,11 +12,10 @@ class ChatRoomController: UIViewController, SitePageController {
     
     var siteId: String?
     var siteUrl: String?
-    
-    var chatRoomView: ChatRoomView!
     var chatChannelId: String?
     var csrftoken: String?
     
+    var chatRoomView: ChatRoomView!
     var indicator: LoadingIndicator!
     
     var webView: WKWebView {
@@ -45,17 +44,17 @@ class ChatRoomController: UIViewController, SitePageController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         self.title = "Chat Room"
+
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
+
         chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()
         }
         chatRoomView.messageBar.sendButton.addTarget(self, action: #selector(handleSubmit), for: .touchUpInside)
-        
         guard let urlString = siteUrl else {
             return
         }
-        
         guard let url = URL(string: urlString) else {
             return
         }
@@ -69,10 +68,8 @@ class ChatRoomController: UIViewController, SitePageController {
         webView.isMultipleTouchEnabled = false
         webView.scrollView.delegate = NativeWebViewScrollViewDelegate.shared
         webView.scrollView.showsHorizontalScrollIndicator = false
-        
         webView.uiDelegate = self
         webView.navigationDelegate = self
-        
         webView.load(URLRequest(url: url))
     }
     
@@ -80,18 +77,14 @@ class ChatRoomController: UIViewController, SitePageController {
         guard let userInfo = notification.userInfo else {
             return
         }
-        
         guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
-        
         let cgRect = keyboardFrame.cgRectValue
-        
         let isKeyboardShowing = notification.name == .UIKeyboardWillShow
-        
         chatRoomView.bottomConstraint.constant = isKeyboardShowing ? -cgRect.height : 0
-        UIView.animate(withDuration: 0, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
         }, completion: nil)
         if isKeyboardShowing {
             self.updateChatOnKeyboardNotification()
@@ -133,7 +126,7 @@ class ChatRoomController: UIViewController, SitePageController {
         guard let csrftoken = csrftoken, let chatChannelId = chatChannelId else {
             return
         }
-        SakaiService.shared.submitMessage(text: text, csrftoken: csrftoken, chatChannelId: chatChannelId) { [weak self] in
+        SakaiService.shared.submitMessage(text: text, csrftoken: csrftoken, chatChannelId: chatChannelId) { [weak self] err in
             self?.updateMonitor()
         }
     }
@@ -148,7 +141,6 @@ class ChatRoomController: UIViewController, SitePageController {
 extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
         webView.evaluateJavaScript("currentChatChannelId") { [weak self] (data, err) in
             guard err == nil else {
                 self?.navigationController?.popViewController(animated: true)
@@ -158,7 +150,6 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
                 return
             }
             self?.chatChannelId = id
-            
             if self?.csrftoken != nil {
                 self?.setInput(enabled: true)
             }
@@ -183,7 +174,6 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
             if self?.chatChannelId != nil {
                 self?.setInput(enabled: true)
             }
-            
             self?.indicator.stopAnimating()
         })
     }

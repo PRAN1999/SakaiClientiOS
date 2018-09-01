@@ -53,7 +53,9 @@ struct Term {
         self.init(year: year, termInt: term, termString: Term.mapTerms[term])
     }
 
-    /// Gets the full String representation of the Term: i.e "Spring 2018"
+    /// Gets the full String representation of the Term:
+    ///
+    /// i.e "Spring 2018"
     ///
     /// - Returns: A String representation of a Term
     func getTitle() -> String {
@@ -65,7 +67,7 @@ struct Term {
 
     /// Determines if Term has non-nil year and termInt
     ///
-    /// - Returns: A Bool value representing whether the Term is valid
+    /// - Returns: A flag representing whether the Term is valid
     func exists() -> Bool {
         return year != nil && termInt != nil
     }
@@ -97,12 +99,11 @@ struct Term {
     }
 }
 
-// MARK: Comparable Extension
+// MARK: Comparable
 
 // Enforces Term compliance to Comparable protocol by comparing termInt and year to determine Term equality.
 // Any term with a nil year or termInt is considered the smallest possible Term value
 extension Term: Comparable {
-    // swiftlint:disable unused_optional_binding
     static func < (lhs: Term, rhs: Term) -> Bool {
         guard let lYear = lhs.year, let lTerm = lhs.termInt else {
             return true

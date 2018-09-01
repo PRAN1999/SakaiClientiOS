@@ -5,9 +5,6 @@
       location = "group:ReusableSource/ReusableSource.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:LNPopupController/LNPopupController.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:SakaiClientiOS.xcodeproj">
    </FileRef>
    <FileRef

@@ -10,7 +10,7 @@ import ReusableSource
 
 class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell & ConfigurableCell> : ReusableTableManager<Provider, Cell>, UIGestureRecognizerDelegate where Provider.T == Cell.T {
     
-    let TABLE_HEADER_HEIGHT:CGFloat = 50.0
+    let tableHeaderHeight: CGFloat = 50.0
     
     override func setup() {
         super.setup()
@@ -44,7 +44,7 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return TABLE_HEADER_HEIGHT
+        return tableHeaderHeight
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {

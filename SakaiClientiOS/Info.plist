@@ -32,14 +32,16 @@
 		<false/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>https://cas.rutgers.edu/</key>
+			<key>http://academicintegrity.rutgers.edu/</key>
+			<dict/>
+			<key>http://cas.rutgers.edu/</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
 				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>https://sakai.rutgers.edu/</key>
+			<key>http://sakai.rutgers.edu/</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<string>YES</string>

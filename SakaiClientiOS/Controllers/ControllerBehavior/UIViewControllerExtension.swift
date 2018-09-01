@@ -40,7 +40,7 @@ extension UIViewController {
         tapRecognizer.addTarget(self, action: #selector(hideNavBar))
     }
 
-    func addLoadingIndicator() -> (() -> ())? {
+    func addLoadingIndicator() -> (() -> Void) {
         let indicator = LoadingIndicator(view: view)
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
@@ -51,8 +51,8 @@ extension UIViewController {
         return afterLoad
     }
 
-    func presentErrorAlert(error: Error?) {
-        let errorMessage = error?.localizedDescription
+    func presentErrorAlert(error: Error) {
+        let errorMessage = error.localizedDescription
         let alert = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         let alertController = UIAlertController(title: "ERROR", message: errorMessage, preferredStyle: .alert)
         alertController.addAction(alert)

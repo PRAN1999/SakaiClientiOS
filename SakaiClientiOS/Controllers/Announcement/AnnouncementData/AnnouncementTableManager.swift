@@ -32,24 +32,7 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
         }
         
         if indexPath.row == provider.lastIndex() && fetcher.moreLoads {
-            let frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(70))
-            let spinner = LoadingIndicator(frame: frame)
-            spinner.activityIndicatorViewStyle = .gray
-            spinner.startAnimating()
-            spinner.hidesWhenStopped = true
-            
-            tableView.tableFooterView = spinner
-            tableView.tableFooterView?.isHidden = false
-            fetcher.loadData(completion: { announcements, err in
-                DispatchQueue.main.async {
-                    spinner.stopAnimating()
-                    guard let items = announcements else {
-                        return
-                    }
-                    self.loadItems(payload: items)
-                    self.reloadData()
-                }
-            })
+            loadMoreData()
         }
         
         return cell
@@ -58,6 +41,31 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
     override func resetValues() {
         fetcher.resetOffset()
         provider.resetValues()
+    }
+
+    func loadMoreData() {
+        let frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(70))
+        let spinner = LoadingIndicator(frame: frame)
+        spinner.activityIndicatorViewStyle = .gray
+        spinner.startAnimating()
+        spinner.hidesWhenStopped = true
+
+        tableView.tableFooterView = spinner
+        tableView.tableFooterView?.isHidden = false
+        fetcher.loadData(completion: { [weak self] announcements, err in
+            DispatchQueue.main.async {
+                guard err == nil else {
+                    self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
+                    return
+                }
+                spinner.stopAnimating()
+                guard let items = announcements else {
+                    return
+                }
+                self?.loadItems(payload: items)
+                self?.reloadData()
+            }
+        })
     }
 }
 

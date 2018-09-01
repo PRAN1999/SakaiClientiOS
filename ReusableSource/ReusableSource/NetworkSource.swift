@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// An abstraction for a network delegate used to retrieve network data and populate a data source
+/// An abstraction for a network-based data source used to retrieve network data and populate a data source
 public protocol NetworkSource: class {
 
     /// The DataFetcher implementation type associated with the NetworkSource
@@ -23,26 +23,30 @@ public protocol NetworkSource: class {
     
     func populateDataSource(with payload: Fetcher.T)
 
+    /// Fetch data using a data fetcher and load it into the associated data source
     func loadDataSource()
 }
 
 public extension NetworkSource {
     func loadDataSource() {
         prepareDataSourceForLoad()
-        let callback = delegate?.networkSource(willBeginLoadingDataSource: self)
+        let callback = delegate?.networkSourceWillBeginLoadingData(self)
         fetcher.loadData() { [weak self] res, err in
-            callback?()
-            guard err == nil, let response = res else {
-                self?.delegate?.networkSource(errorLoadingDataSource: self, withError: err)
-                return
+            DispatchQueue.main.async {
+                callback?()
+                if err != nil {
+                    self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
+                }
+                if let response = res {
+                    self?.populateDataSource(with: response)
+                    self?.delegate?.networkSourceSuccessfullyLoadedData(self)
+                }
             }
-            self?.populateDataSource(with: response)
-            self?.delegate?.networkSource(successfullyLoadedDataSource: self)
         }
     }
 }
 
-// MARK: - Default implementation for a ReusableSource where the DataProvider.V payload is equivalent to the associated Fetcher.T
+// MARK: - ReusableSource default impl.
 public extension NetworkSource where Self: ReusableSource, Self.Provider.V == Self.Fetcher.T {
     func prepareDataSourceForLoad() {
         resetValues()

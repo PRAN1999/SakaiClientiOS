@@ -29,7 +29,6 @@
 		5113C135209286E8001929DA /* GradebookView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C134209286E8001929DA /* GradebookView.storyboard */; };
 		5113C13720928709001929DA /* AssignmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13620928709001929DA /* AssignmentController.swift */; };
 		5113C13920928718001929DA /* AssignmentView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C13820928718001929DA /* AssignmentView.storyboard */; };
-		5113C13C2092BD74001929DA /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13B2092BD74001929DA /* Site.swift */; };
 		5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13D2092D8F1001929DA /* SiteCell.swift */; };
 		511D757A208DAA9600371998 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D7579208DAA9600371998 /* HomeController.swift */; };
 		512748BD210D29A400A5A74E /* ResourcePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512748BC210D29A400A5A74E /* ResourcePageController.swift */; };
@@ -47,6 +46,16 @@
 		5182CBCA21383ECF00D45952 /* HideableNetworkTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBC921383ECF00D45952 /* HideableNetworkTableManager.swift */; };
 		5182CBCC213845F500D45952 /* SiteAssignmentCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBCB213845F500D45952 /* SiteAssignmentCollectionManager.swift */; };
 		5182CBCE2138464900D45952 /* GradebookTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBCD2138464900D45952 /* GradebookTableManager.swift */; };
+		5182CBD42139A49600D45952 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBD32139A49600D45952 /* UserSession.swift */; };
+		5182CBDA2139B02000D45952 /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBD92139B02000D45952 /* Site.swift */; };
+		5182CBDD2139DAA700D45952 /* RawSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBDC2139DAA700D45952 /* RawSite.swift */; };
+		5182CBE32139DB7300D45952 /* RawSitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBE22139DB7300D45952 /* RawSitePage.swift */; };
+		5182CBE62139DC6800D45952 /* RawGradeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBE52139DC6800D45952 /* RawGradeItem.swift */; };
+		5182CBEC213A073C00D45952 /* RawAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBEB213A073C00D45952 /* RawAnnouncement.swift */; };
+		5182CBEE213A1A7400D45952 /* SakaiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBED213A1A7400D45952 /* SakaiEndpoint.swift */; };
+		5182CBF2213A1B0000D45952 /* RawAssignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBF1213A1B0000D45952 /* RawAssignment.swift */; };
+		5182CBF4213A1CAE00D45952 /* AttachmentElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBF3213A1CAE00D45952 /* AttachmentElement.swift */; };
+		5182CBF6213A24FA00D45952 /* RawResourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBF5213A24FA00D45952 /* RawResourceItem.swift */; };
 		51835043211E9A75008F2CF2 /* WebNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51835042211E9A75008F2CF2 /* WebNavigationController.swift */; };
 		518903A12106BAE500C551AE /* HideableNetworkSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A02106BAE500C551AE /* HideableNetworkSource.swift */; };
 		518903A52106C35900C551AE /* HideableNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */; };
@@ -100,7 +109,7 @@
 		51DEE5692103D41F008E709D /* SiteAssignmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE5682103D41F008E709D /* SiteAssignmentController.swift */; };
 		51DEE56B21051631008E709D /* HideableDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE56A21051631008E709D /* HideableDataFetcher.swift */; };
 		51DEE56D210527BC008E709D /* HideableTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE56C210527BC008E709D /* HideableTableManager.swift */; };
-		AF412FE9DC8C8BBC41E42CFB /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */; };
+		644E9699E1AEBCEE350ADB9B /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5AA811018CA7A1A3A0456C /* Pods_SakaiClientiOS.framework */; };
 		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
 		DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */; };
 		DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE0599FC1DFD93B200D19D17 /* Main.storyboard */; };
@@ -124,8 +133,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
-		4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.release.xcconfig"; sourceTree = "<group>"; };
 		5103FDF720E862DD009F8BF4 /* Announcement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Announcement.swift; sourceTree = "<group>"; };
 		5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementCell.swift; sourceTree = "<group>"; };
 		5111149920CD89D20077F872 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
@@ -148,7 +155,6 @@
 		5113C134209286E8001929DA /* GradebookView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GradebookView.storyboard; sourceTree = "<group>"; };
 		5113C13620928709001929DA /* AssignmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentController.swift; sourceTree = "<group>"; };
 		5113C13820928718001929DA /* AssignmentView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AssignmentView.storyboard; sourceTree = "<group>"; };
-		5113C13B2092BD74001929DA /* Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
 		5113C13D2092D8F1001929DA /* SiteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCell.swift; sourceTree = "<group>"; };
 		5118956421194D0500BD86D1 /* SakaiClientiOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SakaiClientiOS.entitlements; sourceTree = "<group>"; };
 		511D7579208DAA9600371998 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -164,6 +170,16 @@
 		5182CBC921383ECF00D45952 /* HideableNetworkTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideableNetworkTableManager.swift; sourceTree = "<group>"; };
 		5182CBCB213845F500D45952 /* SiteAssignmentCollectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteAssignmentCollectionManager.swift; sourceTree = "<group>"; };
 		5182CBCD2138464900D45952 /* GradebookTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradebookTableManager.swift; sourceTree = "<group>"; };
+		5182CBD32139A49600D45952 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		5182CBD92139B02000D45952 /* Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
+		5182CBDC2139DAA700D45952 /* RawSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawSite.swift; sourceTree = "<group>"; };
+		5182CBE22139DB7300D45952 /* RawSitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawSitePage.swift; sourceTree = "<group>"; };
+		5182CBE52139DC6800D45952 /* RawGradeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawGradeItem.swift; sourceTree = "<group>"; };
+		5182CBEB213A073C00D45952 /* RawAnnouncement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawAnnouncement.swift; sourceTree = "<group>"; };
+		5182CBED213A1A7400D45952 /* SakaiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakaiEndpoint.swift; sourceTree = "<group>"; };
+		5182CBF1213A1B0000D45952 /* RawAssignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawAssignment.swift; sourceTree = "<group>"; };
+		5182CBF3213A1CAE00D45952 /* AttachmentElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentElement.swift; sourceTree = "<group>"; };
+		5182CBF5213A24FA00D45952 /* RawResourceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawResourceItem.swift; sourceTree = "<group>"; };
 		51835042211E9A75008F2CF2 /* WebNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebNavigationController.swift; sourceTree = "<group>"; };
 		518903A02106BAE500C551AE /* HideableNetworkSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkSource.swift; sourceTree = "<group>"; };
 		518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkDataProvider.swift; sourceTree = "<group>"; };
@@ -219,7 +235,9 @@
 		51DEE5682103D41F008E709D /* SiteAssignmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentController.swift; sourceTree = "<group>"; };
 		51DEE56A21051631008E709D /* HideableDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableDataFetcher.swift; sourceTree = "<group>"; };
 		51DEE56C210527BC008E709D /* HideableTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableTableManager.swift; sourceTree = "<group>"; };
-		B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B14914143B4B328D7ABC096 /* Pods-SakaiClientiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.release.xcconfig"; sourceTree = "<group>"; };
+		B013D32AC221E9080B17F98A /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		CD5AA811018CA7A1A3A0456C /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakaiClientiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F81DFD93B200D19D17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -234,20 +252,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF412FE9DC8C8BBC41E42CFB /* Pods_SakaiClientiOS.framework in Frameworks */,
 				517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */,
 				512748C4210D842E00A5A74E /* ReusableSource.framework in Frameworks */,
+				644E9699E1AEBCEE350ADB9B /* Pods_SakaiClientiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2FAF2B4998C18CFABEFC9396 /* Pods */ = {
+		371C1CBF0DA3822EA369319A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */,
-				4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */,
+				B013D32AC221E9080B17F98A /* Pods-SakaiClientiOS.debug.xcconfig */,
+				5B14914143B4B328D7ABC096 /* Pods-SakaiClientiOS.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -296,14 +314,10 @@
 		5113C13A209298FF001929DA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5113C13B2092BD74001929DA /* Site.swift */,
+				5182CBD22139A48200D45952 /* Decodable */,
+				5182CBD12139A46100D45952 /* Networking */,
 				514B623820952B89001A716C /* Parsing.swift */,
 				518296D520A631CC00EAD645 /* Term.swift */,
-				51C4B7E920A6555C00DD6696 /* SitePage.swift */,
-				51C4B7F720A8CAC400DD6696 /* GradeItem.swift */,
-				5111149920CD89D20077F872 /* Assignment.swift */,
-				5103FDF720E862DD009F8BF4 /* Announcement.swift */,
-				518903C2210AC3B200C551AE /* ResourceItem.swift */,
 				512748C8210E600200A5A74E /* ResourceNode.swift */,
 			);
 			path = Models;
@@ -319,7 +333,7 @@
 			path = ResourcePage;
 			sourceTree = "<group>";
 		};
-		514B623A209569AF001A716C /* UIElements */ = {
+		514B623A209569AF001A716C /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				514B623B209569FE001A716C /* TermHeader.swift */,
@@ -342,7 +356,87 @@
 				5197E6CA2134E8D80019DCC9 /* ChatTextView.swift */,
 				518AC34D2137840300037087 /* LoadingIndicator.swift */,
 			);
-			path = UIElements;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5182CBD12139A46100D45952 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				5113C11F2090F7B7001929DA /* RequestManager.swift */,
+				518903B121092E5500C551AE /* SakaiService.swift */,
+				518AC340213756E000037087 /* SakaiError.swift */,
+				5182CBED213A1A7400D45952 /* SakaiEndpoint.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		5182CBD22139A48200D45952 /* Decodable */ = {
+			isa = PBXGroup;
+			children = (
+				5182CBF7213A250400D45952 /* ResourceItem */,
+				5182CBF0213A1AEB00D45952 /* Assignment */,
+				5182CBEF213A1AD300D45952 /* SitePage */,
+				5182CBE82139FD1B00D45952 /* Announcement */,
+				5182CBE42139DBA900D45952 /* GradeItem */,
+				5182CBDB2139DA9200D45952 /* Site */,
+				5182CBD32139A49600D45952 /* UserSession.swift */,
+				5182CBF3213A1CAE00D45952 /* AttachmentElement.swift */,
+			);
+			path = Decodable;
+			sourceTree = "<group>";
+		};
+		5182CBDB2139DA9200D45952 /* Site */ = {
+			isa = PBXGroup;
+			children = (
+				5182CBDC2139DAA700D45952 /* RawSite.swift */,
+				5182CBD92139B02000D45952 /* Site.swift */,
+			);
+			path = Site;
+			sourceTree = "<group>";
+		};
+		5182CBE42139DBA900D45952 /* GradeItem */ = {
+			isa = PBXGroup;
+			children = (
+				5182CBE52139DC6800D45952 /* RawGradeItem.swift */,
+				51C4B7F720A8CAC400DD6696 /* GradeItem.swift */,
+			);
+			path = GradeItem;
+			sourceTree = "<group>";
+		};
+		5182CBE82139FD1B00D45952 /* Announcement */ = {
+			isa = PBXGroup;
+			children = (
+				5182CBEB213A073C00D45952 /* RawAnnouncement.swift */,
+				5103FDF720E862DD009F8BF4 /* Announcement.swift */,
+			);
+			path = Announcement;
+			sourceTree = "<group>";
+		};
+		5182CBEF213A1AD300D45952 /* SitePage */ = {
+			isa = PBXGroup;
+			children = (
+				5182CBE22139DB7300D45952 /* RawSitePage.swift */,
+				51C4B7E920A6555C00DD6696 /* SitePage.swift */,
+			);
+			path = SitePage;
+			sourceTree = "<group>";
+		};
+		5182CBF0213A1AEB00D45952 /* Assignment */ = {
+			isa = PBXGroup;
+			children = (
+				5182CBF1213A1B0000D45952 /* RawAssignment.swift */,
+				5111149920CD89D20077F872 /* Assignment.swift */,
+			);
+			path = Assignment;
+			sourceTree = "<group>";
+		};
+		5182CBF7213A250400D45952 /* ResourceItem */ = {
+			isa = PBXGroup;
+			children = (
+				5182CBF5213A24FA00D45952 /* RawResourceItem.swift */,
+				518903C2210AC3B200C551AE /* ResourceItem.swift */,
+			);
+			path = ResourceItem;
 			sourceTree = "<group>";
 		};
 		51835041211E9A49008F2CF2 /* Web */ = {
@@ -534,7 +628,7 @@
 				51A472E120F9C59E00CC95F0 /* ReusableSource.framework */,
 				51C9794320F994FF00191DD6 /* SakaiClientiOS */,
 				517F378420E019D900B21D5A /* LNPopupController.framework */,
-				B694EF28F950D3315AFD2054 /* Pods_SakaiClientiOS.framework */,
+				CD5AA811018CA7A1A3A0456C /* Pods_SakaiClientiOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -544,8 +638,8 @@
 			children = (
 				DE0599F71DFD93B200D19D17 /* SakaiClientiOS */,
 				DE0599F61DFD93B200D19D17 /* Products */,
-				2FAF2B4998C18CFABEFC9396 /* Pods */,
 				6A04DF0725D71CF9D407734A /* Frameworks */,
+				371C1CBF0DA3822EA369319A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -563,15 +657,12 @@
 				5118956421194D0500BD86D1 /* SakaiClientiOS.entitlements */,
 				51E9DD9320C4A91900275103 /* Storyboards */,
 				51C2D15A20C47FA000E4C901 /* Controllers */,
-				514B623A209569AF001A716C /* UIElements */,
+				514B623A209569AF001A716C /* Views */,
 				5113C13A209298FF001929DA /* Models */,
 				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
 				DE0599FF1DFD93B200D19D17 /* Assets.xcassets */,
 				DE059A041DFD93B200D19D17 /* Info.plist */,
-				5113C11F2090F7B7001929DA /* RequestManager.swift */,
 				51C4B80520AD11F300DD6696 /* AppGlobals.swift */,
-				518903B121092E5500C551AE /* SakaiService.swift */,
-				518AC340213756E000037087 /* SakaiError.swift */,
 			);
 			path = SakaiClientiOS;
 			sourceTree = "<group>";
@@ -583,12 +674,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE059A071DFD93B200D19D17 /* Build configuration list for PBXNativeTarget "SakaiClientiOS" */;
 			buildPhases = (
-				4D1053EB7B6A570595CA4DBE /* [CP] Check Pods Manifest.lock */,
+				7C207D1E2854408B5D1CD4D2 /* [CP] Check Pods Manifest.lock */,
 				DE0599F11DFD93B100D19D17 /* Sources */,
 				DE0599F21DFD93B100D19D17 /* Frameworks */,
 				DE0599F31DFD93B100D19D17 /* Resources */,
-				EB5CEF4A985A44DC55E556E9 /* [CP] Embed Pods Frameworks */,
 				517F378A20E01AED00B21D5A /* Embed Frameworks */,
+				6A6FC538D6CEF5FCC7295502 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -657,7 +748,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4D1053EB7B6A570595CA4DBE /* [CP] Check Pods Manifest.lock */ = {
+		6A6FC538D6CEF5FCC7295502 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C207D1E2854408B5D1CD4D2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -673,28 +784,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB5CEF4A985A44DC55E556E9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -713,6 +802,7 @@
 				511114B520D74D570077F872 /* PagesController.swift in Sources */,
 				518903BA210A9F6C00C551AE /* FeedController.swift in Sources */,
 				51DEE5692103D41F008E709D /* SiteAssignmentController.swift in Sources */,
+				5182CBDD2139DAA700D45952 /* RawSite.swift in Sources */,
 				51DEE54220FEFB68008E709D /* AnnouncementTableManager.swift in Sources */,
 				512748C9210E600200A5A74E /* ResourceNode.swift in Sources */,
 				5182CBCC213845F500D45952 /* SiteAssignmentCollectionManager.swift in Sources */,
@@ -720,6 +810,7 @@
 				5103FDF820E862DD009F8BF4 /* Announcement.swift in Sources */,
 				5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */,
 				518296D620A631CC00EAD645 /* Term.swift in Sources */,
+				5182CBEC213A073C00D45952 /* RawAnnouncement.swift in Sources */,
 				512748C1210D75D700A5A74E /* ResourceTreeManager.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
 				5197E6BD2134317F0019DCC9 /* TextViewDelegateExtension.swift in Sources */,
@@ -731,18 +822,21 @@
 				511114A820D0C0D20077F872 /* InsetUILabel.swift in Sources */,
 				5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */,
 				51C9791220F708B200191DD6 /* SiteDataFetcher.swift in Sources */,
+				5182CBE32139DB7300D45952 /* RawSitePage.swift in Sources */,
 				51C9790C20F6FD2600191DD6 /* HideableDataProvider.swift in Sources */,
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
-				5113C13C2092BD74001929DA /* Site.swift in Sources */,
 				51DEE53220FC2639008E709D /* AnnouncementDataFetcher.swift in Sources */,
 				51C9791720F82C0E00191DD6 /* SiteDataProvider.swift in Sources */,
 				51A4731420FA7F4500CC95F0 /* NetworkSourceExtension.swift in Sources */,
 				5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */,
+				5182CBE62139DC6800D45952 /* RawGradeItem.swift in Sources */,
 				518903A52106C35900C551AE /* HideableNetworkDataProvider.swift in Sources */,
 				514B623C209569FE001A716C /* TermHeader.swift in Sources */,
 				5197E6C521349AE00019DCC9 /* ChatRoomView.swift in Sources */,
+				5182CBEE213A1A7400D45952 /* SakaiEndpoint.swift in Sources */,
 				51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */,
 				511114AC20D6CD440077F872 /* WebController.swift in Sources */,
+				5182CBF6213A24FA00D45952 /* RawResourceItem.swift in Sources */,
 				5197E6CF2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift in Sources */,
 				518903A12106BAE500C551AE /* HideableNetworkSource.swift in Sources */,
 				51DEE53620FC3D76008E709D /* SearchableDataSource.swift in Sources */,
@@ -763,14 +857,18 @@
 				51A472DC20F9C13000CC95F0 /* AssignmentTableDataProvider.swift in Sources */,
 				518903BD210AAE1F00C551AE /* LoadableController.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
+				5182CBF2213A1B0000D45952 /* RawAssignment.swift in Sources */,
 				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
+				5182CBD42139A49600D45952 /* UserSession.swift in Sources */,
 				51DEE56D210527BC008E709D /* HideableTableManager.swift in Sources */,
 				51DEE55B21016B0D008E709D /* TappableTextView.swift in Sources */,
 				518903AE2108154E00C551AE /* SiteAssignmentDataFetcher.swift in Sources */,
 				511114B920D881450077F872 /* AssignmentPageView.swift in Sources */,
 				51DEE550210041A5008E709D /* SiteGradebookTableDataSource.swift in Sources */,
+				5182CBF4213A1CAE00D45952 /* AttachmentElement.swift in Sources */,
 				5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */,
 				51A472D120F99FA600CC95F0 /* DataFetcherExtension.swift in Sources */,
+				5182CBDA2139B02000D45952 /* Site.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
 				511114BD20DDF8DF0077F872 /* AssignmentDetailsView.swift in Sources */,
 				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,
@@ -915,7 +1013,7 @@
 		};
 		DE059A081DFD93B200D19D17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1336A3822B73F22079CD0E3F /* Pods-SakaiClientiOS.debug.xcconfig */;
+			baseConfigurationReference = B013D32AC221E9080B17F98A /* Pods-SakaiClientiOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SakaiClientiOS/SakaiClientiOS.entitlements;
@@ -936,7 +1034,7 @@
 		};
 		DE059A091DFD93B200D19D17 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DC2A7AA49263295ACC1E5D6 /* Pods-SakaiClientiOS.release.xcconfig */;
+			baseConfigurationReference = 5B14914143B4B328D7ABC096 /* Pods-SakaiClientiOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SakaiClientiOS/SakaiClientiOS.entitlements;

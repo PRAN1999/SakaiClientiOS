@@ -41,14 +41,14 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
             return self
         }
         siteAssignmentCollectionManager.delegate = self
-        loadData()
+        siteAssignmentCollectionManager.loadDataSource()
         self.configureNavigationItem()
     }
 }
 
 extension SiteAssignmentController: LoadableController {
     @objc func loadData() {
-        self.siteAssignmentCollectionManager.loadDataSource()
+        self.siteAssignmentCollectionManager.loadDataSourceWithoutCache()
     }
 }
 

@@ -56,7 +56,6 @@ class HomeController: UITableViewController {
                 arr[index].isEnabled = false
             }
         }
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     func enableTabs() {
@@ -66,7 +65,6 @@ class HomeController: UITableViewController {
                 arr[index].isEnabled = true
             }
         }
-        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     func setupLogoutController() {
@@ -85,19 +83,24 @@ class HomeController: UITableViewController {
 
 extension HomeController: LoadableController {
     @objc func loadData() {
-        self.siteTableManager.loadDataSource()
+        self.siteTableManager.loadDataSourceWithoutCache()
     }
 }
 
 extension HomeController: NetworkSourceDelegate {
 
-    func networkSource<Source>(willBeginLoadingDataSource networkSource: Source) -> (() -> ())? where Source : NetworkSource {
+    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         disableTabs()
         SakaiService.shared.reset()
-        return self.addLoadingIndicator()
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        let callback = self.addLoadingIndicator()
+        return { [weak self] in
+            callback()
+            self?.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
     }
 
-    func networkSource<Source>(successfullyLoadedDataSource networkSource: Source?) where Source : NetworkSource {
+    func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {
         enableTabs()
     }
 }

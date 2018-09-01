@@ -13,7 +13,7 @@ class SiteDataFetcher: DataFetcher {
     
     func loadData(completion: @escaping ([[Site]]?, Error?) -> Void) {
         SakaiService.shared.getSites { siteList, err in
-            completion(siteList, nil)
+            completion(siteList, err)
         }
     }
     

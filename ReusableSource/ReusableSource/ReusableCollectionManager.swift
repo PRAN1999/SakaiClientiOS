@@ -1,5 +1,5 @@
 //
-//  ReusableCollectionDataSourceDelegate.swift
+//  ReusableCollectionManager.swift
 //  ReusableSource
 //
 //  Created by Pranay Neelagiri on 7/15/18.
@@ -19,7 +19,10 @@ open class ReusableCollectionManager<Provider: DataProvider, Cell: UICollectionV
         collectionView.delegate = self
     }
     
-    // MARK: Delegate methods implemented here because subclasses cannot provide protocol method implementation, so they must be overridden
+    // MARK: Delegate methods
+
+    // They are implemented here because subclasses cannot provide protocol method implementation,
+    // so they must be overridden
     
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedAt.call(indexPath)
