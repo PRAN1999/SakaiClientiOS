@@ -159,16 +159,14 @@ class WebController: UIViewController {
         guard let url = url else {
             return
         }
-        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
         interactionButton.isEnabled = false
-        Alamofire.download(URLRequest(url: url), to: destination).response { [weak self] (res) in
-            guard let fileUrl = res.destinationURL else {
+        RequestManager.shared.downloadToDocuments(url: url) { [weak self] fileUrl in
+            guard let fileUrl = fileUrl else {
                 return
             }
             guard let button = self?.interactionButton else {
                 return
             }
-            print(fileUrl)
             self?.interactionController = UIDocumentInteractionController(url: fileUrl)
             DispatchQueue.main.async {
                 self?.interactionController.presentOpenInMenu(from: button, animated: true)

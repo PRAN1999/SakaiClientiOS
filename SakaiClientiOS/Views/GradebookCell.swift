@@ -75,7 +75,7 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
     func configure(_ item: GradeItem, at indexPath: IndexPath) {
         var grade: String
         if let itemGrade = item.grade {
-            grade = "\(itemGrade)"
+            grade = itemGrade
         } else {
             grade = ""
         }

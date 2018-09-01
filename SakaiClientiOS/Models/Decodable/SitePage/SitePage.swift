@@ -5,10 +5,9 @@
 //  Created by Pranay Neelagiri on 5/11/18.
 //
 import Foundation
-import SwiftyJSON
 
 /// SitePage represents the subpages of each Sakai site
-struct SitePage {
+struct SitePage: Decodable {
     // swiftlint:disable identifier_name
     private static let ANNOUNCEMENT_STRING: String = "Announcements"
     private static let ASSIGNMENTS_STRING: String  = "Assignments"
@@ -33,42 +32,21 @@ struct SitePage {
     let siteType: SitePageController.Type
     let url: String
 
-    /// Initializes a SitePage object with defined parameters
-    ///
-    /// - Parameters:
-    ///   - id: The unique id for the SitePage
-    ///   - title: The name of the SitePage
-    ///   - siteId: The id for the Site to which the SitePage belongs
-    ///   - siteType: A ViewController type detailing whether the SitePage is a defined default type
-    private init(_ id: String,
-                 _ title: String,
-                 _ siteId: String,
-                 _ siteType: SitePageController.Type,
-                 _ url: String) {
-        self.id = id
-        self.title = title
-        self.siteId = siteId
-        self.siteType = siteType
-        self.url = url
-    }
-
-    /// A convenient initializer to take a JSON object and parses it to construct a SitePage
-    ///
-    /// - Parameter data: The JSON object containing all the information for a SitePage
-    init(data: JSON) {
-        let id: String = data["id"].string!
-        let title: String = data["title"].string!
-        let siteId: String = data["siteId"].string!
-        let url: String = data["url"].string!
+    init(from decoder: Decoder) throws {
+        let sitePageElement = try SitePageElement(from: decoder)
+        self.id = sitePageElement.id
+        self.title = sitePageElement.title
+        self.siteId = sitePageElement.siteId
+        self.url = sitePageElement.url
         let siteType: SitePageController.Type
         if SitePage.mapPages[title] != nil {
             siteType = SitePage.mapPages[title]!
         } else {
             siteType = SitePage.mapPages[SitePage.DEFAULT_STRING]!
         }
+        self.siteType = siteType
         if title == "Assignments" {
             SakaiService.shared.siteAssignmentToolMap.updateValue(url, forKey: siteId)
         }
-        self.init(id, title, siteId, siteType, url)
     }
 }

@@ -60,7 +60,6 @@ class LoginViewController: WebController {
         }
         if webView.url!.absoluteString == AppGlobals.COOKIE_URL_2 {
             decisionHandler(.cancel)
-            RequestManager.shared.loggedIn = true
             onLogin?()
         } else {
             decisionHandler(.allow)

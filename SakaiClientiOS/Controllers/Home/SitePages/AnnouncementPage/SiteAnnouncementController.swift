@@ -33,7 +33,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
             self.navigationController?.pushViewController(announcementPage, animated: true)
         }
         announcementTableManager.delegate = self
-        loadData()
+        announcementTableManager.loadDataSource()
         self.configureNavigationItem()
     }
     

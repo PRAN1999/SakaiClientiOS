@@ -114,6 +114,7 @@ class AnnouncementPageView: UIScrollView {
         let description = NSMutableAttributedString(string: "\n\nAttachments: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
         description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
+
         for attachment in attachments {
             let mutableAttachment = NSMutableAttributedString(attributedString: attachment)
             let mutableAttachmentRange = NSRange(location: 0, length: mutableAttachment.string.count)
@@ -124,6 +125,7 @@ class AnnouncementPageView: UIScrollView {
             let spaceString = "\n\n"
             description.append(NSAttributedString(string: spaceString))
         }
+
         return description
     }
 

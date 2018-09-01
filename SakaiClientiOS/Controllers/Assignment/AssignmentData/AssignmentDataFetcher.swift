@@ -13,8 +13,8 @@ class AssignmentDataFetcher: HideableDataFetcher {
     
     func loadData(for section: Int, completion: @escaping ([[Assignment]]?, Error?) -> Void) {
         let sites = SakaiService.shared.termMap[section].1
-        SakaiService.shared.getTermAssignments(for: sites) { res in
-            completion(res, nil)
+        SakaiService.shared.getTermAssignments(for: sites) { res, err in
+            completion(res, err)
         }
     }
 }

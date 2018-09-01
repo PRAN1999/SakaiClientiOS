@@ -17,7 +17,7 @@ extension NetworkSourceDelegate where Self: UIViewController {
         // No default implementation
     }
 
-    func networkSource<Source>(errorLoadingDataSource networkSource: Source?, withError error: Error?) where Source : NetworkSource {
+    func networkSource<Source>(errorLoadingDataSource networkSource: Source?, withError error: Error) where Source : NetworkSource {
         self.presentErrorAlert(error: error)
     }
 }

@@ -12,5 +12,5 @@ import UIKit
 public protocol NetworkSourceDelegate: class {
     func networkSource<Source: NetworkSource>(willBeginLoadingDataSource networkSource: Source) -> (() -> ())?
     func networkSource<Source: NetworkSource>(successfullyLoadedDataSource networkSource: Source?)
-    func networkSource<Source: NetworkSource>(errorLoadingDataSource networkSource: Source?, withError error: Error?)
+    func networkSource<Source: NetworkSource>(errorLoadingDataSource networkSource: Source?, withError error: Error)
 }

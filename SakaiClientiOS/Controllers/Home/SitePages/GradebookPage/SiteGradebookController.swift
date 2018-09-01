@@ -23,14 +23,14 @@ class SiteGradebookController: UITableViewController, SitePageController {
         
         siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: super.tableView, siteId: id)
         siteGradebookTableDataSource.delegate = self
-        loadData()
+        siteGradebookTableDataSource.loadDataSource()
         self.configureNavigationItem()
     }
 }
 
 extension SiteGradebookController: LoadableController {
     @objc func loadData() {
-        siteGradebookTableDataSource.loadDataSource()
+        siteGradebookTableDataSource.loadDataSourceWithoutCache()
     }
 }
 

@@ -31,13 +31,16 @@ public extension NetworkSource {
         prepareDataSourceForLoad()
         let callback = delegate?.networkSource(willBeginLoadingDataSource: self)
         fetcher.loadData() { [weak self] res, err in
-            callback?()
-            guard err == nil, let response = res else {
-                self?.delegate?.networkSource(errorLoadingDataSource: self, withError: err)
-                return
+            DispatchQueue.main.async {
+                callback?()
+                if err != nil {
+                    self?.delegate?.networkSource(errorLoadingDataSource: self, withError: err!)
+                }
+                if let response = res {
+                    self?.populateDataSource(with: response)
+                    self?.delegate?.networkSource(successfullyLoadedDataSource: self)
+                }
             }
-            self?.populateDataSource(with: response)
-            self?.delegate?.networkSource(successfullyLoadedDataSource: self)
         }
     }
 }

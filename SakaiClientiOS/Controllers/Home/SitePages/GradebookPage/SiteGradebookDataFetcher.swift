@@ -17,8 +17,8 @@ class SiteGradebookDataFetcher: DataFetcher {
     }
     
     func loadData(completion: @escaping ([GradeItem]?, Error?) -> Void) {
-        SakaiService.shared.getSiteGrades(siteId: siteId) { (res) in
-            completion(res, nil)
+        SakaiService.shared.getSiteGrades(siteId: siteId) { res, err in
+            completion(res, err)
         }
     }
 }

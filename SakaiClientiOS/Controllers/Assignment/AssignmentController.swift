@@ -85,7 +85,7 @@ class AssignmentController: UITableViewController {
 
 extension AssignmentController: LoadableController {
     @objc func loadData() {
-        assignmentsTableManager.loadDataSource()
+        assignmentsTableManager.loadDataSourceWithoutCache()
     }
 }
 

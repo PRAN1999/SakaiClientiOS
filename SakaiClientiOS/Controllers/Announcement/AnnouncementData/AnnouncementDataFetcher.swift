@@ -22,18 +22,16 @@ class AnnouncementDataFetcher: DataFetcher {
     var moreLoads = true
     
     func loadData(completion: @escaping ([Announcement]?, Error?) -> Void) {
-        SakaiService.shared.getAllAnnouncements(offset: offset, limit: numToRequest, daysBack: daysBack, completion: { (announcementList, moreLoads) in
-            self.moreLoads = moreLoads
-            
-            guard let list = announcementList else {
-                completion(nil, nil)
-                return
+        SakaiService.shared.getAllAnnouncements(offset: offset, limit: numToRequest, daysBack: daysBack, siteId: siteId, completion: { [weak self] announcementList, moreLoads, err in
+            self?.moreLoads = moreLoads
+
+            if let list = announcementList {
+                self?.offset += list.count
+                self?.numToRequest += AnnouncementDataFetcher.REQUEST_LIMIT
             }
-            self.offset += list.count
-            self.numToRequest += AnnouncementDataFetcher.REQUEST_LIMIT
             
-            completion(announcementList, nil)
-        }, siteId: siteId)
+            completion(announcementList, err)
+        })
     }
     
     func resetOffset() {

@@ -47,7 +47,8 @@ class AnnouncementPageController: UIViewController {
         announcementPageView.titleLabel.titleLabel.text = item.title
         announcementPageView.authorLabel.titleLabel.text = item.author
         announcementPageView.dateLabel.titleLabel.text = item.dateString
-        announcementPageView.setMessage(attributedText: item.attributedContent, resources: item.attachments)
+        let resourceStrings = item.attachments?.map { $0.toAttributedString() }
+        announcementPageView.setMessage(attributedText: item.attributedContent, resources: resourceStrings)
     }
     
     override func viewWillAppear(_ animated: Bool) {

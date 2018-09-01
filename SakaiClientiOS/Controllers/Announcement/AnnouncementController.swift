@@ -74,7 +74,7 @@ class AnnouncementController: UITableViewController {
 
 extension AnnouncementController: LoadableController {
     @objc func loadData() {
-        self.announcementTableManager.loadDataSource()
+        self.announcementTableManager.loadDataSourceWithoutCache()
     }
 }
 

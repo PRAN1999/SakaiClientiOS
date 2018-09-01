@@ -1,6 +1,5 @@
 import Foundation
 import Alamofire
-import SwiftyJSON
 import WebKit
 
 /// A singleton instance around an Alamofire Session to manage all HTTP requests made by the app by
@@ -18,49 +17,52 @@ class RequestManager {
     /// This shares cookies and headers needed for Sakai Authentication
     var processPool = WKProcessPool()
 
-    /// A flag indicating whether the user is logged in; Unused for now
-    var loggedIn = false
-
-    /// A flag indicating whether data needs to be reloaded in HomeController; Unused for now
-    var toReload = true
-
     /// Force the RequestManager to be a singleton
     private init() {}
 
-    /// Uses Alamofire to make an HTTP request without caching cookies, headers, or results and validates the
-    /// response code. Wraps Alamofire method in case of future migration to URLSession or changing Alamofire
-    /// implementation.
-    ///
-    /// - Parameters:
-    ///   - url: A String containing the request URL
-    ///   - method: The type of HTTP method to associate with the request
-    ///   - completion: A closure to execute upon the successful execution of the HTTP request. Called
-    ///     with a DataResponse returned by the HTTP call
-    ///   - response: The HTTP response returned by Alamofire call to be passed into closure - acted on by callee
     func makeRequest(url: String,
                      method: HTTPMethod,
                      parameters: Parameters? = nil,
-                     completion: @escaping (_ response: DataResponse<Any>?,
+                     completion: @escaping (_ data: Data?,
                                             _ err: SakaiError?) -> Void) {
-        // Check if user is logged in before making request, and initiate logout procedure if they aren't
-        self.isLoggedIn { (flag) in
-            if !flag {
-                self.logout()
-            } else {
-                Alamofire.SessionManager.default
-                .request(url, method: method, parameters: parameters).responseJSON { response in
-                    guard let code = response.response?.statusCode else {
-                        let err = SakaiError.networkException(nil, "Server timed out or failed to send a response")
-                        completion(nil, err)
-                        return
-                    }
-                    if code >= 300 {
-                        let err = SakaiError.networkException(code, response.error?.localizedDescription)
-                        completion(nil, err)
-                        return
-                    }
-                    completion(response, nil)
+        Alamofire.SessionManager.default
+            .request(url, method: method, parameters: parameters).validate().responseJSON { response in
+                if let error = response.error {
+                    completion(nil, SakaiError.networkError(error.localizedDescription))
+                    return
                 }
+                guard let data = response.data else {
+                    completion(nil, SakaiError.parseError("Server failed to return any data"))
+                    return
+                }
+                completion(data, nil)
+        }
+    }
+
+    func makeRequestWithoutCache(url: String,
+                                method: HTTPMethod,
+                                parameters: Parameters? = nil,
+                                completion: @escaping (_ data: Data?,
+                                                       _ err: SakaiError?) -> Void) {
+        Alamofire.SessionManager.default.requestWithoutCache(url, method: .get).validate()
+            .responseJSON { response in
+                if let error = response.error {
+                    completion(nil, SakaiError.networkError(error.localizedDescription))
+                    return
+                }
+                guard let data = response.data else {
+                    completion(nil, SakaiError.parseError("Server failed to return any data"))
+                    return
+                }
+                completion(data, nil)
+        }
+    }
+
+    func downloadToDocuments(url: URL, completion: @escaping (_ fileDestination: URL?) -> Void) {
+        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
+        Alamofire.download(URLRequest(url: url), to: destination).response(queue: DispatchQueue.global(qos: .utility)) { res in
+            DispatchQueue.main.async {
+                completion(res.destinationURL)
             }
         }
     }
@@ -83,21 +85,16 @@ class RequestManager {
 
     /// Ends Sakai session by resetting Alamofire Session and uses main thread to reroute app control to
     /// LoginViewController.
-    ///
-    /// - Parameter completion: A callback to execute once user has been logged out
     func logout() {
         reset()
-        toReload = true
-        loggedIn = false
+        let loginController = LoginViewController()
+        let rootController = UIApplication.shared.keyWindow?.rootViewController
+        loginController.onLogin = {
+            rootController?.dismiss(animated: true, completion: nil)
+        }
+        let navController = WebViewNavigationController(rootViewController: loginController)
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
-            let loginController = LoginViewController()
-            let rootController = UIApplication.shared.keyWindow?.rootViewController
-            loginController.onLogin = {
-                rootController?.dismiss(animated: true, completion: nil)
-            }
-            let navController = WebViewNavigationController(rootViewController: loginController)
             rootController?.present(navController, animated: true, completion: nil)
-            //Dismiss tab bar controller, and then reinstantiate initial view controller for login
         })
     }
 
@@ -124,26 +121,6 @@ class RequestManager {
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeAll()
         SakaiService.shared.reset()
         processPool = WKProcessPool()
-    }
-
-    /// Makes an HTTP request to determine if user is logged in. Sakai server returns valid response whether or not user
-    /// is logged in, so JSON parsing is used to determine loggedIn status
-    ///
-    /// - Parameter completion: A callback executed with an isLoggedIn flag as a parameter
-    /// - Parameter check: Boolean flag determining if user is logged in, passed into closure - acted on by callee
-    func isLoggedIn(completion: @escaping (_ check: Bool) -> Void) {
-        Alamofire.SessionManager.default.requestWithoutCache(AppGlobals.SESSION_URL, method: .get).validate()
-            .responseJSON { response in
-            var flag = false
-            if let data = response.result.value {
-                let json = JSON(data)
-                if json["userEid"].string != nil {
-                    // If the userEid field is not null, the user's session is active and they are logged in
-                    flag = true
-                }
-            }
-            completion(flag)
-        }
     }
 }
 
