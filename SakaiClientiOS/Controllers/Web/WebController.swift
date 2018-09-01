@@ -7,7 +7,6 @@
 
 import UIKit
 import WebKit
-import Alamofire
 
 class WebController: UIViewController {
 
