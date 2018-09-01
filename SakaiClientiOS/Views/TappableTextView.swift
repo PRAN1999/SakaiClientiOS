@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// A TextView that deselects any text when it is tapped
 class TappableTextView: UITextView {
 
     var tapRecognizer: UITapGestureRecognizer!

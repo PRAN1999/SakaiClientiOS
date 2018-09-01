@@ -71,11 +71,11 @@ class AssignmentController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setToolbarHidden(false, animated: false)
+        self.navigationController?.setToolbarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setToolbarHidden(true, animated: false)
+        self.navigationController?.setToolbarHidden(true, animated: true)
     }
     
     @objc func resort() {
@@ -90,7 +90,7 @@ extension AssignmentController: LoadableController {
 }
 
 extension AssignmentController: NetworkSourceDelegate {
-    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> ())? where Source : NetworkSource {
+    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         segments.selectedSegmentIndex = 0
         segments.setEnabled(false, forSegmentAt: 1)
         assignmentsTableManager.resetSort()

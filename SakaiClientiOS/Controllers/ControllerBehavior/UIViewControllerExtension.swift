@@ -40,7 +40,7 @@ extension UIViewController {
         tapRecognizer.addTarget(self, action: #selector(hideNavBar))
     }
 
-    func addLoadingIndicator() -> (() -> ()) {
+    func addLoadingIndicator() -> (() -> Void) {
         let indicator = LoadingIndicator(view: view)
         indicator.hidesWhenStopped = true
         indicator.startAnimating()

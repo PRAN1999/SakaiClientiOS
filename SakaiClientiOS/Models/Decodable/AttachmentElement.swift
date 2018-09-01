@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// A content attachment to an Announcement or an Assignment
 struct AttachmentElement: Decodable {
     let name: String
     let url: String

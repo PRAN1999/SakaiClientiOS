@@ -7,21 +7,16 @@
 
 import Foundation
 
-/// A singleton service to manage user data after requests have been made by serializing and sorting it
+/// A singleton service to request user data and de-serialize and sort it into the appropriate data structure
 class SakaiService {
 
     static let shared = SakaiService()
 
-    ///A dictionary mapping siteID's for all the user Site's to their respective Term objects.
+    // MARK: Source of Truth
+
     var siteTermMap: [String: Term] = [:]
-
-    ///A dictionary mapping siteID's for all the user Site's to the respective Site name.
     var siteTitleMap: [String: String] = [:]
-
     var siteAssignmentToolMap: [String: String] = [:]
-
-    /// An Array of Term-[SiteId] mappings that act as the source of truth for loading data by Term in a
-    /// HideableNetworkSource
     var termMap: [(Term, [String])] = []
 
     private init() {}
@@ -33,6 +28,8 @@ class SakaiService {
         siteAssignmentToolMap = [:]
         termMap = []
     }
+
+    // MARK: Authentication Validator
 
     func validateLoggedInStatus(onSuccess: @escaping () -> Void, onFailure: @escaping (SakaiError?) -> Void) {
         let url = SakaiEndpoint.session.getEndpoint()
@@ -53,14 +50,13 @@ class SakaiService {
 
     // MARK: Site Service
 
-    /// Makes an HTTP request to determine the list of sites the user is registered for. Instantiates and
-    /// sorts Sites by Term to construct 2-dimensional array of sites.
+    /// Request user Site data and split by Term. Updates source of truth mappings for SiteTermMap and SiteTitleMap
+    /// with newly requested data.
     ///
-    /// Also sets AppGlobal variables to be used throughout app by mapping siteId to Term and to site title
+    /// Until this request successfully calls back with the requested, no other requests can be executed.
     ///
-    /// - Parameter completion: A closure called with a [[Site]] object to be implemented by callee
-    /// - Parameter site: A [[Site]] object passed into closure for callee to use as needed
-    func getSites(completion: @escaping (_ site: [[Site]]?, _ err: SakaiError?) -> Void) {
+    /// - Parameter completion: a completion handler called with a [[Site]] split by Term and an optional SakaiError
+    func getSites(completion: @escaping ([[Site]]?, SakaiError?) -> Void) {
         let url = SakaiEndpoint.sites.getEndpoint()
         RequestManager.shared.makeRequest(url: url, method: .get) { [weak self] data, err in
             guard err == nil, let data = data else {
@@ -96,14 +92,11 @@ class SakaiService {
 
     // MARK: Grade Service
 
-    /// An HTTP request is made to fetch all grades for all user Sites. The response is parsed into
-    /// GradeItem objects and are sorted first by Term and then by Site before being passed to callback function
+    /// Request the user's entire gradebook history and de-serialize into a list of GradeItems. Then splits list by Term
+    /// and by Site.
     ///
-    /// This method is used for a user's entire gradebook history
-    ///
-    /// - Parameter completion: A closure called with a [[[GradeItem]]] object to be implemented by callee
-    /// - Parameter grades: The [[[Gradeitem]]] object constructed with response and passed into closure
-    func getAllGrades(completion: @escaping (_ grades: [[[GradeItem]]]?, SakaiError?) -> Void) {
+    /// - Parameter completion: a completion handler called with a [[[GradeItem]]] and an optional SakaiError
+    func getAllGrades(completion: @escaping ([[[GradeItem]]]?, SakaiError?) -> Void) {
         let url = SakaiEndpoint.gradebook.getEndpoint()
         RequestManager.shared.makeRequest(url: url, method: .get) { data, err in
             guard err == nil, let data = data else {
@@ -132,13 +125,12 @@ class SakaiService {
         }
     }
 
-    /// Makes request to get gradebook items for specfic site and constructs array of GradeItem to pass into callback
+    /// Request gradebook data for a specific Site and de-serialize into a list of GradeItem
     ///
     /// - Parameters:
-    ///   - siteId: The siteId representing the site for which grades should be fetched
-    ///   - completion: A closure called with a [GradeItem] object to be implemented by callee
-    ///   - grades: The [GradeItem] object constructed with response and passed to closure
-    func getSiteGrades(siteId: String, completion: @escaping (_ grades: [GradeItem]?, SakaiError?) -> Void) {
+    ///   - siteId: the identifier for the requested Site
+    ///   - completion: a completion handler called with a [GradeItem] and an optional SakaiError
+    func getSiteGrades(siteId: String, completion: @escaping ([GradeItem]?, SakaiError?) -> Void) {
         let url = SakaiEndpoint.siteGradebook(siteId).getEndpoint()
         RequestManager.shared.makeRequest(url: url, method: .get) { data, err in
             guard err == nil, let data = data else {
@@ -158,12 +150,14 @@ class SakaiService {
         }
     }
 
-    /// Use a dispatch group to retrieve grade data for multiple siteId's and callback once all data has been retrieved
+    /// Use a dispatch group to retrieve grade data for multiple Sites and callback once all data has been retrieved
     ///
     /// - Parameters:
-    ///   - sites: The siteId's in the Term for which grade data should be retrieved
-    ///   - completion: An array of GradeItem objects, split internally by Site
-    func getTermGrades(for sites: [String], completion: @escaping (_ gradeItems: [[GradeItem]]?, SakaiError?) -> Void) {
+    ///   - sites: the identifiers for the requested Sites
+    ///   - completion: a completion handler called with a [[GradeItem]] and an optional SakaiError.
+    ///
+    ///     It is possible that parsed data and error may be both non-nil if one request failed and others succeeded
+    func getTermGrades(for sites: [String], completion: @escaping ([[GradeItem]]?, SakaiError?) -> Void) {
         let group = DispatchGroup()
         var termGradeArray: [[GradeItem]] = []
         var errors: [SakaiError] = []
@@ -192,15 +186,11 @@ class SakaiService {
 
     // MARK: AssignmentService
 
-    /// Makes a request to retrieve all assignment data for a user and then parses them into Assignment objects.
-    /// Then it splits Assignment's by Term and Site, and then sorts each innermost array by Due Date to pass
-    /// [[[Assignment]]] object into completion handler
+    /// Request all of user's assignment data and de-serialize into a list of Assignment. Split list by
+    /// Term and Site and sort each inner list by due date.
     ///
-    /// This method is used to retrive a user's Assignment history by Site
-    ///
-    /// - Parameter completion: A closure called with a 3-dimensional Assignment array to be implemented by caller
-    /// - Parameter assignments: The 3-dimensional array of Assignments to be passed into the completion handler
-    func getAllAssignments(completion: @escaping (_ assignments: [[[Assignment]]]?, SakaiError?) -> Void) {
+    /// - Parameter completion: a completion handler called with a [[[Assignment]]] and an optional SakaiError
+    func getAllAssignments(completion: @escaping ([[[Assignment]]]?, SakaiError?) -> Void) {
         let url = SakaiEndpoint.assignments.getEndpoint()
         RequestManager.shared.makeRequest(url: url, method: .get) { data, err in
             guard err == nil, let data = data else {
@@ -231,12 +221,12 @@ class SakaiService {
         }
     }
 
-    /// Make a request to retrieve assignment data for a site and construct Assignment array from JSON
+    /// Request assignment data for a specific Site and de-serialize into a list of Assignment
     ///
     /// - Parameters:
-    ///   - siteId: The siteId representing the site for which assignments should be fetched
-    ///   - completion: The callback to be executed with an [Assignment] array
-    func getSiteAssignments(for siteId: String, completion: @escaping (_ assignments: [Assignment]?, SakaiError?) -> Void) {
+    ///   - siteId: the identifier for the requested Site
+    ///   - completion: a completion handler called with a list of Assignments and an optional SakaiError
+    func getSiteAssignments(for siteId: String, completion: @escaping ([Assignment]?, SakaiError?) -> Void) {
         let url = SakaiEndpoint.siteAssignments(siteId).getEndpoint()
         RequestManager.shared.makeRequest(url: url, method: .get) { data, err in
             guard err == nil, let data = data else {
@@ -258,13 +248,15 @@ class SakaiService {
         }
     }
 
-    /// Use a dispatch group to retrieve assignment data for multiple siteId's and callback only once all data has been
+    /// Use a dispatch group to retrieve assignment data for multiple Sites and callback only once all data has been
     /// retrieved
     ///
     /// - Parameters:
-    ///   - sites: The siteId's in the Term for which assignment data should be retrieved
-    ///   - completion: An array of Assignment objects, split internally by Site
-    func getTermAssignments(for sites: [String], completion: @escaping (_ gradeItems: [[Assignment]]?, SakaiError?) -> Void) {
+    ///   - sites: the identifiers for the requested Sites
+    ///   - completion: a completion handler called with a [[Assignment]] and an optional SakaiError
+    ///
+    ///     It is possible that parsed data and error may be both non-nil if one request failed and others succeeded
+    func getTermAssignments(for sites: [String], completion: @escaping ([[Assignment]]?, SakaiError?) -> Void) {
         let group = DispatchGroup()
         var termAssignmentArray: [[Assignment]] = []
         var errors: [SakaiError] = []
@@ -293,21 +285,28 @@ class SakaiService {
 
     // MARK: Announcement Service
 
-    /// Requests announcement data and retrieves the Announcement feed for a user based on a specific offset and limit.
-    /// Passes parsed list back into callback along with information as to whether more data exists to be loaded on the
-    /// server
+
+    /// Requests announcement data and retrieves the Announcement feed for a user based on a specific offset and limit
+    /// and determines if there is more data to load from server.
     ///
-    /// **Example**: A request with offset 50 and limit 100 will retrieve 50 announcements from #50 to the end of the
+    /// **Example**:
+    ///
+    /// A request with offset=100 and limit=150 will retrieve **50** announcements from announcement #100 to the end of the
     /// retrieved list
     ///
     /// - Parameters:
-    ///   - offset: The offset position to begin parsing the retrieved list data
-    ///   - limit: The limit for how many records should be retrieved from Sakai
-    ///   - completion: The callback to execute with the parsed list of Announcement objects
+    ///   - offset: the number of Announcement objects to skip
+    ///   - limit: a hard limit on how many Announcements can be requested from the server
+    ///   - daysBack: the limit on how far back Announcements should be retrieved
+    ///   - siteId: an optional identifier for a requested Site. If nil, the user's entire
+    ///     Announcement history will be parsed
+    ///   - completion: the completion handler called with a list of Announcements, a flag indicating if
+    ///     there is more data and an optional SakaiError
     func getAllAnnouncements(offset: Int, limit: Int, daysBack: Int, siteId: String? = nil,
                              completion: @escaping ([Announcement]?, Bool, SakaiError?) -> Void) {
         var url = SakaiEndpoint.announcements(limit, daysBack).getEndpoint()
         if let siteId = siteId {
+            // If the siteId is not nil, change the endpoint to request data for a specific Site
             url = SakaiEndpoint.siteAnnouncements(siteId, limit, daysBack).getEndpoint()
         }
         RequestManager.shared.makeRequest(url: url, method: .get) { data, err in
@@ -345,11 +344,12 @@ class SakaiService {
 
     // MARK: Resource Service
 
-    /// Request resource data for a siteId and construct ResourceNode tree to pass into callback
+    /// Request resource data for a specific Site and construct ResourceNode tree from parsed data
     ///
     /// - Parameters:
-    ///   - siteId: The siteId for which to request Resource data
-    ///   - completion: A callback to execute with a [ResourceNode] parameter
+    ///   - siteId: the siteId for which to request Resource data
+    ///   - completion: a completion handler to call with a [ResourceNode] representing the top children
+    ///     in the resource tree, and an optional SakaiError
     func getSiteResources(for siteId: String, completion: @escaping ([ResourceNode]?, SakaiError?) -> Void) {
         let url = SakaiEndpoint.siteResources(siteId).getEndpoint()
         RequestManager.shared.makeRequest(url: url, method: .get) { data, err in
@@ -371,7 +371,14 @@ class SakaiService {
 
     // MARK: Chat Room Service
 
-    func submitMessage(text: String, csrftoken: String, chatChannelId: String, completion: @escaping () -> Void) {
+    /// Make a POST request to add a chat message to a specific chat
+    ///
+    /// - Parameters:
+    ///   - text: the body of the chat message to send
+    ///   - csrftoken: the csrftoken used to authenticate the client (retrieved from webView)
+    ///   - chatChannelId: a channel id specifying which chat group to update
+    ///   - completion: a completion handler called with an optional SakaiError
+    func submitMessage(text: String, csrftoken: String, chatChannelId: String, completion: @escaping (SakaiError?) -> Void) {
         let parameters = [
             "body": text,
             "chatChannelId": chatChannelId,
@@ -379,7 +386,7 @@ class SakaiService {
         ]
         let url = SakaiEndpoint.newChat.getEndpoint()
         RequestManager.shared.makeRequest(url: url, method: .post, parameters: parameters) { res, err in
-            completion()
+            completion(err)
         }
     }
 }

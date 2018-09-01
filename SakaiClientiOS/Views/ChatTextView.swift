@@ -8,8 +8,8 @@
 import UIKit
 import ReusableSource
 
+/// Intercept enter events on the keyboard and provide custom functionality
 class ChatTextView: UITextView {
-    // swiftlint:disable weak_delegate
     var chatDelegate = Delegated<Void, Void>()
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {

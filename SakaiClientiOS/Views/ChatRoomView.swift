@@ -8,6 +8,7 @@
 import UIKit
 import WebKit
 
+/// The view to represent an custom chat interface where the webview displays the chat
 class ChatRoomView: UIView {
     var webView: WKWebView!
     var messageBar: MessageBar!

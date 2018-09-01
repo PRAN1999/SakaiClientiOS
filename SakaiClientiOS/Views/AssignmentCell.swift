@@ -10,7 +10,7 @@ import ReusableSource
 
 /// A CollectionViewCell to represent an Assignment model
 class AssignmentCell: UICollectionViewCell, ConfigurableCell {
-    // swiftlint:disable type_name
+    
     typealias T = Assignment
 
     var titleLabel: InsetUILabel!

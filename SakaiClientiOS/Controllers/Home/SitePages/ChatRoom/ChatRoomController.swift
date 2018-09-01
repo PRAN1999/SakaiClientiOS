@@ -126,7 +126,7 @@ class ChatRoomController: UIViewController, SitePageController {
         guard let csrftoken = csrftoken, let chatChannelId = chatChannelId else {
             return
         }
-        SakaiService.shared.submitMessage(text: text, csrftoken: csrftoken, chatChannelId: chatChannelId) { [weak self] in
+        SakaiService.shared.submitMessage(text: text, csrftoken: csrftoken, chatChannelId: chatChannelId) { [weak self] err in
             self?.updateMonitor()
         }
     }

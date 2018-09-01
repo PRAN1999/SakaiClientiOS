@@ -9,7 +9,6 @@ import UIKit
 
 /// A customized scrollView containing views for all the information needed for an Assignment
 class AssignmentDetailsView: UIScrollView {
-    // swiftlint:disable function_body_length
     var contentView: UIView!
 
     var titleLabel: InsetUILabel!

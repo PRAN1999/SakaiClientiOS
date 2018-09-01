@@ -6,24 +6,23 @@
 //
 import Foundation
 
-/// SitePage represents the subpages of each Sakai site
+/// A model for the individual subpages belonging to each Site
 struct SitePage: Decodable {
-    // swiftlint:disable identifier_name
-    private static let ANNOUNCEMENT_STRING: String = "Announcements"
-    private static let ASSIGNMENTS_STRING: String  = "Assignments"
-    private static let GRADEBOOK_STRING: String    = "Gradebook"
-    private static let RESOURCES_STRING: String    = "Resources"
-    private static let CHAT_ROOM_STRING: String    = "Chat Room"
-    private static let DEFAULT_STRING: String      = "None"
+    private static let announcementString: String = "Announcements"
+    private static let assignmentsString: String  = "Assignments"
+    private static let gradebookString: String    = "Gradebook"
+    private static let resourcesString: String    = "Resources"
+    private static let chatRoomString: String     = "Chat Room"
+    private static let defaultString: String      = "None"
 
-    /// A map for the common site pages shared by most classes
+    /// A map to provide native interfaces for common site pages shared by most classes
     private static let mapPages: [String: SitePageController.Type] = [
-        ANNOUNCEMENT_STRING: SiteAnnouncementController.self,
-        ASSIGNMENTS_STRING: SiteAssignmentController.self,
-        GRADEBOOK_STRING: SiteGradebookController.self,
-        RESOURCES_STRING: ResourcePageController.self,
-        CHAT_ROOM_STRING: ChatRoomController.self,
-        DEFAULT_STRING: DefaultController.self
+        announcementString: SiteAnnouncementController.self,
+        assignmentsString: SiteAssignmentController.self,
+        gradebookString: SiteGradebookController.self,
+        resourcesString: ResourcePageController.self,
+        chatRoomString: ChatRoomController.self,
+        defaultString: DefaultController.self
     ]
 
     let id: String
@@ -42,7 +41,7 @@ struct SitePage: Decodable {
         if SitePage.mapPages[title] != nil {
             siteType = SitePage.mapPages[title]!
         } else {
-            siteType = SitePage.mapPages[SitePage.DEFAULT_STRING]!
+            siteType = SitePage.mapPages[SitePage.defaultString]!
         }
         self.siteType = siteType
         if title == "Assignments" {

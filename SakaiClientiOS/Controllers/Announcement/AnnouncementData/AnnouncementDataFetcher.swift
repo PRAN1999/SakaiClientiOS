@@ -9,13 +9,13 @@ import ReusableSource
 
 class AnnouncementDataFetcher: DataFetcher {
     
-    private static let REQUEST_LIMIT = 35
+    private static let requestLimit = 35
     
     typealias T = [Announcement]
     
     var daysBack = 180
     var offset = 0
-    var numToRequest = AnnouncementDataFetcher.REQUEST_LIMIT
+    var numToRequest = AnnouncementDataFetcher.requestLimit
     
     var siteId: String?
     
@@ -27,7 +27,7 @@ class AnnouncementDataFetcher: DataFetcher {
 
             if let list = announcementList {
                 self?.offset += list.count
-                self?.numToRequest += AnnouncementDataFetcher.REQUEST_LIMIT
+                self?.numToRequest += AnnouncementDataFetcher.requestLimit
             }
             
             completion(announcementList, err)
@@ -36,7 +36,7 @@ class AnnouncementDataFetcher: DataFetcher {
     
     func resetOffset() {
         offset = 0
-        numToRequest = AnnouncementDataFetcher.REQUEST_LIMIT
+        numToRequest = AnnouncementDataFetcher.requestLimit
         moreLoads = true
     }
 }

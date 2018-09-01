@@ -9,7 +9,7 @@ import UIKit
 import ReusableSource
 
 extension NetworkSourceDelegate where Self: UIViewController {
-    func networkSourceWillBeginLoadingData<Source: NetworkSource>(_ networkSource: Source) -> (() -> ())? {
+    func networkSourceWillBeginLoadingData<Source: NetworkSource>(_ networkSource: Source) -> (() -> Void)? {
         return self.addLoadingIndicator()
     }
 

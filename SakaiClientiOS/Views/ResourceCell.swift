@@ -8,8 +8,8 @@
 import UIKit
 import ReusableSource
 
+/// A cell to display a Resource collection or element
 class ResourceCell: UITableViewCell, ReusableCell {
-    // swiftlint:disable type_name unneeded_break_in_switch
     typealias T = ResourceItem
 
     ///The UILabel containing the title text

@@ -23,7 +23,6 @@ class AssignmentPageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /// Instantiate and configure subviews
     func setup() {
         scrollView = AssignmentDetailsView()
     }

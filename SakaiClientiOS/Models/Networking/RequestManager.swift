@@ -2,14 +2,10 @@ import Foundation
 import Alamofire
 import WebKit
 
-/// A singleton instance around an Alamofire Session to manage all HTTP requests made by the app by
-/// ensuring the user is logged in with every request.
-///
-/// Provides app-wide mechanism for logging use out and manages process pool for internal WebViews
-/// - Author: Pranay Neelagiri
+/// A singleton instance around an Alamofire Session to manage all HTTP requests and WKWebView URL loads
+/// made by the app by ensuring the user is logged in with every request.
 class RequestManager {
 
-    /// The singleton RequestManager instance to be used across the app
     static let shared = RequestManager()
 
     /// The process pool to be shared by all WKWebView's opened in app.
@@ -17,14 +13,20 @@ class RequestManager {
     /// This shares cookies and headers needed for Sakai Authentication
     var processPool = WKProcessPool()
 
-    /// Force the RequestManager to be a singleton
     private init() {}
 
-    func makeRequest(url: String,
-                     method: HTTPMethod,
-                     parameters: Parameters? = nil,
-                     completion: @escaping (_ data: Data?,
-                                            _ err: SakaiError?) -> Void) {
+    /// Executes and validates an HTTP request and passes any retrieved data and any errors into
+    /// completion handler
+    ///
+    /// - Parameters:
+    ///   - url: the URL to make a request to
+    ///   - method: the HTTP request type (GET, POST, etc..)
+    ///   - parameters: any parameters needed for the request (the body of a POST request)
+    ///   - completion: a completion handler called with data and err
+    ///   - data: the Data retrieved from the server, may be nil
+    ///   - err: a SakaiError that wraps any network errors from the request
+    func makeRequest(url: String, method: HTTPMethod, parameters: Parameters? = nil,
+                     completion: @escaping (_ data: Data?, _ err: SakaiError?) -> Void) {
         Alamofire.SessionManager.default
             .request(url, method: method, parameters: parameters).validate().responseJSON { response in
                 if let error = response.error {
@@ -39,11 +41,9 @@ class RequestManager {
         }
     }
 
-    func makeRequestWithoutCache(url: String,
-                                method: HTTPMethod,
-                                parameters: Parameters? = nil,
-                                completion: @escaping (_ data: Data?,
-                                                       _ err: SakaiError?) -> Void) {
+    /// Executes and validates an HTTP request without storing or caching any responses. See **makeRequest**
+    func makeRequestWithoutCache(url: String, method: HTTPMethod, parameters: Parameters? = nil,
+                                 completion: @escaping (_ data: Data?, _ err: SakaiError?) -> Void) {
         Alamofire.SessionManager.default.requestWithoutCache(url, method: .get).validate()
             .responseJSON { response in
                 if let error = response.error {
@@ -58,6 +58,12 @@ class RequestManager {
         }
     }
 
+    /// Download the data at a remote URL to the Documents directory for the app, and callback with
+    /// the location of the downloaded item
+    ///
+    /// - Parameters:
+    ///   - url: the URL to download data from
+    ///   - completion: a completion handler to call with the location of the downloaded file
     func downloadToDocuments(url: URL, completion: @escaping (_ fileDestination: URL?) -> Void) {
         let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
         Alamofire.download(URLRequest(url: url), to: destination).response(queue: DispatchQueue.global(qos: .utility)) { res in
@@ -107,15 +113,12 @@ class RequestManager {
     /// Resets Alamofire session by flushing session configuration of all Cookies and Headers. Also resets
     /// WKProcessPool, siteTitleMap, and siteTermMap
     func reset() {
-        // Clear URLcache to ensure no responses can be returned without authentication
         resetCache()
-        // Flush all HTTP cookies
         let cookies: [HTTPCookie]! = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies
         for cookie in cookies {
             Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.deleteCookie(cookie)
             HTTPCookieStorage.shared.deleteCookie(cookie)
         }
-        // Flush all HTTP headers
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?
             .removeValue(forKey: AnyHashable("X-Sakai-Session"))
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeAll()

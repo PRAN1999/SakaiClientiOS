@@ -7,17 +7,21 @@
 
 import Foundation
 
+/// Details the group of different Sakai endpoints used by the app and provides easy URL construction
 enum SakaiEndpoint {
-    static let BaseUrl                 = "https://sakai.rutgers.edu/direct/"
+    static let baseUrl = "https://sakai.rutgers.edu/direct/"
 
     static func getUrl(endpoint: String) -> String {
-        return BaseUrl + endpoint
+        return baseUrl + endpoint
     }
 
     case sites, session, user, gradebook, assignments, newChat
     case announcements(Int, Int), siteAnnouncements(String, Int, Int)
     case siteGradebook(String), siteAssignments(String), siteResources(String)
 
+    /// Based on the SakaiEndpoint type, construct the URL according to the appropriate
+    ///
+    /// - Returns: the full URL to hit when requesting specific data
     func getEndpoint() -> String {
         switch self {
         case .sites:

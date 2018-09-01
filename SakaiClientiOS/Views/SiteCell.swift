@@ -10,7 +10,6 @@ import ReusableSource
 
 /// The Tableview Cell to display Site titles
 class SiteCell: UITableViewCell, ConfigurableCell {
-    // swiftlint:disable type_name
     typealias T = Site
     var titleLabel: UILabel!
 

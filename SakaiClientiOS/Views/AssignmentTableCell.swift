@@ -10,7 +10,6 @@ import ReusableSource
 
 /// A TableViewCell to represent a group of Assignment objects, either for a specific class or for an entire Term
 class AssignmentTableCell: UITableViewCell, ConfigurableCell {
-    // swiftlint:disable weak_delegate type_name
     typealias T = [Assignment]
 
     var titleLabel: UILabel!

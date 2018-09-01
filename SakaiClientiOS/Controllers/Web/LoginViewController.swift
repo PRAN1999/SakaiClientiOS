@@ -2,10 +2,10 @@ import UIKit
 import WebKit
 import ReusableSource
 
-///  A view controller containing a webview allowing users to login to CAS and Sakai
+/// A view controller allowing users to login to CAS and Sakai
 class LoginViewController: WebController {
 
-    var onLogin: (() -> ())?
+    var onLogin: (() -> Void)?
 
     override var shouldAutorotate: Bool {
         return false
@@ -28,8 +28,8 @@ class LoginViewController: WebController {
         super.didReceiveMemoryWarning()
     }
 
-    /// Captures HTTP Cookies from specific URLs and loads them into Alamofire Session, allowing all future requests to
-    /// be authenticated.
+    /// Captures HTTP Cookies from specific URLs and loads them into Request Manager Session,
+    /// allowing all future requests to be authenticated.
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationAction: WKNavigationAction,
                           decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -48,8 +48,8 @@ class LoginViewController: WebController {
         return
     }
 
-    /// Captures all HTTP headers and loads them into Alamofire Session, for request authentication.
-    /// Stops webview navigation and forces controller transition once target URL is reaches
+    /// Captures all HTTP headers and loads them into Request Manager Session, for request authentication.
+    /// Stops webview navigation and executes onLogin callback once user is authenticated
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationResponse: WKNavigationResponse,
                           decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// The view to display an Announcement in a full page
 class AnnouncementPageView: UIScrollView {
 
     var contentView: UIView!
@@ -91,6 +92,11 @@ class AnnouncementPageView: UIScrollView {
         messageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
 
+    /// Set the text of the the messageView correctly formatting the announcement body and any Attachments
+    ///
+    /// - Parameters:
+    ///   - attributedText: the announcement body
+    ///   - resources: the list of Attachment links
     func setMessage(attributedText: NSAttributedString?, resources: [NSAttributedString]?) {
         guard let text = attributedText else {
             return

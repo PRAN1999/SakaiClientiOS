@@ -36,7 +36,7 @@ extension GradebookController: LoadableController {
 }
 
 extension GradebookController: NetworkSourceDelegate {
-    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> ())? where Source : NetworkSource {
+    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         gradebookTableManager.hideHeaderCell()
         return self.addLoadingIndicator()
     }

@@ -9,7 +9,6 @@ import UIKit
 import ReusableSource
 
 class AnnouncementCell: UITableViewCell, ConfigurableCell {
-    // swiftlint:disable type_name
     typealias T = Announcement
 
     var authorLabel: UILabel!

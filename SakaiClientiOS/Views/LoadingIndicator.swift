@@ -9,14 +9,11 @@ import UIKit
 
 /// A default ActivityIndicator to be used across the app
 class LoadingIndicator: UIActivityIndicatorView {
-    /// Instantiates a ActivityIndicatorView and configures it appropriately
-    ///
-    /// - Parameter frame: The frame of the LoadingIndicator
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         self.color = UIColor.black
-        // Set the background color to be clear
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.hidesWhenStopped = true
     }
@@ -25,7 +22,7 @@ class LoadingIndicator: UIActivityIndicatorView {
     ///
     /// - Parameters:
     ///   - frame: the frame for the Indicator
-    ///   - view: The view to which the loading indicator should be added
+    ///   - view: the view to which the loading indicator should be added
     convenience init(frame: CGRect, view: UIView) {
         self.init(frame: frame)
         self.center = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2 - 80)
@@ -35,7 +32,7 @@ class LoadingIndicator: UIActivityIndicatorView {
 
     /// Instantiates ActivityIndicatorView in a 100 x 100 square and adds to center of superview
     ///
-    /// - Parameter view: The view to which the indicator should be added
+    /// - Parameter view: the view to which the indicator should be added
     convenience init(view: UIView) {
         let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         self.init(frame: frame, view: view)

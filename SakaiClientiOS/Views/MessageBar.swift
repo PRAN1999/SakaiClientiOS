@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// A message bar for a chat interface
 class MessageBar: UIView {
     var inputField: ChatTextView!
     var sendButton: UIButton!

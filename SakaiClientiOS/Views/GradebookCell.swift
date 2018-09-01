@@ -10,7 +10,6 @@ import ReusableSource
 
 /// The table view cell to display a GradeItem in a gradebook
 class GradebookCell: UITableViewCell, ConfigurableCell {
-    // swiftlint:disable type_name
     typealias T = GradeItem
     var titleLabel: UILabel!
     var gradeLabel: UILabel!
