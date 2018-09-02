@@ -92,12 +92,26 @@ class AnnouncementPageView: UIScrollView {
         messageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
 
-    /// Set the text of the the messageView correctly formatting the announcement body and any Attachments
-    ///
-    /// - Parameters:
-    ///   - attributedText: the announcement body
-    ///   - resources: the list of Attachment links
-    func setMessage(attributedText: NSAttributedString?, resources: [NSAttributedString]?) {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Set the content size of self (scrollView) to the size of the content view by using the maxY of the
+        // attachmentsView (the farthest down point of all the content)
+        let maxY = messageView.frame.maxY
+        self.contentSize = CGSize(width: self.frame.width, height: maxY + 10)
+    }
+}
+
+extension AnnouncementPageView {
+    
+    func configure(announcement: Announcement) {
+        titleLabel.titleLabel.text = announcement.title
+        authorLabel.titleLabel.text = announcement.author
+        dateLabel.titleLabel.text = announcement.dateString
+        let resourceStrings = announcement.attachments?.map { $0.toAttributedString() }
+        setMessage(attributedText: announcement.attributedContent, resources: resourceStrings)
+    }
+
+    private func setMessage(attributedText: NSAttributedString?, resources: [NSAttributedString]?) {
         guard let text = attributedText else {
             return
         }
@@ -133,13 +147,5 @@ class AnnouncementPageView: UIScrollView {
         }
 
         return description
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // Set the content size of self (scrollView) to the size of the content view by using the maxY of the
-        // attachmentsView (the farthest down point of all the content)
-        let maxY = messageView.frame.maxY
-        self.contentSize = CGSize(width: self.frame.width, height: maxY + 10)
     }
 }

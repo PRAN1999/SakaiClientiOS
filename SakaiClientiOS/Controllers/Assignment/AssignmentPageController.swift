@@ -9,12 +9,12 @@ import UIKit
 
 class AssignmentPageController: UIViewController {
 
-    var pageView: AssignmentPageView!
+    var pageView: PageView<AssignmentPageView>!
     var assignment: Assignment?
     var delegate: PagesController!
     
     override func loadView() {
-        self.pageView = AssignmentPageView(frame: .zero)
+        self.pageView = PageView(frame: .zero)
         self.view = pageView
         setup()
     }
@@ -29,20 +29,12 @@ class AssignmentPageController: UIViewController {
     
     func setup() {
         pageView.backgroundColor = UIColor.white
+
+        guard let assignment = assignment else {
+            return
+        }
         
-        pageView.scrollView.titleLabel.titleLabel.text = assignment?.title
-        
-        pageView.scrollView.classLabel.setKeyVal(key: "Class:", val: assignment?.siteTitle)
-        pageView.scrollView.gradeLabel.setKeyVal(key: "Current Grade:", val: assignment?.currentGrade)
-        pageView.scrollView.pointsLabel.setKeyVal(key: "Max Points:", val: assignment?.maxPoints)
-        pageView.scrollView.submissionLabel.setKeyVal(key: "Allows Resubmission:", val: assignment?.resubmissionAllowed)
-        pageView.scrollView.statusLabel.setKeyVal(key: "Status:", val: assignment?.status)
-        pageView.scrollView.dueLabel.setKeyVal(key: "Due:", val: assignment?.dueTimeString)
-        pageView.scrollView.setInstructions(attributedText: assignment?.attributedInstructions)
-        let resourceStrings = assignment?.attachments?.map({ (attachment) -> NSAttributedString in
-            return attachment.toAttributedString()
-        })
-        pageView.scrollView.setAttachments(resources: resourceStrings)
+        pageView.scrollView.configure(assignment: assignment)
         
         pageView.scrollView.instructionView.delegate = delegate
         pageView.scrollView.attachmentsView.delegate = delegate

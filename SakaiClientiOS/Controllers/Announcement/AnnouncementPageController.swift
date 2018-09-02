@@ -9,11 +9,12 @@ import UIKit
 
 class AnnouncementPageController: UIViewController {
     
-    var announcementPageView: AnnouncementPageView!
+    var announcementPageView: PageView<AnnouncementPageView>!
     var announcement: Announcement?
     
     override func loadView() {
-        self.view = UIView()
+        self.announcementPageView = PageView(frame: .zero)
+        self.view = announcementPageView
         self.view.backgroundColor = UIColor.white
     }
 
@@ -24,31 +25,13 @@ class AnnouncementPageController: UIViewController {
     }
     
     func setupView() {
-        guard let item = announcement else {
+        guard let announcement = announcement else {
             return
         }
+
+        announcementPageView.scrollView.configure(announcement: announcement)
         
-        announcementPageView = AnnouncementPageView()
-        self.view.addSubview(announcementPageView)
-        
-        guard let margins = self.view else {
-            return
-        }
-        
-        announcementPageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        announcementPageView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        announcementPageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        announcementPageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        announcementPageView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        
-        announcementPageView.messageView.delegate = self
-        
-        announcementPageView.titleLabel.titleLabel.text = item.title
-        announcementPageView.authorLabel.titleLabel.text = item.author
-        announcementPageView.dateLabel.titleLabel.text = item.dateString
-        let resourceStrings = item.attachments?.map { $0.toAttributedString() }
-        announcementPageView.setMessage(attributedText: item.attributedContent, resources: resourceStrings)
+        announcementPageView.scrollView.messageView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
