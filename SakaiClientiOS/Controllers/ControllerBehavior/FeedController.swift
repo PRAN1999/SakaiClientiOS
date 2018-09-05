@@ -7,6 +7,9 @@
 
 import UIKit
 
+/// Describes UI behavior for views that present a feed of data
+///
+/// i.e. AnnouncementController
 @objc protocol FeedController {
     @objc func swipeTarget()
 }

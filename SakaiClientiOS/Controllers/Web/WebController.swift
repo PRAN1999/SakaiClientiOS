@@ -49,8 +49,8 @@ class WebController: UIViewController {
     deinit {
         if webView != nil {
             webView.removeObserver(self, forKeyPath: "estimatedProgress")
+            progressView.removeFromSuperview()
         }
-        progressView.removeFromSuperview()
     }
 
     override func loadView() {
@@ -72,6 +72,7 @@ class WebController: UIViewController {
         webView.allowsBackForwardNavigationGestures = true
     }
 
+    /// Update progressView with respect to webview load
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
                                change: [NSKeyValueChangeKey: Any]?,
@@ -138,6 +139,49 @@ class WebController: UIViewController {
     }
 }
 
+// MARK: WKUIDelegate and WKNavigationDelegate
+
+extension WebController: WKUIDelegate, WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        decisionHandler(.allow)
+    }
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse,
+                 decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        decisionHandler(.allow)
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        progressView.isHidden = false
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.progressView.isHidden = true
+        }
+        // Remove distracting and unintuitive HTML elements from Sakai interface
+        webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
+        webView.evaluateJavaScript("""
+            $('.Mrphs-topHeader').remove();
+            $('.Mrphs-siteHierarchy').remove();
+            $('#toolMenuWrap').remove();
+            $('#skipNav').remove();
+            var selectedElement = document.querySelector('#content');
+            document.body.innerHTML = selectedElement.innerHTML;
+        """)
+    }
+
+    func webView(_ webView: WKWebView,
+                 createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction,
+                 windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
+    }
+}
+
 // MARK: View setup and controller configuration
 
 fileprivate extension WebController {
@@ -192,7 +236,7 @@ fileprivate extension WebController {
 
 // MARK: Selector actions
 
-private extension WebController {
+fileprivate extension WebController {
     @objc func goBack() {
         if webView.canGoBack {
             webView.goBack()
@@ -218,47 +262,4 @@ private extension WebController {
     }
 
     @objc func canRotate() {}
-}
-
-// MARK: WKUIDelegate and WKNavigationDelegate impl.
-
-extension WebController: WKUIDelegate, WKNavigationDelegate {
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
-                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        decisionHandler(.allow)
-    }
-
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse,
-                 decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        decisionHandler(.allow)
-    }
-
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        progressView.isHidden = false
-    }
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.progressView.isHidden = true
-        }
-        // Remove distracting and unintuitive HTML elements from Sakai interface
-        webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
-        webView.evaluateJavaScript("""
-            $('.Mrphs-topHeader').remove();
-            $('.Mrphs-siteHierarchy').remove();
-            $('#toolMenuWrap').remove();
-            $('#skipNav').remove();
-            var selectedElement = document.querySelector('#content');
-            document.body.innerHTML = selectedElement.innerHTML;
-        """)
-    }
-
-    func webView(_ webView: WKWebView,
-                 createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction,
-                 windowFeatures: WKWindowFeatures) -> WKWebView? {
-        if navigationAction.targetFrame == nil {
-            webView.load(navigationAction.request)
-        }
-        return nil
-    }
 }

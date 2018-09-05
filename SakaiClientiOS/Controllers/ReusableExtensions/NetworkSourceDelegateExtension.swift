@@ -8,6 +8,9 @@
 import UIKit
 import ReusableSource
 
+// MARK: - NetworkSourceDelegate conformance
+
+// Any UIViewController adopting the NetworkSourceDelegate protocol will have a set of default implementations
 extension NetworkSourceDelegate where Self: UIViewController {
     func networkSourceWillBeginLoadingData<Source: NetworkSource>(_ networkSource: Source) -> (() -> Void)? {
         return self.addLoadingIndicator()

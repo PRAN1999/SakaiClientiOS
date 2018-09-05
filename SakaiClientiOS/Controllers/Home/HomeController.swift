@@ -34,10 +34,11 @@ class HomeController: UITableViewController {
         siteTableManager.delegate = self
 
         self.configureNavigationItem()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "reload"), object: nil)
         setupLogoutController()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentLogoutController))
         self.navigationController?.toolbar.barTintColor = UIColor.black
-
+        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: "reloadHome"), object: nil)
         let loginController = LoginViewController()
         loginController.onLogin = { [weak self] in
             self?.loadData()
@@ -102,5 +103,7 @@ extension HomeController: NetworkSourceDelegate {
 
     func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {
         enableTabs()
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+        RequestManager.shared.isLoggedIn = true
     }
 }
