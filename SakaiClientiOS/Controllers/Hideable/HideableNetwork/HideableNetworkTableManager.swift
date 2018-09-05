@@ -7,6 +7,7 @@
 
 import ReusableSource
 
+/// A base HideableNetworkSource implementation that integrates section data load with UI interaction
 class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: UITableViewCell & ConfigurableCell, Fetcher: HideableDataFetcher> : HideableTableManager<Provider, Cell>, HideableNetworkSource where Provider.T == Cell.T, Provider.V == Fetcher.T {
 
     weak var delegate: NetworkSourceDelegate?

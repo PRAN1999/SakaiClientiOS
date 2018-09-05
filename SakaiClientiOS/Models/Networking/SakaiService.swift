@@ -19,7 +19,8 @@ class SakaiService {
     var siteAssignmentToolMap: [String: String] = [:]
     var termMap: [(Term, [String])] = []
 
-    private init() {}
+    private init() {
+    }
 
     /// Reset source of truth mappings for Terms and siteId's
     func reset() {

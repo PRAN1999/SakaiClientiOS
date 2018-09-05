@@ -13,6 +13,8 @@ class RequestManager {
     /// This shares cookies and headers needed for Sakai Authentication
     var processPool = WKProcessPool()
 
+    var isLoggedIn = false
+
     private init() {}
 
     /// Executes and validates an HTTP request and passes any retrieved data and any errors into
@@ -93,10 +95,14 @@ class RequestManager {
     /// LoginViewController.
     func logout() {
         reset()
+        isLoggedIn = false
         let loginController = LoginViewController()
         let rootController = UIApplication.shared.keyWindow?.rootViewController
         loginController.onLogin = {
-            rootController?.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async {
+                rootController?.dismiss(animated: true, completion: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHome"), object: nil, userInfo: nil)
+            }
         }
         let navController = WebViewNavigationController(rootViewController: loginController)
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {

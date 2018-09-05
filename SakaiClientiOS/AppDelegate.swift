@@ -12,6 +12,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) {
+        (_) in
+        DispatchQueue.global(qos: .background).async {
+            SakaiService.shared.validateLoggedInStatus(onSuccess: {
+                // do nothing
+                print("user authenticated")
+            }, onFailure: { (err) in
+                if RequestManager.shared.isLoggedIn {
+                    print("logging out")
+                    RequestManager.shared.logout()
+                }
+            })
+        }
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true

@@ -7,6 +7,7 @@
 
 import ReusableSource
 
+/// A NetworkSource that is able to load and hide data by Term
 protocol HideableNetworkSource: NetworkSource where Self.Fetcher: HideableDataFetcher {
 
     func handleSectionLoad(forSection section: Int)

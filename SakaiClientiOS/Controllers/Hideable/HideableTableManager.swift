@@ -8,6 +8,7 @@
 import UIKit
 import ReusableSource
 
+/// A ReusableTableManager extension to manage a data source and UI delegate for hideable Term-based sections
 class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell & ConfigurableCell> : ReusableTableManager<Provider, Cell>, UIGestureRecognizerDelegate where Provider.T == Cell.T {
     
     let tableHeaderHeight: CGFloat = 50.0
@@ -47,6 +48,9 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
         return tableHeaderHeight
     }
     
+    /// <#Description#>
+    ///
+    /// - Parameter sender: <#sender description#>
     @objc func handleTap(sender: UITapGestureRecognizer) {
         let section = (sender.view?.tag)!
         
