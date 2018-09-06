@@ -1,5 +1,5 @@
 //
-//  AnnouncementTableSource.swift
+//  AnnouncementTableManager.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/15/18.

@@ -1,5 +1,5 @@
 //
-//  AssignmentCollectionSource.swift
+//  AssignmentCollectionManager.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/15/18.

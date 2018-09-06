@@ -1,5 +1,5 @@
 //
-//  SiteCollectionRaw.swift
+//  RawSite.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 8/31/18.

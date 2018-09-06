@@ -90,8 +90,8 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     }
     
     func getSubsectionTitle(section: Int, subsection: Int) -> String? {
-        let siteId:String = gradeItems[section][subsection][0].siteId
-        let title:String? = SakaiService.shared.siteTitleMap[siteId]
+        let siteId = gradeItems[section][subsection][0].siteId
+        let title = SakaiService.shared.siteTitleMap[siteId]
         return title
     }
 }

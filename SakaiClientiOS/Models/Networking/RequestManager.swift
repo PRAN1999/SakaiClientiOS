@@ -1,3 +1,10 @@
+//
+//  ResourceManager.swift
+//  SakaiClientiOS
+//
+//  Created by Pranay Neelagiri on 5/1/18.
+//
+
 import Foundation
 import Alamofire
 import WebKit

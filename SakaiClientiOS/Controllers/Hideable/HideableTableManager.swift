@@ -1,5 +1,5 @@
 //
-//  HideableTableDataSourceDelegate.swift
+//  HideableTableManager.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/22/18.
@@ -48,9 +48,9 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
         return tableHeaderHeight
     }
     
-    /// <#Description#>
+    /// Show and hide Term sections based on taps
     ///
-    /// - Parameter sender: <#sender description#>
+    /// - Parameter sender: the tap recognizer in a TermHeader
     @objc func handleTap(sender: UITapGestureRecognizer) {
         let section = (sender.view?.tag)!
         

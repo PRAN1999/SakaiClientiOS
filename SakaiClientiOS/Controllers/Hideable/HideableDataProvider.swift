@@ -7,6 +7,7 @@
 
 import ReusableSource
 
+/// A DataProvider to populate and manage data for a HideableTableManager
 protocol HideableDataProvider: class, DataProvider {
     var terms: [Term] { get set }
     var isHidden: [Bool] { get set }

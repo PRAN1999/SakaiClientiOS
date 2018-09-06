@@ -1,5 +1,5 @@
 //
-//  SearchController.swift
+//  SearchableController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/9/18.

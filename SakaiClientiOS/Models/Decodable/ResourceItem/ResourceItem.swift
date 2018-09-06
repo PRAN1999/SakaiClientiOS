@@ -1,5 +1,5 @@
 //
-//  Resource.swift
+//  ResourceItem.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/26/18.

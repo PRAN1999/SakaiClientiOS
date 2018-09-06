@@ -1,5 +1,5 @@
 //
-//  AssignmentDataProvider.swift
+//  AssignmentTableDataProvider.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/14/18.
