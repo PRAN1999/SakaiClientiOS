@@ -1,5 +1,5 @@
 //
-//  PagedAssignmentController.swift
+//  PagesController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 6/17/18.
@@ -8,6 +8,7 @@
 import UIKit
 import LNPopupController
 
+/// The container view controller allowing pagination between multiple Assignments
 class PagesController: UIViewController {
 
     var pageControl: UIPageControl!
@@ -155,14 +156,14 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         }
     }
     
-    func setPage(assignment:Assignment, index: Int) {
+    func setPage(assignment: Assignment, index: Int) {
         let page = AssignmentPageController()
         page.assignment = assignment
         page.delegate = self
         pages[index] = page
     }
     
-    func setPopupURL(viewControllerIndex:Int) {
+    func setPopupURL(viewControllerIndex: Int) {
         let assignment = assignments[viewControllerIndex]
         guard let url = assignment.siteURL else {
             return

@@ -8,8 +8,10 @@
 import UIKit
 import ReusableSource
 
+/// The root ViewController for the all Assignments tab and navigation hierarchy
 class AssignmentController: UITableViewController {
     
+    /// Abstract the Assignment data management to a dedicated TableViewManager
     var assignmentsTableManager: AssignmentTableManager!
     
     var segments:UISegmentedControl!
@@ -46,32 +48,9 @@ class AssignmentController: UITableViewController {
         self.configureNavigationItem()
     }
     
-    func createSegmentedControl() {
-        segments = UISegmentedControl.init(items: ["Class", "Date"])
-        
-        segments.selectedSegmentIndex = selectedIndex
-        segments.addTarget(self, action: #selector(resort), for: UIControlEvents.valueChanged)
-        segments.tintColor = AppGlobals.sakaiRed
-        segments.setEnabled(false, forSegmentAt: 1)
-        
-        button1 = UIBarButtonItem(customView: segments);
-        button2 = UIBarButtonItem(customView: segments);
-        flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        self.navigationController?.toolbar.barTintColor = UIColor.black
-        let frame = self.view.frame
-        
-        segments.translatesAutoresizingMaskIntoConstraints = false
-        segments.setWidth(frame.size.width / 4, forSegmentAt: 0)
-        segments.setWidth(frame.size.width / 4, forSegmentAt: 1)
-        
-        let arr:[UIBarButtonItem] = [flexButton, button1, button2, flexButton]
-        
-        self.setToolbarItems(arr, animated: true)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setToolbarHidden(false, animated: true)
+        self.navigationController?.toolbar.barTintColor = UIColor.black
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -83,11 +62,42 @@ class AssignmentController: UITableViewController {
     }
 }
 
+//MARK: View construction
+
+private extension AssignmentController {
+    func createSegmentedControl() {
+        segments = UISegmentedControl.init(items: ["Class", "Date"])
+
+        segments.selectedSegmentIndex = selectedIndex
+        segments.addTarget(self, action: #selector(resort), for: UIControlEvents.valueChanged)
+        segments.tintColor = AppGlobals.sakaiRed
+        segments.setEnabled(false, forSegmentAt: 1)
+
+        button1 = UIBarButtonItem(customView: segments);
+        button2 = UIBarButtonItem(customView: segments);
+        flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        let frame = self.view.frame
+
+        segments.translatesAutoresizingMaskIntoConstraints = false
+        segments.setWidth(frame.size.width / 4, forSegmentAt: 0)
+        segments.setWidth(frame.size.width / 4, forSegmentAt: 1)
+
+        let arr:[UIBarButtonItem] = [flexButton, button1, button2, flexButton]
+
+        self.setToolbarItems(arr, animated: true)
+    }
+}
+
+//MARK: LoadableController
+
 extension AssignmentController: LoadableController {
     @objc func loadData() {
         assignmentsTableManager.loadDataSourceWithoutCache()
     }
 }
+
+//MARK: NetworkSourceDelegate
 
 extension AssignmentController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {

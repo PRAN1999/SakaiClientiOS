@@ -1,5 +1,5 @@
 //
-//  AssignmentPageView.swift
+//  PageView.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 6/18/18.

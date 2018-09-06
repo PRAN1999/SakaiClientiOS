@@ -1,5 +1,5 @@
 //
-//  AnnouncementPageController.swift
+//  SiteAnnouncementController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/19/18.

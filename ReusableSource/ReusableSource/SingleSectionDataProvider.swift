@@ -1,5 +1,5 @@
 //
-//  FeedDataProvider.swift
+//  SingleSectionDataProvider.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/18/18.

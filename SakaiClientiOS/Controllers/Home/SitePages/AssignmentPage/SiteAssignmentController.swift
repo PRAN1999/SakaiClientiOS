@@ -1,5 +1,5 @@
 //
-//  SiteAssignmentControllerCollectionViewController.swift
+//  SiteAssignmentController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/21/18.
