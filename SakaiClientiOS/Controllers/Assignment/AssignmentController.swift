@@ -57,8 +57,7 @@ class AssignmentController: UITableViewController {
         button1 = UIBarButtonItem(customView: segments);
         button2 = UIBarButtonItem(customView: segments);
         flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        self.navigationController?.toolbar.barTintColor = UIColor.black
+
         let frame = self.view.frame
         
         segments.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +71,7 @@ class AssignmentController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setToolbarHidden(false, animated: true)
+        self.navigationController?.toolbar.barTintColor = UIColor.black
     }
     
     override func viewWillDisappear(_ animated: Bool) {
