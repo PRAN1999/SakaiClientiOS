@@ -39,12 +39,18 @@ class HomeController: UITableViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentLogoutController))
         self.navigationController?.toolbar.barTintColor = UIColor.black
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: "reloadHome"), object: nil)
-        let loginController = LoginViewController()
+
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        guard let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController else {
+            return
+        }
+        guard let loginController = navController.viewControllers.first as? LoginController else {
+            return
+        }
         loginController.onLogin = { [weak self] in
             self?.loadData()
             self?.tabBarController?.dismiss(animated: true, completion: nil)
         }
-        let navController = WebViewNavigationController(rootViewController: loginController)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.tabBarController?.present(navController, animated: true, completion: nil)
         }
