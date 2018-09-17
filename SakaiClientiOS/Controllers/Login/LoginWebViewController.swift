@@ -10,9 +10,20 @@ import WebKit
 import ReusableSource
 
 /// A view controller allowing users to login to CAS and Sakai
-class LoginViewController: WebController {
+class LoginWebViewController: WebController {
 
     var onLogin: (() -> Void)?
+
+    let loginUrl: String
+
+    init(url: String) {
+        self.loginUrl = url
+        super.init()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override var shouldAutorotate: Bool {
         return false
@@ -25,10 +36,8 @@ class LoginViewController: WebController {
     /// Loads Login URL for CAS Authentication
     override func viewDidLoad() {
         RequestManager.shared.resetCache()
-        let url = URL(string: AppGlobals.loginUrl)
-        setURL(url: url)
+        setURL(url: URL(string: loginUrl))
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = nil
     }
 
     override func didReceiveMemoryWarning() {

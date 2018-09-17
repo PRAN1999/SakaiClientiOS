@@ -103,15 +103,20 @@ class RequestManager {
     func logout() {
         reset()
         isLoggedIn = false
-        let loginController = LoginViewController()
         let rootController = UIApplication.shared.keyWindow?.rootViewController
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        guard let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController else {
+            return
+        }
+        guard let loginController = navController.viewControllers.first as? LoginController else {
+            return
+        }
         loginController.onLogin = {
             DispatchQueue.main.async {
                 rootController?.dismiss(animated: true, completion: nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHome"), object: nil, userInfo: nil)
             }
         }
-        let navController = WebViewNavigationController(rootViewController: loginController)
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
             rootController?.present(navController, animated: true, completion: nil)
         })

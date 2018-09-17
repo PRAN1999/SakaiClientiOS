@@ -96,6 +96,9 @@
 		51C9791520F81A3E00191DD6 /* GradebookDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C9791420F81A3E00191DD6 /* GradebookDataProvider.swift */; };
 		51C9791720F82C0E00191DD6 /* SiteDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C9791620F82C0E00191DD6 /* SiteDataProvider.swift */; };
 		51C9791920F83D3300191DD6 /* GradebookDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C9791820F83D3300191DD6 /* GradebookDataFetcher.swift */; };
+		51D5EA1321504A2300D7B85C /* LoginWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D5EA1221504A2300D7B85C /* LoginWebViewController.swift */; };
+		51D5EA1521504A3300D7B85C /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D5EA1421504A3300D7B85C /* LoginController.swift */; };
+		51D5EA1821504CB800D7B85C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D5EA1721504CB800D7B85C /* Login.storyboard */; };
 		51DEE53020FC250A008E709D /* AnnouncementDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE52F20FC250A008E709D /* AnnouncementDataProvider.swift */; };
 		51DEE53220FC2639008E709D /* AnnouncementDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE53120FC2639008E709D /* AnnouncementDataFetcher.swift */; };
 		51DEE53620FC3D76008E709D /* SearchableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE53520FC3D76008E709D /* SearchableDataSource.swift */; };
@@ -111,7 +114,6 @@
 		51DEE56D210527BC008E709D /* HideableTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE56C210527BC008E709D /* HideableTableManager.swift */; };
 		644E9699E1AEBCEE350ADB9B /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5AA811018CA7A1A3A0456C /* Pods_SakaiClientiOS.framework */; };
 		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
-		DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */; };
 		DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE0599FC1DFD93B200D19D17 /* Main.storyboard */; };
 		DE059A001DFD93B200D19D17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE0599FF1DFD93B200D19D17 /* Assets.xcassets */; };
 		DE059A031DFD93B200D19D17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */; };
@@ -222,6 +224,9 @@
 		51C9791620F82C0E00191DD6 /* SiteDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteDataProvider.swift; sourceTree = "<group>"; };
 		51C9791820F83D3300191DD6 /* GradebookDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataFetcher.swift; sourceTree = "<group>"; };
 		51C9794320F994FF00191DD6 /* SakaiClientiOS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SakaiClientiOS; sourceTree = "<group>"; };
+		51D5EA1221504A2300D7B85C /* LoginWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginWebViewController.swift; sourceTree = "<group>"; };
+		51D5EA1421504A3300D7B85C /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		51D5EA1721504CB800D7B85C /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		51DEE52F20FC250A008E709D /* AnnouncementDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementDataProvider.swift; sourceTree = "<group>"; };
 		51DEE53120FC2639008E709D /* AnnouncementDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementDataFetcher.swift; sourceTree = "<group>"; };
 		51DEE53520FC3D76008E709D /* SearchableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableDataSource.swift; sourceTree = "<group>"; };
@@ -240,7 +245,6 @@
 		CD5AA811018CA7A1A3A0456C /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakaiClientiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0599F81DFD93B200D19D17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DE0599FD1DFD93B200D19D17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DE0599FF1DFD93B200D19D17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE059A021DFD93B200D19D17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -431,7 +435,6 @@
 		51835041211E9A49008F2CF2 /* Web */ = {
 			isa = PBXGroup;
 			children = (
-				DE0599FA1DFD93B200D19D17 /* LoginViewController.swift */,
 				511114AB20D6CD440077F872 /* WebController.swift */,
 				51835042211E9A75008F2CF2 /* WebNavigationController.swift */,
 				5197E6BC2134317F0019DCC9 /* TextViewDelegateExtension.swift */,
@@ -553,6 +556,7 @@
 		51C2D15A20C47FA000E4C901 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				51D5EA1621504A3900D7B85C /* Login */,
 				51835041211E9A49008F2CF2 /* Web */,
 				518903BB210AADEA00C551AE /* ControllerBehavior */,
 				51A472CF20F99F8D00CC95F0 /* ReusableExtensions */,
@@ -596,6 +600,15 @@
 			path = GradebookData;
 			sourceTree = "<group>";
 		};
+		51D5EA1621504A3900D7B85C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				51D5EA1221504A2300D7B85C /* LoginWebViewController.swift */,
+				51D5EA1421504A3300D7B85C /* LoginController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		51DEE52E20FC219C008E709D /* AnnouncementData */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,6 +647,7 @@
 				5113C13820928718001929DA /* AssignmentView.storyboard */,
 				DE0599FC1DFD93B200D19D17 /* Main.storyboard */,
 				DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */,
+				51D5EA1721504CB800D7B85C /* Login.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -758,6 +772,7 @@
 				5113C131209286C2001929DA /* SettingsView.storyboard in Resources */,
 				5113C12920927F28001929DA /* HomeView.storyboard in Resources */,
 				DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */,
+				51D5EA1821504CB800D7B85C /* Login.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,7 +829,6 @@
 				5113C12B20928658001929DA /* AnnouncementController.swift in Sources */,
 				51C4B7EC20A660FA00DD6696 /* ClassController.swift in Sources */,
 				5182CBCA21383ECF00D45952 /* HideableNetworkTableManager.swift in Sources */,
-				DE0599FB1DFD93B200D19D17 /* LoginViewController.swift in Sources */,
 				511114B520D74D570077F872 /* PagesController.swift in Sources */,
 				518903BA210A9F6C00C551AE /* FeedController.swift in Sources */,
 				51DEE5692103D41F008E709D /* SiteAssignmentController.swift in Sources */,
@@ -868,10 +882,12 @@
 				51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */,
 				51DEE54020FEFB41008E709D /* SiteTableManager.swift in Sources */,
 				518903AC2108151C00C551AE /* AssignmentCollectionManager.swift in Sources */,
+				51D5EA1521504A3300D7B85C /* LoginController.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
 				518903B021081ABF00C551AE /* SitePageController.swift in Sources */,
 				51A472DC20F9C13000CC95F0 /* AssignmentTableDataProvider.swift in Sources */,
 				518903BD210AAE1F00C551AE /* LoadableController.swift in Sources */,
+				51D5EA1321504A2300D7B85C /* LoginWebViewController.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
 				5182CBF2213A1B0000D45952 /* RawAssignment.swift in Sources */,
 				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
