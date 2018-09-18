@@ -51,4 +51,10 @@ class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: U
         self.provider.loadItems(payload: payload, for: section)
         self.reloadData(for: section)
     }
+
+    func loadDataSource() {
+        let callback = self.delegate?.networkSourceWillBeginLoadingData(self)
+        prepareDataSourceForLoad()
+        loadDataSource(for: 0, completion: callback)
+    }
 }

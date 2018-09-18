@@ -19,7 +19,7 @@ class HomeController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Classes"
+        title = "Classes"
         disableTabs()
         siteTableManager = SiteTableManager(tableView: tableView)
         siteTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
@@ -33,11 +33,10 @@ class HomeController: UITableViewController {
         }
         siteTableManager.delegate = self
 
-        self.configureNavigationItem()
+        configureNavigationItem()
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "reload"), object: nil)
         setupLogoutController()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentLogoutController))
-        self.navigationController?.toolbar.barTintColor = UIColor.black
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentLogoutController))
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: "reloadHome"), object: nil)
 
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
@@ -99,12 +98,7 @@ extension HomeController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         disableTabs()
         SakaiService.shared.reset()
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
-        let callback = self.addLoadingIndicator()
-        return { [weak self] in
-            callback()
-            self?.navigationItem.rightBarButtonItem?.isEnabled = true
-        }
+        return self.addLoadingIndicator()
     }
 
     func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {

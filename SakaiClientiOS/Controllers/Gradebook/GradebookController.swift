@@ -20,8 +20,8 @@ class GradebookController: UITableViewController {
         super.viewDidLoad()
         gradebookTableManager = GradebookTableManager(tableView: super.tableView)
         gradebookTableManager.delegate = self
+        configureNavigationItem()
         loadData()
-        self.configureNavigationItem()
     }
 
     override func didReceiveMemoryWarning() {

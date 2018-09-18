@@ -33,8 +33,8 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
             self.navigationController?.pushViewController(announcementPage, animated: true)
         }
         announcementTableManager.delegate = self
+        configureNavigationItem()
         announcementTableManager.loadDataSource()
-        self.configureNavigationItem()
     }
     
     override func didReceiveMemoryWarning() {

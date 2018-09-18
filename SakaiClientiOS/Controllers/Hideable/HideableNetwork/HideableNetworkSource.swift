@@ -19,12 +19,6 @@ protocol HideableNetworkSource: NetworkSource where Self.Fetcher: HideableDataFe
 
 extension HideableNetworkSource {
 
-    func loadDataSource() {
-        let callback = self.delegate?.networkSourceWillBeginLoadingData(self)
-        prepareDataSourceForLoad()
-        loadDataSource(for: 0, completion: callback)
-    }
-
     func loadDataSource(for section: Int, completion: (() -> Void)?) {
         fetcher.loadData(for: section) { [weak self] res, err in
             DispatchQueue.main.async {

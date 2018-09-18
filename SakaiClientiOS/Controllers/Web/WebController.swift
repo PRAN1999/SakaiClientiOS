@@ -68,8 +68,11 @@ class WebController: UIViewController {
         setupNavBar()
         setupToolbar()
         setupActionSheet()
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(pop))
+        swipeRight.direction = .right
+        webView.addGestureRecognizer(swipeRight)
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        webView.allowsBackForwardNavigationGestures = true
+        webView.allowsBackForwardNavigationGestures = false
     }
 
     /// Update progressView with respect to webview load

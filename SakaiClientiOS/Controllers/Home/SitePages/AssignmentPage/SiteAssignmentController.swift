@@ -41,8 +41,8 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
             return self
         }
         siteAssignmentCollectionManager.delegate = self
+        configureNavigationItem()
         siteAssignmentCollectionManager.loadDataSource()
-        self.configureNavigationItem()
     }
 }
 

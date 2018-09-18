@@ -15,4 +15,5 @@ final class AppGlobals {
     static let cookieUrl2       = "https://sakai.rutgers.edu/portal"
 
     static let sakaiRed = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
+    static let defaultTint = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
 }
