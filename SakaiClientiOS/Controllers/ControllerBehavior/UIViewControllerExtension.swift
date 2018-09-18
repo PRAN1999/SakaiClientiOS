@@ -43,20 +43,6 @@ extension UIViewController {
         tapRecognizer.addTarget(self, action: #selector(hideNavBar))
     }
 
-    /// Adds a loading indicator to the view and returns a callback to remove it on completion of a task
-    ///
-    /// Ideally as part of NetworkSourceDelegate conformance
-    func addLoadingIndicator() -> (() -> Void) {
-        let indicator = LoadingIndicator(view: view)
-        indicator.hidesWhenStopped = true
-        indicator.startAnimating()
-        let afterLoad = {
-            indicator.stopAnimating()
-            indicator.removeFromSuperview()
-        }
-        return afterLoad
-    }
-
     /// Presents an error message to the screen in a UIAlert
     ///
     /// - Parameter error: the error to show

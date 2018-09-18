@@ -29,9 +29,8 @@ class AnnouncementController: UITableViewController {
             self.navigationController?.pushViewController(announcementPage, animated: true)
         }
         announcementTableManager.delegate = self
-        
+        configureNavigationItem()
         loadData()
-        self.configureNavigationItem()
         configureActionSheet()
     }
     

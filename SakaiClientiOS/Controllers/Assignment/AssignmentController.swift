@@ -44,8 +44,8 @@ class AssignmentController: UITableViewController {
         assignmentsTableManager.delegate = self
         
         createSegmentedControl()
+        configureNavigationItem()
         loadData()
-        self.configureNavigationItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +55,7 @@ class AssignmentController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setToolbarHidden(true, animated: true)
+        self.navigationController?.toolbar.barTintColor = AppGlobals.defaultTint
     }
     
     @objc func resort() {

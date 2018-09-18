@@ -36,8 +36,8 @@ class ResourcePageController: UIViewController, SitePageController {
         }
         resourceTreeManager.delegate = self
 
-        resourceTreeManager.loadDataSource()
         configureNavigationItem()
+        resourceTreeManager.loadDataSource()
     }
 
     override func didReceiveMemoryWarning() {

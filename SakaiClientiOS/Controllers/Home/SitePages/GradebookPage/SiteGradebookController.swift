@@ -23,8 +23,8 @@ class SiteGradebookController: UITableViewController, SitePageController {
         
         siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: super.tableView, siteId: id)
         siteGradebookTableDataSource.delegate = self
+        configureNavigationItem()
         siteGradebookTableDataSource.loadDataSource()
-        self.configureNavigationItem()
     }
 }
 
