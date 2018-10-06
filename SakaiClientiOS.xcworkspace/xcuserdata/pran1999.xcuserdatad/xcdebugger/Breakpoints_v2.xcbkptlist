@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SakaiClientiOS/Controllers/Web/WebNavigationController.swift"
-            timestampString = "557545881.5648"
+            timestampString = "560560509.9765871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
             landmarkName = "WebViewNavigationController"
             landmarkType = "3">
          </BreakpointContent>

@@ -68,6 +68,9 @@ class WebController: UIViewController {
         setupNavBar()
         setupToolbar()
         setupActionSheet()
+
+        // Normal pop recognizer is buggy with WKWebView
+        // TODO: Implementation does not work when webview loads a PDF
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(pop))
         swipeRight.direction = .right
         webView.addGestureRecognizer(swipeRight)
@@ -264,5 +267,6 @@ fileprivate extension WebController {
         self.present(actionController, animated: true, completion: nil)
     }
 
+    /// Allows rotation of controller
     @objc func canRotate() {}
 }

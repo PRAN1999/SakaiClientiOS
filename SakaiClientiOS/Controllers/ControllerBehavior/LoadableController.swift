@@ -12,6 +12,8 @@ import UIKit
     @objc func loadData()
 }
 
+// MARK: - Utility methods
+// Methods to configure view items for loading data
 extension LoadableController where Self: UIViewController {
     func configureNavigationItem() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self,
@@ -28,10 +30,10 @@ extension LoadableController where Self: UIViewController {
         let indicator = LoadingIndicator(view: view)
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
-        let afterLoad = {
+        let afterLoad = { [weak self] in
             indicator.stopAnimating()
             indicator.removeFromSuperview()
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            self?.navigationItem.rightBarButtonItem?.isEnabled = true
         }
         return afterLoad
     }

@@ -94,7 +94,6 @@ extension HomeController: LoadableController {
 }
 
 extension HomeController: NetworkSourceDelegate {
-
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         disableTabs()
         SakaiService.shared.reset()
