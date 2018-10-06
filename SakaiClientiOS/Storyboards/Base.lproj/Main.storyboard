@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iaE-1R-x95">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iaE-1R-x95">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -41,7 +42,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBD-Df-xe1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-887" y="139"/>
+            <point key="canvasLocation" x="-1519" y="-219"/>
         </scene>
         <!--HomeView-->
         <scene sceneID="bVW-8i-Sof">
@@ -186,9 +187,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="announcements" width="25" height="25"/>
-        <image name="assignments" width="25" height="25"/>
-        <image name="gradebook" width="25" height="25"/>
-        <image name="home" width="25" height="25"/>
+        <image name="announcements" width="50" height="50"/>
+        <image name="assignments" width="50" height="50"/>
+        <image name="gradebook" width="50" height="50"/>
+        <image name="home" width="50" height="50"/>
     </resources>
 </document>

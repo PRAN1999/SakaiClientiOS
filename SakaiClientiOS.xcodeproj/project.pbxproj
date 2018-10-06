@@ -40,6 +40,7 @@
 		512748C9210E600200A5A74E /* ResourceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512748C8210E600200A5A74E /* ResourceNode.swift */; };
 		514B623920952B89001A716C /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623820952B89001A716C /* Parsing.swift */; };
 		514B623C209569FE001A716C /* TermHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623B209569FE001A716C /* TermHeader.swift */; };
+		515915452169C55900D3730E /* ReloadActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515915442169C55900D3730E /* ReloadActions.swift */; };
 		517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
 		517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
@@ -167,6 +168,7 @@
 		512748C8210E600200A5A74E /* ResourceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceNode.swift; sourceTree = "<group>"; };
 		514B623820952B89001A716C /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
 		514B623B209569FE001A716C /* TermHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermHeader.swift; sourceTree = "<group>"; };
+		515915442169C55900D3730E /* ReloadActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadActions.swift; sourceTree = "<group>"; };
 		517F378420E019D900B21D5A /* LNPopupController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		5182CBC921383ECF00D45952 /* HideableNetworkTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideableNetworkTableManager.swift; sourceTree = "<group>"; };
@@ -460,6 +462,7 @@
 				518903B9210A9F6C00C551AE /* FeedController.swift */,
 				518903BC210AAE1F00C551AE /* LoadableController.swift */,
 				518903C0210AB39500C551AE /* UIViewControllerExtension.swift */,
+				515915442169C55900D3730E /* ReloadActions.swift */,
 			);
 			path = ControllerBehavior;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
 				51C9791520F81A3E00191DD6 /* GradebookDataProvider.swift in Sources */,
 				51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */,
+				515915452169C55900D3730E /* ReloadActions.swift in Sources */,
 				51DEE54020FEFB41008E709D /* SiteTableManager.swift in Sources */,
 				518903AC2108151C00C551AE /* AssignmentCollectionManager.swift in Sources */,
 				51D5EA1521504A3300D7B85C /* LoginController.swift in Sources */,

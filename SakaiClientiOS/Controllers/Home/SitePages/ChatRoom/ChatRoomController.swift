@@ -12,6 +12,7 @@ class ChatRoomController: UIViewController, SitePageController {
     
     var siteId: String?
     var siteUrl: String?
+    var pageTitle: String?
     var chatChannelId: String?
     var csrftoken: String?
     

@@ -8,6 +8,7 @@
 import ReusableSource
 
 extension NetworkSource {
+    /// Allow a NetworkSource to load data from an endpoint without first retrieving cached results
     func loadDataSourceWithoutCache() {
         RequestManager.shared.resetCache()
         loadDataSource()

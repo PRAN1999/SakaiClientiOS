@@ -63,7 +63,7 @@ class AnnouncementController: UITableViewController {
         
         dateActionSheet.view.tintColor = AppGlobals.sakaiRed
         
-        dateActionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in }))
+        dateActionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
     }
     
     @objc func presentFilterOptions() {

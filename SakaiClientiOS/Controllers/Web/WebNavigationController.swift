@@ -7,10 +7,10 @@
 
 import UIKit
 
-/// A container navigation controller for a WebController u
+/// A container navigation controller for a WebController
 ///
 /// Used to circumvent the WebKit error where attempting to select a file
-/// for input results in the ViewController being dismissed
+/// for input results in the dismiss method being called twice
 class WebViewNavigationController: UINavigationController {
 
     private weak var documentPicker: UIDocumentPickerViewController?
@@ -18,9 +18,8 @@ class WebViewNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.tintColor = AppGlobals.sakaiRed
-        self.navigationBar.barStyle = .blackTranslucent
+        self.navigationBar.barStyle = .black
         self.toolbar.tintColor = AppGlobals.sakaiRed
-        self.toolbar.barStyle = .blackTranslucent
     }
 
     public override func present(_ viewControllerToPresent: UIViewController,

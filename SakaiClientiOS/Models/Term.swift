@@ -118,6 +118,7 @@ extension Term: Comparable {
         }
         return false
     }
+
     static func == (lhs: Term, rhs: Term) -> Bool {
         guard let lYear = lhs.year, let lTerm = lhs.termInt else {
             guard let _ = rhs.year, let _ = rhs.termInt else {
@@ -130,6 +131,7 @@ extension Term: Comparable {
         }
         return lYear == rYear && lTerm == rTerm
     }
+    
     static func > (lhs: Term, rhs: Term) -> Bool {
         guard let lYear = lhs.year, let lTerm = lhs.termInt else {
             return false

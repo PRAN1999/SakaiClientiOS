@@ -9,9 +9,10 @@ import UIKit
 import WebKit
 import ReusableSource
 
-/// A view controller allowing users to login to CAS and Sakai
+/// A view controller allowing users to login to CAS and/or Sakai
 class LoginWebViewController: WebController {
 
+    /// Callback to execute once user has been authenticated
     var onLogin: (() -> Void)?
 
     let loginUrl: String
@@ -69,11 +70,6 @@ class LoginWebViewController: WebController {
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationResponse: WKNavigationResponse,
                           decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        let response = navigationResponse.response as? HTTPURLResponse
-        let headers = response!.allHeaderFields
-        for header in headers {
-            RequestManager.shared.addHeader(value: header.value, key: header.key)
-        }
         if webView.url!.absoluteString == AppGlobals.cookieUrl2 {
             decisionHandler(.cancel)
             onLogin?()

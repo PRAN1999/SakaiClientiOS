@@ -61,7 +61,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     }
     
     func getHeaderRowForSubsection(section: Int, indexPath: IndexPath) -> Int {
-        var row:Int = 0
+        var row = 0
         
         for index in 0..<indexPath.section {
             row += gradeItems[section][index].count + 1
@@ -71,10 +71,10 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     }
     
     func getSubsectionIndexPath(section: Int, row: Int) -> IndexPath {
-        let termSection:[[GradeItem]] = gradeItems[section]
+        let termSection: [[GradeItem]] = gradeItems[section]
         
-        var startRow:Int = row
-        var subsection:Int = 0
+        var startRow = row
+        var subsection = 0
         
         while startRow > 0 {
             //print("Section: \(section) Subsection: \(subsection) StartRow: \(startRow)")
@@ -84,7 +84,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
             }
         }
         
-        let subRow:Int = 0 - startRow
+        let subRow = 0 - startRow
         
         return IndexPath(row: subRow, section: subsection)
     }

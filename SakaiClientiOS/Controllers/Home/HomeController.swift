@@ -34,10 +34,10 @@ class HomeController: UITableViewController {
         siteTableManager.delegate = self
 
         configureNavigationItem()
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "reload"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
         setupLogoutController()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentLogoutController))
-        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: "reloadHome"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil)
 
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController else {
@@ -94,7 +94,6 @@ extension HomeController: LoadableController {
 }
 
 extension HomeController: NetworkSourceDelegate {
-
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         disableTabs()
         SakaiService.shared.reset()
@@ -103,7 +102,7 @@ extension HomeController: NetworkSourceDelegate {
 
     func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {
         enableTabs()
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
         RequestManager.shared.isLoggedIn = true
     }
 }

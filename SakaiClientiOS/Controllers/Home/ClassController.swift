@@ -51,6 +51,7 @@ class ClassController: UITableViewController {
         let sitePage:SitePageController = page.siteType.init()
         sitePage.siteId = page.siteId
         sitePage.siteUrl = page.url
+        sitePage.pageTitle = page.title
         
         guard let controller = sitePage as? UIViewController else {
             return

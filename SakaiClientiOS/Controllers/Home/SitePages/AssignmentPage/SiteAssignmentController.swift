@@ -12,6 +12,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
     
     var siteId: String?
     var siteUrl: String?
+    var pageTitle: String?
     
     var siteAssignmentCollectionManager: SiteAssignmentCollectionManager!
     
