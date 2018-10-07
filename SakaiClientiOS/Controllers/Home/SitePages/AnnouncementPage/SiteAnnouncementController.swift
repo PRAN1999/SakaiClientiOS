@@ -11,6 +11,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
     var announcementTableManager : AnnouncementTableManager!
     var siteId: String?
     var siteUrl: String?
+    var pageTitle: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -11,6 +11,7 @@ class SiteGradebookController: UITableViewController, SitePageController {
     
     var siteId: String?
     var siteUrl: String?
+    var pageTitle: String?
     var siteGradebookTableDataSource: SiteGradebookTableDataSource!
     
     override func viewDidLoad() {

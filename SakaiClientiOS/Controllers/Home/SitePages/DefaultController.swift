@@ -11,6 +11,7 @@ class DefaultController: WebController, SitePageController {
     
     var siteId: String?
     var siteUrl: String?
+    var pageTitle: String?
     
     required override init() {
         super.init()
@@ -21,7 +22,7 @@ class DefaultController: WebController, SitePageController {
     }
     
     override func viewDidLoad() {
-        guard let siteUrl = siteUrl else {
+        guard let siteId = siteId, let siteUrl = siteUrl else {
             return
         }
         guard let url = URL(string: siteUrl) else {
@@ -29,6 +30,7 @@ class DefaultController: WebController, SitePageController {
         }
         setURL(url: url)
         super.viewDidLoad()
+        self.title = pageTitle
     }
 
 }

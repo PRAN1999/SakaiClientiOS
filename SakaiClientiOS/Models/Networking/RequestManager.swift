@@ -114,7 +114,7 @@ class RequestManager {
         loginController.onLogin = {
             DispatchQueue.main.async {
                 rootController?.dismiss(animated: true, completion: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHome"), object: nil, userInfo: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil, userInfo: nil)
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
