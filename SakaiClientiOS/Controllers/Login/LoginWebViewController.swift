@@ -70,11 +70,6 @@ class LoginWebViewController: WebController {
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationResponse: WKNavigationResponse,
                           decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        let response = navigationResponse.response as? HTTPURLResponse
-        let headers = response!.allHeaderFields
-        for header in headers {
-            RequestManager.shared.addHeader(value: header.value, key: header.key)
-        }
         if webView.url!.absoluteString == AppGlobals.cookieUrl2 {
             decisionHandler(.cancel)
             onLogin?()

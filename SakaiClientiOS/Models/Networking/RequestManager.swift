@@ -89,15 +89,6 @@ class RequestManager {
         Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
     }
 
-    /// Adds HTTP header to Alamofire Session
-    ///
-    /// - Parameters:
-    ///   - value: The HTTP header value for the key
-    ///   - key: The HTTP header name to add to Alamofire
-    func addHeader(value: Any, key: AnyHashable) {
-        Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.updateValue(value, forKey: key)
-    }
-
     /// Ends Sakai session by resetting Alamofire Session and uses main thread to reroute app control to
     /// LoginViewController.
     func logout() {

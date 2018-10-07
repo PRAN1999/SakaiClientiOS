@@ -187,9 +187,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="announcements" width="25" height="25"/>
-        <image name="assignments" width="25" height="25"/>
-        <image name="gradebook" width="25" height="25"/>
-        <image name="home" width="25" height="25"/>
+        <image name="announcements" width="50" height="50"/>
+        <image name="assignments" width="50" height="50"/>
+        <image name="gradebook" width="50" height="50"/>
+        <image name="home" width="50" height="50"/>
     </resources>
 </document>
