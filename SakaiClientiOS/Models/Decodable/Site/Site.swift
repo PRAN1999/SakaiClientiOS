@@ -28,6 +28,18 @@ struct Site: Decodable, TermSortable {
         self.pages = siteElement.sitePages
         self.term = Term(toParse: siteElement.props.termEid)
     }
+
+    init(from serializedSite: PersistedSite) {
+        self.id = serializedSite.id
+        self.title = serializedSite.title
+        self.description = serializedSite.siteDescription
+        self.term = Term(toParse: serializedSite.term)
+        var pages: [SitePage] = []
+        for page in serializedSite.sitePages {
+            pages.append(SitePage(from: page))
+        }
+        self.pages = pages
+    }
 }
 
 extension Site {

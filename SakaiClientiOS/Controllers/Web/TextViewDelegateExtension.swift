@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 // MARK: Web Content controller
 
@@ -17,7 +18,10 @@ extension UIViewController: UITextViewDelegate {
             webController.setURL(url: URL)
             self.navigationController?.pushViewController(webController, animated: true)
             return false
+        } else {
+            let safariController = SFSafariViewController(url: URL)
+            self.tabBarController?.present(safariController, animated: true, completion: nil)
+            return false
         }
-        return true
     }
 }

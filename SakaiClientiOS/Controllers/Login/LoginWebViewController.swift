@@ -55,7 +55,6 @@ class LoginWebViewController: WebController {
             let store = WKWebsiteDataStore.default().httpCookieStore
             store.getAllCookies { (cookies) in
                 for cookie in cookies {
-                    //print(cookie)
                     HTTPCookieStorage.shared.setCookie(cookie as HTTPCookie)
                     RequestManager.shared.addCookie(cookie: cookie)
                 }

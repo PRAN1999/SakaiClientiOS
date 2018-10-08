@@ -8,9 +8,9 @@
 import UIKit
 import CoreData
 
-class PersistentManager {
+class PersistenceManager {
 
-    static let shared = PersistentManager()
+    static let shared = PersistenceManager()
 
     private init() {}
 
@@ -38,6 +38,7 @@ class PersistentManager {
                 return []
             }
             persistedSites = data[0].sites
+            
         } catch let error {
             print(error.localizedDescription)
         }

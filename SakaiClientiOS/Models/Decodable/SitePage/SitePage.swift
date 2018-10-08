@@ -48,4 +48,18 @@ struct SitePage: Decodable {
             SakaiService.shared.siteAssignmentToolMap.updateValue(url, forKey: siteId)
         }
     }
+
+    init(from serializedSitePage: PersistedSitePage) {
+        self.id = serializedSitePage.id
+        self.title = serializedSitePage.title
+        self.siteId = serializedSitePage.siteId
+        self.url = serializedSitePage.url
+        let siteType: SitePageController.Type
+        if SitePage.mapPages[title] != nil {
+            siteType = SitePage.mapPages[title]!
+        } else {
+            siteType = SitePage.mapPages[SitePage.defaultString]!
+        }
+        self.siteType = siteType
+    }
 }

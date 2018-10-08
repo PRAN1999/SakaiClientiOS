@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import SafariServices
 
 /// A WKWebView controller to display and navigate custom Sakai webpages and data.
 ///
@@ -37,13 +38,24 @@ class WebController: UIViewController {
     var shouldLoad: Bool = true
     var needsNav: Bool = true
 
+    var openInSafari: ((URL?) -> Void)?
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.hidesBottomBarWhenPushed = true
     }
 
     init() {
         super.init(nibName: nil, bundle: nil)
         self.hidesBottomBarWhenPushed = true
+
+        openInSafari = { [weak self] url in
+            guard let url = url else {
+                return
+            }
+            let safariController = SFSafariViewController(url: url)
+            self?.tabBarController?.present(safariController, animated: true, completion: nil)
+        }
     }
 
     deinit {
@@ -143,6 +155,16 @@ class WebController: UIViewController {
             }
         }
     }
+
+    func showSafariViewController(url: URL?) {
+        guard let url = url else {
+            return
+        }
+        let safariController = SFSafariViewController(url: url)
+        self.tabBarController?.present(safariController, animated: true, completion: { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        })
+    }
 }
 
 // MARK: WKUIDelegate and WKNavigationDelegate
@@ -150,6 +172,15 @@ class WebController: UIViewController {
 extension WebController: WKUIDelegate, WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.cancel)
+            return
+        }
+        if !url.absoluteString.contains("https") || !url.absoluteString.contains("sakai.rutgers.edu") {
+            decisionHandler(.cancel)
+            openInSafari?(url)
+            return
+        }
         decisionHandler(.allow)
     }
 
@@ -192,13 +223,10 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
 
 fileprivate extension WebController {
     func setupNavBar() {
-        if needsNav {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self,
-                                                                    action: #selector(pop))
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self,
-                                                                     action: #selector(loadWebview))
-        } else {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadWebview))
+        if !needsNav {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         self.navigationController?.toolbar.tintColor = AppGlobals.sakaiRed
@@ -233,9 +261,13 @@ fileprivate extension WebController {
         let downloadAction = UIAlertAction(title: "Download", style: .default) { [weak self] (_) in
             self?.downloadAndPresentInteractionController(url: self?.url)
         }
+        let safariAction = UIAlertAction(title: "Open in Safari", style: .default, handler: { [weak self] (_) in
+            self?.openInSafari?(self?.url)
+        })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionController.addAction(downloadAction)
+        actionController.addAction(safariAction)
         actionController.addAction(cancelAction)
     }
 }

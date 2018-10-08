@@ -44,7 +44,7 @@
 		5159154B216ACB9A00D3730E /* PersistedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159154A216ACB9A00D3730E /* PersistedUser.swift */; };
 		5159154D216ADDF600D3730E /* PersistedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159154C216ADDF600D3730E /* PersistedSite.swift */; };
 		5159154F216ADED400D3730E /* PersistedSitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159154E216ADED400D3730E /* PersistedSitePage.swift */; };
-		51591572216AE6C100D3730E /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51591571216AE6C100D3730E /* PersistentManager.swift */; };
+		51591572216AE6C100D3730E /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51591571216AE6C100D3730E /* PersistenceManager.swift */; };
 		517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
 		517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
@@ -176,7 +176,7 @@
 		5159154A216ACB9A00D3730E /* PersistedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedUser.swift; sourceTree = "<group>"; };
 		5159154C216ADDF600D3730E /* PersistedSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedSite.swift; sourceTree = "<group>"; };
 		5159154E216ADED400D3730E /* PersistedSitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedSitePage.swift; sourceTree = "<group>"; };
-		51591571216AE6C100D3730E /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
+		51591571216AE6C100D3730E /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		517F378420E019D900B21D5A /* LNPopupController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		5182CBC921383ECF00D45952 /* HideableNetworkTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideableNetworkTableManager.swift; sourceTree = "<group>"; };
@@ -369,7 +369,7 @@
 				5159154A216ACB9A00D3730E /* PersistedUser.swift */,
 				5159154C216ADDF600D3730E /* PersistedSite.swift */,
 				5159154E216ADED400D3730E /* PersistedSitePage.swift */,
-				51591571216AE6C100D3730E /* PersistentManager.swift */,
+				51591571216AE6C100D3730E /* PersistenceManager.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -881,7 +881,7 @@
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
 				51DEE53220FC2639008E709D /* AnnouncementDataFetcher.swift in Sources */,
 				5159154B216ACB9A00D3730E /* PersistedUser.swift in Sources */,
-				51591572216AE6C100D3730E /* PersistentManager.swift in Sources */,
+				51591572216AE6C100D3730E /* PersistenceManager.swift in Sources */,
 				51C9791720F82C0E00191DD6 /* SiteDataProvider.swift in Sources */,
 				51A4731420FA7F4500CC95F0 /* NetworkSourceExtension.swift in Sources */,
 				5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */,

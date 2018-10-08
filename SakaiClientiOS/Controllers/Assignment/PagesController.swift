@@ -7,6 +7,7 @@
 
 import UIKit
 import LNPopupController
+import SafariServices
 
 /// The container view controller allowing pagination between multiple Assignments
 class PagesController: UIViewController {
@@ -171,5 +172,13 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         webController.setURL(url: URL(string: url)!)
         webController.shouldLoad = true
         webController.needsNav = false
+        webController.openInSafari = { [weak self] url in
+            guard let url = url else {
+                return
+            }
+            let safariController = SFSafariViewController(url: url)
+            self?.navigationController?.dismissPopupBar(animated: true, completion: nil)
+            self?.tabBarController?.present(safariController, animated: true, completion: nil)
+        }
     }
 }
