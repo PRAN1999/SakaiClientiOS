@@ -8,8 +8,9 @@
 
 import Foundation
 
-/// Subclass ReusableTableDataSource to add UITableViewDelegate conformance for added flexibility managing tableView
-open class ReusableTableManager<Provider:DataProvider, Cell:UITableViewCell & ConfigurableCell>: ReusableTableDataSource<Provider, Cell>, UITableViewDelegate where Provider.T == Cell.T {
+/// Subclass ReusableTableDataSource to add UITableViewDelegate conformance
+/// for added flexibility managing tableView
+open class ReusableTableManager<Provider: DataProvider, Cell: UITableViewCell & ConfigurableCell>: ReusableTableDataSource<Provider, Cell>, UITableViewDelegate where Provider.T == Cell.T {
     
     public var selectedAt = Delegated<IndexPath, Void>()
     

@@ -13,7 +13,8 @@ class LoginController: UIViewController {
 
     @IBOutlet weak var netIdButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
-    
+
+    /// Callback to execute for a successful login
     var onLogin: (() -> Void)?
 
     override func viewDidLoad() {

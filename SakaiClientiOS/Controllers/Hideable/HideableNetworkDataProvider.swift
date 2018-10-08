@@ -25,7 +25,7 @@ extension HideableNetworkDataProvider {
         return numberOfItemsForHideableSection(section: section)
     }
     
-    /// Use the source of truth to define how many Terms exist
+    /// Use the "source of truth" to define how many Terms exist
     func resetTerms() {
         terms = SakaiService.shared.termMap.map { $0.0 }
         isHidden = [Bool].init(repeating: true, count: terms.count)

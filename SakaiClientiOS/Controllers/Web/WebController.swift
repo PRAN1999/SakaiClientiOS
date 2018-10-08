@@ -7,10 +7,13 @@
 
 import UIKit
 import WebKit
+import SafariServices
 
 /// A WKWebView controller to display and navigate custom Sakai webpages and data.
 ///
-/// Should be used across app to display any web page or content
+/// Should be used across app to display any web page or content needing Sakai
+/// authentication cookies to access URL. Any insecure HTTP URL will be opened
+/// in SFSafariViewController instead
 class WebController: UIViewController {
 
     // MARK: Views
@@ -37,13 +40,26 @@ class WebController: UIViewController {
     var shouldLoad: Bool = true
     var needsNav: Bool = true
 
+    /// Manage SFSafariViewController presentation for insecure or non-sakai URL
+    var openInSafari: ((URL?) -> Void)?
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.hidesBottomBarWhenPushed = true
     }
 
     init() {
         super.init(nibName: nil, bundle: nil)
         self.hidesBottomBarWhenPushed = true
+
+        // default SFSafariViewController presentation method
+        openInSafari = { [weak self] url in
+            guard let url = url, url.absoluteString.contains("http") else {
+                return
+            }
+            let safariController = SFSafariViewController(url: url)
+            self?.tabBarController?.present(safariController, animated: true, completion: nil)
+        }
     }
 
     deinit {
@@ -53,6 +69,7 @@ class WebController: UIViewController {
         }
     }
 
+    /// Asssign WKWebView to view of ViewController
     override func loadView() {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = RequestManager.shared.processPool
@@ -99,6 +116,7 @@ class WebController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        // Set orientation to portrait if in landscape
         if self.isMovingFromParentViewController {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
@@ -123,13 +141,20 @@ class WebController: UIViewController {
 
     /// Download from URL and present DocumentInteractionController to act on downloaded file
     ///
+    /// Prevents leaving ViewController until Download has called back - for success or failure
     /// - Parameter url: the URL to download from
     func downloadAndPresentInteractionController(url: URL?) {
         guard let url = url else {
             return
         }
         interactionButton.isEnabled = false
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
+        let indicator = LoadingIndicator(view: self.view)
+        indicator.startAnimating()
         RequestManager.shared.downloadToDocuments(url: url) { [weak self] fileUrl in
+            indicator.stopAnimating()
+            indicator.removeFromSuperview()
+            self?.navigationItem.leftBarButtonItem?.isEnabled = true
             guard let fileUrl = fileUrl else {
                 return
             }
@@ -150,6 +175,16 @@ class WebController: UIViewController {
 extension WebController: WKUIDelegate, WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.cancel)
+            return
+        }
+        if !url.absoluteString.contains("https") {
+            decisionHandler(.cancel)
+            print(url)
+            openInSafari?(url)
+            return
+        }
         decisionHandler(.allow)
     }
 
@@ -166,8 +201,11 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.progressView.isHidden = true
         }
-        // Remove distracting and unintuitive HTML elements from Sakai interface
+        // Prevent 3D-touch peek and show due to WebKit bug where view controller is dismissed twice
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
+
+        // Remove distracting and unintuitive HTML elements from Sakai interface
+        // This includes scrolling navigation bar and other cluttering elements
         webView.evaluateJavaScript("""
             $('.Mrphs-topHeader').remove();
             $('.Mrphs-siteHierarchy').remove();
@@ -192,18 +230,16 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
 
 fileprivate extension WebController {
     func setupNavBar() {
-        if needsNav {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self,
-                                                                    action: #selector(pop))
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self,
-                                                                     action: #selector(loadWebview))
-        } else {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadWebview))
+        if !needsNav {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         self.navigationController?.toolbar.tintColor = AppGlobals.sakaiRed
     }
 
+    /// Attach progress bar to navigation bar frame to track webView loads
     func setupProgressBar() {
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
@@ -216,6 +252,7 @@ fileprivate extension WebController {
                                     width: navigationBarBounds.size.width, height: 8)
     }
 
+    /// Configure navigation toolbar with webView action buttons
     func setupToolbar() {
         let backButtonImage = UIImage(named: "back_button")
         let forwardButtonImage = UIImage(named: "forward_button")
@@ -228,14 +265,18 @@ fileprivate extension WebController {
         self.setToolbarItems(arr, animated: true)
     }
 
-    /// Configure action sheet to present Download option for a file/URL
+    /// Configure action sheet to present Download and Open in Safari option for a file/URL
     func setupActionSheet() {
         let downloadAction = UIAlertAction(title: "Download", style: .default) { [weak self] (_) in
             self?.downloadAndPresentInteractionController(url: self?.url)
         }
+        let safariAction = UIAlertAction(title: "Open in Safari", style: .default, handler: { [weak self] (_) in
+            self?.openInSafari?(self?.url)
+        })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionController.addAction(downloadAction)
+        actionController.addAction(safariAction)
         actionController.addAction(cancelAction)
     }
 }

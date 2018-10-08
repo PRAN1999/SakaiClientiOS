@@ -7,14 +7,15 @@
 //
 
 
-/// A protocol to define any class element that needs to identified by a standard reuse identifier, usually for UITableViewCell and UICollectionViewCell
+/// A protocol to define any class element that needs to identified by a standard reuse identifier,
+/// usually for UITableViewCell and UICollectionViewCell
 public protocol ReusableCell {
     static var reuseIdentifier: String { get }
 }
 
 public extension ReusableCell {
-    /// To allow any class to adopt the ReusableCell protocol without any further configuration, the standard reuseIdentifier
-    /// will be the class name.
+    /// To allow any class to adopt the ReusableCell protocol without any further configuration,
+    /// the standard reuseIdentifier will be the class name.
     ///
     /// **Example**: The reuseIdentifier for:
     ///

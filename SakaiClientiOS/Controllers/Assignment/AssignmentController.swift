@@ -25,6 +25,7 @@ class AssignmentController: UITableViewController {
         super.viewDidLoad()
         assignmentsTableManager = AssignmentTableManager(tableView: super.tableView)
         assignmentsTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            // Navigate to a full page view for a selected Assignment
             let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
             guard let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as? PagesController else {
                 return
@@ -66,6 +67,7 @@ class AssignmentController: UITableViewController {
 //MARK: View construction
 
 private extension AssignmentController {
+    /// Creates UI control to toggle between class and date(Term) sort
     func createSegmentedControl() {
         segments = UISegmentedControl.init(items: ["Class", "Date"])
 

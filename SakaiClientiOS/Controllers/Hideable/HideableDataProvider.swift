@@ -7,7 +7,8 @@
 
 import ReusableSource
 
-/// A DataProvider to populate and manage data for a HideableTableManager
+/// A DataProvider to populate and manage data for a HideableTableManager.
+/// In other words, it can show and hide data as needed for specific sections
 protocol HideableDataProvider: class, DataProvider {
     var terms: [Term] { get set }
     var isHidden: [Bool] { get set }
@@ -23,6 +24,11 @@ extension HideableDataProvider {
         return numberOfItems(in: section) == 0
     }
     
+    /// Helper method to determine how many rows to display based on
+    /// whether section is hidden or not
+    ///
+    /// - Parameter section: the section for which rows will be displayed
+    /// - Returns: the number of rows to be shown
     func numberOfItemsForHideableSection(section: Int) -> Int {
         if isHidden[section] {
             return 0

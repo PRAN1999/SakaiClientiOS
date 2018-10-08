@@ -8,6 +8,7 @@
 import UIKit
 import ReusableSource
 
+/// The UITableViewCell to display an Announcement object
 class AnnouncementCell: UITableViewCell, ConfigurableCell {
     typealias T = Announcement
 

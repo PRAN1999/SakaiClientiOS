@@ -7,7 +7,7 @@
 
 import ReusableSource
 import RATreeView
-import UIKit
+import SafariServices
 
 class ResourcePageController: UIViewController, SitePageController {
     
@@ -31,9 +31,14 @@ class ResourcePageController: UIViewController, SitePageController {
         
         resourceTreeManager = ResourceTreeManager(treeView: treeView, siteId: siteId)
         resourceTreeManager.didSelectResource.delegate(to: self) { (self, url) -> Void in
-            let webController = WebController()
-            webController.setURL(url: url)
-            self.navigationController?.pushViewController(webController, animated: true)
+            if url.absoluteString.contains("sakai.rutgers.edu") {
+                let webController = WebController()
+                webController.setURL(url: url)
+                self.navigationController?.pushViewController(webController, animated: true)
+            } else {
+                let safariController = SFSafariViewController(url: url)
+                self.tabBarController?.present(safariController, animated: true, completion: nil)
+            }
         }
         resourceTreeManager.delegate = self
 

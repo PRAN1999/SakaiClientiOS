@@ -8,7 +8,8 @@
 
 import Foundation
 
-/// A generic implementation for a UICollectionViewDataSource with a DataProvider and ConfigurableCell where the Provider and Cell deal with the same associated model
+/// A generic implementation for a UICollectionViewDataSource with a DataProvider and ConfigurableCell
+/// where the Provider and Cell deal with the same associated model
 open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollectionViewCell & ConfigurableCell> : NSObject, UICollectionViewDataSource, ReusableSource where Provider.T == Cell.T {
     
     public let provider: Provider

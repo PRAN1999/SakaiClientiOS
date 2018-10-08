@@ -9,12 +9,14 @@ import UIKit
 
 /// Describes UI behavior for any controller that can reload/refresh its data
 @objc protocol LoadableController {
+    /// A selectable action for reloading the data for a ViewController
     @objc func loadData()
 }
 
 // MARK: - Utility methods
-// Methods to configure view items for loading data
+
 extension LoadableController where Self: UIViewController {
+    /// Configure navigation bar with action to reload data using right bar button
     func configureNavigationItem() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self,
                                                                  action: #selector(loadData))

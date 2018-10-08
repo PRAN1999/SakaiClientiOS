@@ -19,6 +19,7 @@ struct Term {
     let year: Int?
     let termInt: Int?
     let termString: String?
+    let initString: String?
 
     /// Instantiate a term object with the specified characteristics
     ///
@@ -29,10 +30,12 @@ struct Term {
     /// - Returns: A Term object
     private init(year: Int?,
                  termInt: Int?,
-                 termString: String?) {
+                 termString: String?,
+                 initString: String?) {
         self.year       = year
         self.termInt    = termInt
         self.termString = termString
+        self.initString = initString
     }
 
     /// Parses a String containing the term and the year to construct a Term object with the corresponding attributes
@@ -42,15 +45,15 @@ struct Term {
     /// - Returns: A Term object
     init(toParse: String?) {
         guard let tString = toParse else {
-            self.init(year: nil, termInt: nil, termString: "None")
+            self.init(year: nil, termInt: nil, termString: "None", initString: nil)
             return
         }
         let dataArray = tString.components(separatedBy: ":")
         guard let year = Int(dataArray[0]), let term = Int(dataArray[1]) else {
-            self.init(year: nil, termInt: nil, termString: "None")
+            self.init(year: nil, termInt: nil, termString: "None", initString: nil)
             return
         }
-        self.init(year: year, termInt: term, termString: Term.mapTerms[term])
+        self.init(year: year, termInt: term, termString: Term.mapTerms[term], initString: toParse)
     }
 
     /// Gets the full String representation of the Term:

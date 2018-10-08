@@ -112,6 +112,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
             sizeLabel.isHidden = true
             break
         }
+        layoutSubviews()
     }
 
     func getColor(for level: Int) -> UIColor {
