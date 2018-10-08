@@ -17,12 +17,12 @@ struct SitePage: Decodable {
 
     /// A map to provide native interfaces for common site pages shared by most classes
     private static let mapPages: [String: SitePageController.Type] = [
-        announcementString: SiteAnnouncementController.self,
-        assignmentsString: SiteAssignmentController.self,
-        gradebookString: SiteGradebookController.self,
-        resourcesString: ResourcePageController.self,
-        chatRoomString: ChatRoomController.self,
-        defaultString: DefaultController.self
+        assignmentsString:  SiteAssignmentController.self,
+        gradebookString:    SiteGradebookController.self,
+        chatRoomString:     ChatRoomController.self,
+        defaultString:      DefaultController.self,
+        resourcesString:    ResourcePageController.self,
+        announcementString: SiteAnnouncementController.self
     ]
 
     let id: String

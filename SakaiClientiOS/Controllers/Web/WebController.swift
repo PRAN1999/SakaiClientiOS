@@ -242,7 +242,7 @@ fileprivate extension WebController {
 
 // MARK: Selector actions
 
-fileprivate extension WebController {
+extension WebController {
     @objc func goBack() {
         if webView.canGoBack {
             webView.goBack()

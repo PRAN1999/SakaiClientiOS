@@ -41,7 +41,8 @@ class SakaiService {
                 return
             }
             do {
-                let _ = try decoder.decode(UserSession.self, from: data)
+                let id = try decoder.decode(UserSession.self, from: data)
+                RequestManager.shared.userId = id.userEid
                 onSuccess()
             } catch let decodingError {
                 onFailure(SakaiError.parseError(decodingError.localizedDescription))
@@ -59,6 +60,7 @@ class SakaiService {
     /// - Parameter completion: a completion handler called with a [[Site]] split by Term and an optional SakaiError
     func getSites(completion: @escaping ([[Site]]?, SakaiError?) -> Void) {
         let url = SakaiEndpoint.sites.getEndpoint()
+
         RequestManager.shared.makeRequest(url: url, method: .get) { [weak self] data, err in
             guard err == nil, let data = data else {
                 completion(nil, err)

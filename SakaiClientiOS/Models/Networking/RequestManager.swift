@@ -21,6 +21,7 @@ class RequestManager {
     var processPool = WKProcessPool()
 
     var isLoggedIn = false
+    var userId: String?
 
     private init() {}
 
@@ -128,11 +129,10 @@ class RequestManager {
             Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.deleteCookie(cookie)
             HTTPCookieStorage.shared.deleteCookie(cookie)
         }
-        Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?
-            .removeValue(forKey: AnyHashable("X-Sakai-Session"))
         Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeAll()
         SakaiService.shared.reset()
         processPool = WKProcessPool()
+        userId = nil
     }
 }
 
