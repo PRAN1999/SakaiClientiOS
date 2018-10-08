@@ -8,6 +8,6 @@
 import Foundation
 
 enum ReloadActions: String {
-    case reload = "reload"
+    case reload = "reload" 
     case reloadHome = "reloadHome"
 }
