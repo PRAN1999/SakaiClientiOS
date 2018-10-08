@@ -155,16 +155,6 @@ class WebController: UIViewController {
             }
         }
     }
-
-    func showSafariViewController(url: URL?) {
-        guard let url = url else {
-            return
-        }
-        let safariController = SFSafariViewController(url: url)
-        self.tabBarController?.present(safariController, animated: true, completion: { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
-        })
-    }
 }
 
 // MARK: WKUIDelegate and WKNavigationDelegate
