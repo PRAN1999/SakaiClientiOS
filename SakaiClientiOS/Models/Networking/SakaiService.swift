@@ -41,8 +41,8 @@ class SakaiService {
                 return
             }
             do {
-                let id = try decoder.decode(UserSession.self, from: data)
-                RequestManager.shared.userId = id.userEid
+                let session = try decoder.decode(UserSession.self, from: data)
+                RequestManager.shared.userId = session.userEid
                 onSuccess()
             } catch let decodingError {
                 onFailure(SakaiError.parseError(decodingError.localizedDescription))

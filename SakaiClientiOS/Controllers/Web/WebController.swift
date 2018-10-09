@@ -141,7 +141,13 @@ class WebController: UIViewController {
             return
         }
         interactionButton.isEnabled = false
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
+        let indicator = LoadingIndicator(view: self.view)
+        indicator.startAnimating()
         RequestManager.shared.downloadToDocuments(url: url) { [weak self] fileUrl in
+            indicator.stopAnimating()
+            indicator.removeFromSuperview()
+            self?.navigationItem.leftBarButtonItem?.isEnabled = true
             guard let fileUrl = fileUrl else {
                 return
             }
