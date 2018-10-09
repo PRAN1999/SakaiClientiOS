@@ -45,8 +45,8 @@ class LoginWebViewController: WebController {
         super.didReceiveMemoryWarning()
     }
 
-    /// Captures HTTP Cookies from specific URLs and loads them into Request Manager Session,
-    /// allowing all future requests to be authenticated.
+    /// Captures HTTP Cookies from specific URLs and loads them into Request Manager Session
+    /// Allows all future requests to be authenticated.
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationAction: WKNavigationAction,
                           decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

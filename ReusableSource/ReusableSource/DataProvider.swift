@@ -8,7 +8,9 @@
 
 import Foundation
 
-/// A provider to abstract the data source for a UITableViewDataSource or UICollectionViewDataSource by providing model objects for every indexPath and managing the data needed to populate the table/collection. Intended for use with ReusableSource
+/// A provider to abstract the data source for a UITableViewDataSource or UICollectionViewDataSource by providing
+/// model objects for every indexPath and managing the data needed to populate the table/collection. Intended for
+/// use with ReusableSource
 ///
 /// Also provides methods for number of data sections and number of data objects per section for direct interfacing from corresponding DataSource methods
 public protocol DataProvider {
@@ -24,7 +26,8 @@ public protocol DataProvider {
     /// - Returns: number of different sections in managed data
     func numberOfSections() -> Int
     
-    /// Returns the number of data objects for a specific section for corresponding UITableViewDataSource and UICollectionViewDataSource methods
+    /// Returns the number of data objects for a specific section for corresponding UITableViewDataSource and
+    /// UICollectionViewDataSource methods
     ///
     /// - Parameter section: The section of the tableView/collectionView requesting data
     /// - Returns: The number of items in a section
@@ -43,6 +46,7 @@ public protocol DataProvider {
     ///
     /// Often used in conjunction with DataFetcher in a NetworkSource, but does not have to be
     ///
-    /// - Parameter payload: An item of type V to load into DataProvider managed data - is often a nested Array of type T.
+    /// - Parameter payload: An item of type V to load into DataProvider managed data -
+    ///                      is often a nested Array of type T.
     func loadItems(payload: V)
 }

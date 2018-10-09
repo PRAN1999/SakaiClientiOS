@@ -12,7 +12,8 @@ import UIKit
 /// A delegate to respond to NetworkSource events, usually to configure changes to the UI
 public protocol NetworkSourceDelegate: class {
 
-    /// Execute tasks before networkSource begins data load and returns callback to execute immediately after load whether or not load is successful.
+    /// Execute tasks before networkSource begins data load and returns callback
+    /// to execute immediately after load whether or not load is successful.
     ///
     /// Can be used to add and remove ActivityIndicator from view
     ///

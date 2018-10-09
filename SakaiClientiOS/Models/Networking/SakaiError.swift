@@ -9,7 +9,8 @@ import Foundation
 
 /// An error type to handle errors with Sakai network requests or Sakai data parsing
 ///
-/// - networkError: a error to represent an error with an HTTP request. Constructed with a message detailing the error
+/// - networkError: a error to represent an error with an HTTP request. Constructed with a message
+///                 detailing the error
 /// - parseError: a error that occurs during the decoding of JSON data retrieved from Sakai
 /// - dispatchGroupError: a group of errors that occur when using a Dispatch Group to send out multiple requests
 indirect enum SakaiError: Error {

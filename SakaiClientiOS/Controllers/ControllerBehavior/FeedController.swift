@@ -9,8 +9,16 @@ import UIKit
 
 /// Describes UI behavior for views that present a feed of data
 ///
-/// i.e. AnnouncementController
+/// Used for AnnouncementController and SiteAnnouncementController
 @objc protocol FeedController {
+
+    /// Action to execute when scroll gesture is recognized
+    ///
+    /// For most implementations, calling
+    ///
+    ///     func setTabBarVisibility()
+    ///
+    /// will be sufficient to remove the tab bar and nav bar when scrolling
     @objc func swipeTarget()
 }
 
@@ -32,11 +40,13 @@ extension FeedController where Self: UIViewController {
         }
     }
     
+    /// Configure ViewController on appearance
     func addBarSwipeHider() {
         self.navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.barHideOnSwipeGestureRecognizer.addTarget(self, action: #selector(swipeTarget))
     }
     
+    /// Remove recognizers when transitioning from FeedController
     func removeBarSwipeHider() {
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.barHideOnSwipeGestureRecognizer.removeTarget(self, action: #selector(swipeTarget))

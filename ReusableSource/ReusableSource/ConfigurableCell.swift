@@ -9,7 +9,8 @@
 import Foundation
 
 
-/// A protocol for any UITableViewCell or UICollectionViewCell subclass to configure its views according to a model object at a certain indexPath
+/// A protocol for any UITableViewCell or UICollectionViewCell subclass to configure its views
+/// according to a model object at a certain indexPath
 public protocol ConfigurableCell: ReusableCell {
     
     /// The specified model type for the cell to configure itself with
@@ -18,7 +19,8 @@ public protocol ConfigurableCell: ReusableCell {
     /// Configure the cell accordingly based on the model associated with the specified indexPath
     ///
     /// - Parameters:
-    ///   - item: The model object to configure the cell with. It will be of type T, specific to each ConfigurableCell
+    ///   - item: The model object to configure the cell with. It will be of type T, specific to each
+    ///           ConfigurableCell
     ///   - indexPath: The IndexPath at which this cell will be displayed in a UITableView or UICollectionView
     func configure(_ item: T, at indexPath: IndexPath)
 }

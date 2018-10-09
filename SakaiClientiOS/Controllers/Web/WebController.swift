@@ -11,7 +11,9 @@ import SafariServices
 
 /// A WKWebView controller to display and navigate custom Sakai webpages and data.
 ///
-/// Should be used across app to display any web page or content
+/// Should be used across app to display any web page or content needing Sakai
+/// authentication cookies to access URL. Any non-Sakai link or insecure HTTP
+/// URL will be opened in SFSafariViewController instead
 class WebController: UIViewController {
 
     // MARK: Views
@@ -38,6 +40,7 @@ class WebController: UIViewController {
     var shouldLoad: Bool = true
     var needsNav: Bool = true
 
+    /// Manage SFSafariViewController presentation for insecure or non-sakai URL
     var openInSafari: ((URL?) -> Void)?
 
     required init?(coder aDecoder: NSCoder) {
@@ -49,6 +52,7 @@ class WebController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.hidesBottomBarWhenPushed = true
 
+        // default SFSafariViewController presentation method
         openInSafari = { [weak self] url in
             guard let url = url else {
                 return
@@ -65,6 +69,7 @@ class WebController: UIViewController {
         }
     }
 
+    /// Asssign WKWebView to view of ViewController
     override func loadView() {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = RequestManager.shared.processPool
@@ -111,6 +116,7 @@ class WebController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        // Set orientation to portrait if in landscape
         if self.isMovingFromParentViewController {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
@@ -135,6 +141,7 @@ class WebController: UIViewController {
 
     /// Download from URL and present DocumentInteractionController to act on downloaded file
     ///
+    /// Prevents leaving ViewController until Download has called back - for success or failure
     /// - Parameter url: the URL to download from
     func downloadAndPresentInteractionController(url: URL?) {
         guard let url = url else {
@@ -193,8 +200,11 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.progressView.isHidden = true
         }
-        // Remove distracting and unintuitive HTML elements from Sakai interface
+        // Prevent 3D-touch peek and show due to WebKit bug where view controller is dismissed twice
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
+
+        // Remove distracting and unintuitive HTML elements from Sakai interface
+        // This includes scrolling navigation bar and other cluttering elements
         webView.evaluateJavaScript("""
             $('.Mrphs-topHeader').remove();
             $('.Mrphs-siteHierarchy').remove();
@@ -228,6 +238,7 @@ fileprivate extension WebController {
         self.navigationController?.toolbar.tintColor = AppGlobals.sakaiRed
     }
 
+    /// Attach progress bar to navigation bar frame to track webView loads
     func setupProgressBar() {
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
@@ -240,6 +251,7 @@ fileprivate extension WebController {
                                     width: navigationBarBounds.size.width, height: 8)
     }
 
+    /// Configure navigation toolbar with webView action buttons
     func setupToolbar() {
         let backButtonImage = UIImage(named: "back_button")
         let forwardButtonImage = UIImage(named: "forward_button")
@@ -252,7 +264,7 @@ fileprivate extension WebController {
         self.setToolbarItems(arr, animated: true)
     }
 
-    /// Configure action sheet to present Download option for a file/URL
+    /// Configure action sheet to present Download and Open in Safari option for a file/URL
     func setupActionSheet() {
         let downloadAction = UIAlertAction(title: "Download", style: .default) { [weak self] (_) in
             self?.downloadAndPresentInteractionController(url: self?.url)

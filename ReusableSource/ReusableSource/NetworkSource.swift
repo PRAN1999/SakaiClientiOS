@@ -14,6 +14,7 @@ public protocol NetworkSource: class {
     /// The DataFetcher implementation type associated with the NetworkSource
     associatedtype Fetcher : DataFetcher
 
+    /// The delegate for the NetworkSource. MAKE SURE to mark it weak in implementation
     var delegate: NetworkSourceDelegate? { get set }
     
     /// An DataFetcher object used to retrieve data using HTTP requests

@@ -9,6 +9,11 @@ import ReusableSource
 
 /// A DataFetcher designed to work with HideableNetworkSource by loading data for a specific section
 protocol HideableDataFetcher: DataFetcher {
+    /// Load data by Term for a specific section
+    ///
+    /// - Parameters:
+    ///   - section: the section or Term to load data for
+    ///   - completion: callback to execute with fetched data
     func loadData(for section: Int, completion: @escaping (T?, Error?) -> Void)
 }
 
