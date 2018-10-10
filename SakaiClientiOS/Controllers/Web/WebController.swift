@@ -12,8 +12,8 @@ import SafariServices
 /// A WKWebView controller to display and navigate custom Sakai webpages and data.
 ///
 /// Should be used across app to display any web page or content needing Sakai
-/// authentication cookies to access URL. Any non-Sakai link or insecure HTTP
-/// URL will be opened in SFSafariViewController instead
+/// authentication cookies to access URL. Any insecure HTTP URL will be opened
+/// in SFSafariViewController instead
 class WebController: UIViewController {
 
     // MARK: Views
@@ -54,7 +54,7 @@ class WebController: UIViewController {
 
         // default SFSafariViewController presentation method
         openInSafari = { [weak self] url in
-            guard let url = url else {
+            guard let url = url, url.absoluteString.contains("http") else {
                 return
             }
             let safariController = SFSafariViewController(url: url)
@@ -179,8 +179,9 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
             decisionHandler(.cancel)
             return
         }
-        if !url.absoluteString.contains("https") || !url.absoluteString.contains("sakai.rutgers.edu") {
+        if !url.absoluteString.contains("https") {
             decisionHandler(.cancel)
+            print(url)
             openInSafari?(url)
             return
         }
