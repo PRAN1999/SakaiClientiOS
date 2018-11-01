@@ -44,6 +44,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.addBarSwipeHider()
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -51,6 +52,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         self.removeBarSwipeHider()
     }
 }

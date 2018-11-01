@@ -104,8 +104,8 @@ struct Term {
 
 // MARK: Comparable
 
-// Enforces Term compliance to Comparable protocol by comparing termInt and year to determine Term equality.
-// Any term with a nil year or termInt is considered the smallest possible Term value
+// Enforces Term compliance to Comparable protocol by comparing termInt and year to determine
+// Term equality. Any term with a nil year or termInt is considered the smallest possible Term value
 extension Term: Comparable {
     static func < (lhs: Term, rhs: Term) -> Bool {
         guard let lYear = lhs.year, let lTerm = lhs.termInt else {

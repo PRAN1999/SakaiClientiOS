@@ -32,7 +32,7 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         self.backgroundColor = AppGlobals.sakaiRed
 
         titleLabel = UILabel()
-        titleLabel.textColor = UIColor.black
+        titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
 
         self.isHidden = true

@@ -90,7 +90,8 @@ class AssignmentPageView: UIScrollView {
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: classLabel.topAnchor).isActive = true
         // Constrain titleLabel height to be 12% of view height
-        titleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.12).isActive = true
+        titleLabel.heightAnchor.constraint(lessThanOrEqualTo: contentView.heightAnchor, multiplier: 0.12).isActive = true
+        titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 50.0).isActive = true
 
         classLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         classLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Display a full page Assignment view
 class AssignmentPageController: UIViewController {
 
     var pageView: PageView<AssignmentPageView>!
