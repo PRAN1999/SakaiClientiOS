@@ -50,11 +50,13 @@ class AssignmentController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.navigationController?.setToolbarHidden(false, animated: true)
         self.navigationController?.toolbar.barTintColor = UIColor.black
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         self.navigationController?.setToolbarHidden(true, animated: true)
         self.navigationController?.toolbar.barTintColor = AppGlobals.defaultTint
     }

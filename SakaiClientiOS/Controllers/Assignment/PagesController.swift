@@ -14,8 +14,10 @@ class PagesController: UIViewController {
 
     var pageControl: UIPageControl!
     var pageControlView: UIView!
-    var pageController:UIPageViewController!
-    
+    var pageController: UIPageViewController!
+
+    // Even when the Assignment displayed changes, the popup controller instance will
+    // be the same but the popup URL will change
     var webController: WebController!
     var popupController: WebViewNavigationController!
     
@@ -28,6 +30,8 @@ class PagesController: UIViewController {
         super.viewDidLoad()
         initializeControllers()
         setPage(assignment: self.assignments[start], index: start)
+
+        // Configure the LNPopupController instance for the NavigationController
         setPopupURL(viewControllerIndex: start)
         webController.title = "DRAG TO SUBMIT"
         self.navigationController?.popupInteractionStyle = .default
@@ -46,6 +50,7 @@ class PagesController: UIViewController {
         pageControlView = UIView()
     }
     
+    /// Setup UI page control and full page container layout
     func setup() {
         guard let startPage = pages[start] else {
             return
@@ -77,20 +82,28 @@ class PagesController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
         self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.navigationController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         self.navigationController?.dismissPopupBar(animated: true, completion: nil)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    /// Set the data for the page controller. Used when constructing instance before transition
+    ///
+    /// - Parameters:
+    ///   - assignments: assignments to display in page controller
+    ///   - start: the assignment index to display on first transition
     func setAssignments(assignments: [Assignment], start: Int) {
         pages = [UIViewController?](repeating: nil, count: assignments.count)
         self.assignments = assignments
@@ -157,6 +170,12 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         }
     }
     
+    /// Create a controller for an Assignment page view and insert it into the
+    /// managed Assignment array for the page controller
+    ///
+    /// - Parameters:
+    ///   - assignment: the assignment to display in the newly constructed controller
+    ///   - index: the index of the Assignment in the Assignment model array
     func setPage(assignment: Assignment, index: Int) {
         let page = AssignmentPageController()
         page.assignment = assignment
@@ -173,7 +192,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         webController.shouldLoad = true
         webController.needsNav = false
         webController.openInSafari = { [weak self] url in
-            guard let url = url else {
+            guard let url = url, url.absoluteString.contains("http") else {
                 return
             }
             let safariController = SFSafariViewController(url: url)
