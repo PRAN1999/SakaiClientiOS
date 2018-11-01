@@ -46,4 +46,8 @@ class PersistenceManager {
         return persistedSites
     }
 
+    func updateSites(sites: [Site]) {
+        
+    }
+
 }

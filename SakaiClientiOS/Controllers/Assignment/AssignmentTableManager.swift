@@ -7,6 +7,14 @@
 
 import ReusableSource
 
+/// A data source and delegate for the Assignments tab
+///
+/// The AssignmentTableManager controls the Assignments for different classes and different Terms.
+/// Whether split by class or term, each cell in the tableView will contain a collection of classes
+/// associated with that class or Term.
+///
+/// So, while selecting the tableView cell will do nothing, the
+/// AssignmentTableManager handles the selection of any Assignment in the collectionView within any cell
 class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
     
     var lastSelectedIndex: Int?
@@ -39,6 +47,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         provider.dateSorted = false
     }
     
+    /// Switch data grouping between class and Term
     func switchSort() {
         provider.dateSorted = !provider.dateSorted
         reloadData()

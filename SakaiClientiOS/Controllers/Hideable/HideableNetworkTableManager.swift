@@ -7,7 +7,10 @@
 
 import ReusableSource
 
-/// A base HideableNetworkSource implementation that integrates section data load with UI interaction
+/// A base HideableNetworkSource implementation that integrates section data load with UI interaction.
+/// If a section has not been loaded, it will be loaded and then data will be shown. If data has been
+/// loaded for that section, it will function as it would for a HideableTableManager and will toggle
+/// whether or not data is shown or hidden
 class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: UITableViewCell & ConfigurableCell, Fetcher: HideableDataFetcher> : HideableTableManager<Provider, Cell>, HideableNetworkSource where Provider.T == Cell.T, Provider.V == Fetcher.T {
 
     weak var delegate: NetworkSourceDelegate?
@@ -23,6 +26,10 @@ class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: U
         return provider.numberOfItemsForHideableNetworkSection(section: section)
     }
     
+    /// If the section has not been loaded, load the tapped section, otherwise use the default
+    /// toggle in HideableTableManager
+    ///
+    /// - Parameter sender: the tapped header view
     @objc override func handleTap(sender: UITapGestureRecognizer) {
         let section = (sender.view?.tag)!
         guard let view = sender.view as? TermHeader else {

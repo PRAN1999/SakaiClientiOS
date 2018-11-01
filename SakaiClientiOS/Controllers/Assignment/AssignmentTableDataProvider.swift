@@ -8,6 +8,7 @@
 import ReusableSource
 import Foundation
 
+/// The data provider for the Assignments tab tableView
 class AssignmentTableDataProvider: HideableNetworkDataProvider {
     
     typealias T = [Assignment]
@@ -33,6 +34,12 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
         return assignments[section].count
     }
     
+    /// Depending on the type of sort requested, data will either be returned by
+    /// class or by Term, which is achieved by adding together the data of multiple
+    /// classes
+    ///
+    /// - Parameter indexPath: the indexPath for the cell
+    /// - Returns: an Assignment array for a cell
     func item(at indexPath: IndexPath) -> [Assignment]? {
         if dateSorted {
             if dateSortedAssignments[indexPath.section].count == 0 {
@@ -60,6 +67,7 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
         var res = payload
         var index = 0
         while index < res.count {
+            // If there are no Assignments for any single class, remove it from the data source
             if res[index].count == 0 {
                 res.remove(at: index)
                 index -= 1

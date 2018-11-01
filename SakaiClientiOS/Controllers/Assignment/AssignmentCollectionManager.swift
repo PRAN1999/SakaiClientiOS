@@ -7,6 +7,7 @@
 
 import ReusableSource
 
+/// Manages a collection of Assignments within a tableView cell. Can be scrolled horizontally
 class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataProvider<Assignment>, AssignmentCell> {
 
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
@@ -25,6 +26,11 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
         cell.tapRecognizer.addTarget(self, action: #selector(handleIndexTap(sender:)))
     }
     
+    /// Since textViews do not natively register taps, a custom recognizer was added to record
+    /// taps on the textView within the UICollectionViewCell and the indexPath of the cell that
+    /// was tapped.
+    ///
+    /// - Parameter sender: the custom tap recognizer added to an Assignment cell
     @objc func handleIndexTap(sender: Any) {
         guard let recognizer = sender as? IndexRecognizer else {
             return

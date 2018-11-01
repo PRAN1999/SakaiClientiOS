@@ -11,8 +11,19 @@ import ReusableSource
 /// Only current usage is with HideableNetworkTableManager
 protocol HideableNetworkSource: NetworkSource where Self.Fetcher: HideableDataFetcher {
 
+    /// Once section data has been returned from the network request, perform
+    /// some action whether or not data load was successful
+    ///
+    /// - Parameter section: the section being loaded
+    /// - Returns: no return value
     func handleSectionLoad(forSection section: Int)
 
+    /// Loads data for the specified Term into the data source
+    ///
+    /// - Parameters:
+    ///   - payload: the data to load
+    ///   - section: the Term or section for the payload
+    /// - Returns: No return value
     func populateDataSource(with payload: Fetcher.T, forSection section: Int)
 
     /// Load data for a specific section or Term
@@ -25,6 +36,8 @@ protocol HideableNetworkSource: NetworkSource where Self.Fetcher: HideableDataFe
 }
 
 extension HideableNetworkSource {
+
+    // Default implementation for loadDataSource(for:, completion:)
 
     func loadDataSource(for section: Int, completion: (() -> Void)?) {
         fetcher.loadData(for: section) { [weak self] res, err in

@@ -13,10 +13,10 @@ import Foundation
 ///                 detailing the error
 /// - parseError: a error that occurs during the decoding of JSON data retrieved from Sakai
 /// - dispatchGroupError: a group of errors that occur when using a Dispatch Group to send out multiple requests
-indirect enum SakaiError: Error {
+enum SakaiError: Error {
     case networkError(String)
     case parseError(String)
-    case dispatchGroupError([SakaiError])
+    indirect case dispatchGroupError([SakaiError])
 }
 
 // MARK: LocalizedError extension
