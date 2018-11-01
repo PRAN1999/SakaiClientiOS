@@ -44,8 +44,8 @@ struct Site: Decodable, TermSortable {
 
 extension Site {
     
-    /// Sorts and splits an array of T:SiteSortable items by siteid and returns a 2-dimensional array of T where
-    /// each sub-array represents the items for a specific Site
+    /// Sorts and splits an array of T:SiteSortable items by siteid and returns a [[T]] object
+    /// where each sub-array represents the items for a specific Site
     ///
     /// - Parameter listToSort: The [T:SiteSortable] array that needs to be sorted by Site
     ///

@@ -45,6 +45,7 @@
 		5159154D216ADDF600D3730E /* PersistedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159154C216ADDF600D3730E /* PersistedSite.swift */; };
 		5159154F216ADED400D3730E /* PersistedSitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159154E216ADED400D3730E /* PersistedSitePage.swift */; };
 		51591572216AE6C100D3730E /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51591571216AE6C100D3730E /* PersistenceManager.swift */; };
+		517201C4218B6C0F00754533 /* SakaiClientiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517201C3218B6C0F00754533 /* SakaiClientiOSTests.swift */; };
 		517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
 		517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
@@ -124,6 +125,16 @@
 		DE059A031DFD93B200D19D17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		517201C6218B6C0F00754533 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE0599ED1DFD93B100D19D17 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE0599F41DFD93B100D19D17;
+			remoteInfo = SakaiClientiOS;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		517F378A20E01AED00B21D5A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -177,6 +188,9 @@
 		5159154C216ADDF600D3730E /* PersistedSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedSite.swift; sourceTree = "<group>"; };
 		5159154E216ADED400D3730E /* PersistedSitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedSitePage.swift; sourceTree = "<group>"; };
 		51591571216AE6C100D3730E /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		517201C1218B6C0F00754533 /* SakaiClientiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SakaiClientiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		517201C3218B6C0F00754533 /* SakaiClientiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakaiClientiOSTests.swift; sourceTree = "<group>"; };
+		517201C5218B6C0F00754533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		517F378420E019D900B21D5A /* LNPopupController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		5182CBC921383ECF00D45952 /* HideableNetworkTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideableNetworkTableManager.swift; sourceTree = "<group>"; };
@@ -262,6 +276,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		517201BE218B6C0F00754533 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE0599F21DFD93B100D19D17 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -371,6 +392,15 @@
 				51591571216AE6C100D3730E /* PersistenceManager.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		517201C2218B6C0F00754533 /* SakaiClientiOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				517201C3218B6C0F00754533 /* SakaiClientiOSTests.swift */,
+				517201C5218B6C0F00754533 /* Info.plist */,
+			);
+			path = SakaiClientiOSTests;
 			sourceTree = "<group>";
 		};
 		5182CBD12139A46100D45952 /* Networking */ = {
@@ -562,6 +592,7 @@
 			isa = PBXGroup;
 			children = (
 				DE0599F71DFD93B200D19D17 /* SakaiClientiOS */,
+				517201C2218B6C0F00754533 /* SakaiClientiOSTests */,
 				DE0599F61DFD93B200D19D17 /* Products */,
 				6A04DF0725D71CF9D407734A /* Frameworks */,
 				371C1CBF0DA3822EA369319A /* Pods */,
@@ -572,6 +603,7 @@
 			isa = PBXGroup;
 			children = (
 				DE0599F51DFD93B200D19D17 /* SakaiClientiOS.app */,
+				517201C1218B6C0F00754533 /* SakaiClientiOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -595,6 +627,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		517201C0218B6C0F00754533 /* SakaiClientiOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 517201CA218B6C0F00754533 /* Build configuration list for PBXNativeTarget "SakaiClientiOSTests" */;
+			buildPhases = (
+				517201BD218B6C0F00754533 /* Sources */,
+				517201BE218B6C0F00754533 /* Frameworks */,
+				517201BF218B6C0F00754533 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				517201C7218B6C0F00754533 /* PBXTargetDependency */,
+			);
+			name = SakaiClientiOSTests;
+			productName = SakaiClientiOSTests;
+			productReference = 517201C1218B6C0F00754533 /* SakaiClientiOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DE0599F41DFD93B100D19D17 /* SakaiClientiOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE059A071DFD93B200D19D17 /* Build configuration list for PBXNativeTarget "SakaiClientiOS" */;
@@ -621,10 +671,14 @@
 		DE0599ED1DFD93B100D19D17 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
+					517201C0218B6C0F00754533 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = DE0599F41DFD93B100D19D17;
+					};
 					DE0599F41DFD93B100D19D17 = {
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
@@ -650,11 +704,19 @@
 			projectRoot = "";
 			targets = (
 				DE0599F41DFD93B100D19D17 /* SakaiClientiOS */,
+				517201C0218B6C0F00754533 /* SakaiClientiOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		517201BF218B6C0F00754533 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE0599F31DFD93B100D19D17 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -715,6 +777,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		517201BD218B6C0F00754533 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				517201C4218B6C0F00754533 /* SakaiClientiOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE0599F11DFD93B100D19D17 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -825,6 +895,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		517201C7218B6C0F00754533 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE0599F41DFD93B100D19D17 /* SakaiClientiOS */;
+			targetProxy = 517201C6218B6C0F00754533 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		DE0599FC1DFD93B200D19D17 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -845,6 +923,81 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		517201C8218B6C0F00754533 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B9QTN8GJXZ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = SakaiClientiOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = PN.SakaiClientiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SakaiClientiOS.app/SakaiClientiOS";
+			};
+			name = Debug;
+		};
+		517201C9218B6C0F00754533 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B9QTN8GJXZ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = SakaiClientiOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = PN.SakaiClientiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SakaiClientiOS.app/SakaiClientiOS";
+			};
+			name = Release;
+		};
 		DE059A051DFD93B200D19D17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -990,6 +1143,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		517201CA218B6C0F00754533 /* Build configuration list for PBXNativeTarget "SakaiClientiOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				517201C8218B6C0F00754533 /* Debug */,
+				517201C9218B6C0F00754533 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DE0599F01DFD93B100D19D17 /* Build configuration list for PBXProject "SakaiClientiOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

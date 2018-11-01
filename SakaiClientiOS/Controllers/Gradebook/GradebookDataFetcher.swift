@@ -8,6 +8,7 @@
 import Foundation
 import ReusableSource
 
+/// The data fetcher for the Gradebook tab. Fetches gradebook data by Term as requested
 class GradebookDataFetcher : HideableDataFetcher {
     typealias T = [[GradeItem]]
     

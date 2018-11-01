@@ -9,6 +9,7 @@ import ReusableSource
 
 /// A DataFetcher designed to work with HideableNetworkSource by loading data for a specific section
 protocol HideableDataFetcher: DataFetcher {
+
     /// Load data by Term for a specific section
     ///
     /// - Parameters:

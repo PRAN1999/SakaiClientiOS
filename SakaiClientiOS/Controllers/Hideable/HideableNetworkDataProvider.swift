@@ -13,11 +13,20 @@ import ReusableSource
 protocol HideableNetworkDataProvider: HideableDataProvider {
     var hasLoaded: [Bool] { get set }
     
+    /// Load data into the data source for the specified section
+    ///
+    /// Use this method after retrieving data with a DataFetcher to load data
+    /// into the data source
+    ///
+    /// - Parameters:
+    ///   - payload: the fetched data
+    ///   - section: the section to load
     func loadItems(payload: V, for section: Int)
 }
 
 extension HideableNetworkDataProvider {
-    
+
+    /// Helper method to be used by numberOfRows method impl.
     func numberOfItemsForHideableNetworkSection(section: Int) -> Int {
         if section < hasLoaded.count && !hasLoaded[section] {
             return 0
