@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import SakaiClientiOS
 
 class SakaiClientiOSTests: XCTestCase {
 

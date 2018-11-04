@@ -35,6 +35,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
             cell.titleLabel.text = "All Assignments"
         }
         cell.manager.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
+            // keep track of selected index within collectionView
             self.lastSelectedIndex = cellIndexPath.row
             self.selectedAt.call(indexPath)
         }

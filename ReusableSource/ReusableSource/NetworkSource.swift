@@ -20,8 +20,12 @@ public protocol NetworkSource: class {
     /// An DataFetcher object used to retrieve data using HTTP requests
     var fetcher : Fetcher { get }
 
+    /// Executed before fetching and loading data
     func prepareDataSourceForLoad()
     
+    /// If data is successfully fetched, loads data into the data source
+    ///
+    /// - Parameter payload: data to load
     func populateDataSource(with payload: Fetcher.T)
 
     /// Fetch data using a data fetcher and load it into the associated data source

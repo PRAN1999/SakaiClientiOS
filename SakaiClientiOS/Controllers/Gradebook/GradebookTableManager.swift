@@ -8,6 +8,8 @@
 import UIKit
 import ReusableSource
 
+/// An abstraction to manage the data source and delegate for the Gradebook tab. Divides grades
+/// by Term and further subdivides by class
 class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
     var headerCell: FloatingHeaderCell!
@@ -30,7 +32,9 @@ class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider,
         }
         
         let subsectionIndex = provider.getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
-        
+
+        // If the subsection index is 0, the cell is a class header. Otherwise, it is a regular
+        // grade item
         if subsectionIndex.row == 0 {
             return getSiteTitleCell(tableView: tableView, indexPath: indexPath, subsection: subsectionIndex.section)
         } else {
@@ -38,7 +42,14 @@ class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider,
         }
     }
     
-    func getSiteTitleCell(tableView:UITableView, indexPath: IndexPath, subsection:Int) -> UITableViewCell {
+    /// Construct a class title cell to separate classes within a Term section using the given subsection
+    ///
+    /// - Parameters:
+    ///   - tableView: the tableView being constructed
+    ///   - indexPath: the "true" indexPath of the cell
+    ///   - subsection: the location of the data as managed by the GradebookDataProvider
+    /// - Returns: a cell containing a class title
+    func getSiteTitleCell(tableView: UITableView, indexPath: IndexPath, subsection:Int) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
             fatalError("Not a site cell")
         }
@@ -52,6 +63,7 @@ class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider,
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Construct a sticky header to display which class's grades are currently being scrolled
         let point = CGPoint(x: 0, y: tableView.contentOffset.y)
         guard let topIndex = tableView.indexPathForRow(at: point) else {
             hideHeaderCell()

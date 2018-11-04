@@ -36,12 +36,12 @@ class AnnouncementController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.addBarSwipeHider()
+        //self.addBarSwipeHider()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.removeBarSwipeHider()
+        //self.removeBarSwipeHider()
     }
 
     override func didReceiveMemoryWarning() {

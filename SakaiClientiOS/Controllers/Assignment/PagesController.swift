@@ -183,6 +183,10 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         pages[index] = page
     }
     
+    /// When transitioning from one Assignment page to the next, the URL for the current
+    /// Assignment is assigned to the WebController contained in the popup bar
+    ///
+    /// - Parameter viewControllerIndex: the index of the current Assignment
     func setPopupURL(viewControllerIndex: Int) {
         let assignment = assignments[viewControllerIndex]
         guard let url = assignment.siteURL else {
