@@ -62,7 +62,7 @@ class AssignmentPageView: UIScrollView {
         contentView.addSubview(statusLabel)
         contentView.addSubview(pointsLabel)
         contentView.addSubview(dueLabel)
-        contentView.addSubview(gradeLabel)
+        //contentView.addSubview(gradeLabel)
         contentView.addSubview(submissionLabel)
         contentView.addSubview(instructionView)
         contentView.addSubview(attachmentsView)
@@ -78,7 +78,7 @@ class AssignmentPageView: UIScrollView {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         pointsLabel.translatesAutoresizingMaskIntoConstraints = false
         dueLabel.translatesAutoresizingMaskIntoConstraints = false
-        gradeLabel.translatesAutoresizingMaskIntoConstraints = false
+        //gradeLabel.translatesAutoresizingMaskIntoConstraints = false
         submissionLabel.translatesAutoresizingMaskIntoConstraints = false
         instructionView.translatesAutoresizingMaskIntoConstraints = false
         attachmentsView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,11 +107,11 @@ class AssignmentPageView: UIScrollView {
 
         dueLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         dueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        dueLabel.bottomAnchor.constraint(equalTo: gradeLabel.topAnchor).isActive = true
+        dueLabel.bottomAnchor.constraint(equalTo: submissionLabel.topAnchor).isActive = true
 
-        gradeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        gradeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        gradeLabel.bottomAnchor.constraint(equalTo: submissionLabel.topAnchor).isActive = true
+//        gradeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        gradeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        gradeLabel.bottomAnchor.constraint(equalTo: submissionLabel.topAnchor).isActive = true
 
         submissionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         submissionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true

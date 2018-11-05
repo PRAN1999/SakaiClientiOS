@@ -36,7 +36,7 @@ class HomeController: UITableViewController {
         configureNavigationItem()
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
         setupLogoutController()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentLogoutController))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "logout"), style: .plain, target: self, action: #selector(presentLogoutController))
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil)
 
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
