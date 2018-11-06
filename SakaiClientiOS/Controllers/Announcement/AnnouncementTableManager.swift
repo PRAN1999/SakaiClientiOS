@@ -11,10 +11,9 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
 
     typealias Fetcher = AnnouncementDataFetcher
 
+    var isLoading = false
     weak var delegate: NetworkSourceDelegate?
-    
-    static let filterOptions = [("One Week", 7), ("One Month", 30), ("Six Months", 180), ("One Year", 365), ("Two Years", 730), ("Four Years", 1460)]
-    
+
     var fetcher: AnnouncementDataFetcher
     
     convenience init(tableView: UITableView) {
@@ -31,7 +30,8 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
             return UITableViewCell()
         }
         
-        if indexPath.row == provider.lastIndex() && fetcher.moreLoads {
+        if indexPath.row >= provider.lastIndex() - 10 && fetcher.moreLoads && !isLoading {
+            isLoading = true
             loadMoreData()
         }
         
@@ -56,14 +56,17 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
             DispatchQueue.main.async {
                 guard err == nil else {
                     self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
+                    self?.isLoading = false
                     return
                 }
                 spinner.stopAnimating()
                 guard let items = announcements else {
+                    self?.isLoading = false
                     return
                 }
                 self?.loadItems(payload: items)
                 self?.reloadData()
+                self?.isLoading = false
             }
         })
     }
@@ -75,14 +78,6 @@ extension AnnouncementTableManager {
             return fetcher.siteId
         } set {
             fetcher.siteId = newValue
-        }
-    }
-    
-    var daysBack: Int {
-        get {
-            return fetcher.daysBack
-        } set {
-            fetcher.daysBack = newValue
         }
     }
 }

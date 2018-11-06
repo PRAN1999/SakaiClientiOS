@@ -12,8 +12,8 @@ struct ResourceItem: Decodable {
 
     /// A model for the type of resource being represented
     ///
-    /// - collection: A collection or folder of individual files or more collections. Contains the total size of the
-    /// subtree
+    /// - collection: A collection or folder of individual files or more collections. Contains the total
+    ///               size of the subtree
     /// - resource: An individual resource file
     enum ContentType {
         case collection(Int)

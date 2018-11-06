@@ -8,9 +8,9 @@
 
 import Foundation
 
-/// A provider to abstract the data source for a UITableViewDataSource or UICollectionViewDataSource by providing
-/// model objects for every indexPath and managing the data needed to populate the table/collection. Intended for
-/// use with ReusableSource
+/// A provider to abstract the data source for a UITableViewDataSource or UICollectionViewDataSource by
+/// providing model objects for every indexPath and managing the data needed to populate the table/
+/// collection. Intended for use with ReusableSource
 ///
 /// Also provides methods for number of data sections and number of data objects per section for direct interfacing from corresponding DataSource methods
 public protocol DataProvider {
