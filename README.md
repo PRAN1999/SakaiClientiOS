@@ -20,5 +20,4 @@ If there are any issues with building the project, try reinstalling the CocoaPod
     pod clean
     pod install
       
-from your root directory in Terminal. If issues persist after that, shoot us an email at [rutgerssakaiapp@gmail.com](rutgerssakaiapp@gmail.com) and we'll do our best to help you out.
-
+from your root directory in Terminal. If issues persist after that, shoot us an email at rutgerssakaiapp@gmail.com and we'll do our best to help you out.
