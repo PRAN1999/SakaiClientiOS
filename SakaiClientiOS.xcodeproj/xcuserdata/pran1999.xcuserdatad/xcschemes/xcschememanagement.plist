@@ -9,6 +9,16 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>SakaiClientiOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>SakaiClientiOSTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>SakaiRequests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -22,6 +32,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>517201C0218B6C0F00754533</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DE0599F41DFD93B100D19D17</key>
 		<dict>
 			<key>primary</key>
