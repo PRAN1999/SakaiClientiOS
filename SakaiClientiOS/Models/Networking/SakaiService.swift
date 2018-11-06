@@ -19,6 +19,11 @@ class SakaiService {
     var siteAssignmentToolMap: [String: String] = [:]
     var termMap: [(Term, [String])] = []
 
+    var allAnnouncements: [Announcement]?
+    var siteAnnouncements: [String: [Announcement]] = [:]
+
+    let announcementLimit = 100000
+
     private init() {
     }
 
@@ -28,6 +33,8 @@ class SakaiService {
         siteTitleMap = [:]
         siteAssignmentToolMap = [:]
         termMap = []
+        allAnnouncements = nil
+        siteAnnouncements = [:]
     }
 
     // MARK: Authentication Validator
@@ -169,7 +176,12 @@ class SakaiService {
             getSiteGrades(siteId: site) { res, err in
                 DispatchQueue.global().async {
                     if let err = err {
-                        errors.append(err)
+                        switch err {
+                        case .networkError( _, let code):
+                            if code == 400 { break }
+                        default:
+                            errors.append(err)
+                        }
                     }
                     if let response = res {
                         termGradeArray.append(response)
@@ -289,30 +301,44 @@ class SakaiService {
     // MARK: Announcement Service
 
 
-    /// Requests announcement data and retrieves the Announcement feed for a user based on a specific offset and limit
-    /// and determines if there is more data to load from server.
+    /// Requests announcement data and retrieves the Announcement feed for a user based on a specific
+    /// offset and limit and determines if there is more data to load from server.
     ///
     /// **Example**:
     ///
-    /// A request with offset=100 and limit=150 will retrieve **50** announcements from announcement #100 to the end of the
-    /// retrieved list
+    /// A request with offset=100 and limit=150 will retrieve **50** announcements from announcement
+    /// #100 to the end of the retrieved list
     ///
     /// - Parameters:
     ///   - offset: the number of Announcement objects to skip
-    ///   - limit: a hard limit on how many Announcements can be requested from the server
-    ///   - daysBack: the limit on how far back Announcements should be retrieved
+    ///   - limit: a limit on the max number of Announcements to retrieve
     ///   - siteId: an optional identifier for a requested Site. If nil, the user's entire
     ///     Announcement history will be parsed
-    ///   - completion: the completion handler called with a list of Announcements, a flag indicating if
-    ///     there is more data and an optional SakaiError
-    func getAllAnnouncements(offset: Int, limit: Int, daysBack: Int, siteId: String? = nil,
+    ///   - completion: the completion handler called with a list of Announcements, a flag indicating
+    ///     if there is more data and an optional SakaiError
+    func getAllAnnouncements(offset: Int, limit: Int, siteId: String? = nil,
                              completion: @escaping ([Announcement]?, Bool, SakaiError?) -> Void) {
-        var url = SakaiEndpoint.announcements(limit, daysBack).getEndpoint()
+        var list: [Announcement]? = nil
+        var url = SakaiEndpoint.announcements(announcementLimit, announcementLimit).getEndpoint()
         if let siteId = siteId {
-            // If the siteId is not nil, change the endpoint to request data for a specific Site
-            url = SakaiEndpoint.siteAnnouncements(siteId, limit, daysBack).getEndpoint()
+            url = SakaiEndpoint.siteAnnouncements(siteId, announcementLimit, announcementLimit).getEndpoint()
+            list = siteAnnouncements[siteId]
+        } else {
+            list = allAnnouncements
         }
-        RequestManager.shared.makeRequest(url: url, method: .get) { data, err in
+        if let list = list {
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                let announcementList = self?.retrieveAnnouncementSection(list: list, offset: offset, limit: limit)
+                if announcementList == nil {
+                    completion(nil, false, nil)
+                } else {
+                    completion(announcementList, true, nil)
+                }
+            }
+            return
+        }
+
+        RequestManager.shared.makeRequest(url: url, method: .get) { [weak self] data, err in
             guard err == nil, let data = data else {
                 completion(nil, false, err)
                 return
@@ -323,26 +349,41 @@ class SakaiService {
 
             do {
                 let rawCollection = try decoder.decode(AnnouncementCollection.self, from: data)
-                var collection = rawCollection.announcementCollection
+                let collection = rawCollection.announcementCollection
+                if siteId != nil {
+                    self?.siteAnnouncements[siteId!] = rawCollection.announcementCollection
+                } else {
+                    self?.allAnnouncements = rawCollection.announcementCollection
+                }
 
-                if offset >= collection.count {
+                let announcementList = self?.retrieveAnnouncementSection(list: collection, offset: offset, limit: limit)
+
+                if announcementList == nil {
                     completion(nil, false, nil)
-                    return
+                } else {
+                    completion(announcementList, true, nil)
                 }
-
-                var announcementList: [Announcement] = [Announcement]()
-                var start = offset
-                while start < collection.count {
-                    collection[start].setAttributedContent()
-                    announcementList.append(collection[start])
-                    start += 1
-                }
-                completion(announcementList, true, nil)
-
             } catch let error {
                 completion(nil, false, SakaiError.parseError(error.localizedDescription))
             }
         }
+    }
+
+    private func retrieveAnnouncementSection(list: [Announcement], offset: Int, limit: Int) -> [Announcement]? {
+        if offset >= list.count {
+            return nil
+        }
+        var announcements = list
+        var announcementList: [Announcement] = []
+        var start = offset
+        var count = 0
+        while count < limit && start < announcements.count {
+            announcements[start].setAttributedContent()
+            announcementList.append(announcements[start])
+            start += 1
+            count += 1
+        }
+        return announcementList
     }
 
     // MARK: Resource Service

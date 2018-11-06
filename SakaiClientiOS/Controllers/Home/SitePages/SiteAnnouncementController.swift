@@ -12,6 +12,8 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
     var siteId: String?
     var siteUrl: String?
     var pageTitle: String?
+
+    var dateActionSheet: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()

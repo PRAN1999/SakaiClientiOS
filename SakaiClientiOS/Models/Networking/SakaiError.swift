@@ -14,7 +14,7 @@ import Foundation
 /// - parseError: a error that occurs during the decoding of JSON data retrieved from Sakai
 /// - dispatchGroupError: a group of errors that occur when using a Dispatch Group to send out multiple requests
 enum SakaiError: Error {
-    case networkError(String)
+    case networkError(String, Int?)
     case parseError(String)
     indirect case dispatchGroupError([SakaiError])
 }
@@ -25,7 +25,7 @@ enum SakaiError: Error {
 extension SakaiError: LocalizedError {
     var errorDescription: String? {
         switch self {
-        case .networkError(let message):
+        case .networkError(let message, _):
             return NSLocalizedString("Network Error: \(message)", comment: "Network Error Description")
         case .parseError(let message):
             return NSLocalizedString("Parse Error: \(message)", comment: "Parse Error Description")

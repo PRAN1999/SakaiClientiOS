@@ -40,7 +40,7 @@ class RequestManager {
         Alamofire.SessionManager.default
             .request(url, method: method, parameters: parameters).validate().responseJSON { response in
                 if let error = response.error {
-                    completion(nil, SakaiError.networkError(error.localizedDescription))
+                    completion(nil, SakaiError.networkError(error.localizedDescription, response.response?.statusCode))
                     return
                 }
                 guard let data = response.data else {
@@ -56,8 +56,8 @@ class RequestManager {
                                  completion: @escaping (_ data: Data?, _ err: SakaiError?) -> Void) {
         Alamofire.SessionManager.default.requestWithoutCache(url, method: .get).validate()
             .responseJSON { response in
-                if let error = response.error {
-                    completion(nil, SakaiError.networkError(error.localizedDescription))
+                if let error = response.error  {
+                    completion(nil, SakaiError.networkError(error.localizedDescription, response.response?.statusCode))
                     return
                 }
                 guard let data = response.data else {
