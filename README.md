@@ -6,8 +6,8 @@ This repo is for a mobile client for Rutgers Sakai on iOS (Android: https://gith
 ## Current App Status: 
 Beta Testing
 
-## Downloading and compiling
-If you'd to compile and run the source code yourself, you can do so on any Mac machine. The dependencies are included in the repo, so you should be able to compile without issue. Run the following commands:
+## Setting up Dev Environment
+If you'd like to compile and run the source code yourself, you can do so on any Mac machine. The dependencies are included in the repo, so you should be able to compile without issue. Run the following commands:
 
     git clone https://github.com/PRAN1999/SakaiClientiOS.git
     cd SakaiClientiOS
