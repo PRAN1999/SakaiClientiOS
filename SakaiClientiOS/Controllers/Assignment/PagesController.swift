@@ -193,8 +193,8 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
             return
         }
         webController.setURL(url: URL(string: url)!)
-        webController.shouldLoad = true
         webController.needsNav = false
+        webController.shouldLoad = true
         webController.openInSafari = { [weak self] url in
             guard let url = url, url.absoluteString.contains("http") else {
                 return
