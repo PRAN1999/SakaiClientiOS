@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UIApplication.shared.setMinimumBackgroundFetchInterval(9000)
         return true
     }
 
@@ -111,6 +112,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if RequestManager.shared.loadCookiesFromUserDefaults() {
+            SakaiService.shared.validateLoggedInStatus(onSuccess: {
+                RequestManager.shared.loadCookiesIntoUserDefaults()
+                completionHandler(.newData)
+            }) { err in
+                UserDefaults.standard.set(nil, forKey: RequestManager.savedCookiesKey)
+                completionHandler(.failed)
+            }
+        } else {
+            completionHandler(.noData)
         }
     }
 }

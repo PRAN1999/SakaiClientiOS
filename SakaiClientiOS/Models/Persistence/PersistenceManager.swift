@@ -49,5 +49,4 @@ class PersistenceManager {
     func updateSites(sites: [Site]) {
         
     }
-
 }

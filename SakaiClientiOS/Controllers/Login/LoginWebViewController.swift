@@ -50,10 +50,9 @@ class LoginWebViewController: WebController {
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationAction: WKNavigationAction,
                           decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if webView.url!.absoluteString == AppGlobals.cookieUrl1 ||
-            webView.url!.absoluteString == AppGlobals.cookieUrl2 {
+        if webView.url!.absoluteString == AppGlobals.cookieUrl {
             let store = WKWebsiteDataStore.default().httpCookieStore
-            store.getAllCookies { (cookies) in
+            store.getAllCookies { [weak self] cookies in
                 for cookie in cookies {
                     HTTPCookieStorage.shared.setCookie(cookie as HTTPCookie)
                     RequestManager.shared.addCookie(cookie: cookie)
@@ -69,15 +68,23 @@ class LoginWebViewController: WebController {
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationResponse: WKNavigationResponse,
                           decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        if webView.url!.absoluteString == AppGlobals.cookieUrl2 {
+        if webView.url!.absoluteString == AppGlobals.cookieUrl {
             decisionHandler(.cancel)
             SakaiService.shared.validateLoggedInStatus(
                 onSuccess: { [weak self] in
                     self?.onLogin?()
+                    UserDefaults.standard.set(RequestManager.shared.cookieArray, forKey: RequestManager.savedCookiesKey)
                 },
                 onFailure: { [weak self] err in
+                    WKWebsiteDataStore.default().httpCookieStore.getAllCookies({ cookies in
+                        cookies.forEach { cookie in
+                            WKWebsiteDataStore.default().httpCookieStore.delete(cookie, completionHandler: nil)
+                        }
+                    })
+                    RequestManager.shared.clearCookies()
                     self?.loadWebview()
-                })
+                }
+            )
         } else {
             decisionHandler(.allow)
         }
