@@ -39,6 +39,21 @@ class HomeController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "logout"), style: .plain, target: self, action: #selector(presentLogoutController))
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil)
 
+        if RequestManager.shared.loadCookiesFromUserDefaults() {
+            SakaiService.shared.validateLoggedInStatus(
+                onSuccess: { [weak self] in
+                    self?.loadData()
+                }, onFailure: { [weak self] err in
+                    self?.performLoginFlow()
+                }
+            )
+            return
+        }
+
+        performLoginFlow()
+    }
+
+    func performLoginFlow() {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController else {
             return

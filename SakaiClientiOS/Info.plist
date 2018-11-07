@@ -22,6 +22,10 @@
 	<string>4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+    </array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

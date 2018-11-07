@@ -15,11 +15,13 @@ class RequestManager {
 
     static let shared = RequestManager()
 
+    static let savedCookiesKey = "savedCookies"
+
     /// The process pool to be shared by all WKWebView's opened in app.
     ///
     /// This shares cookies and headers needed for Sakai Authentication
     var processPool = WKProcessPool()
-
+    var cookieArray: [[HTTPCookiePropertyKey: Any]] = []
     var isLoggedIn = false
     var userId: String?
 
@@ -88,6 +90,9 @@ class RequestManager {
     /// - Parameter cookie: The HTTP cookie to add to the Alamofire Session
     func addCookie(cookie: HTTPCookie) {
         Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
+        if let properties = cookie.properties {
+            cookieArray.append(properties)
+        }
     }
 
     /// Ends Sakai session by resetting Alamofire Session and uses main thread to reroute app control to
@@ -124,15 +129,47 @@ class RequestManager {
     /// WKProcessPool, siteTitleMap, and siteTermMap
     func reset() {
         resetCache()
-        let cookies: [HTTPCookie]! = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies
+        SakaiService.shared.reset()
+        processPool = WKProcessPool()
+        userId = nil
+        clearCookies()
+    }
+
+    func clearCookies() {
+        guard let cookies = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies else {
+            return
+        }
         for cookie in cookies {
             Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.deleteCookie(cookie)
             HTTPCookieStorage.shared.deleteCookie(cookie)
         }
-        Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders?.removeAll()
-        SakaiService.shared.reset()
-        processPool = WKProcessPool()
-        userId = nil
+        cookieArray = []
+        UserDefaults.standard.set(nil, forKey: RequestManager.savedCookiesKey)
+    }
+
+    func loadCookiesFromUserDefaults() -> Bool {
+        guard let cookieArray = UserDefaults.standard.array(forKey: RequestManager.savedCookiesKey) as? [[HTTPCookiePropertyKey: Any]] else { return false }
+        for properties in cookieArray {
+            guard let cookie = HTTPCookie(properties: properties) else {
+                continue
+            }
+            HTTPCookieStorage.shared.setCookie(cookie)
+            addCookie(cookie: cookie)
+        }
+        return true
+    }
+
+    func loadCookiesIntoUserDefaults() {
+        guard let cookies = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies else {
+            return
+        }
+        var arr: [[HTTPCookiePropertyKey: Any]] = []
+        for cookie in cookies {
+            if let props = cookie.properties {
+                arr.append(props)
+            }
+        }
+        UserDefaults.standard.set(arr, forKey: RequestManager.savedCookiesKey)
     }
 }
 
