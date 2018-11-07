@@ -171,6 +171,10 @@ class RequestManager {
         }
         UserDefaults.standard.set(arr, forKey: RequestManager.savedCookiesKey)
     }
+
+    func getCookies() -> [HTTPCookie]? {
+        return Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies
+    }
 }
 
 extension Alamofire.SessionManager {

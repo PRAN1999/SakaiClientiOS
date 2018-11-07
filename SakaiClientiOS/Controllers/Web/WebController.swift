@@ -18,7 +18,7 @@ class WebController: UIViewController {
 
     // MARK: Views
 
-    private var webView: WKWebView!
+    var webView: WKWebView!
     private var progressView: UIProgressView!
 
     // MARK: Navigation and toolbar items
@@ -37,6 +37,7 @@ class WebController: UIViewController {
 
     private var url: URL?
 
+    private var didInitialize = false
     var shouldLoad: Bool = true
     var needsNav: Bool = true
 
@@ -69,30 +70,50 @@ class WebController: UIViewController {
         }
     }
 
-    /// Asssign WKWebView to view of ViewController
-    override func loadView() {
+    override func viewDidLoad() {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = RequestManager.shared.processPool
-        webView = WKWebView(frame: .zero, configuration: configuration)
-        webView.uiDelegate = self
-        webView.navigationDelegate = self
-        self.view = webView
-    }
+        let dataStore = WKWebsiteDataStore.nonPersistent()
+        let dispatchGroup = DispatchGroup()
+        let cookies = RequestManager.shared.getCookies() ?? []
+        for cookie in cookies {
+            dispatchGroup.enter()
+            dataStore.httpCookieStore.setCookie(cookie) {
+                dispatchGroup.leave()
+            }
+        }
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            configuration.websiteDataStore = dataStore
+            self?.webView = WKWebView(frame: .zero, configuration: configuration)
+            self?.webView.uiDelegate = self
+            self?.webView.navigationDelegate = self
+            if let wk = self?.webView, let view = self?.view {
+                view.addSubview(wk)
+                wk.translatesAutoresizingMaskIntoConstraints = false
 
-    override func viewDidLoad() {
+                wk.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+                wk.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+                wk.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+                wk.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            }
+            // Normal pop recognizer is buggy with WKWebView
+            // TODO: Implementation does not work when webview loads a PDF
+            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self?.pop))
+            swipeRight.direction = .right
+            self?.webView.addGestureRecognizer(swipeRight)
+            if let target = self {
+                self?.webView.addObserver(target, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+            }
+            self?.webView.allowsBackForwardNavigationGestures = false
+            self?.loadURL(urlOpt: self?.url)
+            self?.didInitialize = true
+        }
+
         super.viewDidLoad()
         setupProgressBar()
         setupNavBar()
         setupToolbar()
         setupActionSheet()
-
-        // Normal pop recognizer is buggy with WKWebView
-        // TODO: Implementation does not work when webview loads a PDF
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(pop))
-        swipeRight.direction = .right
-        webView.addGestureRecognizer(swipeRight)
-        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        webView.allowsBackForwardNavigationGestures = false
     }
 
     /// Update progressView with respect to webview load
@@ -107,7 +128,7 @@ class WebController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if shouldLoad {
+        if shouldLoad && didInitialize {
             loadURL(urlOpt: url)
         }
         self.navigationController?.setToolbarHidden(false, animated: true)
@@ -129,6 +150,9 @@ class WebController: UIViewController {
     /// - Parameter urlOpt: an optional URL
     func loadURL(urlOpt: URL?) {
         guard let url = urlOpt else {
+            return
+        }
+        if !shouldLoad {
             return
         }
         webView.load(URLRequest(url: url))

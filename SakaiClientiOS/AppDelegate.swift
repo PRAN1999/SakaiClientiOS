@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         SakaiService.shared.validateLoggedInStatus(onSuccess: {
-            // do nothing
+            RequestManager.shared.loadCookiesIntoUserDefaults()
             print("user authenticated")
         }, onFailure: { (err) in
             if RequestManager.shared.isLoggedIn {
