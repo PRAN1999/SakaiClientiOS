@@ -75,7 +75,7 @@ class WebController: UIViewController {
         configuration.processPool = RequestManager.shared.processPool
         let dataStore = WKWebsiteDataStore.nonPersistent()
         let dispatchGroup = DispatchGroup()
-        let cookies = HTTPCookieStorage.shared.cookies ?? []
+        let cookies = RequestManager.shared.getCookies() ?? []
         for cookie in cookies {
             dispatchGroup.enter()
             dataStore.httpCookieStore.setCookie(cookie) {
