@@ -263,14 +263,15 @@ class SakaiService {
         }
     }
 
-    /// Use a dispatch group to retrieve assignment data for multiple Sites and callback only once all data has been
-    /// retrieved
+    /// Use a dispatch group to retrieve assignment data for multiple Sites and callback only once all
+    /// data has been retrieved
     ///
     /// - Parameters:
     ///   - sites: the identifiers for the requested Sites
     ///   - completion: a completion handler called with a [[Assignment]] and an optional SakaiError
     ///
-    ///     It is possible that parsed data and error may be both non-nil if one request failed and others succeeded
+    ///     It is possible that parsed data and error may be both non-nil if one request failed and
+    ///     others succeeded
     func getTermAssignments(for sites: [String], completion: @escaping ([[Assignment]]?, SakaiError?) -> Void) {
         let group = DispatchGroup()
         var termAssignmentArray: [[Assignment]] = []

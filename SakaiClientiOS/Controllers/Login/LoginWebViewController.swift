@@ -50,6 +50,11 @@ class LoginWebViewController: WebController {
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationAction: WKNavigationAction,
                           decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let group = DispatchGroup()
+        group.notify(queue: .main) {
+            decisionHandler(.allow)
+        }
+        group.enter()
         if webView.url!.absoluteString == AppGlobals.cookieUrl {
             let store = webView.configuration.websiteDataStore.httpCookieStore
             store.getAllCookies { cookies in
@@ -57,10 +62,11 @@ class LoginWebViewController: WebController {
                     HTTPCookieStorage.shared.setCookie(cookie as HTTPCookie)
                     RequestManager.shared.addCookie(cookie: cookie)
                 }
+                group.leave()
             }
+        } else {
+            group.leave()
         }
-        decisionHandler(.allow)
-        return
     }
 
     /// Captures all HTTP headers and loads them into Request Manager Session, for request authentication.
