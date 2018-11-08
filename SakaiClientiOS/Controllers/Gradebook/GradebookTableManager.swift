@@ -57,7 +57,7 @@ class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider,
         cell.accessoryType = UITableViewCellAccessoryType.none
         cell.titleLabel.text = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
         cell.titleLabel.textColor = UIColor.white
-        cell.backgroundColor = UIColor(red: 199 / 255.0, green: 37 / 255.0, blue: 78 / 255.0, alpha: 1.0)
+        cell.backgroundColor = UIColor.black
         
         return cell
     }
@@ -89,7 +89,7 @@ class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider,
         tableView.addSubview(headerCell)
     }
     
-    func makeHeaderCellVisible(section:Int, subsection:Int) {
+    func makeHeaderCellVisible(section: Int, subsection: Int) {
         let frame = CGRect(x: 0, y: tableView.contentOffset.y, width: tableView.frame.size.width, height: headerCell.frame.size.height)
         let title =  provider.getSubsectionTitle(section: section, subsection: subsection)
         

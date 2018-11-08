@@ -33,9 +33,9 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
         titleLabel.textColor = UIColor.white
         titleLabel.textAlignment = .center
-        titleLabel.backgroundColor = UIColor.black
-        titleLabel.layer.cornerRadius = 5
-        titleLabel.layer.masksToBounds = true
+        titleLabel.backgroundColor = UIColor.black//AppGlobals.sakaiRed
+        //titleLabel.layer.cornerRadius = 5
+        //titleLabel.layer.masksToBounds = true
 
         // Create a horizontal flow layout so the collectionView can scroll horizontally
         let layout = HorizontalLayout()
@@ -59,11 +59,9 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         // Constrain titleLabel to top, left, and right margins of cell
-        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-
-        // Constrain titleLabel bottom anchor to top of collectionView
+        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0.0).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0.0).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10.0).isActive = true
 
         // Constrain collectionView to left, right and bottom of cell
@@ -71,11 +69,10 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
 
-        // Ensure the collectionView takes up 80% of the cell
-        collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 
-        // Force the cell to be at least 280 pixels in height
+        // Ensure the collectionView takes up 80% of the cell
+        collectionView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.8).isActive = true
         self.heightAnchor.constraint(greaterThanOrEqualToConstant: 280).isActive = true
     }
 

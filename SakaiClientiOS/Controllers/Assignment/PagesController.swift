@@ -42,10 +42,8 @@ class PagesController: UIViewController {
     
     func initializeControllers() {
         pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        
         webController = WebController()
         popupController = WebViewNavigationController(rootViewController: webController)
-        
         pageControl = UIPageControl()
         pageControlView = UIView()
     }
@@ -55,28 +53,15 @@ class PagesController: UIViewController {
         guard let startPage = pages[start] else {
             return
         }
-        
         pageController.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
-        
         let pageView = pageController.view!
-        view.addSubview(pageView)
-        
+        UIView.constrainChildToEdges(child: pageView, parent: view)
         pageControl.tintColor = UIColor.white
         pageControl.currentPageIndicatorTintColor = AppGlobals.sakaiRed
-        
         pageControlView.addSubview(pageControl)
-        
         self.navigationItem.titleView = pageControlView
-        
-        pageView.translatesAutoresizingMaskIntoConstraints = false
-        pageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        pageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        pageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        pageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
         pageController.dataSource = self
         pageController.delegate = self
-        
         pageControl.numberOfPages = assignments.count
         pageControl.currentPage = start
     }
@@ -119,22 +104,19 @@ class PagesController: UIViewController {
 
 extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
         setPopupURL(viewControllerIndex: viewControllerIndex)
         
         let previousIndex = viewControllerIndex - 1
-        
         guard previousIndex >= 0 else {
             return nil
         }
-        
+
         if pages[previousIndex] == nil {
             setPage(assignment: assignments[previousIndex], index: previousIndex)
         }
-        
         return pages[previousIndex]
     }
     
@@ -150,11 +132,10 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         guard nextIndex < assignmentsCount else {
             return nil
         }
-        
+
         if pages[nextIndex] == nil {
             setPage(assignment: assignments[nextIndex], index: nextIndex)
         }
-        
         return pages[nextIndex]
     }
     

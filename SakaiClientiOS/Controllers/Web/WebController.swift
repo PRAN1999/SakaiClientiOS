@@ -52,7 +52,6 @@ class WebController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         self.hidesBottomBarWhenPushed = true
-
         // default SFSafariViewController presentation method
         openInSafari = { [weak self] url in
             guard let url = url, url.absoluteString.contains("http") else {
@@ -88,22 +87,18 @@ class WebController: UIViewController {
             self?.webView.uiDelegate = self
             self?.webView.navigationDelegate = self
             if let wk = self?.webView, let view = self?.view {
-                view.addSubview(wk)
-                wk.translatesAutoresizingMaskIntoConstraints = false
-
-                wk.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-                wk.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-                wk.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-                wk.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+                UIView.constrainChildToEdges(child: wk, parent: view)
             }
+
             // Normal pop recognizer is buggy with WKWebView
-            // TODO: Implementation does not work when webview loads a PDF
             let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self?.pop))
             swipeRight.direction = .right
             self?.webView.addGestureRecognizer(swipeRight)
+
             if let target = self {
                 self?.webView.addObserver(target, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
             }
+
             self?.webView.allowsBackForwardNavigationGestures = false
             self?.loadURL(urlOpt: self?.url)
             self?.didInitialize = true

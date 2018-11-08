@@ -29,7 +29,7 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
     }
 
     func setup() {
-        self.backgroundColor = AppGlobals.sakaiRed
+        self.backgroundColor = UIColor.black//AppGlobals.sakaiRed
 
         titleLabel = UILabel()
         titleLabel.textColor = UIColor.white

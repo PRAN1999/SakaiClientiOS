@@ -19,9 +19,10 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
     var hasLoaded: [Bool] = []
     
     var assignments: [[[Assignment]]] = []
-    
     var dateSortedAssignments: [[Assignment]] = []
     var dateSorted = false
+    var collapsedSections: [[Bool]] = []
+    var collapsedDateSections: [Bool] = []
     
     func numberOfSections() -> Int {
         return assignments.count
@@ -43,12 +44,7 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
     func item(at indexPath: IndexPath) -> [Assignment]? {
         if dateSorted {
             if dateSortedAssignments[indexPath.section].count == 0 {
-                var res: [Assignment] = []
-                let assignmentList = assignments[indexPath.section]
-                let count = assignmentList.count
-                for index in 0..<count {
-                    res.append(contentsOf: assignmentList[index])
-                }
+                var res = assignments[indexPath.section].flatMap { $0 }
                 res.sort { $0.dueDate > $1.dueDate }
                 dateSortedAssignments[indexPath.section] = res
             }
@@ -61,6 +57,8 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
         resetTerms()
         assignments = [[[Assignment]]].init(repeating: [[Assignment]](), count: terms.count)
         dateSortedAssignments = [[Assignment]].init(repeating: [Assignment](), count: terms.count)
+        collapsedSections = [[Bool]].init(repeating: [Bool](), count: terms.count)
+        collapsedDateSections = [Bool].init(repeating: false, count: terms.count)
     }
     
     func loadItems(payload: [[Assignment]], for section: Int) {
@@ -75,5 +73,27 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
             index += 1
         }
         assignments[section] = res
+        collapsedSections[section] = [Bool].init(repeating: true, count: res.count)
+    }
+
+    func isCollapsed(at indexPath: IndexPath) -> Bool {
+        if isEmpty(section: indexPath.section) {
+            return false
+        }
+        if dateSorted {
+            return collapsedDateSections[indexPath.section]
+        }
+        return collapsedSections[indexPath.section][indexPath.row]
+    }
+
+    func toggleCollapsed(at indexPath: IndexPath) {
+        if isEmpty(section: indexPath.section) {
+            return
+        }
+        if dateSorted {
+            collapsedDateSections[indexPath.section] = !collapsedDateSections[indexPath.section]
+            return
+        }
+        collapsedSections[indexPath.section][indexPath.row] = !collapsedSections[indexPath.section][indexPath.row]
     }
 }
