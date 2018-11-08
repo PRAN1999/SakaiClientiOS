@@ -12,6 +12,8 @@ class HomeController: UITableViewController {
     
     var siteTableManager: SiteTableManager!
     var logoutController: UIAlertController!
+
+    var launchedInBackground = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -39,6 +41,16 @@ class HomeController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "logout"), style: .plain, target: self, action: #selector(presentLogoutController))
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil)
 
+        if UIApplication.shared.applicationState == .background {
+            print("launched in background")
+            launchedInBackground = true
+            return
+        }
+
+        authenticateAndLoad()
+    }
+
+    func authenticateAndLoad() {
         if RequestManager.shared.loadCookiesFromUserDefaults() {
             SakaiService.shared.validateLoggedInStatus(
                 onSuccess: { [weak self] in
@@ -67,6 +79,14 @@ class HomeController: UITableViewController {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.tabBarController?.present(navController, animated: true, completion: nil)
+        }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if launchedInBackground {
+            authenticateAndLoad()
+            launchedInBackground = false
         }
     }
     
