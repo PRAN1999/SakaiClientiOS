@@ -11,7 +11,7 @@ import Foundation
 /// A generic implementation for a UITableViewDataSource with a DataProvider and ConfigurableCell
 /// where the Provider and Cell deal with the same associated model
 open class ReusableTableDataSource<Provider: DataProvider, Cell: UITableViewCell & ConfigurableCell>: NSObject, UITableViewDataSource, ReusableSource where Provider.T == Cell.T {
-    
+
     public let provider: Provider
     public let tableView: UITableView
     

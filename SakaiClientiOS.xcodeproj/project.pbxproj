@@ -45,6 +45,8 @@
 		5159154D216ADDF600D3730E /* PersistedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159154C216ADDF600D3730E /* PersistedSite.swift */; };
 		5159154F216ADED400D3730E /* PersistedSitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159154E216ADED400D3730E /* PersistedSitePage.swift */; };
 		51591572216AE6C100D3730E /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51591571216AE6C100D3730E /* PersistenceManager.swift */; };
+		515D12112194923200048D2C /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515D12102194923200048D2C /* UIViewExtension.swift */; };
+		515D12132194C59D00048D2C /* AssignmentTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515D12122194C59D00048D2C /* AssignmentTitleCell.swift */; };
 		517201C4218B6C0F00754533 /* SakaiClientiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517201C3218B6C0F00754533 /* SakaiClientiOSTests.swift */; };
 		517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
 		517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -188,6 +190,8 @@
 		5159154C216ADDF600D3730E /* PersistedSite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedSite.swift; sourceTree = "<group>"; };
 		5159154E216ADED400D3730E /* PersistedSitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedSitePage.swift; sourceTree = "<group>"; };
 		51591571216AE6C100D3730E /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		515D12102194923200048D2C /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		515D12122194C59D00048D2C /* AssignmentTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTitleCell.swift; sourceTree = "<group>"; };
 		517201C1218B6C0F00754533 /* SakaiClientiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SakaiClientiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		517201C3218B6C0F00754533 /* SakaiClientiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakaiClientiOSTests.swift; sourceTree = "<group>"; };
 		517201C5218B6C0F00754533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -379,6 +383,7 @@
 				5197E6C2213498550019DCC9 /* MessageBar.swift */,
 				5197E6C421349AE00019DCC9 /* ChatRoomView.swift */,
 				5197E6CA2134E8D80019DCC9 /* ChatTextView.swift */,
+				515D12102194923200048D2C /* UIViewExtension.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -500,6 +505,7 @@
 				5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */,
 				512748BE210D3A8700A5A74E /* ResourceCell.swift */,
 				51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */,
+				515D12122194C59D00048D2C /* AssignmentTitleCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -655,6 +661,7 @@
 				DE0599F31DFD93B100D19D17 /* Resources */,
 				517F378A20E01AED00B21D5A /* Embed Frameworks */,
 				6A6FC538D6CEF5FCC7295502 /* [CP] Embed Pods Frameworks */,
+				517789882193C38F00768F9C /* Increment Build */,
 			);
 			buildRules = (
 			);
@@ -736,6 +743,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		517789882193C38F00768F9C /* Increment Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PLIST=\"${INFOPLIST_FILE}\"\nPLB=/usr/libexec/PlistBuddy\nLAST_NUMBER=$($PLB -c \"Print CFBundleVersion\" \"$PLIST\")\nNEW_VERSION=$(($LAST_NUMBER + 1))\n$PLB -c \"Set :CFBundleVersion $NEW_VERSION\" \"$PLIST\"\n";
+		};
 		6A6FC538D6CEF5FCC7295502 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -834,6 +859,7 @@
 				5182CBEE213A1A7400D45952 /* SakaiEndpoint.swift in Sources */,
 				51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */,
 				511114AC20D6CD440077F872 /* WebController.swift in Sources */,
+				515D12132194C59D00048D2C /* AssignmentTitleCell.swift in Sources */,
 				5182CBF6213A24FA00D45952 /* RawResourceItem.swift in Sources */,
 				5197E6CF2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift in Sources */,
 				518903A12106BAE500C551AE /* HideableNetworkSource.swift in Sources */,
@@ -870,6 +896,7 @@
 				5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */,
 				51A472D120F99FA600CC95F0 /* DataFetcherExtension.swift in Sources */,
 				5182CBDA2139B02000D45952 /* Site.swift in Sources */,
+				515D12112194923200048D2C /* UIViewExtension.swift in Sources */,
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
 				511114BD20DDF8DF0077F872 /* AssignmentPageView.swift in Sources */,
 				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,

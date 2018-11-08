@@ -38,8 +38,10 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         dueLabel = InsetUILabel()
         descLabel = UITextView()
 
-//        titleLabel.titleLabel.textColor = UIColor.white
-//        dueLabel.titleLabel.textColor = UIColor.white
+        titleLabel.backgroundColor = AppGlobals.sakaiRed
+        dueLabel.backgroundColor = AppGlobals.sakaiRed//UIColor.black
+        titleLabel.titleLabel.textColor = UIColor.white
+        dueLabel.titleLabel.textColor = UIColor.white
 
         titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
         dueLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 10.7)

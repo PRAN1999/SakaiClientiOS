@@ -57,11 +57,8 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
         guard let item = item as? ResourceNode else {
             return UITableViewCell()
         }
-        
         let isExpanded = treeView.isCell(forItemExpanded: item)
-        
         cell.configure(item.resourceItem, at: treeView.levelForCell(forItem: item), isExpanded: isExpanded)
-        
         return cell
     }
     

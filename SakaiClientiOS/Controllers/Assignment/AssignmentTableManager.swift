@@ -18,8 +18,9 @@ import ReusableSource
 class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
     
     var lastSelectedIndex: Int?
-    
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
+
+    var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
     
     init(tableView: UITableView) {
         super.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
@@ -27,7 +28,24 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     
     override func setup() {
         super.setup()
-        tableView.allowsSelection = false
+        tableView.register(AssignmentTitleCell.self, forCellReuseIdentifier: AssignmentTitleCell.reuseIdentifier)
+        tableView.allowsSelection = true
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if provider.isCollapsed(at: indexPath) {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentTitleCell.reuseIdentifier, for: indexPath) as? AssignmentTitleCell else {
+                fatalError("Cannot dequeue cell")
+            }
+            if let item = provider.item(at: indexPath) {
+                cell.configure(item, at: indexPath)
+            }
+            if provider.dateSorted {
+                cell.titleLabel.text = "All Assignments"
+            }
+            return cell
+        }
+        return super.tableView(tableView, cellForRowAt: indexPath)
     }
     
     override func configureBehavior(for cell: AssignmentTableCell, at indexPath: IndexPath) {
@@ -36,8 +54,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         }
         cell.manager.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
             // keep track of selected index within collectionView
-            self.lastSelectedIndex = cellIndexPath.row
-            self.selectedAt.call(indexPath)
+            self.selectedAssignmentAt.call((indexPath, cellIndexPath.row))
         }
         cell.manager.textViewDelegate.delegate(to: self) { (self, voidInput) -> UITextViewDelegate? in
             return self.textViewDelegate.call()
@@ -52,5 +69,10 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     func switchSort() {
         provider.dateSorted = !provider.dateSorted
         reloadData()
+    }
+
+    func toggleSite(at indexPath: IndexPath) {
+        provider.toggleCollapsed(at: indexPath)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

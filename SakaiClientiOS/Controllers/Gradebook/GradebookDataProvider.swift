@@ -103,7 +103,6 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         
         var startRow = row
         var subsection = 0
-        
         while startRow > 0 {
             //print("Section: \(section) Subsection: \(subsection) StartRow: \(startRow)")
             startRow -= (termSection[subsection].count + 1)
@@ -111,9 +110,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
                 subsection += 1
             }
         }
-        
         let subRow = 0 - startRow
-        
         return IndexPath(row: subRow, section: subsection)
     }
     
