@@ -24,23 +24,12 @@ class AnnouncementController: UITableViewController {
             guard let announcement = self.announcementTableManager.item(at: indexPath) else {
                 return
             }
-            let announcementPage = AnnouncementPageController()
-            announcementPage.setAnnouncement(announcement)
+            let announcementPage = AnnouncementPageController(announcement: announcement)
             self.navigationController?.pushViewController(announcementPage, animated: true)
         }
         announcementTableManager.delegate = self
         configureNavigationItem()
         loadData()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //self.addBarSwipeHider()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        //self.removeBarSwipeHider()
     }
 
     override func didReceiveMemoryWarning() {

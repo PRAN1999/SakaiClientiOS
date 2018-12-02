@@ -9,19 +9,29 @@ import UIKit
 
 /// A UILabel inset with padding around the edges
 class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
+    
     /// The titleLabel containing the inset content of the view
     var titleLabel: UILabel!
     var tapRecognizer: UITapGestureRecognizer!
+    
+    var shouldSetConstraints = true
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -31,9 +41,11 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         titleLabel.font = UIFont.systemFont(ofSize: 11.0, weight: UIFont.Weight.light)
 
         self.backgroundColor = AppGlobals.sakaiRed
-        // Round the edges of outer view
         self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -42,8 +54,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
 
     func setConstraints() {
         let margins = self.layoutMarginsGuide
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        // Constrain titleLabel to margins to ensure padding between content and view border
+
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true

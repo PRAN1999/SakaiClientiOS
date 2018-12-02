@@ -17,11 +17,11 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
     var fetcher: AnnouncementDataFetcher
     
     convenience init(tableView: UITableView) {
-        self.init(provider: AnnouncementDataProvider(), tableView: tableView)
+        self.init(fetcher: AnnouncementDataFetcher(), provider: AnnouncementDataProvider(), tableView: tableView)
     }
-    
-    override init(provider: AnnouncementDataProvider, tableView: UITableView) {
-        fetcher = AnnouncementDataFetcher()
+
+    init(fetcher: Fetcher, provider: Provider, tableView: UITableView) {
+        self.fetcher = fetcher
         super.init(provider: provider, tableView: tableView)
     }
     

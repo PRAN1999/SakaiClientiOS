@@ -15,11 +15,11 @@ class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>, Networ
     var fetcher: SiteDataFetcher
     
     convenience init(tableView: UITableView) {
-        self.init(provider: SiteDataProvider(), tableView: tableView)
+        self.init(provider: SiteDataProvider(), fetcher: SiteDataFetcher(), tableView: tableView)
     }
     
-    override init(provider: SiteDataProvider, tableView: UITableView) {
-        fetcher = SiteDataFetcher()
+    init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
+        self.fetcher = fetcher
         super.init(provider: provider, tableView: tableView)
     }
 }

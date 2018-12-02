@@ -21,6 +21,7 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
     var assignments: [[[Assignment]]] = []
     var dateSortedAssignments: [[Assignment]] = []
     var dateSorted = false
+    
     var collapsedSections: [[Bool]] = []
     var collapsedDateSections: [Bool] = []
     

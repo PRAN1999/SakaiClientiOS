@@ -10,11 +10,22 @@ import UIKit
 
 class SiteAssignmentController: UICollectionViewController, SitePageController {
     
-    var siteId: String?
-    var siteUrl: String?
-    var pageTitle: String?
-    
+    var siteId: String
+    var siteUrl: String
+    var pageTitle: String
+
     var siteAssignmentCollectionManager: SiteAssignmentCollectionManager!
+
+    required init(siteId: String, siteUrl: String, pageTitle: String) {
+        self.siteId = siteId
+        self.siteUrl = siteUrl
+        self.pageTitle = pageTitle
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         super.collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -24,11 +35,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
         super.viewDidLoad()
         self.title = "Assignments"
         
-        guard let id = siteId else {
-            return
-        }
-        
-        siteAssignmentCollectionManager = SiteAssignmentCollectionManager(collectionView: super.collectionView!, siteId: id)
+        siteAssignmentCollectionManager = SiteAssignmentCollectionManager(collectionView: super.collectionView!, siteId: siteId)
         siteAssignmentCollectionManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
             guard let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as? PagesController else {

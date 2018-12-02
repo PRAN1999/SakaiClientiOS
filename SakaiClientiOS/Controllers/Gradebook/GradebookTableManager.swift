@@ -13,10 +13,14 @@ import ReusableSource
 class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
     var headerCell: FloatingHeaderCell!
-    
-    init(tableView: UITableView) {
-        super.init(provider: GradebookDataProvider(), fetcher: GradebookDataFetcher(), tableView: tableView)
+
+    override init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
+        super.init(provider: provider, fetcher: fetcher, tableView: tableView)
         setupHeaderCell()
+    }
+
+    convenience init(tableView: UITableView) {
+        self.init(provider: GradebookDataProvider(), fetcher: GradebookDataFetcher(), tableView: tableView)
     }
     
     override func setup() {

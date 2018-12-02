@@ -13,16 +13,25 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
     typealias T = [Assignment]
 
     var titleLabel: UILabel!
+    
+    var shouldSetConstraints = true
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -31,22 +40,23 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
         titleLabel.textColor = UIColor.white
         titleLabel.textAlignment = .center
         titleLabel.backgroundColor = UIColor.black
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
-        self.addSubview(titleLabel)
+        self.contentView.addSubview(titleLabel)
     }
 
     func setConstraints() {
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        // Constrain titleLabel to top, left, and right margins of cell
-        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.heightAnchor.constraint(greaterThanOrEqualToConstant: 56).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        
+        titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 56).isActive = true
     }
 
     func configure(_ item: [Assignment], at indexPath: IndexPath) {

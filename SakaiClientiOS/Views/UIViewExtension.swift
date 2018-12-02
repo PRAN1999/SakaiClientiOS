@@ -12,6 +12,7 @@ extension UIView {
 
     static func constrainChildToEdges(child: UIView, parent: UIView) {
         parent.addSubview(child)
+        
         child.translatesAutoresizingMaskIntoConstraints = false
         child.topAnchor.constraint(equalTo: parent.topAnchor).isActive = true
         child.bottomAnchor.constraint(equalTo: parent.bottomAnchor).isActive = true

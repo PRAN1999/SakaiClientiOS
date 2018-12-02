@@ -9,6 +9,7 @@ import UIKit
 
 /// A customized scrollView containing views for all the information needed for an Assignment
 class AssignmentPageView: UIScrollView {
+    
     var contentView: UIView!
 
     var titleLabel: InsetUILabel!
@@ -18,19 +19,27 @@ class AssignmentPageView: UIScrollView {
     var dueLabel: DetailLabel!
     var gradeLabel: DetailLabel!
     var submissionLabel: DetailLabel!
-
     var instructionView: TappableTextView!
     var attachmentsView: TappableTextView!
+
+    var shouldSetConstraints = true
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -50,8 +59,19 @@ class AssignmentPageView: UIScrollView {
         dueLabel = DetailLabel()
         gradeLabel = DetailLabel()
         submissionLabel = DetailLabel()
+
         instructionView = TappableTextView(); instructionView.isScrollEnabled = false
         attachmentsView = TappableTextView(); attachmentsView.isScrollEnabled = false
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        classLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        pointsLabel.translatesAutoresizingMaskIntoConstraints = false
+        dueLabel.translatesAutoresizingMaskIntoConstraints = false
+        submissionLabel.translatesAutoresizingMaskIntoConstraints = false
+        instructionView.translatesAutoresizingMaskIntoConstraints = false
+        attachmentsView.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -62,7 +82,6 @@ class AssignmentPageView: UIScrollView {
         contentView.addSubview(statusLabel)
         contentView.addSubview(pointsLabel)
         contentView.addSubview(dueLabel)
-        //contentView.addSubview(gradeLabel)
         contentView.addSubview(submissionLabel)
         contentView.addSubview(instructionView)
         contentView.addSubview(attachmentsView)
@@ -73,24 +92,14 @@ class AssignmentPageView: UIScrollView {
 
         contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        classLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        pointsLabel.translatesAutoresizingMaskIntoConstraints = false
-        dueLabel.translatesAutoresizingMaskIntoConstraints = false
-        //gradeLabel.translatesAutoresizingMaskIntoConstraints = false
-        submissionLabel.translatesAutoresizingMaskIntoConstraints = false
-        instructionView.translatesAutoresizingMaskIntoConstraints = false
-        attachmentsView.translatesAutoresizingMaskIntoConstraints = false
-
         let margins = contentView.layoutMarginsGuide
 
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: classLabel.topAnchor).isActive = true
-        // Constrain titleLabel height to be 12% of view height
-        titleLabel.heightAnchor.constraint(lessThanOrEqualTo: contentView.heightAnchor, multiplier: 0.12).isActive = true
+        titleLabel.heightAnchor.constraint(lessThanOrEqualTo: contentView.heightAnchor,
+                                           multiplier: 0.12).isActive = true
         titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 50.0).isActive = true
 
         classLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
@@ -109,28 +118,31 @@ class AssignmentPageView: UIScrollView {
         dueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         dueLabel.bottomAnchor.constraint(equalTo: submissionLabel.topAnchor).isActive = true
 
-//        gradeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        gradeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        gradeLabel.bottomAnchor.constraint(equalTo: submissionLabel.topAnchor).isActive = true
-
         submissionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         submissionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        submissionLabel.bottomAnchor.constraint(equalTo: instructionView.topAnchor, constant: -10.0).isActive = true
+        submissionLabel.bottomAnchor.constraint(equalTo: instructionView.topAnchor,
+                                                constant: -10.0).isActive = true
 
-        instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5.0).isActive = true
-        instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5.0).isActive = true
-        instructionView.bottomAnchor.constraint(equalTo: attachmentsView.topAnchor, constant: -10.0).isActive = true
+        instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                                 constant: 5.0).isActive = true
+        instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                  constant: -5.0).isActive = true
+        instructionView.bottomAnchor.constraint(equalTo: attachmentsView.topAnchor,
+                                                constant: -10.0).isActive = true
 
-        attachmentsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5.0).isActive = true
-        attachmentsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5.0).isActive = true
+        attachmentsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                                 constant: 5.0).isActive = true
+        attachmentsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                  constant: -5.0).isActive = true
         attachmentsView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        // Set the content size of self (scrollView) to the size of the content view by using the maxY of the
-        // attachmentsView (the farthest down point of all the content)
+        // Set the content size of self (scrollView) to the size of the
+        // content view by using the maxY of the attachmentsView (the
+        // farthest down point of all the content)
         let maxY = attachmentsView.frame.maxY
         self.contentSize = CGSize(width: self.frame.width, height: maxY + 30)
     }

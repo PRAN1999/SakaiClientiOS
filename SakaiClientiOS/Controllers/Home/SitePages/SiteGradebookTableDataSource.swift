@@ -8,15 +8,19 @@
 import ReusableSource
 
 class SiteGradebookTableDataSource: ReusableTableDataSource<SingleSectionDataProvider<GradeItem>, GradebookCell>, NetworkSource {
-    weak var delegate: NetworkSourceDelegate?
-
     typealias Fetcher = SiteGradebookDataFetcher
     
     var fetcher: SiteGradebookDataFetcher
+    weak var delegate: NetworkSourceDelegate?
     
-    init(tableView: UITableView, siteId: String) {
-        fetcher = SiteGradebookDataFetcher(siteId: siteId)
-        super.init(provider: SingleSectionDataProvider<GradeItem>(), tableView: tableView)
+    convenience init(tableView: UITableView, siteId: String) {
+        let fetcher = SiteGradebookDataFetcher(siteId: siteId)
+        self.init(provider: SingleSectionDataProvider<GradeItem>(), fetcher: fetcher, tableView: tableView)
+    }
+
+    init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
+        self.fetcher = fetcher
+        super.init(provider: provider, tableView: tableView)
     }
     
     override func setup() {

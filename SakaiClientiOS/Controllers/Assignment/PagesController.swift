@@ -108,7 +108,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
             return nil
         }
         setPopupURL(viewControllerIndex: viewControllerIndex)
-        
+
         let previousIndex = viewControllerIndex - 1
         guard previousIndex >= 0 else {
             return nil
@@ -125,14 +125,13 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
             return nil
         }
         setPopupURL(viewControllerIndex: viewControllerIndex)
-        
+
         let nextIndex = viewControllerIndex + 1
         let assignmentsCount = assignments.count
         
         guard nextIndex < assignmentsCount else {
             return nil
         }
-
         if pages[nextIndex] == nil {
             setPage(assignment: assignments[nextIndex], index: nextIndex)
         }
@@ -158,8 +157,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
     ///   - assignment: the assignment to display in the newly constructed controller
     ///   - index: the index of the Assignment in the Assignment model array
     func setPage(assignment: Assignment, index: Int) {
-        let page = AssignmentPageController()
-        page.assignment = assignment
+        let page = AssignmentPageController(assignment: assignment)
         page.delegate = self
         pages[index] = page
     }

@@ -11,21 +11,29 @@ import UIKit
 class AnnouncementPageView: UIScrollView {
 
     var contentView: UIView!
-
     var titleLabel: InsetUILabel!
     var authorLabel: InsetUILabel!
     var dateLabel: InsetUILabel!
     var messageView: TappableTextView!
 
+    var shouldSetConstraints = true
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -49,6 +57,12 @@ class AnnouncementPageView: UIScrollView {
         dateLabel.backgroundColor = UIColor.white
 
         messageView = TappableTextView(); messageView.isScrollEnabled = false
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        authorLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        messageView.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -67,11 +81,6 @@ class AnnouncementPageView: UIScrollView {
 
         let margins = contentView.layoutMarginsGuide
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageView.translatesAutoresizingMaskIntoConstraints = false
-
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
@@ -81,7 +90,8 @@ class AnnouncementPageView: UIScrollView {
         authorLabel.bottomAnchor.constraint(equalTo: messageView.topAnchor).isActive = true
         authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
-        authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.60).isActive = true
+        authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor,
+                                           multiplier: 0.60).isActive = true
 
         dateLabel.topAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
@@ -117,7 +127,9 @@ extension AnnouncementPageView {
         }
         let content = NSMutableAttributedString(attributedString: text)
         let contentRange = NSRange(location: 0, length: content.string.count)
-        content.addAttribute(.font, value: UIFont.systemFont(ofSize: 16.0, weight: .regular), range: contentRange)
+        content.addAttribute(.font,
+                             value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
+                             range: contentRange)
         if let attachmentString = getAttachments(resources: resources) {
             content.append(attachmentString)
         }

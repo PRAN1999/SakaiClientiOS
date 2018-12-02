@@ -22,8 +22,8 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
 
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
     
-    init(tableView: UITableView) {
-        super.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
+    convenience init(tableView: UITableView) {
+        self.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
     }
     
     override func setup() {

@@ -18,16 +18,25 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate {
     var activityIndicator: UIActivityIndicatorView!
     var backgroundHeaderView: UIView!
     var tapRecognizer: UITapGestureRecognizer!
+    
+    var shouldSetConstraints = true
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -45,6 +54,11 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate {
         tapRecognizer.delegate = self
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTouchesRequired = 1
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        imageLabel.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -58,16 +72,12 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate {
     func setConstraints() {
         let margins = self.layoutMarginsGuide
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        imageLabel.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-
-        ///Constrain titleLabel to top, bottom and left edge of superview
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: activityIndicator.leadingAnchor, constant: -20.0).isActive = true
 
-        activityIndicator.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor, constant: 5.0).isActive = true
+        activityIndicator.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor,
+                                               constant: 5.0).isActive = true
         activityIndicator.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         let constraint = NSLayoutConstraint(item: activityIndicator,
                                             attribute: .trailing,
@@ -79,16 +89,16 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate {
         constraint.priority = UILayoutPriority(999)
         self.addConstraint(constraint)
 
-        //Constrain imageLabel to top, bottom, and right of superview
         imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        imageLabel.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor, constant: 5.0).isActive = true
-        imageLabel.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor, constant: 5.0).isActive = true
+        imageLabel.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor,
+                                        constant: 5.0).isActive = true
+        imageLabel.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor,
+                                           constant: 5.0).isActive = true
     }
 
     /// Change the image of the header on tap to indicate a collapsed or expanded section
     ///
-    /// - Parameter isHidden: A variable to determine which image should be shown based on whether the section is
-    ///             hidden or open
+    /// - Parameter isHidden: A variable to determine which image should be shown based on whether the section is hidden or open
     func setImage(isHidden: Bool) {
         imageLabel.layer.removeAllAnimations()
         if isHidden {

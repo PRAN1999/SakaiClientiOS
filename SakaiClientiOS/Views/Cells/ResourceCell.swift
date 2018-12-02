@@ -12,12 +12,12 @@ import ReusableSource
 class ResourceCell: UITableViewCell, ReusableCell {
     typealias T = ResourceItem
 
-    ///The UILabel containing the title text
     var titleLabel: InsetUILabel!
     var leftBorder: UIView!
     var sizeLabel: UILabel!
     var spaceView: UIView!
-
+    
+    var shouldSetConstraints = true
     var needsSizeLabel = false
 
     override func awakeFromNib() {
@@ -28,11 +28,18 @@ class ResourceCell: UITableViewCell, ReusableCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -52,6 +59,12 @@ class ResourceCell: UITableViewCell, ReusableCell {
         sizeLabel.layer.masksToBounds = true
 
         spaceView = UIView()
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        leftBorder.translatesAutoresizingMaskIntoConstraints = false
+        sizeLabel.translatesAutoresizingMaskIntoConstraints = false
+        spaceView.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -63,11 +76,6 @@ class ResourceCell: UITableViewCell, ReusableCell {
 
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftBorder.translatesAutoresizingMaskIntoConstraints = false
-        sizeLabel.translatesAutoresizingMaskIntoConstraints = false
-        spaceView.translatesAutoresizingMaskIntoConstraints = false
 
         leftBorder.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         leftBorder.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true

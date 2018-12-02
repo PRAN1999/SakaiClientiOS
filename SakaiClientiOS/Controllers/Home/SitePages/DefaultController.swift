@@ -9,22 +9,22 @@ import UIKit
 
 class DefaultController: WebController, SitePageController {
     
-    var siteId: String?
-    var siteUrl: String?
-    var pageTitle: String?
+    var siteId: String
+    var siteUrl: String
+    var pageTitle: String
     
-    required override init() {
+    required init(siteId: String, siteUrl: String, pageTitle: String) {
+        self.siteId = siteId
+        self.siteUrl = siteUrl
+        self.pageTitle = pageTitle
         super.init()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
-        guard let siteId = siteId, let siteUrl = siteUrl else {
-            return
-        }
         guard let url = URL(string: siteUrl) else {
             return
         }

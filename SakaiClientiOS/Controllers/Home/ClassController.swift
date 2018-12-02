@@ -48,10 +48,9 @@ class ClassController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let page:SitePage = self.sitePages[indexPath.row]
         
-        let sitePage:SitePageController = page.siteType.init()
-        sitePage.siteId = page.siteId
-        sitePage.siteUrl = page.url
-        sitePage.pageTitle = page.title
+        let sitePage: SitePageController = page.siteType.init(siteId: page.siteId,
+                                                             siteUrl: page.url,
+                                                             pageTitle: page.title)
         
         guard let controller = sitePage as? UIViewController else {
             return

@@ -13,10 +13,6 @@ class NativeWebViewScrollViewDelegate: NSObject, UIScrollViewDelegate {
     // MARK: - Shared delegate
     static var shared = NativeWebViewScrollViewDelegate()
 
-    private override init() {
-        super.init()
-    }
-
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         scrollView.pinchGestureRecognizer?.isEnabled = false
     }

@@ -11,7 +11,10 @@ import ReusableSource
 /// The Tableview Cell to display Site titles
 class SiteCell: UITableViewCell, ConfigurableCell {
     typealias T = Site
+
     var titleLabel: UILabel!
+    
+    var shouldSetConstraints = true
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,11 +24,18 @@ class SiteCell: UITableViewCell, ConfigurableCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -33,6 +43,9 @@ class SiteCell: UITableViewCell, ConfigurableCell {
         titleLabel.textColor = UIColor.black
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
         self.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -41,7 +54,6 @@ class SiteCell: UITableViewCell, ConfigurableCell {
 
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         //Constrain titleLabel to top, bottom, left, and right anchors
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true

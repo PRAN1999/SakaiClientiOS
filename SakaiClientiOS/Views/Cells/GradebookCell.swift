@@ -11,18 +11,28 @@ import ReusableSource
 /// The table view cell to display a GradeItem in a gradebook
 class GradebookCell: UITableViewCell, ConfigurableCell {
     typealias T = GradeItem
+    
     var titleLabel: UILabel!
     var gradeLabel: UILabel!
+    
+    var shouldSetConstraints = true
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -32,6 +42,10 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
         titleLabel = UILabel()
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        gradeLabel.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -42,21 +56,12 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        gradeLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        //Constrain titleLabel to top, bottom and left anchor of contentview
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-
-        //Constrain right of titleLabel to left anchor of gradeLabel
         titleLabel.trailingAnchor.constraint(equalTo: gradeLabel.leadingAnchor).isActive = true
-
-        //Force titleLabel's width to be half of contentView
         titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5).isActive = true
 
-        //Constrain top, bottom, and right anchors of gradeLabel to edges of contentView
         gradeLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         gradeLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         gradeLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true

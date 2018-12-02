@@ -12,6 +12,8 @@ import ReusableSource
 class FloatingHeaderCell: UITableViewCell, ReusableCell {
 
     var titleLabel: UILabel!
+    
+    var shouldSetConstraints = true
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,11 +23,18 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -36,6 +45,9 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
 
         self.isHidden = true
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -44,7 +56,6 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
 
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 20.0).isActive = true
@@ -53,16 +64,10 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
     }
 
-    /// Set the text of the titleLabel
-    ///
-    /// - Parameter title: The title text to set
     func setTitle(title: String?) {
         titleLabel.text = title
     }
 
-    /// Make the floating header visible in the specified frame
-    ///
-    /// - Parameter frame: The frame in which the cell should be visible
     func setFrameAndMakeVisible(frame: CGRect) {
         self.frame = frame
         self.isHidden = false

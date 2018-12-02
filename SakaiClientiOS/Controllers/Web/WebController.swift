@@ -45,8 +45,7 @@ class WebController: UIViewController {
     var openInSafari: ((URL?) -> Void)?
 
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.hidesBottomBarWhenPushed = true
+        fatalError("init(:coder) is not supported")
     }
 
     init() {

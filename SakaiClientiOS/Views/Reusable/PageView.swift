@@ -9,21 +9,34 @@ import UIKit
 
 /// A full page scrollview
 class PageView<PageType: UIScrollView>: UIView {
+
     var scrollView: PageType!
+    
+    var shouldSetConstraints = true
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
+    }
+
     func setup() {
         scrollView = PageType()
+
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -32,10 +45,7 @@ class PageView<PageType: UIScrollView>: UIView {
 
     func setConstraints() {
         let margins = self.layoutMarginsGuide
-
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-
-        // Constrain scrollView to top, right, and left anchors of view
+        
         scrollView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true

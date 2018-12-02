@@ -9,20 +9,28 @@ import ReusableSource
 
 class SiteGradebookController: UITableViewController, SitePageController {
     
-    var siteId: String?
-    var siteUrl: String?
-    var pageTitle: String?
+    var siteId: String
+    var siteUrl: String
+    var pageTitle: String
+
     var siteGradebookTableDataSource: SiteGradebookTableDataSource!
+
+    required init(siteId: String, siteUrl: String, pageTitle: String) {
+        self.siteId = siteId
+        self.siteUrl = siteUrl
+        self.pageTitle = pageTitle
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Gradebook"
         
-        guard let id = siteId else {
-            return
-        }
-        
-        siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: super.tableView, siteId: id)
+        siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: super.tableView, siteId: siteId)
         siteGradebookTableDataSource.delegate = self
         configureNavigationItem()
         siteGradebookTableDataSource.loadDataSource()

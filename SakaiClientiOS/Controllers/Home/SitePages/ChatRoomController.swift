@@ -10,31 +10,33 @@ import WebKit
 
 class ChatRoomController: UIViewController, SitePageController {
     
-    var siteId: String?
-    var siteUrl: String?
-    var pageTitle: String?
-    var chatChannelId: String?
-    var csrftoken: String?
-    
     var chatRoomView: ChatRoomView!
     var indicator: LoadingIndicator!
-    
     var webView: WKWebView {
         return chatRoomView.webView
+    }
+
+    var chatChannelId: String?
+    var csrftoken: String?
+
+    var siteId: String
+    var siteUrl: String
+    var pageTitle: String
+
+    required init(siteId: String, siteUrl: String, pageTitle: String) {
+        self.siteId = siteId
+        self.siteUrl = siteUrl
+        self.pageTitle = pageTitle
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func loadView() {
         chatRoomView = ChatRoomView(frame: UIScreen.main.bounds)
         self.view = chatRoomView
-    }
-    
-    required init() {
-        // Placeholder
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,10 +56,7 @@ class ChatRoomController: UIViewController, SitePageController {
             self.handleSubmit()
         }
         chatRoomView.messageBar.sendButton.addTarget(self, action: #selector(handleSubmit), for: .touchUpInside)
-        guard let urlString = siteUrl else {
-            return
-        }
-        guard let url = URL(string: urlString) else {
+        guard let url = URL(string: siteUrl) else {
             return
         }
         

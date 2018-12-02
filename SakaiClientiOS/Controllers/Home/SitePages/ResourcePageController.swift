@@ -13,18 +13,26 @@ class ResourcePageController: UIViewController, SitePageController {
     
     var treeView: RATreeView!
     var resourceTreeManager: ResourceTreeManager!
-    var siteId: String?
-    var siteUrl: String?
-    var pageTitle: String?
+
+    var siteId: String
+    var siteUrl: String
+    var pageTitle: String
+
+    required init(siteId: String, siteUrl: String, pageTitle: String) {
+        self.siteId = siteId
+        self.siteUrl = siteUrl
+        self.pageTitle = pageTitle
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         self.title = "Resources"
-        
-        guard let siteId = siteId else {
-            return
-        }
         
         treeView = RATreeView(frame: view.bounds)
         view.addSubview(treeView)

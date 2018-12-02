@@ -16,6 +16,8 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
     var titleLabel: UILabel!
     var contentLabel: UILabel!
     var dateLabel: UILabel!
+    
+    var shouldSetConstraints = true
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,11 +27,18 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         addViews()
-        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func updateConstraints() {
+        if shouldSetConstraints {
+            setConstraints()
+            shouldSetConstraints = false
+        }
+        super.updateConstraints()
     }
 
     func setup() {
@@ -48,6 +57,12 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         dateLabel.textColor = UIColor.darkGray
         dateLabel.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
         dateLabel.textAlignment = .right
+
+        authorLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        setNeedsUpdateConstraints()
     }
 
     func addViews() {
@@ -60,22 +75,12 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
 
-        authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        // Constrain authorLabel to top, and left anchor and constrain authorLabel right anchor to dateLabel left anchor
         authorLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
         authorLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        // Constrain authorLabel bottom anchor to top of titleLabel
         authorLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -2.0).isActive = true
-        // Constrain authorLabel width to 75% of cell width
         authorLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.75).isActive = true
 
-        // Constrain titleLabel right and left anchor to cell right and left anchors
-        // Constrain titleLabel bottom anchor to top of contentLabel
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentLabel.topAnchor, constant: -2.0).isActive = true
