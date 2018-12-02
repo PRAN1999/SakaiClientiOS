@@ -17,13 +17,13 @@ import ReusableSource
 /// AssignmentTableManager handles the selection of any Assignment in the collectionView within any cell
 class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
     
-    var lastSelectedIndex: Int?
-    var textViewDelegate = Delegated<Void, UITextViewDelegate>()
+    private(set) var lastSelectedIndex: Int?
 
+    var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
     
-    init(tableView: UITableView) {
-        super.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
+    convenience init(tableView: UITableView) {
+        self.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
     }
     
     override func setup() {
@@ -62,12 +62,12 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     }
     
     func resetSort() {
-        provider.dateSorted = false
+        provider.toggleDateSorted(to: false)
     }
     
     /// Switch data grouping between class and Term
     func switchSort() {
-        provider.dateSorted = !provider.dateSorted
+        provider.toggleDateSorted(to: !provider.dateSorted)
         reloadData()
     }
 

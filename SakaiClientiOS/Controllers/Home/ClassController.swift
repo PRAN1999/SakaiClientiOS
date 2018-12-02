@@ -9,9 +9,17 @@ import UIKit
 
 class ClassController: UITableViewController {
 
-    var sitePages:[SitePage] = [SitePage]()
-    var siteTitle: String?
-    
+    private let pages: [SitePage]
+
+    init(pages: [SitePage]) {
+        self.pages = pages
+        super.init(style: .plain)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Pages"
@@ -33,34 +41,29 @@ class ClassController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sitePages.count
+        return pages.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
             fatalError("Not a Site Table View Cell")
         }
-        let page:SitePage = sitePages[indexPath.row]
+        let page: SitePage = pages[indexPath.row]
         cell.titleLabel.text = page.title
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let page:SitePage = self.sitePages[indexPath.row]
+        let page:SitePage = pages[indexPath.row]
         
-        let sitePage:SitePageController = page.siteType.init()
-        sitePage.siteId = page.siteId
-        sitePage.siteUrl = page.url
-        sitePage.pageTitle = page.title
+        let sitePage: SitePageController = page.siteType.init(siteId: page.siteId,
+                                                             siteUrl: page.url,
+                                                             pageTitle: page.title)
         
         guard let controller = sitePage as? UIViewController else {
             return
         }
         
         self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    func setPages(pages: [SitePage]) {
-        sitePages = pages
     }
 }

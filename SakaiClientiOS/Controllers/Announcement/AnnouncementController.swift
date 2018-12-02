@@ -10,47 +10,26 @@ import ReusableSource
 
 class AnnouncementController: UITableViewController {
     
-    var announcementTableManager : AnnouncementTableManager!
-    var dateActionSheet: UIAlertController!
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    private(set) lazy var announcementTableManager = AnnouncementTableManager(tableView: tableView)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        announcementTableManager = AnnouncementTableManager(tableView: tableView)
         announcementTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             guard let announcement = self.announcementTableManager.item(at: indexPath) else {
                 return
             }
-            let announcementPage = AnnouncementPageController()
-            announcementPage.setAnnouncement(announcement)
+            let announcementPage = AnnouncementPageController(announcement: announcement)
             self.navigationController?.pushViewController(announcementPage, animated: true)
         }
         announcementTableManager.delegate = self
         configureNavigationItem()
         loadData()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //self.addBarSwipeHider()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        //self.removeBarSwipeHider()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
 
 extension AnnouncementController: LoadableController {
     @objc func loadData() {
+        SakaiService.shared.allAnnouncements = nil
         self.announcementTableManager.loadDataSourceWithoutCache()
     }
 }

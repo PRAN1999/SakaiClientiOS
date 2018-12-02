@@ -11,13 +11,23 @@ import ReusableSource
 /// The table view cell to display a GradeItem in a gradebook
 class GradebookCell: UITableViewCell, ConfigurableCell {
     typealias T = GradeItem
-    var titleLabel: UILabel!
-    var gradeLabel: UILabel!
+    
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        return titleLabel
+    }()
+
+    let gradeLabel: UILabel = {
+        let gradeLabel: UILabel = UIView.defaultAutoLayoutView()
+        gradeLabel.textAlignment = NSTextAlignment.right
+        return gradeLabel
+    }()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-        addViews()
+        setupView()
         setConstraints()
     }
 
@@ -25,45 +35,23 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup() {
-        gradeLabel = UILabel()
-        gradeLabel.textAlignment = NSTextAlignment.right
-
-        titleLabel = UILabel()
-        titleLabel.numberOfLines = 0
-        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-    }
-
-    func addViews() {
-        self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(gradeLabel)
+    func setupView() {
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(gradeLabel)
     }
 
     func setConstraints() {
-        let margins = self.contentView.layoutMarginsGuide
+        let margins = contentView.layoutMarginsGuide
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        gradeLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        //Constrain titleLabel to top, bottom and left anchor of contentview
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-
-        //Constrain right of titleLabel to left anchor of gradeLabel
         titleLabel.trailingAnchor.constraint(equalTo: gradeLabel.leadingAnchor).isActive = true
-
-        //Force titleLabel's width to be half of contentView
         titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5).isActive = true
 
-        //Constrain top, bottom, and right anchors of gradeLabel to edges of contentView
         gradeLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         gradeLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         gradeLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 
     /// Configure the GradebookCell with a GradeItem object

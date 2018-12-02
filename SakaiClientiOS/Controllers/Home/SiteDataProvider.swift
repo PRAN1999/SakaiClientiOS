@@ -16,8 +16,8 @@ class SiteDataProvider : HideableDataProvider {
     var terms: [Term] = []
     var isHidden: [Bool] = []
     
-    var sites: [[Site]] = []
-    lazy var filteredSites = sites
+    private var sites: [[Site]] = []
+    private lazy var filteredSites = sites
     
     // MARK: - DataProvider
     func numberOfSections() -> Int {
@@ -50,5 +50,12 @@ class SiteDataProvider : HideableDataProvider {
         isHidden[0] = false
         sites = payload
         filteredSites = sites
+    }
+
+    func toggleHidden(for section: Int, to newVal: Bool) {
+        guard section >= 0 && section < terms.count else {
+            return
+        }
+        isHidden[section] = newVal
     }
 }

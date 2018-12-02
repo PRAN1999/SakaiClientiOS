@@ -12,7 +12,7 @@ import ReusableSource
 /// Term-based sections. Creates toggles on section headers in tableView to hide/show data
 class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell & ConfigurableCell> : ReusableTableManager<Provider, Cell>, UIGestureRecognizerDelegate where Provider.T == Cell.T {
     
-    let tableHeaderHeight: CGFloat = 50.0
+    private let tableHeaderHeight: CGFloat = 50.0
     
     override func setup() {
         super.setup()
@@ -38,8 +38,8 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
             fatalError("Not a Table Header View")
         }
         view.tag = section
-        view.setImage(isHidden: provider.isHidden[section])
-        view.titleLabel.text = provider.terms[section].getTitle()
+        view.setImage(isHidden: provider.isHidden(section: section))
+        view.titleLabel.text = provider.getTerm(for: section)?.getTitle()
         view.tapRecognizer.delegate = self
         view.tapRecognizer.addTarget(self, action: #selector(handleTap))
         return view
@@ -54,9 +54,8 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
     /// - Parameter sender: the tap recognizer in a TermHeader
     @objc func handleTap(sender: UITapGestureRecognizer) {
         let section = (sender.view?.tag)!
-        
-        provider.isHidden[section] = !provider.isHidden[section]
-        
+
+        provider.toggleHidden(for: section, to: !provider.isHidden(section: section))
         reloadData(for: section)
     }
 }

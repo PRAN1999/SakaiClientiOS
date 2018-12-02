@@ -10,34 +10,35 @@ import ReusableSource
 
 class HomeController: UITableViewController {
     
-    var siteTableManager: SiteTableManager!
-    var logoutController: UIAlertController!
+    private lazy var siteTableManager = SiteTableManager(tableView: tableView)
 
-    var launchedInBackground = false
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    private let logoutController: UIAlertController = {
+        let logoutController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
+            RequestManager.shared.logout()
+        }
+        logoutController.addAction(logoutAction)
+        logoutController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        return logoutController
+    }()
+
+    private var launchedInBackground = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Classes"
         disableTabs()
-        siteTableManager = SiteTableManager(tableView: tableView)
         siteTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
-            let classController:ClassController = ClassController()
-            guard let site:Site = self.siteTableManager.item(at: indexPath) else {
+            guard let site = self.siteTableManager.item(at: indexPath) else {
                 return
             }
-            classController.setPages(pages: site.pages)
-            classController.siteTitle = site.title
+            let classController = ClassController(pages: site.pages)
             self.navigationController?.pushViewController(classController, animated: true)
         }
         siteTableManager.delegate = self
 
         configureNavigationItem()
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
-        setupLogoutController()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "logout"), style: .plain, target: self, action: #selector(presentLogoutController))
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil)
 
@@ -50,7 +51,15 @@ class HomeController: UITableViewController {
         authenticateAndLoad()
     }
 
-    func authenticateAndLoad() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if launchedInBackground {
+            authenticateAndLoad()
+            launchedInBackground = false
+        }
+    }
+
+    private func authenticateAndLoad() {
         if RequestManager.shared.loadCookiesFromUserDefaults() {
             SakaiService.shared.validateLoggedInStatus(
                 onSuccess: { [weak self] in
@@ -65,7 +74,7 @@ class HomeController: UITableViewController {
         performLoginFlow()
     }
 
-    func performLoginFlow() {
+    private func performLoginFlow() {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController else {
             return
@@ -81,16 +90,8 @@ class HomeController: UITableViewController {
             self?.tabBarController?.present(navController, animated: true, completion: nil)
         }
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if launchedInBackground {
-            authenticateAndLoad()
-            launchedInBackground = false
-        }
-    }
     
-    func disableTabs() {
+    private func disableTabs() {
         let items = self.tabBarController?.tabBar.items
         if let arr = items {
             for index in 1..<arr.count {
@@ -99,7 +100,7 @@ class HomeController: UITableViewController {
         }
     }
     
-    func enableTabs() {
+    private func enableTabs() {
         let items = self.tabBarController?.tabBar.items
         if let arr = items {
             for index in 1..<arr.count {
@@ -108,16 +109,7 @@ class HomeController: UITableViewController {
         }
     }
     
-    func setupLogoutController() {
-        logoutController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
-            RequestManager.shared.logout()
-        }
-        logoutController.addAction(logoutAction)
-        logoutController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-    }
-    
-    @objc func presentLogoutController() {
+    @objc private func presentLogoutController() {
         self.present(logoutController, animated: true, completion: nil)
     }
 }

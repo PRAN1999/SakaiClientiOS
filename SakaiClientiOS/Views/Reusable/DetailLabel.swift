@@ -10,13 +10,22 @@ import UIKit
 /// A UILabel to represent any key-value pair
 class DetailLabel: UILabel {
 
-    var titleLabel: UILabel!
-    var detailLabel: UILabel!
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        return titleLabel
+    }()
+
+    let detailLabel: UILabel = {
+        let detailLabel: UILabel = UIView.defaultAutoLayoutView()
+        detailLabel.textAlignment = NSTextAlignment.right
+        return detailLabel
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
-        addViews()
+        setupView()
         setConstraints()
     }
 
@@ -24,35 +33,21 @@ class DetailLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup() {
-        detailLabel = UILabel()
-        detailLabel.textAlignment = NSTextAlignment.right
+    func setupView() {
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 1
 
-        titleLabel = UILabel()
-        titleLabel.numberOfLines = 0
-        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-
-        self.layer.borderColor = UIColor.black.cgColor
-        self.layer.borderWidth = 1
-    }
-
-    func addViews() {
-        self.addSubview(titleLabel)
-        self.addSubview(detailLabel)
+        addSubview(titleLabel)
+        addSubview(detailLabel)
     }
 
     func setConstraints() {
         let margins = self.layoutMarginsGuide
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        detailLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        // Constrain titleLabel to top, left and bottom of view
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: detailLabel.leadingAnchor).isActive = true
-        // Constrain titleLabel to half the width of view
         titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5)
 
         detailLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true

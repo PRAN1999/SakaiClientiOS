@@ -8,15 +8,20 @@
 import ReusableSource
 
 class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSource {
-    weak var delegate: NetworkSourceDelegate?
-
     typealias Fetcher = SiteAssignmentDataFetcher
     
     let fetcher: SiteAssignmentDataFetcher
+    weak var delegate: NetworkSourceDelegate?
     
-    init(collectionView: UICollectionView, siteId: String) {
-        fetcher = SiteAssignmentDataFetcher(siteId: siteId)
-        super.init(collectionView: collectionView)
+    convenience init(collectionView: UICollectionView, siteId: String) {
+        let provider = SingleSectionDataProvider<Assignment>()
+        let fetcher = SiteAssignmentDataFetcher(siteId: siteId)
+        self.init(provider: provider, fetcher: fetcher, collectionView: collectionView)
+    }
+
+    init(provider: Provider, fetcher: Fetcher, collectionView: UICollectionView) {
+        self.fetcher = fetcher
+        super.init(provider: provider, collectionView: collectionView)
     }
     
     override func setup() {

@@ -13,19 +13,43 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     
     typealias T = Assignment
 
-    var titleLabel: InsetUILabel!
-    var dueLabel: InsetUILabel!
-    var descLabel: UITextView!
+    let titleLabel: InsetUILabel = {
+        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+        titleLabel.backgroundColor = AppGlobals.sakaiRed
+        titleLabel.titleLabel.textColor = UIColor.white
+        titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
+        return titleLabel
+    }()
 
-    /// Since the textView has its own recognizers, a tap on the textView will not register as a cell selection
+    let dueLabel: InsetUILabel = {
+        let dueLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+        dueLabel.backgroundColor = AppGlobals.sakaiRed//UIColor.black
+        dueLabel.titleLabel.textColor = UIColor.white
+        dueLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
+        return dueLabel
+    }()
+
+    let descLabel: UITextView = {
+        let descLabel: UITextView = UIView.defaultAutoLayoutView()
+        descLabel.isEditable = false
+        descLabel.isSelectable = true
+        descLabel.backgroundColor = UIColor.white
+        return descLabel
+    }()
+
+    /// Since the textView has its own recognizers, a tap on the textView will
+    /// not register as a cell selection
     ///
     /// The tapRecognizer forwards the taps to the UICollectionViewDelegate
-    var tapRecognizer: IndexRecognizer!
+    let tapRecognizer: IndexRecognizer = {
+        let tapRecognizer = IndexRecognizer(target: nil, action: nil)
+        tapRecognizer.cancelsTouchesInView = false
+        return tapRecognizer
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
-        addViews()
+        setupView()
         setConstraints()
     }
 
@@ -33,69 +57,36 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup() {
-        titleLabel = InsetUILabel()
-        dueLabel = InsetUILabel()
-        descLabel = UITextView()
+    func setupView() {
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.black.cgColor
+        contentView.layer.cornerRadius = 3
+        contentView.layer.masksToBounds = false
 
-        titleLabel.backgroundColor = AppGlobals.sakaiRed
-        dueLabel.backgroundColor = AppGlobals.sakaiRed//UIColor.black
-        titleLabel.titleLabel.textColor = UIColor.white
-        dueLabel.titleLabel.textColor = UIColor.white
-
-        titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
-        dueLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
-
-        descLabel.isEditable = false
-        descLabel.isSelectable = true
-        descLabel.backgroundColor = UIColor.white
-
-        tapRecognizer = IndexRecognizer(target: nil, action: nil)
-        tapRecognizer.cancelsTouchesInView = false
-
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.black.cgColor
-        self.layer.cornerRadius = 3
-        self.layer.masksToBounds = false
-    }
-
-    func addViews() {
-        self.addSubview(titleLabel)
-        self.addSubview(dueLabel)
-        self.addSubview(descLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(dueLabel)
+        contentView.addSubview(descLabel)
         descLabel.addGestureRecognizer(tapRecognizer)
     }
 
     func setConstraints() {
-        self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        let margins = self.layoutMarginsGuide
+        contentView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let margins = contentView.layoutMarginsGuide
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        dueLabel.translatesAutoresizingMaskIntoConstraints = false
-        descLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        // Constrain the titleLabel to the right, left, and top of cell
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: contentView.bounds.height / 4).isActive = true
 
-        // Ensure height of titleLabel is 1/4 of cell height
-        titleLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
-
-        // Constrain descLabel to right and left anchors of cell
-        // Constrain descLabel to bottom of titleLabel and top of dueLabel
         descLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         descLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
 
-        // Constrain the dueLabel to the right, left, and bottom of cell
         dueLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-
-        // Ensure height of dueLabel is 1/4 of cell height
-        dueLabel.heightAnchor.constraint(equalToConstant: self.bounds.height / 4).isActive = true
+        dueLabel.heightAnchor.constraint(equalToConstant: contentView.bounds.height / 4).isActive = true
     }
 
     /// Configure the AssignmentCell with a Assignment object
@@ -115,5 +106,5 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 ///
 /// For use with textView within AssignmentCell
 class IndexRecognizer: UITapGestureRecognizer {
-    var indexPath: IndexPath!
+    var indexPath: IndexPath?
 }

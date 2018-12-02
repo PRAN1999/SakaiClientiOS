@@ -12,15 +12,10 @@ import ReusableSource
 class GradebookController: UITableViewController {
     
     /// Abstract Gradebook data management and delegate
-    var gradebookTableManager: GradebookTableManager!
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    private lazy var gradebookTableManager: GradebookTableManager = GradebookTableManager(tableView: tableView)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        gradebookTableManager = GradebookTableManager(tableView: super.tableView)
         gradebookTableManager.delegate = self
         configureNavigationItem()
         loadData()

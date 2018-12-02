@@ -11,6 +11,7 @@ import ReusableSource
 /// that provides information on which sections have loaded and the ability
 /// to load data into a specific section
 protocol HideableNetworkDataProvider: HideableDataProvider {
+    
     var hasLoaded: [Bool] { get set }
     
     /// Load data into the data source for the specified section
@@ -22,26 +23,42 @@ protocol HideableNetworkDataProvider: HideableDataProvider {
     ///   - payload: the fetched data
     ///   - section: the section to load
     func loadItems(payload: V, for section: Int)
+
+    func hasLoaded(section: Int) -> Bool
+    func toggleLoaded(for section: Int, to newVal: Bool)
 }
 
 extension HideableNetworkDataProvider {
 
     /// Helper method to be used by numberOfRows method impl.
     func numberOfItemsForHideableNetworkSection(section: Int) -> Int {
-        if section < hasLoaded.count && !hasLoaded[section] {
+        if !hasLoaded(section: section) {
             return 0
         }
         return numberOfItemsForHideableSection(section: section)
     }
     
-    /// Use the "source of truth" to define how many Terms exist
+    func loadItems(payload: V) {
+        loadItems(payload: payload, for: 0)
+    }
+
     func resetTerms() {
         terms = SakaiService.shared.termMap.map { $0.0 }
         isHidden = [Bool].init(repeating: true, count: terms.count)
         hasLoaded = [Bool].init(repeating: false, count: terms.count)
     }
-    
-    func loadItems(payload: V) {
-        loadItems(payload: payload, for: 0)
+
+    func hasLoaded(section: Int) -> Bool {
+        guard section >= 0 && section < terms.count else {
+            return true
+        }
+        return hasLoaded[section]
+    }
+
+    func toggleLoaded(for section: Int, to newVal: Bool) {
+        guard section >= 0 && section < terms.count else {
+            return
+        }
+        hasLoaded[section] = newVal
     }
 }

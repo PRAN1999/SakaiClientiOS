@@ -9,32 +9,26 @@ import Foundation
 import WebKit
 
 class ChatRoomController: UIViewController, SitePageController {
-    
-    var siteId: String?
-    var siteUrl: String?
-    var pageTitle: String?
-    var chatChannelId: String?
-    var csrftoken: String?
-    
-    var chatRoomView: ChatRoomView!
-    var indicator: LoadingIndicator!
-    
-    var webView: WKWebView {
+    private var chatRoomView: ChatRoomView!
+    private var indicator: LoadingIndicator!
+    private var webView: WKWebView {
         return chatRoomView.webView
     }
-    
-    override func loadView() {
-        chatRoomView = ChatRoomView(frame: UIScreen.main.bounds)
-        self.view = chatRoomView
-    }
-    
-    required init() {
-        // Placeholder
+
+    private var chatChannelId: String?
+    private var csrftoken: String?
+
+    private let siteId: String
+    private let siteUrl: String
+
+    required init(siteId: String, siteUrl: String, pageTitle: String) {
+        self.siteId = siteId
+        self.siteUrl = siteUrl
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,22 +44,27 @@ class ChatRoomController: UIViewController, SitePageController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
 
+        WKWebView.authorizedWebView { [weak self] webView in
+            self?.chatRoomView = ChatRoomView(webView: webView)
+            self?.setup()
+        }
+    }
+
+    func setup() {
+        UIView.constrainChildToEdges(child: chatRoomView, parent: view)
         chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()
         }
         chatRoomView.messageBar.sendButton.addTarget(self, action: #selector(handleSubmit), for: .touchUpInside)
-        guard let urlString = siteUrl else {
+        guard let url = URL(string: siteUrl) else {
             return
         }
-        guard let url = URL(string: urlString) else {
-            return
-        }
-        
+
         indicator = LoadingIndicator(view: self.view)
         indicator.startAnimating()
-        
+
         setInput(enabled: false)
-        
+
         webView.contentMode = .scaleToFill
         webView.isMultipleTouchEnabled = false
         webView.scrollView.delegate = NativeWebViewScrollViewDelegate.shared

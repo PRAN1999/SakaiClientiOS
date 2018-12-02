@@ -11,11 +11,7 @@ import UIKit
 /// scroll horizontally
 class NativeWebViewScrollViewDelegate: NSObject, UIScrollViewDelegate {
     // MARK: - Shared delegate
-    static var shared = NativeWebViewScrollViewDelegate()
-
-    private override init() {
-        super.init()
-    }
+    static let shared = NativeWebViewScrollViewDelegate()
 
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         scrollView.pinchGestureRecognizer?.isEnabled = false

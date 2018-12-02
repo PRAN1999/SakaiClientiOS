@@ -10,12 +10,108 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SakaiClientiOS/Controllers/Web/WebNavigationController.swift"
-            timestampString = "563268110.525673"
+            timestampString = "565510391.551425"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "24"
             endingLineNumber = "24"
             landmarkName = "WebViewNavigationController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SakaiClientiOS/Controllers/Assignment/PagesController.swift"
+            timestampString = "565512531.169626"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "setPage(assignment:index:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SakaiClientiOS/Views/AssignmentPageView.swift"
+            timestampString = "565512531.169814"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "AssignmentPageView"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SakaiClientiOS/Views/AssignmentPageView.swift"
+            timestampString = "565512531.169899"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "titleLabel"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SakaiClientiOS.InsetUILabel in variable initialization expression of SakaiClientiOS.AssignmentPageView.titleLabel : SakaiClientiOS.InsetUILabel"
+                  moduleName = "SakaiClientiOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pran1999/Dev/SakaiClientiOS/SakaiClientiOS/Views/AssignmentPageView.swift"
+                  timestampString = "565487025.358507"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SakaiClientiOS.AssignmentPageView.titleLabel.getter : SakaiClientiOS.InsetUILabel"
+                  moduleName = "SakaiClientiOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pran1999/Dev/SakaiClientiOS/SakaiClientiOS/Views/AssignmentPageView.swift"
+                  timestampString = "565487025.36351"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SakaiClientiOS/Views/AssignmentPageView.swift"
+            timestampString = "565512531.169948"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "AssignmentPageView"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>

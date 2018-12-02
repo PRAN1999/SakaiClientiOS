@@ -10,14 +10,17 @@ import WebKit
 
 /// The view to represent an custom chat interface where the webview displays the chat
 class ChatRoomView: UIView {
-    var webView: WKWebView!
-    var messageBar: MessageBar!
+
+    let webView: WKWebView
+
+    let messageBar: MessageBar = UIView.defaultAutoLayoutView()
+
     var bottomConstraint: NSLayoutConstraint!
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-        addViews()
+    init(webView: WKWebView) {
+        self.webView = webView
+        super.init(frame: .zero)
+        setupView()
         setConstraints()
     }
 
@@ -25,40 +28,33 @@ class ChatRoomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup() {
-        let configuration = WKWebViewConfiguration()
-        configuration.processPool = RequestManager.shared.processPool
-        webView = WKWebView(frame: .zero, configuration: configuration)
-        messageBar = MessageBar()
-    }
+    func setupView() {
+        webView.translatesAutoresizingMaskIntoConstraints = false
 
-    func addViews() {
-        self.addSubview(webView)
-        self.addSubview(messageBar)
+        addSubview(webView)
+        addSubview(messageBar)
     }
 
     func setConstraints() {
-        let margins = self.layoutMarginsGuide
-
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        messageBar.translatesAutoresizingMaskIntoConstraints = false
+        let margins = layoutMarginsGuide
 
         webView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        webView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        webView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        webView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        webView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         webView.bottomAnchor.constraint(equalTo: messageBar.topAnchor).isActive = true
 
-        messageBar.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        messageBar.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        messageBar.heightAnchor.constraint(greaterThanOrEqualTo: margins.heightAnchor, multiplier: 0.1)
+        messageBar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        messageBar.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        messageBar.heightAnchor.constraint(greaterThanOrEqualTo: margins.heightAnchor,
+                                           multiplier: 0.1)
 
-        bottomConstraint = NSLayoutConstraint(item: self.messageBar,
+        bottomConstraint = NSLayoutConstraint(item: messageBar,
                                               attribute: .bottom,
                                               relatedBy: .equal,
                                               toItem: self,
                                               attribute: .bottom,
                                               multiplier: 1.0,
                                               constant: 0)
-        self.addConstraint(bottomConstraint)
+        addConstraint(bottomConstraint)
     }
 }

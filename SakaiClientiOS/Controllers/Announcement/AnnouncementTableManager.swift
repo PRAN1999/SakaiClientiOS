@@ -8,20 +8,19 @@
 import ReusableSource
 
 class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
-
     typealias Fetcher = AnnouncementDataFetcher
 
-    var isLoading = false
-    weak var delegate: NetworkSourceDelegate?
+    let fetcher: AnnouncementDataFetcher
 
-    var fetcher: AnnouncementDataFetcher
+    private(set) var isLoading = false
+    weak var delegate: NetworkSourceDelegate?
     
     convenience init(tableView: UITableView) {
-        self.init(provider: AnnouncementDataProvider(), tableView: tableView)
+        self.init(fetcher: AnnouncementDataFetcher(), provider: AnnouncementDataProvider(), tableView: tableView)
     }
-    
-    override init(provider: AnnouncementDataProvider, tableView: UITableView) {
-        fetcher = AnnouncementDataFetcher()
+
+    init(fetcher: Fetcher, provider: Provider, tableView: UITableView) {
+        self.fetcher = fetcher
         super.init(provider: provider, tableView: tableView)
     }
     

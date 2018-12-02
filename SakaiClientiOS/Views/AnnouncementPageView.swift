@@ -10,17 +10,43 @@ import UIKit
 /// The view to display an Announcement in a full page
 class AnnouncementPageView: UIScrollView {
 
-    var contentView: UIView!
+    let contentView: UIView = UIView.defaultAutoLayoutView()
 
-    var titleLabel: InsetUILabel!
-    var authorLabel: InsetUILabel!
-    var dateLabel: InsetUILabel!
-    var messageView: TappableTextView!
+    let titleLabel: InsetUILabel = {
+        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+        titleLabel.titleLabel.numberOfLines = 0
+        titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
+        titleLabel.layer.cornerRadius = 0
+        return titleLabel
+    }()
+
+    let authorLabel: InsetUILabel = {
+        let authorLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+        authorLabel.titleLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        authorLabel.layer.cornerRadius = 0
+        authorLabel.backgroundColor = UIColor.white
+        return authorLabel
+    }()
+
+    let dateLabel: InsetUILabel = {
+        let dateLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+        dateLabel.titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .light)
+        dateLabel.titleLabel.textAlignment = .right
+        dateLabel.layer.cornerRadius = 0
+        dateLabel.backgroundColor = UIColor.white
+        return dateLabel
+    }()
+
+    let messageView: TappableTextView = {
+        let messageView: TappableTextView = UIView.defaultAutoLayoutView()
+        messageView.isScrollEnabled = false
+        return messageView
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
-        addViews()
+        setupView()
         setConstraints()
     }
 
@@ -28,49 +54,19 @@ class AnnouncementPageView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup() {
-        contentView = UIView()
+    func setupView() {
+        addSubview(contentView)
 
-        titleLabel = InsetUILabel()
-        titleLabel.titleLabel.numberOfLines = 0
-        titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
-        titleLabel.layer.cornerRadius = 0
-
-        authorLabel = InsetUILabel()
-        authorLabel.titleLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
-        authorLabel.layer.cornerRadius = 0
-        authorLabel.backgroundColor = UIColor.white
-
-        dateLabel = InsetUILabel()
-        dateLabel.titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .light)
-        dateLabel.titleLabel.textAlignment = .right
-        dateLabel.layer.cornerRadius = 0
-        dateLabel.backgroundColor = UIColor.white
-
-        messageView = TappableTextView(); messageView.isScrollEnabled = false
-    }
-
-    func addViews() {
-        self.addSubview(contentView)
-
-        self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(authorLabel)
-        self.contentView.addSubview(dateLabel)
-        self.contentView.addSubview(messageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(authorLabel)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(messageView)
     }
 
     func setConstraints() {
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-
-        contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
 
         let margins = contentView.layoutMarginsGuide
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageView.translatesAutoresizingMaskIntoConstraints = false
 
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
@@ -81,7 +77,8 @@ class AnnouncementPageView: UIScrollView {
         authorLabel.bottomAnchor.constraint(equalTo: messageView.topAnchor).isActive = true
         authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
-        authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.60).isActive = true
+        authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor,
+                                           multiplier: 0.60).isActive = true
 
         dateLabel.topAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
@@ -97,7 +94,7 @@ class AnnouncementPageView: UIScrollView {
         // Set the content size of self (scrollView) to the size of the content view by using the maxY of the
         // attachmentsView (the farthest down point of all the content)
         let maxY = messageView.frame.maxY
-        self.contentSize = CGSize(width: self.frame.width, height: maxY + 10)
+        contentSize = CGSize(width: self.frame.width, height: maxY + 10)
     }
 }
 
@@ -117,7 +114,9 @@ extension AnnouncementPageView {
         }
         let content = NSMutableAttributedString(attributedString: text)
         let contentRange = NSRange(location: 0, length: content.string.count)
-        content.addAttribute(.font, value: UIFont.systemFont(ofSize: 16.0, weight: .regular), range: contentRange)
+        content.addAttribute(.font,
+                             value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
+                             range: contentRange)
         if let attachmentString = getAttachments(resources: resources) {
             content.append(attachmentString)
         }

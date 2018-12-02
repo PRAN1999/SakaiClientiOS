@@ -11,7 +11,13 @@ import ReusableSource
 /// The Tableview Cell to display Site titles
 class SiteCell: UITableViewCell, ConfigurableCell {
     typealias T = Site
-    var titleLabel: UILabel!
+
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.textColor = UIColor.black
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        return titleLabel
+    }()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,8 +25,7 @@ class SiteCell: UITableViewCell, ConfigurableCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-        addViews()
+        setupView()
         setConstraints()
     }
 
@@ -28,22 +33,13 @@ class SiteCell: UITableViewCell, ConfigurableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup() {
-        titleLabel = UILabel()
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        self.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-    }
-
-    func addViews() {
+    func setupView() {
         self.contentView.addSubview(titleLabel)
     }
 
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        //Constrain titleLabel to top, bottom, left, and right anchors
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 20.0).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true

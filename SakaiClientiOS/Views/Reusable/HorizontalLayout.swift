@@ -11,7 +11,7 @@ import UIKit
 class HorizontalLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
-        self.scrollDirection = .horizontal
+        scrollDirection = .horizontal
     }
 
     required init?(coder aDecoder: NSCoder) {

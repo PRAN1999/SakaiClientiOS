@@ -24,7 +24,8 @@ extension LoadableController where Self: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
     }
 
-    /// Adds a loading indicator to the view and returns a callback to remove it on completion of a task
+    /// Adds a loading indicator to the view and returns a callback to remove it on
+    /// completion of a task
     ///
     /// Ideally as part of NetworkSourceDelegate conformance
     func addLoadingIndicator() -> (() -> Void) {

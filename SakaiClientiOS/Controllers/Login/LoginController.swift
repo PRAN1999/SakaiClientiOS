@@ -11,8 +11,8 @@ import UIKit
 /// A landing page for login with NetId or with Email
 class LoginController: UIViewController {
 
-    @IBOutlet weak var netIdButton: UIButton!
-    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet private weak var netIdButton: UIButton!
+    @IBOutlet private weak var emailButton: UIButton!
 
     /// Callback to execute for a successful login
     var onLogin: (() -> Void)?

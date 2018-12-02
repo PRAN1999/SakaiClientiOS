@@ -10,19 +10,20 @@ import Foundation
 
 /// The data provider for the Assignments tab tableView
 class AssignmentTableDataProvider: HideableNetworkDataProvider {
-    
+
     typealias T = [Assignment]
     typealias V = [[Assignment]]
-    
+
+    private(set) var dateSorted = false
+
     var terms: [Term] = []
     var isHidden: [Bool] = []
     var hasLoaded: [Bool] = []
-    
-    var assignments: [[[Assignment]]] = []
-    var dateSortedAssignments: [[Assignment]] = []
-    var dateSorted = false
-    var collapsedSections: [[Bool]] = []
-    var collapsedDateSections: [Bool] = []
+
+    private var assignments: [[[Assignment]]] = []
+    private var dateSortedAssignments: [[Assignment]] = []
+    private var collapsedSections: [[Bool]] = []
+    private var collapsedDateSections: [Bool] = []
     
     func numberOfSections() -> Int {
         return assignments.count
@@ -95,5 +96,9 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
             return
         }
         collapsedSections[indexPath.section][indexPath.row] = !collapsedSections[indexPath.section][indexPath.row]
+    }
+
+    func toggleDateSorted(to newVal: Bool) {
+        dateSorted = newVal
     }
 }

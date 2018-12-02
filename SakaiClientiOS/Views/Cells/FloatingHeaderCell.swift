@@ -11,16 +11,16 @@ import ReusableSource
 /// The "floating" header used in the gradebook view
 class FloatingHeaderCell: UITableViewCell, ReusableCell {
 
-    var titleLabel: UILabel!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        return titleLabel
+    }()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-        addViews()
+        setupView()
         setConstraints()
     }
 
@@ -28,23 +28,15 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup() {
-        self.backgroundColor = UIColor.black//AppGlobals.sakaiRed
+    func setupView() {
+        backgroundColor = UIColor.black//AppGlobals.sakaiRed
+        isHidden = true
 
-        titleLabel = UILabel()
-        titleLabel.textColor = UIColor.white
-        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-
-        self.isHidden = true
-    }
-
-    func addViews() {
-        self.contentView.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
     }
 
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 20.0).isActive = true
@@ -53,16 +45,10 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
     }
 
-    /// Set the text of the titleLabel
-    ///
-    /// - Parameter title: The title text to set
     func setTitle(title: String?) {
         titleLabel.text = title
     }
 
-    /// Make the floating header visible in the specified frame
-    ///
-    /// - Parameter frame: The frame in which the cell should be visible
     func setFrameAndMakeVisible(frame: CGRect) {
         self.frame = frame
         self.isHidden = false

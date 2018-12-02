@@ -12,54 +12,56 @@ import ReusableSource
 class AssignmentController: UITableViewController {
     
     /// Abstract the Assignment data management to a dedicated TableViewManager
-    var assignmentsTableManager: AssignmentTableManager!
+    private lazy var assignmentsTableManager = AssignmentTableManager(tableView: tableView)
     
-    var segments:UISegmentedControl!
-    var button1: UIBarButtonItem!
-    var button2: UIBarButtonItem!
-    var flexButton: UIBarButtonItem!
+    private let segments: UISegmentedControl = {
+        let segments = UISegmentedControl.init(items: ["Class", "Date"])
+        segments.tintColor = AppGlobals.sakaiRed
+        segments.setEnabled(false, forSegmentAt: 1)
+        segments.translatesAutoresizingMaskIntoConstraints = false
+        return segments
+    }()
+
+    private lazy var button1: UIBarButtonItem = UIBarButtonItem(customView: segments)
+    private lazy var button2: UIBarButtonItem = UIBarButtonItem(customView: segments)
+    private let flexButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     
-    var selectedIndex = 0
+    private var selectedIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assignmentsTableManager = AssignmentTableManager(tableView: super.tableView)
         assignmentsTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             self.assignmentsTableManager.toggleSite(at: indexPath)
         }
         assignmentsTableManager.selectedAssignmentAt.delegate(to: self) { (self, arg1) -> Void in
             // Navigate to a full page view for a selected Assignment
             let (indexPath, row) = arg1
-            let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
-            guard let pages = storyboard.instantiateViewController(withIdentifier: "pagedController") as? PagesController else {
-                return
-            }
             guard let assignments = self.assignmentsTableManager.item(at: indexPath) else {
                 return
             }
-            pages.setAssignments(assignments: assignments, start: row)
+            let pages = PagesController(assignments: assignments, start: row)
             self.navigationController?.pushViewController(pages, animated: true)
         }
         assignmentsTableManager.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
             return self
         }
         assignmentsTableManager.delegate = self
-        
-        createSegmentedControl()
+
+        configureSegmentedControl()
         configureNavigationItem()
         loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.setToolbarHidden(false, animated: true)
-        self.navigationController?.toolbar.barTintColor = UIColor.black
+        navigationController?.setToolbarHidden(false, animated: true)
+        navigationController?.toolbar.barTintColor = UIColor.black
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.navigationController?.setToolbarHidden(true, animated: true)
-        self.navigationController?.toolbar.barTintColor = AppGlobals.defaultTint
+        navigationController?.setToolbarHidden(true, animated: true)
+        navigationController?.toolbar.barTintColor = AppGlobals.defaultTint
     }
     
     @objc func resort() {
@@ -70,25 +72,18 @@ class AssignmentController: UITableViewController {
 //MARK: View construction
 
 fileprivate extension AssignmentController {
-    /// Creates UI control to toggle between class and date(Term) sort
-    func createSegmentedControl() {
-        segments = UISegmentedControl.init(items: ["Class", "Date"])
+    /// Configures UI control to toggle between class and date(Term) sort
+    func configureSegmentedControl() {
         segments.selectedSegmentIndex = selectedIndex
         segments.addTarget(self, action: #selector(resort), for: UIControlEvents.valueChanged)
-        segments.tintColor = AppGlobals.sakaiRed
-        segments.setEnabled(false, forSegmentAt: 1)
 
-        button1 = UIBarButtonItem(customView: segments);
-        button2 = UIBarButtonItem(customView: segments);
-        flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let frame = view.frame
 
-        let frame = self.view.frame
-        segments.translatesAutoresizingMaskIntoConstraints = false
         segments.setWidth(frame.size.width / 4, forSegmentAt: 0)
         segments.setWidth(frame.size.width / 4, forSegmentAt: 1)
 
         let arr: [UIBarButtonItem] = [flexButton, button1, button2, flexButton]
-        self.setToolbarItems(arr, animated: true)
+        setToolbarItems(arr, animated: true)
     }
 }
 
@@ -107,10 +102,10 @@ extension AssignmentController: NetworkSourceDelegate {
         segments.selectedSegmentIndex = 0
         segments.setEnabled(false, forSegmentAt: 1)
         assignmentsTableManager.resetSort()
-        return self.addLoadingIndicator()
+        return addLoadingIndicator()
     }
 
     func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {
-        self.segments.setEnabled(true, forSegmentAt: 1)
+        segments.setEnabled(true, forSegmentAt: 1)
     }
 }
