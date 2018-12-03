@@ -24,7 +24,7 @@ import UIKit
 
 extension FeedController where Self: UIViewController {
     func setTabBarVisibility() {
-        guard let hidden = self.navigationController?.isNavigationBarHidden else {
+        guard let hidden = navigationController?.isNavigationBarHidden else {
             return
         }
         if hidden {
@@ -35,20 +35,20 @@ extension FeedController where Self: UIViewController {
     }
     
     func animateTabBar(to visibility: Bool) {
-        UIView.animate(withDuration: 0.6) {
-            self.tabBarController?.tabBar.isHidden = visibility
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.tabBarController?.tabBar.isHidden = visibility
         }
     }
     
     /// Configure ViewController on appearance
     func addBarSwipeHider() {
-        self.navigationController?.hidesBarsOnSwipe = true
-        self.navigationController?.barHideOnSwipeGestureRecognizer.addTarget(self, action: #selector(swipeTarget))
+        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.barHideOnSwipeGestureRecognizer.addTarget(self, action: #selector(swipeTarget))
     }
     
     /// Remove recognizers when transitioning from FeedController
     func removeBarSwipeHider() {
-        self.navigationController?.hidesBarsOnSwipe = false
-        self.navigationController?.barHideOnSwipeGestureRecognizer.removeTarget(self, action: #selector(swipeTarget))
+        navigationController?.hidesBarsOnSwipe = false
+        navigationController?.barHideOnSwipeGestureRecognizer.removeTarget(self, action: #selector(swipeTarget))
     }
 }

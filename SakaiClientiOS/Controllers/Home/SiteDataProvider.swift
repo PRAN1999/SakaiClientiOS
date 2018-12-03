@@ -51,11 +51,4 @@ class SiteDataProvider : HideableDataProvider {
         sites = payload
         filteredSites = sites
     }
-
-    func toggleHidden(for section: Int, to newVal: Bool) {
-        guard section >= 0 && section < terms.count else {
-            return
-        }
-        isHidden[section] = newVal
-    }
 }

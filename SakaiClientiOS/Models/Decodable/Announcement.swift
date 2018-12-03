@@ -8,7 +8,7 @@
 import Foundation
 
 /// A model for the Announcement item
-struct Announcement: Decodable, TermSortable, SiteSortable {
+struct Announcement: TermSortable, SiteSortable {
 
     let author: String
     let title: String?
@@ -21,22 +21,32 @@ struct Announcement: Decodable, TermSortable, SiteSortable {
 
     var attributedContent: NSAttributedString?
 
+    mutating func setAttributedContent() {
+        attributedContent = content?.htmlAttributedString
+    }
+}
+
+extension Announcement: Decodable {
     init(from decoder: Decoder) throws {
         let announcementElement = try AnnouncementElement(from: decoder)
-        self.author = announcementElement.author
-        self.title = announcementElement.title
-        self.content = announcementElement.content
-        self.siteId = announcementElement.siteId
-        self.date = announcementElement.date
-        self.dateString = String.getDateString(date: date)
-        self.attachments = announcementElement.attachments
+        let author = announcementElement.author
+        let title = announcementElement.title
+        let content = announcementElement.content
+        let siteId = announcementElement.siteId
+        let date = announcementElement.date
+        let dateString = String.getDateString(date: date)
+        let attachments = announcementElement.attachments
         guard let term = SakaiService.shared.siteTermMap[siteId] else {
             throw SakaiError.parseError("No valid Term found")
         }
-        self.term = term
-    }
-
-    mutating func setAttributedContent() {
-        attributedContent = content?.htmlAttributedString
+        self.init(author: author,
+                  title: title,
+                  content: content,
+                  term: term,
+                  siteId: siteId,
+                  date: date,
+                  dateString: dateString,
+                  attachments: attachments,
+                  attributedContent: nil)
     }
 }

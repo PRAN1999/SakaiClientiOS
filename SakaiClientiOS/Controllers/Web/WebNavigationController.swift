@@ -26,14 +26,14 @@ class WebViewNavigationController: UINavigationController {
                                  animated flag: Bool,
                                  completion: (() -> Void)? = nil) {
         if viewControllerToPresent is UIDocumentPickerViewController {
-            self.documentPicker = viewControllerToPresent as? UIDocumentPickerViewController
+            documentPicker = viewControllerToPresent as? UIDocumentPickerViewController
         }
         super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
 
     override public func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        if self.presentedViewController == nil && self.documentPicker != nil {
-            self.documentPicker = nil
+        if presentedViewController == nil && documentPicker != nil {
+            documentPicker = nil
         } else {
             super.dismiss(animated: flag, completion: completion)
         }

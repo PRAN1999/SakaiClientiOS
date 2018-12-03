@@ -31,7 +31,7 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     /// was tapped.
     ///
     /// - Parameter sender: the custom tap recognizer added to an Assignment cell
-    @objc func handleIndexTap(sender: Any) {
+    @objc private func handleIndexTap(sender: Any) {
         guard let recognizer = sender as? IndexRecognizer else {
             return
         }

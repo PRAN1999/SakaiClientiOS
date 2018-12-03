@@ -52,8 +52,8 @@ class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: U
     }
 
     func populateDataSource(with payload: Fetcher.T, forSection section: Int) {
-        self.provider.loadItems(payload: payload, for: section)
-        self.reloadData(for: section)
+        provider.loadItems(payload: payload, for: section)
+        reloadData(for: section)
     }
 
     func loadDataSource() {

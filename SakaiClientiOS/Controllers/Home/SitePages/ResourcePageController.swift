@@ -50,10 +50,6 @@ class ResourcePageController: UIViewController, SitePageController {
         configureNavigationItem()
         resourceTreeManager.loadDataSource()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 }
 
 extension ResourcePageController: LoadableController {

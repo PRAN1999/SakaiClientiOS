@@ -30,14 +30,7 @@ class AnnouncementController: UITableViewController {
 extension AnnouncementController: LoadableController {
     @objc func loadData() {
         SakaiService.shared.allAnnouncements = nil
-        self.announcementTableManager.loadDataSourceWithoutCache()
-    }
-}
-
-extension AnnouncementController: FeedController {
-    @objc func swipeTarget() {
-        self.setTabBarVisibility()
-        self.navigationController?.setToolbarHidden(true, animated: true)
+        announcementTableManager.loadDataSourceWithoutCache()
     }
 }
 

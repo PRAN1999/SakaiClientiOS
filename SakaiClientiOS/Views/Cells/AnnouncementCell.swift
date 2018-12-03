@@ -46,14 +46,14 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         contentView.addSubview(authorLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(contentLabel)
         contentView.addSubview(dateLabel)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = contentView.layoutMarginsGuide
 
         authorLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true

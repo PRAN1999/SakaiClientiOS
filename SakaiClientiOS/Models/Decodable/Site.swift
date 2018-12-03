@@ -13,37 +13,39 @@ protocol SiteSortable {
 }
 
 /// A model to represent a user Site object.
-struct Site: Decodable, TermSortable {
+struct Site: TermSortable {
     let id: String
     let title: String
     let term: Term
     let description: String?
     let pages: [SitePage]
+}
 
+extension Site: Decodable {
     init(from decoder: Decoder) throws {
         let siteElement = try SiteElement(from: decoder)
-        self.id = siteElement.id
-        self.title = siteElement.title
-        self.description = siteElement.description
-        self.pages = siteElement.sitePages
-        self.term = Term(toParse: siteElement.props.termEid)
+        let id = siteElement.id
+        let title = siteElement.title
+        let description = siteElement.description
+        let pages = siteElement.sitePages
+        let term = Term(toParse: siteElement.props.termEid)
+        self.init(id: id, title: title, term: term, description: description, pages: pages)
     }
 
     init(from serializedSite: PersistedSite) {
-        self.id = serializedSite.id
-        self.title = serializedSite.title
-        self.description = serializedSite.siteDescription
-        self.term = Term(toParse: serializedSite.term)
+        let id = serializedSite.id
+        let title = serializedSite.title
+        let description = serializedSite.siteDescription
+        let term = Term(toParse: serializedSite.term)
         var pages: [SitePage] = []
         for page in serializedSite.sitePages {
             pages.append(SitePage(from: page))
         }
-        self.pages = pages
+        self.init(id: id, title: title, term: term, description: description, pages: pages)
     }
 }
 
 extension Site {
-    
     /// Sorts and splits an array of T:SiteSortable items by siteid and returns a [[T]] object
     /// where each sub-array represents the items for a specific Site
     ///

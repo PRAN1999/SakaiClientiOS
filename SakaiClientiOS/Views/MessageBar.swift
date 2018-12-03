@@ -44,14 +44,14 @@ class MessageBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         backgroundColor = UIColor.white
 
         addSubview(inputField)
         addSubview(sendButton)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = layoutMarginsGuide
 
         inputField.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true

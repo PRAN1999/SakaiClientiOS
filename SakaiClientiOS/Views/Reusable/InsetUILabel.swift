@@ -29,7 +29,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         backgroundColor = AppGlobals.sakaiRed
         layer.cornerRadius = 3
         layer.masksToBounds = true
@@ -37,7 +37,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         addSubview(titleLabel)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = layoutMarginsGuide
 
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true

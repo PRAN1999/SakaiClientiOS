@@ -55,7 +55,7 @@ class AssignmentPageView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         addSubview(contentView)
 
         contentView.addSubview(titleLabel)
@@ -68,7 +68,7 @@ class AssignmentPageView: UIScrollView {
         contentView.addSubview(attachmentsView)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         contentView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
 
         let margins = contentView.layoutMarginsGuide

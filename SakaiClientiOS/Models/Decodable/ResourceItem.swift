@@ -8,7 +8,7 @@
 import Foundation
 
 /// A model for a Resource item in Sakai
-struct ResourceItem: Decodable {
+struct ResourceItem {
 
     /// A model for the type of resource being represented
     ///
@@ -25,16 +25,19 @@ struct ResourceItem: Decodable {
     let type: ContentType
     let url: String?
     let numChildren: Int
+}
 
+extension ResourceItem: Decodable {
     init(from decoder: Decoder) throws {
         let resourceItemElement = try ResourceItemElement(from: decoder)
-        self.author = resourceItemElement.author
-        self.title = resourceItemElement.title
         let typeString = resourceItemElement.typeString
         let size = resourceItemElement.size
-        self.url = resourceItemElement.url
-        self.numChildren = resourceItemElement.numChildren != nil ? resourceItemElement.numChildren! : 0
-        self.type = (typeString == "collection" && size != nil) ? ContentType.collection(size!) : ContentType.resource
-    }
+        let author = resourceItemElement.author
+        let title = resourceItemElement.title
+        let url = resourceItemElement.url
+        let numChildren = resourceItemElement.numChildren != nil ? resourceItemElement.numChildren! : 0
+        let type = (typeString == "collection" && size != nil) ? ContentType.collection(size!) : ContentType.resource
 
+        self.init(author: author, title: title, type: type, url: url, numChildren: numChildren)
+    }
 }

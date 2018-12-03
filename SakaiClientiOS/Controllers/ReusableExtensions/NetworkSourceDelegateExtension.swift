@@ -14,7 +14,7 @@ import ReusableSource
 // will have a set of default implementations
 extension NetworkSourceDelegate where Self: UIViewController, Self: LoadableController {
     func networkSourceWillBeginLoadingData<Source: NetworkSource>(_ networkSource: Source) -> (() -> Void)? {
-        return self.addLoadingIndicator()
+        return addLoadingIndicator()
     }
 
     func networkSourceSuccessfullyLoadedData<Source: NetworkSource>(_ networkSource: Source?) {
@@ -22,6 +22,6 @@ extension NetworkSourceDelegate where Self: UIViewController, Self: LoadableCont
     }
     
     func networkSourceFailedToLoadData<Source: NetworkSource>(_ networkSource: Source?, withError error: Error) {
-        self.presentErrorAlert(error: error)
+        presentErrorAlert(error: error)
     }
 }

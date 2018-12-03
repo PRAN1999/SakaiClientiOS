@@ -33,7 +33,7 @@ class DetailLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
 
@@ -41,7 +41,7 @@ class DetailLabel: UILabel {
         addSubview(detailLabel)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = self.layoutMarginsGuide
 
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true

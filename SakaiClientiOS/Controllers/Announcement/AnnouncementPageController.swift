@@ -29,12 +29,8 @@ class AnnouncementPageController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        navigationController?.isNavigationBarHidden = false
-    }
-    
-    func setupView() {
         announcementPageView.scrollView.configure(announcement: announcement)
         announcementPageView.scrollView.messageView.delegate = self
+        navigationController?.isNavigationBarHidden = false
     }
 }

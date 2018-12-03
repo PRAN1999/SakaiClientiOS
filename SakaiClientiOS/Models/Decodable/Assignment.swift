@@ -8,7 +8,7 @@
 import Foundation
 
 /// The model for an Assignment item
-struct Assignment: Decodable, TermSortable, SiteSortable {
+struct Assignment: TermSortable, SiteSortable {
     let title: String
     let dueTimeString: String
     let dueDate: Date
@@ -23,28 +23,44 @@ struct Assignment: Decodable, TermSortable, SiteSortable {
     let resubmissionAllowed: Bool?
     let attachments: [AttachmentElement]?
     let siteURL: String?
+}
 
+extension Assignment: Decodable {
     init(from decoder: Decoder) throws {
         let assignmentElement = try AssignmentElement(from: decoder)
-        self.title = assignmentElement.title
-        self.dueTimeString = assignmentElement.dueTimeString
-        self.dueDate = assignmentElement.dueTime.time
-        self.instructions = assignmentElement.instructions
-        self.attributedInstructions  = instructions?.htmlAttributedString
-        self.siteId = assignmentElement.siteId
-        self.siteTitle = SakaiService.shared.siteTitleMap[siteId]
-        self.status = assignmentElement.status
-        self.resubmissionAllowed = assignmentElement.resubmissionAllowed
+        let title = assignmentElement.title
+        let dueTimeString = assignmentElement.dueTimeString
+        let dueDate = assignmentElement.dueTime.time
+        let instructions = assignmentElement.instructions
+        let attributedInstructions = instructions?.htmlAttributedString
+        let siteId = assignmentElement.siteId
+        let siteTitle = SakaiService.shared.siteTitleMap[siteId]
+        let status = assignmentElement.status
+        let resubmissionAllowed = assignmentElement.resubmissionAllowed
         guard let assignmentsUrl = SakaiService.shared.siteAssignmentToolMap[siteId] else {
             throw SakaiError.parseError("Could not find associated Assignment page for Site")
         }
-        self.siteURL = assignmentsUrl + "?assignmentReference=\(assignmentElement.reference)&sakai_action=doView_submission"
-        self.maxPoints = assignmentElement.maxPoints
-        self.currentGrade = nil
-        self.attachments = assignmentElement.attachments
+        let siteURL = assignmentsUrl + "?assignmentReference=\(assignmentElement.reference)&sakai_action=doView_submission"
+        let maxPoints = assignmentElement.maxPoints
+        let currentGrade: String? = nil
+        let attachments = assignmentElement.attachments
         guard let term = SakaiService.shared.siteTermMap[siteId] else {
             throw SakaiError.parseError("Could not find valid Term")
         }
-        self.term = term
+
+        self.init(title: title,
+                  dueTimeString: dueTimeString,
+                  dueDate: dueDate,
+                  instructions: instructions,
+                  attributedInstructions: attributedInstructions,
+                  term: term,
+                  siteId: siteId,
+                  siteTitle: siteTitle,
+                  status: status,
+                  maxPoints: maxPoints,
+                  currentGrade: currentGrade,
+                  resubmissionAllowed: resubmissionAllowed,
+                  attachments: attachments,
+                  siteURL: siteURL)
     }
 }

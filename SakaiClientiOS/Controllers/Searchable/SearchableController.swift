@@ -17,6 +17,6 @@ extension SearchableController where Self:UIViewController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchResultsUpdater = self
-        self.navigationItem.searchController = searchController
+        navigationItem.searchController = searchController
     }
 }

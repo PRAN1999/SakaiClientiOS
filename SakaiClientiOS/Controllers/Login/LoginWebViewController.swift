@@ -17,8 +17,8 @@ class LoginWebViewController: WebController {
 
     let loginUrl: String
 
-    init(url: String) {
-        self.loginUrl = url
+    init(loginUrl: String) {
+        self.loginUrl = loginUrl
         super.init()
     }
 

@@ -28,14 +28,14 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         backgroundColor = UIColor.black//AppGlobals.sakaiRed
         isHidden = true
 
         contentView.addSubview(titleLabel)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
 
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true

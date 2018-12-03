@@ -18,18 +18,19 @@ class LoginController: UIViewController {
     var onLogin: (() -> Void)?
 
     override func viewDidLoad() {
-        self.title = "Login"
+        super.viewDidLoad()
+        title = "Login"
     }
 
     @IBAction func loginWithNetId(_ sender: Any) {
-        let loginController = LoginWebViewController(url: AppGlobals.loginUrl)
+        let loginController = LoginWebViewController(loginUrl: AppGlobals.loginUrl)
         loginController.onLogin = onLogin
-        self.navigationController?.pushViewController(loginController, animated: true)
+        navigationController?.pushViewController(loginController, animated: true)
     }
     
     @IBAction func loginWithEmail(_ sender: Any) {
-        let loginController = LoginWebViewController(url: AppGlobals.emailLoginUrl)
+        let loginController = LoginWebViewController(loginUrl: AppGlobals.emailLoginUrl)
         loginController.onLogin = onLogin
-        self.navigationController?.pushViewController(loginController, animated: true)
+        navigationController?.pushViewController(loginController, animated: true)
     }
 }

@@ -33,13 +33,13 @@ class ChatRoomController: UIViewController, SitePageController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        self.title = "Chat Room"
+        title = "Chat Room"
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
@@ -50,7 +50,7 @@ class ChatRoomController: UIViewController, SitePageController {
         }
     }
 
-    func setup() {
+    private func setup() {
         UIView.constrainChildToEdges(child: chatRoomView, parent: view)
         chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()
@@ -74,7 +74,7 @@ class ChatRoomController: UIViewController, SitePageController {
         webView.load(URLRequest(url: url))
     }
     
-    @objc func handleKeyboardNotification(notification: Notification) {
+    @objc private func handleKeyboardNotification(notification: Notification) {
         guard let userInfo = notification.userInfo else {
             return
         }
@@ -88,15 +88,15 @@ class ChatRoomController: UIViewController, SitePageController {
             self?.view.layoutIfNeeded()
         }, completion: nil)
         if isKeyboardShowing {
-            self.updateChatOnKeyboardNotification()
+            updateChatOnKeyboardNotification()
         }
     }
     
-    @objc func scrollToBottom() {
+    @objc private func scrollToBottom() {
         webView.evaluateJavaScript("$('html, body').animate({scrollTop:document.body.offsetHeight}, 400);", completionHandler: nil)
     }
     
-    func updateChatOnKeyboardNotification() {
+    private func updateChatOnKeyboardNotification() {
         webView.evaluateJavaScript("document.body.scrollTop == document.body.offsetHeight") { [weak self] (data, err) in
             guard let isAtBottom = data as? Bool else {
                 return
@@ -107,12 +107,12 @@ class ChatRoomController: UIViewController, SitePageController {
         }
     }
     
-    func setInput(enabled: Bool) {
+    private func setInput(enabled: Bool) {
         chatRoomView.messageBar.inputField.isEditable = enabled
         chatRoomView.messageBar.sendButton.isEnabled = enabled
     }
     
-    @objc func handleSubmit() {
+    @objc private func handleSubmit() {
         guard let text = chatRoomView.messageBar.inputField.text else {
             return
         }
@@ -123,7 +123,7 @@ class ChatRoomController: UIViewController, SitePageController {
         chatRoomView.messageBar.inputField.text = nil
     }
     
-    func submitMessage(_ text: String) {
+    private func submitMessage(_ text: String) {
         guard let csrftoken = csrftoken, let chatChannelId = chatChannelId else {
             return
         }
@@ -132,7 +132,7 @@ class ChatRoomController: UIViewController, SitePageController {
         }
     }
     
-    func updateMonitor() {
+    private func updateMonitor() {
         webView.evaluateJavaScript("updateNow();") { [weak self] (data, err) in
             self?.scrollToBottom()
         }

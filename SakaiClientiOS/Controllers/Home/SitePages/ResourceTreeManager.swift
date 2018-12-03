@@ -25,13 +25,13 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     }
 
     init(fetcher: Fetcher, treeView: RATreeView) {
-        self.treeView  = treeView
-        self.fetcher   = fetcher
+        self.treeView = treeView
+        self.fetcher = fetcher
         super.init()
         setupTreeView()
     }
     
-    func setupTreeView() {
+    private func setupTreeView() {
         treeView.delegate = self
         treeView.dataSource = self
         treeView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
