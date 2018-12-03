@@ -12,7 +12,7 @@ class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>, Networ
     weak var delegate: NetworkSourceDelegate?
     typealias Fetcher = SiteDataFetcher
     
-    var fetcher: SiteDataFetcher
+    let fetcher: SiteDataFetcher
     
     convenience init(tableView: UITableView) {
         self.init(provider: SiteDataProvider(), fetcher: SiteDataFetcher(), tableView: tableView)

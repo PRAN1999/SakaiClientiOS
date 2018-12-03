@@ -12,9 +12,12 @@ import ReusableSource
 class SiteCell: UITableViewCell, ConfigurableCell {
     typealias T = Site
 
-    var titleLabel: UILabel!
-    
-    var shouldSetConstraints = true
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.textColor = UIColor.black
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        return titleLabel
+    }()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,40 +25,21 @@ class SiteCell: UITableViewCell, ConfigurableCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-        addViews()
+        setupView()
+        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func updateConstraints() {
-        if shouldSetConstraints {
-            setConstraints()
-            shouldSetConstraints = false
-        }
-        super.updateConstraints()
-    }
-
-    func setup() {
-        titleLabel = UILabel()
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        self.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        setNeedsUpdateConstraints()
-    }
-
-    func addViews() {
+    func setupView() {
         self.contentView.addSubview(titleLabel)
     }
 
     func setConstraints() {
         let margins = self.contentView.layoutMarginsGuide
 
-        //Constrain titleLabel to top, bottom, left, and right anchors
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 20.0).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true

@@ -10,48 +10,35 @@ import UIKit
 /// A UILabel to represent any key-value pair
 class DetailLabel: UILabel {
 
-    var titleLabel: UILabel!
-    var detailLabel: UILabel!
-    
-    var shouldSetConstraints = true
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        return titleLabel
+    }()
+
+    let detailLabel: UILabel = {
+        let detailLabel: UILabel = UIView.defaultAutoLayoutView()
+        detailLabel.textAlignment = NSTextAlignment.right
+        return detailLabel
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
-        addViews()
+        setupView()
+        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func updateConstraints() {
-        if shouldSetConstraints {
-            setConstraints()
-            shouldSetConstraints = false
-        }
-        super.updateConstraints()
-    }
+    func setupView() {
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 1
 
-    func setup() {
-        detailLabel = UILabel()
-        detailLabel.textAlignment = NSTextAlignment.right
-
-        titleLabel = UILabel()
-        titleLabel.numberOfLines = 0
-        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-
-        self.layer.borderColor = UIColor.black.cgColor
-        self.layer.borderWidth = 1
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        detailLabel.translatesAutoresizingMaskIntoConstraints = false
-        setNeedsUpdateConstraints()
-    }
-
-    func addViews() {
-        self.addSubview(titleLabel)
-        self.addSubview(detailLabel)
+        addSubview(titleLabel)
+        addSubview(detailLabel)
     }
 
     func setConstraints() {

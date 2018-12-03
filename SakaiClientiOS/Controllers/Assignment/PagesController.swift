@@ -12,94 +12,82 @@ import SafariServices
 /// The container view controller allowing pagination between multiple Assignments
 class PagesController: UIViewController {
 
-    var pageControl: UIPageControl!
-    var pageControlView: UIView!
-    var pageController: UIPageViewController!
+    private let pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.tintColor = UIColor.white
+        pageControl.currentPageIndicatorTintColor = AppGlobals.sakaiRed
+        return pageControl
+    }()
 
-    // Even when the Assignment displayed changes, the popup controller instance will
+    private let pageControlView = UIView()
+    private let pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+
+    // Even when the current Assignment changes, the popup controller instance will
     // be the same but the popup URL will change
-    var webController: WebController!
-    var popupController: WebViewNavigationController!
-    
-    var pages: [UIViewController?] = []
-    var assignments: [Assignment] = []
-    var start: Int = 0
-    var pendingIndex: Int? = 0
-    
+    private let webController = WebController()
+    private lazy var popupController = WebViewNavigationController(rootViewController: webController)
+
+    private var pendingIndex: Int? = 0
+
+    private var pages: [UIViewController?]
+    private let assignments: [Assignment]
+    private let start: Int
+
+    init(assignments: [Assignment], start: Int) {
+        self.assignments = assignments
+        self.start = start
+        pages = [UIViewController?](repeating: nil, count: assignments.count)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeControllers()
-        setPage(assignment: self.assignments[start], index: start)
+        setPage(assignment: assignments[start], index: start)
 
         // Configure the LNPopupController instance for the NavigationController
         setPopupURL(viewControllerIndex: start)
         webController.title = "DRAG TO SUBMIT"
-        self.navigationController?.popupInteractionStyle = .default
-        self.navigationController?.popupBar.backgroundStyle = .regular
-        self.navigationController?.popupBar.barStyle = .compact
-        setup()
-    }
-    
-    func initializeControllers() {
-        pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        webController = WebController()
-        popupController = WebViewNavigationController(rootViewController: webController)
-        pageControl = UIPageControl()
-        pageControlView = UIView()
-    }
-    
-    /// Setup UI page control and full page container layout
-    func setup() {
+        navigationController?.popupInteractionStyle = .default
+        navigationController?.popupBar.backgroundStyle = .regular
+        navigationController?.popupBar.barStyle = .compact
+
         guard let startPage = pages[start] else {
             return
         }
         pageController.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
-        let pageView = pageController.view!
-        UIView.constrainChildToEdges(child: pageView, parent: view)
-        pageControl.tintColor = UIColor.white
-        pageControl.currentPageIndicatorTintColor = AppGlobals.sakaiRed
-        pageControlView.addSubview(pageControl)
-        self.navigationItem.titleView = pageControlView
         pageController.dataSource = self
         pageController.delegate = self
+
+        let pageView = pageController.view!
+        UIView.constrainChildToEdges(child: pageView, parent: view)
+
         pageControl.numberOfPages = assignments.count
         pageControl.currentPage = start
+        pageControlView.addSubview(pageControl)
+        navigationItem.titleView = pageControlView
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
-        self.tabBarController?.tabBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
+        navigationController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.dismissPopupBar(animated: true, completion: nil)
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
-        self.tabBarController?.tabBar.isHidden = false
+        navigationController?.dismissPopupBar(animated: true, completion: nil)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
+        tabBarController?.tabBar.isHidden = false
     }
-    
-    /// Set the data for the page controller. Used when constructing instance before transition
-    ///
-    /// - Parameters:
-    ///   - assignments: assignments to display in page controller
-    ///   - start: the assignment index to display on first transition
-    func setAssignments(assignments: [Assignment], start: Int) {
-        pages = [UIViewController?](repeating: nil, count: assignments.count)
-        self.assignments = assignments
-        self.start = start
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 }
 
 extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -156,7 +144,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
     /// - Parameters:
     ///   - assignment: the assignment to display in the newly constructed controller
     ///   - index: the index of the Assignment in the Assignment model array
-    func setPage(assignment: Assignment, index: Int) {
+    private func setPage(assignment: Assignment, index: Int) {
         let page = AssignmentPageController(assignment: assignment)
         page.delegate = self
         pages[index] = page
@@ -166,7 +154,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
     /// Assignment is assigned to the WebController contained in the popup bar
     ///
     /// - Parameter viewControllerIndex: the index of the current Assignment
-    func setPopupURL(viewControllerIndex: Int) {
+    private func setPopupURL(viewControllerIndex: Int) {
         let assignment = assignments[viewControllerIndex]
         guard let url = assignment.siteURL else {
             return

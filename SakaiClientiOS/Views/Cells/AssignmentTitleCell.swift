@@ -12,45 +12,30 @@ import ReusableSource
 class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
     typealias T = [Assignment]
 
-    var titleLabel: UILabel!
-    
-    var shouldSetConstraints = true
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.backgroundColor = UIColor.black
+        return titleLabel
+    }()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-        addViews()
+        setupView()
+        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func updateConstraints() {
-        if shouldSetConstraints {
-            setConstraints()
-            shouldSetConstraints = false
-        }
-        super.updateConstraints()
-    }
-
-    func setup() {
-        titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.backgroundColor = UIColor.black
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        setNeedsUpdateConstraints()
-    }
-
-    func addViews() {
-        self.contentView.addSubview(titleLabel)
+    func setupView() {
+        contentView.addSubview(titleLabel)
     }
 
     func setConstraints() {
-
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true

@@ -15,7 +15,7 @@ class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: U
 
     weak var delegate: NetworkSourceDelegate?
 
-    var fetcher: Fetcher
+    let fetcher: Fetcher
     
     init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
         self.fetcher = fetcher
@@ -36,7 +36,7 @@ class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: U
             return
         }
         
-        if provider.hasLoaded[section] {
+        if provider.hasLoaded(section: section) {
             super.handleTap(sender: sender)
         } else {
             view.activityIndicator.startAnimating()
@@ -47,11 +47,8 @@ class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: U
     }
 
     func handleSectionLoad(forSection section: Int) {
-        guard section < self.provider.hasLoaded.count, section < self.provider.isHidden.count else {
-            return
-        }
-        self.provider.hasLoaded[section] = true
-        self.provider.isHidden[section] = false
+        provider.toggleLoaded(for: section, to: !provider.hasLoaded(section: section))
+        provider.toggleHidden(for: section, to: !provider.isHidden(section: section))
     }
 
     func populateDataSource(with payload: Fetcher.T, forSection section: Int) {

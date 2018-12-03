@@ -19,4 +19,10 @@ extension UIView {
         child.leadingAnchor.constraint(equalTo: parent.leadingAnchor).isActive = true
         child.trailingAnchor.constraint(equalTo: parent.trailingAnchor).isActive = true
     }
+
+    static func defaultAutoLayoutView<T: UIView>() -> T {
+        let view = T(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }
 }

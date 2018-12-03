@@ -9,9 +9,9 @@ import UIKit
 
 class DefaultController: WebController, SitePageController {
     
-    var siteId: String
-    var siteUrl: String
-    var pageTitle: String
+    private let siteId: String
+    private let siteUrl: String
+    private let pageTitle: String
     
     required init(siteId: String, siteUrl: String, pageTitle: String) {
         self.siteId = siteId
@@ -30,7 +30,7 @@ class DefaultController: WebController, SitePageController {
         }
         setURL(url: url)
         super.viewDidLoad()
-        self.title = pageTitle
+        title = pageTitle
     }
 
 }

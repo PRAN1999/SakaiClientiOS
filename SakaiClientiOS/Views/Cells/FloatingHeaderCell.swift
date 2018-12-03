@@ -11,47 +11,28 @@ import ReusableSource
 /// The "floating" header used in the gradebook view
 class FloatingHeaderCell: UITableViewCell, ReusableCell {
 
-    var titleLabel: UILabel!
-    
-    var shouldSetConstraints = true
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        return titleLabel
+    }()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-        addViews()
+        setupView()
+        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func updateConstraints() {
-        if shouldSetConstraints {
-            setConstraints()
-            shouldSetConstraints = false
-        }
-        super.updateConstraints()
-    }
+    func setupView() {
+        backgroundColor = UIColor.black//AppGlobals.sakaiRed
+        isHidden = true
 
-    func setup() {
-        self.backgroundColor = UIColor.black//AppGlobals.sakaiRed
-
-        titleLabel = UILabel()
-        titleLabel.textColor = UIColor.white
-        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-
-        self.isHidden = true
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        setNeedsUpdateConstraints()
-    }
-
-    func addViews() {
-        self.contentView.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
     }
 
     func setConstraints() {

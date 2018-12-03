@@ -14,7 +14,7 @@ class ChatTextView: UITextView {
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        self.delegate = self
+        delegate = self
     }
 
     required init?(coder aDecoder: NSCoder) {

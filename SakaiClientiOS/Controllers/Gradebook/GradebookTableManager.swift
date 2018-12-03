@@ -12,11 +12,10 @@ import ReusableSource
 /// by Term and further subdivides by class
 class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
-    var headerCell: FloatingHeaderCell!
+    private let headerCell = FloatingHeaderCell()
 
     override init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
         super.init(provider: provider, fetcher: fetcher, tableView: tableView)
-        setupHeaderCell()
     }
 
     convenience init(tableView: UITableView) {
@@ -28,6 +27,7 @@ class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider,
         tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
+        tableView.addSubview(headerCell)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,11 +86,6 @@ class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider,
         } else {
             makeHeaderCellVisible(section: topIndex.section, subsection: subsectionIndex.section)
         }
-    }
-    
-    func setupHeaderCell() {
-        headerCell = FloatingHeaderCell()
-        tableView.addSubview(headerCell)
     }
     
     func makeHeaderCellVisible(section: Int, subsection: Int) {

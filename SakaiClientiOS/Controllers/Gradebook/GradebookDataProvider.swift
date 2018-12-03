@@ -15,14 +15,14 @@ import ReusableSource
 /// are used as nested section headers and the GradebookDataProvider provides that
 /// data in the appropriate format
 class GradebookDataProvider: HideableNetworkDataProvider {
+    typealias T = GradeItem
+    typealias V = [[GradeItem]]
     
     var terms: [Term] = []
     var isHidden: [Bool] = []
-    var gradeItems: [[[GradeItem]]] = []
     var hasLoaded: [Bool] = []
     
-    typealias T = GradeItem
-    typealias V = [[GradeItem]]
+    private var gradeItems: [[[GradeItem]]] = []
     
     func numberOfSections() -> Int {
         return gradeItems.count

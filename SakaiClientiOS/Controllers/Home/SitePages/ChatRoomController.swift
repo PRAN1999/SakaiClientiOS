@@ -9,34 +9,26 @@ import Foundation
 import WebKit
 
 class ChatRoomController: UIViewController, SitePageController {
-    
-    var chatRoomView: ChatRoomView!
-    var indicator: LoadingIndicator!
-    var webView: WKWebView {
+    private var chatRoomView: ChatRoomView!
+    private var indicator: LoadingIndicator!
+    private var webView: WKWebView {
         return chatRoomView.webView
     }
 
-    var chatChannelId: String?
-    var csrftoken: String?
+    private var chatChannelId: String?
+    private var csrftoken: String?
 
-    var siteId: String
-    var siteUrl: String
-    var pageTitle: String
+    private let siteId: String
+    private let siteUrl: String
 
     required init(siteId: String, siteUrl: String, pageTitle: String) {
         self.siteId = siteId
         self.siteUrl = siteUrl
-        self.pageTitle = pageTitle
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func loadView() {
-        chatRoomView = ChatRoomView(frame: UIScreen.main.bounds)
-        self.view = chatRoomView
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +44,14 @@ class ChatRoomController: UIViewController, SitePageController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
 
+        WKWebView.authorizedWebView { [weak self] webView in
+            self?.chatRoomView = ChatRoomView(webView: webView)
+            self?.setup()
+        }
+    }
+
+    func setup() {
+        UIView.constrainChildToEdges(child: chatRoomView, parent: view)
         chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()
         }
@@ -59,12 +59,12 @@ class ChatRoomController: UIViewController, SitePageController {
         guard let url = URL(string: siteUrl) else {
             return
         }
-        
+
         indicator = LoadingIndicator(view: self.view)
         indicator.startAnimating()
-        
+
         setInput(enabled: false)
-        
+
         webView.contentMode = .scaleToFill
         webView.isMultipleTouchEnabled = false
         webView.scrollView.delegate = NativeWebViewScrollViewDelegate.shared

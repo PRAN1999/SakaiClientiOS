@@ -10,33 +10,8 @@ import UIKit
 /// A message bar for a chat interface
 class MessageBar: UIView {
     
-    var inputField: ChatTextView!
-    var sendButton: UIButton!
-
-    var shouldSetConstraints = true
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-        addViews()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func updateConstraints() {
-        if shouldSetConstraints {
-            setConstraints()
-            shouldSetConstraints = false
-        }
-        super.updateConstraints()
-    }
-
-    func setup() {
-        self.backgroundColor = UIColor.white
-
-        inputField = ChatTextView()
+    let inputField: ChatTextView = {
+        let inputField: ChatTextView = UIView.defaultAutoLayoutView()
         inputField.isScrollEnabled = false
         inputField.setContentHuggingPriority(.defaultLow, for: .horizontal)
         inputField.textColor = AppGlobals.sakaiRed
@@ -46,34 +21,49 @@ class MessageBar: UIView {
         inputField.layer.cornerRadius = 5
         inputField.layer.borderWidth = 1
         inputField.layer.borderColor = UIColor.lightGray.cgColor
+        return inputField
+    }()
 
-        sendButton = UIButton(type: .contactAdd)
+    let sendButton: UIButton = {
+        let sendButton = UIButton(type: .contactAdd)
         sendButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         sendButton.tintColor = AppGlobals.sakaiRed
-
-        inputField.translatesAutoresizingMaskIntoConstraints = false
         sendButton.translatesAutoresizingMaskIntoConstraints = false
-        setNeedsUpdateConstraints()
+        return sendButton
+    }()
+
+    var shouldSetConstraints = true
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+        setConstraints()
     }
 
-    func addViews() {
-        self.addSubview(inputField)
-        self.addSubview(sendButton)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupView() {
+        backgroundColor = UIColor.white
+
+        addSubview(inputField)
+        addSubview(sendButton)
     }
 
     func setConstraints() {
-        let margins = self.layoutMarginsGuide
+        let margins = layoutMarginsGuide
 
         inputField.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         inputField.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         inputField.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         inputField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor,
                                              constant: -5.0).isActive = true
-        inputField.widthAnchor.constraint(equalTo: self.widthAnchor,
+        inputField.widthAnchor.constraint(equalTo: widthAnchor,
                                           multiplier: 0.80).isActive = true
 
         sendButton.topAnchor.constraint(equalTo: inputField.topAnchor).isActive = true
         sendButton.bottomAnchor.constraint(equalTo: inputField.bottomAnchor).isActive = true
-        sendButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5.0).isActive = true
+        sendButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5.0).isActive = true
     }
 }

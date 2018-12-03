@@ -12,55 +12,38 @@ import ReusableSource
 class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     typealias T = [Assignment]
 
-    var titleLabel: UILabel!
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
+        titleLabel.backgroundColor = UIColor.black
+        return titleLabel
+    }()
 
-    var collectionView: UICollectionView!
-    var manager: AssignmentCollectionManager!
-    
-    var shouldSetConstraints = true
+    let collectionView: UICollectionView = {
+        let layout = HorizontalLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.white
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+
+    private(set) lazy var manager: AssignmentCollectionManager = {
+        return AssignmentCollectionManager(collectionView: collectionView)
+    }()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-        addViews()
+        setupView()
+        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func updateConstraints() {
-        if shouldSetConstraints {
-            setConstraints()
-            shouldSetConstraints = false
-        }
-        super.updateConstraints()
-    }
-
-    func setup() {
-        titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.backgroundColor = UIColor.black//AppGlobals.sakaiRed
-        //titleLabel.layer.cornerRadius = 5
-        //titleLabel.layer.masksToBounds = true
-
-        // Create a horizontal flow layout so the collectionView can scroll horizontally
-        let layout = HorizontalLayout()
-
-        collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor.white
-
-        //Construct Data Source and Delegate for collectionView as an AssignmentCollectionSource object
-        manager = AssignmentCollectionManager(collectionView: collectionView)
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        setNeedsUpdateConstraints()
-    }
-
-    func addViews() {
+    func setupView() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionView)
     }

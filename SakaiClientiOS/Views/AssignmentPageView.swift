@@ -9,73 +9,54 @@ import UIKit
 
 /// A customized scrollView containing views for all the information needed for an Assignment
 class AssignmentPageView: UIScrollView {
-    
-    var contentView: UIView!
 
-    var titleLabel: InsetUILabel!
-    var classLabel: DetailLabel!
-    var statusLabel: DetailLabel!
-    var pointsLabel: DetailLabel!
-    var dueLabel: DetailLabel!
-    var gradeLabel: DetailLabel!
-    var submissionLabel: DetailLabel!
-    var instructionView: TappableTextView!
-    var attachmentsView: TappableTextView!
+    let contentView: UIView = UIView.defaultAutoLayoutView()
 
-    var shouldSetConstraints = true
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-        addViews()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func updateConstraints() {
-        if shouldSetConstraints {
-            setConstraints()
-            shouldSetConstraints = false
-        }
-        super.updateConstraints()
-    }
-
-    func setup() {
-        contentView = UIView()
-
-        titleLabel = InsetUILabel()
+    let titleLabel: InsetUILabel = {
+        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
         titleLabel.backgroundColor = AppGlobals.sakaiRed
         titleLabel.titleLabel.numberOfLines = 0
         titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.titleLabel.textAlignment = .center
         titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         titleLabel.layer.cornerRadius = 0
+        return titleLabel
+    }()
 
-        classLabel = DetailLabel()
-        statusLabel = DetailLabel()
-        pointsLabel = DetailLabel()
-        dueLabel = DetailLabel()
-        gradeLabel = DetailLabel()
-        submissionLabel = DetailLabel()
+    let classLabel: DetailLabel = UIView.defaultAutoLayoutView()
 
-        instructionView = TappableTextView(); instructionView.isScrollEnabled = false
-        attachmentsView = TappableTextView(); attachmentsView.isScrollEnabled = false
+    let statusLabel: DetailLabel = UIView.defaultAutoLayoutView()
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        classLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        pointsLabel.translatesAutoresizingMaskIntoConstraints = false
-        dueLabel.translatesAutoresizingMaskIntoConstraints = false
-        submissionLabel.translatesAutoresizingMaskIntoConstraints = false
-        instructionView.translatesAutoresizingMaskIntoConstraints = false
-        attachmentsView.translatesAutoresizingMaskIntoConstraints = false
-        setNeedsUpdateConstraints()
+    let pointsLabel: DetailLabel = UIView.defaultAutoLayoutView()
+
+    let dueLabel: DetailLabel = UIView.defaultAutoLayoutView()
+
+    let submissionLabel: DetailLabel = UIView.defaultAutoLayoutView()
+
+    let instructionView: TappableTextView = {
+        let instructionView: TappableTextView = UIView.defaultAutoLayoutView()
+        instructionView.isScrollEnabled = false
+        return instructionView
+    }()
+
+    let attachmentsView: TappableTextView = {
+        let attachmentsView: TappableTextView = UIView.defaultAutoLayoutView()
+        attachmentsView.isScrollEnabled = false
+        return attachmentsView
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+        setConstraints()
     }
 
-    func addViews() {
-        self.addSubview(contentView)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupView() {
+        addSubview(contentView)
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(classLabel)
@@ -88,9 +69,7 @@ class AssignmentPageView: UIScrollView {
     }
 
     func setConstraints() {
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-
-        contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
 
         let margins = contentView.layoutMarginsGuide
 
@@ -144,7 +123,7 @@ class AssignmentPageView: UIScrollView {
         // content view by using the maxY of the attachmentsView (the
         // farthest down point of all the content)
         let maxY = attachmentsView.frame.maxY
-        self.contentSize = CGSize(width: self.frame.width, height: maxY + 30)
+        contentSize = CGSize(width: self.frame.width, height: maxY + 30)
     }
 }
 
@@ -154,7 +133,6 @@ extension AssignmentPageView {
         titleLabel.titleLabel.text = assignment.title
 
         classLabel.setKeyVal(key: "Class:", val: assignment.siteTitle)
-        gradeLabel.setKeyVal(key: "Current Grade:", val: assignment.currentGrade)
         pointsLabel.setKeyVal(key: "Max Points:", val: assignment.maxPoints)
         submissionLabel.setKeyVal(key: "Allows Resubmission:", val: assignment.resubmissionAllowed)
         statusLabel.setKeyVal(key: "Status:", val: assignment.status)
@@ -208,3 +186,4 @@ extension AssignmentPageView {
         attachmentsView.attributedText = description
     }
 }
+

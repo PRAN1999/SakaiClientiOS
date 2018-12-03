@@ -10,12 +10,14 @@ import ReusableSource
 /// A DataProvider to populate and manage data for a HideableTableManager.
 /// In other words, it can show and hide data as needed for specific sections
 protocol HideableDataProvider: class, DataProvider {
+
     var terms: [Term] { get set }
     var isHidden: [Bool] { get set }
-    
+
+    func getTerm(for section: Int) -> Term?
+    func isHidden(section: Int) -> Bool
     func resetTerms()
-    
-    func isEmpty(section: Int) -> Bool
+    func toggleHidden(for section: Int, to newVal: Bool)
 }
 
 extension HideableDataProvider {
@@ -30,7 +32,7 @@ extension HideableDataProvider {
     /// - Parameter section: the section for which rows will be displayed
     /// - Returns: the number of rows to be shown
     func numberOfItemsForHideableSection(section: Int) -> Int {
-        if isHidden[section] {
+        if isHidden(section: section) {
             return 0
         }
         if isEmpty(section: section) {
@@ -38,9 +40,30 @@ extension HideableDataProvider {
         }
         return numberOfItems(in: section)
     }
-    
+
     func resetTerms() {
         terms = []
         isHidden = []
+    }
+
+    func isHidden(section: Int) -> Bool {
+        guard section >= 0 && section < terms.count else {
+            return true
+        }
+        return isHidden[section]
+    }
+
+    func getTerm(for section: Int) -> Term? {
+        guard section >= 0 && section < terms.count else {
+            return nil
+        }
+        return terms[section]
+    }
+
+    func toggleHidden(for section: Int, to newVal: Bool) {
+        guard section >= 0 && section < terms.count else {
+            return
+        }
+        isHidden[section] = newVal
     }
 }

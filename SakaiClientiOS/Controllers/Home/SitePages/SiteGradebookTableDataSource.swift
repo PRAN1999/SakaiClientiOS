@@ -10,7 +10,7 @@ import ReusableSource
 class SiteGradebookTableDataSource: ReusableTableDataSource<SingleSectionDataProvider<GradeItem>, GradebookCell>, NetworkSource {
     typealias Fetcher = SiteGradebookDataFetcher
     
-    var fetcher: SiteGradebookDataFetcher
+    let fetcher: SiteGradebookDataFetcher
     weak var delegate: NetworkSourceDelegate?
     
     convenience init(tableView: UITableView, siteId: String) {

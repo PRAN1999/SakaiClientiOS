@@ -93,6 +93,7 @@
 		51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472DF20F9C15700CC95F0 /* AssignmentDataFetcher.swift */; };
 		51A4731420FA7F4500CC95F0 /* NetworkSourceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4731320FA7F4500CC95F0 /* NetworkSourceExtension.swift */; };
 		51C2D15C20C496F000E4C901 /* FloatingHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */; };
+		51C2EC4121B4D7920000BA47 /* WebUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2EC4021B4D7920000BA47 /* WebUtils.swift */; };
 		51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7E920A6555C00DD6696 /* SitePage.swift */; };
 		51C4B7EC20A660FA00DD6696 /* ClassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7EB20A660FA00DD6696 /* ClassController.swift */; };
 		51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */; };
@@ -240,6 +241,7 @@
 		51A472E120F9C59E00CC95F0 /* ReusableSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ReusableSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51A4731320FA7F4500CC95F0 /* NetworkSourceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSourceExtension.swift; sourceTree = "<group>"; };
 		51C2D15B20C496F000E4C901 /* FloatingHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingHeaderCell.swift; sourceTree = "<group>"; };
+		51C2EC4021B4D7920000BA47 /* WebUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUtils.swift; sourceTree = "<group>"; };
 		51C4B7E920A6555C00DD6696 /* SitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitePage.swift; sourceTree = "<group>"; };
 		51C4B7EB20A660FA00DD6696 /* ClassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassController.swift; sourceTree = "<group>"; };
 		51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookCell.swift; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 				51835042211E9A75008F2CF2 /* WebNavigationController.swift */,
 				5197E6BC2134317F0019DCC9 /* TextViewDelegateExtension.swift */,
 				5197E6CE2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift */,
+				51C2EC4021B4D7920000BA47 /* WebUtils.swift */,
 			);
 			path = Web;
 			sourceTree = "<group>";
@@ -822,6 +825,7 @@
 				511114B520D74D570077F872 /* PagesController.swift in Sources */,
 				518903BA210A9F6C00C551AE /* FeedController.swift in Sources */,
 				5159154F216ADED400D3730E /* PersistedSitePage.swift in Sources */,
+				51C2EC4121B4D7920000BA47 /* WebUtils.swift in Sources */,
 				51DEE5692103D41F008E709D /* SiteAssignmentController.swift in Sources */,
 				5182CBDD2139DAA700D45952 /* RawSite.swift in Sources */,
 				51DEE54220FEFB68008E709D /* AnnouncementTableManager.swift in Sources */,

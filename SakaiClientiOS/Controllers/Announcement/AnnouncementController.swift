@@ -10,16 +10,10 @@ import ReusableSource
 
 class AnnouncementController: UITableViewController {
     
-    var announcementTableManager : AnnouncementTableManager!
-    var dateActionSheet: UIAlertController!
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    private(set) lazy var announcementTableManager = AnnouncementTableManager(tableView: tableView)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        announcementTableManager = AnnouncementTableManager(tableView: tableView)
         announcementTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             guard let announcement = self.announcementTableManager.item(at: indexPath) else {
                 return
@@ -31,15 +25,11 @@ class AnnouncementController: UITableViewController {
         configureNavigationItem()
         loadData()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
 
 extension AnnouncementController: LoadableController {
     @objc func loadData() {
+        SakaiService.shared.allAnnouncements = nil
         self.announcementTableManager.loadDataSourceWithoutCache()
     }
 }

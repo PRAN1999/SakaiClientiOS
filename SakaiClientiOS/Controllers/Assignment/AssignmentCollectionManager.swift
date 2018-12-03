@@ -12,8 +12,8 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
 
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     
-    init(collectionView: UICollectionView) {
-        super.init(provider: SingleSectionDataProvider<Assignment>(), collectionView: collectionView)
+    convenience init(collectionView: UICollectionView) {
+        self.init(provider: SingleSectionDataProvider<Assignment>(), collectionView: collectionView)
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -18,6 +18,8 @@ open class ReusableTableManager<Provider: DataProvider, Cell: UITableViewCell & 
     open override func setup() {
         super.setup()
         tableView.delegate = self
+        tableView.estimatedRowHeight = 44
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     // MARK: Delegate methods implemented here because subclasses cannot provide protocol method implementation, so they must be overridden

@@ -12,68 +12,49 @@ import ReusableSource
 class AnnouncementCell: UITableViewCell, ConfigurableCell {
     typealias T = Announcement
 
-    var authorLabel: UILabel!
-    var titleLabel: UILabel!
-    var contentLabel: UILabel!
-    var dateLabel: UILabel!
-    
-    var shouldSetConstraints = true
+    let authorLabel: UILabel = {
+        let authorLabel: UILabel = UIView.defaultAutoLayoutView()
+        authorLabel.textColor = UIColor.black
+        authorLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.bold)
+        return authorLabel
+    }()
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    let titleLabel: UILabel = {
+        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+        titleLabel.textColor = UIColor.black
+        titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
+        return titleLabel
+    }()
+
+    let contentLabel: UILabel = UIView.defaultAutoLayoutView()
+
+    let dateLabel: UILabel = {
+        let dateLabel: UILabel = UIView.defaultAutoLayoutView()
+        dateLabel.textColor = UIColor.darkGray
+        dateLabel.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
+        dateLabel.textAlignment = .right
+        return dateLabel
+    }()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-        addViews()
+        setupView()
+        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func updateConstraints() {
-        if shouldSetConstraints {
-            setConstraints()
-            shouldSetConstraints = false
-        }
-        super.updateConstraints()
-    }
-
-    func setup() {
-
-        authorLabel = UILabel()
-        authorLabel.textColor = UIColor.black
-        authorLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.bold)
-
-        titleLabel = UILabel()
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
-
-        contentLabel = UILabel()
-
-        dateLabel = UILabel()
-        dateLabel.textColor = UIColor.darkGray
-        dateLabel.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
-        dateLabel.textAlignment = .right
-
-        authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        setNeedsUpdateConstraints()
-    }
-
-    func addViews() {
-        self.contentView.addSubview(authorLabel)
-        self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(contentLabel)
-        self.contentView.addSubview(dateLabel)
+    func setupView() {
+        contentView.addSubview(authorLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(contentLabel)
+        contentView.addSubview(dateLabel)
     }
 
     func setConstraints() {
-        let margins = self.contentView.layoutMarginsGuide
+        let margins = contentView.layoutMarginsGuide
 
         authorLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
@@ -107,7 +88,8 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
             let mutableContent = NSMutableAttributedString(attributedString: content)
             let contentRange = NSRange(location: 0, length: content.string.count)
             mutableContent.addAttribute(.font,
-                                        value: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.light),
+                                        value: UIFont.systemFont(ofSize: 14.0,
+                                                                 weight: UIFont.Weight.light),
                                         range: contentRange)
             contentLabel.attributedText = mutableContent
         }

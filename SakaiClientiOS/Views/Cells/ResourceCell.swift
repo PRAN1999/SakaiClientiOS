@@ -12,12 +12,29 @@ import ReusableSource
 class ResourceCell: UITableViewCell, ReusableCell {
     typealias T = ResourceItem
 
-    var titleLabel: InsetUILabel!
-    var leftBorder: UIView!
-    var sizeLabel: UILabel!
-    var spaceView: UIView!
-    
-    var shouldSetConstraints = true
+    let titleLabel: InsetUILabel = {
+        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+        titleLabel.textColor = UIColor.black
+        titleLabel.titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.light)
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.backgroundColor = UIColor.clear
+        return titleLabel
+    }()
+
+    let leftBorder: UIView = UIView.defaultAutoLayoutView()
+
+    let sizeLabel: UILabel = {
+        let sizeLabel: UILabel = UIView.defaultAutoLayoutView()
+        sizeLabel.backgroundColor = UIColor.lightGray
+        sizeLabel.textAlignment = .center
+        sizeLabel.textColor = UIColor.white
+        sizeLabel.layer.masksToBounds = true
+        return sizeLabel
+    }()
+
+    let spaceView: UIView = UIView.defaultAutoLayoutView()
+
     var needsSizeLabel = false
 
     override func awakeFromNib() {
@@ -26,62 +43,29 @@ class ResourceCell: UITableViewCell, ReusableCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-        addViews()
+        setupView()
+        setConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func updateConstraints() {
-        if shouldSetConstraints {
-            setConstraints()
-            shouldSetConstraints = false
-        }
-        super.updateConstraints()
-    }
-
-    func setup() {
-        titleLabel = InsetUILabel()
-        titleLabel.textColor = UIColor.black
-        titleLabel.titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.light)
-        titleLabel.numberOfLines = 0
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.backgroundColor = UIColor.clear
-
-        leftBorder = UIView()
-
-        sizeLabel = UILabel()
-        sizeLabel.backgroundColor = UIColor.lightGray
-        sizeLabel.textAlignment = .center
-        sizeLabel.textColor = UIColor.white
-        sizeLabel.layer.masksToBounds = true
-
-        spaceView = UIView()
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftBorder.translatesAutoresizingMaskIntoConstraints = false
-        sizeLabel.translatesAutoresizingMaskIntoConstraints = false
-        spaceView.translatesAutoresizingMaskIntoConstraints = false
-        setNeedsUpdateConstraints()
-    }
-
-    func addViews() {
-        self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(leftBorder)
-        self.contentView.addSubview(sizeLabel)
-        self.contentView.addSubview(spaceView)
+    func setupView() {
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(leftBorder)
+        contentView.addSubview(sizeLabel)
+        contentView.addSubview(spaceView)
     }
 
     func setConstraints() {
-        let margins = self.contentView.layoutMarginsGuide
+        let margins = contentView.layoutMarginsGuide
 
         leftBorder.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         leftBorder.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
         leftBorder.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         leftBorder.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        leftBorder.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.015).isActive = true
+        leftBorder.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.015).isActive = true
 
         titleLabel.trailingAnchor.constraint(equalTo: sizeLabel.leadingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
@@ -90,7 +74,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
         sizeLabel.trailingAnchor.constraint(equalTo: spaceView.leadingAnchor).isActive = true
         sizeLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         sizeLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        sizeLabel.widthAnchor.constraint(equalTo: sizeLabel.heightAnchor, multiplier: 1.0).isActive = true
+        sizeLabel.widthAnchor.constraint(equalTo: sizeLabel.heightAnchor).isActive = true
 
         spaceView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         spaceView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
@@ -101,11 +85,11 @@ class ResourceCell: UITableViewCell, ReusableCell {
         titleLabel.titleLabel.text = item.title
         leftBorder.backgroundColor = getColor(for: level)
         let left = CGFloat(level == 0 ? 0 : level * 20 + 10)
-        self.contentView.layoutMargins.left = left
+        contentView.layoutMargins.left = left
         switch item.type {
         case .collection:
-            self.selectionStyle = .none
-            self.accessoryType = .none
+            selectionStyle = .none
+            accessoryType = .none
             sizeLabel.text = String(item.numChildren)
             sizeLabel.isHidden = false
             if isExpanded {
@@ -115,8 +99,8 @@ class ResourceCell: UITableViewCell, ReusableCell {
             }
             break
         case .resource:
-            self.selectionStyle = .default
-            self.accessoryType = .disclosureIndicator
+            selectionStyle = .default
+            accessoryType = .disclosureIndicator
             sizeLabel.isHidden = true
             break
         }
@@ -146,6 +130,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
     }
 
     override func prepareForReuse() {
+        super.prepareForReuse()
         sizeLabel.backgroundColor = UIColor.lightGray
     }
 }

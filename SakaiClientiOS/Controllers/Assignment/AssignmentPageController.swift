@@ -10,9 +10,9 @@ import UIKit
 /// Display a full page Assignment view
 class AssignmentPageController: UIViewController {
 
-    var assignment: Assignment
-
-    var pageView: PageView<AssignmentPageView>!
+    private let assignment: Assignment
+    private var pageView: PageView<AssignmentPageView> = PageView(frame: .zero)
+    
     weak var delegate: UITextViewDelegate?
 
     init(assignment: Assignment) {
@@ -25,25 +25,15 @@ class AssignmentPageController: UIViewController {
     }
 
     override func loadView() {
-        self.pageView = PageView(frame: .zero)
-        self.view = pageView
-        setup()
+        view = pageView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    func setup() {
         pageView.backgroundColor = UIColor.white
 
         pageView.scrollView.configure(assignment: assignment)
         pageView.scrollView.instructionView.delegate = delegate
         pageView.scrollView.attachmentsView.delegate = delegate
     }
-
 }

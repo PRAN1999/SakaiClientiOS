@@ -14,13 +14,14 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     weak var delegate: NetworkSourceDelegate?
     
     convenience init(collectionView: UICollectionView, siteId: String) {
+        let provider = SingleSectionDataProvider<Assignment>()
         let fetcher = SiteAssignmentDataFetcher(siteId: siteId)
-        self.init(fetcher: fetcher, collectionView: collectionView)
+        self.init(provider: provider, fetcher: fetcher, collectionView: collectionView)
     }
 
-    init(fetcher: Fetcher, collectionView: UICollectionView) {
+    init(provider: Provider, fetcher: Fetcher, collectionView: UICollectionView) {
         self.fetcher = fetcher
-        super.init(collectionView: collectionView)
+        super.init(provider: provider, collectionView: collectionView)
     }
     
     override func setup() {

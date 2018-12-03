@@ -9,17 +9,14 @@ import ReusableSource
 
 class SiteAnnouncementController: UITableViewController, SitePageController {
 
-    var siteId: String
-    var siteUrl: String
-    var pageTitle: String
+    private let siteId: String
+    private let siteUrl: String
 
-    var announcementTableManager : AnnouncementTableManager!
-    var dateActionSheet: UIAlertController!
+    private lazy var announcementTableManager = AnnouncementTableManager(tableView: tableView)
 
     required init(siteId: String, siteUrl: String, pageTitle: String) {
         self.siteId = siteId
         self.siteUrl = siteUrl
-        self.pageTitle = pageTitle
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -29,11 +26,10 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Announcements"
+        title = "Announcements"
         
-        self.clearsSelectionOnViewWillAppear = true
-        
-        announcementTableManager = AnnouncementTableManager(tableView: tableView)
+        clearsSelectionOnViewWillAppear = true
+
         announcementTableManager.siteId = siteId
         announcementTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             guard let announcement = self.announcementTableManager.item(at: indexPath) else {
@@ -57,6 +53,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
 
 extension SiteAnnouncementController: LoadableController {
     @objc func loadData() {
+        SakaiService.shared.siteAnnouncements[siteId] = nil
         announcementTableManager.loadDataSourceWithoutCache()
     }
 }

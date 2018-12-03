@@ -12,10 +12,11 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     typealias Fetcher = ResourceDataFetcher
 
     weak var delegate: NetworkSourceDelegate?
-    var resources: [ResourceNode] = []
+
+    private var resources: [ResourceNode] = []
     var didSelectResource = Delegated<URL, Void>()
 
-    let treeView: RATreeView
+    private let treeView: RATreeView
     let fetcher: ResourceDataFetcher
     
     convenience init(treeView: RATreeView, siteId: String) {

@@ -13,21 +13,19 @@ class AnnouncementDataFetcher: DataFetcher {
     
     typealias T = [Announcement]
 
-    //var daysBack = 30
-    var offset = 0
-    var numToRequest = AnnouncementDataFetcher.requestLimit
-    
+    private var offset = 0
+    private let limit = AnnouncementDataFetcher.requestLimit
+    private(set) var moreLoads = true
+
     var siteId: String?
     
-    var moreLoads = true
-    
     func loadData(completion: @escaping ([Announcement]?, Error?) -> Void) {
-        SakaiService.shared.getAllAnnouncements(offset: offset, limit: numToRequest, siteId: siteId, completion: { [weak self] announcementList, moreLoads, err in
+        SakaiService.shared.getAllAnnouncements(offset: offset, limit: limit, siteId: siteId, completion: { [weak self] announcementList, moreLoads, err in
             self?.moreLoads = moreLoads
 
             if let list = announcementList {
                 self?.offset += list.count
-                self?.numToRequest += AnnouncementDataFetcher.requestLimit
+                //self?.numToRequest += AnnouncementDataFetcher.requestLimit
             }
             
             completion(announcementList, err)
@@ -36,7 +34,7 @@ class AnnouncementDataFetcher: DataFetcher {
     
     func resetOffset() {
         offset = 0
-        numToRequest = AnnouncementDataFetcher.requestLimit
+        //numToRequest = AnnouncementDataFetcher.requestLimit
         moreLoads = true
     }
 }

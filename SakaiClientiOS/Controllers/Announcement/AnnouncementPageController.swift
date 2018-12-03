@@ -9,8 +9,9 @@ import UIKit
 
 class AnnouncementPageController: UIViewController {
     
-    var announcementPageView: PageView<AnnouncementPageView>!
-    var announcement: Announcement
+    var announcementPageView: PageView<AnnouncementPageView> = PageView(frame: .zero)
+    
+    private let announcement: Announcement
 
     init(announcement: Announcement) {
         self.announcement = announcement
@@ -22,15 +23,14 @@ class AnnouncementPageController: UIViewController {
     }
 
     override func loadView() {
-        self.announcementPageView = PageView(frame: .zero)
-        self.view = announcementPageView
-        self.view.backgroundColor = UIColor.white
+        view = announcementPageView
+        view.backgroundColor = UIColor.white
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        self.navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = false
     }
     
     func setupView() {
