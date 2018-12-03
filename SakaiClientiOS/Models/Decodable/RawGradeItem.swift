@@ -13,7 +13,7 @@ struct GradeItemCollection: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let siteGradeItems = try container.decode([SiteGradeItems].self, forKey: .gradebookCollection)
-        self.gradeItems = siteGradeItems.flatMap { $0.gradeItems }
+        gradeItems = siteGradeItems.flatMap { $0.gradeItems }
     }
 
     enum CodingKeys: String, CodingKey {
@@ -27,7 +27,9 @@ struct SiteGradeItems: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
         self.siteId = try container.decode(String.self, forKey: .siteId)
+
         guard let term = SakaiService.shared.siteTermMap[siteId] else {
             throw SakaiError.parseError("No valid Term found")
         }

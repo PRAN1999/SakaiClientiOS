@@ -8,6 +8,8 @@
 import Foundation
 
 /// The model for a User's session used to validate a user's authentication
-struct UserSession: Decodable {
+struct UserSession {
     let userEid: String
 }
+
+extension UserSession: Decodable {}

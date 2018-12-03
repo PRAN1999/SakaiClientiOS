@@ -92,7 +92,7 @@ class HomeController: UITableViewController {
     }
     
     private func disableTabs() {
-        let items = self.tabBarController?.tabBar.items
+        let items = tabBarController?.tabBar.items
         if let arr = items {
             for index in 1..<arr.count {
                 arr[index].isEnabled = false
@@ -101,7 +101,7 @@ class HomeController: UITableViewController {
     }
     
     private func enableTabs() {
-        let items = self.tabBarController?.tabBar.items
+        let items = tabBarController?.tabBar.items
         if let arr = items {
             for index in 1..<arr.count {
                 arr[index].isEnabled = true
@@ -110,13 +110,13 @@ class HomeController: UITableViewController {
     }
     
     @objc private func presentLogoutController() {
-        self.present(logoutController, animated: true, completion: nil)
+        present(logoutController, animated: true, completion: nil)
     }
 }
 
 extension HomeController: LoadableController {
     @objc func loadData() {
-        self.siteTableManager.loadDataSourceWithoutCache()
+        siteTableManager.loadDataSourceWithoutCache()
     }
 }
 
@@ -124,7 +124,7 @@ extension HomeController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         disableTabs()
         SakaiService.shared.reset()
-        return self.addLoadingIndicator()
+        return addLoadingIndicator()
     }
 
     func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {

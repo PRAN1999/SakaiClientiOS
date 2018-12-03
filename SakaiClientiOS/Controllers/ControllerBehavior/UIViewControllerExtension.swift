@@ -14,29 +14,29 @@ import ReusableSource
 extension UIViewController {
     @objc func hideNavBar() {
         hideToolBar()
-        guard let hidden = self.navigationController?.isNavigationBarHidden else {
+        guard let hidden = navigationController?.isNavigationBarHidden else {
             return
         }
-        UIView.animate(withDuration: 0.3) {
-            self.navigationController?.isNavigationBarHidden = !hidden
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.navigationController?.isNavigationBarHidden = !hidden
         }
     }
     
     @objc func hideToolBar() {
-        self.navigationController?.isToolbarHidden = true
+        navigationController?.isToolbarHidden = true
     }
     
     func configureBarsForTaps(appearing: Bool) {
-        self.navigationController?.hidesBarsOnTap = appearing
-        self.tabBarController?.tabBar.isHidden = appearing
-        self.navigationController?.setToolbarHidden(true, animated: true)
+        navigationController?.hidesBarsOnTap = appearing
+        tabBarController?.tabBar.isHidden = appearing
+        navigationController?.setToolbarHidden(true, animated: true)
         if !appearing {
-            self.navigationController?.isNavigationBarHidden = false
+            navigationController?.isNavigationBarHidden = false
         }
     }
     
     func configureNavigationTapRecognizer() {
-        self.navigationController?.barHideOnTapGestureRecognizer.addTarget(self, action: #selector(hideToolBar))
+        navigationController?.barHideOnTapGestureRecognizer.addTarget(self, action: #selector(hideToolBar))
     }
     
     func configureNavigationTapRecognizer(for tapRecognizer: UITapGestureRecognizer) {
@@ -51,6 +51,6 @@ extension UIViewController {
         let alert = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         let alertController = UIAlertController(title: "ERROR", message: errorMessage, preferredStyle: .alert)
         alertController.addAction(alert)
-        self.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 }

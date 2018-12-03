@@ -57,7 +57,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.black.cgColor
         contentView.layer.cornerRadius = 3
@@ -69,7 +69,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         descLabel.addGestureRecognizer(tapRecognizer)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         contentView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         let margins = contentView.layoutMarginsGuide
 

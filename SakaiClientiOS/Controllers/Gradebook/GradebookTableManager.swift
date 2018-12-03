@@ -10,13 +10,9 @@ import ReusableSource
 
 /// An abstraction to manage the data source and delegate for the Gradebook tab. Divides grades
 /// by Term and further subdivides by class
-class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
+class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
     private let headerCell = FloatingHeaderCell()
-
-    override init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {
-        super.init(provider: provider, fetcher: fetcher, tableView: tableView)
-    }
 
     convenience init(tableView: UITableView) {
         self.init(provider: GradebookDataProvider(), fetcher: GradebookDataFetcher(), tableView: tableView)
@@ -46,26 +42,6 @@ class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider,
         }
     }
     
-    /// Construct a class title cell to separate classes within a Term section using the given subsection
-    ///
-    /// - Parameters:
-    ///   - tableView: the tableView being constructed
-    ///   - indexPath: the "true" indexPath of the cell
-    ///   - subsection: the location of the data as managed by the GradebookDataProvider
-    /// - Returns: a cell containing a class title
-    func getSiteTitleCell(tableView: UITableView, indexPath: IndexPath, subsection:Int) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
-            fatalError("Not a site cell")
-        }
-        
-        cell.accessoryType = UITableViewCellAccessoryType.none
-        cell.titleLabel.text = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
-        cell.titleLabel.textColor = UIColor.white
-        cell.backgroundColor = UIColor.black
-        
-        return cell
-    }
-    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Construct a sticky header to display which class's grades are currently being scrolled
         let point = CGPoint(x: 0, y: tableView.contentOffset.y)
@@ -87,8 +63,28 @@ class GradebookTableManager : HideableNetworkTableManager<GradebookDataProvider,
             makeHeaderCellVisible(section: topIndex.section, subsection: subsectionIndex.section)
         }
     }
+
+    /// Construct a class title cell to separate classes within a Term section using the given subsection
+    ///
+    /// - Parameters:
+    ///   - tableView: the tableView being constructed
+    ///   - indexPath: the "true" indexPath of the cell
+    ///   - subsection: the location of the data as managed by the GradebookDataProvider
+    /// - Returns: a cell containing a class title
+    private func getSiteTitleCell(tableView: UITableView, indexPath: IndexPath, subsection:Int) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
+            fatalError("Not a site cell")
+        }
+
+        cell.accessoryType = UITableViewCellAccessoryType.none
+        cell.titleLabel.text = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
+        cell.titleLabel.textColor = UIColor.white
+        cell.backgroundColor = UIColor.black
+
+        return cell
+    }
     
-    func makeHeaderCellVisible(section: Int, subsection: Int) {
+    private func makeHeaderCellVisible(section: Int, subsection: Int) {
         let frame = CGRect(x: 0, y: tableView.contentOffset.y, width: tableView.frame.size.width, height: headerCell.frame.size.height)
         let title =  provider.getSubsectionTitle(section: section, subsection: subsection)
         

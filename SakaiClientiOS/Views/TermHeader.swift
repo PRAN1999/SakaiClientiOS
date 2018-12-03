@@ -47,7 +47,7 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         tapRecognizer.delegate = self
 
         addSubview(titleLabel)
@@ -57,7 +57,7 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         addGestureRecognizer(tapRecognizer)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = layoutMarginsGuide
 
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true

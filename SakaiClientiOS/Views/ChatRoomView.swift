@@ -28,14 +28,14 @@ class ChatRoomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         webView.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(webView)
         addSubview(messageBar)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = layoutMarginsGuide
 
         webView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true

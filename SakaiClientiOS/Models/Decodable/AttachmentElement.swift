@@ -8,7 +8,7 @@
 import Foundation
 
 /// A content attachment to an Announcement or an Assignment
-struct AttachmentElement: Decodable {
+struct AttachmentElement {
     let name: String
     let url: String
 
@@ -19,3 +19,5 @@ struct AttachmentElement: Decodable {
         return attachmentString
     }
 }
+
+extension AttachmentElement: Decodable {}

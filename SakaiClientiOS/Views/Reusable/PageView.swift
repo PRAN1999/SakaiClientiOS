@@ -22,11 +22,11 @@ class PageView<PageType: UIScrollView>: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         addSubview(scrollView)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = layoutMarginsGuide
         
         scrollView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true

@@ -18,11 +18,11 @@ extension UIViewController: UITextViewDelegate {
         if URL.absoluteString.contains("sakai.rutgers.edu") {
             let webController = WebController()
             webController.setURL(url: URL)
-            self.navigationController?.pushViewController(webController, animated: true)
+            navigationController?.pushViewController(webController, animated: true)
             return false
         } else {
             let safariController = SFSafariViewController(url: URL)
-            self.tabBarController?.present(safariController, animated: true, completion: nil)
+            tabBarController?.present(safariController, animated: true, completion: nil)
             return false
         }
     }

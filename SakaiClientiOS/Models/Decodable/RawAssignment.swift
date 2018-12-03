@@ -19,7 +19,7 @@ struct AssignmentElement: Decodable {
     let title: String
     let dueTimeString: String
     let dueTime: DueTime
-    let instructions: String
+    let instructions: String?
     let siteId: String
     let status: String
     let resubmissionAllowed: Bool

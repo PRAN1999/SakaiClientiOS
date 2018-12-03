@@ -63,15 +63,16 @@ class AssignmentController: UITableViewController {
         navigationController?.setToolbarHidden(true, animated: true)
         navigationController?.toolbar.barTintColor = AppGlobals.defaultTint
     }
-    
-    @objc func resort() {
-        assignmentsTableManager.switchSort()
-    }
 }
 
 //MARK: View construction
 
 fileprivate extension AssignmentController {
+
+    @objc func resort() {
+        assignmentsTableManager.switchSort()
+    }
+
     /// Configures UI control to toggle between class and date(Term) sort
     func configureSegmentedControl() {
         segments.selectedSegmentIndex = selectedIndex

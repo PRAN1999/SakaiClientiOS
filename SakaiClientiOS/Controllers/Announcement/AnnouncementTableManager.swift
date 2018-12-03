@@ -42,7 +42,7 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
         provider.resetValues()
     }
 
-    func loadMoreData() {
+    private func loadMoreData() {
         let frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(70))
         let spinner = LoadingIndicator(frame: frame)
         spinner.activityIndicatorViewStyle = .gray

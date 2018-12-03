@@ -267,8 +267,10 @@ fileprivate extension WebController {
         guard let navigationBarBounds = navigationController?.navigationBar.bounds else {
             return
         }
-        progressView.frame = CGRect(x: 0, y: navigationBarBounds.size.height - 2,
-                                    width: navigationBarBounds.size.width, height: 8)
+        progressView.frame = CGRect(x: 0,
+                                    y: navigationBarBounds.size.height - 2,
+                                    width: navigationBarBounds.size.width,
+                                    height: 8)
     }
 
     /// Configure navigation toolbar with webView action buttons

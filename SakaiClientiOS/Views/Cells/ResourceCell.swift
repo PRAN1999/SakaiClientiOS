@@ -51,14 +51,14 @@ class ResourceCell: UITableViewCell, ReusableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(leftBorder)
         contentView.addSubview(sizeLabel)
         contentView.addSubview(spaceView)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = contentView.layoutMarginsGuide
 
         leftBorder.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
@@ -107,7 +107,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
         layoutSubviews()
     }
 
-    func getColor(for level: Int) -> UIColor {
+    private func getColor(for level: Int) -> UIColor {
         let mod = level % 4
         switch mod {
         case 0:

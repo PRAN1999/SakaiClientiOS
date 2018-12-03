@@ -13,8 +13,9 @@ class AnnouncementDataFetcher: DataFetcher {
     
     typealias T = [Announcement]
 
-    private var offset = 0
     private let limit = AnnouncementDataFetcher.requestLimit
+
+    private var offset = 0
     private(set) var moreLoads = true
 
     var siteId: String?
@@ -22,10 +23,8 @@ class AnnouncementDataFetcher: DataFetcher {
     func loadData(completion: @escaping ([Announcement]?, Error?) -> Void) {
         SakaiService.shared.getAllAnnouncements(offset: offset, limit: limit, siteId: siteId, completion: { [weak self] announcementList, moreLoads, err in
             self?.moreLoads = moreLoads
-
             if let list = announcementList {
                 self?.offset += list.count
-                //self?.numToRequest += AnnouncementDataFetcher.requestLimit
             }
             
             completion(announcementList, err)
@@ -34,7 +33,6 @@ class AnnouncementDataFetcher: DataFetcher {
     
     func resetOffset() {
         offset = 0
-        //numToRequest = AnnouncementDataFetcher.requestLimit
         moreLoads = true
     }
 }

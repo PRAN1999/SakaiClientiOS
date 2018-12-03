@@ -43,12 +43,12 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionView)
     }
 
-    func setConstraints() {
+    private func setConstraints() {
         let margins = contentView.layoutMarginsGuide
 
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true

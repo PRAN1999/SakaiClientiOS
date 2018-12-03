@@ -7,7 +7,7 @@
 import Foundation
 
 /// A model for the individual subpages belonging to each Site
-struct SitePage: Decodable {
+struct SitePage {
     private static let announcementString: String = "Announcements"
     private static let assignmentsString: String  = "Assignments"
     private static let gradebookString: String    = "Gradebook"
@@ -30,36 +30,38 @@ struct SitePage: Decodable {
     let siteId: String
     let siteType: SitePageController.Type
     let url: String
+}
 
+extension SitePage: Decodable {
     init(from decoder: Decoder) throws {
         let sitePageElement = try SitePageElement(from: decoder)
-        self.id = sitePageElement.id
-        self.title = sitePageElement.title
-        self.siteId = sitePageElement.siteId
-        self.url = sitePageElement.url
+        let id = sitePageElement.id
+        let title = sitePageElement.title
+        let siteId = sitePageElement.siteId
+        let url = sitePageElement.url
         let siteType: SitePageController.Type
         if SitePage.mapPages[title] != nil {
             siteType = SitePage.mapPages[title]!
         } else {
             siteType = SitePage.mapPages[SitePage.defaultString]!
         }
-        self.siteType = siteType
         if title == "Assignments" {
             SakaiService.shared.siteAssignmentToolMap.updateValue(url, forKey: siteId)
         }
+        self.init(id: id, title: title, siteId: siteId, siteType: siteType, url: url)
     }
 
     init(from serializedSitePage: PersistedSitePage) {
-        self.id = serializedSitePage.id
-        self.title = serializedSitePage.title
-        self.siteId = serializedSitePage.siteId
-        self.url = serializedSitePage.url
+        let id = serializedSitePage.id
+        let title = serializedSitePage.title
+        let siteId = serializedSitePage.siteId
+        let url = serializedSitePage.url
         let siteType: SitePageController.Type
         if SitePage.mapPages[title] != nil {
             siteType = SitePage.mapPages[title]!
         } else {
             siteType = SitePage.mapPages[SitePage.defaultString]!
         }
-        self.siteType = siteType
+        self.init(id: id, title: title, siteId: siteId, siteType: siteType, url: url)
     }
 }

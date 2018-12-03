@@ -24,14 +24,14 @@ class TappableTextView: UITextView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupView() {
+    private func setupView() {
         isEditable = false
         isSelectable = true
 
         addGestureRecognizer(tapRecognizer)
     }
 
-    @objc func deselectText() {
+    @objc private func deselectText() {
         selectedTextRange = nil
     }
 }
