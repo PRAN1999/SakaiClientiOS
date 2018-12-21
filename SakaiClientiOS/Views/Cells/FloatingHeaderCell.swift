@@ -18,6 +18,8 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
         return titleLabel
     }()
 
+    let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: nil, action: nil)
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -29,10 +31,12 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
     }
 
     private func setupView() {
+        addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
         backgroundColor = UIColor.black//AppGlobals.sakaiRed
         isHidden = true
 
         contentView.addSubview(titleLabel)
+        addGestureRecognizer(tapRecognizer)
     }
 
     private func setConstraints() {

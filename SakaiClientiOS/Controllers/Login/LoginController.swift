@@ -19,7 +19,18 @@ class LoginController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        roundButton(button: netIdButton)
+        roundButton(button: emailButton)
+
         title = "Login"
+    }
+
+    private func roundButton(button: UIButton) {
+        button.layer.cornerRadius = 10
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 1
+        button.layer.masksToBounds = false
     }
 
     @IBAction func loginWithNetId(_ sender: Any) {

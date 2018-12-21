@@ -68,10 +68,11 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zSg-nB-z0T" firstAttribute="bottom" secondItem="ZbV-U9-QDC" secondAttribute="bottom" constant="215" id="2r7-Vq-DgM"/>
                             <constraint firstItem="zSg-nB-z0T" firstAttribute="trailing" secondItem="ZbV-U9-QDC" secondAttribute="trailing" constant="84" id="CPP-xp-f8F"/>
+                            <constraint firstItem="ZbV-U9-QDC" firstAttribute="top" secondItem="0f6-aI-p9Q" secondAttribute="bottom" constant="22" id="a8l-B1-u2f"/>
                             <constraint firstItem="0f6-aI-p9Q" firstAttribute="top" secondItem="zSg-nB-z0T" secondAttribute="top" constant="216" id="b5o-Tt-8Rx"/>
                             <constraint firstItem="ZbV-U9-QDC" firstAttribute="leading" secondItem="zSg-nB-z0T" secondAttribute="leading" constant="81" id="c4J-uH-wjS"/>
                             <constraint firstItem="zSg-nB-z0T" firstAttribute="trailing" secondItem="0f6-aI-p9Q" secondAttribute="trailing" constant="84" id="yE4-uA-b1Z"/>

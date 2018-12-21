@@ -13,6 +13,7 @@ import ReusableSource
 class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
     private let headerCell = FloatingHeaderCell()
+    private var headerClass: (Int, Int)?
 
     convenience init(tableView: UITableView) {
         self.init(provider: GradebookDataProvider(), fetcher: GradebookDataFetcher(), tableView: tableView)
@@ -21,7 +22,15 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     override func setup() {
         super.setup()
         tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
-        tableView.allowsSelection = false
+        selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+            self.tableView.deselectRow(at: indexPath, animated: true)
+            let subsectionPath = self.provider.getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
+            if subsectionPath.row == 0 {
+                self.toggleClass(at: subsectionPath.section, in: indexPath.section)
+            }
+        }
+        headerCell.tapRecognizer.delegate = self
+        headerCell.tapRecognizer.addTarget(self, action: #selector(toggleCurrentClass(sender:)))
         tableView.showsVerticalScrollIndicator = false
         tableView.addSubview(headerCell)
     }
@@ -54,7 +63,7 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
             return
         }
         let subsectionIndex = provider.getSubsectionIndexPath(section: topIndex.section, row: topIndex.row)
-        let headerRow = provider.getHeaderRowForSubsection(section: topIndex.section, indexPath: subsectionIndex)
+        let headerRow = provider.getHeaderRowForSubsection(section: topIndex.section, subsection: subsectionIndex.section)
         let cell = tableView.cellForRow(at: IndexPath(row: headerRow, section: topIndex.section))
         
         if(cell != nil && (cell?.frame.minY)! > tableView.contentOffset.y ) {
@@ -64,6 +73,11 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
         }
     }
 
+    func hideHeaderCell() {
+        headerCell.isHidden = true
+        headerClass = nil
+    }
+
     /// Construct a class title cell to separate classes within a Term section using the given subsection
     ///
     /// - Parameters:
@@ -71,12 +85,12 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     ///   - indexPath: the "true" indexPath of the cell
     ///   - subsection: the location of the data as managed by the GradebookDataProvider
     /// - Returns: a cell containing a class title
-    private func getSiteTitleCell(tableView: UITableView, indexPath: IndexPath, subsection:Int) -> UITableViewCell {
+    private func getSiteTitleCell(tableView: UITableView, indexPath: IndexPath, subsection: Int) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
             fatalError("Not a site cell")
         }
 
-        cell.accessoryType = UITableViewCellAccessoryType.none
+        cell.accessoryType = .none
         cell.titleLabel.text = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
         cell.titleLabel.textColor = UIColor.white
         cell.backgroundColor = UIColor.black
@@ -85,15 +99,24 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     }
     
     private func makeHeaderCellVisible(section: Int, subsection: Int) {
-        let frame = CGRect(x: 0, y: tableView.contentOffset.y, width: tableView.frame.size.width, height: headerCell.frame.size.height)
+        let headerHeight = super.tableView(tableView, heightForHeaderInSection: section)
+        let frame = CGRect(x: 0, y: tableView.contentOffset.y + headerHeight, width: tableView.frame.size.width, height: headerCell.frame.size.height)
         let title =  provider.getSubsectionTitle(section: section, subsection: subsection)
         
         headerCell.setTitle(title: title)
         headerCell.setFrameAndMakeVisible(frame: frame)
         tableView.bringSubview(toFront: headerCell)
+        headerClass = (section, subsection)
     }
-    
-    func hideHeaderCell() {
-        headerCell.isHidden = true
+
+    @objc private func toggleCurrentClass(sender: UITapGestureRecognizer) {
+        guard let (section, subsection) = headerClass else {
+            return
+        }
+        toggleClass(at: subsection, in: section)
+    }
+
+    private func toggleClass(at subsection: Int, in section: Int) {
+        
     }
 }

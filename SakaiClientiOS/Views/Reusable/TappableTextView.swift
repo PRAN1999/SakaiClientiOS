@@ -10,10 +10,7 @@ import UIKit
 /// A TextView that deselects any text when it is tapped
 class TappableTextView: UITextView {
 
-    let tapRecognizer: UITapGestureRecognizer = {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectText))
-        return tapRecognizer
-    }()
+    let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: nil, action: nil)
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
@@ -27,6 +24,8 @@ class TappableTextView: UITextView {
     private func setupView() {
         isEditable = false
         isSelectable = true
+
+        tapRecognizer.addTarget(self, action: #selector(deselectText))
 
         addGestureRecognizer(tapRecognizer)
     }

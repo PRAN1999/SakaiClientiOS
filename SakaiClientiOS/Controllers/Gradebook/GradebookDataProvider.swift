@@ -23,17 +23,14 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     var hasLoaded: [Bool] = []
     
     private var gradeItems: [[[GradeItem]]] = []
+    private var isCollapsed: [[Bool]] = []
     
     func numberOfSections() -> Int {
         return gradeItems.count
     }
     
     func numberOfItems(in section: Int) -> Int {
-        var numRows = gradeItems[section].count
-        for j in 0..<gradeItems[section].count {
-            numRows += gradeItems[section][j].count
-        }
-        return numRows
+        return getCount(for: section)
     }
     
     /// If an indexPath represents a nested section header, return nil. Otherwise
@@ -58,6 +55,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     func resetValues() {
         resetTerms()
         gradeItems = [[[GradeItem]]].init(repeating: [[GradeItem]](), count: terms.count)
+        isCollapsed = [[Bool]].init(repeating: [Bool](), count: terms.count)
     }
     
     func loadItems(payload: [[GradeItem]], for section: Int) {
@@ -72,6 +70,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
             index += 1
         }
         gradeItems[section] = res
+        isCollapsed[section] = [Bool].init(repeating: false, count: gradeItems[section].count)
     }
     
     /// For a given section within a UITableView and a given subsection location, retrieve
@@ -81,10 +80,10 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     ///   - section: the UITableView section
     ///   - indexPath: the subsection indexPath for a section
     /// - Returns: the row index (within the section) of the associated subsection header
-    func getHeaderRowForSubsection(section: Int, indexPath: IndexPath) -> Int {
+    func getHeaderRowForSubsection(section: Int, subsection: Int) -> Int {
         var row = 0
         
-        for index in 0..<indexPath.section {
+        for index in 0..<subsection {
             row += gradeItems[section][index].count + 1
         }
         
@@ -100,17 +99,19 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     /// - Returns: the converted subsection IndexPath within the given section
     func getSubsectionIndexPath(section: Int, row: Int) -> IndexPath {
         let termSection: [[GradeItem]] = gradeItems[section]
-        
         var startRow = row
         var subsection = 0
         while startRow > 0 {
-            //print("Section: \(section) Subsection: \(subsection) StartRow: \(startRow)")
-            startRow -= (termSection[subsection].count + 1)
+            let classCount = termSection[subsection].count + 1
+            startRow -= classCount
             if(startRow >= 0) {
                 subsection += 1
             }
         }
-        let subRow = 0 - startRow
+        var subRow = startRow
+        if subRow != 0 {
+            subRow = termSection[subsection].count + 1 - -1 * startRow
+        }
         return IndexPath(row: subRow, section: subsection)
     }
     
@@ -125,5 +126,25 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         let siteId = gradeItems[section][subsection][0].siteId
         let title = SakaiService.shared.siteTitleMap[siteId]
         return title
+    }
+
+    func getCount(for section: Int) -> Int {
+        let count = gradeItems[section].count
+        var total = 0
+        for i in 0..<count {
+            if isCollapsed(section: section, subsection: i) {
+                total += 1
+            } else {
+                total += gradeItems[section][i].count + 1
+            }
+        }
+        return total
+    }
+
+    func isCollapsed(section: Int, subsection: Int) -> Bool {
+        guard section < terms.count && subsection < isCollapsed[section].count else {
+            return false
+        }
+        return isCollapsed[section][subsection]
     }
 }

@@ -13,7 +13,7 @@ class LoadingIndicator: UIActivityIndicatorView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-        self.color = UIColor.black
+        self.color = UIColor.white
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.hidesWhenStopped = true
     }
