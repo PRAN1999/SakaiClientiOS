@@ -30,6 +30,8 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         super.setup()
         tableView.register(AssignmentTitleCell.self, forCellReuseIdentifier: AssignmentTitleCell.reuseIdentifier)
         tableView.allowsSelection = true
+        tableView.sectionHeaderHeight = 0.0;
+        tableView.sectionFooterHeight = 0.0;
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,7 +43,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
                 cell.configure(item, at: indexPath)
             }
             if provider.dateSorted {
-                cell.titleLabel.text = "All Assignments"
+                cell.titleLabel.titleLabel.text = "All Assignments"
             }
             return cell
         }
@@ -50,7 +52,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     
     override func configureBehavior(for cell: AssignmentTableCell, at indexPath: IndexPath) {
         if provider.dateSorted {
-            cell.titleLabel.text = "All Assignments"
+            cell.titleLabel.titleLabel.text = "All Assignments"
         }
         cell.manager.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
             // keep track of selected index within collectionView
@@ -74,5 +76,10 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     func toggleSite(at indexPath: IndexPath) {
         provider.toggleCollapsed(at: indexPath)
         tableView.reloadRows(at: [indexPath], with: .automatic)
+        if provider.isCollapsed(at: indexPath) {
+            tableView.scrollToRow(at: indexPath, at: .none, animated: true)
+        } else {
+            tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        }
     }
 }

@@ -14,10 +14,10 @@ class ResourceCell: UITableViewCell, ReusableCell {
 
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        titleLabel.textColor = UIColor.black
+        titleLabel.titleLabel.textColor = UIColor.lightText
         titleLabel.titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.light)
-        titleLabel.numberOfLines = 0
-        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.titleLabel.numberOfLines = 0
+        titleLabel.titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.backgroundColor = UIColor.clear
         return titleLabel
     }()
@@ -37,10 +37,6 @@ class ResourceCell: UITableViewCell, ReusableCell {
 
     var needsSizeLabel = false
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -52,6 +48,9 @@ class ResourceCell: UITableViewCell, ReusableCell {
     }
 
     private func setupView() {
+        backgroundColor = UIColor.darkGray
+        selectedBackgroundView = darkSelectedView()
+
         contentView.addSubview(titleLabel)
         contentView.addSubview(leftBorder)
         contentView.addSubview(sizeLabel)

@@ -14,21 +14,29 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
 
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
-        titleLabel.font = UIFont.init(name: "Helvetica", size: 25.0)
-        titleLabel.textColor = AppGlobals.sakaiRed
+        titleLabel.font = UIFont.systemFont(ofSize: 25.0, weight: .medium)
+        titleLabel.textColor = UIColor.white
         return titleLabel
     }()
 
-    let imageLabel: UIImageView = UIView.defaultAutoLayoutView()
+    let imageLabel: UIImageView = {
+        let imageLabel: UIImageView = UIView.defaultAutoLayoutView()
+        //imageLabel.tintColor = UIColor.white
+        return imageLabel
+    }()
 
     let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator: UIActivityIndicatorView = UIView.defaultAutoLayoutView()
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = AppGlobals.sakaiRed
+        activityIndicator.color = UIColor.white
         return activityIndicator
     }()
 
-    var backgroundHeaderView: UIView!
+    var backgroundHeaderView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.lightGray
+        return view
+    }()
 
     let tapRecognizer: UITapGestureRecognizer = {
         let tapRecognizer = UITapGestureRecognizer(target: nil, action: nil)
@@ -48,6 +56,7 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
     }
 
     private func setupView() {
+        backgroundView = backgroundHeaderView
         tapRecognizer.delegate = self
 
         addSubview(titleLabel)

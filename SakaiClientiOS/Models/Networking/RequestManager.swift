@@ -25,6 +25,10 @@ class RequestManager {
     var isLoggedIn = false
     var userId: String?
 
+    private var session: URLSession {
+        return Alamofire.SessionManager.default.session
+    }
+
     private init() {}
 
     /// Executes and validates an HTTP request and passes any retrieved data and any errors into
@@ -89,7 +93,7 @@ class RequestManager {
     ///
     /// - Parameter cookie: The HTTP cookie to add to the Alamofire Session
     func addCookie(cookie: HTTPCookie) {
-        Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.setCookie(cookie)
+        session.configuration.httpCookieStorage?.setCookie(cookie)
         if let properties = cookie.properties {
             cookieArray.append(properties)
         }
@@ -122,7 +126,7 @@ class RequestManager {
     /// Resets URL cache for Alamofire session to force new data requests
     func resetCache() {
         URLCache.shared.removeAllCachedResponses()
-        Alamofire.SessionManager.default.session.configuration.urlCache?.removeAllCachedResponses()
+        session.configuration.urlCache?.removeAllCachedResponses()
     }
 
     /// Resets Alamofire session by flushing session configuration of all Cookies and Headers. Also resets
@@ -136,11 +140,11 @@ class RequestManager {
     }
 
     func clearCookies() {
-        guard let cookies = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies else {
+        guard let cookies = session.configuration.httpCookieStorage?.cookies else {
             return
         }
         for cookie in cookies {
-            Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.deleteCookie(cookie)
+            session.configuration.httpCookieStorage?.deleteCookie(cookie)
             HTTPCookieStorage.shared.deleteCookie(cookie)
         }
         cookieArray = []
@@ -160,7 +164,7 @@ class RequestManager {
     }
 
     func loadCookiesIntoUserDefaults() {
-        guard let cookies = Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies else {
+        guard let cookies = session.configuration.httpCookieStorage?.cookies else {
             return
         }
         var arr: [[HTTPCookiePropertyKey: Any]] = []
@@ -173,7 +177,7 @@ class RequestManager {
     }
 
     func getCookies() -> [HTTPCookie]? {
-        return Alamofire.SessionManager.default.session.configuration.httpCookieStorage?.cookies
+        return session.configuration.httpCookieStorage?.cookies
     }
 }
 

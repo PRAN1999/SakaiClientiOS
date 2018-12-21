@@ -19,6 +19,8 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         return titleLabel
     }()
 
+    var leadingConstraint: NSLayoutConstraint!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -40,9 +42,19 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
     private func setConstraints() {
         let margins = layoutMarginsGuide
 
-        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        leadingConstraint = titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
+        leadingConstraint.isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+    }
+
+    func setLeftMargin(to val: CGFloat) {
+        let margins = layoutMarginsGuide
+
+        leadingConstraint.isActive = false
+        removeConstraint(leadingConstraint)
+        leadingConstraint = titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: val)
+        leadingConstraint.isActive = true
     }
 }

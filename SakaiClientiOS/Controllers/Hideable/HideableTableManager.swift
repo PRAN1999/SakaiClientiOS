@@ -12,7 +12,7 @@ import ReusableSource
 /// Term-based sections. Creates toggles on section headers in tableView to hide/show data
 class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell & ConfigurableCell> : ReusableTableManager<Provider, Cell>, UIGestureRecognizerDelegate where Provider.T == Cell.T {
     
-    private let tableHeaderHeight: CGFloat = 50.0
+    let tableHeaderHeight: CGFloat = 50.0
     
     override func setup() {
         super.setup()
@@ -24,6 +24,8 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
         if provider.isEmpty(section: indexPath.section) {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
             cell.textLabel?.text = "Looks like there's nothing here"
+            cell.backgroundColor = UIColor.darkGray
+            cell.textLabel?.textColor = UIColor.lightText
             return cell
         }
         return super.tableView(tableView, cellForRowAt: indexPath)

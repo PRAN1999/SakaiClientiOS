@@ -18,6 +18,7 @@ open class ReusableTableManager<Provider: DataProvider, Cell: UITableViewCell & 
     open override func setup() {
         super.setup()
         tableView.delegate = self
+        tableView.tableFooterView = UIView()
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
     }

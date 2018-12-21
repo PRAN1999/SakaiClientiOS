@@ -31,7 +31,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Assignments"
+        title = "Assignments"
 
         siteAssignmentCollectionManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             let assignments = self.siteAssignmentCollectionManager.provider.items
@@ -42,6 +42,8 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
             return self
         }
         siteAssignmentCollectionManager.delegate = self
+        collectionView?.backgroundColor = UIColor.darkGray
+
         configureNavigationItem()
         siteAssignmentCollectionManager.loadDataSource()
     }

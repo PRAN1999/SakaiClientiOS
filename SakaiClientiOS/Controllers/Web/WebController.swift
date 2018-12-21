@@ -47,6 +47,7 @@ class WebController: UIViewController {
     // MARK: Custom view controllers
 
     private let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    private var interactionController: UIDocumentInteractionController?
 
     // MARK: WKWebView configuration
 
@@ -129,7 +130,9 @@ class WebController: UIViewController {
         if shouldLoad && didInitialize {
             loadURL(urlOpt: url)
         }
-        navigationController?.setToolbarHidden(false, animated: true)
+        if needsNav {
+            navigationController?.setToolbarHidden(false, animated: true)
+        }
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
 
@@ -183,9 +186,9 @@ class WebController: UIViewController {
             guard let button = self?.interactionButton else {
                 return
             }
-            let interactionController = UIDocumentInteractionController(url: fileUrl)
+            self?.interactionController = UIDocumentInteractionController(url: fileUrl)
             DispatchQueue.main.async {
-                interactionController.presentOpenInMenu(from: button, animated: true)
+                self?.interactionController?.presentOpenInMenu(from: button, animated: true)
                 self?.interactionButton.isEnabled = true
             }
         }
@@ -257,6 +260,7 @@ fileprivate extension WebController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadWebview))
         if !needsNav {
             navigationController?.setNavigationBarHidden(true, animated: true)
+            navigationController?.setToolbarHidden(true, animated: true)
         }
         navigationController?.toolbar.tintColor = AppGlobals.sakaiRed
     }
@@ -318,11 +322,11 @@ extension WebController {
     }
 
     @objc func pop() {
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 
     @objc func presentDownloadOption() {
-        self.present(actionController, animated: true, completion: nil)
+        present(actionController, animated: true, completion: nil)
     }
 
     /// Allows rotation of controller

@@ -25,4 +25,53 @@ extension UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }
+
+    enum ViewSide {
+        case left, right, top, bottom
+    }
+
+    func addBorder(toSide side: ViewSide, withColor color: UIColor, andThickness thickness: CGFloat) {
+        let border = UIView.defaultAutoLayoutView()
+        border.backgroundColor = color
+        addSubview(border)
+
+        switch side {
+        case .left:
+            NSLayoutConstraint.activate([
+                border.topAnchor.constraint(equalTo: topAnchor),
+                border.bottomAnchor.constraint(equalTo: bottomAnchor),
+                border.leadingAnchor.constraint(equalTo: leadingAnchor),
+                border.widthAnchor.constraint(equalToConstant: thickness)
+            ])
+            break
+        case .right:
+            NSLayoutConstraint.activate([
+                border.topAnchor.constraint(equalTo: topAnchor),
+                border.bottomAnchor.constraint(equalTo: bottomAnchor),
+                border.trailingAnchor.constraint(equalTo: trailingAnchor),
+                border.widthAnchor.constraint(equalToConstant: thickness)
+            ])
+            break
+        case .top:
+            NSLayoutConstraint.activate([
+                border.topAnchor.constraint(equalTo: topAnchor),
+                border.leadingAnchor.constraint(equalTo: leadingAnchor),
+                border.trailingAnchor.constraint(equalTo: trailingAnchor),
+                border.heightAnchor.constraint(equalToConstant: thickness)
+            ])
+            break
+        case .bottom:
+            NSLayoutConstraint.activate([
+                border.bottomAnchor.constraint(equalTo: bottomAnchor),
+                border.leadingAnchor.constraint(equalTo: leadingAnchor),
+                border.trailingAnchor.constraint(equalTo: trailingAnchor),
+                border.heightAnchor.constraint(equalToConstant: thickness)
+            ])
+            break
+        }
+    }
+
+    func addBorder(toSide side: ViewSide, withColor color: UIColor, andTransparency alpha: CGFloat, andThickness thickness: CGFloat) {
+        addBorder(toSide: side, withColor: color.color(withTransparency: alpha), andThickness: thickness)
+    }
 }

@@ -18,6 +18,7 @@ class AnnouncementPageView: UIScrollView {
         titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
         titleLabel.layer.cornerRadius = 0
+        titleLabel.backgroundColor = UIColor.lightGray.color(withTransparency: 0.5)
         return titleLabel
     }()
 
@@ -56,6 +57,9 @@ class AnnouncementPageView: UIScrollView {
 
     private func setupView() {
         addSubview(contentView)
+
+        titleLabel.addBorder(toSide: .top, withColor: UIColor.lightGray, andTransparency: 0.5, andThickness: 5.0)
+        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 5.0)
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(authorLabel)

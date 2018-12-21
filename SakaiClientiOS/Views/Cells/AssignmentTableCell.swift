@@ -12,19 +12,22 @@ import ReusableSource
 class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     typealias T = [Assignment]
 
-    let titleLabel: UILabel = {
-        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
-        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.backgroundColor = UIColor.black
+    let titleLabel: InsetUILabel = {
+        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+        titleLabel.titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        titleLabel.titleLabel.textColor = UIColor.lightText
+        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.masksToBounds = false
+        titleLabel.backgroundColor = UIColor.darkGray
+        titleLabel.addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
+        //titleLabel.addBorder(toSide: .bottom, withColor: UIColor.black, andThickness: 3.0)
         return titleLabel
     }()
 
     let collectionView: UICollectionView = {
         let layout = HorizontalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor.darkGray
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -44,6 +47,11 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     }
 
     private func setupView() {
+        contentView.backgroundColor = UIColor.darkGray
+
+        selectedBackgroundView = darkSelectedView()
+        selectedBackgroundView?.addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
+
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionView)
     }
@@ -51,11 +59,13 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     private func setConstraints() {
         let margins = contentView.layoutMarginsGuide
 
+        titleLabel.setLeftMargin(to: 5.0)
+
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10.0).isActive = true
-        titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 56).isActive = true
+        titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
 
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
@@ -77,7 +87,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         }
         let siteId = item[0].siteId
         let title = SakaiService.shared.siteTitleMap[siteId]
-        titleLabel.text = title
+        titleLabel.titleLabel.text = title
 
         manager.loadItems(payload: item)
         manager.reloadData()

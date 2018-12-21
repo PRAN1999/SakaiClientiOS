@@ -38,7 +38,7 @@ class ChatRoomController: UIViewController, SitePageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.darkGray
         title = "Chat Room"
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
