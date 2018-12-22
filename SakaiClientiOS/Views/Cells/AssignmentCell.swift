@@ -15,17 +15,19 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        titleLabel.backgroundColor = AppGlobals.sakaiRed
-        titleLabel.titleLabel.textColor = UIColor.white
+        titleLabel.backgroundColor = UIColor.gray
+        titleLabel.titleLabel.textColor = UIColor.lightText
         titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
+        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 2.5)
         return titleLabel
     }()
 
     let dueLabel: InsetUILabel = {
         let dueLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        dueLabel.backgroundColor = AppGlobals.sakaiRed//UIColor.black
-        dueLabel.titleLabel.textColor = UIColor.white
+        dueLabel.backgroundColor = UIColor.gray
+        dueLabel.titleLabel.textColor = UIColor.lightText
         dueLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
+        dueLabel.addBorder(toSide: .top, withColor: AppGlobals.sakaiRed, andThickness: 2.5)
         return dueLabel
     }()
 
@@ -58,10 +60,10 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     }
 
     private func setupView() {
-        contentView.layer.borderWidth = 1
+        contentView.layer.borderWidth = 3.5
         contentView.layer.borderColor = UIColor.black.cgColor
-        contentView.layer.cornerRadius = 3
-        contentView.layer.masksToBounds = false
+        contentView.layer.cornerRadius = 5
+        contentView.layer.masksToBounds = true
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(dueLabel)

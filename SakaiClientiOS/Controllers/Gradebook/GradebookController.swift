@@ -28,13 +28,14 @@ class GradebookController: UITableViewController {
 
 extension GradebookController: LoadableController {
     @objc func loadData() {
+        gradebookTableManager.hideHeaderCell()
         gradebookTableManager.loadDataSourceWithoutCache()
     }
 }
 
 extension GradebookController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
-        gradebookTableManager.hideHeaderCell()
+        //gradebookTableManager.hideHeaderCell()
         return self.addLoadingIndicator()
     }
 }

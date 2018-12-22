@@ -37,14 +37,14 @@ class SiteCell: UITableViewCell, ConfigurableCell {
         accessoryType = .disclosureIndicator
         selectedBackgroundView = darkSelectedView()
         selectedBackgroundView?.addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
-        backgroundColor = UIColor.darkGray
-        addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
+        backgroundView = defaultBackgroundView()
+        backgroundView?.addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
 
         contentView.addSubview(titleLabel)
     }
 
     private func setConstraints() {
-        let margins = self.contentView.layoutMarginsGuide
+        let margins = contentView.layoutMarginsGuide
 
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 20.0).isActive = true

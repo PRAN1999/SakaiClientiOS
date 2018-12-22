@@ -13,6 +13,7 @@ class LoginController: UIViewController {
 
     @IBOutlet private weak var netIdButton: UIButton!
     @IBOutlet private weak var emailButton: UIButton!
+    @IBOutlet weak var stackView: UIStackView!
 
     /// Callback to execute for a successful login
     var onLogin: (() -> Void)?

@@ -59,15 +59,15 @@ open class ReusableTableDataSource<Provider: DataProvider, Cell: UITableViewCell
         return provider.item(at: indexPath)
     }
     
-    public func reloadData() {
+    open func reloadData() {
         tableView.reloadData()
     }
     
-    public func reloadData(for section: Int) {
+    open func reloadData(for section: Int) {
         tableView.reloadSections([section], with: .automatic)
     }
     
-    public func loadItems(payload: Provider.V) {
+    open func loadItems(payload: Provider.V) {
         provider.loadItems(payload: payload)
     }
     
