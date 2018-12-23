@@ -105,7 +105,7 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     }
 
     func populateDataSource(with payload: [ResourceNode]) {
-        self.resources = payload
-        self.treeView.reloadData()
+        resources = payload
+        treeView.reloadData()
     }
 }

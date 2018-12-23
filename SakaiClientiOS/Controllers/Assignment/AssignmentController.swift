@@ -14,18 +14,6 @@ class AssignmentController: UITableViewController {
     /// Abstract the Assignment data management to a dedicated TableViewManager
     private lazy var assignmentsTableManager = AssignmentTableManager(tableView: tableView)
     
-    private let segments: UISegmentedControl = {
-        let segments = UISegmentedControl.init(items: ["Class", "Date"])
-        segments.tintColor = AppGlobals.sakaiRed
-        segments.setEnabled(false, forSegmentAt: 1)
-        segments.translatesAutoresizingMaskIntoConstraints = false
-        return segments
-    }()
-
-    private lazy var button1: UIBarButtonItem = UIBarButtonItem(customView: segments)
-    private lazy var button2: UIBarButtonItem = UIBarButtonItem(customView: segments)
-    private let flexButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    
     private var selectedIndex = 0
     
     override func viewDidLoad() {
@@ -47,44 +35,33 @@ class AssignmentController: UITableViewController {
         }
         assignmentsTableManager.delegate = self
 
-        configureSegmentedControl()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(presentFilter))
+
         configureNavigationItem()
         loadData()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.setToolbarHidden(false, animated: true)
-        navigationController?.toolbar.barTintColor = UIColor.black
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        navigationController?.setToolbarHidden(true, animated: true)
-        navigationController?.toolbar.barTintColor = AppGlobals.defaultTint
-    }
-}
-
-//MARK: View construction
-
-fileprivate extension AssignmentController {
 
     @objc func resort() {
         assignmentsTableManager.switchSort()
     }
 
-    /// Configures UI control to toggle between class and date(Term) sort
-    func configureSegmentedControl() {
-        segments.selectedSegmentIndex = selectedIndex
-        segments.addTarget(self, action: #selector(resort), for: UIControlEvents.valueChanged)
-
-        let frame = view.frame
-
-        segments.setWidth(frame.size.width / 4, forSegmentAt: 0)
-        segments.setWidth(frame.size.width / 4, forSegmentAt: 1)
-
-        let arr: [UIBarButtonItem] = [flexButton, button1, button2, flexButton]
-        setToolbarItems(arr, animated: true)
+    @objc func presentFilter() {
+        let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
+        guard let filterController = storyboard.instantiateViewController(withIdentifier: "filter") as? FilterViewController else {
+            return
+        }
+        filterController.selectedIndex = selectedIndex
+        filterController.onCancel = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
+        filterController.onSet = { [weak self] index in
+            if index != self?.selectedIndex {
+                self?.resort()
+            }
+            self?.selectedIndex = index
+            self?.dismiss(animated: true, completion: nil)
+        }
+        tabBarController?.present(filterController, animated: true, completion: nil)
     }
 }
 
@@ -100,13 +77,7 @@ extension AssignmentController: LoadableController {
 
 extension AssignmentController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
-        segments.selectedSegmentIndex = 0
-        segments.setEnabled(false, forSegmentAt: 1)
         assignmentsTableManager.resetSort()
         return addLoadingIndicator()
-    }
-
-    func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {
-        segments.setEnabled(true, forSegmentAt: 1)
     }
 }

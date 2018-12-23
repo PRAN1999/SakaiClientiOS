@@ -31,6 +31,7 @@ class ResourcePageController: UIViewController, SitePageController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.darkGray
         self.title = "Resources"
+        treeView.treeFooterView = UIView()
 
         view.addSubview(treeView)
         UIView.constrainChildToEdges(child: treeView, parent: view)

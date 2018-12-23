@@ -22,6 +22,7 @@ class ClassController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView = UIView()
         title = "Pages"
         tableView.backgroundColor = UIColor.darkGray
         tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)

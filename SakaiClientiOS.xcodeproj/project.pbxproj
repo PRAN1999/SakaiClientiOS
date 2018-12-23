@@ -31,6 +31,7 @@
 		5113C13920928718001929DA /* AssignmentView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C13820928718001929DA /* AssignmentView.storyboard */; };
 		5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13D2092D8F1001929DA /* SiteCell.swift */; };
 		511D757A208DAA9600371998 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D7579208DAA9600371998 /* HomeController.swift */; };
+		5126915521CEEE09004B20E7 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5126915421CEEE09004B20E7 /* FilterViewController.swift */; };
 		512748BD210D29A400A5A74E /* ResourcePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512748BC210D29A400A5A74E /* ResourcePageController.swift */; };
 		512748BF210D3A8700A5A74E /* ResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512748BE210D3A8700A5A74E /* ResourceCell.swift */; };
 		512748C1210D75D700A5A74E /* ResourceTreeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512748C0210D75D700A5A74E /* ResourceTreeManager.swift */; };
@@ -181,6 +182,7 @@
 		5113C13D2092D8F1001929DA /* SiteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCell.swift; sourceTree = "<group>"; };
 		5118956421194D0500BD86D1 /* SakaiClientiOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SakaiClientiOS.entitlements; sourceTree = "<group>"; };
 		511D7579208DAA9600371998 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		5126915421CEEE09004B20E7 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		512748BC210D29A400A5A74E /* ResourcePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcePageController.swift; sourceTree = "<group>"; };
 		512748BE210D3A8700A5A74E /* ResourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCell.swift; sourceTree = "<group>"; };
 		512748C0210D75D700A5A74E /* ResourceTreeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTreeManager.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				5113C13620928709001929DA /* AssignmentController.swift */,
 				511114B420D74D570077F872 /* PagesController.swift */,
 				511114B620D752260077F872 /* AssignmentPageController.swift */,
+				5126915421CEEE09004B20E7 /* FilterViewController.swift */,
 			);
 			path = Assignment;
 			sourceTree = "<group>";
@@ -776,18 +779,20 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework",
 				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13Checkbox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7C207D1E2854408B5D1CD4D2 /* [CP] Check Pods Manifest.lock */ = {
@@ -898,6 +903,7 @@
 				5182CBF2213A1B0000D45952 /* RawAssignment.swift in Sources */,
 				5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */,
 				5182CBD42139A49600D45952 /* UserSession.swift in Sources */,
+				5126915521CEEE09004B20E7 /* FilterViewController.swift in Sources */,
 				51DEE56D210527BC008E709D /* HideableTableManager.swift in Sources */,
 				51DEE55B21016B0D008E709D /* TappableTextView.swift in Sources */,
 				518903AE2108154E00C551AE /* SiteAssignmentDataFetcher.swift in Sources */,
