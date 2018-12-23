@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (4.7.2)
+  - M13Checkbox (3.2.2)
   - RATreeView (2.1.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - M13Checkbox
   - RATreeView (~> 2.1.2)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
+    - M13Checkbox
     - RATreeView
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  M13Checkbox: a8c2491cfbbca10797925fd0b9154a782bf40d89
   RATreeView: 380cde0090cfde21dc6ac29137f49d3b768fdd28
 
-PODFILE CHECKSUM: 6a3d8099a7432e90e951af766840ce9ab19f1665
+PODFILE CHECKSUM: 43934b2380a4dbb30d76712765e4fbc071033c31
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.6.0.beta.2

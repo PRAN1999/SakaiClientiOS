@@ -15,8 +15,8 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        titleLabel.backgroundColor = UIColor.gray
-        titleLabel.titleLabel.textColor = UIColor.lightText
+        titleLabel.backgroundColor = UIColor.darkGray
+        titleLabel.titleLabel.textColor = UIColor.white
         titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
         titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 2.5)
         return titleLabel
@@ -24,7 +24,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
     let dueLabel: InsetUILabel = {
         let dueLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        dueLabel.backgroundColor = UIColor.gray
+        dueLabel.backgroundColor = UIColor.darkGray
         dueLabel.titleLabel.textColor = UIColor.lightText
         dueLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
         dueLabel.addBorder(toSide: .top, withColor: AppGlobals.sakaiRed, andThickness: 2.5)
@@ -35,7 +35,8 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         let descLabel: UITextView = UIView.defaultAutoLayoutView()
         descLabel.isEditable = false
         descLabel.isSelectable = true
-        descLabel.backgroundColor = UIColor.white
+        descLabel.backgroundColor = UIColor.lightGray
+        descLabel.textContainerInset = UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
         return descLabel
     }()
 
@@ -61,9 +62,12 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
     private func setupView() {
         contentView.layer.borderWidth = 3.5
-        contentView.layer.borderColor = UIColor.black.cgColor
-        contentView.layer.cornerRadius = 5
+        contentView.layer.borderColor = UIColor.lightText.cgColor
+        contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
+
+        selectedBackgroundView = darkSelectedView()
+        selectedBackgroundView?.layer.cornerRadius = 10
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(dueLabel)

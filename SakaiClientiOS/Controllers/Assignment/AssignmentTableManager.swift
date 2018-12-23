@@ -16,8 +16,6 @@ import ReusableSource
 /// So, while selecting the tableView cell will do nothing, the
 /// AssignmentTableManager handles the selection of any Assignment in the collectionView within any cell
 class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
-    
-    private(set) var lastSelectedIndex: Int?
 
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
