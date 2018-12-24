@@ -36,6 +36,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         descLabel.isEditable = false
         descLabel.isSelectable = true
         descLabel.backgroundColor = UIColor.lightGray
+        descLabel.textContainerInset = UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
         return descLabel
     }()
 
@@ -64,6 +65,9 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         contentView.layer.borderColor = UIColor.lightText.cgColor
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
+
+        selectedBackgroundView = darkSelectedView()
+        selectedBackgroundView?.layer.cornerRadius = 10
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(dueLabel)

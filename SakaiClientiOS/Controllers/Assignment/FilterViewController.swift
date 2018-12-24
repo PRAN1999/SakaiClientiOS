@@ -11,47 +11,31 @@ import M13Checkbox
 class FilterViewController: UIViewController {
 
     @IBOutlet weak var popupView: UIView!
-    @IBOutlet weak var dateBox: M13Checkbox!
-    @IBOutlet weak var classBox: M13Checkbox!
-    @IBOutlet weak var dateButton: UIButton!
-    @IBOutlet weak var classButton: UIButton!
-
-    lazy var filters = [(classBox, 0), (dateBox, 1)]
+    @IBOutlet weak var tableView: UITableView!
 
     var selectedIndex = 0
 
     var onSet: ((Int) -> Void)?
     var onCancel: (() -> Void)?
 
+    var filters: [String] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         roundView(view: popupView)
 
-        dateBox.stateChangeAnimation = .fill
-        classBox.stateChangeAnimation = .fill
-
-        filters[selectedIndex].0?.setCheckState(.checked, animated: true)
-
-        classButton.addBorder(toSide: .bottom, withColor: UIColor.lightText, andThickness: 1.0)
-        dateButton.addBorder(toSide: .top, withColor: UIColor.lightText, andThickness: 1.0)
+        tableView.register(CheckBoxCell.self, forCellReuseIdentifier: CheckBoxCell.reuseIdentifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 45
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.reloadData()
+        tableView.tableFooterView = UIView()
     }
 
     private func roundView(view: UIView) {
         view.layer.cornerRadius = 8
         view.layer.masksToBounds = true
-    }
-
-    @IBAction func didSelectClass(_ sender: Any) {
-        selectedIndex = 0
-        dateBox.setCheckState(.unchecked, animated: true)
-        classBox.setCheckState(.checked, animated: true)
-    }
-
-
-    @IBAction func didSelectDate(_ sender: Any) {
-        selectedIndex = 1
-        classBox.setCheckState(.unchecked, animated: true)
-        dateBox.setCheckState(.checked, animated: true)
     }
 
     @IBAction func setFilter(_ sender: Any) {
@@ -60,5 +44,53 @@ class FilterViewController: UIViewController {
 
     @IBAction func cancel(_ sender: Any) {
         onCancel?()
+    }
+}
+
+extension FilterViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filters.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CheckBoxCell.reuseIdentifier, for: indexPath) as? CheckBoxCell else {
+            return UITableViewCell()
+        }
+        cell.label.text = filters[indexPath.row]
+        if selectedIndex == indexPath.row {
+            cell.checkBox.setCheckState(.checked, animated: false)
+        } else {
+            cell.checkBox.setCheckState(.unchecked, animated: false)
+        }
+        return cell
+    }
+}
+
+extension FilterViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.bounds.height / 2
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if selectedIndex == indexPath.row {
+            return
+        }
+        let oldIndex = IndexPath(row: selectedIndex, section: 0)
+        selectedIndex = indexPath.row
+        guard let cell = tableView.cellForRow(at: indexPath) as? CheckBoxCell else {
+            return
+        }
+        cell.checkBox.setCheckState(.checked, animated: true)
+        guard let oldCell = tableView.cellForRow(at: oldIndex) as? CheckBoxCell else {
+            
+            return
+        }
+        oldCell.checkBox.setCheckState(.unchecked, animated: true)
     }
 }

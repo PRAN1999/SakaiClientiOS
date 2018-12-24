@@ -14,7 +14,7 @@ class AssignmentController: UITableViewController {
     /// Abstract the Assignment data management to a dedicated TableViewManager
     private lazy var assignmentsTableManager = AssignmentTableManager(tableView: tableView)
     
-    private var selectedIndex = 0
+    private var sortedIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,16 +50,19 @@ class AssignmentController: UITableViewController {
         guard let filterController = storyboard.instantiateViewController(withIdentifier: "filter") as? FilterViewController else {
             return
         }
-        filterController.selectedIndex = selectedIndex
+        filterController.selectedIndex = sortedIndex
+        filterController.filters = ["Class", "Date"]
         filterController.onCancel = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
         filterController.onSet = { [weak self] index in
-            if index != self?.selectedIndex {
-                self?.resort()
-            }
-            self?.selectedIndex = index
             self?.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                if index != self?.sortedIndex {
+                    self?.resort()
+                }
+                self?.sortedIndex = index
+            }
         }
         tabBarController?.present(filterController, animated: true, completion: nil)
     }
@@ -78,6 +81,7 @@ extension AssignmentController: LoadableController {
 extension AssignmentController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         assignmentsTableManager.resetSort()
+        sortedIndex = 0
         return addLoadingIndicator()
     }
 }
