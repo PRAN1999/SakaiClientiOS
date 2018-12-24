@@ -19,6 +19,9 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
 
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
+
+    var selectedFrame: CGRect?
+    var selectedCell: UICollectionViewCell?
     
     convenience init(tableView: UITableView) {
         self.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
@@ -54,6 +57,11 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         }
         cell.manager.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
             // keep track of selected index within collectionView
+            if let attributes = cell.collectionView.layoutAttributesForItem(at: cellIndexPath) {
+                let rect = cell.collectionView.convert(attributes.frame, to: self.tableView.superview)
+                self.selectedFrame = rect
+            }
+            self.selectedCell = cell.collectionView.cellForItem(at: cellIndexPath)
             self.selectedAssignmentAt.call((indexPath, cellIndexPath.row))
         }
         cell.manager.textViewDelegate.delegate(to: self) { (self, voidInput) -> UITextViewDelegate? in

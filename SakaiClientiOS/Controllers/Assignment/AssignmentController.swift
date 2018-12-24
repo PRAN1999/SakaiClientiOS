@@ -18,6 +18,7 @@ class AssignmentController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.delegate = self
         assignmentsTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             self.assignmentsTableManager.toggleSite(at: indexPath)
         }
@@ -83,5 +84,27 @@ extension AssignmentController: NetworkSourceDelegate {
         assignmentsTableManager.resetSort()
         sortedIndex = 0
         return addLoadingIndicator()
+    }
+}
+
+extension AssignmentController: Animatable {
+    var containerView: UIView? {
+        return assignmentsTableManager.selectedCell?.superview
+    }
+
+    var childView: UIView? {
+        return assignmentsTableManager.selectedCell
+    }
+}
+
+extension AssignmentController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if fromVC is AssignmentController {
+            return ExpandPresentAnimationController(resizingDuration: 0.5)
+        } else if toVC is AssignmentController {
+            return nil
+        } else {
+            return nil
+        }
     }
 }

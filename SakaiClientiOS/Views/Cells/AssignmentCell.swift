@@ -10,7 +10,9 @@ import ReusableSource
 
 /// A CollectionViewCell to represent an Assignment model
 class AssignmentCell: UICollectionViewCell, ConfigurableCell {
-    
+
+    static let cornerRadius: CGFloat = 10.0
+
     typealias T = Assignment
 
     let titleLabel: InsetUILabel = {
@@ -63,7 +65,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     private func setupView() {
         contentView.layer.borderWidth = 3.5
         contentView.layer.borderColor = UIColor.lightText.cgColor
-        contentView.layer.cornerRadius = 10
+        contentView.layer.cornerRadius = AssignmentCell.cornerRadius
         contentView.layer.masksToBounds = true
 
         selectedBackgroundView = darkSelectedView()

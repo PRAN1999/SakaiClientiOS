@@ -19,7 +19,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         return titleLabel
     }()
 
-    var leadingConstraint: NSLayoutConstraint!
+    private var leadingConstraint: NSLayoutConstraint!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

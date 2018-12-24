@@ -38,6 +38,13 @@ class PagesController: UIViewController {
         self.start = start
         pages = [UIViewController?](repeating: nil, count: assignments.count)
         super.init(nibName: nil, bundle: nil)
+        setPage(assignment: assignments[start], index: start)
+    }
+
+    override func loadView() {
+        view = UIView()
+        let pageView = pageController.view!
+        UIView.constrainChildToEdges(child: pageView, parent: view)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -46,7 +53,6 @@ class PagesController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setPage(assignment: assignments[start], index: start)
 
         // Configure the LNPopupController instance for the NavigationController
         setPopupURL(viewControllerIndex: start)
@@ -62,9 +68,6 @@ class PagesController: UIViewController {
         pageController.dataSource = self
         pageController.delegate = self
 
-        let pageView = pageController.view!
-        UIView.constrainChildToEdges(child: pageView, parent: view)
-
         pageControl.numberOfPages = assignments.count
         pageControl.currentPage = start
         pageControlView.addSubview(pageControl)
@@ -76,12 +79,12 @@ class PagesController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
         tabBarController?.tabBar.isHidden = true
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.dismissPopupBar(animated: true, completion: nil)
@@ -170,5 +173,15 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
             self?.navigationController?.dismissPopupBar(animated: true, completion: nil)
             self?.tabBarController?.present(safariController, animated: true, completion: nil)
         }
+    }
+}
+
+extension PagesController: Animatable {
+    var containerView: UIView? {
+        return view
+    }
+
+    var childView: UIView? {
+        return pageController.view
     }
 }
