@@ -46,6 +46,7 @@
 		5128311D21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311C21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift */; };
 		5129956821CCDB1C00BED3E5 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */; };
 		5129956A21CCEAE600BED3E5 /* CellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5129956921CCEAE600BED3E5 /* CellExtension.swift */; };
+		512ED7BC21D2762C002AC99A /* PageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ED7BB21D2762C002AC99A /* PageDelegate.swift */; };
 		514B623920952B89001A716C /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623820952B89001A716C /* Parsing.swift */; };
 		514B623C209569FE001A716C /* TermHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623B209569FE001A716C /* TermHeader.swift */; };
 		515915452169C55900D3730E /* ReloadActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515915442169C55900D3730E /* ReloadActions.swift */; };
@@ -200,6 +201,7 @@
 		5128311C21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseDismissAnimationController.swift; sourceTree = "<group>"; };
 		5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		5129956921CCEAE600BED3E5 /* CellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellExtension.swift; sourceTree = "<group>"; };
+		512ED7BB21D2762C002AC99A /* PageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDelegate.swift; sourceTree = "<group>"; };
 		514B623820952B89001A716C /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
 		514B623B209569FE001A716C /* TermHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermHeader.swift; sourceTree = "<group>"; };
 		515915442169C55900D3730E /* ReloadActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadActions.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				511114B420D74D570077F872 /* PagesController.swift */,
 				511114B620D752260077F872 /* AssignmentPageController.swift */,
 				5126915421CEEE09004B20E7 /* FilterViewController.swift */,
+				512ED7BB21D2762C002AC99A /* PageDelegate.swift */,
 			);
 			path = Assignment;
 			sourceTree = "<group>";
@@ -927,6 +930,7 @@
 				51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */,
 				515915452169C55900D3730E /* ReloadActions.swift in Sources */,
 				51DEE54020FEFB41008E709D /* SiteTableManager.swift in Sources */,
+				512ED7BC21D2762C002AC99A /* PageDelegate.swift in Sources */,
 				518903AC2108151C00C551AE /* AssignmentCollectionManager.swift in Sources */,
 				51D5EA1521504A3300D7B85C /* LoginController.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,

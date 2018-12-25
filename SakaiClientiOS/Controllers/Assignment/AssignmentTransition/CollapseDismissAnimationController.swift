@@ -17,7 +17,7 @@ class CollapseDismissAnimationController: NSObject, UIViewControllerAnimatedTran
     }
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return resizingDuration + AssignmentCell.flipDuration
+        return resizingDuration
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -33,23 +33,30 @@ class CollapseDismissAnimationController: NSObject, UIViewControllerAnimatedTran
         // Views we are animating TO
         guard
             let toVC = transitionContext.viewController(forKey: .to) as? Animatable,
-            let toView = transitionContext.view(forKey: .to),
-            let toContainer = toVC.containerView,
-            let toChild = toVC.childView
+            let toView = transitionContext.view(forKey: .to)
             else {
                 return
         }
+
+        guard
+            let toChildFrame = toVC.childViewFrame,
+            let toContainer = toVC.containerView
+            else {
+                return
+        }
+
+        let toChild = toVC.childView
 
         container.addSubview(toView)
         container.addSubview(fromView)
 
         let originFrame = fromView.frame
         let destinationFrame = CGRect(
-            origin: toContainer.convert(toChild.frame.origin, to: container),
-            size: toChild.frame.size
+            origin: toContainer.convert(toChildFrame.origin, to: container),
+            size: toChildFrame.size
         )
 
-        toChild.isHidden = true
+        toChild?.isHidden = true
 
         let yDiff = destinationFrame.origin.y - originFrame.origin.y
         let xDiff = destinationFrame.origin.x - originFrame.origin.x
@@ -74,14 +81,9 @@ class CollapseDismissAnimationController: NSObject, UIViewControllerAnimatedTran
         // Animation completion.
         let completionHandler: (UIViewAnimatingPosition) -> Void = { _ in
             fromView.removeFromSuperview()
-            toChild.isHidden = false
+            toChild?.isHidden = false
 
-            guard let selectedCell = toChild as? AssignmentCell else {
-                return
-            }
-            selectedCell.flip {
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            }
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
         sizeAnimator.addCompletion(completionHandler)
 

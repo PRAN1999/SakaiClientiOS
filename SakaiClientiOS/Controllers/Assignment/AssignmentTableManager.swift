@@ -20,7 +20,12 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
 
-    var selectedCell: AssignmentCell?
+    private var selectedRow: Int?
+
+    var selectedAssignmentCell: AssignmentCell?
+    var selectedAssignmentCellFrame: CGRect?
+
+    var selectedCell: AssignmentTableCell?
     
     convenience init(tableView: UITableView) {
         self.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
@@ -54,9 +59,12 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         if provider.dateSorted {
             cell.titleLabel.titleLabel.text = "All Assignments"
         }
+        
         cell.manager.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
             // keep track of selected index within collectionView
-            self.selectedCell = cell.collectionView.cellForItem(at: cellIndexPath) as? AssignmentCell
+            self.selectedAssignmentCell = cell.collectionView.cellForItem(at: cellIndexPath) as? AssignmentCell
+            self.selectedAssignmentCellFrame = self.selectedAssignmentCell?.frame
+            self.selectedCell = cell
             self.selectedAssignmentAt.call((indexPath, cellIndexPath.row))
         }
         cell.manager.textViewDelegate.delegate(to: self) { (self, voidInput) -> UITextViewDelegate? in
@@ -82,5 +90,42 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         } else {
             tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         }
+    }
+}
+
+extension AssignmentTableManager: PageDelegate {
+    func pageController(_ pageController: PagesController, didMoveToIndex index: Int) {
+        selectedAssignmentCell?.flip(animated: false) {}
+        selectedAssignmentCell = nil
+        let indexPath = IndexPath(row: index, section: 0)
+        selectedCell?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+        let attributes = selectedCell?.collectionView.layoutAttributesForItem(at: indexPath)
+        selectedAssignmentCellFrame = attributes?.frame
+        selectedRow = index
+        selectedCell?.manager.flipForTransitionIndex = index
+    }
+
+    func flipIfNecessary() {
+        if selectedAssignmentCell != nil {
+            selectedAssignmentCell?.flip {}
+            setSelectionsToNil()
+            return
+        }
+        guard
+            let index = selectedRow,
+            let cell = selectedCell?.collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? AssignmentCell
+        else {
+            setSelectionsToNil()
+            return
+        }
+
+        cell.flip(withDirection: .toFront, animated: true) {}
+        setSelectionsToNil()
+    }
+
+    func setSelectionsToNil() {
+        selectedAssignmentCell = nil
+        selectedCell = nil
+        selectedRow = nil
     }
 }

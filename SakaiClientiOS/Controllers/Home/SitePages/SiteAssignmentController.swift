@@ -36,7 +36,10 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
         siteAssignmentCollectionManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             let assignments = self.siteAssignmentCollectionManager.provider.items
             let pages = PagesController(assignments: assignments, start: indexPath.row)
-            self.navigationController?.pushViewController(pages, animated: true)
+            pages.delegate = self.siteAssignmentCollectionManager
+            self.siteAssignmentCollectionManager.selectedCell?.flip {
+                self.navigationController?.pushViewController(pages, animated: true)
+            }
         }
         siteAssignmentCollectionManager.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
             return self
@@ -47,6 +50,11 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
         configureNavigationItem()
         siteAssignmentCollectionManager.loadDataSource()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        siteAssignmentCollectionManager.flipIfNecessary()
+    }
 }
 
 extension SiteAssignmentController: LoadableController {
@@ -56,3 +64,17 @@ extension SiteAssignmentController: LoadableController {
 }
 
 extension SiteAssignmentController: NetworkSourceDelegate {}
+
+extension SiteAssignmentController: Animatable {
+    var containerView: UIView? {
+        return collectionView
+    }
+
+    var childView: UIView? {
+        return siteAssignmentCollectionManager.selectedCell
+    }
+
+    var childViewFrame: CGRect? {
+        return siteAssignmentCollectionManager.selectedCellFrame
+    }
+}

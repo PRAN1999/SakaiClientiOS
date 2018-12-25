@@ -14,10 +14,10 @@ class ResourceCell: UITableViewCell, ReusableCell {
 
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        titleLabel.titleLabel.textColor = UIColor.lightText
-        titleLabel.titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.light)
-        titleLabel.titleLabel.numberOfLines = 0
-        titleLabel.titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.textColor = UIColor.lightText
+        titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.light)
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.backgroundColor = UIColor.clear
         return titleLabel
     }()

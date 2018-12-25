@@ -18,11 +18,17 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
     let frontView = UIView.defaultAutoLayoutView()
 
+    var isFlipped: Bool {
+        return frontView.isHidden
+    }
+
+    enum FlipAction { case toFront, toBack, toggle }
+
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
         titleLabel.backgroundColor = UIColor.darkGray
-        titleLabel.titleLabel.textColor = UIColor.white
-        titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
         titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 2.5)
         return titleLabel
     }()
@@ -30,8 +36,8 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     let dueLabel: InsetUILabel = {
         let dueLabel: InsetUILabel = UIView.defaultAutoLayoutView()
         dueLabel.backgroundColor = UIColor.darkGray
-        dueLabel.titleLabel.textColor = UIColor.lightText
-        dueLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
+        dueLabel.textColor = UIColor.lightText
+        dueLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
         dueLabel.addBorder(toSide: .top, withColor: AppGlobals.sakaiRed, andThickness: 2.5)
         return dueLabel
     }()
@@ -62,6 +68,12 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         super.init(frame: frame)
         setupView()
         setConstraints()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        frontView.isHidden = false
+        pageView.isHidden = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -113,13 +125,30 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         dueLabel.heightAnchor.constraint(equalTo: frontView.heightAnchor, multiplier: 0.25).isActive = true
     }
 
-    func flip(completion: @escaping () -> Void) {
-        if frontView.isHidden {
-            UIView.transition(from: pageView, to: frontView, duration: AssignmentCell.flipDuration, options: [.transitionFlipFromTop, .showHideTransitionViews]) { flag in
+    func flip(withDirection action: FlipAction = .toggle, animated: Bool = true, completion: @escaping () -> Void) {
+        switch action {
+        case .toFront:
+            setState(frontViewHidden: false, animated: animated, completion: completion)
+        case .toBack:
+            setState(frontViewHidden: true, animated: animated, completion: completion)
+        case .toggle:
+            setState(frontViewHidden: !frontView.isHidden, animated: animated, completion: completion)
+        }
+    }
+
+    private func setState(frontViewHidden: Bool, animated: Bool, completion: @escaping () -> Void) {
+        if !animated {
+            frontView.isHidden = frontViewHidden
+            pageView.isHidden = !frontViewHidden
+            completion()
+            return
+        }
+        if frontViewHidden {
+            UIView.transition(from: frontView, to: pageView, duration: AssignmentCell.flipDuration, options: [.transitionFlipFromTop, .showHideTransitionViews]) { flag in
                 completion()
             }
         } else {
-            UIView.transition(from: frontView, to: pageView, duration: AssignmentCell.flipDuration, options: [.transitionFlipFromBottom, .showHideTransitionViews]) { flag in
+            UIView.transition(from: pageView, to: frontView, duration: AssignmentCell.flipDuration, options: [.transitionFlipFromBottom, .showHideTransitionViews]) { flag in
                 completion()
             }
         }

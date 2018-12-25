@@ -33,6 +33,8 @@ class PagesController: UIViewController {
     private let assignments: [Assignment]
     private let start: Int
 
+    weak var delegate: PageDelegate?
+
     init(assignments: [Assignment], start: Int) {
         self.assignments = assignments
         self.start = start
@@ -137,6 +139,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         if completed {
             if let index = pendingIndex {
                 pageControl.currentPage = index
+                delegate?.pageController(self, didMoveToIndex: index)
             }
         }
     }

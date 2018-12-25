@@ -27,6 +27,9 @@ class HomeController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Classes"
+        navigationController?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+
         disableTabs()
         siteTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             guard let site = self.siteTableManager.item(at: indexPath) else {
@@ -131,5 +134,17 @@ extension HomeController: NetworkSourceDelegate {
         enableTabs()
         NotificationCenter.default.post(name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
         RequestManager.shared.isLoggedIn = true
+    }
+}
+
+extension HomeController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if fromVC is SiteAssignmentController && operation == .push {
+            return ExpandPresentAnimationController(resizingDuration: 0.5)
+        } else if toVC is SiteAssignmentController && operation == .pop {
+            return CollapseDismissAnimationController(resizingDuration: 0.5)
+        } else {
+            return nil
+        }
     }
 }
