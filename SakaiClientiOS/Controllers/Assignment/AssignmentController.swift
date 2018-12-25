@@ -29,7 +29,8 @@ class AssignmentController: UITableViewController {
                 return
             }
             let pages = PagesController(assignments: assignments, start: row)
-            self.assignmentsTableManager.selectedCell?.flip() {
+            pages.delegate = self.assignmentsTableManager
+            self.assignmentsTableManager.selectedAssignmentCell?.flip() {
                 self.navigationController?.pushViewController(pages, animated: true)
             }
         }
@@ -42,6 +43,11 @@ class AssignmentController: UITableViewController {
 
         configureNavigationItem()
         loadData()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        assignmentsTableManager.flipIfNecessary()
     }
 
     @objc func resort() {
@@ -91,11 +97,15 @@ extension AssignmentController: NetworkSourceDelegate {
 
 extension AssignmentController: Animatable {
     var containerView: UIView? {
-        return assignmentsTableManager.selectedCell?.superview
+        return assignmentsTableManager.selectedCell?.collectionView
     }
 
     var childView: UIView? {
-        return assignmentsTableManager.selectedCell
+        return assignmentsTableManager.selectedAssignmentCell
+    }
+
+    var childViewFrame: CGRect? {
+        return assignmentsTableManager.selectedAssignmentCellFrame
     }
 }
 

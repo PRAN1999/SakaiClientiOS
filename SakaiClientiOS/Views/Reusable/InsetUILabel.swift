@@ -21,6 +21,50 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
 
     private var leadingConstraint: NSLayoutConstraint!
 
+    override var text: String? {
+        get {
+            return titleLabel.text
+        } set {
+            titleLabel.text = newValue
+        }
+    }
+
+    override var numberOfLines: Int {
+        get {
+            return titleLabel.numberOfLines
+        } set {
+            titleLabel.numberOfLines = newValue
+        }
+    }
+
+    override var lineBreakMode: NSLineBreakMode {
+        get {
+            return titleLabel.lineBreakMode
+        } set {
+            titleLabel.lineBreakMode = newValue
+        }
+    }
+
+    override var textAlignment: NSTextAlignment {
+        get {
+            return titleLabel.textAlignment
+        } set {
+            titleLabel.textAlignment = newValue
+        }
+    }
+
+    override var font: UIFont! {
+        didSet {
+            titleLabel.font = font
+        }
+    }
+
+    override var textColor: UIColor! {
+        didSet {
+            titleLabel.textColor = textColor
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()

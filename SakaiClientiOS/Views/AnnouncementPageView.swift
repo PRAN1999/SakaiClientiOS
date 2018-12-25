@@ -14,9 +14,9 @@ class AnnouncementPageView: UIScrollView {
 
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        titleLabel.titleLabel.numberOfLines = 0
-        titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
         titleLabel.layer.cornerRadius = 0
         titleLabel.backgroundColor = UIColor.lightGray.color(withTransparency: 0.5)
         return titleLabel
@@ -24,7 +24,7 @@ class AnnouncementPageView: UIScrollView {
 
     let authorLabel: InsetUILabel = {
         let authorLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        authorLabel.titleLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        authorLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
         authorLabel.layer.cornerRadius = 0
         authorLabel.backgroundColor = UIColor.white
         return authorLabel
@@ -32,8 +32,8 @@ class AnnouncementPageView: UIScrollView {
 
     let dateLabel: InsetUILabel = {
         let dateLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        dateLabel.titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .light)
-        dateLabel.titleLabel.textAlignment = .right
+        dateLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .light)
+        dateLabel.textAlignment = .right
         dateLabel.layer.cornerRadius = 0
         dateLabel.backgroundColor = UIColor.white
         return dateLabel

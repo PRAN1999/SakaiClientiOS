@@ -12,6 +12,9 @@ protocol Animatable {
     var containerView: UIView? { get }
     var childView: UIView? { get }
 
+    var containerViewFrame: CGRect? { get }
+    var childViewFrame: CGRect? { get }
+
     func presentingView(
         sizeAnimator: UIViewPropertyAnimator,
         fromFrame: CGRect,
@@ -27,6 +30,15 @@ protocol Animatable {
 
 /// Default implementations
 extension Animatable {
+
+    var containerViewFrame: CGRect? {
+        return containerView?.frame
+    }
+
+    var childViewFrame: CGRect? {
+        return childView?.frame
+    }
+
     func presentingView(
         sizeAnimator: UIViewPropertyAnimator,
         fromFrame: CGRect,

@@ -15,10 +15,10 @@ class AssignmentPageView: UIScrollView {
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
         titleLabel.backgroundColor = AppGlobals.sakaiRed
-        titleLabel.titleLabel.numberOfLines = 0
-        titleLabel.titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        titleLabel.titleLabel.textAlignment = .center
-        titleLabel.titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         titleLabel.layer.cornerRadius = 0
         return titleLabel
     }()

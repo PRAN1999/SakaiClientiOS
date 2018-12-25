@@ -14,8 +14,8 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
 
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        titleLabel.titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        titleLabel.titleLabel.textColor = UIColor.lightText
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        titleLabel.textColor = UIColor.lightText
         titleLabel.layer.cornerRadius = 0
         titleLabel.layer.masksToBounds = false
         titleLabel.backgroundColor = UIColor.darkGray
