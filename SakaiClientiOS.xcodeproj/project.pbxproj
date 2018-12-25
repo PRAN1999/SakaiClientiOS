@@ -43,6 +43,7 @@
 		5128311421D0847D00DB8DA8 /* ExpandPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311321D0847D00DB8DA8 /* ExpandPresentAnimationController.swift */; };
 		5128311621D14C3E00DB8DA8 /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311521D14C3E00DB8DA8 /* AnimationHelper.swift */; };
 		5128311B21D1607400DB8DA8 /* Animatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311A21D1607400DB8DA8 /* Animatable.swift */; };
+		5128311D21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311C21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift */; };
 		5129956821CCDB1C00BED3E5 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */; };
 		5129956A21CCEAE600BED3E5 /* CellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5129956921CCEAE600BED3E5 /* CellExtension.swift */; };
 		514B623920952B89001A716C /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623820952B89001A716C /* Parsing.swift */; };
@@ -196,6 +197,7 @@
 		5128311321D0847D00DB8DA8 /* ExpandPresentAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandPresentAnimationController.swift; sourceTree = "<group>"; };
 		5128311521D14C3E00DB8DA8 /* AnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
 		5128311A21D1607400DB8DA8 /* Animatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animatable.swift; sourceTree = "<group>"; };
+		5128311C21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseDismissAnimationController.swift; sourceTree = "<group>"; };
 		5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		5129956921CCEAE600BED3E5 /* CellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellExtension.swift; sourceTree = "<group>"; };
 		514B623820952B89001A716C /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				5128311321D0847D00DB8DA8 /* ExpandPresentAnimationController.swift */,
+				5128311C21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift */,
 			);
 			path = AssignmentTransition;
 			sourceTree = "<group>";
@@ -894,6 +897,7 @@
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
 				51DEE53220FC2639008E709D /* AnnouncementDataFetcher.swift in Sources */,
 				5159154B216ACB9A00D3730E /* PersistedUser.swift in Sources */,
+				5128311D21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift in Sources */,
 				51591572216AE6C100D3730E /* PersistenceManager.swift in Sources */,
 				51C9791720F82C0E00191DD6 /* SiteDataProvider.swift in Sources */,
 				51A4731420FA7F4500CC95F0 /* NetworkSourceExtension.swift in Sources */,

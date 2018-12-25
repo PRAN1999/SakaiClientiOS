@@ -40,9 +40,6 @@ class ExpandPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
                 return
         }
 
-        // Preserve the original frame of the toView
-        let originalFrame = toView.frame
-
         container.addSubview(toView)
 
         let originFrame = CGRect(
@@ -51,15 +48,17 @@ class ExpandPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
         )
         let destinationFrame = toView.frame
 
-        toView.frame = originFrame
-        toView.layoutIfNeeded()
+        let duration = resizingDuration
 
-        fromChild.isHidden = true
+        toView.frame = originFrame
+        toView.layer.cornerRadius = AssignmentCell.cornerRadius
+        toView.layoutIfNeeded()
 
         let yDiff = destinationFrame.origin.y - originFrame.origin.y
         let xDiff = destinationFrame.origin.x - originFrame.origin.x
 
-        let sizeAnimator = UIViewPropertyAnimator(duration: resizingDuration, curve: .easeInOut)
+        let springParams = UISpringTimingParameters(dampingRatio: 0.75)
+        let sizeAnimator = UIViewPropertyAnimator(duration: duration, timingParameters: springParams)
         sizeAnimator.addAnimations {
             // Animate the size of the Detail View
             toView.frame.size = destinationFrame.size
@@ -71,8 +70,8 @@ class ExpandPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
 
         let completionHandler: (UIViewAnimatingPosition) -> Void = { _ in
             toView.transform = .identity
-            toView.frame = originalFrame
-
+            toView.frame = destinationFrame
+            toView.layer.cornerRadius = 0
             toView.layoutIfNeeded()
 
             fromChild.isHidden = false

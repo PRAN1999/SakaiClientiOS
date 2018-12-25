@@ -29,7 +29,9 @@ class AssignmentController: UITableViewController {
                 return
             }
             let pages = PagesController(assignments: assignments, start: row)
-            self.navigationController?.pushViewController(pages, animated: true)
+            self.assignmentsTableManager.selectedCell?.flip() {
+                self.navigationController?.pushViewController(pages, animated: true)
+            }
         }
         assignmentsTableManager.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
             return self
@@ -102,7 +104,7 @@ extension AssignmentController: UINavigationControllerDelegate {
         if fromVC is AssignmentController {
             return ExpandPresentAnimationController(resizingDuration: 0.5)
         } else if toVC is AssignmentController {
-            return nil
+            return CollapseDismissAnimationController(resizingDuration: 0.5)
         } else {
             return nil
         }

@@ -24,6 +24,7 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     override func configureBehavior(for cell: AssignmentCell, at indexPath: IndexPath) {
         cell.descLabel.delegate = textViewDelegate.call()
         cell.tapRecognizer.addTarget(self, action: #selector(handleIndexTap(sender:)))
+        cell.pageViewTap.addTarget(self, action: #selector(handleIndexTap(sender:)))
     }
     
     /// Since textViews do not natively register taps, a custom recognizer was added to record

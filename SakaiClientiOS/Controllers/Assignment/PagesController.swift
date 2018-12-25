@@ -184,4 +184,9 @@ extension PagesController: Animatable {
     var childView: UIView? {
         return pageController.view
     }
+
+    func dismissingView(sizeAnimator: UIViewPropertyAnimator, fromFrame: CGRect, toFrame: CGRect) {
+        childView?.layer.cornerRadius = AssignmentCell.cornerRadius
+        childView?.layoutIfNeeded()
+    }
 }
