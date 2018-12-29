@@ -102,7 +102,6 @@ extension AssignmentTableManager: PageDelegate {
         let attributes = selectedCell?.collectionView.layoutAttributesForItem(at: indexPath)
         selectedAssignmentCellFrame = attributes?.frame
         selectedRow = index
-        selectedCell?.manager.flipForTransitionIndex = index
     }
 
     func flipIfNecessary() {

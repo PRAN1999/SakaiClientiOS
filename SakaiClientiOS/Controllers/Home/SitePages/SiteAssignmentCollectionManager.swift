@@ -15,6 +15,7 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
 
     var selectedCell: AssignmentCell?
     var selectedCellFrame: CGRect?
+     var transitionIndex: Int?
     
     convenience init(collectionView: UICollectionView, siteId: String) {
         let provider = SingleSectionDataProvider<Assignment>()
@@ -52,22 +53,31 @@ extension SiteAssignmentCollectionManager: PageDelegate {
         let indexPath = IndexPath(row: index, section: 0)
         let attributes = collectionView.layoutAttributesForItem(at: indexPath)
         selectedCellFrame = attributes?.frame
-        flipForTransitionIndex = index
+        transitionIndex = index
         collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
     }
 
     func flipIfNecessary() {
         if let cell = selectedCell {
-            cell.flip {}
+            cell.flip(withDirection: .toFront, animated: true, completion: {})
+            setSelectionsNil()
             return
         }
         guard
-            let index = flipForTransitionIndex,
+            let index = transitionIndex,
             let cell = collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? AssignmentCell
             else {
-            return
+                setSelectionsNil()
+                return
         }
 
         cell.flip(withDirection: .toFront, animated: true, completion: {})
+        setSelectionsNil()
+    }
+
+    func setSelectionsNil() {
+        selectedCellFrame = nil
+        selectedCell = nil
+        transitionIndex = nil
     }
 }

@@ -11,8 +11,6 @@ import ReusableSource
 class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataProvider<Assignment>, AssignmentCell> {
 
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
-
-    var flipForTransitionIndex: Int?
     
     convenience init(collectionView: UICollectionView) {
         self.init(provider: SingleSectionDataProvider<Assignment>(), collectionView: collectionView)
@@ -24,10 +22,6 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     }
     
     override func configureBehavior(for cell: AssignmentCell, at indexPath: IndexPath) {
-        if flipForTransitionIndex == indexPath.row {
-            cell.flip(withDirection: .toBack, animated: false) {}
-            flipForTransitionIndex = nil
-        }
         cell.descLabel.delegate = textViewDelegate.call()
         cell.tapRecognizer.addTarget(self, action: #selector(handleIndexTap(sender:)))
         cell.pageViewTap.addTarget(self, action: #selector(handleIndexTap(sender:)))
