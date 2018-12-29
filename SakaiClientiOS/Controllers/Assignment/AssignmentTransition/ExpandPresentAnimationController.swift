@@ -29,6 +29,7 @@ class ExpandPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
             let fromContainer = fromVC.containerView,
             let fromChild = fromVC.childView
             else {
+                transitionContext.completeTransition(false)
                 return
         }
 
@@ -37,6 +38,7 @@ class ExpandPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
             let toVC = transitionContext.viewController(forKey: .to) as? Animatable,
             let toView = transitionContext.view(forKey: .to)
             else {
+                transitionContext.completeTransition(false)
                 return
         }
 

@@ -154,7 +154,8 @@ extension AssignmentPageView {
         let instructions = NSMutableAttributedString(attributedString: text)
         let instructionRange = NSRange(location: 0, length: instructions.string.count)
         instructions.addAttribute(.font,
-                                  value: UIFont.systemFont(ofSize: 16.0, weight: .regular), range: instructionRange)
+                                  value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
+                                  range: instructionRange)
         let description = NSMutableAttributedString(string: "Instructions: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
         description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)

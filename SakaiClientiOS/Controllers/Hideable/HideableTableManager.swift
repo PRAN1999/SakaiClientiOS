@@ -55,7 +55,9 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
     ///
     /// - Parameter sender: the tap recognizer in a TermHeader
     @objc func handleTap(sender: UITapGestureRecognizer) {
-        let section = (sender.view?.tag)!
+        guard let section = sender.view?.tag else {
+            return
+        }
 
         provider.toggleHidden(for: section, to: !provider.isHidden(section: section))
         reloadData(for: section)

@@ -73,7 +73,9 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         collectionView.heightAnchor.constraint(greaterThanOrEqualTo: contentView.heightAnchor, multiplier: 0.7).isActive = true
 
-        contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 280).isActive = true
+        let heightAnchor = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 280)
+        heightAnchor.priority = UILayoutPriority(999)
+        heightAnchor.isActive = true
     }
 
     /// Configure the AssignmentTableCell with a [Assignment] object
