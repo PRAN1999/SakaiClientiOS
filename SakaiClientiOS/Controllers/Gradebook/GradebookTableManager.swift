@@ -25,6 +25,8 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     override func setup() {
         super.setup()
         tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
+        tableView.sectionHeaderHeight = 0.0;
+        tableView.sectionFooterHeight = 0.0;
         selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             self.tableView.deselectRow(at: indexPath, animated: true)
             let subsectionPath = self.provider.getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
@@ -34,7 +36,7 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
         }
         headerCell.tapRecognizer.delegate = self
         headerCell.tapRecognizer.addTarget(self, action: #selector(toggleCurrentClass(sender:)))
-        tableView.showsVerticalScrollIndicator = false
+        //tableView.showsVerticalScrollIndicator = false
         tableView.addSubview(headerCell)
     }
     
@@ -73,13 +75,13 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
 
         var subtractedHeaderHeight = false
 
-        var yVal = tableView.contentOffset.y + tableHeaderHeight + previousHeaderHeight
+        var yVal = tableView.contentOffset.y + previousHeaderHeight
         if direction == .up && (headerCell.isHidden || scrollUpOnLastRow) {
             subtractedHeaderHeight = true
             yVal -= previousHeaderHeight
         }
         if direction == .down {
-            yVal = tableView.contentOffset.y + tableHeaderHeight + headerCell.bounds.height
+            yVal = tableView.contentOffset.y + headerCell.bounds.height
         }
         let point = CGPoint(x: 0, y: yVal)
         
@@ -127,8 +129,8 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
         if cell != nil && (cell?.frame.minY)! > yVal {
             hideHeaderCell()
         } else {
-            let headerHeight = super.tableView(tableView, heightForHeaderInSection: topIndex.section)
-            let frame = CGRect(x: 0, y: tableView.contentOffset.y + headerHeight, width: tableView.frame.size.width, height: headerCell.frame.size.height)
+            //let headerHeight = super.tableView(tableView, heightForHeaderInSection: topIndex.section)
+            let frame = CGRect(x: 0, y: tableView.contentOffset.y, width: tableView.frame.size.width, height: headerCell.frame.size.height)
             makeHeaderCellVisible(in: topIndex.section, for: subsectionIndex.section, at: frame)
         }
     }
@@ -160,13 +162,13 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     
     private func makeHeaderCellVisible(in section: Int, for subsection: Int, at frame: CGRect) {
         let title =  provider.getSubsectionTitle(section: section, subsection: subsection)
-        guard let sectionHeader = tableView.headerView(forSection: section) else {
-            return
-        }
+//        guard let sectionHeader = tableView.headerView(forSection: section) else {
+//            return
+//        }
         
         headerCell.setTitle(title: title)
         headerCell.setFrameAndMakeVisible(frame: frame)
-        tableView.insertSubview(headerCell, belowSubview: sectionHeader)
+        tableView.bringSubview(toFront: headerCell)
         headerClass = (section, subsection)
     }
 
@@ -178,6 +180,17 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     }
 
     private func toggleClass(at subsection: Int, in section: Int) {
-        
+        provider.toggleCollapsed(section: section, subsection: subsection)
+        let indexPaths = provider.indexPaths(section: section, subsection: subsection)
+        tableView.beginUpdates()
+        if provider.isCollapsed(section: section, subsection: subsection) {
+            tableView.deleteRows(at: indexPaths, with: .automatic)
+        } else {
+            tableView.insertRows(at: indexPaths, with: .automatic)
+        }
+        tableView.endUpdates()
+        let row = provider.getHeaderRowForSubsection(section: section, subsection: subsection)
+        let indexPath = IndexPath(row: row, section: section)
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
     }
 }

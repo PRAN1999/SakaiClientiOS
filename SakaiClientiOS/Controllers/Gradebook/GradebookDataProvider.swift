@@ -84,7 +84,11 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         var row = 0
         
         for index in 0..<subsection {
-            row += gradeItems[section][index].count + 1
+            if isCollapsed(section: section, subsection: index) {
+                row += 1
+            } else {
+                row += gradeItems[section][index].count + 1
+            }
         }
         
         return row
@@ -102,7 +106,10 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         var startRow = row
         var subsection = 0
         while startRow > 0 {
-            let classCount = termSection[subsection].count + 1
+            var classCount = termSection[subsection].count + 1
+            if isCollapsed(section: section, subsection: subsection) {
+                classCount = 1
+            }
             startRow -= classCount
             if(startRow >= 0) {
                 subsection += 1
@@ -146,5 +153,26 @@ class GradebookDataProvider: HideableNetworkDataProvider {
             return false
         }
         return isCollapsed[section][subsection]
+    }
+
+    func toggleCollapsed(section: Int, subsection: Int) {
+        guard section < terms.count && subsection < isCollapsed[section].count else {
+            return
+        }
+        isCollapsed[section][subsection] = !isCollapsed[section][subsection]
+    }
+
+    func indexPaths(section: Int, subsection: Int) -> [IndexPath] {
+        let getIndexPath: (Int) -> IndexPath = { row in
+            return IndexPath(row: row, section: section)
+        }
+        var arr: [IndexPath] = []
+        let row = getHeaderRowForSubsection(section: section, subsection: subsection)
+        let totalRows = gradeItems[section][subsection].count
+        for i in 0..<totalRows {
+            let gradeRow = row + i + 1
+            arr.append(getIndexPath(gradeRow))
+        }
+        return arr
     }
 }
