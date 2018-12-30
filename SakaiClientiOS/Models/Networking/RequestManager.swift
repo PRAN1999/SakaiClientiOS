@@ -130,7 +130,6 @@ class RequestManager {
     /// WKProcessPool, siteTitleMap, and siteTermMap
     func reset() {
         resetCache()
-        SakaiService.shared.reset()
         processPool = WKProcessPool()
         userId = nil
         clearCookies()
@@ -175,6 +174,24 @@ class RequestManager {
 
     func getCookies() -> [HTTPCookie]? {
         return session.configuration.httpCookieStorage?.cookies
+    }
+
+    func validateLoggedInStatus(onSuccess: @escaping () -> Void, onFailure: @escaping (SakaiError?) -> Void) {
+        let url = SakaiEndpoint.session.getEndpoint()
+        makeRequestWithoutCache(url: url, method: .get) { [weak self] (data, err) in
+            let decoder = JSONDecoder()
+            guard let data = data else {
+                onFailure(err)
+                return
+            }
+            do {
+                let session = try decoder.decode(UserSession.self, from: data)
+                self?.userId = session.userEid
+                onSuccess()
+            } catch let decodingError {
+                onFailure(SakaiError.parseError(decodingError.localizedDescription))
+            }
+        }
     }
 }
 

@@ -81,7 +81,7 @@ class LoginWebViewController: WebController {
                           decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         if webView.url!.absoluteString == AppGlobals.cookieUrl {
             decisionHandler(.cancel)
-            SakaiService.shared.validateLoggedInStatus(
+            RequestManager.shared.validateLoggedInStatus(
                 onSuccess: { [weak self] in
                     self?.onLogin?()
                     UserDefaults.standard.set(RequestManager.shared.cookieArray, forKey: RequestManager.savedCookiesKey)

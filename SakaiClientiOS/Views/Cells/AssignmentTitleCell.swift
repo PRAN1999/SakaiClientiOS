@@ -49,7 +49,9 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
-        titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
+        let heightConstraint = titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+        heightConstraint.priority = UILayoutPriority(999)
+        heightConstraint.isActive = true
     }
 
     func configure(_ item: [Assignment], at indexPath: IndexPath) {
@@ -58,6 +60,6 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
         }
         let siteId = item[0].siteId
         let title = SakaiService.shared.siteTitleMap[siteId]
-        titleLabel.titleLabel.text = title
+        titleLabel.text = title
     }
 }

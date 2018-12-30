@@ -20,31 +20,11 @@ class SakaiService {
 
     private init() {}
 
-    /// Reset source of truth mappings for Terms and siteId's
+    /// Reset source of truth
     func reset() {
         siteTermMap = [:]
         siteTitleMap = [:]
         siteAssignmentToolMap = [:]
         termMap = []
-    }
-
-    // MARK: Authentication Validator
-
-    func validateLoggedInStatus(onSuccess: @escaping () -> Void, onFailure: @escaping (SakaiError?) -> Void) {
-        let url = SakaiEndpoint.session.getEndpoint()
-        RequestManager.shared.makeRequestWithoutCache(url: url, method: .get) { (data, err) in
-            let decoder = JSONDecoder()
-            guard let data = data else {
-                onFailure(err)
-                return
-            }
-            do {
-                let session = try decoder.decode(UserSession.self, from: data)
-                RequestManager.shared.userId = session.userEid
-                onSuccess()
-            } catch let decodingError {
-                onFailure(SakaiError.parseError(decodingError.localizedDescription))
-            }
-        }
     }
 }
