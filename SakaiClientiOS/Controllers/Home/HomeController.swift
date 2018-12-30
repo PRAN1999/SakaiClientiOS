@@ -65,7 +65,7 @@ class HomeController: UITableViewController {
 
     private func authenticateAndLoad() {
         if RequestManager.shared.loadCookiesFromUserDefaults() {
-            SakaiService.shared.validateLoggedInStatus(
+            RequestManager.shared.validateLoggedInStatus(
                 onSuccess: { [weak self] in
                     self?.loadData()
                 }, onFailure: { [weak self] err in

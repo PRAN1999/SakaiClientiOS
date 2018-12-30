@@ -33,7 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        SakaiService.shared.validateLoggedInStatus(onSuccess: {
+        RequestManager.shared.validateLoggedInStatus(
+            onSuccess: {
             RequestManager.shared.loadCookiesIntoUserDefaults()
         }, onFailure: { [weak self] _ in
             if RequestManager.shared.isLoggedIn {
@@ -116,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("background refresh cookies")
         if RequestManager.shared.loadCookiesFromUserDefaults() {
-            SakaiService.shared.validateLoggedInStatus(onSuccess: {
+            RequestManager.shared.validateLoggedInStatus(onSuccess: {
                 RequestManager.shared.loadCookiesIntoUserDefaults()
                 completionHandler(.newData)
             }) { err in
@@ -130,6 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func logout() {
         RequestManager.shared.reset()
+        SakaiService.shared.reset()
         RequestManager.shared.isLoggedIn = false
         let rootController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController
         rootController?.selectedIndex = 0
