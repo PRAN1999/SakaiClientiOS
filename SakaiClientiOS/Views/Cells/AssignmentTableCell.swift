@@ -20,7 +20,6 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         titleLabel.layer.masksToBounds = false
         titleLabel.backgroundColor = UIColor.darkGray
         titleLabel.addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
-        //titleLabel.addBorder(toSide: .bottom, withColor: UIColor.black, andThickness: 3.0)
         return titleLabel
     }()
 

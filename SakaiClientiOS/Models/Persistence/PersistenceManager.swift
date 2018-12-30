@@ -12,41 +12,15 @@ class PersistenceManager {
 
     static let shared = PersistenceManager()
 
+    var delegate: AppDelegate? {
+        return UIApplication.shared.delegate as? AppDelegate
+    }
+
+    var managedContext: NSManagedObjectContext? {
+        return delegate?.persistentContainer.viewContext
+    }
+
     private init() {}
 
-    func retrieveSites() -> [PersistedSite]? {
-        guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
-            return nil
-        }
-
-        guard let userId = RequestManager.shared.userId else {
-            RequestManager.shared.logout()
-            return nil
-        }
-
-        let managedContext = delegate.persistentContainer.viewContext
-
-        let fetchRequest = NSFetchRequest<PersistedUser>()
-        let predicate = NSPredicate(format: "userId == %@", userId)
-        fetchRequest.predicate = predicate
-
-        var persistedSites: [PersistedSite] = []
-
-        do {
-            let data = try managedContext.fetch(fetchRequest)
-            if data.count <= 0 {
-                return []
-            }
-            persistedSites = data[0].sites
-            
-        } catch let error {
-            print(error.localizedDescription)
-        }
-
-        return persistedSites
-    }
-
-    func updateSites(sites: [Site]) {
-        
-    }
+    
 }

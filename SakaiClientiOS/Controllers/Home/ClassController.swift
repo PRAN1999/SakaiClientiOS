@@ -31,7 +31,6 @@ class ClassController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tabBarController?.tabBar.isHidden = false
     }
 
     override func didReceiveMemoryWarning() {

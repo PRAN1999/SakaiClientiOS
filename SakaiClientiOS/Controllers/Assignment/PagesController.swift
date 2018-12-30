@@ -25,7 +25,6 @@ class PagesController: UIViewController {
     // Even when the current Assignment changes, the popup controller instance will
     // be the same but the popup URL will change
     private let webController = WebController()
-    private lazy var popupController = WebViewNavigationController(rootViewController: webController)
 
     private var pendingIndex: Int? = 0
 
@@ -84,7 +83,7 @@ class PagesController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationController?.presentPopupBar(withContentViewController: popupController, animated: true, completion: nil)
+        navigationController?.presentPopupBar(withContentViewController: webController, animated: true, completion: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

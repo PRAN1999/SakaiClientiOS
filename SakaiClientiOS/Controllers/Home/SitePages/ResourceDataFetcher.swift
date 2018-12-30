@@ -18,8 +18,16 @@ class ResourceDataFetcher: DataFetcher {
     typealias T = [ResourceNode]
     
     func loadData(completion: @escaping ([ResourceNode]?, Error?) -> Void) {
-        SakaiService.shared.getSiteResources(for: siteId) { res, err in
-            completion(res, err)
+        let request = SakaiRequest<ResourceCollection>(endpoint: .siteResources(siteId), method: .get)
+        RequestManager.shared.makeEndpointRequest(request: request) { data, err in
+            guard err == nil, let data = data else {
+                completion(nil, err)
+                return
+            }
+
+            let resourceCollection = data.contentCollection
+            let tree = ResourceNode(data: resourceCollection)
+            completion(tree.children, err)
         }
     }
 }

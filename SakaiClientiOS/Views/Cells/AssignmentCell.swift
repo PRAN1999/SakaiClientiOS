@@ -96,7 +96,6 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
         pageView.isHidden = true
         pageView.isScrollEnabled = false
-        pageView.backgroundColor = UIColor.white
         pageViewTap.cancelsTouchesInView = false
         pageView.addGestureRecognizer(pageViewTap)
     }
@@ -104,7 +103,6 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     private func setConstraints() {
 
         UIView.constrainChildToEdges(child: frontView, parent: contentView)
-        UIView.constrainChildToEdges(child: pageView, parent: contentView)
 
         frontView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         let margins = frontView.layoutMarginsGuide
@@ -140,15 +138,28 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         if !animated {
             frontView.isHidden = frontViewHidden
             pageView.isHidden = !frontViewHidden
+            if frontViewHidden {
+                UIView.constrainChildToEdges(child: pageView, parent: contentView)
+            } else {
+                pageView.removeFromSuperview()
+            }
             completion()
             return
         }
+        UIView.constrainChildToEdges(child: pageView, parent: contentView)
         if frontViewHidden {
-            UIView.transition(from: frontView, to: pageView, duration: AssignmentCell.flipDuration, options: [.transitionFlipFromTop, .showHideTransitionViews]) { flag in
+            UIView.transition(from: frontView,
+                              to: pageView,
+                              duration: AssignmentCell.flipDuration,
+                              options: [.transitionFlipFromTop, .showHideTransitionViews]) { _ in
                 completion()
             }
         } else {
-            UIView.transition(from: pageView, to: frontView, duration: AssignmentCell.flipDuration, options: [.transitionFlipFromBottom, .showHideTransitionViews]) { flag in
+            UIView.transition(from: pageView,
+                              to: frontView,
+                              duration: AssignmentCell.flipDuration,
+                              options: [.transitionFlipFromBottom, .showHideTransitionViews]) { [weak self] _ in
+                self?.pageView.removeFromSuperview()
                 completion()
             }
         }

@@ -20,12 +20,8 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     var textViewDelegate = Delegated<Void, UITextViewDelegate>()
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
 
-    private var selectedRow: Int?
-
-    var selectedAssignmentCell: AssignmentCell?
-    var selectedAssignmentCellFrame: CGRect?
-
-    var selectedCell: AssignmentTableCell?
+    private(set) var selectedManager: AssignmentCollectionManager?
+    private var oldIndexPath: IndexPath?
     
     convenience init(tableView: UITableView) {
         self.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
@@ -59,12 +55,10 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         if provider.dateSorted {
             cell.titleLabel.titleLabel.text = "All Assignments"
         }
+
+        selectedManager = cell.manager
         
         cell.manager.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
-            // keep track of selected index within collectionView
-            self.selectedAssignmentCell = cell.collectionView.cellForItem(at: cellIndexPath) as? AssignmentCell
-            self.selectedAssignmentCellFrame = self.selectedAssignmentCell?.frame
-            self.selectedCell = cell
             self.selectedAssignmentAt.call((indexPath, cellIndexPath.row))
         }
         cell.manager.textViewDelegate.delegate(to: self) { (self, voidInput) -> UITextViewDelegate? in
@@ -78,53 +72,33 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     
     /// Switch data grouping between class and Term
     func switchSort() {
+        if let old = oldIndexPath {
+            provider.toggleCollapsed(at: old)
+            oldIndexPath = nil
+        }
         provider.toggleDateSorted(to: !provider.dateSorted)
         reloadData()
     }
 
     func toggleSite(at indexPath: IndexPath) {
+        var arr: [IndexPath] = [indexPath]
+        if let old = oldIndexPath {
+            if old == indexPath {
+                oldIndexPath = nil
+            } else {
+                arr.append(old)
+                provider.toggleCollapsed(at: old)
+                oldIndexPath = indexPath
+            }
+        } else {
+            oldIndexPath = indexPath
+        }
         provider.toggleCollapsed(at: indexPath)
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        tableView.reloadRows(at: arr, with: .automatic)
         if provider.isCollapsed(at: indexPath) {
             tableView.scrollToRow(at: indexPath, at: .none, animated: true)
         } else {
             tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         }
-    }
-}
-
-extension AssignmentTableManager: PageDelegate {
-    func pageController(_ pageController: PagesController, didMoveToIndex index: Int) {
-        selectedAssignmentCell?.flip(animated: false) {}
-        selectedAssignmentCell = nil
-        let indexPath = IndexPath(row: index, section: 0)
-        selectedCell?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-        let attributes = selectedCell?.collectionView.layoutAttributesForItem(at: indexPath)
-        selectedAssignmentCellFrame = attributes?.frame
-        selectedRow = index
-    }
-
-    func flipIfNecessary() {
-        if selectedAssignmentCell != nil {
-            selectedAssignmentCell?.flip {}
-            setSelectionsToNil()
-            return
-        }
-        guard
-            let index = selectedRow,
-            let cell = selectedCell?.collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? AssignmentCell
-        else {
-            setSelectionsToNil()
-            return
-        }
-
-        cell.flip(withDirection: .toFront, animated: true) {}
-        setSelectionsToNil()
-    }
-
-    func setSelectionsToNil() {
-        selectedAssignmentCell = nil
-        selectedCell = nil
-        selectedRow = nil
     }
 }

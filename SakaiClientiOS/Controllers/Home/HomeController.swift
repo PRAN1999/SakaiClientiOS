@@ -15,7 +15,8 @@ class HomeController: UITableViewController {
     private let logoutController: UIAlertController = {
         let logoutController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
-            RequestManager.shared.logout()
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.logout()
         }
         logoutController.addAction(logoutAction)
         logoutController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

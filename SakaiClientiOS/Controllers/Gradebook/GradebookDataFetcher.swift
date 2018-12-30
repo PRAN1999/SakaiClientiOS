@@ -14,8 +14,33 @@ class GradebookDataFetcher : HideableDataFetcher {
     
     func loadData(for section: Int, completion: @escaping ([[GradeItem]]?, Error?) -> Void) {
         let sites = SakaiService.shared.termMap[section].1
-        SakaiService.shared.getTermGrades(for: sites) { res, err in
-            completion(res, err)
+        let group = DispatchGroup()
+        var termGradeArray: [[GradeItem]] = []
+        var errors: [SakaiError] = []
+        for site in sites {
+            group.enter()
+            let request = SakaiRequest<SiteGradeItems>(endpoint: .siteGradebook(site), method: .get)
+            RequestManager.shared.makeEndpointRequest(request: request) { data, err in
+                if let err = err {
+                    switch err {
+                    case .networkError( _, let code):
+                        if code == 400 { break }
+                    default:
+                        errors.append(err)
+                    }
+                }
+                if let response = data {
+                    termGradeArray.append(response.gradeItems)
+                }
+                group.leave()
+            }
         }
+        group.notify(queue: .global(), work: .init(block: {
+            var error: SakaiError? = SakaiError.dispatchGroupError(errors)
+            if errors.count == 0 {
+                error = nil
+            }
+            completion(termGradeArray, error)
+        }))
     }
 }

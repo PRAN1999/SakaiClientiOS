@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 /// Details the group of different Sakai endpoints used by the app and provides easy URL construction
 enum SakaiEndpoint {

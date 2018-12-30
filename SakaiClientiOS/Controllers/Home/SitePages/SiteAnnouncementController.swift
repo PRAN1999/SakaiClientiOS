@@ -54,7 +54,6 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
 
 extension SiteAnnouncementController: LoadableController {
     @objc func loadData() {
-        SakaiService.shared.siteAnnouncements[siteId] = nil
         announcementTableManager.loadDataSourceWithoutCache()
     }
 }

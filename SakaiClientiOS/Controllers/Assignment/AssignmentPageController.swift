@@ -30,7 +30,6 @@ class AssignmentPageController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageView.backgroundColor = UIColor.white
 
         pageView.scrollView.configure(assignment: assignment)
         pageView.scrollView.instructionView.delegate = delegate

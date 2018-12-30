@@ -13,13 +13,16 @@ class DetailLabel: UILabel {
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
         titleLabel.numberOfLines = 0
-        titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
         return titleLabel
     }()
 
     let detailLabel: UILabel = {
         let detailLabel: UILabel = UIView.defaultAutoLayoutView()
-        detailLabel.textAlignment = NSTextAlignment.right
+        detailLabel.textAlignment = .right
+        detailLabel.textColor = UIColor.lightText
         return detailLabel
     }()
 
@@ -34,8 +37,8 @@ class DetailLabel: UILabel {
     }
 
     private func setupView() {
-        layer.borderColor = UIColor.black.cgColor
-        layer.borderWidth = 1
+        //layer.borderColor = UIColor.white.cgColor
+        //layer.borderWidth = 1
 
         addSubview(titleLabel)
         addSubview(detailLabel)

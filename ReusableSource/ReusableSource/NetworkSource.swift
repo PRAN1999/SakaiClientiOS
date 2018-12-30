@@ -36,15 +36,17 @@ public extension NetworkSource {
     func loadDataSource() {
         prepareDataSourceForLoad()
         let callback = delegate?.networkSourceWillBeginLoadingData(self)
-        fetcher.loadData() { [weak self] res, err in
-            DispatchQueue.main.async {
-                callback?()
-                if err != nil {
-                    self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
-                }
-                if let response = res {
-                    self?.populateDataSource(with: response)
-                    self?.delegate?.networkSourceSuccessfullyLoadedData(self)
+        DispatchQueue.global().async { [weak self] in
+            self?.fetcher.loadData() { res, err in
+                DispatchQueue.main.async {
+                    callback?()
+                    if err != nil {
+                        self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
+                    }
+                    if let response = res {
+                        self?.populateDataSource(with: response)
+                        self?.delegate?.networkSourceSuccessfullyLoadedData(self)
+                    }
                 }
             }
         }

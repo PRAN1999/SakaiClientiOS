@@ -17,8 +17,11 @@ class SiteAssignmentDataFetcher: DataFetcher {
     }
 
     func loadData(completion: @escaping ([Assignment]?, Error?) -> Void) {
-        SakaiService.shared.getSiteAssignments(for: siteId) { res, err in
-            completion(res, err)
+        let request = SakaiRequest<AssignmentCollection>(endpoint: .siteAssignments(siteId), method: .get)
+        RequestManager.shared.makeEndpointRequest(request: request) { data, err in
+            var arr = data?.assignmentCollection
+            arr?.sort { $0.dueDate > $1.dueDate }
+            completion(arr, err)
         }
     }
 }

@@ -1,19 +1,11 @@
 //
-//  RawAnnouncement.swift
+//  AnnouncementElement.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 8/31/18.
+//  Created by Pranay Neelagiri on 12/30/18.
 //
 
 import Foundation
-
-struct AnnouncementCollection: Decodable {
-    let announcementCollection: [Announcement]
-
-    enum CodingKeys: String, CodingKey {
-        case announcementCollection = "announcement_collection"
-    }
-}
 
 struct AnnouncementElement: Decodable {
     let author: String

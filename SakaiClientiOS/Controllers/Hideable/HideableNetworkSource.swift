@@ -40,16 +40,18 @@ extension HideableNetworkSource {
     // Default implementation for loadDataSource(for:, completion:)
 
     func loadDataSource(for section: Int, completion: (() -> Void)?) {
-        fetcher.loadData(for: section) { [weak self] res, err in
-            DispatchQueue.main.async {
-                completion?()
-                self?.handleSectionLoad(forSection: section)
-                if err != nil {
-                    self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
-                }
-                if let response = res {
-                    self?.populateDataSource(with: response, forSection: section)
-                    self?.delegate?.networkSourceSuccessfullyLoadedData(self)
+        DispatchQueue.global().async { [weak self] in
+            self?.fetcher.loadData(for: section) { res, err in
+                DispatchQueue.main.async {
+                    completion?()
+                    self?.handleSectionLoad(forSection: section)
+                    if err != nil {
+                        self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
+                    }
+                    if let response = res {
+                        self?.populateDataSource(with: response, forSection: section)
+                        self?.delegate?.networkSourceSuccessfullyLoadedData(self)
+                    }
                 }
             }
         }

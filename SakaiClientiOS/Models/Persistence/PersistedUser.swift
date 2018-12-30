@@ -15,5 +15,4 @@ import CoreData
     @NSManaged var siteAssignmentToolMap: [String: String]
     @NSManaged var termMap: [String: [String]]
     @NSManaged var termList: [String]
-    @NSManaged var sites: [PersistedSite]
 }
