@@ -22,4 +22,10 @@ class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>, Networ
         self.fetcher = fetcher
         super.init(provider: provider, tableView: tableView)
     }
+
+    override func setup() {
+        super.setup()
+        tableView.sectionHeaderHeight = 0.0;
+        tableView.sectionFooterHeight = 0.0;
+    }
 }

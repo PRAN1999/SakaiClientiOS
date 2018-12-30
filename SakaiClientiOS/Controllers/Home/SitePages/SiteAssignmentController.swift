@@ -59,7 +59,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
 
 extension SiteAssignmentController: LoadableController {
     @objc func loadData() {
-        self.siteAssignmentCollectionManager.loadDataSourceWithoutCache()
+        siteAssignmentCollectionManager.loadDataSourceWithoutCache()
     }
 }
 

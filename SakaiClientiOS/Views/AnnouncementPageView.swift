@@ -19,6 +19,7 @@ class AnnouncementPageView: UIScrollView {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
         titleLabel.layer.cornerRadius = 0
         titleLabel.backgroundColor = UIColor.lightGray.color(withTransparency: 0.5)
+        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 5.0)
         return titleLabel
     }()
 
@@ -26,7 +27,8 @@ class AnnouncementPageView: UIScrollView {
         let authorLabel: InsetUILabel = UIView.defaultAutoLayoutView()
         authorLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
         authorLabel.layer.cornerRadius = 0
-        authorLabel.backgroundColor = UIColor.white
+        authorLabel.backgroundColor = UIColor.darkGray
+        authorLabel.textColor = UIColor.white
         return authorLabel
     }()
 
@@ -35,13 +37,16 @@ class AnnouncementPageView: UIScrollView {
         dateLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .light)
         dateLabel.textAlignment = .right
         dateLabel.layer.cornerRadius = 0
-        dateLabel.backgroundColor = UIColor.white
+        dateLabel.backgroundColor = UIColor.darkGray
+        dateLabel.textColor = UIColor.lightText
         return dateLabel
     }()
 
     let messageView: TappableTextView = {
         let messageView: TappableTextView = UIView.defaultAutoLayoutView()
         messageView.isScrollEnabled = false
+        messageView.backgroundColor = UIColor.darkGray
+        messageView.tintColor = UIColor(red: 70.0 / 256.0, green: 188.0 / 256.0, blue: 222.0 / 256.0, alpha: 1.0)
         return messageView
     }()
 
@@ -56,10 +61,8 @@ class AnnouncementPageView: UIScrollView {
     }
 
     private func setupView() {
+        backgroundColor = UIColor.darkGray
         addSubview(contentView)
-
-        titleLabel.addBorder(toSide: .top, withColor: UIColor.lightGray, andTransparency: 0.5, andThickness: 5.0)
-        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 5.0)
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(authorLabel)
@@ -121,6 +124,7 @@ extension AnnouncementPageView {
         content.addAttribute(.font,
                              value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
                              range: contentRange)
+        content.addAttribute(.foregroundColor, value: UIColor.lightText, range: contentRange)
         if let attachmentString = getAttachments(resources: resources) {
             content.append(attachmentString)
         }
@@ -137,6 +141,7 @@ extension AnnouncementPageView {
         let description = NSMutableAttributedString(string: "\n\nAttachments: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
         description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
+        description.addAttribute(.foregroundColor, value: UIColor.white, range: descriptionRange)
 
         for attachment in attachments {
             let mutableAttachment = NSMutableAttributedString(attributedString: attachment)

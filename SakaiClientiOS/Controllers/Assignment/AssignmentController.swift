@@ -13,7 +13,8 @@ class AssignmentController: UITableViewController {
     
     /// Abstract the Assignment data management to a dedicated TableViewManager
     private lazy var assignmentsTableManager = AssignmentTableManager(tableView: tableView)
-    
+
+    private let filters = ["Class", "Date"]
     private var sortedIndex = 0
     
     override func viewDidLoad() {
@@ -29,8 +30,8 @@ class AssignmentController: UITableViewController {
                 return
             }
             let pages = PagesController(assignments: assignments, start: row)
-            pages.delegate = self.assignmentsTableManager
-            self.assignmentsTableManager.selectedAssignmentCell?.flip() {
+            pages.delegate = self.assignmentsTableManager.selectedManager
+            self.assignmentsTableManager.selectedManager?.selectedCell?.flip() {
                 self.navigationController?.pushViewController(pages, animated: true)
             }
         }
@@ -47,7 +48,7 @@ class AssignmentController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        assignmentsTableManager.flipIfNecessary()
+        assignmentsTableManager.selectedManager?.flipIfNecessary()
     }
 
     @objc func resort() {
@@ -60,7 +61,7 @@ class AssignmentController: UITableViewController {
             return
         }
         filterController.selectedIndex = sortedIndex
-        filterController.filters = ["Class", "Date"]
+        filterController.filters = filters
         filterController.onCancel = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
@@ -97,15 +98,15 @@ extension AssignmentController: NetworkSourceDelegate {
 
 extension AssignmentController: Animatable {
     var containerView: UIView? {
-        return assignmentsTableManager.selectedCell?.collectionView
+        return assignmentsTableManager.selectedManager?.collectionView
     }
 
     var childView: UIView? {
-        return assignmentsTableManager.selectedAssignmentCell
+        return assignmentsTableManager.selectedManager?.selectedCell
     }
 
     var childViewFrame: CGRect? {
-        return assignmentsTableManager.selectedAssignmentCellFrame
+        return assignmentsTableManager.selectedManager?.selectedCellFrame
     }
 }
 

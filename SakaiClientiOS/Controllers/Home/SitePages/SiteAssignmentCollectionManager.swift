@@ -13,9 +13,9 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     let fetcher: SiteAssignmentDataFetcher
     weak var delegate: NetworkSourceDelegate?
 
-    var selectedCell: AssignmentCell?
-    var selectedCellFrame: CGRect?
-     var transitionIndex: Int?
+    override var scrollPosition: UICollectionViewScrollPosition {
+        return .centeredVertically
+    }
     
     convenience init(collectionView: UICollectionView, siteId: String) {
         let provider = SingleSectionDataProvider<Assignment>()
@@ -37,47 +37,5 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size:CGSize = CGSize(width: collectionView.bounds.width / 2.25, height: collectionView.frame.height / 2.8)
         return size
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedCell = collectionView.cellForItem(at: indexPath) as? AssignmentCell
-        selectedCellFrame = selectedCell?.frame
-        super.collectionView(collectionView, didSelectItemAt: indexPath)
-    }
-}
-
-extension SiteAssignmentCollectionManager: PageDelegate {
-    func pageController(_ pageController: PagesController, didMoveToIndex index: Int) {
-        selectedCell?.flip(withDirection: .toFront, animated: false, completion: {})
-        selectedCell = nil
-        let indexPath = IndexPath(row: index, section: 0)
-        let attributes = collectionView.layoutAttributesForItem(at: indexPath)
-        selectedCellFrame = attributes?.frame
-        transitionIndex = index
-        collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
-    }
-
-    func flipIfNecessary() {
-        if let cell = selectedCell {
-            cell.flip(withDirection: .toFront, animated: true, completion: {})
-            setSelectionsNil()
-            return
-        }
-        guard
-            let index = transitionIndex,
-            let cell = collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? AssignmentCell
-            else {
-                setSelectionsNil()
-                return
-        }
-
-        cell.flip(withDirection: .toFront, animated: true, completion: {})
-        setSelectionsNil()
-    }
-
-    func setSelectionsNil() {
-        selectedCellFrame = nil
-        selectedCell = nil
-        transitionIndex = nil
     }
 }

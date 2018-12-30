@@ -59,7 +59,7 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
         assignments = [[[Assignment]]].init(repeating: [[Assignment]](), count: terms.count)
         dateSortedAssignments = [[Assignment]].init(repeating: [Assignment](), count: terms.count)
         collapsedSections = [[Bool]].init(repeating: [Bool](), count: terms.count)
-        collapsedDateSections = [Bool].init(repeating: false, count: terms.count)
+        collapsedDateSections = [Bool].init(repeating: true, count: terms.count)
     }
     
     func loadItems(payload: [[Assignment]], for section: Int) {

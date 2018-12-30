@@ -21,9 +21,9 @@ class RequestManager {
     ///
     /// This shares cookies and headers needed for Sakai Authentication
     var processPool = WKProcessPool()
-    var cookieArray: [[HTTPCookiePropertyKey: Any]] = []
     var isLoggedIn = false
     var userId: String?
+    var cookieArray: [[HTTPCookiePropertyKey: Any]] = []
 
     private var session: URLSession {
         return Alamofire.SessionManager.default.session
@@ -74,6 +74,27 @@ class RequestManager {
         }
     }
 
+    func makeEndpointRequest<T: Decodable>(request: SakaiRequest<T>, completion: @escaping (T?, SakaiError?) -> Void) {
+        let url = request.endpoint.getEndpoint()
+        let method = request.method
+        makeRequest(url: url, method: method) { data, err in
+            guard err == nil, let data = data else {
+                completion(nil, err)
+                return
+            }
+
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+
+            do {
+                let decoded = try decoder.decode(T.self, from: data)
+                completion(decoded, nil)
+            } catch let error {
+                completion(nil, SakaiError.parseError(error.localizedDescription))
+            }
+        }
+    }
+
     /// Download the data at a remote URL to the Documents directory for the app, and callback with
     /// the location of the downloaded item
     ///
@@ -97,30 +118,6 @@ class RequestManager {
         if let properties = cookie.properties {
             cookieArray.append(properties)
         }
-    }
-
-    /// Ends Sakai session by resetting Alamofire Session and uses main thread to reroute app control to
-    /// LoginViewController.
-    func logout() {
-        reset()
-        isLoggedIn = false
-        let rootController = UIApplication.shared.keyWindow?.rootViewController
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        guard let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController else {
-            return
-        }
-        guard let loginController = navController.viewControllers.first as? LoginController else {
-            return
-        }
-        loginController.onLogin = {
-            DispatchQueue.main.async {
-                rootController?.dismiss(animated: true, completion: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil, userInfo: nil)
-            }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
-            rootController?.present(navController, animated: true, completion: nil)
-        })
     }
 
     /// Resets URL cache for Alamofire session to force new data requests

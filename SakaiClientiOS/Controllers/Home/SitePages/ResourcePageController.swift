@@ -33,7 +33,6 @@ class ResourcePageController: UIViewController, SitePageController {
         self.title = "Resources"
         treeView.treeFooterView = UIView()
 
-        view.addSubview(treeView)
         UIView.constrainChildToEdges(child: treeView, parent: view)
 
         resourceTreeManager.didSelectResource.delegate(to: self) { (self, url) -> Void in

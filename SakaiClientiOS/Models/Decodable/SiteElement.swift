@@ -1,19 +1,11 @@
 //
-//  RawSite.swift
+//  SiteElement.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 8/31/18.
+//  Created by Pranay Neelagiri on 12/30/18.
 //
 
 import Foundation
-
-struct SiteCollection: Decodable {
-    let siteCollection: [Site]
-
-    enum CodingKeys: String, CodingKey {
-        case siteCollection = "site_collection"
-    }
-}
 
 struct SiteElement: Decodable {
     let id: String

@@ -38,7 +38,7 @@ class ChatRoomView: UIView {
     private func setConstraints() {
         let margins = layoutMarginsGuide
 
-        webView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        webView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         webView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         webView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         webView.bottomAnchor.constraint(equalTo: messageBar.topAnchor).isActive = true

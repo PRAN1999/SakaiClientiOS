@@ -29,7 +29,6 @@ class AnnouncementController: UITableViewController {
 
 extension AnnouncementController: LoadableController {
     @objc func loadData() {
-        SakaiService.shared.allAnnouncements = nil
         announcementTableManager.loadDataSourceWithoutCache()
     }
 }

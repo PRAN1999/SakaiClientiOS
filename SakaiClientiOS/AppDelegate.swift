@@ -35,9 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         SakaiService.shared.validateLoggedInStatus(onSuccess: {
             RequestManager.shared.loadCookiesIntoUserDefaults()
-        }, onFailure: { (err) in
+        }, onFailure: { [weak self] _ in
             if RequestManager.shared.isLoggedIn {
-                RequestManager.shared.logout()
+                self?.logout()
             }
         })
     }
@@ -126,6 +126,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             completionHandler(.noData)
         }
+    }
+
+    func logout() {
+        RequestManager.shared.reset()
+        RequestManager.shared.isLoggedIn = false
+        let rootController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController
+        rootController?.selectedIndex = 0
+        let navigationControllers = rootController?.viewControllers as? [UINavigationController]
+        navigationControllers?.forEach({ nav in
+            nav.popToRootViewController(animated: false)
+        })
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        guard let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController else {
+            return
+        }
+        guard let loginController = navController.viewControllers.first as? LoginController else {
+            return
+        }
+        loginController.onLogin = {
+            DispatchQueue.main.async {
+                rootController?.dismiss(animated: true, completion: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil, userInfo: nil)
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+            rootController?.present(navController, animated: true, completion: nil)
+        })
     }
 }
 

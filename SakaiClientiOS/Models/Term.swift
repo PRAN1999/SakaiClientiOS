@@ -12,7 +12,7 @@ protocol TermSortable {
     var term: Term { get }
 }
 
-/// A model to represent individual semesters following the Rutgers academic schedule through the years
+/// A model to represent individual semesters following the Rutgers academic schedule
 struct Term {
     private static let mapTerms: [Int: String] = [1: "Spring", 9: "Fall", 6: "Summer 1", 7: "Summer 2", 12: "Winter"]
 
@@ -38,7 +38,8 @@ struct Term {
         self.initString = initString
     }
 
-    /// Parses a String containing the term and the year to construct a Term object with the corresponding attributes
+    /// Parses a String containing the term and the year to construct a Term object
+    /// with the corresponding attributes
     ///
     /// - Parameter toParse: A String with the format "{termInt}:{year}" like "1:2018"
     ///
@@ -75,7 +76,8 @@ struct Term {
         return year != nil && termInt != nil
     }
 
-    /// Sorts an array of T:TermSortable and splits it by Term into a two-dimensional array of Term-specific sub-arrays
+    /// Sorts an array of T:TermSortable and splits it by Term into a two-dimensional array
+    /// of Term-specific sub-arrays
     ///
     /// - Parameter listToSort: An array of T:TermSortable to be split by Term
     /// - Returns: A 2-dimensional array of T:TermSortable with each sub-array corresponding to a Term
@@ -86,7 +88,8 @@ struct Term {
         var terms: [Term] = [Term]()
         var indices: [Int] = [Int]()
         for index in 0..<list.count {
-            // For every unique term, log the unique index for the beginning of that term sub-array and the unique term
+            // For every unique term, log the unique index for the beginning of that term
+            // sub-array and the unique term
             if !terms.contains(list[index].term) {
                 terms.append(list[index].term)
                 indices.append(index)
