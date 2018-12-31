@@ -63,8 +63,8 @@
 		517B614E21D8CF0800BF5BD8 /* SiteGradeItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517B614D21D8CF0800BF5BD8 /* SiteGradeItems.swift */; };
 		517B615021D8CF3000BF5BD8 /* RawGradeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517B614F21D8CF3000BF5BD8 /* RawGradeItem.swift */; };
 		517B615221D8CF4F00BF5BD8 /* SiteElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517B615121D8CF4F00BF5BD8 /* SiteElement.swift */; };
-		517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
-		517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		517B615A21D9E5D000BF5BD8 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
+		517B615B21D9E5D000BF5BD8 /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
 		5182CBCA21383ECF00D45952 /* HideableNetworkTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBC921383ECF00D45952 /* HideableNetworkTableManager.swift */; };
 		5182CBCC213845F500D45952 /* SiteAssignmentCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBCB213845F500D45952 /* SiteAssignmentCollectionManager.swift */; };
@@ -161,7 +161,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				512748C5210D842E00A5A74E /* ReusableSource.framework in Embed Frameworks */,
-				517F378920E01AED00B21D5A /* LNPopupController.framework in Embed Frameworks */,
+				517B615B21D9E5D000BF5BD8 /* LNPopupController.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,9 +323,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				517F378820E01AED00B21D5A /* LNPopupController.framework in Frameworks */,
 				512748C4210D842E00A5A74E /* ReusableSource.framework in Frameworks */,
 				644E9699E1AEBCEE350ADB9B /* Pods_SakaiClientiOS.framework in Frameworks */,
+				517B615A21D9E5D000BF5BD8 /* LNPopupController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +401,7 @@
 		5113C13A209298FF001929DA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				517B615321D9AC2600BF5BD8 /* Global */,
 				51591546216A836C00D3730E /* Persistence */,
 				5182CBD22139A48200D45952 /* Decodable */,
 				5182CBD12139A46100D45952 /* Networking */,
@@ -467,11 +468,18 @@
 			path = SakaiClientiOSTests;
 			sourceTree = "<group>";
 		};
+		517B615321D9AC2600BF5BD8 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				518903B121092E5500C551AE /* SakaiService.swift */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
 		5182CBD12139A46100D45952 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				5113C11F2090F7B7001929DA /* RequestManager.swift */,
-				518903B121092E5500C551AE /* SakaiService.swift */,
 				518AC340213756E000037087 /* SakaiError.swift */,
 				5182CBED213A1A7400D45952 /* SakaiEndpoint.swift */,
 				517B614321D89D8F00BF5BD8 /* SakaiRequest.swift */,

@@ -19,7 +19,7 @@ class AssignmentController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.delegate = self
+        navigationController?.delegate = self
         assignmentsTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             self.assignmentsTableManager.toggleSite(at: indexPath)
         }
@@ -32,12 +32,12 @@ class AssignmentController: UITableViewController {
             let pages = PagesController(assignments: assignments, start: row)
             pages.delegate = self.assignmentsTableManager.selectedManager
             self.assignmentsTableManager.selectedManager?.selectedCell?.flip() {
+                self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(pages, animated: true)
+                self.hidesBottomBarWhenPushed = false
             }
         }
-        assignmentsTableManager.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
-            return self
-        }
+        assignmentsTableManager.textViewDelegate = self
         assignmentsTableManager.delegate = self
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(presentFilter))
