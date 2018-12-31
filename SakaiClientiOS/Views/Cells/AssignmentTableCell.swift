@@ -31,9 +31,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         return collectionView
     }()
 
-    private(set) lazy var manager: AssignmentCollectionManager = {
-        return AssignmentCollectionManager(collectionView: collectionView)
-    }()
+    private(set) lazy var manager: AssignmentCollectionManager = AssignmentCollectionManager(collectionView: collectionView)
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

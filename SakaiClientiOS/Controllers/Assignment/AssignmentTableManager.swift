@@ -17,8 +17,8 @@ import ReusableSource
 /// AssignmentTableManager handles the selection of any Assignment in the collectionView within any cell
 class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
 
-    var textViewDelegate: UITextViewDelegate?
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
+    weak var textViewDelegate: UITextViewDelegate?
 
     private(set) var selectedManager: AssignmentCollectionManager?
     private var oldIndexPath: IndexPath?
@@ -84,9 +84,11 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
             if old == indexPath {
                 oldIndexPath = nil
             } else {
-                arr.append(old)
                 provider.toggleCollapsed(at: old)
                 oldIndexPath = indexPath
+                if !provider.isHidden(section: old.section) {
+                    arr.append(old)
+                }
             }
         } else {
             oldIndexPath = indexPath

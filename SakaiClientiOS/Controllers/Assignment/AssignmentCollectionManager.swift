@@ -10,7 +10,7 @@ import ReusableSource
 /// Manages a collection of Assignments within a tableView cell. Can be scrolled horizontally
 class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataProvider<Assignment>, AssignmentCell> {
 
-    var textViewDelegate: UITextViewDelegate?
+    weak var textViewDelegate: UITextViewDelegate?
 
     private(set) var selectedCell: AssignmentCell?
     private(set) var selectedCellFrame: CGRect?
@@ -25,7 +25,8 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size:CGSize = CGSize(width: collectionView.bounds.width / 2.25, height: collectionView.bounds.height)
+        let width = min(collectionView.bounds.width / 2.25, 167.0)
+        let size: CGSize = CGSize(width: width, height: collectionView.bounds.height)
         return size
     }
 
@@ -54,18 +55,6 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
             collectionView(collectionView, didSelectItemAt: indexPath)
         }
     }
-}
-
-extension AssignmentCollectionManager: PageDelegate {
-    func pageController(_ pageController: PagesController, didMoveToIndex index: Int) {
-        selectedCell?.flip(withDirection: .toFront, animated: false, completion: {})
-        selectedCell = nil
-        let indexPath = IndexPath(row: index, section: 0)
-        let attributes = collectionView.layoutAttributesForItem(at: indexPath)
-        selectedCellFrame = attributes?.frame
-        transitionIndex = index
-        collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
-    }
 
     func flipIfNecessary() {
         if let cell = selectedCell {
@@ -89,5 +78,17 @@ extension AssignmentCollectionManager: PageDelegate {
         selectedCellFrame = nil
         selectedCell = nil
         transitionIndex = nil
+    }
+}
+
+extension AssignmentCollectionManager: PageDelegate {
+    func pageController(_ pageController: PagesController, didMoveToIndex index: Int) {
+        selectedCell?.flip(withDirection: .toFront, animated: false, completion: {})
+        selectedCell = nil
+        let indexPath = IndexPath(row: index, section: 0)
+        let attributes = collectionView.layoutAttributesForItem(at: indexPath)
+        selectedCellFrame = attributes?.frame
+        transitionIndex = index
+        collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
     }
 }
