@@ -137,7 +137,7 @@ class AssignmentPageView: UIScrollView {
         // content view by using the maxY of the attachmentsView (the
         // farthest down point of all the content)
         let maxY = attachmentsView.frame.maxY
-        contentSize = CGSize(width: self.frame.width, height: maxY + 30)
+        contentSize = CGSize(width: self.frame.width, height: maxY + 50)
     }
 }
 

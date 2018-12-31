@@ -66,7 +66,7 @@ class WebController: UIViewController {
 
     init() {
         super.init(nibName: nil, bundle: nil)
-        hidesBottomBarWhenPushed = true
+        //hidesBottomBarWhenPushed = true
         // default SFSafariViewController presentation method
         openInSafari = { [weak self] url in
             guard let url = url, url.absoluteString.contains("http") else {

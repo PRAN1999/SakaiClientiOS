@@ -18,7 +18,9 @@ extension UIViewController: UITextViewDelegate {
         if URL.absoluteString.contains("sakai.rutgers.edu") {
             let webController = WebController()
             webController.setURL(url: URL)
+            self.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(webController, animated: true)
+            self.hidesBottomBarWhenPushed = false
             return false
         } else {
             let safariController = SFSafariViewController(url: URL)

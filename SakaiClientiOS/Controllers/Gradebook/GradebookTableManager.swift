@@ -29,6 +29,9 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
         tableView.sectionFooterHeight = 0.0;
         selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             self.tableView.deselectRow(at: indexPath, animated: true)
+            if self.provider.isEmpty(section: indexPath.section) {
+                return
+            }
             let subsectionPath = self.provider.getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
             if subsectionPath.row == 0 {
                 self.toggleClass(at: subsectionPath.section, in: indexPath.section)
@@ -154,17 +157,14 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
 
         cell.accessoryType = .none
         cell.titleLabel.text = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
-        cell.titleLabel.textColor = UIColor.white
-        cell.backgroundView?.backgroundColor = UIColor.black
+        cell.titleLabel.textColor = UIColor.lightText
+        cell.backgroundView?.backgroundColor = UIColor.darkGray
 
         return cell
     }
     
     private func makeHeaderCellVisible(in section: Int, for subsection: Int, at frame: CGRect) {
         let title =  provider.getSubsectionTitle(section: section, subsection: subsection)
-//        guard let sectionHeader = tableView.headerView(forSection: section) else {
-//            return
-//        }
         
         headerCell.setTitle(title: title)
         headerCell.setFrameAndMakeVisible(frame: frame)

@@ -10,7 +10,7 @@ import ReusableSource
 /// Manages a collection of Assignments within a tableView cell. Can be scrolled horizontally
 class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataProvider<Assignment>, AssignmentCell> {
 
-    var textViewDelegate = Delegated<Void, UITextViewDelegate>()
+    var textViewDelegate: UITextViewDelegate?
 
     private(set) var selectedCell: AssignmentCell?
     private(set) var selectedCellFrame: CGRect?
@@ -36,7 +36,7 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     }
     
     override func configureBehavior(for cell: AssignmentCell, at indexPath: IndexPath) {
-        cell.descLabel.delegate = textViewDelegate.call()
+        cell.descLabel.delegate = textViewDelegate
         cell.tapRecognizer.addTarget(self, action: #selector(handleIndexTap(sender:)))
         cell.pageViewTap.addTarget(self, action: #selector(handleIndexTap(sender:)))
     }

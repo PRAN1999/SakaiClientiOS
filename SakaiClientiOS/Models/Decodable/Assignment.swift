@@ -22,7 +22,7 @@ struct Assignment: TermSortable, SiteSortable {
     let currentGrade: String?
     let resubmissionAllowed: Bool?
     let attachments: [AttachmentElement]?
-    let siteURL: String?
+    let siteURL: String
 }
 
 extension Assignment: Decodable {

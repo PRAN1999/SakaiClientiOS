@@ -41,9 +41,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
                 self.navigationController?.pushViewController(pages, animated: true)
             }
         }
-        siteAssignmentCollectionManager.textViewDelegate.delegate(to: self) { (self) -> UITextViewDelegate in
-            return self
-        }
+        siteAssignmentCollectionManager.textViewDelegate = self
         siteAssignmentCollectionManager.delegate = self
         collectionView?.backgroundColor = UIColor.darkGray
 

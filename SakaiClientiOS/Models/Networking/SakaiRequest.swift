@@ -8,13 +8,8 @@
 import Foundation
 import Alamofire
 
-class SakaiRequest<T: Decodable> {
+struct SakaiRequest<T: Decodable> {
 
     let endpoint: SakaiEndpoint
     let method: HTTPMethod
-
-    init(endpoint: SakaiEndpoint, method: HTTPMethod) {
-        self.endpoint = endpoint
-        self.method = method
-    }
 }

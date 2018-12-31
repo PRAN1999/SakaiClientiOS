@@ -25,7 +25,7 @@ class CollapseDismissAnimationController: NSObject, UIViewControllerAnimatedTran
 
         guard
             let fromVC = transitionContext.viewController(forKey: .from) as? Animatable,
-            let fromView = transitionContext.view(forKey: .from)
+            let fromView = fromVC.containerView
             else {
                 transitionContext.completeTransition(false)
                 return
@@ -44,6 +44,7 @@ class CollapseDismissAnimationController: NSObject, UIViewControllerAnimatedTran
             let toChildFrame = toVC.childViewFrame,
             let toContainer = toVC.containerView
             else {
+                transitionContext.completeTransition(false)
                 return
         }
 

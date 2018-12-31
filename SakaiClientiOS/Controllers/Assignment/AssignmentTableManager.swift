@@ -17,7 +17,7 @@ import ReusableSource
 /// AssignmentTableManager handles the selection of any Assignment in the collectionView within any cell
 class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
 
-    var textViewDelegate = Delegated<Void, UITextViewDelegate>()
+    var textViewDelegate: UITextViewDelegate?
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
 
     private(set) var selectedManager: AssignmentCollectionManager?
@@ -61,9 +61,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         cell.manager.selectedAt.delegate(to: self) { (self, cellIndexPath) -> Void in
             self.selectedAssignmentAt.call((indexPath, cellIndexPath.row))
         }
-        cell.manager.textViewDelegate.delegate(to: self) { (self, voidInput) -> UITextViewDelegate? in
-            return self.textViewDelegate.call()
-        }
+        cell.manager.textViewDelegate = textViewDelegate
     }
     
     func resetSort() {

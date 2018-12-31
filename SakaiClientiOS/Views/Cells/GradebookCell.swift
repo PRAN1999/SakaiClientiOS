@@ -16,14 +16,14 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        titleLabel.textColor = UIColor.lightText
+        titleLabel.textColor = UIColor.white
         return titleLabel
     }()
 
     let gradeLabel: UILabel = {
         let gradeLabel: UILabel = UIView.defaultAutoLayoutView()
         gradeLabel.textAlignment = NSTextAlignment.right
-        gradeLabel.textColor = UIColor.lightText
+        gradeLabel.textColor = UIColor.white
         return gradeLabel
     }()
 
@@ -38,7 +38,7 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
     }
 
     private func setupView() {
-        backgroundColor = UIColor.darkGray
+        backgroundColor = UIColor.gray
         selectedBackgroundView = darkSelectedView()
 
         contentView.addSubview(titleLabel)
