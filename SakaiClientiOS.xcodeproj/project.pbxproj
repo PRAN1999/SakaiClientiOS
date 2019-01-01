@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5103FDF820E862DD009F8BF4 /* Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5103FDF720E862DD009F8BF4 /* Announcement.swift */; };
 		5103FDFA20E86676009F8BF4 /* AnnouncementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */; };
+		5110C08321DAA73C00579D31 /* SubmitPopupBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5110C08221DAA73C00579D31 /* SubmitPopupBarController.swift */; };
+		5110C08521DAD1B600579D31 /* TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5110C08421DAD1B600579D31 /* TabController.swift */; };
 		5111149A20CD89D20077F872 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149920CD89D20077F872 /* Assignment.swift */; };
 		5111149C20CD97110077F872 /* AssignmentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149B20CD97110077F872 /* AssignmentTableCell.swift */; };
 		5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149D20CD972D0077F872 /* AssignmentCell.swift */; };
@@ -171,6 +173,8 @@
 /* Begin PBXFileReference section */
 		5103FDF720E862DD009F8BF4 /* Announcement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Announcement.swift; sourceTree = "<group>"; };
 		5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementCell.swift; sourceTree = "<group>"; };
+		5110C08221DAA73C00579D31 /* SubmitPopupBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPopupBarController.swift; sourceTree = "<group>"; };
+		5110C08421DAD1B600579D31 /* TabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabController.swift; sourceTree = "<group>"; };
 		5111149920CD89D20077F872 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		5111149B20CD97110077F872 /* AssignmentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTableCell.swift; sourceTree = "<group>"; };
 		5111149D20CD972D0077F872 /* AssignmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell.swift; sourceTree = "<group>"; };
@@ -355,6 +359,7 @@
 				511114B620D752260077F872 /* AssignmentPageController.swift */,
 				5126915421CEEE09004B20E7 /* FilterViewController.swift */,
 				512ED7BB21D2762C002AC99A /* PageDelegate.swift */,
+				5110C08221DAA73C00579D31 /* SubmitPopupBarController.swift */,
 			);
 			path = Assignment;
 			sourceTree = "<group>";
@@ -621,6 +626,7 @@
 				5113C12420927D44001929DA /* Gradebook */,
 				5113C12620927D5A001929DA /* Home */,
 				5113C12720927D6C001929DA /* Announcement */,
+				5110C08421DAD1B600579D31 /* TabController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -890,6 +896,7 @@
 				5159154F216ADED400D3730E /* PersistedSitePage.swift in Sources */,
 				51C2EC4121B4D7920000BA47 /* WebUtils.swift in Sources */,
 				51DEE5692103D41F008E709D /* SiteAssignmentController.swift in Sources */,
+				5110C08321DAA73C00579D31 /* SubmitPopupBarController.swift in Sources */,
 				5182CBDD2139DAA700D45952 /* SiteCollection.swift in Sources */,
 				51DEE54220FEFB68008E709D /* AnnouncementTableManager.swift in Sources */,
 				517B614421D89D8F00BF5BD8 /* SakaiRequest.swift in Sources */,
@@ -939,6 +946,7 @@
 				518903A12106BAE500C551AE /* HideableNetworkSource.swift in Sources */,
 				5128311421D0847D00DB8DA8 /* ExpandPresentAnimationController.swift in Sources */,
 				51DEE53620FC3D76008E709D /* SearchableDataSource.swift in Sources */,
+				5110C08521DAD1B600579D31 /* TabController.swift in Sources */,
 				518AC341213756E000037087 /* SakaiError.swift in Sources */,
 				514B623920952B89001A716C /* Parsing.swift in Sources */,
 				518903B221092E5600C551AE /* SakaiService.swift in Sources */,

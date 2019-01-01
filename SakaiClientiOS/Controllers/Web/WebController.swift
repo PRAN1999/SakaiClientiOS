@@ -146,6 +146,13 @@ class WebController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
+    override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
+        print("Trying to dismiss from WebController...")
+        if (self.presentedViewController != nil) {
+            super.dismiss(animated: flag, completion: completion)
+        }
+    }
+
     /// Try to load a URL into the webView if not nil
     ///
     /// - Parameter urlOpt: an optional URL

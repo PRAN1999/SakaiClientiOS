@@ -81,10 +81,22 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     }
 
     private func setupView() {
-        contentView.layer.borderWidth = 3.5
+        contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.lightText.cgColor
         contentView.layer.cornerRadius = AssignmentCell.cornerRadius
         contentView.layer.masksToBounds = true
+
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.shadowColor = UIColor.black.cgColor
+        let shadowPath = UIBezierPath(roundedRect: bounds,
+                                      byRoundingCorners: [.bottomRight, .bottomLeft, .topRight],
+                                      cornerRadii: CGSize(width: AssignmentCell.cornerRadius,
+                                                          height: AssignmentCell.cornerRadius))
+        layer.shadowPath = shadowPath.cgPath
+        layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 0.5
 
         selectedBackgroundView = darkSelectedView()
         selectedBackgroundView?.layer.cornerRadius = 10

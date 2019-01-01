@@ -83,6 +83,7 @@ extension UIView {
             ])
             break
         }
+        bringSubview(toFront: border)
     }
 
     func addBorder(toSide side: ViewSide, withColor color: UIColor, andTransparency alpha: CGFloat, andThickness thickness: CGFloat) {

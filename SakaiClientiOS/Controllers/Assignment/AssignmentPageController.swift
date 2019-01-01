@@ -13,7 +13,8 @@ class AssignmentPageController: UIViewController {
     private let assignment: Assignment
     private var pageView: PageView<AssignmentPageView> = PageView(frame: .zero)
     
-    weak var delegate: UITextViewDelegate?
+    weak var textViewDelegate: UITextViewDelegate?
+    weak var scrollViewDelegate: UIScrollViewDelegate?
 
     init(assignment: Assignment) {
         self.assignment = assignment
@@ -32,7 +33,7 @@ class AssignmentPageController: UIViewController {
         super.viewDidLoad()
 
         pageView.scrollView.configure(assignment: assignment)
-        pageView.scrollView.instructionView.delegate = delegate
-        pageView.scrollView.attachmentsView.delegate = delegate
+        pageView.scrollView.delegate = scrollViewDelegate
+        pageView.scrollView.instructionView.delegate = textViewDelegate
     }
 }

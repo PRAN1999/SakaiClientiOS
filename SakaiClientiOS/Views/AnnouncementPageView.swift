@@ -17,9 +17,13 @@ class AnnouncementPageView: UIScrollView {
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
-        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.shadowColor = UIColor.black.cgColor
+        titleLabel.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+        titleLabel.layer.shadowOpacity = 0.5
+        titleLabel.layer.shadowRadius = 2.5
+        titleLabel.layer.masksToBounds = false
         titleLabel.backgroundColor = UIColor.lightGray.color(withTransparency: 0.5)
-        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 5.0)
+        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 2.0)
         return titleLabel
     }()
 
@@ -78,7 +82,7 @@ class AnnouncementPageView: UIScrollView {
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: authorLabel.topAnchor, constant: -5.0).isActive = true
         titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 75).isActive = true
 
         authorLabel.bottomAnchor.constraint(equalTo: messageView.topAnchor).isActive = true
@@ -101,7 +105,7 @@ class AnnouncementPageView: UIScrollView {
         // Set the content size of self (scrollView) to the size of the content view by using the maxY of the
         // attachmentsView (the farthest down point of all the content)
         let maxY = messageView.frame.maxY
-        contentSize = CGSize(width: self.frame.width, height: maxY + 10)
+        contentSize = CGSize(width: self.frame.width, height: maxY)
     }
 }
 

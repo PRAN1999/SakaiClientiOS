@@ -18,16 +18,17 @@ class AssignmentPageView: UIScrollView {
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.textAlignment = .left
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.shadowColor = UIColor.black.cgColor
+        titleLabel.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+        titleLabel.layer.shadowOpacity = 0.5
+        titleLabel.layer.shadowRadius = 2.5
+        titleLabel.layer.masksToBounds = false
         titleLabel.backgroundColor = UIColor.lightGray.color(withTransparency: 0.5)
+        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 2.0)
         return titleLabel
     }()
 
-    let classLabel: DetailLabel = {
-        let classLabel: DetailLabel = UIView.defaultAutoLayoutView()
-        classLabel.addBorder(toSide: .top, withColor: AppGlobals.sakaiRed, andThickness: 5.0)
-        return classLabel
-    }()
+    let classLabel: DetailLabel = UIView.defaultAutoLayoutView()
 
     let statusLabel: DetailLabel = UIView.defaultAutoLayoutView()
 
@@ -35,25 +36,21 @@ class AssignmentPageView: UIScrollView {
 
     let dueLabel: DetailLabel = UIView.defaultAutoLayoutView()
 
-    let submissionLabel: DetailLabel = {
-        let submissionLabel: DetailLabel = UIView.defaultAutoLayoutView()
-        submissionLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 5.0)
-        return submissionLabel
-    }()
+    let submissionLabel: DetailLabel = UIView.defaultAutoLayoutView()
 
     let instructionView: TappableTextView = {
         let instructionView: TappableTextView = UIView.defaultAutoLayoutView()
         instructionView.isScrollEnabled = false
-        instructionView.backgroundColor = UIColor.darkGray
+        instructionView.backgroundColor = UIColor.lightGray.color(withTransparency: 0.5)
+        instructionView.layer.shadowColor = UIColor.black.cgColor
+        instructionView.layer.shadowOffset = CGSize(width: 0.0, height: -3.0)
+        instructionView.layer.shadowOpacity = 0.5
+        instructionView.layer.shadowRadius = 2.5
+        instructionView.layer.masksToBounds = false
+        instructionView.contentInset = UIEdgeInsets(top: 2.0, left: 5.0, bottom: 0.0, right: 5.0)
+        instructionView.tintColor = UIColor(red: 70.0 / 256.0, green: 188.0 / 256.0, blue: 222.0 / 256.0, alpha: 1.0)
+        instructionView.addBorder(toSide: .top, withColor: AppGlobals.sakaiRed, andThickness: 1.0)
         return instructionView
-    }()
-
-    let attachmentsView: TappableTextView = {
-        let attachmentsView: TappableTextView = UIView.defaultAutoLayoutView()
-        attachmentsView.isScrollEnabled = false
-        attachmentsView.backgroundColor = UIColor.darkGray
-        attachmentsView.tintColor = UIColor(red: 70.0 / 256.0, green: 188.0 / 256.0, blue: 222.0 / 256.0, alpha: 1.0)
-        return attachmentsView
     }()
 
     override init(frame: CGRect) {
@@ -79,7 +76,6 @@ class AssignmentPageView: UIScrollView {
         contentView.addSubview(dueLabel)
         contentView.addSubview(submissionLabel)
         contentView.addSubview(instructionView)
-        contentView.addSubview(attachmentsView)
     }
 
     private func setConstraints() {
@@ -116,28 +112,18 @@ class AssignmentPageView: UIScrollView {
         submissionLabel.bottomAnchor.constraint(equalTo: instructionView.topAnchor,
                                                 constant: -10.0).isActive = true
 
-        instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                 constant: 5.0).isActive = true
-        instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                  constant: -5.0).isActive = true
-        instructionView.bottomAnchor.constraint(equalTo: attachmentsView.topAnchor,
-                                                constant: -10.0).isActive = true
-
-        attachmentsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                 constant: 5.0).isActive = true
-        attachmentsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                  constant: -5.0).isActive = true
-        attachmentsView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        instructionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
         // Set the content size of self (scrollView) to the size of the
         // content view by using the maxY of the attachmentsView (the
         // farthest down point of all the content)
-        let maxY = attachmentsView.frame.maxY
-        contentSize = CGSize(width: self.frame.width, height: maxY + 50)
+        let maxY = instructionView.frame.maxY
+        contentSize = CGSize(width: self.frame.width, height: maxY)
     }
 }
 
@@ -153,19 +139,21 @@ extension AssignmentPageView {
         }
         statusLabel.setKeyVal(key: "Status:", val: assignment.status)
         dueLabel.setKeyVal(key: "Due:", val: assignment.dueTimeString)
-        setInstructions(attributedText: assignment.attributedInstructions)
+        guard let instructions = getInstructionsString(attributedText: assignment.attributedInstructions) else {
+            return
+        }
         let resourceStrings = assignment.attachments?.map({ (attachment) -> NSAttributedString in
             return attachment.toAttributedString()
         })
-        setAttachments(resources: resourceStrings)
+        if let attachments = getAttachmentsString(resources: resourceStrings) {
+            instructions.append(attachments)
+        }
+        instructionView.attributedText = instructions
     }
 
-    /// Configure and format instructionText before displaying in instructionView
-    ///
-    /// - Parameter attributedText: The body of the instruction content for the Assignment
-    private func setInstructions(attributedText: NSAttributedString?) {
+    private func getInstructionsString(attributedText: NSAttributedString?) -> NSMutableAttributedString? {
         guard let text = attributedText else {
-            return
+            return nil
         }
         let instructions = NSMutableAttributedString(attributedString: text)
         let instructionRange = NSRange(location: 0, length: instructions.string.count)
@@ -179,17 +167,15 @@ extension AssignmentPageView {
         description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
         description.addAttribute(.foregroundColor, value: UIColor.white, range: descriptionRange)
         description.append(instructions)
-        instructionView.attributedText = description
+        return description
     }
 
-    /// Format Assignment attachment links and add them to the attachmentsView
-    ///
-    /// - Parameter resources: The resources for the Assignment to add to the attachmentsView
-    private func setAttachments(resources: [NSAttributedString]?) {
+    private func getAttachmentsString(resources: [NSAttributedString]?) -> NSMutableAttributedString? {
         guard let attachments = resources else {
-            return
+            print("here?")
+            return nil
         }
-        let description = NSMutableAttributedString(string: "Attachments: \n\n")
+        let description = NSMutableAttributedString(string: "\n\n\nAttachments: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
         description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
         description.addAttribute(.foregroundColor, value: UIColor.white, range: descriptionRange)
@@ -200,12 +186,11 @@ extension AssignmentPageView {
             mutableAttachment.addAttribute(.font,
                                            value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
                                            range: mutableAttachmentRange)
-            //mutableAttachment.addAttribute(.strokeColor, value: UIColor.lightText, range: mutableAttachmentRange)
             description.append(mutableAttachment)
             let spaceString = "\n\n"
             description.append(NSAttributedString(string: spaceString))
         }
-        attachmentsView.attributedText = description
+        return description
     }
 }
 
