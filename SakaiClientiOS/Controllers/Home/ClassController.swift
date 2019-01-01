@@ -64,7 +64,11 @@ class ClassController: UITableViewController {
         guard let controller = sitePage as? UIViewController else {
             return
         }
-        
+
+        if controller is DefaultController {
+            hidesBottomBarWhenPushed = true
+        }
         navigationController?.pushViewController(controller, animated: true)
+        hidesBottomBarWhenPushed = false
     }
 }

@@ -66,11 +66,11 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
 
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -10.0).isActive = true
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         collectionView.heightAnchor.constraint(greaterThanOrEqualTo: contentView.heightAnchor, multiplier: 0.7).isActive = true
 
-        let heightAnchor = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 280)
+        let heightAnchor = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 290)
         heightAnchor.priority = UILayoutPriority(999)
         heightAnchor.isActive = true
     }

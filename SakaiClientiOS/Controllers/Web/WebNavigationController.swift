@@ -22,20 +22,10 @@ class WebViewNavigationController: UINavigationController {
         self.toolbar.tintColor = AppGlobals.sakaiRed
     }
 
-    public override func present(_ viewControllerToPresent: UIViewController,
-                                 animated flag: Bool,
-                                 completion: (() -> Void)? = nil) {
-        if viewControllerToPresent is UIDocumentPickerViewController {
-            documentPicker = viewControllerToPresent as? UIDocumentPickerViewController
-        }
-        present(viewControllerToPresent, animated: flag, completion: completion)
-    }
-
-    override public func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        if presentedViewController == nil && documentPicker != nil {
-            documentPicker = nil
-        } else {
-            dismiss(animated: flag, completion: completion)
+    override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
+        print("Trying to dismiss...")
+        if (self.presentedViewController != nil) {
+            super.dismiss(animated: flag, completion: completion)
         }
     }
 }

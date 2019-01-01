@@ -59,12 +59,12 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
         DispatchQueue.global().async { [weak self] in
             self?.fetcher.loadData(completion: { announcements, err in
                 DispatchQueue.main.async {
+                    spinner.stopAnimating()
                     guard err == nil else {
                         self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
                         self?.isLoading = false
                         return
                     }
-                    spinner.stopAnimating()
                     self?.tableView.tableFooterView = nil
                     guard let items = announcements else {
                         self?.isLoading = false

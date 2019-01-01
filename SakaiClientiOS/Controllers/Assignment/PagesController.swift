@@ -26,6 +26,7 @@ class PagesController: UIViewController {
     // be the same but the popup URL will change
     private let webController = WebController()
     private lazy var popupController = WebViewNavigationController(rootViewController: webController)
+    private let submitPopupBarController = SubmitPopupBarController()
 
     private var pendingIndex: Int? = 0
 
@@ -55,16 +56,19 @@ class PagesController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        (tabBarController as? TabController)?.popupController = webController
 
         let pageView = pageController.view!
         bottomConstraint = UIView.constrainChildToEdgesAndBottomMargin(child: pageView, parent: view)
 
         // Configure the LNPopupController instance for the NavigationController
         setPopupURL(viewControllerIndex: start)
-        popupController.title = "DRAG TO SUBMIT"
+
         tabBarController?.popupInteractionStyle = .default
         tabBarController?.popupBar.backgroundStyle = .regular
-        tabBarController?.popupBar.barStyle = .compact
+        tabBarController?.popupBar.customBarViewController = submitPopupBarController
+
+        submitPopupBarController.titleLabel.text = "DRAG TO SUBMIT"
 
         guard let startPage = pages[start] else {
             return
@@ -82,9 +86,17 @@ class PagesController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
-        tabBarController?.presentPopupBar(withContentViewController: popupController,
-                                          animated: true,
-                                          completion: nil)
+        guard let tabBarController = tabBarController as? TabController else {
+            return
+        }
+        if tabBarController.shouldOpenPopup {
+            tabBarController.presentPopupBar(withContentViewController: popupController, openPopup: true, animated: true, completion: nil)
+            tabBarController.shouldOpenPopup = false
+        } else {
+            tabBarController.presentPopupBar(withContentViewController: popupController,
+                                             animated: true,
+                                             completion: nil)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -151,7 +163,8 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
 
     private func setPage(assignment: Assignment, index: Int) {
         let page = AssignmentPageController(assignment: assignment)
-        page.delegate = self
+        page.textViewDelegate = self
+        page.scrollViewDelegate = self
         pages[index] = page
     }
 
@@ -177,6 +190,8 @@ extension PagesController: Animatable {
 
     func dismissingView(sizeAnimator: UIViewPropertyAnimator, fromFrame: CGRect, toFrame: CGRect) {
         childView?.layer.cornerRadius = AssignmentCell.cornerRadius
+        childView?.layer.borderWidth = 0.5
+        childView?.layer.borderColor = UIColor.lightText.cgColor
         childView?.layoutIfNeeded()
 
         bottomConstraint?.isActive = false

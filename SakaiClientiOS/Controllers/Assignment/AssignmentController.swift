@@ -31,10 +31,10 @@ class AssignmentController: UITableViewController {
             }
             let pages = PagesController(assignments: assignments, start: row)
             pages.delegate = self.assignmentsTableManager.selectedManager
-            self.assignmentsTableManager.selectedManager?.selectedCell?.flip() {
-                self.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(pages, animated: true)
-                self.hidesBottomBarWhenPushed = false
+            self.assignmentsTableManager.selectedManager?.selectedCell?.flip() { [weak self] in
+                self?.hidesBottomBarWhenPushed = true
+                self?.navigationController?.pushViewController(pages, animated: true)
+                self?.hidesBottomBarWhenPushed = false
             }
         }
         assignmentsTableManager.textViewDelegate = self
@@ -90,7 +90,7 @@ extension AssignmentController: LoadableController {
 
 extension AssignmentController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
-        assignmentsTableManager.resetSort()
+        assignmentsTableManager.reset()
         sortedIndex = 0
         return addLoadingIndicator()
     }

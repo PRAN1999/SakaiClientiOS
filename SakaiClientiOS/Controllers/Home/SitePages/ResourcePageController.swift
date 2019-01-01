@@ -39,7 +39,9 @@ class ResourcePageController: UIViewController, SitePageController {
             if url.absoluteString.contains("sakai.rutgers.edu") {
                 let webController = WebController()
                 webController.setURL(url: url)
+                self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(webController, animated: true)
+                self.hidesBottomBarWhenPushed = false
             } else {
                 let safariController = SFSafariViewController(url: url)
                 self.tabBarController?.present(safariController, animated: true, completion: nil)

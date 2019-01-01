@@ -37,8 +37,10 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
             let assignments = self.siteAssignmentCollectionManager.provider.items
             let pages = PagesController(assignments: assignments, start: indexPath.row)
             pages.delegate = self.siteAssignmentCollectionManager
-            self.siteAssignmentCollectionManager.selectedCell?.flip {
-                self.navigationController?.pushViewController(pages, animated: true)
+            self.siteAssignmentCollectionManager.selectedCell?.flip { [weak self] in
+                self?.hidesBottomBarWhenPushed = true
+                self?.navigationController?.pushViewController(pages, animated: true)
+                self?.hidesBottomBarWhenPushed = false
             }
         }
 

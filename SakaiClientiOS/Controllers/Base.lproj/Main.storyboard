@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Tab Controller-->
         <scene sceneID="6rX-ec-kpk">
             <objects>
-                <tabBarController storyboardIdentifier="tabs" automaticallyAdjustsScrollViewInsets="NO" id="iaE-1R-x95" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabs" automaticallyAdjustsScrollViewInsets="NO" id="iaE-1R-x95" customClass="TabController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="9nx-a2-woP"/>
                     <nil key="simulatedTopBarMetrics"/>

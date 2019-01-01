@@ -64,7 +64,8 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         cell.manager.textViewDelegate = textViewDelegate
     }
     
-    func resetSort() {
+    func reset() {
+        oldIndexPath = nil
         provider.toggleDateSorted(to: false)
     }
     
