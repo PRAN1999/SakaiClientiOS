@@ -12,4 +12,11 @@ struct SakaiRequest<T: Decodable> {
 
     let endpoint: SakaiEndpoint
     let method: HTTPMethod
+    let parameters: Parameters?
+
+    init(endpoint: SakaiEndpoint, method: HTTPMethod, parameters: Parameters? = nil) {
+        self.endpoint = endpoint
+        self.method = method
+        self.parameters = parameters
+    }
 }

@@ -90,12 +90,12 @@ class PagesController: UIViewController {
             return
         }
         if tabBarController.shouldOpenPopup {
-            tabBarController.presentPopupBar(withContentViewController: popupController, openPopup: true, animated: true, completion: nil)
+            tabBarController.presentPopupBar(withContentViewController: popupController,
+                                             openPopup: true, animated: true, completion: nil)
             tabBarController.shouldOpenPopup = false
         } else {
             tabBarController.presentPopupBar(withContentViewController: popupController,
-                                             animated: true,
-                                             completion: nil)
+                                             animated: true, completion: nil)
         }
     }
 

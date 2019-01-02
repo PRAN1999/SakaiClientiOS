@@ -17,7 +17,7 @@ class MessageBar: UIView {
         inputField.textColor = AppGlobals.sakaiRed
         inputField.tintColor = AppGlobals.sakaiRed
         inputField.font = UIFont.systemFont(ofSize: 16)
-        inputField.backgroundColor = UIColor.white
+        inputField.backgroundColor = UIColor.lightGray
         inputField.layer.cornerRadius = 5
         inputField.layer.borderWidth = 1
         inputField.layer.borderColor = UIColor.lightGray.cgColor
@@ -45,7 +45,7 @@ class MessageBar: UIView {
     }
 
     private func setupView() {
-        backgroundColor = UIColor.white
+        backgroundColor = UIColor.darkGray
 
         addSubview(inputField)
         addSubview(sendButton)

@@ -21,9 +21,15 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     var terms: [Term] = []
     var isHidden: [Bool] = []
     var hasLoaded: [Bool] = []
+
+    let termService: TermService
     
     private var gradeItems: [[[GradeItem]]] = []
     private var isCollapsed: [[Bool]] = []
+
+    init(termService: TermService) {
+        self.termService = termService
+    }
     
     func numberOfSections() -> Int {
         return gradeItems.count
@@ -130,8 +136,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
     ///   - subsection: the subsection within the section
     /// - Returns: the title of a class or site represented by the subsection
     func getSubsectionTitle(section: Int, subsection: Int) -> String? {
-        let siteId = gradeItems[section][subsection][0].siteId
-        let title = SakaiService.shared.siteTitleMap[siteId]
+        let title = gradeItems[section][subsection][0].siteTitle
         return title
     }
 

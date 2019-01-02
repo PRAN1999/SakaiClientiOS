@@ -15,7 +15,10 @@ class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>, Networ
     let fetcher: SiteDataFetcher
     
     convenience init(tableView: UITableView) {
-        self.init(provider: SiteDataProvider(), fetcher: SiteDataFetcher(), tableView: tableView)
+        self.init(provider: SiteDataProvider(),
+                  fetcher: SiteDataFetcher(cacheUpdateService: SakaiService.shared,
+                                           networkService: RequestManager.shared),
+                  tableView: tableView)
     }
     
     init(provider: Provider, fetcher: Fetcher, tableView: UITableView) {

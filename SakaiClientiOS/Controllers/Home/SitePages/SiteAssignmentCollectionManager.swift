@@ -19,7 +19,7 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     
     convenience init(collectionView: UICollectionView, siteId: String) {
         let provider = SingleSectionDataProvider<Assignment>()
-        let fetcher = SiteAssignmentDataFetcher(siteId: siteId)
+        let fetcher = SiteAssignmentDataFetcher(siteId: siteId, networkService: RequestManager.shared)
         self.init(provider: provider, fetcher: fetcher, collectionView: collectionView)
     }
 

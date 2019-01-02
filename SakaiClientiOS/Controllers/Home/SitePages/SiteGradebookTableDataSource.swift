@@ -14,7 +14,7 @@ class SiteGradebookTableDataSource: ReusableTableDataSource<SingleSectionDataPro
     weak var delegate: NetworkSourceDelegate?
     
     convenience init(tableView: UITableView, siteId: String) {
-        let fetcher = SiteGradebookDataFetcher(siteId: siteId)
+        let fetcher = SiteGradebookDataFetcher(siteId: siteId, networkService: RequestManager.shared)
         self.init(provider: SingleSectionDataProvider<GradeItem>(), fetcher: fetcher, tableView: tableView)
     }
 

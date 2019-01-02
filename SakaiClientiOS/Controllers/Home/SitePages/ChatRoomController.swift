@@ -9,6 +9,7 @@ import Foundation
 import WebKit
 
 class ChatRoomController: UIViewController, SitePageController {
+
     private var chatRoomView: ChatRoomView!
     private var indicator: LoadingIndicator!
     private var webView: WKWebView {
@@ -21,9 +22,19 @@ class ChatRoomController: UIViewController, SitePageController {
     private let siteId: String
     private let siteUrl: String
 
+    private let networkService: NetworkService
+
     required init(siteId: String, siteUrl: String, pageTitle: String) {
         self.siteId = siteId
         self.siteUrl = siteUrl
+        self.networkService = RequestManager.shared
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    init(siteId: String, siteUrl: String, networkService: NetworkService) {
+        self.siteId = siteId
+        self.siteUrl = siteUrl
+        self.networkService = RequestManager.shared
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,18 +42,22 @@ class ChatRoomController: UIViewController, SitePageController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = true
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.darkGray
         title = "Chat Room"
 
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleKeyboardNotification(notification:)),
+                                               name: .UIKeyboardWillShow,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleKeyboardNotification(notification:)),
+                                               name: .UIKeyboardWillHide,
+                                               object: nil)
+
+        indicator = LoadingIndicator(view: view)
+        indicator.startAnimating()
 
         WKWebView.authorizedWebView { [weak self] webView in
             self?.chatRoomView = ChatRoomView(webView: webView)
@@ -51,17 +66,18 @@ class ChatRoomController: UIViewController, SitePageController {
     }
 
     private func setup() {
+        chatRoomView.backgroundColor = UIColor.darkGray
+        webView.backgroundColor = UIColor.darkGray
         UIView.constrainChildToEdges(child: chatRoomView, parent: view)
         chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()
         }
-        chatRoomView.messageBar.sendButton.addTarget(self, action: #selector(handleSubmit), for: .touchUpInside)
+        chatRoomView.messageBar.sendButton.addTarget(self,
+                                                     action: #selector(handleSubmit),
+                                                     for: .touchUpInside)
         guard let url = URL(string: siteUrl) else {
             return
         }
-
-        indicator = LoadingIndicator(view: self.view)
-        indicator.startAnimating()
 
         setInput(enabled: false)
 
@@ -84,7 +100,10 @@ class ChatRoomController: UIViewController, SitePageController {
         let cgRect = keyboardFrame.cgRectValue
         let isKeyboardShowing = notification.name == .UIKeyboardWillShow
         chatRoomView.bottomConstraint.constant = isKeyboardShowing ? -cgRect.height : 0
-        UIView.animate(withDuration: 0, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: { [weak self] in
+        UIView.animate(withDuration: 0,
+                       delay: 0,
+                       options: UIViewAnimationOptions.curveEaseIn,
+                       animations: { [weak self] in
             self?.view.layoutIfNeeded()
         }, completion: nil)
         if isKeyboardShowing {
@@ -97,7 +116,8 @@ class ChatRoomController: UIViewController, SitePageController {
     }
     
     private func updateChatOnKeyboardNotification() {
-        webView.evaluateJavaScript("document.body.scrollTop == document.body.offsetHeight") { [weak self] (data, err) in
+        webView.evaluateJavaScript("document.body.scrollTop == document.body.offsetHeight") {
+            [weak self] (data, err) in
             guard let isAtBottom = data as? Bool else {
                 return
             }
@@ -132,8 +152,8 @@ class ChatRoomController: UIViewController, SitePageController {
             "chatChannelId": chatChannelId,
             "csrftoken": csrftoken
         ]
-        let url = SakaiEndpoint.newChat.getEndpoint()
-        RequestManager.shared.makeRequest(url: url, method: .post, parameters: parameters) { [weak self] res, err in
+        let request = SakaiRequest<UndefinedResponse>(endpoint: .newChat, method: .post, parameters: parameters)
+        networkService.makeEndpointRequest(request: request) { [weak self] res, err in
             self?.updateMonitor()
         }
     }
@@ -149,16 +169,13 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.evaluateJavaScript("currentChatChannelId") { [weak self] (data, err) in
-            guard err == nil else {
-                self?.navigationController?.popViewController(animated: true)
-                return
-            }
             guard let id = data as? String else {
                 return
             }
             self?.chatChannelId = id
             if self?.csrftoken != nil {
                 self?.setInput(enabled: true)
+                self?.indicator.stopAnimating()
             }
         }
         
@@ -168,10 +185,6 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
             document.body.innerHTML = selectedElement.innerHTML;
             csrftoken;
             """, completionHandler: { [weak self] (data, err) in
-            guard err == nil else {
-                self?.navigationController?.popViewController(animated: true)
-                return
-            }
             guard let token = data as? String else {
                 return
             }
@@ -180,8 +193,8 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
             
             if self?.chatChannelId != nil {
                 self?.setInput(enabled: true)
+                self?.indicator.stopAnimating()
             }
-            self?.indicator.stopAnimating()
         })
     }
 }

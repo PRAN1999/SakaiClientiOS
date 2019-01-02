@@ -14,4 +14,5 @@ struct GradeItem: TermSortable, SiteSortable {
     let title: String
     let term: Term
     let siteId: String
+    let siteTitle: String
 }

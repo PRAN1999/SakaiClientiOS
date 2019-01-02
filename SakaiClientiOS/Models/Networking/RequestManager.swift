@@ -74,27 +74,6 @@ class RequestManager {
         }
     }
 
-    func makeEndpointRequest<T: Decodable>(request: SakaiRequest<T>, completion: @escaping (T?, SakaiError?) -> Void) {
-        let url = request.endpoint.getEndpoint()
-        let method = request.method
-        makeRequest(url: url, method: method) { data, err in
-            guard err == nil, let data = data else {
-                completion(nil, err)
-                return
-            }
-
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .millisecondsSince1970
-
-            do {
-                let decoded = try decoder.decode(T.self, from: data)
-                completion(decoded, nil)
-            } catch let error {
-                completion(nil, SakaiError.parseError(error.localizedDescription))
-            }
-        }
-    }
-
     /// Download the data at a remote URL to the Documents directory for the app, and callback with
     /// the location of the downloaded item
     ///
@@ -190,6 +169,50 @@ class RequestManager {
                 onSuccess()
             } catch let decodingError {
                 onFailure(SakaiError.parseError(decodingError.localizedDescription))
+            }
+        }
+    }
+}
+
+extension RequestManager: NetworkService {
+    func makeEndpointRequest<T: Decodable>(request: SakaiRequest<T>, completion: @escaping (T?, SakaiError?) -> Void) {
+        let url = request.endpoint.getEndpoint()
+        let method = request.method
+        makeRequest(url: url, method: method, parameters: request.parameters) { data, err in
+            guard err == nil, let data = data else {
+                completion(nil, err)
+                return
+            }
+
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+
+            do {
+                let decoded = try decoder.decode(T.self, from: data)
+                completion(decoded, nil)
+            } catch let error {
+                completion(nil, SakaiError.parseError(error.localizedDescription))
+            }
+        }
+    }
+
+    func makeEndpointRequestWithoutCache<T: Decodable>(request: SakaiRequest<T>, completion: @escaping (T?, SakaiError?) -> Void) {
+        let url = request.endpoint.getEndpoint()
+        let method = request.method
+        makeRequestWithoutCache(url: url, method: method, parameters: request.parameters) { data, err in
+            guard err == nil, let data = data else {
+                completion(nil, err)
+                return
+            }
+
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+
+            do {
+                let decoded = try decoder.decode(T.self, from: data)
+                completion(decoded, nil)
+            } catch let error {
+                completion(nil, SakaiError.parseError(error.localizedDescription))
             }
         }
     }

@@ -9,19 +9,30 @@ import ReusableSource
 
 /// Fetch Assignments data for the Assignments tab
 class AssignmentDataFetcher: HideableDataFetcher {
+
+    private let termService: TermService
+    private let networkService: NetworkService
+
+    init(termService: TermService, networkService: NetworkService) {
+        self.termService = termService
+        self.networkService = networkService
+    }
     
     typealias T = [[Assignment]]
     
     func loadData(for section: Int, completion: @escaping ([[Assignment]]?, Error?) -> Void) {
         /// Use the source of truth to retrieve which sites to request data for
-        let sites = SakaiService.shared.termMap[section].1
+        guard section < termService.termMap.count else {
+            return
+        }
+        let sites = termService.termMap[section].1
         let group = DispatchGroup()
         var termAssignmentArray: [[Assignment]] = []
         var errors: [SakaiError] = []
         for site in sites {
             group.enter()
             let request = SakaiRequest<AssignmentCollection>(endpoint: .siteAssignments(site), method: .get)
-            RequestManager.shared.makeEndpointRequest(request: request) { data, err in
+            networkService.makeEndpointRequest(request: request) { data, err in
                 if let err = err {
                     errors.append(err)
                 }
