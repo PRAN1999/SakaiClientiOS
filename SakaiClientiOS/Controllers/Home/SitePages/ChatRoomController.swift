@@ -45,7 +45,7 @@ class ChatRoomController: UIViewController, SitePageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.darkGray
+        view.backgroundColor = Palette.main.primaryBackgroundColor
         title = "Chat Room"
 
         NotificationCenter.default.addObserver(self,
@@ -67,8 +67,8 @@ class ChatRoomController: UIViewController, SitePageController {
     }
 
     private func setup() {
-        chatRoomView.backgroundColor = UIColor.darkGray
-        webView.backgroundColor = UIColor.darkGray
+        chatRoomView.backgroundColor = Palette.main.primaryBackgroundColor
+        webView.backgroundColor = Palette.main.primaryBackgroundColor
         UIView.constrainChildToEdges(child: chatRoomView, parent: view)
         chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()

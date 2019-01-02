@@ -8,7 +8,6 @@
 import Foundation
 
 protocol NetworkService {
-
     func makeEndpointRequest<T: Decodable>(request: SakaiRequest<T>, completion: @escaping (T?, SakaiError?) -> Void)
 
     func makeEndpointRequestWithoutCache<T: Decodable>(request: SakaiRequest<T>, completion: @escaping (T?, SakaiError?) -> Void)

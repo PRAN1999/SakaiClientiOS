@@ -14,12 +14,12 @@ class SubmitPopupBarController: LNPopupCustomBarViewController {
         let label: UILabel = UIView.defaultAutoLayoutView()
         label.font = UIFont.systemFont(ofSize: 17.0, weight: .medium)
         label.textAlignment = .center
-        label.textColor = UIColor.white
+        label.textColor = Palette.main.primaryTextColor
         return label
     }()
 
     private lazy var blurEffectView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffect = UIBlurEffect(style: Palette.main.blurStyle)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         UIView.constrainChildToEdges(child: titleLabel, parent: blurEffectView.contentView)
         return blurEffectView

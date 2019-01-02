@@ -14,8 +14,8 @@ class PagesController: UIViewController {
 
     private let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.tintColor = UIColor.white
-        pageControl.currentPageIndicatorTintColor = AppGlobals.sakaiRed
+        pageControl.currentPageIndicatorTintColor = Palette.main.highlightColor
+        pageControl.pageIndicatorTintColor = Palette.main.pageIndicatorTintColor
         return pageControl
     }()
 
@@ -24,7 +24,12 @@ class PagesController: UIViewController {
 
     // Even when the current Assignment changes, the popup controller instance will
     // be the same but the popup URL will change
-    private let webController = WebController()
+    private let webController: WebController = {
+        let webController = WebController()
+        webController.allowsOptions = false
+        return webController
+    }()
+    
     private lazy var popupController = WebViewNavigationController(rootViewController: webController)
     private let submitPopupBarController = SubmitPopupBarController()
 
@@ -34,7 +39,7 @@ class PagesController: UIViewController {
     private let assignments: [Assignment]
     private let start: Int
 
-    private var bottomConstraint: NSLayoutConstraint?
+    private var bottomConstraint, topConstraint: NSLayoutConstraint?
 
     weak var delegate: PageDelegate?
 
@@ -59,10 +64,15 @@ class PagesController: UIViewController {
         (tabBarController as? TabController)?.popupController = webController
 
         let pageView = pageController.view!
-        bottomConstraint = UIView.constrainChildToEdgesAndBottomMargin(child: pageView, parent: view)
+        let (top, bottom) = UIView.constrainChildToTopAndBottomMargins(child: pageView, parent: view)
+        topConstraint = top
+        bottomConstraint = bottom
 
         // Configure the LNPopupController instance for the NavigationController
         setPopupURL(viewControllerIndex: start)
+        webController.dismissWebView = { [weak self] in
+            self?.tabBarController?.closePopup(animated: true, completion: nil)
+        }
 
         tabBarController?.popupInteractionStyle = .default
         tabBarController?.popupBar.backgroundStyle = .regular
@@ -90,6 +100,7 @@ class PagesController: UIViewController {
             return
         }
         if tabBarController.shouldOpenPopup {
+            webController.shouldLoad = false
             tabBarController.presentPopupBar(withContentViewController: popupController,
                                              openPopup: true, animated: true, completion: nil)
             tabBarController.shouldOpenPopup = false
@@ -103,6 +114,7 @@ class PagesController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
         tabBarController?.dismissPopupBar(animated: true, completion: nil)
+        navigationController?.setToolbarHidden(true, animated: false)
     }
 
     override func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
@@ -174,7 +186,6 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
             return
         }
         webController.setURL(url: url)
-        webController.needsNav = false
         webController.shouldLoad = true
     }
 }
@@ -191,10 +202,12 @@ extension PagesController: Animatable {
     func dismissingView(sizeAnimator: UIViewPropertyAnimator, fromFrame: CGRect, toFrame: CGRect) {
         childView?.layer.cornerRadius = AssignmentCell.cornerRadius
         childView?.layer.borderWidth = 0.5
-        childView?.layer.borderColor = UIColor.lightText.cgColor
+        childView?.layer.borderColor = Palette.main.borderColor.cgColor
         childView?.layoutIfNeeded()
 
+        topConstraint?.isActive = false
         bottomConstraint?.isActive = false
+        childView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         childView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }

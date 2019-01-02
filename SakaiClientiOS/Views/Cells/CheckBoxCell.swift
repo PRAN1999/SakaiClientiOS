@@ -15,7 +15,7 @@ class CheckBoxCell: UITableViewCell, ReusableCell {
         let checkBox: M13Checkbox = UIView.defaultAutoLayoutView()
         checkBox.boxType = .square
         checkBox.stateChangeAnimation = .fill
-        checkBox.tintColor = AppGlobals.sakaiRed
+        checkBox.tintColor = Palette.main.highlightColor
         checkBox.isEnabled = false
         return checkBox
     }()
@@ -23,8 +23,8 @@ class CheckBoxCell: UITableViewCell, ReusableCell {
     let label: UILabel = {
         let label: UILabel = UIView.defaultAutoLayoutView()
         label.font = UIFont.systemFont(ofSize: 21.0)
-        label.backgroundColor = UIColor.darkGray
-        label.textColor = UIColor.lightText
+        label.backgroundColor = Palette.main.primaryBackgroundColor
+        label.textColor = Palette.main.secondaryTextColor
         return label
     }()
 
@@ -39,7 +39,7 @@ class CheckBoxCell: UITableViewCell, ReusableCell {
     }
 
     private func setupView() {
-        backgroundColor = UIColor.darkGray
+        backgroundColor = Palette.main.primaryBackgroundColor
 
         contentView.addSubview(label)
         contentView.addSubview(checkBox)

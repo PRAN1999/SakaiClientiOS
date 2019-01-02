@@ -15,26 +15,26 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
         titleLabel.font = UIFont.systemFont(ofSize: 25.0, weight: .medium)
-        titleLabel.textColor = UIColor.white
+        titleLabel.textColor = Palette.main.primaryTextColor
         return titleLabel
     }()
 
     let imageLabel: UIImageView = {
         let imageLabel: UIImageView = UIView.defaultAutoLayoutView()
-        //imageLabel.tintColor = UIColor.white
+        imageLabel.tintColor = Palette.main.primaryTextColor
         return imageLabel
     }()
 
     let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator: UIActivityIndicatorView = UIView.defaultAutoLayoutView()
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = UIColor.white
+        activityIndicator.color = Palette.main.activityIndicatorColor
         return activityIndicator
     }()
 
     var backgroundHeaderView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = Palette.main.secondaryBackgroundColor
         return view
     }()
 
@@ -44,6 +44,8 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         tapRecognizer.numberOfTouchesRequired = 1
         return tapRecognizer
     }()
+
+    private var centerConstraint: NSLayoutConstraint!
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -62,6 +64,7 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         addSubview(titleLabel)
         addSubview(imageLabel)
         addSubview(activityIndicator)
+        addBorder(toSide: .bottom, withColor: Palette.main.borderColor, andThickness: 0.5)
         backgroundView = backgroundHeaderView
         addGestureRecognizer(tapRecognizer)
     }
@@ -86,11 +89,9 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         constraint.priority = UILayoutPriority(999)
         addConstraint(constraint)
 
-        imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        imageLabel.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor,
-                                        constant: 5.0).isActive = true
-        imageLabel.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor,
-                                           constant: 5.0).isActive = true
+        imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -5.0).isActive = true
+        centerConstraint = imageLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
+        centerConstraint.isActive = true
     }
 
     /// Change the image of the header on tap to indicate a collapsed or expanded section
@@ -99,9 +100,11 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
     func setImage(isHidden: Bool) {
         imageLabel.layer.removeAllAnimations()
         if isHidden {
-            imageLabel.image = UIImage(named: "show_content")
+            imageLabel.image = UIImage(named: "show_content")?.withRenderingMode(.alwaysTemplate)
+            centerConstraint.constant = -5
         } else {
-            imageLabel.image = UIImage(named: "hide_content")
+            imageLabel.image = UIImage(named: "hide_content")?.withRenderingMode(.alwaysTemplate)
+            centerConstraint.constant = 0
         }
     }
 }

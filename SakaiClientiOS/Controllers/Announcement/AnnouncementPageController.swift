@@ -24,7 +24,7 @@ class AnnouncementPageController: UIViewController {
 
     override func loadView() {
         view = announcementPageView
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = Palette.main.primaryBackgroundColor
     }
 
     override func viewDidLoad() {

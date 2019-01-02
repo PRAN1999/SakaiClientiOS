@@ -30,5 +30,8 @@ class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>, Networ
         super.setup()
         tableView.sectionHeaderHeight = 0.0;
         tableView.sectionFooterHeight = 0.0;
+        tableView.backgroundColor = Palette.main.primaryBackgroundColor
+        tableView.separatorColor = Palette.main.tableViewSeparatorColor
+        tableView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
     }
 }

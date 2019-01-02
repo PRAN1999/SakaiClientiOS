@@ -19,9 +19,6 @@ enum SakaiEndpoint {
     case announcements(Int, Int), siteAnnouncements(String, Int, Int)
     case siteGradebook(String), siteAssignments(String), siteResources(String)
 
-    /// Based on the SakaiEndpoint type, construct the URL according to the appropriate
-    ///
-    /// - Returns: the full URL to hit when requesting specific data
     func getEndpoint() -> String {
         switch self {
         case .sites:

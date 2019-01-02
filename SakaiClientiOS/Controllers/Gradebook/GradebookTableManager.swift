@@ -42,7 +42,9 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
         }
         headerCell.tapRecognizer.delegate = self
         headerCell.tapRecognizer.addTarget(self, action: #selector(toggleCurrentClass(sender:)))
-        //tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = Palette.main.primaryBackgroundColor
+        tableView.separatorColor = Palette.main.tableViewSeparatorColor
+        tableView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
         tableView.addSubview(headerCell)
     }
     
@@ -160,8 +162,8 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
 
         cell.accessoryType = .none
         cell.titleLabel.text = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
-        cell.titleLabel.textColor = UIColor.lightText
-        cell.backgroundView?.backgroundColor = UIColor.darkGray
+        cell.titleLabel.textColor = Palette.main.secondaryTextColor
+        cell.backgroundView?.backgroundColor = Palette.main.primaryBackgroundColor
 
         return cell
     }

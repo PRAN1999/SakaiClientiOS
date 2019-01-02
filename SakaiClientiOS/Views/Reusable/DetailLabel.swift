@@ -14,7 +14,7 @@ class DetailLabel: UILabel {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.textColor = UIColor.white
+        titleLabel.textColor = Palette.main.primaryTextColor
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
         return titleLabel
     }()
@@ -22,7 +22,7 @@ class DetailLabel: UILabel {
     let detailLabel: UILabel = {
         let detailLabel: UILabel = UIView.defaultAutoLayoutView()
         detailLabel.textAlignment = .right
-        detailLabel.textColor = UIColor.lightText
+        detailLabel.textColor = Palette.main.secondaryTextColor
         return detailLabel
     }()
 
@@ -37,9 +37,6 @@ class DetailLabel: UILabel {
     }
 
     private func setupView() {
-        //layer.borderColor = UIColor.white.cgColor
-        //layer.borderWidth = 1
-
         addSubview(titleLabel)
         addSubview(detailLabel)
     }

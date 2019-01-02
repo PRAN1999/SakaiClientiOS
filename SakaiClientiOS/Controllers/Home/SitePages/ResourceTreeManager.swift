@@ -36,6 +36,8 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
         treeView.dataSource = self
         treeView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         treeView.register(ResourceCell.self, forCellReuseIdentifier: ResourceCell.reuseIdentifier)
+        treeView.separatorColor = Palette.main.tableViewSeparatorColor
+        treeView.scrollView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
     }
     
     func treeView(_ treeView: RATreeView, numberOfChildrenOfItem item: Any?) -> Int {

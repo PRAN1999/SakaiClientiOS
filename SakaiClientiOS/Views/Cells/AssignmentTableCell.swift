@@ -15,19 +15,20 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        titleLabel.textColor = UIColor.lightText
+        titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.layer.cornerRadius = 0
         titleLabel.layer.masksToBounds = false
-        titleLabel.backgroundColor = UIColor.darkGray
-        titleLabel.addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
+        titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
+        titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
         return titleLabel
     }()
 
     let collectionView: UICollectionView = {
         let layout = HorizontalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor.darkGray
+        collectionView.backgroundColor = Palette.main.primaryBackgroundColor
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
         return collectionView
     }()
 
@@ -44,10 +45,9 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     }
 
     private func setupView() {
-        contentView.backgroundColor = UIColor.darkGray
+        backgroundColor = Palette.main.primaryBackgroundColor
 
-        selectedBackgroundView = darkSelectedView()
-        selectedBackgroundView?.addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
+        selectedBackgroundView = selectedView()
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionView)

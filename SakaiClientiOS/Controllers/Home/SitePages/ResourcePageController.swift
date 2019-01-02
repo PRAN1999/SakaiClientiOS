@@ -29,7 +29,7 @@ class ResourcePageController: UIViewController, SitePageController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.darkGray
+        view.backgroundColor = Palette.main.primaryBackgroundColor
         self.title = "Resources"
         treeView.treeFooterView = UIView()
 

@@ -14,14 +14,14 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
 
     let authorLabel: UILabel = {
         let authorLabel: UILabel = UIView.defaultAutoLayoutView()
-        authorLabel.textColor = UIColor.white
+        authorLabel.textColor = Palette.main.primaryTextColor
         authorLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.bold)
         return authorLabel
     }()
 
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
-        titleLabel.textColor = UIColor.lightText
+        titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
         return titleLabel
     }()
@@ -30,7 +30,7 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
 
     let dateLabel: UILabel = {
         let dateLabel: UILabel = UIView.defaultAutoLayoutView()
-        dateLabel.textColor = UIColor.lightText
+        dateLabel.textColor = Palette.main.secondaryTextColor
         dateLabel.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
         dateLabel.textAlignment = .right
         return dateLabel
@@ -48,8 +48,8 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
 
     private func setupView() {
         //selectionStyle = .gray
-        selectedBackgroundView = darkSelectedView()
-        backgroundColor = UIColor.darkGray
+        selectedBackgroundView = selectedView()
+        backgroundColor = Palette.main.primaryBackgroundColor
 
         contentView.addSubview(authorLabel)
         contentView.addSubview(titleLabel)
@@ -95,7 +95,9 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
                                         value: UIFont.systemFont(ofSize: 14.0,
                                                                  weight: UIFont.Weight.light),
                                         range: contentRange)
-            mutableContent.addAttribute(.foregroundColor, value: UIColor.lightText, range: contentRange)
+            mutableContent.addAttribute(.foregroundColor,
+                                        value: Palette.main.secondaryTextColor,
+                                        range: contentRange)
             contentLabel.attributedText = mutableContent
         }
         dateLabel.text = item.dateString

@@ -13,6 +13,15 @@ class TabController: UITabBarController {
     weak var popupController: UIViewController?
     var shouldOpenPopup = false
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tabBar.tintColor = Palette.main.tabBarTintColor
+        tabBar.isTranslucent = true
+        tabBar.barStyle = Palette.main.barStyle
+        tabBar.unselectedItemTintColor = Palette.main.tabBarUnselectedTintColor
+        tabBar.backgroundColor = Palette.main.tabBarBackgroundColor
+    }
+
     override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         if popupController != nil && (viewControllerToPresent is UIDocumentPickerViewController ||
             viewControllerToPresent is UIImagePickerController) {

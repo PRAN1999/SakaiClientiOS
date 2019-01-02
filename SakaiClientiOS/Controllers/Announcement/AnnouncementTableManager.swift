@@ -29,6 +29,11 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
     override func setup() {
         super.setup()
         tableView.tableFooterView = UIView()
+        tableView.sectionHeaderHeight = 0.0;
+        tableView.sectionFooterHeight = 0.0;
+        tableView.backgroundColor = Palette.main.primaryBackgroundColor
+        tableView.separatorColor = Palette.main.tableViewSeparatorColor
+        tableView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,13 +61,14 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
         spinner.startAnimating()
         spinner.hidesWhenStopped = true
 
+        let oldFooter = tableView.tableFooterView
         tableView.tableFooterView = spinner
         tableView.tableFooterView?.isHidden = false
         DispatchQueue.global().async { [weak self] in
             self?.fetcher.loadData(completion: { announcements, err in
                 DispatchQueue.main.async {
                     spinner.stopAnimating()
-                    self?.tableView.tableFooterView = nil
+                    self?.tableView.tableFooterView = oldFooter
                     guard err == nil else {
                         self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
                         self?.isLoading = false

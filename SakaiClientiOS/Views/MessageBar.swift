@@ -14,20 +14,20 @@ class MessageBar: UIView {
         let inputField: ChatTextView = UIView.defaultAutoLayoutView()
         inputField.isScrollEnabled = false
         inputField.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        inputField.textColor = AppGlobals.sakaiRed
-        inputField.tintColor = AppGlobals.sakaiRed
+        inputField.textColor = Palette.main.highlightColor
+        inputField.tintColor = Palette.main.highlightColor
         inputField.font = UIFont.systemFont(ofSize: 16)
-        inputField.backgroundColor = UIColor.lightGray
+        inputField.backgroundColor = Palette.main.secondaryBackgroundColor
         inputField.layer.cornerRadius = 5
         inputField.layer.borderWidth = 1
-        inputField.layer.borderColor = UIColor.lightGray.cgColor
+        inputField.layer.borderColor = Palette.main.borderColor.cgColor
         return inputField
     }()
 
     let sendButton: UIButton = {
         let sendButton = UIButton(type: .contactAdd)
         sendButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        sendButton.tintColor = AppGlobals.sakaiRed
+        sendButton.tintColor = Palette.main.highlightColor
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         return sendButton
     }()
@@ -45,7 +45,7 @@ class MessageBar: UIView {
     }
 
     private func setupView() {
-        backgroundColor = UIColor.darkGray
+        backgroundColor = Palette.main.primaryBackgroundColor
 
         addSubview(inputField)
         addSubview(sendButton)
