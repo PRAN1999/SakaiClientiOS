@@ -16,8 +16,6 @@ import SafariServices
 /// in SFSafariViewController instead
 class WebController: UIViewController {
 
-    // MARK: Views
-
     var webView: WKWebView!
 
     private let progressView: UIProgressView = {
@@ -26,8 +24,6 @@ class WebController: UIViewController {
         progressView.tintColor = AppGlobals.sakaiRed
         return progressView
     }()
-
-    // MARK: Navigation and toolbar items
 
     private let backButton: UIBarButtonItem = {
         let backButtonImage = UIImage(named: "back_button")
@@ -43,13 +39,8 @@ class WebController: UIViewController {
 
     private let interactionButton = UIBarButtonItem(barButtonSystemItem: .action,target: nil, action: nil)
     private let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-
-    // MARK: Custom view controllers
-
     private let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     private var interactionController: UIDocumentInteractionController?
-
-    // MARK: WKWebView configuration
 
     private var url: URL?
     private var didInitialize = false
@@ -60,14 +51,13 @@ class WebController: UIViewController {
     /// Manage SFSafariViewController presentation for insecure or non-sakai URL
     var openInSafari: ((URL?) -> Void)?
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(:coder) is not supported")
-    }
+    private let downloadService: DownloadService
+    private let webService: WebService
 
-    init() {
+    init(downloadService: DownloadService, webService: WebService) {
+        self.downloadService = downloadService
+        self.webService = webService
         super.init(nibName: nil, bundle: nil)
-        //hidesBottomBarWhenPushed = true
-        // default SFSafariViewController presentation method
         openInSafari = { [weak self] url in
             guard let url = url, url.absoluteString.contains("http") else {
                 return
@@ -75,6 +65,14 @@ class WebController: UIViewController {
             let safariController = SFSafariViewController(url: url)
             self?.tabBarController?.present(safariController, animated: true, completion: nil)
         }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(:coder) is not supported")
+    }
+
+    convenience init() {
+        self.init(downloadService: RequestManager.shared, webService: RequestManager.shared)
     }
 
     deinit {
@@ -85,7 +83,7 @@ class WebController: UIViewController {
     }
 
     override func viewDidLoad() {
-        WKWebView.authorizedWebView { [weak self] webView in
+        WKWebView.authorizedWebView(webService: webService) { [weak self] webView in
             webView.uiDelegate = self
             webView.navigationDelegate = self
             if let view = self?.view {
@@ -98,7 +96,10 @@ class WebController: UIViewController {
             webView.addGestureRecognizer(swipeRight)
 
             if let target = self {
-                webView.addObserver(target, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+                webView.addObserver(target,
+                                    forKeyPath: #keyPath(WKWebView.estimatedProgress),
+                                    options: .new,
+                                    context: nil)
             }
 
             webView.allowsBackForwardNavigationGestures = false
@@ -115,7 +116,6 @@ class WebController: UIViewController {
         setupActionSheet()
     }
 
-    /// Update progressView with respect to webview load
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
                                change: [NSKeyValueChangeKey: Any]?,
@@ -138,7 +138,6 @@ class WebController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // Set orientation to portrait if in landscape
         if isMovingFromParentViewController {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
@@ -153,9 +152,6 @@ class WebController: UIViewController {
         }
     }
 
-    /// Try to load a URL into the webView if not nil
-    ///
-    /// - Parameter urlOpt: an optional URL
     func loadURL(urlOpt: URL?) {
         guard let url = urlOpt else {
             return
@@ -183,7 +179,7 @@ class WebController: UIViewController {
         navigationItem.leftBarButtonItem?.isEnabled = false
         let indicator = LoadingIndicator(view: self.view)
         indicator.startAnimating()
-        RequestManager.shared.downloadToDocuments(url: url) { [weak self] fileUrl in
+        downloadService.downloadToDocuments(url: url) { [weak self] fileUrl in
             indicator.stopAnimating()
             indicator.removeFromSuperview()
             self?.navigationItem.leftBarButtonItem?.isEnabled = true

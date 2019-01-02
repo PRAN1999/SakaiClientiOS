@@ -9,12 +9,13 @@ import Foundation
 import WebKit
 
 extension WKWebView {
-    static func authorizedWebView(completion: @escaping (WKWebView) -> Void) {
+
+    static func authorizedWebView(webService: WebService, completion: @escaping (WKWebView) -> Void) {
         let configuration = WKWebViewConfiguration()
-        configuration.processPool = RequestManager.shared.processPool
+        configuration.processPool = webService.processPool
         let dataStore = WKWebsiteDataStore.nonPersistent()
         let dispatchGroup = DispatchGroup()
-        let cookies = RequestManager.shared.getCookies() ?? []
+        let cookies = webService.cookies ?? []
         for cookie in cookies {
             dispatchGroup.enter()
             dataStore.httpCookieStore.setCookie(cookie) {

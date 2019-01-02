@@ -24,10 +24,13 @@ class HomeController: UITableViewController {
     }()
 
     private var launchedInBackground = false
+
+    var loginService: LoginService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Classes"
+        navigationItem.rightBarButtonItem?.isEnabled = false
         navigationController?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
@@ -42,12 +45,19 @@ class HomeController: UITableViewController {
         siteTableManager.delegate = self
 
         configureNavigationItem()
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "logout"), style: .plain, target: self, action: #selector(presentLogoutController))
-        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: Notification.Name(rawValue: ReloadActions.reload.rawValue),
+                                                  object: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "logout"),
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(presentLogoutController))
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(loadData),
+                                               name: Notification.Name(rawValue: ReloadActions.reloadHome.rawValue),
+                                               object: nil)
 
         if UIApplication.shared.applicationState == .background {
-            print("launched in background")
             launchedInBackground = true
             return
         }
@@ -64,8 +74,11 @@ class HomeController: UITableViewController {
     }
 
     private func authenticateAndLoad() {
-        if RequestManager.shared.loadCookiesFromUserDefaults() {
-            RequestManager.shared.validateLoggedInStatus(
+        guard let loginService = loginService else {
+            return
+        }
+        if loginService.loadCookiesFromUserDefaults() {
+            loginService.validateLoggedInStatus(
                 onSuccess: { [weak self] in
                     self?.loadData()
                 }, onFailure: { [weak self] err in
@@ -133,8 +146,8 @@ extension HomeController: NetworkSourceDelegate {
 
     func networkSourceSuccessfullyLoadedData<Source>(_ networkSource: Source?) where Source : NetworkSource {
         enableTabs()
-        NotificationCenter.default.post(name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
-        RequestManager.shared.isLoggedIn = true
+        NotificationCenter.default.post(name: Notification.Name(rawValue: ReloadActions.reload.rawValue),
+                                        object: nil)
     }
 }
 

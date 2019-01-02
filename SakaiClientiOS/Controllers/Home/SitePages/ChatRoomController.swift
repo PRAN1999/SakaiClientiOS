@@ -23,18 +23,19 @@ class ChatRoomController: UIViewController, SitePageController {
     private let siteUrl: String
 
     private let networkService: NetworkService
+    private let webService: WebService
 
-    required init(siteId: String, siteUrl: String, pageTitle: String) {
-        self.siteId = siteId
-        self.siteUrl = siteUrl
-        self.networkService = RequestManager.shared
-        super.init(nibName: nil, bundle: nil)
+    required convenience init(siteId: String, siteUrl: String, pageTitle: String) {
+        let networkService = RequestManager.shared
+        let webService = RequestManager.shared
+        self.init(siteId: siteId, siteUrl: siteUrl, networkService: networkService, webService: webService)
     }
 
-    init(siteId: String, siteUrl: String, networkService: NetworkService) {
+    init(siteId: String, siteUrl: String, networkService: NetworkService, webService: WebService) {
         self.siteId = siteId
         self.siteUrl = siteUrl
-        self.networkService = RequestManager.shared
+        self.networkService = networkService
+        self.webService = webService
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -59,7 +60,7 @@ class ChatRoomController: UIViewController, SitePageController {
         indicator = LoadingIndicator(view: view)
         indicator.startAnimating()
 
-        WKWebView.authorizedWebView { [weak self] webView in
+        WKWebView.authorizedWebView(webService: webService) { [weak self] webView in
             self?.chatRoomView = ChatRoomView(webView: webView)
             self?.setup()
         }

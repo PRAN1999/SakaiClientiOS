@@ -13,11 +13,19 @@ class DefaultController: WebController, SitePageController {
     private let siteUrl: String
     private let pageTitle: String
     
-    required init(siteId: String, siteUrl: String, pageTitle: String) {
+    required convenience init(siteId: String, siteUrl: String, pageTitle: String) {
+        self.init(siteId: siteId,
+                  siteUrl: siteUrl,
+                  pageTitle: pageTitle,
+                  downloadService: RequestManager.shared,
+                  webService: RequestManager.shared)
+    }
+
+    init(siteId: String, siteUrl: String, pageTitle: String, downloadService: DownloadService, webService: WebService) {
         self.siteId = siteId
         self.siteUrl = siteUrl
         self.pageTitle = pageTitle
-        super.init()
+        super.init(downloadService: downloadService, webService: webService)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -32,5 +40,4 @@ class DefaultController: WebController, SitePageController {
         super.viewDidLoad()
         title = pageTitle
     }
-
 }
