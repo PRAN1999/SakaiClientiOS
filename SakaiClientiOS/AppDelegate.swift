@@ -14,7 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UIApplication.shared.setMinimumBackgroundFetchInterval(9000)
+        UIApplication.shared.setMinimumBackgroundFetchInterval(900)
+
+        let root = window?.rootViewController as? UITabBarController
+        root?.childViewControllers.forEach { child in
+            let nav = child as? UINavigationController
+            if let home = nav?.viewControllers.first as? HomeController {
+                home.loginService = RequestManager.shared
+            }
+        }
         return true
     }
 
@@ -132,13 +140,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func logout() {
         RequestManager.shared.reset()
         SakaiService.shared.reset()
-        RequestManager.shared.isLoggedIn = false
         let rootController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController
         rootController?.selectedIndex = 0
         let navigationControllers = rootController?.viewControllers as? [UINavigationController]
-        navigationControllers?.forEach({ nav in
+        navigationControllers?.forEach{ nav in
             nav.popToRootViewController(animated: false)
-        })
+        }
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController else {
             return
@@ -149,7 +156,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         loginController.onLogin = {
             DispatchQueue.main.async {
                 rootController?.dismiss(animated: true, completion: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: ReloadActions.reloadHome.rawValue), object: nil, userInfo: nil)
+                let action = ReloadActions.reloadHome.rawValue
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: action),
+                                                object: nil,
+                                                userInfo: nil)
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {

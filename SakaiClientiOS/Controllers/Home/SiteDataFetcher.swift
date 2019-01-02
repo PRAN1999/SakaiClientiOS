@@ -9,7 +9,7 @@ import ReusableSource
 class SiteDataFetcher: DataFetcher {
     typealias T = [[Site]]
 
-    private var cacheUpdateService: CacheUpdateService
+    private let cacheUpdateService: CacheUpdateService
     private let networkService: NetworkService
 
     init(cacheUpdateService: CacheUpdateService, networkService: NetworkService) {
@@ -27,8 +27,8 @@ class SiteDataFetcher: DataFetcher {
 
             let siteList = data.siteCollection
             siteList.forEach { site in
-                self?.cacheUpdateService.siteTermMap.updateValue(site.term, forKey: site.id)
-                self?.cacheUpdateService.siteTitleMap.updateValue(site.title, forKey: site.id)
+                self?.cacheUpdateService.updateSiteTerm(siteId: site.id, term: site.term)
+                self?.cacheUpdateService.updateSiteTitle(siteId: site.id, title: site.title)
             }
             let sectionList = Term.splitByTerms(listToSort: siteList)
             // Split the site list by Term
@@ -37,7 +37,7 @@ class SiteDataFetcher: DataFetcher {
             }
             listMap.forEach { list in
                 if list.0.exists() {
-                    self?.cacheUpdateService.termMap.append(list)
+                    self?.cacheUpdateService.appendTermMap(map: list)
                 }
             }
             completion(sectionList, nil)

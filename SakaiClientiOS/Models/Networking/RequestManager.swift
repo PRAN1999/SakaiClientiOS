@@ -17,13 +17,9 @@ class RequestManager {
 
     static let savedCookiesKey = "savedCookies"
 
-    /// The process pool to be shared by all WKWebView's opened in app.
-    ///
-    /// This shares cookies and headers needed for Sakai Authentication
-    var processPool = WKProcessPool()
-    var isLoggedIn = false
-    var userId: String?
-    var cookieArray: [[HTTPCookiePropertyKey: Any]] = []
+    private var _processPool = WKProcessPool()
+    private var _userId: String?
+    private var _cookieArray: [[HTTPCookiePropertyKey: Any]] = []
 
     private var session: URLSession {
         return Alamofire.SessionManager.default.session
@@ -31,17 +27,7 @@ class RequestManager {
 
     private init() {}
 
-    /// Executes and validates an HTTP request and passes any retrieved data and any errors into
-    /// completion handler
-    ///
-    /// - Parameters:
-    ///   - url: the URL to make a request to
-    ///   - method: the HTTP request type (GET, POST, etc..)
-    ///   - parameters: any parameters needed for the request (the body of a POST request)
-    ///   - completion: a completion handler called with data and err
-    ///   - data: the Data retrieved from the server, may be nil
-    ///   - err: a SakaiError that wraps any network errors from the request
-    func makeRequest(url: String, method: HTTPMethod, parameters: Parameters? = nil,
+    private func makeRequest(url: String, method: HTTPMethod, parameters: Parameters? = nil,
                      completion: @escaping (_ data: Data?, _ err: SakaiError?) -> Void) {
         Alamofire.SessionManager.default
             .request(url, method: method, parameters: parameters).validate().responseJSON { response in
@@ -57,8 +43,7 @@ class RequestManager {
         }
     }
 
-    /// Executes and validates an HTTP request without storing or caching any responses. See **makeRequest**
-    func makeRequestWithoutCache(url: String, method: HTTPMethod, parameters: Parameters? = nil,
+    private func makeRequestWithoutCache(url: String, method: HTTPMethod, parameters: Parameters? = nil,
                                  completion: @escaping (_ data: Data?, _ err: SakaiError?) -> Void) {
         Alamofire.SessionManager.default.requestWithoutCache(url, method: .get).validate()
             .responseJSON { response in
@@ -74,103 +59,16 @@ class RequestManager {
         }
     }
 
-    /// Download the data at a remote URL to the Documents directory for the app, and callback with
-    /// the location of the downloaded item
-    ///
-    /// - Parameters:
-    ///   - url: the URL to download data from
-    ///   - completion: a completion handler to call with the location of the downloaded file
-    func downloadToDocuments(url: URL, completion: @escaping (_ fileDestination: URL?) -> Void) {
-        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
-        Alamofire.download(URLRequest(url: url), to: destination).response(queue: DispatchQueue.global(qos: .utility)) { res in
-            DispatchQueue.main.async {
-                completion(res.destinationURL)
-            }
-        }
-    }
-
-    /// Adds HTTP cookie to Alamofire Session
-    ///
-    /// - Parameter cookie: The HTTP cookie to add to the Alamofire Session
-    func addCookie(cookie: HTTPCookie) {
-        session.configuration.httpCookieStorage?.setCookie(cookie)
-        if let properties = cookie.properties {
-            cookieArray.append(properties)
-        }
-    }
-
-    /// Resets URL cache for Alamofire session to force new data requests
     func resetCache() {
         URLCache.shared.removeAllCachedResponses()
         session.configuration.urlCache?.removeAllCachedResponses()
     }
 
-    /// Resets Alamofire session by flushing session configuration of all Cookies and Headers. Also resets
-    /// WKProcessPool, siteTitleMap, and siteTermMap
     func reset() {
         resetCache()
-        processPool = WKProcessPool()
-        userId = nil
+        _processPool = WKProcessPool()
+        _userId = nil
         clearCookies()
-    }
-
-    func clearCookies() {
-        guard let cookies = session.configuration.httpCookieStorage?.cookies else {
-            return
-        }
-        for cookie in cookies {
-            session.configuration.httpCookieStorage?.deleteCookie(cookie)
-            HTTPCookieStorage.shared.deleteCookie(cookie)
-        }
-        cookieArray = []
-        UserDefaults.standard.set(nil, forKey: RequestManager.savedCookiesKey)
-    }
-
-    func loadCookiesFromUserDefaults() -> Bool {
-        guard let cookieArray = UserDefaults.standard.array(forKey: RequestManager.savedCookiesKey) as? [[HTTPCookiePropertyKey: Any]] else { return false }
-        for properties in cookieArray {
-            guard let cookie = HTTPCookie(properties: properties) else {
-                continue
-            }
-            HTTPCookieStorage.shared.setCookie(cookie)
-            addCookie(cookie: cookie)
-        }
-        return true
-    }
-
-    func loadCookiesIntoUserDefaults() {
-        guard let cookies = session.configuration.httpCookieStorage?.cookies else {
-            return
-        }
-        var arr: [[HTTPCookiePropertyKey: Any]] = []
-        for cookie in cookies {
-            if let props = cookie.properties {
-                arr.append(props)
-            }
-        }
-        UserDefaults.standard.set(arr, forKey: RequestManager.savedCookiesKey)
-    }
-
-    func getCookies() -> [HTTPCookie]? {
-        return session.configuration.httpCookieStorage?.cookies
-    }
-
-    func validateLoggedInStatus(onSuccess: @escaping () -> Void, onFailure: @escaping (SakaiError?) -> Void) {
-        let url = SakaiEndpoint.session.getEndpoint()
-        makeRequestWithoutCache(url: url, method: .get) { [weak self] (data, err) in
-            let decoder = JSONDecoder()
-            guard let data = data else {
-                onFailure(err)
-                return
-            }
-            do {
-                let session = try decoder.decode(UserSession.self, from: data)
-                self?.userId = session.userEid
-                onSuccess()
-            } catch let decodingError {
-                onFailure(SakaiError.parseError(decodingError.localizedDescription))
-            }
-        }
     }
 }
 
@@ -215,6 +113,101 @@ extension RequestManager: NetworkService {
                 completion(nil, SakaiError.parseError(error.localizedDescription))
             }
         }
+    }
+}
+
+extension RequestManager: LoginService {
+
+    var userId: String? {
+        return _userId
+    }
+
+    var cookieArray: [[HTTPCookiePropertyKey : Any]] {
+        return _cookieArray
+    }
+
+    func loadCookiesFromUserDefaults() -> Bool {
+        guard let cookieArray = UserDefaults.standard.array(forKey: RequestManager.savedCookiesKey) as? [[HTTPCookiePropertyKey: Any]] else { return false }
+        for properties in cookieArray {
+            guard let cookie = HTTPCookie(properties: properties) else {
+                continue
+            }
+            HTTPCookieStorage.shared.setCookie(cookie)
+            addCookie(cookie: cookie)
+        }
+        return true
+    }
+
+    func loadCookiesIntoUserDefaults() {
+        guard let cookies = session.configuration.httpCookieStorage?.cookies else {
+            return
+        }
+        var arr: [[HTTPCookiePropertyKey: Any]] = []
+        for cookie in cookies {
+            if let props = cookie.properties {
+                arr.append(props)
+            }
+        }
+        UserDefaults.standard.set(arr, forKey: RequestManager.savedCookiesKey)
+    }
+
+    func addCookie(cookie: HTTPCookie) {
+        session.configuration.httpCookieStorage?.setCookie(cookie)
+        if let properties = cookie.properties {
+            _cookieArray.append(properties)
+        }
+    }
+
+    func clearCookies() {
+        guard let cookies = session.configuration.httpCookieStorage?.cookies else {
+            return
+        }
+        for cookie in cookies {
+            session.configuration.httpCookieStorage?.deleteCookie(cookie)
+            HTTPCookieStorage.shared.deleteCookie(cookie)
+        }
+        _cookieArray = []
+        UserDefaults.standard.set(nil, forKey: RequestManager.savedCookiesKey)
+    }
+
+    func validateLoggedInStatus(onSuccess: @escaping () -> Void, onFailure: @escaping (SakaiError?) -> Void) {
+        let url = SakaiEndpoint.session.getEndpoint()
+        makeRequestWithoutCache(url: url, method: .get) { [weak self] (data, err) in
+            let decoder = JSONDecoder()
+            guard let data = data else {
+                onFailure(err)
+                return
+            }
+            do {
+                let session = try decoder.decode(UserSession.self, from: data)
+                self?._userId = session.userEid
+                onSuccess()
+            } catch let decodingError {
+                onFailure(SakaiError.parseError(decodingError.localizedDescription))
+            }
+        }
+    }
+}
+
+extension RequestManager: DownloadService {
+    func downloadToDocuments(url: URL, completion: @escaping (_ fileDestination: URL?) -> Void) {
+        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
+        Alamofire.download(URLRequest(url: url), to: destination).response(queue: DispatchQueue.global(qos: .utility)) { res in
+            DispatchQueue.main.async {
+                completion(res.destinationURL)
+            }
+        }
+    }
+}
+
+extension RequestManager: WebService {
+
+    var processPool: WKProcessPool {
+        return _processPool
+    }
+
+    var cookies: [HTTPCookie]? {
+        return session.configuration.httpCookieStorage?.cookies
     }
 }
 

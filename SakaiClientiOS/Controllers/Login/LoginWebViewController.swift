@@ -15,11 +15,20 @@ class LoginWebViewController: WebController {
     /// Callback to execute once user has been authenticated
     var onLogin: (() -> Void)?
 
-    let loginUrl: String
+    private let loginUrl: String
+    private let loginService: LoginService
 
-    init(loginUrl: String) {
+    init(loginUrl: String, loginService: LoginService, downloadService: DownloadService, webService: WebService) {
         self.loginUrl = loginUrl
-        super.init()
+        self.loginService = loginService
+        super.init(downloadService: downloadService, webService: webService)
+    }
+
+    convenience init(loginUrl: String) {
+        self.init(loginUrl: loginUrl,
+                  loginService: RequestManager.shared,
+                  downloadService: RequestManager.shared,
+                  webService: RequestManager.shared)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -62,10 +71,10 @@ class LoginWebViewController: WebController {
         group.enter()
         if webView.url!.absoluteString == AppGlobals.cookieUrl {
             let store = webView.configuration.websiteDataStore.httpCookieStore
-            store.getAllCookies { cookies in
+            store.getAllCookies { [weak self] cookies in
                 for cookie in cookies {
                     HTTPCookieStorage.shared.setCookie(cookie as HTTPCookie)
-                    RequestManager.shared.addCookie(cookie: cookie)
+                    self?.loginService.addCookie(cookie: cookie)
                 }
                 group.leave()
             }
@@ -81,10 +90,10 @@ class LoginWebViewController: WebController {
                           decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         if webView.url!.absoluteString == AppGlobals.cookieUrl {
             decisionHandler(.cancel)
-            RequestManager.shared.validateLoggedInStatus(
+            loginService.validateLoggedInStatus(
                 onSuccess: { [weak self] in
                     self?.onLogin?()
-                    UserDefaults.standard.set(RequestManager.shared.cookieArray, forKey: RequestManager.savedCookiesKey)
+                    UserDefaults.standard.set(self?.loginService.cookieArray, forKey: RequestManager.savedCookiesKey)
                 },
                 onFailure: { [weak self] err in
                     let store = self?.webView.configuration.websiteDataStore.httpCookieStore
@@ -93,7 +102,7 @@ class LoginWebViewController: WebController {
                             store?.delete(cookie, completionHandler: nil)
                         }
                     })
-                    RequestManager.shared.clearCookies()
+                    self?.loginService.clearCookies()
                     self?.loadWebview()
                 }
             )

@@ -46,7 +46,7 @@ extension SitePage: Decodable {
             siteType = SitePage.mapPages[SitePage.defaultString]!
         }
         if title == "Assignments" {
-            SakaiService.shared.siteAssignmentToolMap.updateValue(url, forKey: siteId)
+            SakaiService.shared.setAssignmentToolUrl(url: url, siteId: siteId)
         }
         self.init(id: id, title: title, siteId: siteId, siteType: siteType, url: url)
     }
