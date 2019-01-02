@@ -28,3 +28,5 @@ class SakaiService {
         termMap = []
     }
 }
+
+extension SakaiService: TermService, CacheUpdateService {}

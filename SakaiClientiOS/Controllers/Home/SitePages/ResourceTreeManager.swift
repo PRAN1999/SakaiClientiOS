@@ -20,7 +20,7 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     let fetcher: ResourceDataFetcher
     
     convenience init(treeView: RATreeView, siteId: String) {
-        let fetcher = ResourceDataFetcher(siteId: siteId)
+        let fetcher = ResourceDataFetcher(siteId: siteId, networkService: RequestManager.shared)
         self.init(fetcher: fetcher, treeView: treeView)
     }
 

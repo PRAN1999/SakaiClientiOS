@@ -14,16 +14,21 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
     typealias T = [Assignment]
     typealias V = [[Assignment]]
 
-    private(set) var dateSorted = false
-
     var terms: [Term] = []
     var isHidden: [Bool] = []
     var hasLoaded: [Bool] = []
 
+    let termService: TermService
+
+    private(set) var dateSorted = false
     private var assignments: [[[Assignment]]] = []
     private var dateSortedAssignments: [[Assignment]] = []
     private var collapsedSections: [[Bool]] = []
     private var collapsedDateSections: [Bool] = []
+
+    init(termService: TermService) {
+        self.termService = termService
+    }
     
     func numberOfSections() -> Int {
         return assignments.count

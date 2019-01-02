@@ -65,7 +65,7 @@ class ClassController: UITableViewController {
             return
         }
 
-        if controller is DefaultController {
+        if controller is DefaultController || controller is ChatRoomController {
             hidesBottomBarWhenPushed = true
         }
         navigationController?.pushViewController(controller, animated: true)

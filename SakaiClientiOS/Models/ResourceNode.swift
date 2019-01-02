@@ -7,17 +7,11 @@
 
 import Foundation
 
-/// A Node item to represent a Tree structure for Resources
 class ResourceNode {
 
     let resourceItem: ResourceItem
     let children: [ResourceNode]?
 
-    /// Initialize a ResourceNode with a data ResourceItem and children Nodes
-    ///
-    /// - Parameters:
-    ///   - resourceItem: The data item specific to the ResourceNode
-    ///   - children: The children of the ResourceNode
     init(_ resourceItem: ResourceItem,
          _ children: [ResourceNode]?) {
         self.resourceItem   = resourceItem
@@ -46,7 +40,6 @@ class ResourceNode {
     ///   - numChildren: The number of child trees contained within the data array
     /// - Returns: An array of child ResourceNode's
     static func constructTree(data: [ResourceItem], numChildren: Int) -> [ResourceNode]? {
-        // swiftlint:disable unneeded_break_in_switch
         guard data.count > 0 else {
             return nil
         }
@@ -60,7 +53,7 @@ class ResourceNode {
             var node: ResourceNode?
             switch nodeItem.type {
             case .collection(let size):
-                guard size > 0 else {
+                guard size > 0, index + size < data.count else {
                     break
                 }
                 // Create an array slice of all the children of the collection based on the size of the collection

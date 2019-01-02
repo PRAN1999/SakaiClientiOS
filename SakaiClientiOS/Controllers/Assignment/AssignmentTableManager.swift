@@ -24,7 +24,10 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     private var oldIndexPath: IndexPath?
     
     convenience init(tableView: UITableView) {
-        self.init(provider: AssignmentTableDataProvider(), fetcher: AssignmentDataFetcher(), tableView: tableView)
+        self.init(provider: AssignmentTableDataProvider(termService: SakaiService.shared),
+                  fetcher: AssignmentDataFetcher(termService: SakaiService.shared,
+                                                 networkService: RequestManager.shared),
+                  tableView: tableView)
     }
     
     override func setup() {

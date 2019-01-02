@@ -10,15 +10,17 @@ import ReusableSource
 class SiteGradebookDataFetcher: DataFetcher {
     typealias T = [GradeItem]
     
-    let siteId: String
+    private let siteId: String
+    private let networkService: NetworkService
     
-    init(siteId: String) {
+    init(siteId: String, networkService: NetworkService) {
         self.siteId = siteId
+        self.networkService = networkService
     }
     
     func loadData(completion: @escaping ([GradeItem]?, Error?) -> Void) {
         let request = SakaiRequest<SiteGradeItems>(endpoint: .siteGradebook(siteId), method: .get)
-        RequestManager.shared.makeEndpointRequest(request: request) { data, err in
+        networkService.makeEndpointRequest(request: request) { data, err in
             completion(data?.gradeItems, err)
         }
     }

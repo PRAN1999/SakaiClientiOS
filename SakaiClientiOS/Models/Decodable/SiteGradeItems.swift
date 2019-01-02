@@ -19,10 +19,20 @@ struct SiteGradeItems: Decodable {
         guard let term = SakaiService.shared.siteTermMap[siteId] else {
             throw SakaiError.parseError("No valid Term found")
         }
+
+        guard let siteTitle = SakaiService.shared.siteTitleMap[siteId] else {
+            throw SakaiError.parseError("No Site Title Found")
+        }
+        
         let rawGradeItems = try container.decode([RawGradeItem].self, forKey: .gradeItems)
         var gradeItems = [GradeItem]()
         for rawGradeItem in rawGradeItems {
-            let gradeItem = GradeItem(grade: rawGradeItem.grade, points: rawGradeItem.points, title: rawGradeItem.title, term: term, siteId: siteId)
+            let gradeItem = GradeItem(grade: rawGradeItem.grade,
+                                      points: rawGradeItem.points,
+                                      title: rawGradeItem.title,
+                                      term: term,
+                                      siteId: siteId,
+                                      siteTitle: siteTitle)
             gradeItems.append(gradeItem)
         }
         self.gradeItems = gradeItems

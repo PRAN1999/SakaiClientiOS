@@ -8,10 +8,18 @@ import ReusableSource
 
 class SiteDataFetcher: DataFetcher {
     typealias T = [[Site]]
+
+    private var cacheUpdateService: CacheUpdateService
+    private let networkService: NetworkService
+
+    init(cacheUpdateService: CacheUpdateService, networkService: NetworkService) {
+        self.cacheUpdateService = cacheUpdateService
+        self.networkService = networkService
+    }
     
     func loadData(completion: @escaping ([[Site]]?, Error?) -> Void) {
         let request = SakaiRequest<SiteCollection>(endpoint: .sites, method: .get)
-        RequestManager.shared.makeEndpointRequest(request: request) { data, err in
+        networkService.makeEndpointRequest(request: request) { [weak self] data, err in
             guard err == nil, let data = data else {
                 completion(nil, err)
                 return
@@ -19,17 +27,17 @@ class SiteDataFetcher: DataFetcher {
 
             let siteList = data.siteCollection
             siteList.forEach { site in
-                SakaiService.shared.siteTermMap.updateValue(site.term, forKey: site.id)
-                SakaiService.shared.siteTitleMap.updateValue(site.title, forKey: site.id)
+                self?.cacheUpdateService.siteTermMap.updateValue(site.term, forKey: site.id)
+                self?.cacheUpdateService.siteTitleMap.updateValue(site.title, forKey: site.id)
             }
             let sectionList = Term.splitByTerms(listToSort: siteList)
             // Split the site list by Term
             let listMap = sectionList.map {
                 ($0[0].term, $0.map { $0.id })
             }
-            for item in listMap {
-                if item.0.exists() {
-                    SakaiService.shared.termMap.append(item)
+            listMap.forEach { list in
+                if list.0.exists() {
+                    self?.cacheUpdateService.termMap.append(list)
                 }
             }
             completion(sectionList, nil)

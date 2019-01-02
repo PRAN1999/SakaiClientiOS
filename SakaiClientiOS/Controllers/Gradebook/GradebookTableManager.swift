@@ -19,7 +19,10 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     private var scrollUpOnLastRow = false
 
     convenience init(tableView: UITableView) {
-        self.init(provider: GradebookDataProvider(), fetcher: GradebookDataFetcher(), tableView: tableView)
+        self.init(provider: GradebookDataProvider(termService: SakaiService.shared),
+                  fetcher: GradebookDataFetcher(termService: SakaiService.shared,
+                                                networkService: RequestManager.shared),
+                  tableView: tableView)
     }
     
     override func setup() {

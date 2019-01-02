@@ -8,18 +8,19 @@
 import ReusableSource
 
 class ResourceDataFetcher: DataFetcher {
-    
-    let siteId: String
-    
-    init(siteId: String) {
-        self.siteId = siteId
-    }
-    
     typealias T = [ResourceNode]
+    
+    private let siteId: String
+    private let networkService: NetworkService
+    
+    init(siteId: String, networkService: NetworkService) {
+        self.siteId = siteId
+        self.networkService = networkService
+    }
     
     func loadData(completion: @escaping ([ResourceNode]?, Error?) -> Void) {
         let request = SakaiRequest<ResourceCollection>(endpoint: .siteResources(siteId), method: .get)
-        RequestManager.shared.makeEndpointRequest(request: request) { data, err in
+        networkService.makeEndpointRequest(request: request) { data, err in
             guard err == nil, let data = data else {
                 completion(nil, err)
                 return

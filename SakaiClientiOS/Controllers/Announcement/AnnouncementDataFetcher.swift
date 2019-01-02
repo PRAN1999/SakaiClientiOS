@@ -19,7 +19,13 @@ class AnnouncementDataFetcher: DataFetcher {
     private(set) var moreLoads = true
     private var cachedResults: [Announcement]?
 
+    private let networkService: NetworkService
+
     var siteId: String?
+
+    init(networkService: NetworkService) {
+        self.networkService = networkService
+    }
     
     func loadData(completion: @escaping ([Announcement]?, Error?) -> Void) {
         fetchData() { [weak self] announcementList, moreLoads, err in
@@ -52,7 +58,7 @@ class AnnouncementDataFetcher: DataFetcher {
         }
         let request = SakaiRequest<AnnouncementCollection>(endpoint: endpoint, method: .get)
 
-        RequestManager.shared.makeEndpointRequest(request: request) { [weak self] data, err in
+        networkService.makeEndpointRequest(request: request) { [weak self] data, err in
             guard err == nil, let data = data else {
                 completion(nil, false, err)
                 return

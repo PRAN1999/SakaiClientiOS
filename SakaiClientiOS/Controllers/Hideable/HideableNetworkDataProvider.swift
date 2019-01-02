@@ -13,6 +13,7 @@ import ReusableSource
 protocol HideableNetworkDataProvider: HideableDataProvider {
     
     var hasLoaded: [Bool] { get set }
+    var termService: TermService { get }
     
     /// Load data into the data source for the specified section
     ///
@@ -43,7 +44,7 @@ extension HideableNetworkDataProvider {
     }
 
     func resetTerms() {
-        terms = SakaiService.shared.termMap.map { $0.0 }
+        terms = termService.termMap.map { $0.0 }
         isHidden = [Bool].init(repeating: true, count: terms.count)
         hasLoaded = [Bool].init(repeating: false, count: terms.count)
     }
