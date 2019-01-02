@@ -18,13 +18,13 @@ class AssignmentPageView: UIScrollView {
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.textAlignment = .left
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-        titleLabel.layer.shadowColor = UIColor.black.cgColor
-        titleLabel.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-        titleLabel.layer.shadowOpacity = 0.5
-        titleLabel.layer.shadowRadius = 2.5
-        titleLabel.layer.masksToBounds = false
-        titleLabel.backgroundColor = UIColor.lightGray.color(withTransparency: 0.5)
-        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 2.0)
+//        titleLabel.layer.shadowColor = UIColor.black.cgColor
+//        titleLabel.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+//        titleLabel.layer.shadowOpacity = 0.5
+//        titleLabel.layer.shadowRadius = 2.5
+//        titleLabel.layer.masksToBounds = false
+        titleLabel.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.5)
+        titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.0)
         return titleLabel
     }()
 
@@ -41,15 +41,15 @@ class AssignmentPageView: UIScrollView {
     let instructionView: TappableTextView = {
         let instructionView: TappableTextView = UIView.defaultAutoLayoutView()
         instructionView.isScrollEnabled = false
-        instructionView.backgroundColor = UIColor.lightGray.color(withTransparency: 0.5)
-        instructionView.layer.shadowColor = UIColor.black.cgColor
-        instructionView.layer.shadowOffset = CGSize(width: 0.0, height: -3.0)
-        instructionView.layer.shadowOpacity = 0.5
-        instructionView.layer.shadowRadius = 2.5
-        instructionView.layer.masksToBounds = false
+        instructionView.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.3)
+//        instructionView.layer.shadowColor = UIColor.black.cgColor
+//        instructionView.layer.shadowOffset = CGSize(width: 0.0, height: -3.0)
+//        instructionView.layer.shadowOpacity = 0.5
+//        instructionView.layer.shadowRadius = 2.5
+//        instructionView.layer.masksToBounds = false
         instructionView.contentInset = UIEdgeInsets(top: 2.0, left: 5.0, bottom: 0.0, right: 5.0)
-        instructionView.tintColor = UIColor(red: 70.0 / 256.0, green: 188.0 / 256.0, blue: 222.0 / 256.0, alpha: 1.0)
-        instructionView.addBorder(toSide: .top, withColor: AppGlobals.sakaiRed, andThickness: 1.0)
+        instructionView.tintColor = Palette.main.linkColor
+        instructionView.addBorder(toSide: .top, withColor: Palette.main.highlightColor, andThickness: 1.0)
         return instructionView
     }()
 
@@ -64,8 +64,8 @@ class AssignmentPageView: UIScrollView {
     }
 
     private func setupView() {
-        backgroundColor = UIColor.darkGray
-        contentView.backgroundColor = UIColor.darkGray
+        backgroundColor = Palette.main.primaryBackgroundColor
+        contentView.backgroundColor = Palette.main.primaryBackgroundColor
 
         addSubview(contentView)
 
@@ -160,12 +160,12 @@ extension AssignmentPageView {
         instructions.addAttribute(.font,
                                   value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
                                   range: instructionRange)
-        instructions.addAttribute(.foregroundColor, value: UIColor.lightText, range: instructionRange)
+        instructions.addAttribute(.foregroundColor, value: Palette.main.secondaryTextColor, range: instructionRange)
 
         let description = NSMutableAttributedString(string: "Instructions: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
         description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
-        description.addAttribute(.foregroundColor, value: UIColor.white, range: descriptionRange)
+        description.addAttribute(.foregroundColor, value: Palette.main.primaryTextColor, range: descriptionRange)
         description.append(instructions)
         return description
     }
@@ -178,7 +178,7 @@ extension AssignmentPageView {
         let description = NSMutableAttributedString(string: "\n\n\nAttachments: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
         description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
-        description.addAttribute(.foregroundColor, value: UIColor.white, range: descriptionRange)
+        description.addAttribute(.foregroundColor, value: Palette.main.primaryTextColor, range: descriptionRange)
 
         for attachment in attachments {
             let mutableAttachment = NSMutableAttributedString(attributedString: attachment)

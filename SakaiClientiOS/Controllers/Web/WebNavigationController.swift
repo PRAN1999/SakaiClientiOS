@@ -17,9 +17,9 @@ class WebViewNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.tintColor = AppGlobals.sakaiRed
+        self.navigationBar.tintColor = Palette.main.navigationTintColor
         self.navigationBar.barStyle = .black
-        self.toolbar.tintColor = AppGlobals.sakaiRed
+        self.toolbar.tintColor = Palette.main.navigationTintColor
     }
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)?) {

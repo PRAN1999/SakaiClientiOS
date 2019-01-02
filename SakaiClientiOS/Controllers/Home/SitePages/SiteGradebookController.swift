@@ -28,7 +28,7 @@ class SiteGradebookController: UITableViewController, SitePageController {
         super.viewDidLoad()
         title = "Gradebook"
         tableView.tableFooterView = UIView()
-        view.backgroundColor = UIColor.darkGray
+        view.backgroundColor = Palette.main.primaryBackgroundColor
         
         siteGradebookTableDataSource.delegate = self
         configureNavigationItem()

@@ -14,7 +14,7 @@ class SiteCell: UITableViewCell, ConfigurableCell {
 
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
-        titleLabel.textColor = UIColor.lightText
+        titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
         return titleLabel
     }()
@@ -36,9 +36,9 @@ class SiteCell: UITableViewCell, ConfigurableCell {
     private func setupView() {
         accessoryType = .disclosureIndicator
         selectedBackgroundView = darkSelectedView()
-        selectedBackgroundView?.addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
+        selectedBackgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
         backgroundView = defaultBackgroundView()
-        backgroundView?.addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
+        backgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
 
         contentView.addSubview(titleLabel)
     }

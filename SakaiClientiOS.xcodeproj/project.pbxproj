@@ -102,6 +102,9 @@
 		51910ED621DC5D810079021C /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910ED521DC5D810079021C /* LoginService.swift */; };
 		51910ED821DC614F0079021C /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910ED721DC614F0079021C /* DownloadService.swift */; };
 		51910EDA21DC64560079021C /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910ED921DC64560079021C /* WebService.swift */; };
+		51910EDC21DC902A0079021C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EDB21DC902A0079021C /* NavigationController.swift */; };
+		51910EDF21DC910F0079021C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EDE21DC910F0079021C /* Theme.swift */; };
+		51910EE121DC91470079021C /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EE021DC91470079021C /* Palette.swift */; };
 		5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */; };
 		5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */; };
 		5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357320F44FFE00469FD4 /* SearchableController.swift */; };
@@ -271,6 +274,9 @@
 		51910ED521DC5D810079021C /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		51910ED721DC614F0079021C /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
 		51910ED921DC64560079021C /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		51910EDB21DC902A0079021C /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		51910EDE21DC910F0079021C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		51910EE021DC91470079021C /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageView.swift; sourceTree = "<group>"; };
 		5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageController.swift; sourceTree = "<group>"; };
 		5193357320F44FFE00469FD4 /* SearchableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableController.swift; sourceTree = "<group>"; };
@@ -607,6 +613,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		51910EDD21DC90B30079021C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				51C4B80520AD11F300DD6696 /* AppGlobals.swift */,
+				51910EDE21DC910F0079021C /* Theme.swift */,
+				51910EE021DC91470079021C /* Palette.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		5193356920ED6CF200469FD4 /* Searchable */ = {
 			isa = PBXGroup;
 			children = (
@@ -630,6 +646,8 @@
 			children = (
 				DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */,
 				DE0599FC1DFD93B200D19D17 /* Main.storyboard */,
+				5110C08421DAD1B600579D31 /* TabController.swift */,
+				51910EDB21DC902A0079021C /* NavigationController.swift */,
 				5128311721D15C5E00DB8DA8 /* Animation */,
 				51D5EA1621504A3900D7B85C /* Login */,
 				51835041211E9A49008F2CF2 /* Web */,
@@ -641,7 +659,6 @@
 				5113C12420927D44001929DA /* Gradebook */,
 				5113C12620927D5A001929DA /* Home */,
 				5113C12720927D6C001929DA /* Announcement */,
-				5110C08421DAD1B600579D31 /* TabController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -704,13 +721,13 @@
 			isa = PBXGroup;
 			children = (
 				5118956421194D0500BD86D1 /* SakaiClientiOS.entitlements */,
+				DE0599FF1DFD93B200D19D17 /* Assets.xcassets */,
+				DE059A041DFD93B200D19D17 /* Info.plist */,
+				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
+				51910EDD21DC90B30079021C /* Settings */,
 				51C2D15A20C47FA000E4C901 /* Controllers */,
 				514B623A209569AF001A716C /* Views */,
 				5113C13A209298FF001929DA /* Models */,
-				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
-				DE0599FF1DFD93B200D19D17 /* Assets.xcassets */,
-				DE059A041DFD93B200D19D17 /* Info.plist */,
-				51C4B80520AD11F300DD6696 /* AppGlobals.swift */,
 			);
 			path = SakaiClientiOS;
 			sourceTree = "<group>";
@@ -930,6 +947,7 @@
 				512748C1210D75D700A5A74E /* ResourceTreeManager.swift in Sources */,
 				5113C13720928709001929DA /* AssignmentController.swift in Sources */,
 				5197E6BD2134317F0019DCC9 /* TextViewDelegateExtension.swift in Sources */,
+				51910EDF21DC910F0079021C /* Theme.swift in Sources */,
 				51835043211E9A75008F2CF2 /* WebNavigationController.swift in Sources */,
 				518AC34E2137840300037087 /* LoadingIndicator.swift in Sources */,
 				518903C3210AC3B200C551AE /* ResourceItem.swift in Sources */,
@@ -941,6 +959,7 @@
 				5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */,
 				51C9791220F708B200191DD6 /* SiteDataFetcher.swift in Sources */,
 				5182CBE32139DB7300D45952 /* SitePageElement.swift in Sources */,
+				51910EDC21DC902A0079021C /* NavigationController.swift in Sources */,
 				5129956A21CCEAE600BED3E5 /* CellExtension.swift in Sources */,
 				51C9790C20F6FD2600191DD6 /* HideableDataProvider.swift in Sources */,
 				5113C1202090F7B7001929DA /* RequestManager.swift in Sources */,
@@ -995,6 +1014,7 @@
 				5182CBD42139A49600D45952 /* UserSession.swift in Sources */,
 				5126915521CEEE09004B20E7 /* FilterViewController.swift in Sources */,
 				51910ECC21DC398F0079021C /* TermService.swift in Sources */,
+				51910EE121DC91470079021C /* Palette.swift in Sources */,
 				51DEE56D210527BC008E709D /* HideableTableManager.swift in Sources */,
 				51DEE55B21016B0D008E709D /* TappableTextView.swift in Sources */,
 				518903AE2108154E00C551AE /* SiteAssignmentDataFetcher.swift in Sources */,

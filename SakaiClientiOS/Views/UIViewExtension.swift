@@ -38,6 +38,22 @@ extension UIView {
         return bottomConstraint
     }
 
+    static func constrainChildToTopAndBottomMargins(child: UIView, parent: UIView) -> (NSLayoutConstraint, NSLayoutConstraint) {
+        parent.addSubview(child)
+        let margins = parent.layoutMarginsGuide
+
+        child.translatesAutoresizingMaskIntoConstraints = false
+        child.leadingAnchor.constraint(equalTo: parent.leadingAnchor).isActive = true
+        child.trailingAnchor.constraint(equalTo: parent.trailingAnchor).isActive = true
+
+        let topConstraint = child.topAnchor.constraint(equalTo: margins.topAnchor)
+        topConstraint.isActive = true
+
+        let bottomConstraint = child.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
+        bottomConstraint.isActive = true
+        return (topConstraint, bottomConstraint)
+    }
+
     static func defaultAutoLayoutView<T: UIView>() -> T {
         let view = T(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false

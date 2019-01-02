@@ -21,6 +21,8 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = Palette.main.primaryBackgroundColor
+
         roundButton(button: netIdButton)
         roundButton(button: emailButton)
 
@@ -28,8 +30,12 @@ class LoginController: UIViewController {
     }
 
     private func roundButton(button: UIButton) {
+
+        button.backgroundColor = Palette.main.highlightColor
+        button.titleLabel?.textColor = Palette.main.primaryTextColor
+
         button.layer.cornerRadius = 10
-        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderColor = Palette.main.borderColor.cgColor
         button.layer.borderWidth = 1
         button.layer.masksToBounds = false
     }

@@ -76,7 +76,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
     }
 
     private func setupView() {
-        backgroundColor = AppGlobals.sakaiRed
+        backgroundColor = Palette.main.primaryBackgroundColor
         layer.cornerRadius = 3
         layer.masksToBounds = true
 

@@ -30,7 +30,7 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     
     override func setup() {
         super.setup()
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = Palette.main.primaryBackgroundColor
         collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10)
     }
     

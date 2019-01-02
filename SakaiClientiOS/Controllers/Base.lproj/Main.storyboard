@@ -16,11 +16,10 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="9nx-a2-woP"/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hu3-lw-Ls4">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="hu3-lw-Ls4">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" red="0.7803921568627451" green="0.047058823529411764" blue="0.096773806680000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
@@ -57,7 +56,7 @@
         <!--Gradebook-->
         <scene sceneID="Fkm-K0-3BT">
             <objects>
-                <navigationController title="Gradebook" automaticallyAdjustsScrollViewInsets="NO" id="lVB-xW-D7w" sceneMemberID="viewController">
+                <navigationController title="Gradebook" automaticallyAdjustsScrollViewInsets="NO" id="lVB-xW-D7w" customClass="NavigationController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Gradebook" image="gradebook" id="0Og-T9-bdp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="fwu-CL-9sk">
@@ -91,7 +90,7 @@
         <!--Announcements-->
         <scene sceneID="0iQ-K1-qRS">
             <objects>
-                <navigationController title="Announcements" automaticallyAdjustsScrollViewInsets="NO" id="xOy-Jg-zro" sceneMemberID="viewController">
+                <navigationController title="Announcements" automaticallyAdjustsScrollViewInsets="NO" id="xOy-Jg-zro" customClass="NavigationController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Announcements" image="announcements" id="bjQ-Yb-Iex"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -126,7 +125,7 @@
         <!--Assignments-->
         <scene sceneID="How-ve-hlX">
             <objects>
-                <navigationController title="Assignments" automaticallyAdjustsScrollViewInsets="NO" id="nbo-G7-vlI" sceneMemberID="viewController">
+                <navigationController title="Assignments" automaticallyAdjustsScrollViewInsets="NO" id="nbo-G7-vlI" customClass="NavigationController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Assignments" image="assignments" id="b8h-HD-Bd2"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -161,7 +160,7 @@
         <!--Home-->
         <scene sceneID="VEV-YB-qKo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KBr-vK-S6R" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KBr-vK-S6R" customClass="NavigationController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="l4C-jd-KZb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="dKI-ep-II6">

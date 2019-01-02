@@ -13,7 +13,7 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
 
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
-        titleLabel.textColor = UIColor.lightText
+        titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
         return titleLabel
     }()
@@ -31,8 +31,8 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
     }
 
     private func setupView() {
-        addBorder(toSide: .left, withColor: AppGlobals.sakaiRed, andThickness: 8.0)
-        backgroundColor = UIColor.darkGray//AppGlobals.sakaiRed
+        addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
+        backgroundColor = Palette.main.primaryBackgroundColor
         isHidden = true
 
         contentView.addSubview(titleLabel)

@@ -26,19 +26,19 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        titleLabel.backgroundColor = UIColor.darkGray
-        titleLabel.textColor = UIColor.white
+        titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
+        titleLabel.textColor = Palette.main.primaryTextColor
         titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
-        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 2.5)
+        titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.5)
         return titleLabel
     }()
 
     let dueLabel: InsetUILabel = {
         let dueLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        dueLabel.backgroundColor = UIColor.darkGray
-        dueLabel.textColor = UIColor.lightText
+        dueLabel.backgroundColor = Palette.main.primaryBackgroundColor
+        dueLabel.textColor = Palette.main.secondaryTextColor
         dueLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
-        dueLabel.addBorder(toSide: .top, withColor: AppGlobals.sakaiRed, andThickness: 2.5)
+        dueLabel.addBorder(toSide: .top, withColor: Palette.main.highlightColor, andThickness: 2.5)
         return dueLabel
     }()
 
@@ -46,7 +46,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         let descLabel: UITextView = UIView.defaultAutoLayoutView()
         descLabel.isEditable = false
         descLabel.isSelectable = true
-        descLabel.backgroundColor = UIColor.lightGray
+        descLabel.backgroundColor = Palette.main.secondaryBackgroundColor
         descLabel.textContainerInset = UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
         return descLabel
     }()
@@ -82,7 +82,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
     private func setupView() {
         contentView.layer.borderWidth = 0.5
-        contentView.layer.borderColor = UIColor.lightText.cgColor
+        contentView.layer.borderColor = Palette.main.borderColor.cgColor
         contentView.layer.cornerRadius = AssignmentCell.cornerRadius
         contentView.layer.masksToBounds = true
 

@@ -27,7 +27,7 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Announcements"
-        view.backgroundColor = UIColor.darkGray
+        view.backgroundColor = Palette.main.primaryBackgroundColor
         
         clearsSelectionOnViewWillAppear = true
 

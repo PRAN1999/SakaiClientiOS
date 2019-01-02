@@ -10,11 +10,17 @@ import ReusableSource
 
 /// A cell to display a Resource collection or element
 class ResourceCell: UITableViewCell, ReusableCell {
+
+    static let level1Color = UIColor(red: 199.0 / 256.0, green: 26.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+    static let level2Color = UIColor(red: 199.0 / 256.0, green: 66.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+    static let level3Color = UIColor(red: 199.0 / 256.0, green: 104.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+    static let level4Color = UIColor(red: 199.0 / 256.0, green: 142.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+
     typealias T = ResourceItem
 
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        titleLabel.textColor = UIColor.lightText
+        titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.light)
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
@@ -26,9 +32,9 @@ class ResourceCell: UITableViewCell, ReusableCell {
 
     let sizeLabel: UILabel = {
         let sizeLabel: UILabel = UIView.defaultAutoLayoutView()
-        sizeLabel.backgroundColor = UIColor.lightGray
+        sizeLabel.backgroundColor = Palette.main.secondaryBackgroundColor
         sizeLabel.textAlignment = .center
-        sizeLabel.textColor = UIColor.white
+        sizeLabel.textColor = Palette.main.primaryTextColor
         sizeLabel.layer.masksToBounds = true
         return sizeLabel
     }()
@@ -48,7 +54,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
     }
 
     private func setupView() {
-        backgroundColor = UIColor.darkGray
+        backgroundColor = Palette.main.primaryBackgroundColor
         selectedBackgroundView = darkSelectedView()
 
         contentView.addSubview(titleLabel)
@@ -94,7 +100,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
             if isExpanded {
                 sizeLabel.backgroundColor = getColor(for: level)
             } else {
-                sizeLabel.backgroundColor = UIColor.lightGray
+                sizeLabel.backgroundColor = Palette.main.secondaryBackgroundColor
             }
             break
         case .resource:
@@ -110,13 +116,13 @@ class ResourceCell: UITableViewCell, ReusableCell {
         let mod = level % 4
         switch mod {
         case 0:
-            return UIColor(red: 199.0 / 256.0, green: 26.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+            return ResourceCell.level1Color
         case 1:
-            return UIColor(red: 199.0 / 256.0, green: 66.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+            return ResourceCell.level2Color
         case 2:
-            return UIColor(red: 199.0 / 256.0, green: 104.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+            return ResourceCell.level3Color
         case 3:
-            return UIColor(red: 199.0 / 256.0, green: 142.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+            return ResourceCell.level4Color
         default:
             return UIColor.black
         }
@@ -130,6 +136,6 @@ class ResourceCell: UITableViewCell, ReusableCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        sizeLabel.backgroundColor = UIColor.lightGray
+        sizeLabel.backgroundColor = Palette.main.secondaryBackgroundColor
     }
 }

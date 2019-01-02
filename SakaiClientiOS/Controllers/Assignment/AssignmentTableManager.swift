@@ -36,6 +36,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         tableView.allowsSelection = true
         tableView.sectionHeaderHeight = 0.0;
         tableView.sectionFooterHeight = 0.0;
+        tableView.backgroundColor = Palette.main.primaryBackgroundColor
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

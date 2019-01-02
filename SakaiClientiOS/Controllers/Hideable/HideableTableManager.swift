@@ -24,8 +24,8 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
         if provider.isEmpty(section: indexPath.section) {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
             cell.textLabel?.text = "Looks like there's nothing here"
-            cell.backgroundColor = UIColor.darkGray
-            cell.textLabel?.textColor = UIColor.lightText
+            cell.backgroundColor = Palette.main.primaryBackgroundColor
+            cell.textLabel?.textColor = Palette.main.secondaryTextColor
             return cell
         }
         return super.tableView(tableView, cellForRowAt: indexPath)

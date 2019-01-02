@@ -29,6 +29,7 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
     override func setup() {
         super.setup()
         tableView.tableFooterView = UIView()
+        tableView.backgroundColor = Palette.main.primaryBackgroundColor
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

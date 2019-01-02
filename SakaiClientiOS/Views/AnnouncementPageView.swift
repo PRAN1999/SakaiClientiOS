@@ -17,13 +17,13 @@ class AnnouncementPageView: UIScrollView {
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
-        titleLabel.layer.shadowColor = UIColor.black.cgColor
-        titleLabel.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-        titleLabel.layer.shadowOpacity = 0.5
-        titleLabel.layer.shadowRadius = 2.5
-        titleLabel.layer.masksToBounds = false
-        titleLabel.backgroundColor = UIColor.lightGray.color(withTransparency: 0.5)
-        titleLabel.addBorder(toSide: .bottom, withColor: AppGlobals.sakaiRed, andThickness: 2.0)
+//        titleLabel.layer.shadowColor = UIColor.black.cgColor
+//        titleLabel.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+//        titleLabel.layer.shadowOpacity = 0.5
+//        titleLabel.layer.shadowRadius = 2.5
+//        titleLabel.layer.masksToBounds = false
+        titleLabel.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.5)
+        titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.0)
         return titleLabel
     }()
 
@@ -31,8 +31,8 @@ class AnnouncementPageView: UIScrollView {
         let authorLabel: InsetUILabel = UIView.defaultAutoLayoutView()
         authorLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
         authorLabel.layer.cornerRadius = 0
-        authorLabel.backgroundColor = UIColor.darkGray
-        authorLabel.textColor = UIColor.white
+        authorLabel.backgroundColor = Palette.main.primaryBackgroundColor
+        authorLabel.textColor = Palette.main.primaryTextColor
         return authorLabel
     }()
 
@@ -41,16 +41,16 @@ class AnnouncementPageView: UIScrollView {
         dateLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .light)
         dateLabel.textAlignment = .right
         dateLabel.layer.cornerRadius = 0
-        dateLabel.backgroundColor = UIColor.darkGray
-        dateLabel.textColor = UIColor.lightText
+        dateLabel.backgroundColor = Palette.main.primaryBackgroundColor
+        dateLabel.textColor = Palette.main.secondaryTextColor
         return dateLabel
     }()
 
     let messageView: TappableTextView = {
         let messageView: TappableTextView = UIView.defaultAutoLayoutView()
         messageView.isScrollEnabled = false
-        messageView.backgroundColor = UIColor.darkGray
-        messageView.tintColor = UIColor(red: 70.0 / 256.0, green: 188.0 / 256.0, blue: 222.0 / 256.0, alpha: 1.0)
+        messageView.backgroundColor = Palette.main.primaryBackgroundColor
+        messageView.tintColor = Palette.main.linkColor
         return messageView
     }()
 
@@ -65,7 +65,7 @@ class AnnouncementPageView: UIScrollView {
     }
 
     private func setupView() {
-        backgroundColor = UIColor.darkGray
+        backgroundColor = Palette.main.primaryBackgroundColor
         addSubview(contentView)
 
         contentView.addSubview(titleLabel)
@@ -128,7 +128,7 @@ extension AnnouncementPageView {
         content.addAttribute(.font,
                              value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
                              range: contentRange)
-        content.addAttribute(.foregroundColor, value: UIColor.lightText, range: contentRange)
+        content.addAttribute(.foregroundColor, value: Palette.main.secondaryTextColor, range: contentRange)
         if let attachmentString = getAttachments(resources: resources) {
             content.append(attachmentString)
         }
@@ -145,7 +145,7 @@ extension AnnouncementPageView {
         let description = NSMutableAttributedString(string: "\n\nAttachments: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
         description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
-        description.addAttribute(.foregroundColor, value: UIColor.white, range: descriptionRange)
+        description.addAttribute(.foregroundColor, value: Palette.main.primaryTextColor, range: descriptionRange)
 
         for attachment in attachments {
             let mutableAttachment = NSMutableAttributedString(attributedString: attachment)

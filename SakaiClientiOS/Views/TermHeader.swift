@@ -15,26 +15,25 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
         titleLabel.font = UIFont.systemFont(ofSize: 25.0, weight: .medium)
-        titleLabel.textColor = UIColor.white
+        titleLabel.textColor = Palette.main.primaryTextColor
         return titleLabel
     }()
 
     let imageLabel: UIImageView = {
         let imageLabel: UIImageView = UIView.defaultAutoLayoutView()
-        //imageLabel.tintColor = UIColor.white
         return imageLabel
     }()
 
     let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator: UIActivityIndicatorView = UIView.defaultAutoLayoutView()
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = UIColor.white
+        activityIndicator.color = Palette.main.activityIndicatorColor
         return activityIndicator
     }()
 
     var backgroundHeaderView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = Palette.main.secondaryBackgroundColor
         return view
     }()
 

@@ -46,7 +46,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
 
         siteAssignmentCollectionManager.textViewDelegate = self
         siteAssignmentCollectionManager.delegate = self
-        collectionView?.backgroundColor = UIColor.darkGray
+        collectionView?.backgroundColor = Palette.main.primaryBackgroundColor
 
         configureNavigationItem()
         siteAssignmentCollectionManager.loadDataSource()

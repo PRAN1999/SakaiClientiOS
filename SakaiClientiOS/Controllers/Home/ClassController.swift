@@ -24,7 +24,7 @@ class ClassController: UITableViewController {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         title = "Pages"
-        tableView.backgroundColor = UIColor.darkGray
+        tableView.backgroundColor = Palette.main.primaryBackgroundColor
         tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }

@@ -21,7 +21,7 @@ class WebController: UIViewController {
     private let progressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .default)
         progressView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-        progressView.tintColor = AppGlobals.sakaiRed
+        progressView.tintColor = Palette.main.highlightColor
         return progressView
     }()
 
@@ -213,6 +213,9 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
             openInSafari?(url)
             return
         }
+        if url.absoluteString != self.url?.absoluteString {
+            shouldLoad = true
+        }
         decisionHandler(.allow)
     }
 
@@ -265,7 +268,7 @@ fileprivate extension WebController {
             navigationController?.setNavigationBarHidden(true, animated: true)
             navigationController?.setToolbarHidden(true, animated: true)
         }
-        navigationController?.toolbar.tintColor = AppGlobals.sakaiRed
+        navigationController?.toolbar.tintColor = Palette.main.highlightColor
     }
 
     /// Attach progress bar to navigation bar frame to track webView loads
