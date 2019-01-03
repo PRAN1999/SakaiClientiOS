@@ -32,9 +32,7 @@ class AssignmentController: UITableViewController {
             let pages = PagesController(assignments: assignments, start: row)
             pages.delegate = self.assignmentsTableManager.selectedManager
             self.assignmentsTableManager.selectedManager?.selectedCell?.flip() { [weak self] in
-                self?.hidesBottomBarWhenPushed = true
                 self?.navigationController?.pushViewController(pages, animated: true)
-                self?.hidesBottomBarWhenPushed = false
             }
         }
         assignmentsTableManager.textViewDelegate = self
@@ -112,9 +110,9 @@ extension AssignmentController: Animatable {
 
 extension AssignmentController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if fromVC is AssignmentController {
+        if fromVC is AssignmentController && toVC is PagesController {
             return ExpandPresentAnimationController(resizingDuration: 0.5)
-        } else if toVC is AssignmentController {
+        } else if toVC is AssignmentController && fromVC is PagesController {
             return CollapseDismissAnimationController(resizingDuration: 0.5)
         } else {
             return nil

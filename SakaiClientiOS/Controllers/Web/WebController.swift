@@ -64,6 +64,7 @@ class WebController: UIViewController {
                 return
             }
             let safariController = SFSafariViewController(url: url)
+            self?.shouldLoad = false
             self?.tabBarController?.present(safariController, animated: true, completion: nil)
         }
         dismissWebView = { [weak self] in
@@ -147,13 +148,6 @@ class WebController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
-    override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
-        print("Trying to dismiss from WebController...")
-        if (self.presentedViewController != nil) {
-            super.dismiss(animated: flag, completion: completion)
-        }
-    }
-
     func loadURL(urlOpt: URL?) {
         guard let url = urlOpt else {
             return
@@ -184,17 +178,19 @@ class WebController: UIViewController {
         downloadService.downloadToDocuments(url: url) { [weak self] fileUrl in
             indicator.stopAnimating()
             indicator.removeFromSuperview()
-            self?.navigationItem.leftBarButtonItem?.isEnabled = true
             guard let fileUrl = fileUrl else {
+                self?.navigationItem.leftBarButtonItem?.isEnabled = true
                 return
             }
             guard let button = self?.interactionButton else {
+                self?.navigationItem.leftBarButtonItem?.isEnabled = true
                 return
             }
             self?.interactionController = UIDocumentInteractionController(url: fileUrl)
             DispatchQueue.main.async {
                 self?.interactionController?.presentOpenInMenu(from: button, animated: true)
                 self?.interactionButton.isEnabled = true
+                self?.navigationItem.leftBarButtonItem?.isEnabled = true
             }
         }
     }
@@ -211,7 +207,6 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
         }
         if !url.absoluteString.contains("https") {
             decisionHandler(.cancel)
-            print(url)
             openInSafari?(url)
             return
         }
@@ -281,7 +276,7 @@ fileprivate extension WebController {
         progressView.frame = CGRect(x: 0,
                                     y: navigationBarBounds.size.height - 2,
                                     width: navigationBarBounds.size.width,
-                                    height: 8)
+                                    height: 15)
     }
 
     /// Configure navigation toolbar with webView action buttons

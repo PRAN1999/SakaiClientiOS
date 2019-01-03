@@ -69,7 +69,7 @@ class LoginWebViewController: WebController {
             decisionHandler(.allow)
         }
         group.enter()
-        if webView.url!.absoluteString == AppGlobals.cookieUrl {
+        if webView.url!.absoluteString == LoginConfiguration.cookieUrl {
             let store = webView.configuration.websiteDataStore.httpCookieStore
             store.getAllCookies { [weak self] cookies in
                 for cookie in cookies {
@@ -88,7 +88,7 @@ class LoginWebViewController: WebController {
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationResponse: WKNavigationResponse,
                           decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        if webView.url!.absoluteString == AppGlobals.cookieUrl {
+        if webView.url!.absoluteString == LoginConfiguration.cookieUrl {
             decisionHandler(.cancel)
             loginService.validateLoggedInStatus(
                 onSuccess: { [weak self] in

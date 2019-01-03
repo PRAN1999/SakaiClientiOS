@@ -12,9 +12,6 @@ import ReusableSource
 /// The AssignmentTableManager controls the Assignments for different classes and different Terms.
 /// Whether split by class or term, each cell in the tableView will contain a collection of classes
 /// associated with that class or Term.
-///
-/// So, while selecting the tableView cell will do nothing, the
-/// AssignmentTableManager handles the selection of any Assignment in the collectionView within any cell
 class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
 
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()

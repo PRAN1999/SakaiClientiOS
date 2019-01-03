@@ -92,7 +92,14 @@ class PagesController: UIViewController {
         pageControlView.addSubview(pageControl)
         navigationItem.titleView = pageControlView
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setToolbarHidden(true, animated: false)
+        tabBarController?.dismissPopupBar(animated: true, completion: nil)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
@@ -108,19 +115,8 @@ class PagesController: UIViewController {
             tabBarController.presentPopupBar(withContentViewController: popupController,
                                              animated: true, completion: nil)
         }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
-        tabBarController?.dismissPopupBar(animated: true, completion: nil)
-        navigationController?.setToolbarHidden(true, animated: false)
-    }
-
-    override func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        let res = super.textView(textView, shouldInteractWith: URL, in: characterRange)
-        hidesBottomBarWhenPushed = true
-        return res
+        tabBarController.view.addSubview(tabBarController.popupBar)
+        tabBarController.view.addSubview(tabBarController.popupContentView)
     }
 }
 
@@ -185,6 +181,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         guard let url = URL(string: assignment.siteURL) else {
             return
         }
+        webController.title = assignment.title
         webController.setURL(url: url)
         webController.shouldLoad = true
     }

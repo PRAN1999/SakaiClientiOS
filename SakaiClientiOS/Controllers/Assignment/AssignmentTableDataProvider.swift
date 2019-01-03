@@ -41,9 +41,9 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
         return assignments[section].count
     }
     
-    /// Depending on the type of sort requested, data will either be returned by
-    /// class or by Term, which is achieved by adding together the data of multiple
-    /// classes
+    /// Depending on the type of sort requested, data will either
+    /// be returned by class or by Term, which is achieved by adding
+    /// together the data of multiple classes
     ///
     /// - Parameter indexPath: the indexPath for the cell
     /// - Returns: an Assignment array for a cell

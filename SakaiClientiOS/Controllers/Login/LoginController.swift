@@ -41,13 +41,13 @@ class LoginController: UIViewController {
     }
 
     @IBAction func loginWithNetId(_ sender: Any) {
-        let loginController = LoginWebViewController(loginUrl: AppGlobals.loginUrl)
+        let loginController = LoginWebViewController(loginUrl: LoginConfiguration.loginUrl)
         loginController.onLogin = onLogin
         navigationController?.pushViewController(loginController, animated: true)
     }
     
     @IBAction func loginWithEmail(_ sender: Any) {
-        let loginController = LoginWebViewController(loginUrl: AppGlobals.emailLoginUrl)
+        let loginController = LoginWebViewController(loginUrl: LoginConfiguration.emailLoginUrl)
         loginController.onLogin = onLogin
         navigationController?.pushViewController(loginController, animated: true)
     }
