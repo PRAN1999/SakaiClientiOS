@@ -47,12 +47,12 @@ class LoginWebViewController: WebController {
     override func viewDidLoad() {
         RequestManager.shared.resetCache()
         setURL(url: URL(string: loginUrl))
+        allowsOptions = false
         super.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setToolbarHidden(true, animated: true)
     }
 
     override func didReceiveMemoryWarning() {

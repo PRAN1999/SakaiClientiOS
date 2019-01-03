@@ -21,6 +21,7 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
 
     let imageLabel: UIImageView = {
         let imageLabel: UIImageView = UIView.defaultAutoLayoutView()
+        imageLabel.tintColor = Palette.main.primaryTextColor
         return imageLabel
     }()
 
@@ -44,6 +45,8 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         return tapRecognizer
     }()
 
+    private var centerConstraint: NSLayoutConstraint!
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupView()
@@ -61,6 +64,7 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         addSubview(titleLabel)
         addSubview(imageLabel)
         addSubview(activityIndicator)
+        addBorder(toSide: .bottom, withColor: Palette.main.borderColor, andThickness: 0.5)
         backgroundView = backgroundHeaderView
         addGestureRecognizer(tapRecognizer)
     }
@@ -85,11 +89,9 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         constraint.priority = UILayoutPriority(999)
         addConstraint(constraint)
 
-        imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        imageLabel.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor,
-                                        constant: 5.0).isActive = true
-        imageLabel.bottomAnchor.constraint(lessThanOrEqualTo: margins.bottomAnchor,
-                                           constant: 5.0).isActive = true
+        imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -5.0).isActive = true
+        centerConstraint = imageLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
+        centerConstraint.isActive = true
     }
 
     /// Change the image of the header on tap to indicate a collapsed or expanded section
@@ -98,9 +100,11 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
     func setImage(isHidden: Bool) {
         imageLabel.layer.removeAllAnimations()
         if isHidden {
-            imageLabel.image = UIImage(named: "show_content")
+            imageLabel.image = UIImage(named: "show_content")?.withRenderingMode(.alwaysTemplate)
+            centerConstraint.constant = -5
         } else {
-            imageLabel.image = UIImage(named: "hide_content")
+            imageLabel.image = UIImage(named: "hide_content")?.withRenderingMode(.alwaysTemplate)
+            centerConstraint.constant = 0
         }
     }
 }

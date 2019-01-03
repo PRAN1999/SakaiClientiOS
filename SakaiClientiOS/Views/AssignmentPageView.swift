@@ -18,11 +18,7 @@ class AssignmentPageView: UIScrollView {
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.textAlignment = .left
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-//        titleLabel.layer.shadowColor = UIColor.black.cgColor
-//        titleLabel.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-//        titleLabel.layer.shadowOpacity = 0.5
-//        titleLabel.layer.shadowRadius = 2.5
-//        titleLabel.layer.masksToBounds = false
+        titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.5)
         titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.0)
         return titleLabel
@@ -42,11 +38,6 @@ class AssignmentPageView: UIScrollView {
         let instructionView: TappableTextView = UIView.defaultAutoLayoutView()
         instructionView.isScrollEnabled = false
         instructionView.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.3)
-//        instructionView.layer.shadowColor = UIColor.black.cgColor
-//        instructionView.layer.shadowOffset = CGSize(width: 0.0, height: -3.0)
-//        instructionView.layer.shadowOpacity = 0.5
-//        instructionView.layer.shadowRadius = 2.5
-//        instructionView.layer.masksToBounds = false
         instructionView.contentInset = UIEdgeInsets(top: 2.0, left: 5.0, bottom: 0.0, right: 5.0)
         instructionView.tintColor = Palette.main.linkColor
         instructionView.addBorder(toSide: .top, withColor: Palette.main.highlightColor, andThickness: 1.0)

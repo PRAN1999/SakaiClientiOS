@@ -45,11 +45,12 @@ class WebController: UIViewController {
     private var url: URL?
     private var didInitialize = false
 
-    var shouldLoad: Bool = true
-    var needsNav: Bool = true
+    var shouldLoad = true
+    var allowsOptions = true
 
     /// Manage SFSafariViewController presentation for insecure or non-sakai URL
     var openInSafari: ((URL?) -> Void)?
+    var dismissWebView: (() -> Void)?
 
     private let downloadService: DownloadService
     private let webService: WebService
@@ -64,6 +65,9 @@ class WebController: UIViewController {
             }
             let safariController = SFSafariViewController(url: url)
             self?.tabBarController?.present(safariController, animated: true, completion: nil)
+        }
+        dismissWebView = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
         }
     }
 
@@ -130,9 +134,7 @@ class WebController: UIViewController {
         if shouldLoad && didInitialize {
             loadURL(urlOpt: url)
         }
-        if needsNav {
-            navigationController?.setToolbarHidden(false, animated: true)
-        }
+        navigationController?.setToolbarHidden(false, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
 
@@ -261,14 +263,13 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
 
 fileprivate extension WebController {
     func setupNavBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pop))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                           target: self,
+                                                           action: #selector(pop))
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadWebview))
-        if !needsNav {
-            navigationController?.setNavigationBarHidden(true, animated: true)
-            navigationController?.setToolbarHidden(true, animated: true)
-        }
-        navigationController?.toolbar.tintColor = Palette.main.highlightColor
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
+                                                            target: self,
+                                                            action: #selector(loadWebview))
     }
 
     /// Attach progress bar to navigation bar frame to track webView loads
@@ -289,7 +290,10 @@ fileprivate extension WebController {
         forwardButton.target = self; forwardButton.action = #selector(goForward)
         interactionButton.target = self; interactionButton.action = #selector(presentDownloadOption)
 
-        let arr: [UIBarButtonItem] = [backButton, flexButton, interactionButton, flexButton, forwardButton]
+        var arr: [UIBarButtonItem] = [backButton, flexButton, forwardButton, flexButton, flexButton, flexButton]
+        if allowsOptions {
+            arr.append(interactionButton)
+        }
         setToolbarItems(arr, animated: true)
     }
 
@@ -328,7 +332,7 @@ extension WebController {
     }
 
     @objc func pop() {
-        navigationController?.popViewController(animated: true)
+        dismissWebView?()
     }
 
     @objc func presentDownloadOption() {

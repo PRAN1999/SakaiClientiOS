@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UITableViewCell {
-    func darkSelectedView() -> UIView {
+    func selectedView() -> UIView {
         let view = UIView()
         view.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.5)
         return view

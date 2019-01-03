@@ -32,10 +32,12 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
         super.setup()
         collectionView.backgroundColor = Palette.main.primaryBackgroundColor
         collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10)
+        collectionView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size:CGSize = CGSize(width: collectionView.bounds.width / 2.25, height: collectionView.frame.height / 2.8)
+        let height: CGFloat = 280 * 0.7
+        let size: CGSize = CGSize(width: collectionView.bounds.width / 2.25, height: height)
         return size
     }
 }

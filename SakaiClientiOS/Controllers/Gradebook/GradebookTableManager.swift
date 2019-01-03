@@ -43,6 +43,8 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
         headerCell.tapRecognizer.delegate = self
         headerCell.tapRecognizer.addTarget(self, action: #selector(toggleCurrentClass(sender:)))
         tableView.backgroundColor = Palette.main.primaryBackgroundColor
+        tableView.separatorColor = Palette.main.tableViewSeparatorColor
+        tableView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
         tableView.addSubview(headerCell)
     }
     

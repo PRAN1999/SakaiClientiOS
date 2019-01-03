@@ -13,8 +13,12 @@ class NavigationController: UINavigationController {
         super.viewDidLoad()
         navigationBar.tintColor = Palette.main.navigationTintColor
         navigationBar.barStyle = Palette.main.barStyle
-        navigationBar.titleTextAttributes?.updateValue(Palette.main.navigationTitleColor, forKey: .foregroundColor)
-        //navigationBar.isTranslucent = true
+        navigationBar.barTintColor = Palette.main.navigationBackgroundColor
+        navigationBar.titleTextAttributes?.updateValue(Palette.main.navigationTitleColor,
+                                                       forKey: .foregroundColor)
+        toolbar.tintColor = Palette.main.navigationTintColor
+        toolbar.barStyle = Palette.main.barStyle
+        toolbar.barTintColor = Palette.main.tabBarBackgroundColor
     }
 
 }

@@ -46,7 +46,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         let descLabel: UITextView = UIView.defaultAutoLayoutView()
         descLabel.isEditable = false
         descLabel.isSelectable = true
-        descLabel.backgroundColor = Palette.main.secondaryBackgroundColor
+        descLabel.backgroundColor = Palette.main.tertiaryBackgroundColor
         descLabel.textContainerInset = UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
         return descLabel
     }()
@@ -81,13 +81,11 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     }
 
     private func setupView() {
-        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderWidth = 0.4
         contentView.layer.borderColor = Palette.main.borderColor.cgColor
         contentView.layer.cornerRadius = AssignmentCell.cornerRadius
         contentView.layer.masksToBounds = true
 
-        layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.main.scale
         layer.shadowColor = UIColor.black.cgColor
         let shadowPath = UIBezierPath(roundedRect: bounds,
                                       byRoundingCorners: [.bottomRight, .bottomLeft, .topRight],

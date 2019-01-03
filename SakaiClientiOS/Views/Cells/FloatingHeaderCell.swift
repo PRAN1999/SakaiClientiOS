@@ -31,7 +31,7 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
     }
 
     private func setupView() {
-        addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
+        contentView.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
         backgroundColor = Palette.main.primaryBackgroundColor
         isHidden = true
 

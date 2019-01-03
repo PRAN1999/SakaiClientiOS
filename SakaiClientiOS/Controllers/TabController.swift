@@ -20,7 +20,6 @@ class TabController: UITabBarController {
         tabBar.barStyle = Palette.main.barStyle
         tabBar.unselectedItemTintColor = Palette.main.tabBarUnselectedTintColor
         tabBar.backgroundColor = Palette.main.tabBarBackgroundColor
-        // Do any additional setup after loading the view.
     }
 
     override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {

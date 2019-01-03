@@ -38,8 +38,8 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
     }
 
     private func setupView() {
-        backgroundColor = Palette.main.tertiaryBackgroundColor
-        selectedBackgroundView = darkSelectedView()
+        backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.3)
+        selectedBackgroundView = selectedView()
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(gradeLabel)

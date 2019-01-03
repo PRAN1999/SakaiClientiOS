@@ -37,6 +37,8 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         tableView.sectionHeaderHeight = 0.0;
         tableView.sectionFooterHeight = 0.0;
         tableView.backgroundColor = Palette.main.primaryBackgroundColor
+        tableView.separatorColor = Palette.main.tableViewSeparatorColor
+        tableView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,7 +50,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
                 cell.configure(item, at: indexPath)
             }
             if provider.dateSorted {
-                cell.titleLabel.titleLabel.text = "All Assignments"
+                cell.titleLabel.text = "All Assignments"
             }
             return cell
         }
@@ -57,7 +59,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     
     override func configureBehavior(for cell: AssignmentTableCell, at indexPath: IndexPath) {
         if provider.dateSorted {
-            cell.titleLabel.titleLabel.text = "All Assignments"
+            cell.titleLabel.text = "All Assignments"
         }
 
         selectedManager = cell.manager
@@ -84,6 +86,10 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     }
 
     func toggleSite(at indexPath: IndexPath) {
+        if provider.isEmpty(section: indexPath.section) {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
         var arr: [IndexPath] = [indexPath]
         if let old = oldIndexPath {
             if old == indexPath {

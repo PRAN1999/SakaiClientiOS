@@ -17,13 +17,15 @@ class WebViewNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.tintColor = Palette.main.navigationTintColor
-        self.navigationBar.barStyle = .black
-        self.toolbar.tintColor = Palette.main.navigationTintColor
+        navigationBar.tintColor = Palette.main.navigationTintColor
+        navigationBar.barTintColor = Palette.main.navigationBackgroundColor
+        navigationBar.barStyle = Palette.main.barStyle
+        toolbar.tintColor = Palette.main.navigationTintColor
+        toolbar.barStyle = Palette.main.barStyle
+        toolbar.barTintColor = Palette.main.tabBarBackgroundColor
     }
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
-        print("Trying to dismiss...")
         if (self.presentedViewController != nil) {
             super.dismiss(animated: flag, completion: completion)
         }

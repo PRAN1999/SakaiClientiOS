@@ -19,7 +19,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         titleLabel.layer.cornerRadius = 0
         titleLabel.layer.masksToBounds = false
         titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
-        titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
+        titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
         return titleLabel
     }()
 
@@ -28,6 +28,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = Palette.main.primaryBackgroundColor
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
         return collectionView
     }()
 
@@ -44,10 +45,9 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     }
 
     private func setupView() {
-        contentView.backgroundColor = Palette.main.primaryBackgroundColor
+        backgroundColor = Palette.main.primaryBackgroundColor
 
-        selectedBackgroundView = darkSelectedView()
-        selectedBackgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
+        selectedBackgroundView = selectedView()
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionView)

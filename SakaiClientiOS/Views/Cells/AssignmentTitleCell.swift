@@ -18,8 +18,7 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
         titleLabel.titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.layer.cornerRadius = 0
         titleLabel.layer.masksToBounds = false
-        titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
-        titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
+        titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
         return titleLabel
     }()
 
@@ -34,8 +33,9 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
     }
 
     private func setupView() {
-        selectedBackgroundView = darkSelectedView()
-        selectedBackgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
+        backgroundColor = Palette.main.primaryBackgroundColor
+        selectedBackgroundView = selectedView()
+        selectedBackgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
 
         contentView.addSubview(titleLabel)
     }
@@ -57,8 +57,7 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
         guard item.count > 0 else {
             return
         }
-        let siteId = item[0].siteId
-        let title = SakaiService.shared.siteTitleMap[siteId]
+        let title = item[0].siteTitle
         titleLabel.text = title
     }
 }

@@ -105,6 +105,7 @@
 		51910EDC21DC902A0079021C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EDB21DC902A0079021C /* NavigationController.swift */; };
 		51910EDF21DC910F0079021C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EDE21DC910F0079021C /* Theme.swift */; };
 		51910EE121DC91470079021C /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EE021DC91470079021C /* Palette.swift */; };
+		51910EE521DD35250079021C /* AppGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EE421DD35250079021C /* AppGlobals.swift */; };
 		5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */; };
 		5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */; };
 		5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357320F44FFE00469FD4 /* SearchableController.swift */; };
@@ -124,7 +125,7 @@
 		51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */; };
 		51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F720A8CAC400DD6696 /* GradeItem.swift */; };
 		51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7F920A9247C00DD6696 /* DefaultController.swift */; };
-		51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B80520AD11F300DD6696 /* AppGlobals.swift */; };
+		51C4B80620AD11F300DD6696 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B80520AD11F300DD6696 /* AppColors.swift */; };
 		51C9790C20F6FD2600191DD6 /* HideableDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C9790B20F6FD2600191DD6 /* HideableDataProvider.swift */; };
 		51C9791220F708B200191DD6 /* SiteDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C9791120F708B200191DD6 /* SiteDataFetcher.swift */; };
 		51C9791520F81A3E00191DD6 /* GradebookDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C9791420F81A3E00191DD6 /* GradebookDataProvider.swift */; };
@@ -277,6 +278,7 @@
 		51910EDB21DC902A0079021C /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		51910EDE21DC910F0079021C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		51910EE021DC91470079021C /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		51910EE421DD35250079021C /* AppGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobals.swift; sourceTree = "<group>"; };
 		5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageView.swift; sourceTree = "<group>"; };
 		5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageController.swift; sourceTree = "<group>"; };
 		5193357320F44FFE00469FD4 /* SearchableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableController.swift; sourceTree = "<group>"; };
@@ -297,7 +299,7 @@
 		51C4B7F320A8BBF800DD6696 /* GradebookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookCell.swift; sourceTree = "<group>"; };
 		51C4B7F720A8CAC400DD6696 /* GradeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItem.swift; sourceTree = "<group>"; };
 		51C4B7F920A9247C00DD6696 /* DefaultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultController.swift; sourceTree = "<group>"; };
-		51C4B80520AD11F300DD6696 /* AppGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobals.swift; sourceTree = "<group>"; };
+		51C4B80520AD11F300DD6696 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		51C9790B20F6FD2600191DD6 /* HideableDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableDataProvider.swift; sourceTree = "<group>"; };
 		51C9791120F708B200191DD6 /* SiteDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteDataFetcher.swift; sourceTree = "<group>"; };
 		51C9791420F81A3E00191DD6 /* GradebookDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradebookDataProvider.swift; sourceTree = "<group>"; };
@@ -616,7 +618,7 @@
 		51910EDD21DC90B30079021C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				51C4B80520AD11F300DD6696 /* AppGlobals.swift */,
+				51C4B80520AD11F300DD6696 /* AppColors.swift */,
 				51910EDE21DC910F0079021C /* Theme.swift */,
 				51910EE021DC91470079021C /* Palette.swift */,
 			);
@@ -679,6 +681,7 @@
 		51D5EA1621504A3900D7B85C /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				51910EE421DD35250079021C /* AppGlobals.swift */,
 				51D5EA1721504CB800D7B85C /* Login.storyboard */,
 				51D5EA1221504A2300D7B85C /* LoginWebViewController.swift */,
 				51D5EA1421504A3300D7B85C /* LoginController.swift */,
@@ -975,7 +978,7 @@
 				514B623C209569FE001A716C /* TermHeader.swift in Sources */,
 				5197E6C521349AE00019DCC9 /* ChatRoomView.swift in Sources */,
 				5182CBEE213A1A7400D45952 /* SakaiEndpoint.swift in Sources */,
-				51C4B80620AD11F300DD6696 /* AppGlobals.swift in Sources */,
+				51C4B80620AD11F300DD6696 /* AppColors.swift in Sources */,
 				511114AC20D6CD440077F872 /* WebController.swift in Sources */,
 				515D12132194C59D00048D2C /* AssignmentTitleCell.swift in Sources */,
 				5182CBF6213A24FA00D45952 /* ResourceCollection.swift in Sources */,
@@ -1036,6 +1039,7 @@
 				51DEE55E21017CB8008E709D /* SiteAnnouncementController.swift in Sources */,
 				5129956821CCDB1C00BED3E5 /* UIColorExtension.swift in Sources */,
 				5111149A20CD89D20077F872 /* Assignment.swift in Sources */,
+				51910EE521DD35250079021C /* AppGlobals.swift in Sources */,
 				518AC35021379DC100037087 /* NetworkSourceDelegateExtension.swift in Sources */,
 				5182CBCE2138464900D45952 /* GradebookTableManager.swift in Sources */,
 				51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */,

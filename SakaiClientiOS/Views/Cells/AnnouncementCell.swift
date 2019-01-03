@@ -48,7 +48,7 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
 
     private func setupView() {
         //selectionStyle = .gray
-        selectedBackgroundView = darkSelectedView()
+        selectedBackgroundView = selectedView()
         backgroundColor = Palette.main.primaryBackgroundColor
 
         contentView.addSubview(authorLabel)

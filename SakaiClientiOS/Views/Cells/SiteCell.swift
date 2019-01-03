@@ -35,10 +35,12 @@ class SiteCell: UITableViewCell, ConfigurableCell {
 
     private func setupView() {
         accessoryType = .disclosureIndicator
-        selectedBackgroundView = darkSelectedView()
-        selectedBackgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
+
+        backgroundColor = Palette.main.primaryBackgroundColor
+        selectedBackgroundView = selectedView()
+        selectedBackgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
         backgroundView = defaultBackgroundView()
-        backgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 8.0)
+        backgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
 
         contentView.addSubview(titleLabel)
     }

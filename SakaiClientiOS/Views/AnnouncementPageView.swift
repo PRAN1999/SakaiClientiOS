@@ -17,11 +17,7 @@ class AnnouncementPageView: UIScrollView {
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
-//        titleLabel.layer.shadowColor = UIColor.black.cgColor
-//        titleLabel.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-//        titleLabel.layer.shadowOpacity = 0.5
-//        titleLabel.layer.shadowRadius = 2.5
-//        titleLabel.layer.masksToBounds = false
+        titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.5)
         titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.0)
         return titleLabel

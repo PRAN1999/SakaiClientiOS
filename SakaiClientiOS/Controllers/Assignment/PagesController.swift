@@ -15,7 +15,7 @@ class PagesController: UIViewController {
     private let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.currentPageIndicatorTintColor = Palette.main.highlightColor
-        pageControl.pageIndicatorTintColor = Palette.main.primaryBackgroundColor
+        pageControl.pageIndicatorTintColor = Palette.main.pageIndicatorTintColor
         return pageControl
     }()
 
@@ -24,7 +24,12 @@ class PagesController: UIViewController {
 
     // Even when the current Assignment changes, the popup controller instance will
     // be the same but the popup URL will change
-    private let webController = WebController()
+    private let webController: WebController = {
+        let webController = WebController()
+        webController.allowsOptions = false
+        return webController
+    }()
+    
     private lazy var popupController = WebViewNavigationController(rootViewController: webController)
     private let submitPopupBarController = SubmitPopupBarController()
 
@@ -65,6 +70,9 @@ class PagesController: UIViewController {
 
         // Configure the LNPopupController instance for the NavigationController
         setPopupURL(viewControllerIndex: start)
+        webController.dismissWebView = { [weak self] in
+            self?.tabBarController?.closePopup(animated: true, completion: nil)
+        }
 
         tabBarController?.popupInteractionStyle = .default
         tabBarController?.popupBar.backgroundStyle = .regular
@@ -178,7 +186,6 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
             return
         }
         webController.setURL(url: url)
-        webController.needsNav = false
         webController.shouldLoad = true
     }
 }

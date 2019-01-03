@@ -11,6 +11,7 @@ import UIKit
 struct Palette {
     let navigationTintColor: UIColor
     let navigationTitleColor: UIColor
+    let navigationBackgroundColor: UIColor
 
     let tabBarTintColor: UIColor
     let tabBarUnselectedTintColor: UIColor
@@ -18,6 +19,8 @@ struct Palette {
 
     let barStyle: UIBarStyle
     let highlightColor: UIColor
+    let tableViewSeparatorColor: UIColor
+    let scrollViewIndicatorStyle: UIScrollViewIndicatorStyle
 
     let primaryTextColor: UIColor
     let secondaryTextColor: UIColor
@@ -31,6 +34,7 @@ struct Palette {
     let blurStyle: UIBlurEffectStyle
 
     let linkColor: UIColor
+    let pageIndicatorTintColor: UIColor
 }
 
 extension Palette {

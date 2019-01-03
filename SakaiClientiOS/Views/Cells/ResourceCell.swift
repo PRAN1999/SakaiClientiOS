@@ -55,7 +55,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
 
     private func setupView() {
         backgroundColor = Palette.main.primaryBackgroundColor
-        selectedBackgroundView = darkSelectedView()
+        selectedBackgroundView = selectedView()
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(leftBorder)
