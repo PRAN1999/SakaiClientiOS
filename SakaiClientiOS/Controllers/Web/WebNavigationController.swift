@@ -20,7 +20,7 @@ class WebViewNavigationController: UINavigationController {
         navigationBar.tintColor = Palette.main.navigationTintColor
         navigationBar.barTintColor = Palette.main.navigationBackgroundColor
         navigationBar.barStyle = Palette.main.barStyle
-        toolbar.tintColor = Palette.main.navigationTintColor
+        toolbar.tintColor = Palette.main.toolBarColor
         toolbar.barStyle = Palette.main.barStyle
         toolbar.barTintColor = Palette.main.tabBarBackgroundColor
     }

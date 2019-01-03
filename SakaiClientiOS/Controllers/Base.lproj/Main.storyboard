@@ -37,11 +37,12 @@
                         <segue destination="xOy-Jg-zro" kind="relationship" relationship="viewControllers" id="Mk7-IU-wgP"/>
                         <segue destination="lVB-xW-D7w" kind="relationship" relationship="viewControllers" id="WsG-9l-k0m"/>
                         <segue destination="nbo-G7-vlI" kind="relationship" relationship="viewControllers" id="GzN-0k-Ec7"/>
+                        <segue destination="YUo-5W-PhK" kind="relationship" relationship="viewControllers" id="rCp-pl-Bk7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBD-Df-xe1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1519" y="-219"/>
+            <point key="canvasLocation" x="-1644" y="139"/>
         </scene>
         <!--HomeView-->
         <scene sceneID="bVW-8i-Sof">
@@ -147,6 +148,37 @@
             </objects>
             <point key="canvasLocation" x="318" y="834"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="Lje-qz-lkt">
+            <objects>
+                <navigationController title="Settings" id="YUo-5W-PhK" customClass="NavigationController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="5iZ-yS-4bm"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s4m-uV-Aao">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.78039215689999997" green="0.047058823530000002" blue="0.096773806680000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="23"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="mRj-I6-pfp" kind="relationship" relationship="rootViewController" id="oSF-pz-M8m"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vni-1y-vcj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="318" y="1616"/>
+        </scene>
+        <!--SettingsView-->
+        <scene sceneID="RSU-fm-S4T">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SettingsView" id="mRj-I6-pfp" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="cj5-JP-jDb"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MbT-dS-IvM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1096" y="1585"/>
+        </scene>
         <!--AssignmentView-->
         <scene sceneID="uFK-Ud-Jlm">
             <objects>
@@ -190,5 +222,6 @@
         <image name="assignments" width="50" height="50"/>
         <image name="gradebook" width="50" height="50"/>
         <image name="home" width="50" height="50"/>
+        <image name="settings" width="50" height="50"/>
     </resources>
 </document>

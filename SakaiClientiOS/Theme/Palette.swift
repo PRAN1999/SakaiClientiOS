@@ -12,6 +12,7 @@ class Palette {
     let navigationTintColor: UIColor
     let navigationTitleColor: UIColor
     let navigationBackgroundColor: UIColor
+    let toolBarColor: UIColor
 
     let tabBarTintColor: UIColor
     let tabBarUnselectedTintColor: UIColor
@@ -40,6 +41,7 @@ class Palette {
         navigationTintColor: UIColor,
         navigationTitleColor: UIColor,
         navigationBackgroundColor: UIColor,
+        toolBarColor: UIColor,
         tabBarTintColor: UIColor,
         tabBarUnselectedTintColor: UIColor,
         tabBarBackgroundColor: UIColor,
@@ -61,6 +63,7 @@ class Palette {
         self.navigationTintColor = navigationTintColor
         self.navigationTitleColor = navigationTitleColor
         self.navigationBackgroundColor = navigationBackgroundColor
+        self.toolBarColor = toolBarColor
         self.tabBarTintColor = tabBarTintColor
         self.tabBarUnselectedTintColor = tabBarUnselectedTintColor
         self.tabBarBackgroundColor = tabBarBackgroundColor
