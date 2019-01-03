@@ -116,11 +116,14 @@ class PagesController: UIViewController {
         if tabBarController.shouldOpenPopup {
             webController.shouldLoad = false
             tabBarController.presentPopupBar(withContentViewController: popupController,
-                                             openPopup: true, animated: true, completion: nil)
+                                             openPopup: true,
+                                             animated: true,
+                                             completion: nil)
             tabBarController.shouldOpenPopup = false
         } else {
             tabBarController.presentPopupBar(withContentViewController: popupController,
-                                             animated: true, completion: nil)
+                                             animated: true,
+                                             completion: nil)
         }
         tabBarController.view.addSubview(tabBarController.popupBar)
         tabBarController.view.addSubview(tabBarController.popupContentView)

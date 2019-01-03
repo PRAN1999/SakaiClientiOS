@@ -15,6 +15,7 @@ enum Theme {
     private static let darkPalette = Palette(navigationTintColor: UIColor.sakaiTint,
                                              navigationTitleColor: UIColor.white,
                                              navigationBackgroundColor: UIColor(white: 0.08, alpha: 1.0),
+                                             toolBarColor: UIColor.white,
                                              tabBarTintColor: UIColor.sakaiTint,
                                              tabBarUnselectedTintColor: UIColor.white,
                                              tabBarBackgroundColor: UIColor.black.color(withTransparency: 0.7),
