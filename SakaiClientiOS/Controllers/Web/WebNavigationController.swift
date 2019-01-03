@@ -24,10 +24,4 @@ class WebViewNavigationController: UINavigationController {
         toolbar.barStyle = Palette.main.barStyle
         toolbar.barTintColor = Palette.main.tabBarBackgroundColor
     }
-
-    override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
-        if (self.presentedViewController != nil) {
-            super.dismiss(animated: flag, completion: completion)
-        }
-    }
 }

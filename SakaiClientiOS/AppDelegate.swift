@@ -141,6 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RequestManager.shared.reset()
         SakaiService.shared.reset()
         let rootController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController
+        rootController?.dismiss(animated: false, completion: nil)
         rootController?.selectedIndex = 0
         let navigationControllers = rootController?.viewControllers as? [UINavigationController]
         navigationControllers?.forEach{ nav in

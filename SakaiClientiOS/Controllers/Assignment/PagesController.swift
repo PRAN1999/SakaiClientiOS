@@ -61,7 +61,6 @@ class PagesController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        (tabBarController as? TabController)?.popupController = webController
 
         let pageView = pageController.view!
         let (top, bottom) = UIView.constrainChildToTopAndBottomMargins(child: pageView, parent: view)
@@ -92,13 +91,28 @@ class PagesController: UIViewController {
         pageControlView.addSubview(pageControl)
         navigationItem.titleView = pageControlView
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setToolbarHidden(true, animated: false)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
+        guard let tabBarController = tabBarController as? TabController else {
+            return
+        }
+        if tabBarController.isMovingToNewTabFromPages {
+            tabBarController.isMovingToNewTabFromPages = false
+            return
+        }
+        tabBarController.dismissPopupBar(animated: true, completion: nil)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
         guard let tabBarController = tabBarController as? TabController else {
             return
         }
+        tabBarController.popupController = popupController
         if tabBarController.shouldOpenPopup {
             webController.shouldLoad = false
             tabBarController.presentPopupBar(withContentViewController: popupController,
@@ -108,19 +122,8 @@ class PagesController: UIViewController {
             tabBarController.presentPopupBar(withContentViewController: popupController,
                                              animated: true, completion: nil)
         }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
-        tabBarController?.dismissPopupBar(animated: true, completion: nil)
-        navigationController?.setToolbarHidden(true, animated: false)
-    }
-
-    override func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        let res = super.textView(textView, shouldInteractWith: URL, in: characterRange)
-        hidesBottomBarWhenPushed = true
-        return res
+        tabBarController.view.addSubview(tabBarController.popupBar)
+        tabBarController.view.addSubview(tabBarController.popupContentView)
     }
 }
 
@@ -185,6 +188,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         guard let url = URL(string: assignment.siteURL) else {
             return
         }
+        webController.title = assignment.title
         webController.setURL(url: url)
         webController.shouldLoad = true
     }

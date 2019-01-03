@@ -8,13 +8,15 @@
 import UIKit
 import LNPopupController
 
-class TabController: UITabBarController {
+class TabController: UITabBarController, UITabBarControllerDelegate {
 
     weak var popupController: UIViewController?
     var shouldOpenPopup = false
+    var isMovingToNewTabFromPages = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        delegate = self
         tabBar.tintColor = Palette.main.tabBarTintColor
         tabBar.isTranslucent = true
         tabBar.barStyle = Palette.main.barStyle
@@ -28,5 +30,25 @@ class TabController: UITabBarController {
             shouldOpenPopup = true
         }
         super.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        let fromNav = selectedViewController as? UINavigationController
+        let index = selectedIndex
+        guard let itemIndex = tabBar.items?.index(of: item) else {
+            return
+        }
+        let toNav = viewControllers?[itemIndex] as? UINavigationController
+        if index == itemIndex && fromNav?.viewControllers.first is HomeController {
+            dismissPopupBar(animated: true, completion: nil)
+            fromNav?.popToRootViewController(animated: true)
+            fromNav?.interactivePopGestureRecognizer?.isEnabled = true
+        } else if index != itemIndex && fromNav?.viewControllers.last is PagesController {
+            isMovingToNewTabFromPages = true
+            if toNav?.viewControllers.last is PagesController {
+                return
+            }
+            dismissPopupBar(animated: true, completion: nil)
+        }
     }
 }

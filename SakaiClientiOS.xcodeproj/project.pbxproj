@@ -105,7 +105,7 @@
 		51910EDC21DC902A0079021C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EDB21DC902A0079021C /* NavigationController.swift */; };
 		51910EDF21DC910F0079021C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EDE21DC910F0079021C /* Theme.swift */; };
 		51910EE121DC91470079021C /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EE021DC91470079021C /* Palette.swift */; };
-		51910EE521DD35250079021C /* AppGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EE421DD35250079021C /* AppGlobals.swift */; };
+		51910EE721DDA9B40079021C /* LoginConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51910EE621DDA9B40079021C /* LoginConfiguration.swift */; };
 		5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */; };
 		5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */; };
 		5193357420F44FFE00469FD4 /* SearchableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193357320F44FFE00469FD4 /* SearchableController.swift */; };
@@ -278,7 +278,7 @@
 		51910EDB21DC902A0079021C /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		51910EDE21DC910F0079021C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		51910EE021DC91470079021C /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
-		51910EE421DD35250079021C /* AppGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobals.swift; sourceTree = "<group>"; };
+		51910EE621DDA9B40079021C /* LoginConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginConfiguration.swift; sourceTree = "<group>"; };
 		5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageView.swift; sourceTree = "<group>"; };
 		5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementPageController.swift; sourceTree = "<group>"; };
 		5193357320F44FFE00469FD4 /* SearchableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableController.swift; sourceTree = "<group>"; };
@@ -615,14 +615,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		51910EDD21DC90B30079021C /* Settings */ = {
+		51910EDD21DC90B30079021C /* Design */ = {
 			isa = PBXGroup;
 			children = (
 				51C4B80520AD11F300DD6696 /* AppColors.swift */,
 				51910EDE21DC910F0079021C /* Theme.swift */,
 				51910EE021DC91470079021C /* Palette.swift */,
 			);
-			path = Settings;
+			path = Design;
 			sourceTree = "<group>";
 		};
 		5193356920ED6CF200469FD4 /* Searchable */ = {
@@ -681,7 +681,7 @@
 		51D5EA1621504A3900D7B85C /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				51910EE421DD35250079021C /* AppGlobals.swift */,
+				51910EE621DDA9B40079021C /* LoginConfiguration.swift */,
 				51D5EA1721504CB800D7B85C /* Login.storyboard */,
 				51D5EA1221504A2300D7B85C /* LoginWebViewController.swift */,
 				51D5EA1421504A3300D7B85C /* LoginController.swift */,
@@ -727,7 +727,7 @@
 				DE0599FF1DFD93B200D19D17 /* Assets.xcassets */,
 				DE059A041DFD93B200D19D17 /* Info.plist */,
 				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
-				51910EDD21DC90B30079021C /* Settings */,
+				51910EDD21DC90B30079021C /* Design */,
 				51C2D15A20C47FA000E4C901 /* Controllers */,
 				514B623A209569AF001A716C /* Views */,
 				5113C13A209298FF001929DA /* Models */,
@@ -1039,8 +1039,8 @@
 				51DEE55E21017CB8008E709D /* SiteAnnouncementController.swift in Sources */,
 				5129956821CCDB1C00BED3E5 /* UIColorExtension.swift in Sources */,
 				5111149A20CD89D20077F872 /* Assignment.swift in Sources */,
-				51910EE521DD35250079021C /* AppGlobals.swift in Sources */,
 				518AC35021379DC100037087 /* NetworkSourceDelegateExtension.swift in Sources */,
+				51910EE721DDA9B40079021C /* LoginConfiguration.swift in Sources */,
 				5182CBCE2138464900D45952 /* GradebookTableManager.swift in Sources */,
 				51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */,
 				512748C3210D7B9C00A5A74E /* ResourceDataFetcher.swift in Sources */,
