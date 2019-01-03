@@ -12,6 +12,7 @@ class TabController: UITabBarController, UITabBarControllerDelegate {
 
     weak var popupController: UIViewController?
     var shouldOpenPopup = false
+    var isMovingToNewTabFromPages = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +33,22 @@ class TabController: UITabBarController, UITabBarControllerDelegate {
     }
 
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        let navController = selectedViewController as? UINavigationController
+        let fromNav = selectedViewController as? UINavigationController
         let index = selectedIndex
-        let itemIndex = tabBar.items?.index(of: item)
-        if index == itemIndex && navController?.viewControllers.first is HomeController {
+        guard let itemIndex = tabBar.items?.index(of: item) else {
+            return
+        }
+        let toNav = viewControllers?[itemIndex] as? UINavigationController
+        if index == itemIndex && fromNav?.viewControllers.first is HomeController {
             dismissPopupBar(animated: true, completion: nil)
-            navController?.popToRootViewController(animated: true)
-            navController?.interactivePopGestureRecognizer?.isEnabled = true
+            fromNav?.popToRootViewController(animated: true)
+            fromNav?.interactivePopGestureRecognizer?.isEnabled = true
+        } else if index != itemIndex && fromNav?.viewControllers.last is PagesController {
+            isMovingToNewTabFromPages = true
+            if toNav?.viewControllers.last is PagesController {
+                return
+            }
+            dismissPopupBar(animated: true, completion: nil)
         }
     }
 }

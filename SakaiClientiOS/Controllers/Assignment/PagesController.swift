@@ -61,7 +61,6 @@ class PagesController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        (tabBarController as? TabController)?.popupController = webController
 
         let pageView = pageController.view!
         let (top, bottom) = UIView.constrainChildToTopAndBottomMargins(child: pageView, parent: view)
@@ -96,8 +95,15 @@ class PagesController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setToolbarHidden(true, animated: false)
-        tabBarController?.dismissPopupBar(animated: true, completion: nil)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
+        guard let tabBarController = tabBarController as? TabController else {
+            return
+        }
+        if tabBarController.isMovingToNewTabFromPages {
+            tabBarController.isMovingToNewTabFromPages = false
+            return
+        }
+        tabBarController.dismissPopupBar(animated: true, completion: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -106,6 +112,7 @@ class PagesController: UIViewController {
         guard let tabBarController = tabBarController as? TabController else {
             return
         }
+        tabBarController.popupController = popupController
         if tabBarController.shouldOpenPopup {
             webController.shouldLoad = false
             tabBarController.presentPopupBar(withContentViewController: popupController,
