@@ -20,6 +20,8 @@ class AnnouncementPageView: UIScrollView {
         titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.5)
         titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.0)
+        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.masksToBounds = false
         return titleLabel
     }()
 
@@ -113,6 +115,9 @@ extension AnnouncementPageView {
         dateLabel.titleLabel.text = announcement.dateString
         let resourceStrings = announcement.attachments?.map { $0.toAttributedString() }
         setMessage(attributedText: announcement.attributedContent, resources: resourceStrings)
+        if let code = announcement.subjectCode {
+            titleLabel.iconText = AppIcons.codeToIcon[code]
+        }
     }
 
     private func setMessage(attributedText: NSAttributedString?, resources: [NSAttributedString]?) {

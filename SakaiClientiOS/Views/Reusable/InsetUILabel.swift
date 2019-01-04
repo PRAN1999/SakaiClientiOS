@@ -19,6 +19,14 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         return titleLabel
     }()
 
+    let iconLabel: UILabel = {
+        let iconLabel: UILabel = UIView.defaultAutoLayoutView()
+        iconLabel.font = UIFont(name: "App-icons", size: 30.0)
+        iconLabel.textColor = Palette.main.highlightColor
+        iconLabel.textAlignment = .right
+        return iconLabel
+    }()
+
     private var leadingConstraint: NSLayoutConstraint!
 
     override var text: String? {
@@ -65,6 +73,14 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         }
     }
 
+    var iconText: String? {
+        get {
+            return iconLabel.text
+        } set {
+            iconLabel.text = newValue
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -81,6 +97,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         layer.masksToBounds = true
 
         addSubview(titleLabel)
+        addSubview(iconLabel)
     }
 
     private func setConstraints() {
@@ -88,9 +105,14 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
 
         leadingConstraint = titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
         leadingConstraint.isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: iconLabel.leadingAnchor).isActive = true
+        iconLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.15).isActive = true
+
+        iconLabel.centerYAnchor.constraint(equalTo: margins.centerYAnchor).isActive = true
+        iconLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -5.0).isActive = true
     }
 
     func setLeftMargin(to val: CGFloat) {

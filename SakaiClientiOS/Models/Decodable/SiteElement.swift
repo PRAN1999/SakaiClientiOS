@@ -13,6 +13,7 @@ struct SiteElement: Decodable {
     let props: Props
     let description: String?
     let sitePages: [SitePage]
+    let providerGroupId: String?
 }
 
 struct Props: Decodable {

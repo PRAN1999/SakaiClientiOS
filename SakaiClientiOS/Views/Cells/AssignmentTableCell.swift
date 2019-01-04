@@ -16,11 +16,18 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
         titleLabel.textColor = Palette.main.secondaryTextColor
+        titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
         titleLabel.layer.cornerRadius = 0
         titleLabel.layer.masksToBounds = false
-        titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
         titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
         return titleLabel
+    }()
+
+    let iconLabel: UILabel = {
+        let iconLabel: UILabel = UIView.defaultAutoLayoutView()
+        iconLabel.font = UIFont(name: "App-icons", size: 25.0)
+        iconLabel.textColor = Palette.main.highlightColor
+        return iconLabel
     }()
 
     let collectionView: UICollectionView = {
@@ -51,6 +58,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionView)
+        contentView.addSubview(iconLabel)
     }
 
     private func setConstraints() {
@@ -68,25 +76,23 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -10.0).isActive = true
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        collectionView.heightAnchor.constraint(greaterThanOrEqualTo: contentView.heightAnchor, multiplier: 0.7).isActive = true
+        collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: AssignmentCell.cellHeight + 10)
 
         let heightAnchor = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 290)
         heightAnchor.priority = UILayoutPriority(999)
         heightAnchor.isActive = true
     }
 
-    /// Configure the AssignmentTableCell with a [Assignment] object
-    ///
-    /// - Parameters:
-    ///   - item: The [Assignment] to be used as the model for the cell
-    ///   - indexPath: The indexPath at which the AssignmentTableCell will be displayed in the UITableView
     func configure(_ item: [Assignment], at indexPath: IndexPath) {
         guard item.count > 0 else {
             return
         }
         let siteId = item[0].siteId
         let title = SakaiService.shared.siteTitleMap[siteId]
-        titleLabel.titleLabel.text = title
+        titleLabel.text = title
+        if let code = item[0].subjectCode {
+            titleLabel.iconText = AppIcons.codeToIcon[code]
+        }
 
         manager.loadItems(payload: item)
         manager.reloadData()

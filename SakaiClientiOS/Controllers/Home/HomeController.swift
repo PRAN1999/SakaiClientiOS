@@ -29,8 +29,8 @@ class HomeController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         title = "Classes"
-        navigationItem.rightBarButtonItem?.isEnabled = false
         navigationController?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
@@ -45,6 +45,7 @@ class HomeController: UITableViewController {
         siteTableManager.delegate = self
 
         configureNavigationItem()
+        navigationItem.rightBarButtonItem?.isEnabled = false
         NotificationCenter.default.removeObserver(self,
                                                   name: Notification.Name(rawValue: ReloadActions.reload.rawValue),
                                                   object: nil)

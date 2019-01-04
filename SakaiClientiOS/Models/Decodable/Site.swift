@@ -19,6 +19,7 @@ struct Site: TermSortable {
     let term: Term
     let description: String?
     let pages: [SitePage]
+    let subjectCode: Int?
 }
 
 extension Site: Decodable {
@@ -29,7 +30,23 @@ extension Site: Decodable {
         let description = siteElement.description
         let pages = siteElement.sitePages
         let term = Term(toParse: siteElement.props.termEid)
-        self.init(id: id, title: title, term: term, description: description, pages: pages)
+        var subjectCode: Int? = nil
+        if let groupId = siteElement.providerGroupId {
+            let courseCodeSplits = groupId.split(separator: "+")
+            guard courseCodeSplits.count > 0 else {
+                throw SakaiError.parseError("Could not find course code")
+            }
+            let subjectCodeSplits = courseCodeSplits[0].split(separator: ":")
+            guard subjectCodeSplits.count > 3 else {
+                throw SakaiError.parseError("Could not find subject code for course")
+            }
+            guard let subjectCodeParsed = Int(String(subjectCodeSplits[3])) else {
+                throw SakaiError.parseError("Could not convert subject code into number")
+            }
+            subjectCode = subjectCodeParsed
+        }
+
+        self.init(id: id, title: title, term: term, description: description, pages: pages, subjectCode: subjectCode)
     }
 
     init(from serializedSite: PersistedSite) {
@@ -41,7 +58,8 @@ extension Site: Decodable {
         for page in serializedSite.sitePages {
             pages.append(SitePage(from: page))
         }
-        self.init(id: id, title: title, term: term, description: description, pages: pages)
+        let subjectCode = serializedSite.subjectCode
+        self.init(id: id, title: title, term: term, description: description, pages: pages, subjectCode: subjectCode)
     }
 }
 

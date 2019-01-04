@@ -127,17 +127,15 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         }
         return IndexPath(row: subRow, section: subsection)
     }
-    
-    /// Given a section and a subsection, get the title of the class represented by the
-    /// subsection
-    ///
-    /// - Parameters:
-    ///   - section: the UITableView section
-    ///   - subsection: the subsection within the section
-    /// - Returns: the title of a class or site represented by the subsection
+
     func getSubsectionTitle(section: Int, subsection: Int) -> String? {
         let title = gradeItems[section][subsection][0].siteTitle
         return title
+    }
+
+    func getSubjectCode(section: Int, subsection: Int) -> Int? {
+        let code = gradeItems[section][subsection][0].subjectCode
+        return code
     }
 
     func getCount(for section: Int) -> Int {

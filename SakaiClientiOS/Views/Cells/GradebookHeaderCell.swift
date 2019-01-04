@@ -9,12 +9,15 @@ import UIKit
 import ReusableSource
 
 /// The "floating" header used in the gradebook view
-class FloatingHeaderCell: UITableViewCell, ReusableCell {
+class GradebookHeaderCell: UITableViewCell, ReusableCell {
 
-    let titleLabel: UILabel = {
-        let titleLabel: UILabel = UIView.defaultAutoLayoutView()
+    let titleLabel: InsetUILabel = {
+        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
         titleLabel.textColor = Palette.main.secondaryTextColor
+        titleLabel.numberOfLines = 1
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.masksToBounds = false
         return titleLabel
     }()
 
@@ -31,26 +34,25 @@ class FloatingHeaderCell: UITableViewCell, ReusableCell {
     }
 
     private func setupView() {
-        contentView.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
         backgroundColor = Palette.main.primaryBackgroundColor
-        isHidden = true
+        selectedBackgroundView = selectedView()
+        selectedBackgroundView?.addBorder(toSide: .left,
+                                          withColor: Palette.main.highlightColor,
+                                          andThickness: 5.0)
+        backgroundView = defaultBackgroundView()
+        backgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
 
         contentView.addSubview(titleLabel)
         addGestureRecognizer(tapRecognizer)
     }
 
     private func setConstraints() {
-        let margins = self.contentView.layoutMarginsGuide
+        let margins = contentView.layoutMarginsGuide
 
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 20.0).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1.0).isActive = true
-    }
-
-    func setTitle(title: String?) {
-        titleLabel.text = title
+        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
 
     func setFrameAndMakeVisible(frame: CGRect) {

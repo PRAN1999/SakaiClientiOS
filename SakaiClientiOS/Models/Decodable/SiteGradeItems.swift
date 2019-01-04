@@ -15,6 +15,7 @@ struct SiteGradeItems: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.siteId = try container.decode(String.self, forKey: .siteId)
+        let code = SakaiService.shared.siteSubjectCode[self.siteId]
 
         guard let term = SakaiService.shared.siteTermMap[siteId] else {
             throw SakaiError.parseError("No valid Term found")
@@ -32,7 +33,8 @@ struct SiteGradeItems: Decodable {
                                       title: rawGradeItem.title,
                                       term: term,
                                       siteId: siteId,
-                                      siteTitle: siteTitle)
+                                      siteTitle: siteTitle,
+                                      subjectCode: code)
             gradeItems.append(gradeItem)
         }
         self.gradeItems = gradeItems

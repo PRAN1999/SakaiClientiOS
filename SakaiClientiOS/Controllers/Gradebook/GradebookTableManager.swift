@@ -12,7 +12,7 @@ import ReusableSource
 /// by Term and further subdivides by class
 class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
-    private let headerCell = FloatingHeaderCell()
+    private let headerCell = GradebookHeaderCell()
     private var previousHeaderHeight: CGFloat = 44.0
     private var lastContentOffset: CGFloat = 0.0
     private var headerClass: (Int, Int)?
@@ -27,7 +27,8 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     
     override func setup() {
         super.setup()
-        tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
+        tableView.register(GradebookHeaderCell.self,
+                           forCellReuseIdentifier: GradebookHeaderCell.reuseIdentifier)
         tableView.sectionHeaderHeight = 0.0;
         tableView.sectionFooterHeight = 0.0;
         selectedAt.delegate(to: self) { (self, indexPath) -> Void in
@@ -35,7 +36,8 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
             if self.provider.isEmpty(section: indexPath.section) {
                 return
             }
-            let subsectionPath = self.provider.getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
+            let subsectionPath = self.provider.getSubsectionIndexPath(section: indexPath.section,
+                                                                      row: indexPath.row)
             if subsectionPath.row == 0 {
                 self.toggleClass(at: subsectionPath.section, in: indexPath.section)
             }
@@ -156,22 +158,30 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     ///   - subsection: the location of the data as managed by the GradebookDataProvider
     /// - Returns: a cell containing a class title
     private func getSiteTitleCell(tableView: UITableView, indexPath: IndexPath, subsection: Int) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: GradebookHeaderCell.reuseIdentifier, for: indexPath) as? GradebookHeaderCell else {
             fatalError("Not a site cell")
         }
 
         cell.accessoryType = .none
         cell.titleLabel.text = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
         cell.titleLabel.textColor = Palette.main.secondaryTextColor
-        cell.backgroundView?.backgroundColor = Palette.main.primaryBackgroundColor
-
+        if let code = provider.getSubjectCode(section: indexPath.section, subsection: subsection) {
+            cell.titleLabel.iconText = AppIcons.codeToIcon[code]
+        }
+        cell.tapRecognizer.isEnabled = false
+        
         return cell
     }
     
     private func makeHeaderCellVisible(in section: Int, for subsection: Int, at frame: CGRect) {
         let title =  provider.getSubsectionTitle(section: section, subsection: subsection)
+        if let code = provider.getSubjectCode(section: section, subsection: subsection) {
+            headerCell.titleLabel.iconText = AppIcons.codeToIcon[code]
+        } else {
+            headerCell.titleLabel.iconText = nil
+        }
         
-        headerCell.setTitle(title: title)
+        headerCell.titleLabel.text = title
         headerCell.setFrameAndMakeVisible(frame: frame)
         tableView.bringSubview(toFront: headerCell)
         headerClass = (section, subsection)

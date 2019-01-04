@@ -29,6 +29,9 @@ class SiteDataFetcher: DataFetcher {
             siteList.forEach { site in
                 self?.cacheUpdateService.updateSiteTerm(siteId: site.id, term: site.term)
                 self?.cacheUpdateService.updateSiteTitle(siteId: site.id, title: site.title)
+                if let code = site.subjectCode {
+                    self?.cacheUpdateService.updateSiteSubjectCode(siteId: site.id, subjectCode: code)
+                }
             }
             let sectionList = Term.splitByTerms(listToSort: siteList)
             // Split the site list by Term

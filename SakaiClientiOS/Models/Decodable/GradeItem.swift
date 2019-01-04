@@ -15,4 +15,5 @@ struct GradeItem: TermSortable, SiteSortable {
     let term: Term
     let siteId: String
     let siteTitle: String
+    let subjectCode: Int?
 }

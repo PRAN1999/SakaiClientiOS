@@ -19,6 +19,13 @@ class SiteCell: UITableViewCell, ConfigurableCell {
         return titleLabel
     }()
 
+    let iconLabel: UILabel = {
+        let iconLabel: UILabel = UIView.defaultAutoLayoutView()
+        iconLabel.font = UIFont(name: "App-icons", size: 30.0)
+        iconLabel.textColor = Palette.main.highlightColor
+        return iconLabel
+    }()
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -43,12 +50,17 @@ class SiteCell: UITableViewCell, ConfigurableCell {
         backgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
 
         contentView.addSubview(titleLabel)
+        contentView.addSubview(iconLabel)
     }
 
     private func setConstraints() {
         let margins = contentView.layoutMarginsGuide
 
-        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        iconLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        iconLabel.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -5.0).isActive = true
+        iconLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        iconLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 20.0).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
@@ -56,6 +68,9 @@ class SiteCell: UITableViewCell, ConfigurableCell {
     }
 
     func configure(_ item: Site, at indexPath: IndexPath) {
+        if let subjectCode = item.subjectCode, let icon = AppIcons.codeToIcon[subjectCode] {
+            iconLabel.text = icon
+        }
         titleLabel.text = item.title
     }
 }

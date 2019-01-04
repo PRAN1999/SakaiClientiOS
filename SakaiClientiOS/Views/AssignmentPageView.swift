@@ -21,6 +21,8 @@ class AssignmentPageView: UIScrollView {
         titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.5)
         titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.0)
+        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.masksToBounds = false
         return titleLabel
     }()
 
@@ -140,6 +142,10 @@ extension AssignmentPageView {
             instructions.append(attachments)
         }
         instructionView.attributedText = instructions
+
+        if let code = assignment.subjectCode {
+            titleLabel.iconText = AppIcons.codeToIcon[code]
+        }
     }
 
     private func getInstructionsString(attributedText: NSAttributedString?) -> NSMutableAttributedString? {

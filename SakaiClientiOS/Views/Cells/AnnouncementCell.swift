@@ -16,7 +16,15 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         let authorLabel: UILabel = UIView.defaultAutoLayoutView()
         authorLabel.textColor = Palette.main.primaryTextColor
         authorLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.bold)
+        authorLabel.textAlignment = .left
         return authorLabel
+    }()
+
+    let iconLabel: UILabel = {
+        let iconLabel: UILabel = UIView.defaultAutoLayoutView()
+        iconLabel.font = UIFont(name: "App-icons", size: 27.0)
+        iconLabel.textColor = Palette.main.highlightColor
+        return iconLabel
     }()
 
     let titleLabel: UILabel = {
@@ -52,6 +60,7 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         backgroundColor = Palette.main.primaryBackgroundColor
 
         contentView.addSubview(authorLabel)
+        contentView.addSubview(iconLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(contentLabel)
         contentView.addSubview(dateLabel)
@@ -61,10 +70,9 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         let margins = contentView.layoutMarginsGuide
 
         authorLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        authorLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
         authorLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         authorLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -2.0).isActive = true
-        authorLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.75).isActive = true
+        authorLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.70).isActive = true
 
         titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
@@ -73,6 +81,10 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         contentLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         contentLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor).isActive = true
         contentLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+
+        iconLabel.leadingAnchor.constraint(equalTo: authorLabel.trailingAnchor).isActive = true
+        iconLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
+        iconLabel.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor).isActive = true
 
         dateLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         dateLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
@@ -101,5 +113,8 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
             contentLabel.attributedText = mutableContent
         }
         dateLabel.text = item.dateString
+        if let code = item.subjectCode {
+            iconLabel.text = AppIcons.codeToIcon[code]
+        }
     }
 }
