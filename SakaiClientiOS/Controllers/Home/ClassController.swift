@@ -51,6 +51,22 @@ class ClassController: UITableViewController {
         }
         let page: SitePage = pages[indexPath.row]
         cell.titleLabel.text = page.title
+        cell.iconLabel.font = UIFont(name: AppIcons.generalIconFont, size: 30.0)
+
+        switch page.pageType {
+        case .gradebook:
+            cell.iconLabel.text = AppIcons.gradebookIcon
+        case .assignments:
+            cell.iconLabel.text = AppIcons.assignmentsIcon
+        case .chatRoom:
+            cell.iconLabel.text = AppIcons.chatIcon
+        case .defaultPage:
+            cell.iconLabel.text = nil
+        case .announcements:
+            cell.iconLabel.text = AppIcons.announcementsIcon
+        case .resources:
+            cell.iconLabel.text = AppIcons.resourcesIcon
+        }
         return cell
     }
     

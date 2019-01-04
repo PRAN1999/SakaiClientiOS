@@ -12,12 +12,13 @@ import ReusableSource
 class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
     typealias T = [Assignment]
 
-    let titleLabel: InsetUILabel = {
-        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
-        titleLabel.titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
-        titleLabel.titleLabel.textColor = Palette.main.secondaryTextColor
+    let titleLabel: IconLabel = {
+        let titleLabel: IconLabel = UIView.defaultAutoLayoutView()
+        titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
+        titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.layer.cornerRadius = 0
         titleLabel.layer.masksToBounds = false
+        titleLabel.iconLabel.textColor = Palette.main.primaryTextColor
         titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
         return titleLabel
     }()
@@ -47,7 +48,7 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        
+
         let heightConstraint = titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
         heightConstraint.priority = UILayoutPriority(999)
         heightConstraint.isActive = true
@@ -59,5 +60,10 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
         }
         let title = item[0].siteTitle
         titleLabel.text = title
+        if let code = item[0].subjectCode {
+            titleLabel.iconText = AppIcons.codeToIcon[code]
+        } else {
+            titleLabel.iconText = nil
+        }
     }
 }

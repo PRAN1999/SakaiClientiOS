@@ -24,7 +24,7 @@ extension UIViewController: UITextViewDelegate {
             self.hidesBottomBarWhenPushed = false
             return false
         } else {
-            let safariController = SFSafariViewController(url: URL)
+            let safariController = SFSafariViewController.defaultSafariController(url: URL)
             tabBarController?.present(safariController, animated: true, completion: nil)
             return false
         }

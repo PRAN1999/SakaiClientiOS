@@ -18,6 +18,7 @@ struct Announcement: TermSortable, SiteSortable {
     let date: Date
     let dateString: String
     let attachments: [AttachmentElement]?
+    let subjectCode: Int?
 
     var attributedContent: NSAttributedString?
 
@@ -39,6 +40,7 @@ extension Announcement: Decodable {
         guard let term = SakaiService.shared.siteTermMap[siteId] else {
             throw SakaiError.parseError("No valid Term found")
         }
+        let code = SakaiService.shared.siteSubjectCode[siteId]
         self.init(author: author,
                   title: title,
                   content: content,
@@ -47,6 +49,7 @@ extension Announcement: Decodable {
                   date: date,
                   dateString: dateString,
                   attachments: attachments,
+                  subjectCode: code,
                   attributedContent: nil)
     }
 }

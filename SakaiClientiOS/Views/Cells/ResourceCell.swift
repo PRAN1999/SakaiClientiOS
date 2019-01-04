@@ -25,6 +25,8 @@ class ResourceCell: UITableViewCell, ReusableCell {
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.backgroundColor = UIColor.clear
+        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.masksToBounds = false
         return titleLabel
     }()
 

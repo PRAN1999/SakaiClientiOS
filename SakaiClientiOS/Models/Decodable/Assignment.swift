@@ -23,6 +23,7 @@ struct Assignment: TermSortable, SiteSortable {
     let resubmissionAllowed: Bool?
     let attachments: [AttachmentElement]?
     let siteURL: String
+    let subjectCode: Int?
 }
 
 extension Assignment: Decodable {
@@ -47,7 +48,7 @@ extension Assignment: Decodable {
         guard let term = SakaiService.shared.siteTermMap[siteId] else {
             throw SakaiError.parseError("Could not find valid Term")
         }
-
+        let code = SakaiService.shared.siteSubjectCode[siteId]
         self.init(title: title,
                   dueTimeString: dueTimeString,
                   dueDate: dueDate,
@@ -61,6 +62,7 @@ extension Assignment: Decodable {
                   currentGrade: currentGrade,
                   resubmissionAllowed: resubmissionAllowed,
                   attachments: attachments,
-                  siteURL: siteURL)
+                  siteURL: siteURL,
+                  subjectCode: code)
     }
 }

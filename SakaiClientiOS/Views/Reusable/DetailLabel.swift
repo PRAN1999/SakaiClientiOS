@@ -10,6 +10,13 @@ import UIKit
 /// A UILabel to represent any key-value pair
 class DetailLabel: UILabel {
 
+    let iconLabel: UILabel = {
+        let iconLabel: UILabel = UIView.defaultAutoLayoutView()
+        iconLabel.font = UIFont(name: AppIcons.generalIconFont, size: 20.0)
+        iconLabel.textColor = Palette.main.tertiaryBackgroundColor
+        return iconLabel
+    }()
+
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
         titleLabel.numberOfLines = 0
@@ -26,10 +33,34 @@ class DetailLabel: UILabel {
         return detailLabel
     }()
 
+    private lazy var iconVisibleConstraint: NSLayoutConstraint = {
+        let margins = layoutMarginsGuide
+        return iconLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.10)
+    }()
+    private lazy var iconHiddenConstraint: NSLayoutConstraint = {
+        let margins = layoutMarginsGuide
+        return iconLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0)
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
         setConstraints()
+    }
+
+    var iconText: String? {
+        get {
+            return iconLabel.text
+        } set {
+            iconHiddenConstraint.isActive = false
+            iconVisibleConstraint.isActive = false
+            iconLabel.text = newValue
+            if newValue == nil {
+                iconHiddenConstraint.isActive = true
+            } else {
+                iconVisibleConstraint.isActive = true
+            }
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -37,6 +68,7 @@ class DetailLabel: UILabel {
     }
 
     private func setupView() {
+        addSubview(iconLabel)
         addSubview(titleLabel)
         addSubview(detailLabel)
     }
@@ -44,7 +76,10 @@ class DetailLabel: UILabel {
     private func setConstraints() {
         let margins = self.layoutMarginsGuide
 
-        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        iconLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        iconLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+
+        titleLabel.leadingAnchor.constraint(equalTo: iconLabel.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: detailLabel.leadingAnchor).isActive = true

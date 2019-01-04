@@ -23,21 +23,10 @@ class LoginController: UIViewController {
 
         view.backgroundColor = Palette.main.primaryBackgroundColor
 
-        roundButton(button: netIdButton)
-        roundButton(button: emailButton)
+        UIButton.roundButton(button: netIdButton)
+        UIButton.roundButton(button: emailButton)
 
         title = "Login"
-    }
-
-    private func roundButton(button: UIButton) {
-
-        button.backgroundColor = Palette.main.highlightColor
-        button.titleLabel?.textColor = Palette.main.primaryTextColor
-
-        button.layer.cornerRadius = 10
-        button.layer.borderColor = Palette.main.borderColor.cgColor
-        button.layer.borderWidth = 1
-        button.layer.masksToBounds = false
     }
 
     @IBAction func loginWithNetId(_ sender: Any) {

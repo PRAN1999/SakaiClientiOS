@@ -1,0 +1,964 @@
+{
+    "icons": [
+        {
+            "subjectName": "ACCOUNTING",
+            "subjectCode": "010",
+            "iOS": "F100",
+            "Android": ""
+        },
+        {
+            "subjectName": "ADMINISTRATIVE STUDIES",
+            "subjectCode": "011",
+            "iOS": "F101",
+            "Android": ""
+        },
+        {
+            "subjectName": "AFRICAN STUDIES",
+            "subjectCode": "016",
+            "iOS": "F102",
+            "Android": ""
+        },
+        {
+            "subjectName": "AFRICAN, M. EAST. & S. ASIAN LANG & LIT",
+            "subjectCode": "013",
+            "iOS": "F103",
+            "Android": ""
+        },
+        {
+            "subjectName": "AFRICANA STUDIES",
+            "subjectCode": "014",
+            "iOS": "F103",
+            "Android": ""
+        },
+        {
+            "subjectName": "AGRICULTURE AND FOOD SYSTEMS",
+            "subjectCode": "020",
+            "iOS": "F104",
+            "Android": ""
+        },
+        {
+            "subjectName": "AGRICULTURE AND NATURAL RESOURCE MGMT",
+            "subjectCode": "035",
+            "iOS": "F105",
+            "Android": ""
+        },
+        {
+            "subjectName": "AMERICAN STUDIES",
+            "subjectCode": "050",
+            "iOS": "F106",
+            "Android": ""
+        },
+        {
+            "subjectName": "ANIMAL SCIENCE",
+            "subjectCode": "067",
+            "iOS": "F107",
+            "Android": ""
+        },
+        {
+            "subjectName": "ANTHROPOLOGY",
+            "subjectCode": "070",
+            "iOS": "F108",
+            "Android": ""
+        },
+        {
+            "subjectName": "ARABIC LANGUAGES",
+            "subjectCode": "074",
+            "iOS": "F109",
+            "Android": ""
+        },
+        {
+            "subjectName": "ARMENIAN",
+            "subjectCode": "078",
+            "iOS": "F12F",
+            "Android": ""
+        },
+        {
+            "subjectName": "ART",
+            "subjectCode": "080",
+            "iOS": "F10A",
+            "Android": ""
+        },
+        {
+            "subjectName": "ART HISTORY",
+            "subjectCode": "082",
+            "iOS": "F10B",
+            "Android": ""
+        },
+        {
+            "subjectName": "ARTS AND SCIENCES",
+            "subjectCode": "090",
+            "iOS": "F10C",
+            "Android": ""
+        },
+        {
+            "subjectName": "ASIAN STUDIES",
+            "subjectCode": "098",
+            "iOS": "F10D",
+            "Android": ""
+        },
+        {
+            "subjectName": "ASTROPHYSICS",
+            "subjectCode": "105",
+            "iOS": "F10E",
+            "Android": ""
+        },
+        {
+            "subjectName": "BIOCHEMISTRY",
+            "subjectCode": "115",
+            "iOS": "F10F",
+            "Android": ""
+        },
+        {
+            "subjectName": "BIOENVIRONMENTAL ENGINEERING",
+            "subjectCode": "117",
+            "iOS": "F110",
+            "Android": ""
+        },
+        {
+            "subjectName": "BIOLOGICAL SCIENCES",
+            "subjectCode": "119",
+            "iOS": "F10F",
+            "Android": ""
+        },
+        {
+            "subjectName": "BIOMATHEMATICS",
+            "subjectCode": "122",
+            "iOS": "F111",
+            "Android": ""
+        },
+        {
+            "subjectName": "BIOMEDICAL ENGINEERING",
+            "subjectCode": "125",
+            "iOS": "F112",
+            "Android": ""
+        },
+        {
+            "subjectName": "BIOTECHNOLOGY",
+            "subjectCode": "126",
+            "iOS": "F110",
+            "Android": ""
+        },
+        {
+            "subjectName": "BUSINESS ANALYTICS AND INFORMATION TECH",
+            "subjectCode": "136",
+            "iOS": "F113",
+            "Android": ""
+        },
+        {
+            "subjectName": "BUSINESS LAW",
+            "subjectCode": "140",
+            "iOS": "F114",
+            "Android": ""
+        },
+        {
+            "subjectName": "CELL BIO & NEURO SCI",
+            "subjectCode": "146",
+            "iOS": "F115",
+            "Android": ""
+        },
+        {
+            "subjectName": "CHEMICAL AND BIOCHEMICAL ENGINEERING",
+            "subjectCode": "155",
+            "iOS": "F116",
+            "Android": ""
+        },
+        {
+            "subjectName": "CHEMICAL BIOLOGY",
+            "subjectCode": "158",
+            "iOS": "F117",
+            "Android": "MOLECULE"
+        },
+        {
+            "subjectName": "CHEMISTRY",
+            "subjectCode": "160",
+            "iOS": "F117",
+            "Android": ""
+        },
+        {
+            "subjectName": "CHINESE",
+            "subjectCode": "165",
+            "iOS": "F118",
+            "Android": ""
+        },
+        {
+            "subjectName": "CINEMA STUDIES",
+            "subjectCode": "175",
+            "iOS": "F119",
+            "Android": ""
+        },
+        {
+            "subjectName": "CIVIL AND ENVIRONMENTAL ENGINEERING",
+            "subjectCode": "180",
+            "iOS": "F11A",
+            "Android": ""
+        },
+        {
+            "subjectName": "CLASSICS",
+            "subjectCode": "190",
+            "iOS": "F11B",
+            "Android": ""
+        },
+        {
+            "subjectName": "COGNITIVE SCIENCES",
+            "subjectCode": "185",
+            "iOS": "F11C",
+            "Android": ""
+        },
+        {
+            "subjectName": "COMMUNICATION",
+            "subjectCode": "192",
+            "iOS": "F11D",
+            "Android": ""
+        },
+        {
+            "subjectName": "COMMUNICATION AND INFORMATION",
+            "subjectCode": "189",
+            "iOS": "F11D",
+            "Android": ""
+        },
+        {
+            "subjectName": "COMMUNITY HEALTH OUTREACH",
+            "subjectCode": "193",
+            "iOS": "F11E",
+            "Android": ""
+        },
+        {
+            "subjectName": "COMPARATIVE LITERATURE",
+            "subjectCode": "195",
+            "iOS": "F103",
+            "Android": "LITERATURE"
+        },
+        {
+            "subjectName": "COMPUTER SCIENCE",
+            "subjectCode": "198",
+            "iOS": "F11F",
+            "Android": ""
+        },
+        {
+            "subjectName": "CRIMINAL JUSTICE",
+            "subjectCode": "202",
+            "iOS": "F120",
+            "Android": ""
+        },
+        {
+            "subjectName": "DANCE",
+            "subjectCode": "203",
+            "iOS": "F121",
+            "Android": ""
+        },
+        {
+            "subjectName": "DANCE - MGSA",
+            "subjectCode": "206",
+            "iOS": "F121",
+            "Android": ""
+        },
+        {
+            "subjectName": "DANCE EDUCATION",
+            "subjectCode": "207",
+            "iOS": "F121",
+            "Android": ""
+        },
+        {
+            "subjectName": "DIGITAL FILMMAKING",
+            "subjectCode": "211",
+            "iOS": "F122",
+            "Android": ""
+        },
+        {
+            "subjectName": "ECOLOGY, EVOLUTION AND NATURAL RESOURCES",
+            "subjectCode": "216",
+            "iOS": "F123",
+            "Android": ""
+        },
+        {
+            "subjectName": "ECONOMICS",
+            "subjectCode": "220",
+            "iOS": "F124",
+            "Android": ""
+        },
+        {
+            "subjectName": "EDUCATION",
+            "subjectCode": "300",
+            "iOS": "F125",
+            "Android": ""
+        },
+        {
+            "subjectName": "EDUCATIONAL OPPORTUNITY FUND",
+            "subjectCode": "364",
+            "iOS": "F125",
+            "Android": ""
+        },
+        {
+            "subjectName": "ELECTRICAL AND COMPU.",
+            "subjectCode": "332",
+            "iOS": "F126",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENGLISH - FILM STUDIES",
+            "subjectCode": "354",
+            "iOS": "F127",
+            "Android": "CINEMA"
+        },
+        {
+            "subjectName": "ENGLISH AS A SECOND LANGUAGE",
+            "subjectCode": "356",
+            "iOS": "F127",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENGLISH: COMP & WRITING",
+            "subjectCode": "355",
+            "iOS": "F128",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENGLISH: CREATIVE WRITING",
+            "subjectCode": "351",
+            "iOS": "F128",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENGLISH: LITERATURE",
+            "subjectCode": "358",
+            "iOS": "F103",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENGLISH: THEORIES AND METHODS",
+            "subjectCode": "359",
+            "iOS": "F103",
+            "Android": "ALPHABET BLOCK"
+        },
+        {
+            "subjectName": "ENTOMOLOGY",
+            "subjectCode": "370",
+            "iOS": "F129",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENTREPRENEURSHIP",
+            "subjectCode": "382",
+            "iOS": "F12A",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENVIRON. POLICY, INSTITUTIONS & BEHAVIOR",
+            "subjectCode": "374",
+            "iOS": "F12B",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENVIRONMENTAL AND BIOLOGICAL SCIENCES",
+            "subjectCode": "015",
+            "iOS": "F12C",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENVIRONMENTAL AND BUSINESS ECONOMICS",
+            "subjectCode": "373",
+            "iOS": "F12D",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENVIRONMENTAL PLANNING AND DESIGN",
+            "subjectCode": "573",
+            "iOS": "F12E",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENVIRONMENTAL SCIENCES",
+            "subjectCode": "375",
+            "iOS": "F12C",
+            "Android": ""
+        },
+        {
+            "subjectName": "ENVIRONMENTAL STUDIES",
+            "subjectCode": "381",
+            "iOS": "F12C",
+            "Android": "RECYCLE"
+        },
+        {
+            "subjectName": "EUROPEAN STUDIES",
+            "subjectCode": "360",
+            "iOS": "F12F",
+            "Android": ""
+        },
+        {
+            "subjectName": "EXCHANGE",
+            "subjectCode": "001",
+            "iOS": "F130",
+            "Android": ""
+        },
+        {
+            "subjectName": "EXERCISE SCIENCE AND SPORT STUDIES",
+            "subjectCode": "377",
+            "iOS": "F131",
+            "Android": ""
+        },
+        {
+            "subjectName": "FINANCE",
+            "subjectCode": "390",
+            "iOS": "F132",
+            "Android": ""
+        },
+        {
+            "subjectName": "FOOD SCIENCE",
+            "subjectCode": "400",
+            "iOS": "F133",
+            "Android": ""
+        },
+        {
+            "subjectName": "FRENCH",
+            "subjectCode": "420",
+            "iOS": "F134",
+            "Android": ""
+        },
+        {
+            "subjectName": "GENERAL ENGINEERING",
+            "subjectCode": "440",
+            "iOS": "F135",
+            "Android": ""
+        },
+        {
+            "subjectName": "GENETICS",
+            "subjectCode": "447",
+            "iOS": "F136",
+            "Android": ""
+        },
+        {
+            "subjectName": "GEOGRAPHY",
+            "subjectCode": "450",
+            "iOS": "F137",
+            "Android": ""
+        },
+        {
+            "subjectName": "GEOLOGICAL SCIENCES",
+            "subjectCode": "460",
+            "iOS": "F138",
+            "Android": ""
+        },
+        {
+            "subjectName": "GERMAN",
+            "subjectCode": "470",
+            "iOS": "F139",
+            "Android": ""
+        },
+        {
+            "subjectName": "GREEK",
+            "subjectCode": "490",
+            "iOS": "F13A",
+            "Android": ""
+        },
+        {
+            "subjectName": "GREEK, MODERN",
+            "subjectCode": "489",
+            "iOS": "F13A",
+            "Android": ""
+        },
+        {
+            "subjectName": "HEALTH ADMINISTRATION",
+            "subjectCode": "501",
+            "iOS": "F11E",
+            "Android": "CADECEUS"
+        },
+        {
+            "subjectName": "HINDI",
+            "subjectCode": "505",
+            "iOS": "F13B",
+            "Android": ""
+        },
+        {
+            "subjectName": "HISTORY GENERAL/COMPARATIVE",
+            "subjectCode": "506",
+            "iOS": "F13C",
+            "Android": ""
+        },
+        {
+            "subjectName": "HISTORY, AFR ASIA LATIN AM",
+            "subjectCode": "508",
+            "iOS": "F13C",
+            "Android": ""
+        },
+        {
+            "subjectName": "HISTORY, AMERICAN",
+            "subjectCode": "512",
+            "iOS": "F13D",
+            "Android": ""
+        },
+        {
+            "subjectName": "HISTORY, EUROPEAN",
+            "subjectCode": "510",
+            "iOS": "F13E",
+            "Android": ""
+        },
+        {
+            "subjectName": "HUMAN RESOURCE MANAGEMENT",
+            "subjectCode": "533",
+            "iOS": "F13F",
+            "Android": ""
+        },
+        {
+            "subjectName": "INDUSTRIAL AND SYSTEMS ENGINEERING",
+            "subjectCode": "540",
+            "iOS": "F140",
+            "Android": ""
+        },
+        {
+            "subjectName": "INFORMATION TECHNOLOGY AND INFORMATICS",
+            "subjectCode": "547",
+            "iOS": "F141",
+            "Android": ""
+        },
+        {
+            "subjectName": "INTERDISCIPLINARY - MASON GROSS",
+            "subjectCode": "557",
+            "iOS": "F142",
+            "Android": ""
+        },
+        {
+            "subjectName": "INTERDISCIPLINARY - SEBS",
+            "subjectCode": "554",
+            "iOS": "F142",
+            "Android": "OLYMPICS"
+        },
+        {
+            "subjectName": "INTERDISCIPLINARY STUDIES - ARTS & SCI",
+            "subjectCode": "556",
+            "iOS": "F142",
+            "Android": "OLYMPICS"
+        },
+        {
+            "subjectName": "INTERNATIONAL BUSINESS AND BUSINESS",
+            "subjectCode": "522",
+            "iOS": "F142",
+            "Android": "OLYMPICS"
+        },
+        {
+            "subjectName": "INTERNATIONAL STUDIES",
+            "subjectCode": "558",
+            "iOS": "F143",
+            "Android": ""
+        },
+        {
+            "subjectName": "ITALIAN",
+            "subjectCode": "560",
+            "iOS": "F144",
+            "Android": ""
+        },
+        {
+            "subjectName": "JAPANESE",
+            "subjectCode": "565",
+            "iOS": "F145",
+            "Android": ""
+        },
+        {
+            "subjectName": "JEWISH STUDIES",
+            "subjectCode": "563",
+            "iOS": "F146",
+            "Android": ""
+        },
+        {
+            "subjectName": "JOURNALISM AND MEDIA STUDIES",
+            "subjectCode": "567",
+            "iOS": "F147",
+            "Android": ""
+        },
+        {
+            "subjectName": "KOREAN",
+            "subjectCode": "574",
+            "iOS": "F148",
+            "Android": ""
+        },
+        {
+            "subjectName": "LABOR STUDIES",
+            "subjectCode": "575",
+            "iOS": "F149",
+            "Android": ""
+        },
+        {
+            "subjectName": "LANDSCAPE ARCHITECTURE",
+            "subjectCode": "550",
+            "iOS": "F14A",
+            "Android": ""
+        },
+        {
+            "subjectName": "LATIN",
+            "subjectCode": "580",
+            "iOS": "F14B",
+            "Android": ""
+        },
+        {
+            "subjectName": "LATIN AMERICAN STUDIES",
+            "subjectCode": "590",
+            "iOS": "F106",
+            "Android": "AMERICAN STUDIES"
+        },
+        {
+            "subjectName": "LATINO AND HISPANIC CARIBBEAN STUDIES",
+            "subjectCode": "595",
+            "iOS": "F106",
+            "Android": "AMERICAN STUDIES"
+        },
+        {
+            "subjectName": "LEADERSHIP SKILLS",
+            "subjectCode": "607",
+            "iOS": "F14C",
+            "Android": ""
+        },
+        {
+            "subjectName": "LINGUISTICS",
+            "subjectCode": "615",
+            "iOS": "F14B",
+            "Android": "LATIN"
+        },
+        {
+            "subjectName": "MANAGEMENT",
+            "subjectCode": "620",
+            "iOS": "F13F",
+            "Android": "HUMAN RESOURCE MANAGEMENT"
+        },
+        {
+            "subjectName": "MARINE AND COASTAL SCIENCES",
+            "subjectCode": "628",
+            "iOS": "F14D",
+            "Android": ""
+        },
+        {
+            "subjectName": "MARKETING",
+            "subjectCode": "630",
+            "iOS": "F14E",
+            "Android": ""
+        },
+        {
+            "subjectName": "MATERIALS SCIENCE AND ENGINEERING",
+            "subjectCode": "635",
+            "iOS": "F14F",
+            "Android": ""
+        },
+        {
+            "subjectName": "MATHEMATICS",
+            "subjectCode": "640",
+            "iOS": "F111",
+            "Android": "PI"
+        },
+        {
+            "subjectName": "MECHANICAL AND AEROSPACE ENGINEERING",
+            "subjectCode": "650",
+            "iOS": "F150",
+            "Android": ""
+        },
+        {
+            "subjectName": "MEDICAL TECHNOLOGY",
+            "subjectCode": "660",
+            "iOS": "F151",
+            "Android": ""
+        },
+        {
+            "subjectName": "MEDIEVAL STUDIES",
+            "subjectCode": "667",
+            "iOS": "F152",
+            "Android": ""
+        },
+        {
+            "subjectName": "METEOROLOGY",
+            "subjectCode": "670",
+            "iOS": "F153",
+            "Android": ""
+        },
+        {
+            "subjectName": "MICROBIOLOGY",
+            "subjectCode": "680",
+            "iOS": "F154",
+            "Android": ""
+        },
+        {
+            "subjectName": "MIDDLE EASTERN STUDIES",
+            "subjectCode": "685",
+            "iOS": "F155",
+            "Android": ""
+        },
+        {
+            "subjectName": "MILITARY EDUCATION, AIR FORCE",
+            "subjectCode": "690",
+            "iOS": "F156",
+            "Android": ""
+        },
+        {
+            "subjectName": "MILITARY EDUCATION, ARMY",
+            "subjectCode": "691",
+            "iOS": "F156",
+            "Android": ""
+        },
+        {
+            "subjectName": "MILITARY EDUCATION, NAVY",
+            "subjectCode": "692",
+            "iOS": "F156",
+            "Android": ""
+        },
+        {
+            "subjectName": "MOL BIO & BIOCHEM",
+            "subjectCode": "694",
+            "iOS": "F156",
+            "Android": "MICROORGANISMS"
+        },
+        {
+            "subjectName": "MUSIC",
+            "subjectCode": "700",
+            "iOS": "F157",
+            "Android": ""
+        },
+        {
+            "subjectName": "MUSIC, APPLIED",
+            "subjectCode": "UNI",
+            "iOS": "F157",
+            "Android": ""
+        },
+        {
+            "subjectName": "NURSING",
+            "subjectCode": "705",
+            "iOS": "F158",
+            "Android": ""
+        },
+        {
+            "subjectName": "NUTRITIONAL SCIENCES",
+            "subjectCode": "709",
+            "iOS": "F159",
+            "Android": ""
+        },
+        {
+            "subjectName": "ORGANIZATIONAL LEADERSHIP",
+            "subjectCode": "713",
+            "iOS": "F13F",
+            "Android": "HUMAN RESOURCE MANAGEMENT"
+        },
+        {
+            "subjectName": "PHARMACEUTICAL CHEMISTRY",
+            "subjectCode": "715",
+            "iOS": "F15A",
+            "Android": ""
+        },
+        {
+            "subjectName": "PHARMACEUTICS",
+            "subjectCode": "721",
+            "iOS": "F15A",
+            "Android": ""
+        },
+        {
+            "subjectName": "PHARMACOLOGY AND TOXICOLOGY",
+            "subjectCode": "718",
+            "iOS": "F15A",
+            "Android": ""
+        },
+        {
+            "subjectName": "PHARMACY",
+            "subjectCode": "720",
+            "iOS": "F15A",
+            "Android": ""
+        },
+        {
+            "subjectName": "PHARMACY PRACTICE AND ADMINISTRATION",
+            "subjectCode": "725",
+            "iOS": "F15A",
+            "Android": "SAME AS PHARMACEUTICAL CHEMISTRY"
+        },
+        {
+            "subjectName": "PHILOSOPHY",
+            "subjectCode": "730",
+            "iOS": "F15B",
+            "Android": ""
+        },
+        {
+            "subjectName": "PHYSICIAN ASSISTANT",
+            "subjectCode": "745",
+            "iOS": "F15C",
+            "Android": ""
+        },
+        {
+            "subjectName": "PHYSICS",
+            "subjectCode": "750",
+            "iOS": "F15D",
+            "Android": ""
+        },
+        {
+            "subjectName": "PLANNING AND PUBLIC POLICY",
+            "subjectCode": "762",
+            "iOS": "F15E",
+            "Android": ""
+        },
+        {
+            "subjectName": "PLANT SCIENCE",
+            "subjectCode": "776",
+            "iOS": "F15F",
+            "Android": ""
+        },
+        {
+            "subjectName": "POLICY, HEALTH, AND ADMINISTRATION",
+            "subjectCode": "775",
+            "iOS": "F14A",
+            "Android": "BUILDING OUTLINE"
+        },
+        {
+            "subjectName": "POLISH",
+            "subjectCode": "787",
+            "iOS": "F12F",
+            "Android": "GLOBE"
+        },
+        {
+            "subjectName": "POLITICAL SCIENCE",
+            "subjectCode": "790",
+            "iOS": "F160",
+            "Android": ""
+        },
+        {
+            "subjectName": "PORTUGUESE",
+            "subjectCode": "810",
+            "iOS": "F12F",
+            "Android": "GLOBE"
+        },
+        {
+            "subjectName": "PSYCHOLOGY",
+            "subjectCode": "830",
+            "iOS": "F161",
+            "Android": ""
+        },
+        {
+            "subjectName": "PUBLIC ADMIN AND MGMT",
+            "subjectCode": "843",
+            "iOS": "F14A",
+            "Android": "BUILDING OUTLINE"
+        },
+        {
+            "subjectName": "PUBLIC HEALTH",
+            "subjectCode": "832",
+            "iOS": "F11E",
+            "Android": "CADECEUS"
+        },
+        {
+            "subjectName": "PUBLIC POLICY",
+            "subjectCode": "833",
+            "iOS": "F14A",
+            "Android": "BUILDING OUTLINE"
+        },
+        {
+            "subjectName": "REAL ESTATE",
+            "subjectCode": "851",
+            "iOS": "F162",
+            "Android": ""
+        },
+        {
+            "subjectName": "RELIGION",
+            "subjectCode": "840",
+            "iOS": "F163",
+            "Android": ""
+        },
+        {
+            "subjectName": "RUSSIAN",
+            "subjectCode": "860",
+            "iOS": "F164",
+            "Android": ""
+        },
+        {
+            "subjectName": "SCIENCE, TECHNOLOGY AND SOCIETY",
+            "subjectCode": "880",
+            "iOS": "F165",
+            "Android": ""
+        },
+        {
+            "subjectName": "SEBS INTERNSHIP",
+            "subjectCode": "902",
+            "iOS": "F165",
+            "Android": "MICROSCOPE"
+        },
+        {
+            "subjectName": "SEXUALITIES STUDIES",
+            "subjectCode": "888",
+            "iOS": "F166",
+            "Android": ""
+        },
+        {
+            "subjectName": "SOCIAL JUSTICE",
+            "subjectCode": "904",
+            "iOS": "F167",
+            "Android": ""
+        },
+        {
+            "subjectName": "SOCIAL WORK",
+            "subjectCode": "910",
+            "iOS": "F168",
+            "Android": ""
+        },
+        {
+            "subjectName": "SOCIOLOGY",
+            "subjectCode": "920",
+            "iOS": "F169",
+            "Android": ""
+        },
+        {
+            "subjectName": "SPANISH",
+            "subjectCode": "940",
+            "iOS": "F12F",
+            "Android": "GLOBE"
+        },
+        {
+            "subjectName": "SPORT MANAGEMENT",
+            "subjectCode": "955",
+            "iOS": "F16A",
+            "Android": ""
+        },
+        {
+            "subjectName": "STATISTICS",
+            "subjectCode": "960",
+            "iOS": "F16B",
+            "Android": ""
+        },
+        {
+            "subjectName": "STUDY ABROAD",
+            "subjectCode": "959",
+            "iOS": "F12F",
+            "Android": "GLOBE"
+        },
+        {
+            "subjectName": "SUPPLY CHAIN MANAGEMENT",
+            "subjectCode": "799",
+            "iOS": "F13F",
+            "Android": "HUMAN RESOURCE MANAGEMENT"
+        },
+        {
+            "subjectName": "THEATER",
+            "subjectCode": "965",
+            "iOS": "F16C",
+            "Android": ""
+        },
+        {
+            "subjectName": "THEATER ARTS - MGSA",
+            "subjectCode": "966",
+            "iOS": "F16C",
+            "Android": ""
+        },
+        {
+            "subjectName": "URBAN PLANNING",
+            "subjectCode": "971",
+            "iOS": "F14A",
+            "Android": "BUILDING OUTLINE"
+        },
+        {
+            "subjectName": "URBAN STUDIES AND COMMUNITY DEVELOPMENT",
+            "subjectCode": "975",
+            "iOS": "F14A",
+            "Android": "BUILDING OUTLINE"
+        },
+        {
+            "subjectName": "VISUAL ARTS",
+            "subjectCode": "081",
+            "iOS": "F16D",
+            "Android": ""
+        },
+        {
+            "subjectName": "WOMEN'S & GENDER STUDIES",
+            "subjectCode": "988",
+            "iOS": "F16E",
+            "Android": ""
+        }
+    ]
+}

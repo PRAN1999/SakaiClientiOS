@@ -17,7 +17,7 @@ class WebViewNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.tintColor = Palette.main.navigationTintColor
+        navigationBar.tintColor = Palette.main.toolBarColor
         navigationBar.barTintColor = Palette.main.navigationBackgroundColor
         navigationBar.barStyle = Palette.main.barStyle
         toolbar.tintColor = Palette.main.toolBarColor

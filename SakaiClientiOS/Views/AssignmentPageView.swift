@@ -12,8 +12,8 @@ class AssignmentPageView: UIScrollView {
 
     let contentView: UIView = UIView.defaultAutoLayoutView()
 
-    let titleLabel: InsetUILabel = {
-        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+    let titleLabel: IconLabel = {
+        let titleLabel: IconLabel = UIView.defaultAutoLayoutView()
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.textAlignment = .left
@@ -21,18 +21,41 @@ class AssignmentPageView: UIScrollView {
         titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.5)
         titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.0)
+        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.masksToBounds = false
         return titleLabel
     }()
 
-    let classLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let classLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconLabel.font = UIFont(name: AppIcons.siteFont, size: 20.0)
+        detailLabel.iconText = nil
+        return detailLabel
+    }()
 
-    let statusLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let statusLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconText = AppIcons.statusOpenIcon
+        return detailLabel
+    }()
 
-    let pointsLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let pointsLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconText = AppIcons.maxGradeIcon
+        return detailLabel
+    }()
 
-    let dueLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let dueLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconText = AppIcons.dueIcon
+        return detailLabel
+    }()
 
-    let submissionLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let submissionLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconText = AppIcons.resubmitIcon
+        return detailLabel
+    }()
 
     let instructionView: TappableTextView = {
         let instructionView: TappableTextView = UIView.defaultAutoLayoutView()
@@ -42,6 +65,12 @@ class AssignmentPageView: UIScrollView {
         instructionView.tintColor = Palette.main.linkColor
         instructionView.addBorder(toSide: .top, withColor: Palette.main.highlightColor, andThickness: 1.0)
         return instructionView
+    }()
+
+    let spaceView: UIView = {
+        let spaceView = UIView.defaultAutoLayoutView()
+        spaceView.backgroundColor = Palette.main.primaryBackgroundColor
+        return spaceView
     }()
 
     override init(frame: CGRect) {
@@ -67,6 +96,7 @@ class AssignmentPageView: UIScrollView {
         contentView.addSubview(dueLabel)
         contentView.addSubview(submissionLabel)
         contentView.addSubview(instructionView)
+        contentView.addSubview(spaceView)
     }
 
     private func setConstraints() {
@@ -105,7 +135,12 @@ class AssignmentPageView: UIScrollView {
 
         instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        instructionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        instructionView.bottomAnchor.constraint(equalTo: spaceView.topAnchor).isActive = true
+
+        spaceView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        spaceView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        spaceView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        spaceView.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
     }
 
     override func layoutSubviews() {
@@ -113,8 +148,8 @@ class AssignmentPageView: UIScrollView {
         // Set the content size of self (scrollView) to the size of the
         // content view by using the maxY of the attachmentsView (the
         // farthest down point of all the content)
-        let maxY = instructionView.frame.maxY
-        contentSize = CGSize(width: self.frame.width, height: maxY)
+        let maxY = spaceView.frame.maxY
+        contentSize = CGSize(width: frame.width, height: maxY)
     }
 }
 
@@ -129,6 +164,11 @@ extension AssignmentPageView {
             submissionLabel.setKeyVal(key: "Allows Resubmission:", val: resubmission ? "Yes" : "No")
         }
         statusLabel.setKeyVal(key: "Status:", val: assignment.status)
+        if assignment.status == "Closed" {
+            statusLabel.iconText = AppIcons.closedStatusIcon
+        } else {
+            statusLabel.iconText = AppIcons.statusOpenIcon
+        }
         dueLabel.setKeyVal(key: "Due:", val: assignment.dueTimeString)
         guard let instructions = getInstructionsString(attributedText: assignment.attributedInstructions) else {
             return
@@ -140,6 +180,10 @@ extension AssignmentPageView {
             instructions.append(attachments)
         }
         instructionView.attributedText = instructions
+
+        if let code = assignment.subjectCode {
+            classLabel.iconText = AppIcons.codeToIcon[code]
+        }
     }
 
     private func getInstructionsString(attributedText: NSAttributedString?) -> NSMutableAttributedString? {

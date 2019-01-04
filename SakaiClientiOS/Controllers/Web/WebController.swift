@@ -63,7 +63,7 @@ class WebController: UIViewController {
             guard let url = url, url.absoluteString.contains("http") else {
                 return
             }
-            let safariController = SFSafariViewController(url: url)
+            let safariController = SFSafariViewController.defaultSafariController(url: url)
             self?.shouldLoad = false
             self?.tabBarController?.present(safariController, animated: true, completion: nil)
         }
@@ -135,6 +135,7 @@ class WebController: UIViewController {
         if shouldLoad && didInitialize {
             loadURL(urlOpt: url)
         }
+        navigationController?.navigationBar.tintColor = Palette.main.toolBarColor
         navigationController?.setToolbarHidden(false, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
@@ -144,6 +145,7 @@ class WebController: UIViewController {
         if isMovingFromParentViewController {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
+        navigationController?.navigationBar.tintColor = Palette.main.navigationTintColor
         navigationController?.setToolbarHidden(true, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }

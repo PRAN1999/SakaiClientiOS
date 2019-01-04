@@ -12,19 +12,21 @@ class AnnouncementPageView: UIScrollView {
 
     let contentView: UIView = UIView.defaultAutoLayoutView()
 
-    let titleLabel: InsetUILabel = {
-        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+    let titleLabel: IconLabel = {
+        let titleLabel: IconLabel = UIView.defaultAutoLayoutView()
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18.5)
         titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.backgroundColor = Palette.main.secondaryBackgroundColor.color(withTransparency: 0.5)
         titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.0)
+        titleLabel.layer.cornerRadius = 0
+        titleLabel.layer.masksToBounds = false
         return titleLabel
     }()
 
-    let authorLabel: InsetUILabel = {
-        let authorLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+    let authorLabel: IconLabel = {
+        let authorLabel: IconLabel = UIView.defaultAutoLayoutView()
         authorLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
         authorLabel.layer.cornerRadius = 0
         authorLabel.backgroundColor = Palette.main.primaryBackgroundColor
@@ -32,13 +34,23 @@ class AnnouncementPageView: UIScrollView {
         return authorLabel
     }()
 
-    let dateLabel: InsetUILabel = {
-        let dateLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+    let dateIcon: UILabel = {
+        let dateIcon: UILabel = UIView.defaultAutoLayoutView()
+        dateIcon.font = UIFont(name: AppIcons.generalIconFont, size: 15.0)
+        dateIcon.text = AppIcons.dateIcon
+        dateIcon.textColor = Palette.main.tertiaryBackgroundColor
+        dateIcon.textAlignment = .right
+        return dateIcon
+    }()
+
+    let dateLabel: UILabel = {
+        let dateLabel: UILabel = UIView.defaultAutoLayoutView()
         dateLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .light)
         dateLabel.textAlignment = .right
         dateLabel.layer.cornerRadius = 0
         dateLabel.backgroundColor = Palette.main.primaryBackgroundColor
         dateLabel.textColor = Palette.main.secondaryTextColor
+        dateLabel.adjustsFontSizeToFitWidth = true
         return dateLabel
     }()
 
@@ -66,6 +78,7 @@ class AnnouncementPageView: UIScrollView {
 
         contentView.addSubview(titleLabel)
         contentView.addSubview(authorLabel)
+        contentView.addSubview(dateIcon)
         contentView.addSubview(dateLabel)
         contentView.addSubview(messageView)
     }
@@ -83,12 +96,16 @@ class AnnouncementPageView: UIScrollView {
 
         authorLabel.bottomAnchor.constraint(equalTo: messageView.topAnchor).isActive = true
         authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        authorLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
+        authorLabel.trailingAnchor.constraint(equalTo: dateIcon.leadingAnchor).isActive = true
         authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor,
-                                           multiplier: 0.60).isActive = true
+                                           multiplier: 0.72).isActive = true
+
+        dateIcon.topAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
+        dateIcon.bottomAnchor.constraint(equalTo: authorLabel.bottomAnchor).isActive = true
+        dateIcon.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
 
         dateLabel.topAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
-        dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        dateLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         dateLabel.bottomAnchor.constraint(equalTo: authorLabel.bottomAnchor).isActive = true
 
         messageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
@@ -108,11 +125,14 @@ class AnnouncementPageView: UIScrollView {
 extension AnnouncementPageView {
     
     func configure(announcement: Announcement) {
-        titleLabel.titleLabel.text = announcement.title
-        authorLabel.titleLabel.text = announcement.author
-        dateLabel.titleLabel.text = announcement.dateString
+        titleLabel.text = announcement.title
+        authorLabel.text = announcement.author
+        dateLabel.text = announcement.dateString
         let resourceStrings = announcement.attachments?.map { $0.toAttributedString() }
         setMessage(attributedText: announcement.attributedContent, resources: resourceStrings)
+        if let code = announcement.subjectCode {
+            titleLabel.iconText = AppIcons.codeToIcon[code]
+        }
     }
 
     private func setMessage(attributedText: NSAttributedString?, resources: [NSAttributedString]?) {

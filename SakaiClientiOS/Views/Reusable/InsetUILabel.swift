@@ -2,14 +2,15 @@
 //  InsetUILabel.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 6/12/18.
+//  Created by Pranay Neelagiri on 1/4/19.
 //
 
+import Foundation
 import UIKit
 
 /// A UILabel inset with padding around the edges
 class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
-    
+
     /// The titleLabel containing the inset content of the view
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()

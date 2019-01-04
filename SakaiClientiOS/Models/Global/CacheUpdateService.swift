@@ -10,5 +10,6 @@ import Foundation
 protocol CacheUpdateService {
     func updateSiteTitle(siteId: String, title: String)
     func updateSiteTerm(siteId: String, term: Term)
+    func updateSiteSubjectCode(siteId: String, subjectCode: Int)
     func appendTermMap(map: (Term, [String]))
 }

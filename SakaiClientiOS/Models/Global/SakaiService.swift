@@ -16,6 +16,7 @@ class SakaiService {
     private(set) var siteTermMap: [String: Term] = [:]
     private(set) var siteTitleMap: [String: String] = [:]
     private(set) var siteAssignmentToolMap: [String: String] = [:]
+    private(set) var siteSubjectCode: [String: Int] = [:]
     private(set) var termMap: [(Term, [String])] = []
 
     private init() {}
@@ -25,6 +26,7 @@ class SakaiService {
         siteTermMap = [:]
         siteTitleMap = [:]
         siteAssignmentToolMap = [:]
+        siteSubjectCode = [:]
         termMap = []
     }
 
@@ -42,6 +44,10 @@ extension SakaiService: CacheUpdateService {
 
     func updateSiteTerm(siteId: String, term: Term) {
         siteTermMap.updateValue(term, forKey: siteId)
+    }
+
+    func updateSiteSubjectCode(siteId: String, subjectCode: Int) {
+        siteSubjectCode.updateValue(subjectCode, forKey: siteId)
     }
 
     func appendTermMap(map: (Term, [String])) {

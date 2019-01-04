@@ -7,9 +7,9 @@
 
 import Foundation
 import WebKit
+import SafariServices
 
 extension WKWebView {
-
     static func authorizedWebView(webService: WebService, completion: @escaping (WKWebView) -> Void) {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = webService.processPool
@@ -27,5 +27,14 @@ extension WKWebView {
             let webView = WKWebView(frame: .zero, configuration: configuration)
             completion(webView)
         }
+    }
+}
+
+extension SFSafariViewController {
+    static func defaultSafariController(url: URL) -> SFSafariViewController {
+        let safariController = SFSafariViewController(url: url)
+        safariController.preferredBarTintColor = Palette.main.primaryBackgroundColor
+        safariController.preferredControlTintColor = Palette.main.primaryTextColor
+        return safariController
     }
 }

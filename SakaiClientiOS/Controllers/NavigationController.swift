@@ -16,6 +16,8 @@ class NavigationController: UINavigationController {
         navigationBar.barTintColor = Palette.main.navigationBackgroundColor
         navigationBar.titleTextAttributes?.updateValue(Palette.main.navigationTitleColor,
                                                        forKey: .foregroundColor)
+        navigationBar.isTranslucent = false
+
         toolbar.tintColor = Palette.main.toolBarColor
         toolbar.barStyle = Palette.main.barStyle
         toolbar.barTintColor = Palette.main.tabBarBackgroundColor
