@@ -15,7 +15,7 @@
 		5111149C20CD97110077F872 /* AssignmentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149B20CD97110077F872 /* AssignmentTableCell.swift */; };
 		5111149E20CD972D0077F872 /* AssignmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149D20CD972D0077F872 /* AssignmentCell.swift */; };
 		511114A220CDCABD0077F872 /* HorizontalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A120CDCABD0077F872 /* HorizontalLayout.swift */; };
-		511114A820D0C0D20077F872 /* InsetUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A720D0C0D20077F872 /* InsetUILabel.swift */; };
+		511114A820D0C0D20077F872 /* IconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114A720D0C0D20077F872 /* IconLabel.swift */; };
 		511114AC20D6CD440077F872 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114AB20D6CD440077F872 /* WebController.swift */; };
 		511114B520D74D570077F872 /* PagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114B420D74D570077F872 /* PagesController.swift */; };
 		511114B720D752260077F872 /* AssignmentPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511114B620D752260077F872 /* AssignmentPageController.swift */; };
@@ -51,8 +51,7 @@
 		5137DE0021DEC63A00FCC91C /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5137DDFF21DEC63A00FCC91C /* SettingsView.storyboard */; };
 		5137DE0221DEC66F00FCC91C /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5137DE0121DEC66F00FCC91C /* SettingsController.swift */; };
 		5137DE0421DED15900FCC91C /* AppIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5137DE0321DED15900FCC91C /* AppIcons.swift */; };
-		5137DE0E21DEEC0200FCC91C /* App-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5137DE0D21DEEC0200FCC91C /* App-icons.ttf */; };
-		5137DE1021DEEC8900FCC91C /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 5137DE0F21DEEC8900FCC91C /* test.json */; };
+		5137DE1021DEEC8900FCC91C /* site-icons.json in Resources */ = {isa = PBXBuildFile; fileRef = 5137DE0F21DEEC8900FCC91C /* site-icons.json */; };
 		5137DE1221DF19AC00FCC91C /* IconConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5137DE1121DF19AC00FCC91C /* IconConfiguration.swift */; };
 		514B623920952B89001A716C /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623820952B89001A716C /* Parsing.swift */; };
 		514B623C209569FE001A716C /* TermHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623B209569FE001A716C /* TermHeader.swift */; };
@@ -153,6 +152,9 @@
 		51DEE56B21051631008E709D /* HideableDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE56A21051631008E709D /* HideableDataFetcher.swift */; };
 		51DEE56D210527BC008E709D /* HideableTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE56C210527BC008E709D /* HideableTableManager.swift */; };
 		51EF2BC621DF4234003CAA57 /* GradebookHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EF2BC521DF4234003CAA57 /* GradebookHeaderCell.swift */; };
+		51EF2BC821DF5B5E003CAA57 /* InsetUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EF2BC721DF5B5E003CAA57 /* InsetUILabel.swift */; };
+		51EF2BCC21E0535B003CAA57 /* iOS-Icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 51EF2BCB21E0535B003CAA57 /* iOS-Icons.ttf */; };
+		51EF2BCE21E0792E003CAA57 /* General-Icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 51EF2BCD21E0792E003CAA57 /* General-Icons.ttf */; };
 		644E9699E1AEBCEE350ADB9B /* Pods_SakaiClientiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5AA811018CA7A1A3A0456C /* Pods_SakaiClientiOS.framework */; };
 		DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0599F81DFD93B200D19D17 /* AppDelegate.swift */; };
 		DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE0599FC1DFD93B200D19D17 /* Main.storyboard */; };
@@ -194,7 +196,7 @@
 		5111149B20CD97110077F872 /* AssignmentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTableCell.swift; sourceTree = "<group>"; };
 		5111149D20CD972D0077F872 /* AssignmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCell.swift; sourceTree = "<group>"; };
 		511114A120CDCABD0077F872 /* HorizontalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalLayout.swift; sourceTree = "<group>"; };
-		511114A720D0C0D20077F872 /* InsetUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetUILabel.swift; sourceTree = "<group>"; };
+		511114A720D0C0D20077F872 /* IconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabel.swift; sourceTree = "<group>"; };
 		511114AB20D6CD440077F872 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
 		511114B420D74D570077F872 /* PagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesController.swift; sourceTree = "<group>"; };
 		511114B620D752260077F872 /* AssignmentPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentPageController.swift; sourceTree = "<group>"; };
@@ -229,8 +231,7 @@
 		5137DDFF21DEC63A00FCC91C /* SettingsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsView.storyboard; sourceTree = "<group>"; };
 		5137DE0121DEC66F00FCC91C /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		5137DE0321DED15900FCC91C /* AppIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcons.swift; sourceTree = "<group>"; };
-		5137DE0D21DEEC0200FCC91C /* App-icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "App-icons.ttf"; sourceTree = "<group>"; };
-		5137DE0F21DEEC8900FCC91C /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
+		5137DE0F21DEEC8900FCC91C /* site-icons.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "site-icons.json"; sourceTree = "<group>"; };
 		5137DE1121DF19AC00FCC91C /* IconConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconConfiguration.swift; sourceTree = "<group>"; };
 		514B623820952B89001A716C /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
 		514B623B209569FE001A716C /* TermHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermHeader.swift; sourceTree = "<group>"; };
@@ -334,6 +335,9 @@
 		51DEE56A21051631008E709D /* HideableDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableDataFetcher.swift; sourceTree = "<group>"; };
 		51DEE56C210527BC008E709D /* HideableTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableTableManager.swift; sourceTree = "<group>"; };
 		51EF2BC521DF4234003CAA57 /* GradebookHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradebookHeaderCell.swift; sourceTree = "<group>"; };
+		51EF2BC721DF5B5E003CAA57 /* InsetUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetUILabel.swift; sourceTree = "<group>"; };
+		51EF2BCB21E0535B003CAA57 /* iOS-Icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iOS-Icons.ttf"; sourceTree = "<group>"; };
+		51EF2BCD21E0792E003CAA57 /* General-Icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "General-Icons.ttf"; sourceTree = "<group>"; };
 		5B14914143B4B328D7ABC096 /* Pods-SakaiClientiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.release.xcconfig"; sourceTree = "<group>"; };
 		B013D32AC221E9080B17F98A /* Pods-SakaiClientiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SakaiClientiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CD5AA811018CA7A1A3A0456C /* Pods_SakaiClientiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SakaiClientiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -477,8 +481,9 @@
 		5137DE0521DED22400FCC91C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5137DE0D21DEEC0200FCC91C /* App-icons.ttf */,
-				5137DE0F21DEEC8900FCC91C /* test.json */,
+				51EF2BCD21E0792E003CAA57 /* General-Icons.ttf */,
+				51EF2BCB21E0535B003CAA57 /* iOS-Icons.ttf */,
+				5137DE0F21DEEC8900FCC91C /* site-icons.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -621,10 +626,11 @@
 			children = (
 				511114A120CDCABD0077F872 /* HorizontalLayout.swift */,
 				511114BA20DB4B770077F872 /* DetailLabel.swift */,
-				511114A720D0C0D20077F872 /* InsetUILabel.swift */,
+				511114A720D0C0D20077F872 /* IconLabel.swift */,
 				51DEE55A21016B0D008E709D /* TappableTextView.swift */,
 				511114B820D881450077F872 /* PageView.swift */,
 				518AC34D2137840300037087 /* LoadingIndicator.swift */,
+				51EF2BC721DF5B5E003CAA57 /* InsetUILabel.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -868,13 +874,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE059A031DFD93B200D19D17 /* LaunchScreen.storyboard in Resources */,
-				5137DE0E21DEEC0200FCC91C /* App-icons.ttf in Resources */,
+				51EF2BCC21E0535B003CAA57 /* iOS-Icons.ttf in Resources */,
 				5137DE0021DEC63A00FCC91C /* SettingsView.storyboard in Resources */,
 				5113C135209286E8001929DA /* GradebookView.storyboard in Resources */,
 				5113C12D20928669001929DA /* AnnouncementView.storyboard in Resources */,
-				5137DE1021DEEC8900FCC91C /* test.json in Resources */,
+				5137DE1021DEEC8900FCC91C /* site-icons.json in Resources */,
 				DE059A001DFD93B200D19D17 /* Assets.xcassets in Resources */,
 				5113C13920928718001929DA /* AssignmentView.storyboard in Resources */,
+				51EF2BCE21E0792E003CAA57 /* General-Icons.ttf in Resources */,
 				5113C12920927F28001929DA /* HomeView.storyboard in Resources */,
 				DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */,
 				51D5EA1821504CB800D7B85C /* Login.storyboard in Resources */,
@@ -995,7 +1002,7 @@
 				51910ED821DC614F0079021C /* DownloadService.swift in Sources */,
 				512748BD210D29A400A5A74E /* ResourcePageController.swift in Sources */,
 				517B614A21D8CE7900BF5BD8 /* AssignmentElement.swift in Sources */,
-				511114A820D0C0D20077F872 /* InsetUILabel.swift in Sources */,
+				511114A820D0C0D20077F872 /* IconLabel.swift in Sources */,
 				5193357220F2FC1D00469FD4 /* AnnouncementPageController.swift in Sources */,
 				51C9791220F708B200191DD6 /* SiteDataFetcher.swift in Sources */,
 				5182CBE32139DB7300D45952 /* SitePageElement.swift in Sources */,
@@ -1016,6 +1023,7 @@
 				514B623C209569FE001A716C /* TermHeader.swift in Sources */,
 				5197E6C521349AE00019DCC9 /* ChatRoomView.swift in Sources */,
 				5182CBEE213A1A7400D45952 /* SakaiEndpoint.swift in Sources */,
+				51EF2BC821DF5B5E003CAA57 /* InsetUILabel.swift in Sources */,
 				51EF2BC621DF4234003CAA57 /* GradebookHeaderCell.swift in Sources */,
 				51C4B80620AD11F300DD6696 /* AppColors.swift in Sources */,
 				511114AC20D6CD440077F872 /* WebController.swift in Sources */,

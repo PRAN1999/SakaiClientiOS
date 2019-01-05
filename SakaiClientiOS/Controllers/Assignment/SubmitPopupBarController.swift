@@ -28,6 +28,11 @@ class SubmitPopupBarController: LNPopupCustomBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = Palette.main.primaryBackgroundColor
+        view.addBorder(toSide: .top, withColor: Palette.main.highlightColor, andThickness: 2)
+        view.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 2)
+        view.addBorder(toSide: .right, withColor: Palette.main.highlightColor, andThickness: 2)
+        view.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 1)
         UIView.constrainChildToEdges(child: blurEffectView, parent: view)
 
         preferredContentSize.height = 44

@@ -2,15 +2,14 @@
 //  InsetUILabel.swift
 //  SakaiClientiOS
 //
-//  Created by Pranay Neelagiri on 1/4/19.
+//  Created by Pranay Neelagiri on 6/12/18.
 //
 
-import Foundation
 import UIKit
 
 /// A UILabel inset with padding around the edges
-class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
-
+class IconLabel: UILabel, UIGestureRecognizerDelegate {
+    
     /// The titleLabel containing the inset content of the view
     let titleLabel: UILabel = {
         let titleLabel: UILabel = UIView.defaultAutoLayoutView()
@@ -20,7 +19,30 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         return titleLabel
     }()
 
-    private var leadingConstraint: NSLayoutConstraint!
+    let iconLabel: UILabel = {
+        let iconLabel: UILabel = UIView.defaultAutoLayoutView()
+        iconLabel.font = UIFont(name: AppIcons.siteFont, size: 30.0)
+        iconLabel.textColor = Palette.main.primaryTextColor
+        iconLabel.textAlignment = .right
+        return iconLabel
+    }()
+
+    private lazy var leadingConstraint: NSLayoutConstraint = {
+        let margins = layoutMarginsGuide
+        return iconLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
+    }()
+
+    lazy var iconVisibleConstraint: NSLayoutConstraint = {
+        let margins = layoutMarginsGuide
+        return iconLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.10)
+    }()
+    lazy var iconHiddenConstraint: NSLayoutConstraint = {
+        let margins = layoutMarginsGuide
+        return iconLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0)
+    }()
+    lazy var iconTitleConstraint: NSLayoutConstraint = {
+        return iconLabel.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -5.0)
+    }()
 
     override var text: String? {
         get {
@@ -66,6 +88,21 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         }
     }
 
+    var iconText: String? {
+        get {
+            return iconLabel.text
+        } set {
+            iconVisibleConstraint.isActive = false
+            iconHiddenConstraint.isActive = false
+            iconLabel.text = newValue
+            if newValue == nil {
+                iconHiddenConstraint.isActive = true
+            } else {
+                iconVisibleConstraint.isActive = true
+            }
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -82,24 +119,22 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
         layer.masksToBounds = true
 
         addSubview(titleLabel)
+        addSubview(iconLabel)
     }
 
     private func setConstraints() {
         let margins = layoutMarginsGuide
 
-        leadingConstraint = titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
         leadingConstraint.isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        iconLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+        iconTitleConstraint.isActive = true
+
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
     }
 
     func setLeftMargin(to val: CGFloat) {
-        let margins = layoutMarginsGuide
-
-        leadingConstraint.isActive = false
-        removeConstraint(leadingConstraint)
-        leadingConstraint = titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: val)
-        leadingConstraint.isActive = true
+        leadingConstraint.constant = val
     }
 }

@@ -12,8 +12,8 @@ import ReusableSource
 class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     typealias T = [Assignment]
 
-    let titleLabel: InsetUILabel = {
-        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+    let titleLabel: IconLabel = {
+        let titleLabel: IconLabel = UIView.defaultAutoLayoutView()
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.light)
         titleLabel.textColor = Palette.main.secondaryTextColor
         titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
@@ -25,8 +25,8 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
 
     let iconLabel: UILabel = {
         let iconLabel: UILabel = UIView.defaultAutoLayoutView()
-        iconLabel.font = UIFont(name: "App-icons", size: 25.0)
-        iconLabel.textColor = Palette.main.highlightColor
+        iconLabel.font = UIFont(name: AppIcons.siteFont, size: 25.0)
+        iconLabel.textColor = Palette.main.primaryTextColor
         return iconLabel
     }()
 
@@ -76,7 +76,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -10.0).isActive = true
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: AssignmentCell.cellHeight + 10)
+        collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: AssignmentCell.cellHeight + 20)
 
         let heightAnchor = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 290)
         heightAnchor.priority = UILayoutPriority(999)
@@ -92,6 +92,8 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         titleLabel.text = title
         if let code = item[0].subjectCode {
             titleLabel.iconText = AppIcons.codeToIcon[code]
+        } else {
+            titleLabel.iconText = nil
         }
 
         manager.loadItems(payload: item)

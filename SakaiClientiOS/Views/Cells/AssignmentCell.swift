@@ -25,21 +25,27 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
     enum FlipAction { case toFront, toBack, toggle }
 
-    let titleLabel: InsetUILabel = {
-        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+    let titleLabel: IconLabel = {
+        let titleLabel: IconLabel = UIView.defaultAutoLayoutView()
         titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
         titleLabel.textColor = Palette.main.primaryTextColor
         titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
         titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.5)
+        titleLabel.iconLabel.font = UIFont(name: AppIcons.siteFont, size: 15.0)
+        titleLabel.numberOfLines = 2
         return titleLabel
     }()
 
-    let dueLabel: InsetUILabel = {
-        let dueLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+    let dueLabel: IconLabel = {
+        let dueLabel: IconLabel = UIView.defaultAutoLayoutView()
         dueLabel.backgroundColor = Palette.main.primaryBackgroundColor
         dueLabel.textColor = Palette.main.secondaryTextColor
         dueLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
         dueLabel.addBorder(toSide: .top, withColor: Palette.main.highlightColor, andThickness: 2.5)
+        dueLabel.iconLabel.font = UIFont(name: AppIcons.generalIconFont, size: 15)
+        dueLabel.iconText = AppIcons.dateIcon
+        dueLabel.titleLabel.adjustsFontSizeToFitWidth = true
+        dueLabel.numberOfLines = 1
         return dueLabel
     }()
 
@@ -123,10 +129,10 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: frontView.heightAnchor, multiplier: 0.25).isActive = true
 
-        descLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         descLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
+        descLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
 
         dueLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
         dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
@@ -182,8 +188,13 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
     ///   - item: The Assignment to be used as the model for the cell
     ///   - indexPath: The indexPath at which the AssignmentCell will be displayed in the UICollectionView
     func configure(_ item: Assignment, at indexPath: IndexPath) {
-        titleLabel.titleLabel.text = item.title
-        dueLabel.titleLabel.text = "Due: \(item.dueTimeString)"
+        if let code = item.subjectCode, let icon = AppIcons.codeToIcon[code] {
+            titleLabel.iconText = icon
+        } else {
+            titleLabel.iconText = nil
+        }
+        titleLabel.text = item.title
+        dueLabel.text = "\(item.dueTimeString)"
         descLabel.attributedText = item.attributedInstructions
         tapRecognizer.indexPath = indexPath
         pageViewTap.indexPath = indexPath

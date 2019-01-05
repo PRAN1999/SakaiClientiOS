@@ -36,7 +36,7 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height: CGFloat = 280 * 0.7
+        let height: CGFloat = AssignmentCell.cellHeight
         let size: CGSize = CGSize(width: collectionView.bounds.width / 2.25, height: height)
         return size
     }

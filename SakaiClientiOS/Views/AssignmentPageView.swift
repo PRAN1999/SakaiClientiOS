@@ -12,8 +12,8 @@ class AssignmentPageView: UIScrollView {
 
     let contentView: UIView = UIView.defaultAutoLayoutView()
 
-    let titleLabel: InsetUILabel = {
-        let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
+    let titleLabel: IconLabel = {
+        let titleLabel: IconLabel = UIView.defaultAutoLayoutView()
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         titleLabel.textAlignment = .left
@@ -46,6 +46,12 @@ class AssignmentPageView: UIScrollView {
         return instructionView
     }()
 
+    let spaceView: UIView = {
+        let spaceView = UIView.defaultAutoLayoutView()
+        spaceView.backgroundColor = Palette.main.primaryBackgroundColor
+        return spaceView
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -69,6 +75,7 @@ class AssignmentPageView: UIScrollView {
         contentView.addSubview(dueLabel)
         contentView.addSubview(submissionLabel)
         contentView.addSubview(instructionView)
+        contentView.addSubview(spaceView)
     }
 
     private func setConstraints() {
@@ -107,7 +114,12 @@ class AssignmentPageView: UIScrollView {
 
         instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        instructionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        instructionView.bottomAnchor.constraint(equalTo: spaceView.topAnchor).isActive = true
+
+        spaceView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        spaceView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        spaceView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        spaceView.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
     }
 
     override func layoutSubviews() {
@@ -115,8 +127,8 @@ class AssignmentPageView: UIScrollView {
         // Set the content size of self (scrollView) to the size of the
         // content view by using the maxY of the attachmentsView (the
         // farthest down point of all the content)
-        let maxY = instructionView.frame.maxY
-        contentSize = CGSize(width: self.frame.width, height: maxY)
+        let maxY = spaceView.frame.maxY
+        contentSize = CGSize(width: frame.width, height: maxY)
     }
 }
 

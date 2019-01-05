@@ -14,8 +14,12 @@ struct IconConfiguration {
 extension IconConfiguration: Decodable {}
 
 struct SubjectCodeIcon {
-    let subjectCode: Int
-    let iconInt: String
+    let subjectCode: String
+    let hex: String
 }
 
-extension SubjectCodeIcon: Decodable {}
+extension SubjectCodeIcon: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case subjectCode, hex = "iOS"
+    }
+}

@@ -8,8 +8,8 @@
 import UIKit
 import ReusableSource
 
-/// An abstraction to manage the data source and delegate for the Gradebook tab. Divides grades
-/// by Term and further subdivides by class
+/// An abstraction to manage the data source and delegate for the Gradebook tab.
+/// Divides grades by Term and further subdivides by class
 class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
     
     private let headerCell = GradebookHeaderCell()
@@ -96,25 +96,29 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
         let point = CGPoint(x: 0, y: yVal)
         
         guard let topIndex = tableView.indexPathForRow(at: point) else {
-            hideHeaderCell()
             return
         }
 
-        if provider.isEmpty(section: topIndex.section) {
-            hideHeaderCell()
-            return
-        }
-        let subsectionIndex = provider.getSubsectionIndexPath(section: topIndex.section, row: topIndex.row)
-        let headerRow = provider.getHeaderRowForSubsection(section: topIndex.section, subsection: subsectionIndex.section)
-        let cell = tableView.cellForRow(at: IndexPath(row: headerRow, section: topIndex.section))
+        let subsectionIndex = provider.getSubsectionIndexPath(section: topIndex.section,
+                                                              row: topIndex.row)
+        let headerRow = provider.getHeaderRowForSubsection(section: topIndex.section,
+                                                           subsection: subsectionIndex.section)
+        let cell = tableView.cellForRow(at: IndexPath(row: headerRow,
+                                                      section: topIndex.section))
 
         if direction == .up && provider.getCount(for: topIndex.section) - 1 == topIndex.row && subtractedHeaderHeight {
             guard let lastCell = tableView.cellForRow(at: topIndex) else {
                 return
             }
             let y = lastCell.frame.maxY - headerCell.bounds.height
-            let frame = CGRect(x: 0, y: y, width: tableView.frame.size.width, height: headerCell.frame.size.height)
-            makeHeaderCellVisible(in: topIndex.section, for: subsectionIndex.section, at: frame)
+            let frame = CGRect(x: 0,
+                               y: y,
+                               width: tableView.frame.size.width,
+                               height: headerCell.frame.size.height)
+
+            makeHeaderCellVisible(in: topIndex.section,
+                                  for: subsectionIndex.section,
+                                  at: frame)
             scrollUpOnLastRow = true
             return
         } else if headerRow == topIndex.row {
@@ -128,7 +132,10 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
                     return
                 }
                 let y = cell.frame.minY - headerCell.bounds.height
-                let frame = CGRect(x: 0, y: y, width: tableView.frame.size.width, height: headerCell.frame.size.height)
+                let frame = CGRect(x: 0,
+                                   y: y,
+                                   width: tableView.frame.size.width,
+                                   height: headerCell.frame.size.height)
                 makeHeaderCellVisible(in: topIndex.section, for: subsectionIndex.section - 1, at: frame)
             }
             scrollUpOnLastRow = false
@@ -139,8 +146,10 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
         if cell != nil && (cell?.frame.minY)! > yVal {
             hideHeaderCell()
         } else {
-            //let headerHeight = super.tableView(tableView, heightForHeaderInSection: topIndex.section)
-            let frame = CGRect(x: 0, y: tableView.contentOffset.y, width: tableView.frame.size.width, height: headerCell.frame.size.height)
+            let frame = CGRect(x: 0,
+                               y: tableView.contentOffset.y,
+                               width: tableView.frame.size.width,
+                               height: headerCell.frame.size.height)
             makeHeaderCellVisible(in: topIndex.section, for: subsectionIndex.section, at: frame)
         }
     }
@@ -150,38 +159,23 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
         headerClass = nil
     }
 
-    /// Construct a class title cell to separate classes within a Term section using the given subsection
-    ///
-    /// - Parameters:
-    ///   - tableView: the tableView being constructed
-    ///   - indexPath: the "true" indexPath of the cell
-    ///   - subsection: the location of the data as managed by the GradebookDataProvider
-    /// - Returns: a cell containing a class title
     private func getSiteTitleCell(tableView: UITableView, indexPath: IndexPath, subsection: Int) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GradebookHeaderCell.reuseIdentifier, for: indexPath) as? GradebookHeaderCell else {
             fatalError("Not a site cell")
         }
 
-        cell.accessoryType = .none
-        cell.titleLabel.text = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
-        cell.titleLabel.textColor = Palette.main.secondaryTextColor
-        if let code = provider.getSubjectCode(section: indexPath.section, subsection: subsection) {
-            cell.titleLabel.iconText = AppIcons.codeToIcon[code]
-        }
+        let title = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
+        let code = provider.getSubjectCode(section: indexPath.section, subsection: subsection)
+        cell.configure(title: title, subjectCode: code)
         cell.tapRecognizer.isEnabled = false
         
         return cell
     }
     
     private func makeHeaderCellVisible(in section: Int, for subsection: Int, at frame: CGRect) {
-        let title =  provider.getSubsectionTitle(section: section, subsection: subsection)
-        if let code = provider.getSubjectCode(section: section, subsection: subsection) {
-            headerCell.titleLabel.iconText = AppIcons.codeToIcon[code]
-        } else {
-            headerCell.titleLabel.iconText = nil
-        }
-        
-        headerCell.titleLabel.text = title
+        let title = provider.getSubsectionTitle(section: section, subsection: subsection)
+        let code = provider.getSubjectCode(section: section, subsection: subsection)
+        headerCell.configure(title: title, subjectCode: code)
         headerCell.setFrameAndMakeVisible(frame: frame)
         tableView.bringSubview(toFront: headerCell)
         headerClass = (section, subsection)

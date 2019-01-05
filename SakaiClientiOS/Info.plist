@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.2.0</string>
 	<key>CFBundleVersion</key>
-	<string>1137</string>
+	<string>1281</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -62,7 +62,8 @@
 	<string>$(PRODUCT_NAME) camera use</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>App-icons.ttf</string>
+		<string>General-Icons.ttf</string>
+		<string>iOS-Icons.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

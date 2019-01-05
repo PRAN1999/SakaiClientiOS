@@ -90,7 +90,7 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         addConstraint(constraint)
 
         imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        centerConstraint = imageLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: -3)
+        centerConstraint = imageLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 0)
         centerConstraint.isActive = true
     }
 
@@ -101,7 +101,7 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         imageLabel.layer.removeAllAnimations()
         if isHidden {
             imageLabel.image = UIImage(named: "show_content")?.withRenderingMode(.alwaysTemplate)
-            centerConstraint.constant = -3
+            centerConstraint.constant = 0
         } else {
             imageLabel.image = UIImage(named: "hide_content")?.withRenderingMode(.alwaysTemplate)
             centerConstraint.constant = 0

@@ -15,20 +15,25 @@ struct SitePage {
     private static let chatRoomString: String     = "Chat Room"
     private static let defaultString: String      = "None"
 
+    enum PageType {
+        case gradebook, assignments, chatRoom, defaultPage, announcements, resources
+    }
+
     /// A map to provide native interfaces for common site pages shared by most classes
-    private static let mapPages: [String: SitePageController.Type] = [
-        assignmentsString:  SiteAssignmentController.self,
-        gradebookString:    SiteGradebookController.self,
-        chatRoomString:     ChatRoomController.self,
-        defaultString:      DefaultController.self,
-        resourcesString:    ResourcePageController.self,
-        announcementString: SiteAnnouncementController.self
+    private static let mapPages: [String: (PageType, SitePageController.Type)] = [
+        assignmentsString:  (.assignments, SiteAssignmentController.self),
+        gradebookString:    (.gradebook, SiteGradebookController.self),
+        chatRoomString:     (.chatRoom, ChatRoomController.self),
+        defaultString:      (.defaultPage, DefaultController.self),
+        resourcesString:    (.resources, ResourcePageController.self),
+        announcementString: (.announcements, SiteAnnouncementController.self)
     ]
 
     let id: String
     let title: String
     let siteId: String
     let siteType: SitePageController.Type
+    let pageType: PageType
     let url: String
 }
 
@@ -39,16 +44,16 @@ extension SitePage: Decodable {
         let title = sitePageElement.title
         let siteId = sitePageElement.siteId
         let url = sitePageElement.url
-        let siteType: SitePageController.Type
-        if SitePage.mapPages[title] != nil {
-            siteType = SitePage.mapPages[title]!
-        } else {
-            siteType = SitePage.mapPages[SitePage.defaultString]!
+        var siteType: SitePageController.Type = DefaultController.self
+        var pageType = PageType.defaultPage
+        if let (page, type) = SitePage.mapPages[title] {
+            siteType = type
+            pageType = page
         }
-        if title == "Assignments" {
+        if pageType == .assignments {
             SakaiService.shared.setAssignmentToolUrl(url: url, siteId: siteId)
         }
-        self.init(id: id, title: title, siteId: siteId, siteType: siteType, url: url)
+        self.init(id: id, title: title, siteId: siteId, siteType: siteType, pageType: pageType, url: url)
     }
 
     init(from serializedSitePage: PersistedSitePage) {
@@ -56,12 +61,15 @@ extension SitePage: Decodable {
         let title = serializedSitePage.title
         let siteId = serializedSitePage.siteId
         let url = serializedSitePage.url
-        let siteType: SitePageController.Type
-        if SitePage.mapPages[title] != nil {
-            siteType = SitePage.mapPages[title]!
-        } else {
-            siteType = SitePage.mapPages[SitePage.defaultString]!
+        var siteType: SitePageController.Type = DefaultController.self
+        var pageType = PageType.defaultPage
+        if let (page, type) = SitePage.mapPages[title] {
+            siteType = type
+            pageType = page
         }
-        self.init(id: id, title: title, siteId: siteId, siteType: siteType, url: url)
+        if pageType == .assignments {
+            SakaiService.shared.setAssignmentToolUrl(url: url, siteId: siteId)
+        }
+        self.init(id: id, title: title, siteId: siteId, siteType: siteType, pageType: pageType, url: url)
     }
 }

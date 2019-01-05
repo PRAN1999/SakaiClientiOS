@@ -48,6 +48,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
             }
             if provider.dateSorted {
                 cell.titleLabel.text = "All Assignments"
+                cell.titleLabel.iconText = nil
             }
             return cell
         }
@@ -57,6 +58,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     override func configureBehavior(for cell: AssignmentTableCell, at indexPath: IndexPath) {
         if provider.dateSorted {
             cell.titleLabel.text = "All Assignments"
+            cell.titleLabel.iconText = nil
         }
 
         selectedManager = cell.manager
