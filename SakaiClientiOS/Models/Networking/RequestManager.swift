@@ -16,6 +16,7 @@ class RequestManager {
     static let shared = RequestManager()
 
     static let savedCookiesKey = "savedCookies"
+    private let portalURL = URL(string: "https://sakai.rutgers.edu/portal")
 
     private var _processPool = WKProcessPool()
     private var _userId: String?
@@ -69,6 +70,14 @@ class RequestManager {
         _processPool = WKProcessPool()
         _userId = nil
         clearCookies()
+    }
+
+    func refreshCookies() {
+        if let url = portalURL {
+            Alamofire.SessionManager.default.request(url).response(queue: DispatchQueue.global(qos: .background)) { [weak self] res in
+                self?.loadCookiesIntoUserDefaults()
+            }
+        }
     }
 }
 

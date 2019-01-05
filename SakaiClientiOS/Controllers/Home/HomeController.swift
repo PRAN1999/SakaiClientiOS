@@ -64,10 +64,13 @@ class HomeController: UITableViewController {
             return
         }
         if loginService.loadCookiesFromUserDefaults() {
+            let callback = addLoadingIndicator()
             loginService.validateLoggedInStatus(
                 onSuccess: { [weak self] in
+                    callback()
                     self?.loadData()
                 }, onFailure: { [weak self] err in
+                    callback()
                     self?.performLoginFlow()
                 }
             )
