@@ -40,7 +40,7 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         let dateIcon: UILabel = UIView.defaultAutoLayoutView()
         dateIcon.font = UIFont(name: AppIcons.generalIconFont, size: 15.0)
         dateIcon.text = AppIcons.dateIcon
-        dateIcon.textColor = Palette.main.primaryTextColor
+        dateIcon.textColor = Palette.main.tertiaryBackgroundColor
         dateIcon.textAlignment = .right
         return dateIcon
     }()
@@ -127,6 +127,8 @@ class AnnouncementCell: UITableViewCell, ConfigurableCell {
         dateLabel.text = item.dateString
         if let code = item.subjectCode {
             iconLabel.text = AppIcons.codeToIcon[code]
+        } else {
+            iconLabel.text = nil
         }
     }
 }

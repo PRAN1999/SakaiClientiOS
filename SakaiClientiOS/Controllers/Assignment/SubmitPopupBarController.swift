@@ -10,6 +10,15 @@ import LNPopupController
 
 class SubmitPopupBarController: LNPopupCustomBarViewController {
 
+    let iconLabel: UILabel = {
+        let iconLabel: UILabel = UIView.defaultAutoLayoutView()
+        iconLabel.font = UIFont(name: AppIcons.generalIconFont, size: 25.0)
+        iconLabel.textColor = Palette.main.primaryTextColor
+        iconLabel.text = AppIcons.slideUpIcon
+        iconLabel.textAlignment = .right
+        return iconLabel
+    }()
+
     let titleLabel: UILabel = {
         let label: UILabel = UIView.defaultAutoLayoutView()
         label.font = UIFont.systemFont(ofSize: 17.0, weight: .medium)
@@ -21,7 +30,21 @@ class SubmitPopupBarController: LNPopupCustomBarViewController {
     private lazy var blurEffectView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: Palette.main.blurStyle)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        UIView.constrainChildToEdges(child: titleLabel, parent: blurEffectView.contentView)
+        let contentView = blurEffectView.contentView
+
+        contentView.addSubview(iconLabel)
+        contentView.addSubview(titleLabel)
+
+        let margins = contentView
+
+        NSLayoutConstraint.activate([
+            iconLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            iconLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            iconLabel.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -5.0),
+            titleLabel.topAnchor.constraint(equalTo: margins.topAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: margins.centerXAnchor)
+        ])
         return blurEffectView
     }()
 

@@ -12,19 +12,24 @@ final class AppIcons {
     static let assignmentsIcon = "\u{F100}"
     static let gradebookIcon = "\u{F101}"
     static let announcementsIcon = "\u{F102}"
-    static let statusIcon = "\u{F109}"
+    static let statusOpenIcon = "\u{F116}"
     static let dateIcon = "\u{F10A}"
     static let criticalIcon = "\u{F10B}"
-    static let maxGradeIcon = "\u{F10C}"
-    static let instructionIcon = "\u{F10D}"
+    static let maxGradeIcon = "\u{F115}"
+    static let infoIcon = "\u{F10D}"
     static let attachmentIcon = "\u{F10E}"
     static let slideUpIcon = "\u{F10F}"
     static let resourcesIcon = "\u{F110}"
     static let chatIcon = "\u{F111}"
+    static let dueIcon = "\u{F112}"
+    static let resubmitIcon = "\u{F113}"
+    static let closedStatusIcon = "\u{F114}"
+    static let privacyIcon = "\u{F117}"
+    static let thanksIcon = "\u{F118}"
 
     static let generalIconFont = "General-Icons"
     static let siteFont = "iOS-Icons"
-    static let siteIconsFile = "site-icons"
+    private static let siteIconsFile = "site-icons"
 
     static let codeToIcon: [Int: String] = {
         var codeToIcon: [Int: String] = [:]

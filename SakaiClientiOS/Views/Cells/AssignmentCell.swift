@@ -32,6 +32,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
         titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.5)
         titleLabel.iconLabel.font = UIFont(name: AppIcons.siteFont, size: 15.0)
+        titleLabel.iconLabel.textColor = Palette.main.tertiaryBackgroundColor
         titleLabel.numberOfLines = 2
         return titleLabel
     }()
@@ -43,7 +44,8 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         dueLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
         dueLabel.addBorder(toSide: .top, withColor: Palette.main.highlightColor, andThickness: 2.5)
         dueLabel.iconLabel.font = UIFont(name: AppIcons.generalIconFont, size: 15)
-        dueLabel.iconText = AppIcons.dateIcon
+        dueLabel.iconLabel.textColor = Palette.main.tertiaryBackgroundColor
+        dueLabel.iconText = AppIcons.dueIcon
         dueLabel.titleLabel.adjustsFontSizeToFitWidth = true
         dueLabel.numberOfLines = 1
         return dueLabel

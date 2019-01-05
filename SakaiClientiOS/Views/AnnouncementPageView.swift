@@ -38,7 +38,7 @@ class AnnouncementPageView: UIScrollView {
         let dateIcon: UILabel = UIView.defaultAutoLayoutView()
         dateIcon.font = UIFont(name: AppIcons.generalIconFont, size: 15.0)
         dateIcon.text = AppIcons.dateIcon
-        dateIcon.textColor = Palette.main.primaryTextColor
+        dateIcon.textColor = Palette.main.tertiaryBackgroundColor
         dateIcon.textAlignment = .right
         return dateIcon
     }()

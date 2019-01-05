@@ -12,17 +12,6 @@ class HomeController: UITableViewController {
     
     private lazy var siteTableManager = SiteTableManager(tableView: tableView)
 
-    private let logoutController: UIAlertController = {
-        let logoutController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (action) in
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            appDelegate?.logout()
-        }
-        logoutController.addAction(logoutAction)
-        logoutController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        return logoutController
-    }()
-
     private var launchedInBackground = false
 
     var loginService: LoginService?
@@ -49,10 +38,6 @@ class HomeController: UITableViewController {
         NotificationCenter.default.removeObserver(self,
                                                   name: Notification.Name(rawValue: ReloadActions.reload.rawValue),
                                                   object: nil)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "logout"),
-                                                           style: .plain,
-                                                           target: self,
-                                                           action: #selector(presentLogoutController))
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(loadData),
                                                name: Notification.Name(rawValue: ReloadActions.reloadHome.rawValue),
@@ -125,10 +110,6 @@ class HomeController: UITableViewController {
                 arr[index].isEnabled = true
             }
         }
-    }
-    
-    @objc private func presentLogoutController() {
-        present(logoutController, animated: true, completion: nil)
     }
 }
 

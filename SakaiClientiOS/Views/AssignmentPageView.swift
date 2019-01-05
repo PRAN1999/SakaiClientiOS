@@ -26,15 +26,36 @@ class AssignmentPageView: UIScrollView {
         return titleLabel
     }()
 
-    let classLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let classLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconLabel.font = UIFont(name: AppIcons.siteFont, size: 20.0)
+        detailLabel.iconText = nil
+        return detailLabel
+    }()
 
-    let statusLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let statusLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconText = AppIcons.statusOpenIcon
+        return detailLabel
+    }()
 
-    let pointsLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let pointsLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconText = AppIcons.maxGradeIcon
+        return detailLabel
+    }()
 
-    let dueLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let dueLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconText = AppIcons.dueIcon
+        return detailLabel
+    }()
 
-    let submissionLabel: DetailLabel = UIView.defaultAutoLayoutView()
+    let submissionLabel: DetailLabel = {
+        let detailLabel: DetailLabel = UIView.defaultAutoLayoutView()
+        detailLabel.iconText = AppIcons.resubmitIcon
+        return detailLabel
+    }()
 
     let instructionView: TappableTextView = {
         let instructionView: TappableTextView = UIView.defaultAutoLayoutView()
@@ -143,6 +164,11 @@ extension AssignmentPageView {
             submissionLabel.setKeyVal(key: "Allows Resubmission:", val: resubmission ? "Yes" : "No")
         }
         statusLabel.setKeyVal(key: "Status:", val: assignment.status)
+        if assignment.status == "Closed" {
+            statusLabel.iconText = AppIcons.closedStatusIcon
+        } else {
+            statusLabel.iconText = AppIcons.statusOpenIcon
+        }
         dueLabel.setKeyVal(key: "Due:", val: assignment.dueTimeString)
         guard let instructions = getInstructionsString(attributedText: assignment.attributedInstructions) else {
             return
@@ -156,7 +182,7 @@ extension AssignmentPageView {
         instructionView.attributedText = instructions
 
         if let code = assignment.subjectCode {
-            titleLabel.iconText = AppIcons.codeToIcon[code]
+            classLabel.iconText = AppIcons.codeToIcon[code]
         }
     }
 
