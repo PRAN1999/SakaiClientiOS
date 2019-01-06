@@ -41,6 +41,8 @@ class PagesController: UIViewController {
 
     private var bottomConstraint, topConstraint: NSLayoutConstraint?
 
+    private var orientation: UIDeviceOrientation?
+
     weak var delegate: PageDelegate?
 
     init(assignments: [Assignment], start: Int) {
@@ -61,7 +63,7 @@ class PagesController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        orientation = UIDevice.current.orientation
         guard let pageView = pageController.view else {
             return
         }
@@ -133,6 +135,11 @@ class PagesController: UIViewController {
         tabBarController.view.addSubview(tabBarController.popupBar)
         tabBarController.view.addSubview(tabBarController.popupContentView)
     }
+
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        delegate?.pageControllerDidRotate(self, at: pageControl.currentPage)
+//    }
 }
 
 extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {

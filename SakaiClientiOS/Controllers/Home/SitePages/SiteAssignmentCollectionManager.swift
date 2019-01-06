@@ -14,7 +14,12 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     weak var delegate: NetworkSourceDelegate?
 
     override var scrollPosition: UICollectionViewScrollPosition {
-        return .centeredVertically
+        if UIDevice.current.orientation == .landscapeRight ||
+            UIDevice.current.orientation == .landscapeLeft {
+            return .centeredHorizontally
+        } else {
+            return .centeredVertically
+        }
     }
     
     convenience init(collectionView: UICollectionView, siteId: String) {
@@ -41,4 +46,15 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
         let size: CGSize = CGSize(width: width, height: height)
         return size
     }
+
+//    override func pageControllerDidRotate(_ pageController: PagesController, at index: Int) {
+//        let layout = collectionView.collectionViewLayout as? LandscapeHorizontalLayout
+//        if UIDevice.current.orientation == .portrait {
+//            layout?.scrollDirection = .vertical
+//            layout?.invalidateLayout()
+//        } else {
+//            layout?.scrollDirection = .horizontal
+//            layout?.invalidateLayout()
+//        }
+//    }
 }

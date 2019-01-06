@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         // Only allow portrait (standard behaviour)
         return .portrait
+        //return .allButUpsideDown
     }
 
     private func topViewControllerWithRootViewController(_ rootViewController: UIViewController!) -> UIViewController? {

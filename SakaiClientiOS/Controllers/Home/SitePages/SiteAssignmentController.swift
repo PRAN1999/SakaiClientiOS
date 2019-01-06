@@ -26,7 +26,7 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
     }
     
     override func loadView() {
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: LandscapeHorizontalLayout())
     }
 
     override func viewDidLoad() {

@@ -79,9 +79,15 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
         selectedCell = nil
         transitionIndex = nil
     }
+
+//    func pageControllerDidRotate(_ pageController: PagesController, at index: Int) {
+//        collectionView.collectionViewLayout.invalidateLayout()
+//        self.pageController(pageController, didMoveToIndex: index)
+//    }
 }
 
 extension AssignmentCollectionManager: PageDelegate {
+
     func pageController(_ pageController: PagesController, didMoveToIndex index: Int) {
         selectedCell?.flip(withDirection: .toFront, animated: false, completion: {})
         selectedCell = nil
