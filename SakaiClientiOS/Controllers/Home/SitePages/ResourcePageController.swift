@@ -33,7 +33,8 @@ class ResourcePageController: UIViewController, SitePageController {
         self.title = "Resources"
         treeView.treeFooterView = UIView()
 
-        UIView.constrainChildToEdges(child: treeView, parent: view)
+        view.addSubview(treeView)
+        treeView.constrainToEdges(of: view)
 
         resourceTreeManager.didSelectResource.delegate(to: self) { (self, url) -> Void in
             if url.absoluteString.contains("sakai.rutgers.edu") {

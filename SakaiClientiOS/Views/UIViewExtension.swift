@@ -8,56 +8,81 @@
 import Foundation
 import UIKit
 
+protocol Layoutable {
+    var leadingAnchor: NSLayoutXAxisAnchor { get }
+    var trailingAnchor: NSLayoutXAxisAnchor { get }
+    var topAnchor: NSLayoutYAxisAnchor { get }
+    var bottomAnchor: NSLayoutYAxisAnchor { get }
+}
+
+extension UILayoutGuide: Layoutable {}
+extension UIView: Layoutable {}
+
+extension NSLayoutConstraint {
+    func withPriority(priority: Float) -> NSLayoutConstraint {
+        let priority = UILayoutPriority(rawValue: priority)
+        self.priority = priority
+        return self
+    }
+}
+
 extension UIView {
-
-    enum ViewSide {
-        case left, right, top, bottom
-    }
-
-    static func constrainChildToEdges(child: UIView, parent: UIView) {
-        parent.addSubview(child)
-        
-        child.translatesAutoresizingMaskIntoConstraints = false
-        child.topAnchor.constraint(equalTo: parent.topAnchor).isActive = true
-        child.bottomAnchor.constraint(equalTo: parent.bottomAnchor).isActive = true
-        child.leadingAnchor.constraint(equalTo: parent.leadingAnchor).isActive = true
-        child.trailingAnchor.constraint(equalTo: parent.trailingAnchor).isActive = true
-    }
-
-    static func constrainChildToEdgesAndBottomMargin(child: UIView, parent: UIView) -> NSLayoutConstraint {
-        parent.addSubview(child)
-        let margins = parent.layoutMarginsGuide
-
-        child.translatesAutoresizingMaskIntoConstraints = false
-        child.topAnchor.constraint(equalTo: parent.topAnchor).isActive = true
-        child.leadingAnchor.constraint(equalTo: parent.leadingAnchor).isActive = true
-        child.trailingAnchor.constraint(equalTo: parent.trailingAnchor).isActive = true
-
-        let bottomConstraint = child.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
-        bottomConstraint.isActive = true
-        return bottomConstraint
-    }
-
-    static func constrainChildToTopAndBottomMargins(child: UIView, parent: UIView) -> (NSLayoutConstraint, NSLayoutConstraint) {
-        parent.addSubview(child)
-        let margins = parent.layoutMarginsGuide
-
-        child.translatesAutoresizingMaskIntoConstraints = false
-        child.leadingAnchor.constraint(equalTo: parent.leadingAnchor).isActive = true
-        child.trailingAnchor.constraint(equalTo: parent.trailingAnchor).isActive = true
-
-        let topConstraint = child.topAnchor.constraint(equalTo: margins.topAnchor)
-        topConstraint.isActive = true
-
-        let bottomConstraint = child.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
-        bottomConstraint.isActive = true
-        return (topConstraint, bottomConstraint)
-    }
 
     static func defaultAutoLayoutView<T: UIView>() -> T {
         let view = T(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }
+
+    enum ViewSide {
+        case left, right, top, bottom
+    }
+
+    func constrainToEdges(of parent: Layoutable) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: parent.topAnchor),
+            bottomAnchor.constraint(equalTo: parent.bottomAnchor),
+            leadingAnchor.constraint(equalTo: parent.leadingAnchor),
+            trailingAnchor.constraint(equalTo: parent.trailingAnchor)
+        ])
+    }
+
+    func constrainToMargins(of parent: UIView) {
+        let margins = parent.layoutMarginsGuide
+        constrainToEdges(of: margins)
+    }
+
+    func constrainToEdge(of parent: Layoutable, onSide side: ViewSide) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        let constraint: NSLayoutConstraint
+        switch side {
+        case .left:
+            constraint = leadingAnchor.constraint(equalTo: parent.leadingAnchor)
+        case .right:
+            constraint = trailingAnchor.constraint(equalTo: parent.trailingAnchor)
+        case .top:
+            constraint = topAnchor.constraint(equalTo: parent.topAnchor)
+        case .bottom:
+            constraint = bottomAnchor.constraint(equalTo: parent.bottomAnchor)
+        }
+        constraint.isActive = true
+    }
+
+    func constrainToMargin(of parent: UIView, onSide side: ViewSide) {
+        let margins = parent.layoutMarginsGuide
+        constrainToEdge(of: margins, onSide: side)
+    }
+
+    func constrainToEdges(of parent: Layoutable, onSides sides: [ViewSide]) {
+        for side in sides {
+            constrainToEdge(of: parent, onSide: side)
+        }
+    }
+
+    func constrainToMargins(of parent: UIView, onSides sides: [ViewSide]) {
+        let margins = parent.layoutMarginsGuide
+        constrainToEdges(of: margins, onSides: sides)
     }
 
     func addBorder(toSide side: ViewSide, withColor color: UIColor, andThickness thickness: CGFloat) {
@@ -67,36 +92,20 @@ extension UIView {
 
         switch side {
         case .left:
-            NSLayoutConstraint.activate([
-                border.topAnchor.constraint(equalTo: topAnchor),
-                border.bottomAnchor.constraint(equalTo: bottomAnchor),
-                border.leadingAnchor.constraint(equalTo: leadingAnchor),
-                border.widthAnchor.constraint(equalToConstant: thickness)
-            ])
+            border.constrainToEdges(of: self, onSides: [.top, .bottom, .left])
+            border.widthAnchor.constraint(equalToConstant: thickness).isActive = true
             break
         case .right:
-            NSLayoutConstraint.activate([
-                border.topAnchor.constraint(equalTo: topAnchor),
-                border.bottomAnchor.constraint(equalTo: bottomAnchor),
-                border.trailingAnchor.constraint(equalTo: trailingAnchor),
-                border.widthAnchor.constraint(equalToConstant: thickness)
-            ])
+            border.constrainToEdges(of: self, onSides: [.top, .bottom, .right])
+            border.widthAnchor.constraint(equalToConstant: thickness).isActive = true
             break
         case .top:
-            NSLayoutConstraint.activate([
-                border.topAnchor.constraint(equalTo: topAnchor),
-                border.leadingAnchor.constraint(equalTo: leadingAnchor),
-                border.trailingAnchor.constraint(equalTo: trailingAnchor),
-                border.heightAnchor.constraint(equalToConstant: thickness)
-            ])
+            border.constrainToEdges(of: self, onSides: [.top, .left, .right])
+            border.heightAnchor.constraint(equalToConstant: thickness).isActive = true
             break
         case .bottom:
-            NSLayoutConstraint.activate([
-                border.bottomAnchor.constraint(equalTo: bottomAnchor),
-                border.leadingAnchor.constraint(equalTo: leadingAnchor),
-                border.trailingAnchor.constraint(equalTo: trailingAnchor),
-                border.heightAnchor.constraint(equalToConstant: thickness)
-            ])
+            border.constrainToEdges(of: self, onSides: [.bottom, .left, .right])
+            border.heightAnchor.constraint(equalToConstant: thickness).isActive = true
             break
         }
         bringSubview(toFront: border)

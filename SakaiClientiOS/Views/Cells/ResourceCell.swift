@@ -11,10 +11,22 @@ import ReusableSource
 /// A cell to display a Resource collection or element
 class ResourceCell: UITableViewCell, ReusableCell {
 
-    static let level1Color = UIColor(red: 199.0 / 256.0, green: 26.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
-    static let level2Color = UIColor(red: 199.0 / 256.0, green: 66.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
-    static let level3Color = UIColor(red: 199.0 / 256.0, green: 104.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
-    static let level4Color = UIColor(red: 199.0 / 256.0, green: 142.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
+    static let level1Color = UIColor(red: 199.0 / 256.0,
+                                     green: 26.0 / 255.0,
+                                     blue: 36.0 / 255.0,
+                                     alpha: 1.0)
+    static let level2Color = UIColor(red: 199.0 / 256.0,
+                                     green: 66.0 / 255.0,
+                                     blue: 36.0 / 255.0,
+                                     alpha: 1.0)
+    static let level3Color = UIColor(red: 199.0 / 256.0,
+                                     green: 104.0 / 255.0,
+                                     blue: 36.0 / 255.0,
+                                     alpha: 1.0)
+    static let level4Color = UIColor(red: 199.0 / 256.0,
+                                     green: 142.0 / 255.0,
+                                     blue: 36.0 / 255.0,
+                                     alpha: 1.0)
 
     typealias T = ResourceItem
 
@@ -66,26 +78,18 @@ class ResourceCell: UITableViewCell, ReusableCell {
     }
 
     private func setConstraints() {
-        let margins = contentView.layoutMarginsGuide
-
-        leftBorder.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        leftBorder.constrainToMargins(of: contentView, onSides: [.left, .top, .bottom])
         leftBorder.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
-        leftBorder.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        leftBorder.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         leftBorder.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.015).isActive = true
 
+        titleLabel.constrainToMargins(of: contentView, onSides: [.top, .bottom])
         titleLabel.trailingAnchor.constraint(equalTo: sizeLabel.leadingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
 
+        sizeLabel.constrainToMargins(of: contentView, onSides: [.top, .bottom])
         sizeLabel.trailingAnchor.constraint(equalTo: spaceView.leadingAnchor).isActive = true
-        sizeLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        sizeLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         sizeLabel.widthAnchor.constraint(equalTo: sizeLabel.heightAnchor).isActive = true
 
-        spaceView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        spaceView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        spaceView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        spaceView.constrainToMargins(of: contentView, onSides: [.right, .top, .bottom])
     }
 
     func configure(_ item: ResourceItem, at level: Int, isExpanded: Bool) {

@@ -62,10 +62,15 @@ class PagesController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let pageView = pageController.view!
-        let (top, bottom) = UIView.constrainChildToTopAndBottomMargins(child: pageView, parent: view)
-        topConstraint = top
-        bottomConstraint = bottom
+        guard let pageView = pageController.view else {
+            return
+        }
+        view.addSubview(pageView)
+        pageView.constrainToEdges(of: view, onSides: [.left, .right])
+        let margins = view.layoutMarginsGuide
+        topConstraint = pageView.topAnchor.constraint(equalTo: margins.topAnchor)
+        bottomConstraint = pageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
+        topConstraint?.isActive = true; bottomConstraint?.isActive = true
 
         // Configure the LNPopupController instance for the NavigationController
         setPopupURL(viewControllerIndex: start)

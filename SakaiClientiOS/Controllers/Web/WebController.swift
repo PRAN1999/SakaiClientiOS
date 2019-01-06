@@ -92,7 +92,8 @@ class WebController: UIViewController {
             webView.uiDelegate = self
             webView.navigationDelegate = self
             if let view = self?.view {
-                UIView.constrainChildToEdges(child: webView, parent: view)
+                view.addSubview(webView)
+                webView.constrainToEdges(of: view)
             }
 
             // Normal pop recognizer is buggy with WKWebView
@@ -142,12 +143,14 @@ class WebController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if isMovingFromParentViewController {
-            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
-        }
         navigationController?.navigationBar.tintColor = Palette.main.navigationTintColor
         navigationController?.setToolbarHidden(true, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        view.setNeedsLayout()
+        super.viewWillTransition(to: size, with: coordinator)
     }
 
     func loadURL(urlOpt: URL?) {

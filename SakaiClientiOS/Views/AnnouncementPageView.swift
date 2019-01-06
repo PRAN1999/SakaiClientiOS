@@ -86,31 +86,29 @@ class AnnouncementPageView: UIScrollView {
     private func setConstraints() {
         contentView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
 
-        let margins = contentView.layoutMarginsGuide
-
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: authorLabel.topAnchor, constant: -5.0).isActive = true
+        titleLabel.constrainToEdges(of: contentView, onSides: [.left, .right, .top])
+        titleLabel.bottomAnchor.constraint(equalTo: authorLabel.topAnchor,
+                                           constant: -5.0).isActive = true
         titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 75).isActive = true
 
+        authorLabel.constrainToEdge(of: contentView, onSide: .left)
         authorLabel.bottomAnchor.constraint(equalTo: messageView.topAnchor).isActive = true
-        authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: dateIcon.leadingAnchor).isActive = true
-        authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor,
-                                           multiplier: 0.72).isActive = true
+//        authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor,
+//                                           multiplier: 0.72).isActive = true
 
         dateIcon.topAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
         dateIcon.bottomAnchor.constraint(equalTo: authorLabel.bottomAnchor).isActive = true
-        dateIcon.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor).isActive = true
+        dateIcon.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor,
+                                           constant: -5.0).isActive = true
+        dateIcon.widthAnchor.constraint(equalToConstant: 30).isActive = true
 
+        dateLabel.constrainToMargin(of: contentView, onSide: .right)
         dateLabel.topAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
-        dateLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         dateLabel.bottomAnchor.constraint(equalTo: authorLabel.bottomAnchor).isActive = true
+        dateLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 60).isActive = true
 
-        messageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        messageView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        messageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        messageView.constrainToMargins(of: contentView, onSides: [.left, .right, .bottom])
     }
 
     override func layoutSubviews() {

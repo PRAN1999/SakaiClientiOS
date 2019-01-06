@@ -72,13 +72,14 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
     private func setConstraints() {
         let margins = layoutMarginsGuide
 
-        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: activityIndicator.leadingAnchor, constant: -20.0).isActive = true
+        titleLabel.constrainToMargins(of: self, onSides: [.left, .bottom])
+        titleLabel.trailingAnchor.constraint(equalTo: activityIndicator.leadingAnchor,
+                                             constant: -20.0).isActive = true
 
         activityIndicator.topAnchor.constraint(lessThanOrEqualTo: margins.topAnchor,
                                                constant: 5.0).isActive = true
         activityIndicator.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+
         let constraint = NSLayoutConstraint(item: activityIndicator,
                                             attribute: .trailing,
                                             relatedBy: .lessThanOrEqual,
@@ -89,8 +90,9 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
         constraint.priority = UILayoutPriority(999)
         addConstraint(constraint)
 
-        imageLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        centerConstraint = imageLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 0)
+        imageLabel.constrainToMargin(of: self, onSide: .right)
+        centerConstraint = imageLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor,
+                                                               constant: 0)
         centerConstraint.isActive = true
     }
 

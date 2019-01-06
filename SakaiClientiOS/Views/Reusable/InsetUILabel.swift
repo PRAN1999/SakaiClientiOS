@@ -89,9 +89,7 @@ class InsetUILabel: UILabel, UIGestureRecognizerDelegate {
 
         leadingConstraint = titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
         leadingConstraint.isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.constrainToMargins(of: self, onSides: [.right, .top, .bottom])
     }
 
     func setLeftMargin(to val: CGFloat) {

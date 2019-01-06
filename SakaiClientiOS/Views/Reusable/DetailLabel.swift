@@ -35,7 +35,7 @@ class DetailLabel: UILabel {
 
     private lazy var iconVisibleConstraint: NSLayoutConstraint = {
         let margins = layoutMarginsGuide
-        return iconLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.10)
+        return iconLabel.widthAnchor.constraint(equalToConstant: 25)
     }()
     private lazy var iconHiddenConstraint: NSLayoutConstraint = {
         let margins = layoutMarginsGuide
@@ -76,18 +76,16 @@ class DetailLabel: UILabel {
     private func setConstraints() {
         let margins = self.layoutMarginsGuide
 
-        iconLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        iconLabel.constrainToMargin(of: self, onSide: .left)
         iconLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
 
-        titleLabel.leadingAnchor.constraint(equalTo: iconLabel.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.constrainToMargins(of: self, onSides: [.top, .bottom])
+        titleLabel.leadingAnchor.constraint(equalTo: iconLabel.trailingAnchor,
+                                            constant: 5.0).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: detailLabel.leadingAnchor).isActive = true
         titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5)
 
-        detailLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        detailLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        detailLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        detailLabel.constrainToMargins(of: self, onSides: [.right, .top, .bottom])
     }
 
     /// Set the key-value text of the view

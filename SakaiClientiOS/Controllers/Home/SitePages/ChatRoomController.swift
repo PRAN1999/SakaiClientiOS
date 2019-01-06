@@ -69,7 +69,8 @@ class ChatRoomController: UIViewController, SitePageController {
     private func setup() {
         chatRoomView.backgroundColor = Palette.main.primaryBackgroundColor
         webView.backgroundColor = Palette.main.primaryBackgroundColor
-        UIView.constrainChildToEdges(child: chatRoomView, parent: view)
+        view.addSubview(chatRoomView)
+        chatRoomView.constrainToEdges(of: view)
         chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()
         }
