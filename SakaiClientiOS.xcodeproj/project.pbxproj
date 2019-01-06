@@ -774,12 +774,12 @@
 				DE0599FF1DFD93B200D19D17 /* Assets.xcassets */,
 				DE059A041DFD93B200D19D17 /* Info.plist */,
 				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
+				513E5A8521E282F5007BFD9A /* Rotatable.swift */,
 				5137DE0521DED22400FCC91C /* Resources */,
 				51910EDD21DC90B30079021C /* Design */,
 				51C2D15A20C47FA000E4C901 /* Controllers */,
 				514B623A209569AF001A716C /* Views */,
 				5113C13A209298FF001929DA /* Models */,
-				513E5A8521E282F5007BFD9A /* Rotatable.swift */,
 			);
 			path = SakaiClientiOS;
 			sourceTree = "<group>";

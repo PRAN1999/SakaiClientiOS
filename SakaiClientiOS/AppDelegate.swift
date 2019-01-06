@@ -52,11 +52,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        if let _ = self.topViewControllerWithRootViewController(window?.rootViewController) as? Rotatable {
-            return .allButUpsideDown
-        }
-        // Only allow portrait (standard behaviour)
-        return .portrait
+//        if let _ = self.topViewControllerWithRootViewController(window?.rootViewController) as? Rotatable {
+//            return .allButUpsideDown
+//        }
+//        // Only allow portrait (standard behaviour)
+//        return .portrait
+        return .allButUpsideDown
     }
 
     private func topViewControllerWithRootViewController(_ rootViewController: UIViewController!) -> UIViewController? {
