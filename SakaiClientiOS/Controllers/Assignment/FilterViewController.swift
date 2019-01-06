@@ -8,6 +8,7 @@
 import UIKit
 import M13Checkbox
 
+/// Modal Filter used to switch Assignment sorting
 class FilterViewController: UIViewController {
 
     @IBOutlet weak var popupView: UIView!
@@ -58,8 +59,10 @@ extension FilterViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CheckBoxCell.reuseIdentifier, for: indexPath) as? CheckBoxCell else {
-            return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: CheckBoxCell.reuseIdentifier,
+            for: indexPath) as? CheckBoxCell else {
+                return UITableViewCell()
         }
         cell.label.text = filters[indexPath.row]
         if selectedIndex == indexPath.row {

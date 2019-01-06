@@ -14,6 +14,7 @@ FOUNDATION_EXPORT double ReusableSourceVersionNumber;
 //! Project version string for ReusableSource.
 FOUNDATION_EXPORT const unsigned char ReusableSourceVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <ReusableSource/PublicHeader.h>
+// In this header, you should import all the public headers of your framework
+// using statements like #import <ReusableSource/PublicHeader.h>
 
 

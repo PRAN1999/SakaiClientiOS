@@ -71,7 +71,8 @@ class AssignmentTableDataProvider: HideableNetworkDataProvider {
         var res = payload
         var index = 0
         while index < res.count {
-            // If there are no Assignments for any single class, remove it from the data source
+            // If there are no Assignments for any single class, remove it
+            // from the data source
             if res[index].count == 0 {
                 res.remove(at: index)
                 index -= 1

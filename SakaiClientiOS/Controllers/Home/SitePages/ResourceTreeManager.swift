@@ -8,15 +8,20 @@
 import RATreeView
 import ReusableSource
 
+/// Manages RATreeView by loading and presenting fetched Resource Data.
+/// Every cell in the TreeView is configured with a ResourceItem that
+/// represents a folder or an individual resource file in the Tree
 class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, NetworkSource {
     typealias Fetcher = ResourceDataFetcher
 
     weak var delegate: NetworkSourceDelegate?
 
     private var resources: [ResourceNode] = []
-    var didSelectResource = Delegated<URL, Void>()
 
     private let treeView: RATreeView
+
+    /// The callback for selection of an individual Resource link
+    var didSelectResource = Delegated<URL, Void>()
     let fetcher: ResourceDataFetcher
     
     convenience init(treeView: RATreeView, siteId: String) {
@@ -39,10 +44,12 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
         treeView.separatorColor = Palette.main.tableViewSeparatorColor
         treeView.scrollView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
     }
+
+    // MARK: TreeView Data Source
     
     func treeView(_ treeView: RATreeView, numberOfChildrenOfItem item: Any?) -> Int {
         if let item = item as? ResourceNode {
-            return (item.children != nil) ? item.children!.count : 0
+            return item.children.count
         } else {
             return resources.count
         }
@@ -50,14 +57,17 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     
     func treeView(_ treeView: RATreeView, child index: Int, ofItem item: Any?) -> Any {
         if let item = item as? ResourceNode {
-            return item.children![index]
+            return item.children[index]
         } else {
             return resources[index] as ResourceNode
         }
     }
     
     func treeView(_ treeView: RATreeView, cellForItem item: Any?) -> UITableViewCell {
-        guard let cell = treeView.dequeueReusableCell(withIdentifier: ResourceCell.reuseIdentifier) as? ResourceCell else {
+        guard
+            let cell = treeView
+                .dequeueReusableCell(withIdentifier: ResourceCell.reuseIdentifier) as? ResourceCell
+            else {
             return UITableViewCell()
         }
         
@@ -65,11 +75,13 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
             return UITableViewCell()
         }
         let isExpanded = treeView.isCell(forItemExpanded: item)
-        cell.configure(item.resourceItem, at: treeView.levelForCell(forItem: item), isExpanded: isExpanded)
+        cell.configure(item.resourceItem,
+                       at: treeView.levelForCell(forItem: item),
+                       isExpanded: isExpanded)
         return cell
     }
     
-    // MARK: Treeview Delegate
+    // MARK: TreeView Delegate
     
     func treeView(_ treeView: RATreeView, canEditRowForItem item: Any) -> Bool {
         return false

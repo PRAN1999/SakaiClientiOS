@@ -9,7 +9,8 @@ import UIKit
 import LNPopupController
 import SafariServices
 
-/// The container view controller allowing pagination between multiple Assignments
+/// The container view controller allowing pagination between multiple
+/// Assignments
 class PagesController: UIViewController {
 
     private let pageControl: UIPageControl = {
@@ -22,15 +23,16 @@ class PagesController: UIViewController {
     private let pageControlView = UIView()
     private let pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
 
-    // Even when the current Assignment changes, the popup controller instance will
-    // be the same but the popup URL will change
+    // Even when the current Assignment changes, the popup controller
+    // instance will be the same but the popup URL will change
     private let webController: WebController = {
         let webController = WebController()
         webController.allowsOptions = false
         return webController
     }()
     
-    private lazy var popupController = WebViewNavigationController(rootViewController: webController)
+    private lazy var popupController
+        = WebViewNavigationController(rootViewController: webController)
     private let submitPopupBarController = SubmitPopupBarController()
 
     private var pendingIndex: Int? = 0
@@ -40,6 +42,8 @@ class PagesController: UIViewController {
     private let start: Int
 
     private var bottomConstraint, topConstraint: NSLayoutConstraint?
+
+    private var orientation: UIDeviceOrientation?
 
     weak var delegate: PageDelegate?
 
@@ -61,18 +65,20 @@ class PagesController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        orientation = UIDevice.current.orientation
         guard let pageView = pageController.view else {
             return
         }
         view.addSubview(pageView)
         pageView.constrainToEdges(of: view, onSides: [.left, .right])
         let margins = view.layoutMarginsGuide
+        // Keep track of bottom and top margins so they can be readjusted,
+        // when transitioning away from screen
         topConstraint = pageView.topAnchor.constraint(equalTo: margins.topAnchor)
         bottomConstraint = pageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
         topConstraint?.isActive = true; bottomConstraint?.isActive = true
 
-        // Configure the LNPopupController instance for the NavigationController
+        // Configure the LNPopupController instance
         setPopupURL(viewControllerIndex: start)
         webController.dismissWebView = { [weak self] in
             self?.tabBarController?.closePopup(animated: true, completion: nil)
@@ -87,7 +93,10 @@ class PagesController: UIViewController {
         guard let startPage = pages[start] else {
             return
         }
-        pageController.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
+        pageController.setViewControllers([startPage],
+                                          direction: .forward,
+                                          animated: false,
+                                          completion: nil)
         pageController.dataSource = self
         pageController.delegate = self
 
@@ -104,6 +113,8 @@ class PagesController: UIViewController {
         guard let tabBarController = tabBarController as? TabController else {
             return
         }
+        // If a new tab is selected, the UITabBarController will handle
+        // presentation and dismissal of the popup bar
         if tabBarController.isMovingToNewTabFromPages {
             tabBarController.isMovingToNewTabFromPages = false
             return
@@ -119,6 +130,11 @@ class PagesController: UIViewController {
         }
         tabBarController.popupController = popupController
         if tabBarController.shouldOpenPopup {
+            // If the user is trying to submit, presenting the Document
+            // Picker or Image Picker will dismiss the popup due to a
+            // WebKit bug. So, the popup should be reopened once the picker
+            // has dismissed and should not reload the page to save any
+            // potential submission
             webController.shouldLoad = false
             tabBarController.presentPopupBar(withContentViewController: popupController,
                                              openPopup: true,
@@ -130,6 +146,11 @@ class PagesController: UIViewController {
                                              animated: true,
                                              completion: nil)
         }
+        // When popping back to PagesController, the LNPopupController
+        // encounters a bug where it is entirely removed from the view
+        // hierarchy and causes a black space to appear in its place.
+        // Adding the views back to the tabBarController manually fixes
+        // the bug.
         tabBarController.view.addSubview(tabBarController.popupBar)
         tabBarController.view.addSubview(tabBarController.popupContentView)
     }
@@ -153,7 +174,9 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         return pages[previousIndex]
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerAfter viewController: UIViewController)
+                            -> UIViewController? {
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
@@ -171,11 +194,15 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         return pages[nextIndex]
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            willTransitionTo pendingViewControllers: [UIViewController]) {
         pendingIndex = pages.index(of: pendingViewControllers.first)
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
         if completed {
             if let index = pendingIndex {
                 pageControl.currentPage = index
@@ -202,6 +229,8 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
     }
 }
 
+// MARK: Animatable Extension
+
 extension PagesController: Animatable {
     var containerView: UIView? {
         return view
@@ -219,6 +248,10 @@ extension PagesController: Animatable {
 
         topConstraint?.isActive = false
         bottomConstraint?.isActive = false
+        // If left constrained the margins rather than the views actual
+        // edges, the collapsing animation would have compressed the actual
+        // view between ugly black margins on the top and bottom of the
+        // "card" it is transitioning to
         childView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         childView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }

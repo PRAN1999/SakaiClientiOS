@@ -19,12 +19,12 @@ class Palette {
     let tabBarBackgroundColor: UIColor
 
     let barStyle: UIBarStyle
-    let highlightColor: UIColor
+    let highlightColor: UIColor // Main accent color for app
     let tableViewSeparatorColor: UIColor
     let scrollViewIndicatorStyle: UIScrollViewIndicatorStyle
 
-    let primaryTextColor: UIColor
-    let secondaryTextColor: UIColor
+    let primaryTextColor: UIColor // Used for icons, Term Headers...
+    let secondaryTextColor: UIColor // Used for everything else
 
     let primaryBackgroundColor: UIColor
     let secondaryBackgroundColor: UIColor

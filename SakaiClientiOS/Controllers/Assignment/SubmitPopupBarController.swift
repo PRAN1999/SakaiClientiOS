@@ -8,6 +8,7 @@
 import Foundation
 import LNPopupController
 
+/// A customized LNPopupBar for submitting Assignments
 class SubmitPopupBarController: LNPopupCustomBarViewController {
 
     let iconLabel: UILabel = {

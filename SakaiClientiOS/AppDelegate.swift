@@ -10,10 +10,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions
+        launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         UIApplication.shared.setMinimumBackgroundFetchInterval(900)
-
         let root = window?.rootViewController as? UITabBarController
         root?.childViewControllers.forEach { child in
             let nav = child as? UINavigationController
@@ -48,21 +48,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // Called when the application is about to terminate. Save data if
+        // appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        return .allButUpsideDown
+    func application(_ application: UIApplication,
+                     supportedInterfaceOrientationsFor window: UIWindow?)
+        -> UIInterfaceOrientationMask {
+            if let _ = self.topViewControllerForRoot(window?.rootViewController) as? Rotatable {
+                return .allButUpsideDown
+            }
+            // Only allow portrait (standard behaviour)
+            return .portrait
     }
 
-    private func topViewControllerWithRootViewController(rootViewController: UIViewController!) -> UIViewController? {
+    private func topViewControllerForRoot(_ rootViewController: UIViewController?)
+        -> UIViewController? {
         if (rootViewController == nil) { return nil }
-        if (rootViewController.isKind(of: UITabBarController.self)) {
-            return topViewControllerWithRootViewController(rootViewController: (rootViewController as! UITabBarController).selectedViewController)
-        } else if (rootViewController.isKind(of: UINavigationController.self)) {
-            return topViewControllerWithRootViewController(rootViewController: (rootViewController as! UINavigationController).visibleViewController)
-        } else if (rootViewController.presentedViewController != nil) {
-            return topViewControllerWithRootViewController(rootViewController: rootViewController.presentedViewController)
+        if let selected = (rootViewController as? UITabBarController)?.selectedViewController {
+            return topViewControllerForRoot(selected)
+        } else if
+            let visible = (rootViewController as? UINavigationController)?.visibleViewController {
+            return topViewControllerForRoot(visible)
+        } else if let presented = rootViewController?.presentedViewController {
+            return topViewControllerForRoot(presented)
         }
         return rootViewController
     }
@@ -71,8 +80,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
+         application to it. This property is optional since there are
+         legitimate error conditions that could cause the creation of the
+         store to fail.
          */
         let container = NSPersistentContainer(name: "Temp")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -98,7 +108,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("background refresh cookies")
         if RequestManager.shared.loadCookiesFromUserDefaults() {
             RequestManager.shared.validateLoggedInStatus(onSuccess: {
                 RequestManager.shared.refreshCookies()
@@ -119,23 +128,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         rootController?.dismiss(animated: false, completion: nil)
         rootController?.selectedIndex = 0
         let navigationControllers = rootController?.viewControllers as? [UINavigationController]
-        navigationControllers?.forEach{ nav in
+        navigationControllers?.forEach { nav in
             nav.popToRootViewController(animated: false)
         }
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        guard let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController else {
-            return
+        guard
+            let navController = storyboard
+                .instantiateViewController(withIdentifier: "loginNavigation")
+                as? UINavigationController
+            else {
+                return
         }
-        guard let loginController = navController.viewControllers.first as? LoginController else {
-            return
+        guard
+            let loginController = navController.viewControllers.first as? LoginController
+            else {
+                return
         }
         loginController.onLogin = {
             DispatchQueue.main.async {
                 rootController?.dismiss(animated: true, completion: nil)
                 let action = ReloadActions.reloadHome.rawValue
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: action),
-                                                object: nil,
-                                                userInfo: nil)
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(rawValue: action),
+                    object: nil,
+                    userInfo: nil
+                )
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {

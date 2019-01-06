@@ -7,6 +7,7 @@
 
 import ReusableSource
 
+/// Fetches Gradebook data for a specific site
 class SiteGradebookDataFetcher: DataFetcher {
     typealias T = [GradeItem]
     

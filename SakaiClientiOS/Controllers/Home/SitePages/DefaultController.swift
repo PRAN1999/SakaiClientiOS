@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Open non-native SitePages in a WebView
 class DefaultController: WebController, SitePageController {
     
     private let siteId: String
@@ -21,7 +22,11 @@ class DefaultController: WebController, SitePageController {
                   webService: RequestManager.shared)
     }
 
-    init(siteId: String, siteUrl: String, pageTitle: String, downloadService: DownloadService, webService: WebService) {
+    init(siteId: String,
+         siteUrl: String,
+         pageTitle: String,
+         downloadService: DownloadService,
+         webService: WebService) {
         self.siteId = siteId
         self.siteUrl = siteUrl
         self.pageTitle = pageTitle

@@ -8,9 +8,13 @@
 
 import Foundation
 
-/// A generic implementation for a UICollectionViewDataSource with a DataProvider and ConfigurableCell
-/// where the Provider and Cell deal with the same associated model
-open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollectionViewCell & ConfigurableCell> : NSObject, UICollectionViewDataSource, ReusableSource where Provider.T == Cell.T {
+/// A generic implementation for a UICollectionViewDataSource with a
+/// DataProvider and ConfigurableCell where the Provider and Cell deal with
+/// the same associated model
+open class ReusableCollectionDataSource
+    <Provider: DataProvider, Cell: UICollectionViewCell & ConfigurableCell>
+    : NSObject, UICollectionViewDataSource, ReusableSource
+    where Provider.T == Cell.T {
     
     public let provider: Provider
     public let collectionView: UICollectionView
@@ -19,7 +23,8 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
     ///
     /// - Parameters:
     ///   - provider: A Provider object to populate the DataSource
-    ///   - collectionView: The UICollectionView to manage within the data source
+    ///   - collectionView: The UICollectionView to manage within the data
+    ///                     source
     public init(provider: Provider, collectionView: UICollectionView) {
         self.provider = provider
         self.collectionView = collectionView
@@ -27,7 +32,8 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
         setup()
     }
     
-    /// Assign the collectionView dataSource and register the associated Cell class with the collectionView
+    /// Assign the collectionView dataSource and register the associated
+    /// Cell class with the collectionView
     open func setup() {
         collectionView.dataSource = self
         collectionView.register(Cell.self, forCellWithReuseIdentifier: Cell.reuseIdentifier)
@@ -37,13 +43,21 @@ open class ReusableCollectionDataSource<Provider: DataProvider, Cell: UICollecti
         return provider.numberOfSections()
     }
     
-    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView,
+                             numberOfItemsInSection section: Int) -> Int {
         return provider.numberOfItems(in: section)
     }
     
-    /// Provide a default implementation for returning and configuring a UICollectionViewCell making use of DataProvider and ConfigurableCell methods
-    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath) as? Cell else {
+    /// Provide a default implementation for returning and configuring a
+    /// UICollectionViewCell making use of DataProvider and ConfigurableCell
+    /// methods
+    open func collectionView(_ collectionView: UICollectionView,
+                             cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: Cell.reuseIdentifier,
+                for: indexPath) as? Cell
+            else {
             return UICollectionViewCell()
         }
         let item = provider.item(at: indexPath)

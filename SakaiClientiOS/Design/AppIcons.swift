@@ -12,10 +12,8 @@ final class AppIcons {
     static let assignmentsIcon = "\u{F100}"
     static let gradebookIcon = "\u{F101}"
     static let announcementsIcon = "\u{F102}"
-    static let statusOpenIcon = "\u{F116}"
     static let dateIcon = "\u{F10A}"
     static let criticalIcon = "\u{F10B}"
-    static let maxGradeIcon = "\u{F115}"
     static let infoIcon = "\u{F10D}"
     static let attachmentIcon = "\u{F10E}"
     static let slideUpIcon = "\u{F10F}"
@@ -24,6 +22,8 @@ final class AppIcons {
     static let dueIcon = "\u{F112}"
     static let resubmitIcon = "\u{F113}"
     static let closedStatusIcon = "\u{F114}"
+    static let maxGradeIcon = "\u{F115}"
+    static let statusOpenIcon = "\u{F116}"
     static let privacyIcon = "\u{F117}"
     static let thanksIcon = "\u{F118}"
     static let contactIcon = "\u{F119}"
@@ -32,15 +32,19 @@ final class AppIcons {
     static let siteFont = "iOS-Icons"
     private static let siteIconsFile = "site-icons"
 
+    // Convert site-icons.json into a font map from subject code to subject
+    // icon. Uses a IconConfiguration as Decodable data map for json file.
     static let codeToIcon: [Int: String] = {
         var codeToIcon: [Int: String] = [:]
 
-        if let filepath = Bundle.main.path(forResource: AppIcons.siteIconsFile, ofType: "json") {
+        if let filepath =
+            Bundle.main.path(forResource: AppIcons.siteIconsFile, ofType: "json") {
             do {
                 let url = URL(fileURLWithPath: filepath)
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
-                let iconConfig = try decoder.decode(IconConfiguration.self, from: data)
+                let iconConfig = try decoder.decode(IconConfiguration.self,
+                                                    from: data)
                 for icon in iconConfig.icons {
                     guard let unicodeInt = Int(icon.hex, radix: 16),
                         let scalar = UnicodeScalar(unicodeInt) else {

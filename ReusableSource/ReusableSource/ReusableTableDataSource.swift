@@ -8,9 +8,13 @@
 
 import Foundation
 
-/// A generic implementation for a UITableViewDataSource with a DataProvider and ConfigurableCell
-/// where the Provider and Cell deal with the same associated model
-open class ReusableTableDataSource<Provider: DataProvider, Cell: UITableViewCell & ConfigurableCell>: NSObject, UITableViewDataSource, ReusableSource where Provider.T == Cell.T {
+/// A generic implementation for a UITableViewDataSource with a
+/// DataProvider and ConfigurableCell where the Provider and Cell deal with
+/// the same associated model
+open class ReusableTableDataSource
+    <Provider: DataProvider, Cell: UITableViewCell & ConfigurableCell>
+    : NSObject, UITableViewDataSource, ReusableSource
+    where Provider.T == Cell.T {
 
     public let provider: Provider
     public let tableView: UITableView
@@ -27,7 +31,8 @@ open class ReusableTableDataSource<Provider: DataProvider, Cell: UITableViewCell
         setup()
     }
     
-    /// Assign the tableView dataSource and register the associated Cell class with the tableView
+    /// Assign the tableView dataSource and register the associated Cell
+    /// class with the tableView
     open func setup() {
         tableView.dataSource = self
         
@@ -38,13 +43,19 @@ open class ReusableTableDataSource<Provider: DataProvider, Cell: UITableViewCell
         return provider.numberOfSections()
     }
     
-    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView,
+                        numberOfRowsInSection section: Int) -> Int {
         return provider.numberOfItems(in: section)
     }
     
-    /// Provide a default implementation for returning and configuring a UITableViewCell making use of DataProvider and ConfigurableCell methods
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as? Cell else {
+    /// Provide a default implementation for returning and configuring a
+    /// UITableViewCell making use of DataProvider and ConfigurableCell
+    /// methods
+    open func tableView(_ tableView: UITableView,
+                        cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier,
+                                                       for: indexPath) as? Cell else {
             return UITableViewCell()
         }
         let item = provider.item(at: indexPath)

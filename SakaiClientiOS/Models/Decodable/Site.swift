@@ -46,7 +46,12 @@ extension Site: Decodable {
             subjectCode = subjectCodeParsed
         }
 
-        self.init(id: id, title: title, term: term, description: description, pages: pages, subjectCode: subjectCode)
+        self.init(id: id,
+                  title: title,
+                  term: term,
+                  description: description,
+                  pages: pages,
+                  subjectCode: subjectCode)
     }
 
     init(from serializedSite: PersistedSite) {
@@ -59,15 +64,22 @@ extension Site: Decodable {
             pages.append(SitePage(from: page))
         }
         let subjectCode = serializedSite.subjectCode
-        self.init(id: id, title: title, term: term, description: description, pages: pages, subjectCode: subjectCode)
+        self.init(id: id,
+                  title: title,
+                  term: term,
+                  description: description,
+                  pages: pages, subjectCode:
+            subjectCode)
     }
 }
 
 extension Site {
-    /// Sorts and splits an array of T:SiteSortable items by siteid and returns a [[T]] object
-    /// where each sub-array represents the items for a specific Site
+    /// Sorts and splits an array of T:SiteSortable items by siteid and
+    /// returns a [[T]] object where each sub-array represents the items for
+    /// a specific Site
     ///
-    /// - Parameter listToSort: The [T:SiteSortable] array that needs to be sorted by Site
+    /// - Parameter listToSort: The [T:SiteSortable] array that needs to be
+    ///                         sorted by Site
     ///
     /// - Returns: A two-dimensional array of T split by siteId
     static func splitBySites<T: SiteSortable>(listToSort: [T]?) -> [[T]]? {
@@ -75,20 +87,21 @@ extension Site {
             return nil
         }
         var sortedList: [[T]] = [[T]]()
-        // Maintain a map of site Id's to array indices so items can be added to the correct inner array.
-        // This is because Site's cannot be compared like Terms, and therefore have to be split
+        // Maintain a map of site Id's to array indices so items can be
+        // added to the correct inner array. This is because Site's cannot
+        // be compared like Terms, and therefore have to be split
         var mapSiteIdToIndex: [String: Int] = [:]
         var i: Int = 0
         let numItems: Int = list.count
         for index in 0..<numItems {
             let sortableItem: T = list[index]
             if let index = mapSiteIdToIndex[sortableItem.siteId] {
-                // If the siteId exists in the dictionary, add the SiteSortable item to the
-                // corresponding inner array
+                // If the siteId exists in the dictionary, add the
+                // SiteSortable item to the corresponding inner array
                 sortedList[index].append(sortableItem)
             } else {
-                // If the siteId does not exist in the dictionary, add it to the dictionary and update the
-                // next open index count
+                // If the siteId does not exist in the dictionary, add it
+                // to the dictionary and update the next open index count
                 mapSiteIdToIndex.updateValue(i, forKey: sortableItem.siteId)
                 sortedList.append([T]())
                 sortedList[i].append(sortableItem)

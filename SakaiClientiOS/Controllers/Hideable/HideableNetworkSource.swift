@@ -11,8 +11,8 @@ import ReusableSource
 /// Only current usage is with HideableNetworkTableManager
 protocol HideableNetworkSource: NetworkSource where Self.Fetcher: HideableDataFetcher {
 
-    /// Once section data has been returned from the network request, perform
-    /// some action whether or not data load was successful
+    /// Once section data has been returned from the network request,
+    /// perform some action whether or not data load was successful
     ///
     /// - Parameter section: the section being loaded
     /// - Returns: no return value
@@ -49,7 +49,8 @@ extension HideableNetworkSource {
                         self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
                     }
                     if let response = res {
-                        self?.populateDataSource(with: response, forSection: section)
+                        self?.populateDataSource(with: response,
+                                                 forSection: section)
                         self?.delegate?.networkSourceSuccessfullyLoadedData(self)
                     }
                 }

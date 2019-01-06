@@ -8,12 +8,11 @@
 import UIKit
 import ReusableSource
 
-/// The data source for the Gradebook tab tableView. Manages gradebook data and
-/// provides it to the tableView split by both Term and class.
+/// The data source for the Gradebook tab tableView. Manages gradebook data
+/// and provides it to the tableView split by both Term and class.
 ///
-/// Since a tableView only has one layer of section headings, custom tableView cells
-/// are used as nested section headers and the GradebookDataProvider provides that
-/// data in the appropriate format
+/// Since Terms contain Sites which contain GradeItems, the data structure
+/// for the gradeItems is a 3D array to model both sections and subsections
 class GradebookDataProvider: HideableNetworkDataProvider {
     typealias T = GradeItem
     typealias V = [[GradeItem]]
@@ -39,16 +38,18 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         return getCount(for: section)
     }
     
-    /// If an indexPath represents a nested section header, return nil. Otherwise
-    /// return the corresponding GradeItem according to the indexPath and the subsection
-    /// indexPath
+    /// If an indexPath represents a nested section header, return nil.
+    /// Otherwise return the corresponding GradeItem according to the
+    /// indexPath and the subsection indexPath
     ///
     /// - Parameter indexPath: the indexPath in the tableView for this cell
-    /// - Returns: If the cell is not a section header, return a GradeItem, otherwise nil
+    /// - Returns: If the cell is not a section header, return a GradeItem,
+    ///            otherwise nil
     func item(at indexPath: IndexPath) -> GradeItem? {
         let subsection = getSubsectionIndexPath(section: indexPath.section, row: indexPath.row)
 
-        // If the subsection is 0, the indexPath of the tableView represents a nested section header
+        // If the subsection is 0, the indexPath of the tableView represents
+        // a subsection header
         guard subsection.row != 0 else {
             print("subsection is 0")
             return nil
@@ -79,13 +80,16 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         isCollapsed[section] = [Bool].init(repeating: false, count: gradeItems[section].count)
     }
     
-    /// For a given section within a UITableView and a given subsection location, retrieve
-    /// the location of the associated subsection header cell
+    /// For a given section within a UITableView and a given subsection
+    /// location, retrieve the location of the associated subsection header
+    /// cell
     ///
     /// - Parameters:
     ///   - section: the UITableView section
+    ///   - subsection: the subsection of the Site
     ///   - indexPath: the subsection indexPath for a section
-    /// - Returns: the row index (within the section) of the associated subsection header
+    /// - Returns: the row index (within the section) of the associated
+    ///            subsection header
     func getHeaderRowForSubsection(section: Int, subsection: Int) -> Int {
         var row = 0
         
@@ -100,13 +104,13 @@ class GradebookDataProvider: HideableNetworkDataProvider {
         return row
     }
     
-    /// Convert a standard UITableView index path into an indexPath for a class's subsection
-    /// location
+    /// Convert a standard UITableView index path into an indexPath for a
+    /// class's subsection location
     ///
     /// - Parameters:
     ///   - section: the standard UITableView section
     ///   - row: the standard UITableView row for the cell
-    /// - Returns: the converted subsection IndexPath within the given section
+    /// - Returns: the converted subsection IndexPath within the section
     func getSubsectionIndexPath(section: Int, row: Int) -> IndexPath {
         let termSection: [[GradeItem]] = gradeItems[section]
         var startRow = row

@@ -59,8 +59,8 @@ class LoginWebViewController: WebController {
         super.didReceiveMemoryWarning()
     }
 
-    /// Captures HTTP Cookies from specific URLs and loads them into Request Manager Session
-    /// Allows all future requests to be authenticated.
+    /// Captures HTTP Cookies from specific URLs and loads them into Login
+    /// service Session. Allows all future requests to be authenticated.
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationAction: WKNavigationAction,
                           decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -83,13 +83,16 @@ class LoginWebViewController: WebController {
         }
     }
 
-    /// Captures all HTTP headers and loads them into Request Manager Session, for request authentication.
-    /// Stops webview navigation and executes onLogin callback once user is authenticated
     override func webView(_ webView: WKWebView,
                           decidePolicyFor navigationResponse: WKNavigationResponse,
                           decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         if webView.url!.absoluteString == LoginConfiguration.cookieUrl {
             decisionHandler(.cancel)
+            // If navigation request is to the redirect URL for a
+            // successful login, the user should have successfully
+            // authenticated. Validate the login and execute
+            // onLogin callback. Also save authentication cookies. If login
+            // validation fails, the webview is reloaded to try again.
             loginService.validateLoggedInStatus(
                 onSuccess: { [weak self] in
                     self?.onLogin?()

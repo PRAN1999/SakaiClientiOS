@@ -7,7 +7,8 @@
 
 import Foundation
 
-/// Details the group of different Sakai endpoints used by the app and provides easy URL construction
+/// Details the group of different Sakai endpoints used by the app and
+/// provides easy URL construction
 enum SakaiEndpoint {
     static let baseUrl = "https://sakai.rutgers.edu/direct/"
 
@@ -34,9 +35,11 @@ enum SakaiEndpoint {
         case .newChat:
             return SakaiEndpoint.getUrl(endpoint: "chat-message/new")
         case .announcements(let limit, let daysBack):
-            return SakaiEndpoint.getUrl(endpoint: "announcement/user.json?n=\(limit)&d=\(daysBack)")
+            return SakaiEndpoint
+                .getUrl(endpoint: "announcement/user.json?n=\(limit)&d=\(daysBack)")
         case .siteAnnouncements(let siteId, let limit, let daysBack):
-            return SakaiEndpoint.getUrl(endpoint: "announcement/site/\(siteId).json?n=\(limit)&d=\(daysBack)")
+            return SakaiEndpoint
+                .getUrl(endpoint: "announcement/site/\(siteId).json?n=\(limit)&d=\(daysBack)")
         case .siteGradebook(let siteId):
             return SakaiEndpoint.getUrl(endpoint: "gradebook/site/\(siteId).json")
         case .siteAssignments(let siteId):

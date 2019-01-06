@@ -8,6 +8,11 @@
 import Foundation
 import WebKit
 
+/// Since API's are not easily available for Sakai's chat room interface,
+/// the ChatRoomController manages a webView and a message bar to simulate
+/// a real chat application. By executing JavaScript to modify the webview,
+/// this screen allows users to see and post messages to the Sakai chat
+/// with a mobile interface
 class ChatRoomController: UIViewController, SitePageController {
 
     private var chatRoomView: ChatRoomView!
@@ -25,13 +30,21 @@ class ChatRoomController: UIViewController, SitePageController {
     private let networkService: NetworkService
     private let webService: WebService
 
-    required convenience init(siteId: String, siteUrl: String, pageTitle: String) {
+    required convenience init(siteId: String,
+                              siteUrl: String,
+                              pageTitle: String) {
         let networkService = RequestManager.shared
         let webService = RequestManager.shared
-        self.init(siteId: siteId, siteUrl: siteUrl, networkService: networkService, webService: webService)
+        self.init(siteId: siteId,
+                  siteUrl: siteUrl,
+                  networkService: networkService,
+                  webService: webService)
     }
 
-    init(siteId: String, siteUrl: String, networkService: NetworkService, webService: WebService) {
+    init(siteId: String,
+         siteUrl: String,
+         networkService: NetworkService,
+         webService: WebService) {
         self.siteId = siteId
         self.siteUrl = siteUrl
         self.networkService = networkService
@@ -48,14 +61,18 @@ class ChatRoomController: UIViewController, SitePageController {
         view.backgroundColor = Palette.main.primaryBackgroundColor
         title = "Chat Room"
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleKeyboardNotification(notification:)),
-                                               name: .UIKeyboardWillShow,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleKeyboardNotification(notification:)),
-                                               name: .UIKeyboardWillHide,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleKeyboardNotification(notification:)),
+            name: .UIKeyboardWillShow,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleKeyboardNotification(notification:)),
+            name: .UIKeyboardWillHide,
+            object: nil
+        )
 
         indicator = LoadingIndicator(view: view)
         indicator.startAnimating()
@@ -74,15 +91,18 @@ class ChatRoomController: UIViewController, SitePageController {
         chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()
         }
-        chatRoomView.messageBar.sendButton.addTarget(self,
-                                                     action: #selector(handleSubmit),
-                                                     for: .touchUpInside)
+        chatRoomView.messageBar.sendButton.addTarget(
+            self,
+            action: #selector(handleSubmit),
+            for: .touchUpInside
+        )
         guard let url = URL(string: siteUrl) else {
             return
         }
-
         setInput(enabled: false)
 
+        // Force the webView to be static and unable to be zoomed so that
+        // it behaves more like a native UI element
         webView.contentMode = .scaleToFill
         webView.isMultipleTouchEnabled = false
         webView.scrollView.delegate = NativeWebViewScrollViewDelegate.shared
@@ -97,28 +117,39 @@ class ChatRoomController: UIViewController, SitePageController {
             return
         }
         guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
-            return
+                return
         }
+        
+        // If the keyboard is showing, the messagebar needs to travel up
+        // with it and if it is hidden, the messagebar should slide back
+        // down. Additionally, if the keyboard is going to show, the chat
+        // needs to scroll down to the latest messages.
         let cgRect = keyboardFrame.cgRectValue
         let isKeyboardShowing = notification.name == .UIKeyboardWillShow
-        chatRoomView.bottomConstraint.constant = isKeyboardShowing ? -cgRect.height : 0
+        chatRoomView.bottomConstraint
+            .constant = isKeyboardShowing ? -cgRect.height : 0
+
         UIView.animate(withDuration: 0,
                        delay: 0,
                        options: UIViewAnimationOptions.curveEaseIn,
                        animations: { [weak self] in
             self?.view.layoutIfNeeded()
         }, completion: nil)
+
         if isKeyboardShowing {
             updateChatOnKeyboardNotification()
         }
     }
     
     @objc private func scrollToBottom() {
-        webView.evaluateJavaScript("$('html, body').animate({scrollTop:document.body.offsetHeight}, 400);", completionHandler: nil)
+        webView.evaluateJavaScript(
+            "$('html, body').animate({scrollTop:document.body.offsetHeight}, 400);",
+            completionHandler: nil)
     }
     
     private func updateChatOnKeyboardNotification() {
-        webView.evaluateJavaScript("document.body.scrollTop == document.body.offsetHeight") {
+        webView.evaluateJavaScript(
+        "document.body.scrollTop == document.body.offsetHeight") {
             [weak self] (data, err) in
             guard let isAtBottom = data as? Bool else {
                 return
@@ -146,31 +177,45 @@ class ChatRoomController: UIViewController, SitePageController {
     }
     
     private func submitMessage(_ text: String) {
-        guard let csrftoken = csrftoken, let chatChannelId = chatChannelId else {
-            return
+        guard
+            let csrftoken = csrftoken,
+            let chatChannelId = chatChannelId
+            else {
+                return
         }
         let parameters = [
             "body": text,
             "chatChannelId": chatChannelId,
             "csrftoken": csrftoken
         ]
-        let request = SakaiRequest<UndefinedResponse>(endpoint: .newChat, method: .post, parameters: parameters)
-        networkService.makeEndpointRequest(request: request) { [weak self] res, err in
+        // The Response to the POST request is not something that can be
+        // decoded, so an UndefinedResponse struct is used
+        let request = SakaiRequest<UndefinedResponse>(endpoint: .newChat,
+                                                      method: .post,
+                                                      parameters: parameters)
+        networkService.makeEndpointRequest(request: request) {
+            [weak self] res, err in
             self?.updateMonitor()
         }
     }
     
     private func updateMonitor() {
-        webView.evaluateJavaScript("updateNow();") { [weak self] (data, err) in
+        webView.evaluateJavaScript("updateNow();") {
+            [weak self] (data, err) in
             self?.scrollToBottom()
         }
     }
 }
 
+// MARK: WKUIDelegate && WKNavigationDelegate Extension
+
 extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
-    
+
+    /// Remove all elements from the HTML except for the chat room and
+    /// retrieve chat room information from JavaScript local variables
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.evaluateJavaScript("currentChatChannelId") { [weak self] (data, err) in
+        webView.evaluateJavaScript("currentChatChannelId") {
+            [weak self] (data, err) in
             guard let id = data as? String else {
                 return
             }
@@ -180,7 +225,7 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
                 self?.indicator.stopAnimating()
             }
         }
-        
+
         webView.evaluateJavaScript("""
             var csrftoken = document.getElementById('topForm:csrftoken').value;
             var selectedElement = document.querySelector('#Monitor');

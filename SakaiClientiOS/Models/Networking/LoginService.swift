@@ -18,7 +18,8 @@ protocol LoginService {
     func loadCookiesFromUserDefaults() -> Bool
     func loadCookiesIntoUserDefaults()
 
-    func validateLoggedInStatus(onSuccess: @escaping () -> Void, onFailure: @escaping (SakaiError?) -> Void)
+    func validateLoggedInStatus(onSuccess: @escaping () -> Void,
+                                onFailure: @escaping (SakaiError?) -> Void)
 }
 
 extension LoginService {

@@ -31,6 +31,10 @@ class AssignmentController: UITableViewController {
             }
             let pages = PagesController(assignments: assignments, start: row)
             pages.delegate = self.assignmentsTableManager.selectedManager
+            // The UIView flip animation does not accurately behave in the
+            // AnimationController, so the animation will take place in two
+            // stages. First the cell will be flipped and on completion, the
+            // actual ViewController transition will be kicked off
             self.assignmentsTableManager.selectedManager?.selectedCell?.flip() { [weak self] in
                 self?.navigationController?.pushViewController(pages, animated: true)
             }
@@ -46,6 +50,8 @@ class AssignmentController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        // If transitioning back from a PagesController, the cell used for
+        // the animation transition needs to be flip to complete the effect
         assignmentsTableManager.selectedManager?.flipIfNecessary()
     }
 
@@ -76,7 +82,7 @@ class AssignmentController: UITableViewController {
     }
 }
 
-//MARK: LoadableController
+//MARK: LoadableController Extension
 
 extension AssignmentController: LoadableController {
     @objc func loadData() {
@@ -84,7 +90,7 @@ extension AssignmentController: LoadableController {
     }
 }
 
-//MARK: NetworkSourceDelegate
+//MARK: NetworkSourceDelegate Extension
 
 extension AssignmentController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {

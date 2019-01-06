@@ -7,6 +7,7 @@
 
 import ReusableSource
 
+/// Manage Assignment Collection for a specific Site
 class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSource {
     typealias Fetcher = SiteAssignmentDataFetcher
     
@@ -19,7 +20,8 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     
     convenience init(collectionView: UICollectionView, siteId: String) {
         let provider = SingleSectionDataProvider<Assignment>()
-        let fetcher = SiteAssignmentDataFetcher(siteId: siteId, networkService: RequestManager.shared)
+        let fetcher = SiteAssignmentDataFetcher(siteId: siteId,
+                                                networkService: RequestManager.shared)
         self.init(provider: provider, fetcher: fetcher, collectionView: collectionView)
     }
 
@@ -37,7 +39,8 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height: CGFloat = AssignmentCell.cellHeight
-        let size: CGSize = CGSize(width: collectionView.bounds.width / 2.25, height: height)
+        let width: CGFloat = min(collectionView.bounds.width / 2.25, AssignmentCell.cellWidth)
+        let size: CGSize = CGSize(width: width, height: height)
         return size
     }
 }

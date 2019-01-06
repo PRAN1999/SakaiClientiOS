@@ -19,7 +19,8 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
         titleLabel.layer.cornerRadius = 0
         titleLabel.layer.masksToBounds = false
         titleLabel.iconLabel.textColor = Palette.main.primaryTextColor
-        titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
+        titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor,
+                             andThickness: 5.0)
         return titleLabel
     }()
 

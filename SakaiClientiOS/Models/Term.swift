@@ -12,9 +12,14 @@ protocol TermSortable {
     var term: Term { get }
 }
 
-/// A model to represent individual semesters following the Rutgers academic schedule
+/// A model to represent individual semesters following the Rutgers
+/// academic schedule
 struct Term {
-    private static let mapTerms: [Int: String] = [1: "Spring", 9: "Fall", 6: "Summer 1", 7: "Summer 2", 12: "Winter"]
+    private static let mapTerms: [Int: String] = [1: "Spring",
+                                                  9: "Fall",
+                                                  6: "Summer 1",
+                                                  7: "Summer 2",
+                                                  12: "Winter"]
 
     let year: Int?
     let termInt: Int?
@@ -24,7 +29,8 @@ struct Term {
     /// Instantiate a term object with the specified characteristics
     ///
     /// - Parameter year: The year during which the term occurred
-    /// - Parameter termInt: The first month of the academic semester corresponding to the term
+    /// - Parameter termInt: The first month of the academic semester
+    ///                      corresponding to the term
     /// - Parameter termString: The description of the term
     ///
     /// - Returns: A Term object
@@ -38,10 +44,11 @@ struct Term {
         self.initString = initString
     }
 
-    /// Parses a String containing the term and the year to construct a Term object
-    /// with the corresponding attributes
+    /// Parses a String containing the term and the year to construct a Term
+    /// object with the corresponding attributes
     ///
-    /// - Parameter toParse: A String with the format "{termInt}:{year}" like "1:2018"
+    /// - Parameter toParse: A String with the format "{termInt}:{year}"
+    ///                      like "1:2018"
     ///
     /// - Returns: A Term object
     init(toParse: String?) {
@@ -50,11 +57,18 @@ struct Term {
             return
         }
         let dataArray = tString.components(separatedBy: ":")
-        guard let year = Int(dataArray[0]), let term = Int(dataArray[1]) else {
-            self.init(year: nil, termInt: nil, termString: "None", initString: nil)
-            return
+        guard
+            dataArray.count > 1,
+            let year = Int(dataArray[0]),
+            let term = Int(dataArray[1])
+            else {
+                self.init(year: nil, termInt: nil, termString: "None", initString: nil)
+                return
         }
-        self.init(year: year, termInt: term, termString: Term.mapTerms[term], initString: toParse)
+        self.init(year: year,
+                  termInt: term,
+                  termString: Term.mapTerms[term],
+                  initString: toParse)
     }
 
     /// Gets the full String representation of the Term:
@@ -76,11 +90,13 @@ struct Term {
         return year != nil && termInt != nil
     }
 
-    /// Sorts an array of T:TermSortable and splits it by Term into a two-dimensional array
-    /// of Term-specific sub-arrays
+    /// Sorts an array of T:TermSortable and splits it by Term into a
+    /// two-dimensional array of Term-specific sub-arrays
     ///
-    /// - Parameter listToSort: An array of T:TermSortable to be split by Term
-    /// - Returns: A 2-dimensional array of T:TermSortable with each sub-array corresponding to a Term
+    /// - Parameter listToSort: An array of T:TermSortable to be split by
+    ///                         Term
+    /// - Returns: A 2-dimensional array of T:TermSortable with each
+    ///            sub-array corresponding to a Term
     static func splitByTerms<T: TermSortable>(listToSort: [T]) -> [[T]] {
         var list = listToSort
         list.sort { $0.term > $1.term }
@@ -88,14 +104,15 @@ struct Term {
         var terms: [Term] = [Term]()
         var indices: [Int] = [Int]()
         for index in 0..<list.count {
-            // For every unique term, log the unique index for the beginning of that term
-            // sub-array and the unique term
+            // For every unique term, log the unique index for the beginning
+            // of that term sub-array and the unique term
             if !terms.contains(list[index].term) {
                 terms.append(list[index].term)
                 indices.append(index)
             }
         }
-        // Use the count of the list as the final unique index so the final Term slice will be created
+        // Use the count of the list as the final unique index so the final
+        // Term slice will be created
         indices.append(list.count)
         for index in 0..<indices.count - 1 {
             let slice = list[indices[index]..<indices[index+1]]
@@ -105,10 +122,11 @@ struct Term {
     }
 }
 
-// MARK: Comparable
+// MARK: Comparable Extension
 
-// Enforces Term compliance to Comparable protocol by comparing termInt and year to determine
-// Term equality. Any term with a nil year or termInt is considered the smallest possible Term value
+// Enforces Term compliance to Comparable protocol by comparing termInt and
+// year to determine Term equality. Any term with a nil year or termInt is
+// considered the smallest possible Term value
 extension Term: Comparable {
     static func < (lhs: Term, rhs: Term) -> Bool {
         guard let lYear = lhs.year, let lTerm = lhs.termInt else {

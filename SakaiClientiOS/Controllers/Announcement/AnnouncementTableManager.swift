@@ -7,7 +7,9 @@
 
 import ReusableSource
 
-class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
+/// Manage Announcement Feed
+class AnnouncementTableManager:
+    ReusableTableManager<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
     typealias Fetcher = AnnouncementDataFetcher
 
     let fetcher: AnnouncementDataFetcher
@@ -40,7 +42,8 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
         guard let cell = super.tableView(tableView, cellForRowAt: indexPath) as? AnnouncementCell else {
             return UITableViewCell()
         }
-        
+
+        // Load announcment data 10 cells before the end of the scrollView
         if indexPath.row >= provider.lastIndex() - 10 && fetcher.moreLoads && !isLoading {
             isLoading = true
             loadMoreData()
@@ -55,17 +58,23 @@ class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, A
     }
 
     private func loadMoreData() {
-        let frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(70))
+        let frame = CGRect(x: CGFloat(0),
+                           y: CGFloat(0),
+                           width: tableView.bounds.width,
+                           height: CGFloat(70))
         let spinner = LoadingIndicator(frame: frame)
         spinner.activityIndicatorViewStyle = .white
         spinner.startAnimating()
         spinner.hidesWhenStopped = true
 
+        // Keep a reference to original footer view and then replace it with
+        // activity indicator
         let oldFooter = tableView.tableFooterView
         tableView.tableFooterView = spinner
         tableView.tableFooterView?.isHidden = false
         DispatchQueue.global().async { [weak self] in
             self?.fetcher.loadData(completion: { announcements, err in
+                // Reload data on the main queue
                 DispatchQueue.main.async {
                     spinner.stopAnimating()
                     self?.tableView.tableFooterView = oldFooter

@@ -25,7 +25,7 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = min(collectionView.bounds.width / 2.25, 167.0)
+        let width = min(collectionView.bounds.width / 2.25, AssignmentCell.cellWidth)
         let size: CGSize = CGSize(width: width, height: AssignmentCell.cellHeight)
         return size
     }
@@ -42,11 +42,12 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
         cell.pageViewTap.addTarget(self, action: #selector(handleIndexTap(sender:)))
     }
     
-    /// Since textViews do not natively register taps, a custom recognizer was added to record
-    /// taps on the textView within the UICollectionViewCell and the indexPath of the cell that
-    /// was tapped.
+    /// Since textViews do not natively register taps, a custom recognizer
+    /// was added to record taps on the textView within the Cell and the
+    /// indexPath of the cell that was tapped.
     ///
-    /// - Parameter sender: the custom tap recognizer added to an Assignment cell
+    /// - Parameter sender: the custom tap recognizer added to an Assignment
+    ///                     cell
     @objc private func handleIndexTap(sender: Any) {
         guard let recognizer = sender as? IndexRecognizer else {
             return
@@ -81,7 +82,10 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     }
 }
 
+// MARK: PageDelegate Extension
+
 extension AssignmentCollectionManager: PageDelegate {
+
     func pageController(_ pageController: PagesController, didMoveToIndex index: Int) {
         selectedCell?.flip(withDirection: .toFront, animated: false, completion: {})
         selectedCell = nil

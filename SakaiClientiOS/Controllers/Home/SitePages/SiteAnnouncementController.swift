@@ -7,6 +7,7 @@
 
 import ReusableSource
 
+/// View controller for Site Announcements feed
 class SiteAnnouncementController: UITableViewController, SitePageController {
 
     private let siteId: String
@@ -52,10 +53,14 @@ class SiteAnnouncementController: UITableViewController, SitePageController {
     }
 }
 
+//MARK: LoadableController Extension
+
 extension SiteAnnouncementController: LoadableController {
     @objc func loadData() {
         announcementTableManager.loadDataSourceWithoutCache()
     }
 }
+
+//MARK: NetworkSourceDelegate Extension
 
 extension SiteAnnouncementController: NetworkSourceDelegate {}
