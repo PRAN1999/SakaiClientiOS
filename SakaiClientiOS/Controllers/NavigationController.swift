@@ -22,9 +22,4 @@ class NavigationController: UINavigationController {
         toolbar.barStyle = Palette.main.barStyle
         toolbar.barTintColor = Palette.main.tabBarBackgroundColor
     }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-
-        super.viewWillTransition(to: size, with: coordinator)
-    }
 }

@@ -25,7 +25,7 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = min(collectionView.bounds.width / 2.25, 167.0)
+        let width = min(collectionView.bounds.width / 2.25, AssignmentCell.cellWidth)
         let size: CGSize = CGSize(width: width, height: AssignmentCell.cellHeight)
         return size
     }

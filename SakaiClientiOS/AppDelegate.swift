@@ -52,17 +52,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        return .allButUpsideDown
+        if let _ = self.topViewControllerWithRootViewController(window?.rootViewController) as? Rotatable {
+            return .allButUpsideDown
+        }
+        // Only allow portrait (standard behaviour)
+        return .portrait
     }
 
-    private func topViewControllerWithRootViewController(rootViewController: UIViewController!) -> UIViewController? {
+    private func topViewControllerWithRootViewController(_ rootViewController: UIViewController!) -> UIViewController? {
         if (rootViewController == nil) { return nil }
         if (rootViewController.isKind(of: UITabBarController.self)) {
-            return topViewControllerWithRootViewController(rootViewController: (rootViewController as! UITabBarController).selectedViewController)
+            return topViewControllerWithRootViewController((rootViewController as! UITabBarController).selectedViewController)
         } else if (rootViewController.isKind(of: UINavigationController.self)) {
-            return topViewControllerWithRootViewController(rootViewController: (rootViewController as! UINavigationController).visibleViewController)
+            return topViewControllerWithRootViewController((rootViewController as! UINavigationController).visibleViewController)
         } else if (rootViewController.presentedViewController != nil) {
-            return topViewControllerWithRootViewController(rootViewController: rootViewController.presentedViewController)
+            return topViewControllerWithRootViewController(rootViewController.presentedViewController)
         }
         return rootViewController
     }

@@ -13,6 +13,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
 
     static let cornerRadius: CGFloat = 10.0
     static let cellHeight: CGFloat = 280 * 0.7
+    static let cellWidth: CGFloat = 167
     static let flipDuration = 0.2
 
     typealias T = Assignment

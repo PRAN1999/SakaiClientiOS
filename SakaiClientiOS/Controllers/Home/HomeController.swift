@@ -59,6 +59,10 @@ class HomeController: UITableViewController {
         }
     }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        navigationItem.titleView?.sizeToFit()
+    }
+
     private func authenticateAndLoad() {
         guard let loginService = loginService else {
             return

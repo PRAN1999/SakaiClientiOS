@@ -143,6 +143,9 @@ class WebController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        if isMovingFromParentViewController {
+            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        }
         navigationController?.navigationBar.tintColor = Palette.main.navigationTintColor
         navigationController?.setToolbarHidden(true, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
@@ -338,7 +341,6 @@ extension WebController {
     @objc func presentDownloadOption() {
         present(actionController, animated: true, completion: nil)
     }
-
-    /// Allows rotation of controller
-    @objc func canRotate() {}
 }
+
+extension WebController: Rotatable {}
