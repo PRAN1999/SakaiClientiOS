@@ -54,16 +54,14 @@ class MessageBar: UIView {
     private func setConstraints() {
         let margins = layoutMarginsGuide
 
-        inputField.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        inputField.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        inputField.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        inputField.constrainToMargins(of: self, onSides: [.left, .top, .bottom])
         inputField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor,
                                              constant: -5.0).isActive = true
         inputField.widthAnchor.constraint(equalTo: widthAnchor,
                                           multiplier: 0.80).isActive = true
 
-        sendButton.topAnchor.constraint(equalTo: inputField.topAnchor).isActive = true
-        sendButton.bottomAnchor.constraint(equalTo: inputField.bottomAnchor).isActive = true
-        sendButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5.0).isActive = true
+        sendButton.constrainToMargins(of: self, onSides: [.top, .bottom])
+        sendButton.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                             constant: -5.0).isActive = true
     }
 }

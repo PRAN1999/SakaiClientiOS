@@ -16,6 +16,7 @@ class RequestManager {
     static let shared = RequestManager()
 
     static let savedCookiesKey = "savedCookies"
+    
     private let portalURL = URL(string: "https://sakai.rutgers.edu/portal")
 
     private var _processPool = WKProcessPool()
@@ -74,7 +75,9 @@ class RequestManager {
 
     func refreshCookies() {
         if let url = portalURL {
-            Alamofire.SessionManager.default.request(url).response(queue: DispatchQueue.global(qos: .background)) { [weak self] res in
+            Alamofire.SessionManager.default
+                .request(url).response(queue: DispatchQueue.global(qos: .background))
+                { [weak self] res in
                 self?.loadCookiesIntoUserDefaults()
             }
         }

@@ -155,7 +155,6 @@
                 <navigationController title="Settings" id="YUo-5W-PhK" customClass="NavigationController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="settings" id="5iZ-yS-4bm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s4m-uV-Aao">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.78039215689999997" green="0.047058823530000002" blue="0.096773806680000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -219,10 +218,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="announcements" width="62" height="62"/>
-        <image name="assignments" width="54" height="54"/>
-        <image name="gradebook" width="54" height="54"/>
-        <image name="home" width="52" height="52"/>
-        <image name="settings" width="52" height="52"/>
+        <image name="announcements" width="46.5" height="46.5"/>
+        <image name="assignments" width="45" height="45"/>
+        <image name="gradebook" width="41.25" height="41.25"/>
+        <image name="home" width="45" height="45"/>
+        <image name="settings" width="45" height="45"/>
     </resources>
 </document>

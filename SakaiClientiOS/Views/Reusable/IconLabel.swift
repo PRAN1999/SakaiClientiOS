@@ -34,14 +34,16 @@ class IconLabel: UILabel, UIGestureRecognizerDelegate {
 
     lazy var iconVisibleConstraint: NSLayoutConstraint = {
         let margins = layoutMarginsGuide
-        return iconLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.10)
+        return iconLabel.widthAnchor.constraint(equalToConstant: 30)
     }()
     lazy var iconHiddenConstraint: NSLayoutConstraint = {
         let margins = layoutMarginsGuide
-        return iconLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0)
+        return iconLabel.widthAnchor.constraint(equalTo: margins.widthAnchor,
+                                                multiplier: 0)
     }()
     lazy var iconTitleConstraint: NSLayoutConstraint = {
-        return iconLabel.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -5.0)
+        return iconLabel.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor,
+                                                   constant: -5.0)
     }()
 
     override var text: String? {
@@ -123,15 +125,11 @@ class IconLabel: UILabel, UIGestureRecognizerDelegate {
     }
 
     private func setConstraints() {
-        let margins = layoutMarginsGuide
-
         leadingConstraint.isActive = true
         iconLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
         iconTitleConstraint.isActive = true
 
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        titleLabel.constrainToMargins(of: self, onSides: [.top, .bottom, .right])
     }
 
     func setLeftMargin(to val: CGFloat) {

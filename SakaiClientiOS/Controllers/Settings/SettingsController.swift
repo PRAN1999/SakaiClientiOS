@@ -71,7 +71,7 @@ class SettingsController: UITableViewController {
         logoCreditLabel.backgroundColor = Palette.main.primaryBackgroundColor
         logoCreditLabel.textColor = Palette.main.secondaryTextColor
 
-        UIButton.roundButton(button: logoutButton)
+        logoutButton.round()
         logoutButton.tintColor = Palette.main.primaryTextColor
     }
 

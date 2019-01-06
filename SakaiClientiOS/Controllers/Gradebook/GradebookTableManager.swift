@@ -11,6 +11,10 @@ import ReusableSource
 /// An abstraction to manage the data source and delegate for the Gradebook tab.
 /// Divides grades by Term and further subdivides by class
 class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
+
+    private enum Direction {
+        case up, down
+    }
     
     private let headerCell = GradebookHeaderCell()
     private var previousHeaderHeight: CGFloat = 44.0
@@ -69,10 +73,6 @@ class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, 
     override func reloadData(for section: Int) {
         super.reloadData(for: section)
         scrollViewDidScroll(tableView)
-    }
-
-    private enum Direction {
-        case up, down
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -27,11 +27,7 @@ class PageView<PageType: UIScrollView>: UIView {
     }
 
     private func setConstraints() {
-        let margins = layoutMarginsGuide
-        
-        scrollView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        scrollView.constrainToMargins(of: self, onSides: [.top, .bottom])
+        scrollView.constrainToEdges(of: self, onSides: [.left, .right])
     }
 }

@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 extension UIButton {
-    static func roundButton(button: UIButton) {
-
+    func round() {
+        let button = self
         button.backgroundColor = Palette.main.highlightColor
         button.titleLabel?.textColor = Palette.main.primaryTextColor
 

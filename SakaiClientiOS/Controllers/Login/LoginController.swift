@@ -23,8 +23,8 @@ class LoginController: UIViewController {
 
         view.backgroundColor = Palette.main.primaryBackgroundColor
 
-        UIButton.roundButton(button: netIdButton)
-        UIButton.roundButton(button: emailButton)
+        netIdButton.round()
+        emailButton.round()
 
         title = "Login"
     }

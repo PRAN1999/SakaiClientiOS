@@ -36,18 +36,16 @@ class AssignmentTitleCell: UITableViewCell, ConfigurableCell {
     private func setupView() {
         backgroundColor = Palette.main.primaryBackgroundColor
         selectedBackgroundView = selectedView()
-        selectedBackgroundView?.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
-
+        selectedBackgroundView?.addBorder(toSide: .left,
+                                          withColor: Palette.main.highlightColor,
+                                          andThickness: 5.0)
         contentView.addSubview(titleLabel)
     }
 
     private func setConstraints() {
         titleLabel.setLeftMargin(to: 5.0)
 
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        titleLabel.constrainToEdges(of: contentView)
 
         let heightConstraint = titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
         heightConstraint.priority = UILayoutPriority(999)

@@ -48,15 +48,14 @@ class GradebookCell: UITableViewCell, ConfigurableCell {
     private func setConstraints() {
         let margins = contentView.layoutMarginsGuide
 
-        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: gradeLabel.leadingAnchor).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5).isActive = true
-
-        gradeLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        gradeLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        gradeLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        titleLabel.constrainToMargins(of: contentView,
+                                      onSides: [.bottom, .top, .left])
+        titleLabel.trailingAnchor.constraint(equalTo: gradeLabel.leadingAnchor)
+                                            .isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor,
+                                          multiplier: 0.5).isActive = true
+        gradeLabel.constrainToMargins(of: contentView,
+                                      onSides: [.bottom, .top, .right])
     }
 
     /// Configure the GradebookCell with a GradeItem object

@@ -8,7 +8,8 @@
 import UIKit
 import ReusableSource
 
-/// A TableViewCell to represent a group of Assignment objects, either for a specific class or for an entire Term
+/// A TableViewCell to represent a group of Assignment objects,
+/// either for a specific class or for an entire Term
 class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     typealias T = [Assignment]
 
@@ -19,7 +20,9 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
         titleLabel.layer.cornerRadius = 0
         titleLabel.layer.masksToBounds = false
-        titleLabel.addBorder(toSide: .left, withColor: Palette.main.highlightColor, andThickness: 5.0)
+        titleLabel.addBorder(toSide: .left,
+                             withColor: Palette.main.highlightColor,
+                             andThickness: 5.0)
         return titleLabel
     }()
 
@@ -39,7 +42,8 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         return collectionView
     }()
 
-    private(set) lazy var manager: AssignmentCollectionManager = AssignmentCollectionManager(collectionView: collectionView)
+    private(set) lazy var manager: AssignmentCollectionManager
+                                = AssignmentCollectionManager(collectionView: collectionView)
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -63,20 +67,19 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
 
     private func setConstraints() {
         let margins = contentView.layoutMarginsGuide
-
         titleLabel.setLeftMargin(to: 5.0)
 
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -10.0).isActive = true
+        titleLabel.constrainToEdges(of: contentView, onSides: [.top, .left, .right])
+        titleLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor,
+                                           constant: -10.0).isActive = true
         titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
 
-        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -10.0).isActive = true
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        collectionView.constrainToEdges(of: contentView, onSides: [.left, .right])
+        collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor,
+                                               constant: -10.0).isActive = true
         collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: AssignmentCell.cellHeight + 20)
+
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 
         let heightAnchor = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 290)
         heightAnchor.priority = UILayoutPriority(999)

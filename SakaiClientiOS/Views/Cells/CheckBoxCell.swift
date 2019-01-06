@@ -48,12 +48,10 @@ class CheckBoxCell: UITableViewCell, ReusableCell {
     private func setConstraints() {
         let margins = contentView.layoutMarginsGuide
 
-        label.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        label.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        label.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        label.constrainToMargins(of: contentView, onSides: [.left, .top, .bottom])
         label.trailingAnchor.constraint(equalTo: checkBox.leadingAnchor).isActive = true
 
-        checkBox.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        checkBox.constrainToMargin(of: contentView, onSide: .right)
         checkBox.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 5.0).isActive = true
         checkBox.heightAnchor.constraint(equalTo: margins.heightAnchor).isActive = true
         checkBox.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.15).isActive = true

@@ -30,8 +30,11 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         titleLabel.backgroundColor = Palette.main.primaryBackgroundColor
         titleLabel.textColor = Palette.main.primaryTextColor
         titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
-        titleLabel.addBorder(toSide: .bottom, withColor: Palette.main.highlightColor, andThickness: 2.5)
+        titleLabel.addBorder(toSide: .bottom,
+                             withColor: Palette.main.highlightColor,
+                             andThickness: 2.5)
         titleLabel.iconLabel.font = UIFont(name: AppIcons.siteFont, size: 15.0)
+        titleLabel.iconVisibleConstraint.constant = 15
         titleLabel.iconLabel.textColor = Palette.main.tertiaryBackgroundColor
         titleLabel.numberOfLines = 2
         return titleLabel
@@ -43,6 +46,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         dueLabel.textColor = Palette.main.secondaryTextColor
         dueLabel.font = UIFont.boldSystemFont(ofSize: 10.7)
         dueLabel.addBorder(toSide: .top, withColor: Palette.main.highlightColor, andThickness: 2.5)
+        dueLabel.iconVisibleConstraint.constant = 15
         dueLabel.iconLabel.font = UIFont(name: AppIcons.generalIconFont, size: 15)
         dueLabel.iconLabel.textColor = Palette.main.tertiaryBackgroundColor
         dueLabel.iconText = AppIcons.dueIcon
@@ -117,29 +121,26 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         pageView.isScrollEnabled = false
         pageViewTap.cancelsTouchesInView = false
         pageView.addGestureRecognizer(pageViewTap)
+
+        contentView.addSubview(frontView)
     }
 
     private func setConstraints() {
-
-        UIView.constrainChildToEdges(child: frontView, parent: contentView)
+        frontView.constrainToEdges(of: contentView)
 
         frontView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        let margins = frontView.layoutMarginsGuide
 
-        titleLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: frontView.heightAnchor, multiplier: 0.25).isActive = true
+        titleLabel.constrainToMargins(of: frontView, onSides: [.right, .left, .top])
+        titleLabel.heightAnchor.constraint(equalTo: frontView.heightAnchor,
+                                           multiplier: 0.25).isActive = true
 
+        descLabel.constrainToMargins(of: frontView, onSides: [.left, .right])
         descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         descLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
-        descLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        descLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
 
-        dueLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-        dueLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-        dueLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        dueLabel.heightAnchor.constraint(equalTo: frontView.heightAnchor, multiplier: 0.25).isActive = true
+        dueLabel.constrainToMargins(of: frontView, onSides: [.left, .right, .bottom])
+        dueLabel.heightAnchor.constraint(equalTo: frontView.heightAnchor,
+                                         multiplier: 0.25).isActive = true
     }
 
     func flip(withDirection action: FlipAction = .toggle, animated: Bool = true, completion: @escaping () -> Void) {
@@ -158,26 +159,30 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
             frontView.isHidden = frontViewHidden
             pageView.isHidden = !frontViewHidden
             if frontViewHidden {
-                UIView.constrainChildToEdges(child: pageView, parent: contentView)
+                contentView.addSubview(pageView)
+                pageView.constrainToEdges(of: contentView)
             } else {
                 pageView.removeFromSuperview()
             }
             completion()
             return
         }
-        UIView.constrainChildToEdges(child: pageView, parent: contentView)
+        contentView.addSubview(pageView)
+        pageView.constrainToEdges(of: contentView)
         if frontViewHidden {
             UIView.transition(from: frontView,
                               to: pageView,
                               duration: AssignmentCell.flipDuration,
-                              options: [.transitionFlipFromTop, .showHideTransitionViews]) { _ in
+                              options: [.transitionFlipFromTop,
+                                        .showHideTransitionViews]) { _ in
                 completion()
             }
         } else {
             UIView.transition(from: pageView,
                               to: frontView,
                               duration: AssignmentCell.flipDuration,
-                              options: [.transitionFlipFromBottom, .showHideTransitionViews]) { [weak self] _ in
+                              options: [.transitionFlipFromBottom,
+                                        .showHideTransitionViews]) { [weak self] _ in
                 self?.pageView.removeFromSuperview()
                 completion()
             }

@@ -102,44 +102,33 @@ class AssignmentPageView: UIScrollView {
     private func setConstraints() {
         contentView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
 
-        let margins = contentView.layoutMarginsGuide
-
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        titleLabel.constrainToEdges(of: contentView, onSides: [.left, .top, .right])
         titleLabel.bottomAnchor.constraint(equalTo: classLabel.topAnchor).isActive = true
         titleLabel.heightAnchor.constraint(lessThanOrEqualTo: contentView.heightAnchor,
                                            multiplier: 0.12).isActive = true
         titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 50.0).isActive = true
 
-        classLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        classLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        classLabel.constrainToEdges(of: contentView, onSides: [.left, .right])
         classLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor).isActive = true
 
-        statusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        statusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        statusLabel.constrainToEdges(of: contentView, onSides: [.left, .right])
         statusLabel.bottomAnchor.constraint(equalTo: pointsLabel.topAnchor).isActive = true
 
-        pointsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        pointsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        pointsLabel.constrainToEdges(of: contentView, onSides: [.left, .right])
         pointsLabel.bottomAnchor.constraint(equalTo: dueLabel.topAnchor).isActive = true
 
-        dueLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        dueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        dueLabel.constrainToEdges(of: contentView, onSides: [.left, .right])
         dueLabel.bottomAnchor.constraint(equalTo: submissionLabel.topAnchor).isActive = true
 
-        submissionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        submissionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        submissionLabel.constrainToEdges(of: contentView, onSides: [.left, .right])
         submissionLabel.bottomAnchor.constraint(equalTo: instructionView.topAnchor,
                                                 constant: -10.0).isActive = true
 
-        instructionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        instructionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        instructionView.constrainToEdges(of: contentView, onSides: [.left, .right])
         instructionView.bottomAnchor.constraint(equalTo: spaceView.topAnchor).isActive = true
 
-        spaceView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        spaceView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        spaceView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        spaceView.constrainToEdges(of: contentView, onSides: [.left, .right])
+        spaceView.constrainToMargin(of: contentView, onSide: .bottom)
         spaceView.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
     }
 
