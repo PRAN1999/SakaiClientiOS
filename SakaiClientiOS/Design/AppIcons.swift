@@ -26,6 +26,7 @@ final class AppIcons {
     static let closedStatusIcon = "\u{F114}"
     static let privacyIcon = "\u{F117}"
     static let thanksIcon = "\u{F118}"
+    static let contactIcon = "\u{F119}"
 
     static let generalIconFont = "General-Icons"
     static let siteFont = "iOS-Icons"
