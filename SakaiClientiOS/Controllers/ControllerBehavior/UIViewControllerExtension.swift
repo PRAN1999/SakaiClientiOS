@@ -22,4 +22,12 @@ extension UIViewController {
         alertController.addAction(alert)
         present(alertController, animated: true, completion: nil)
     }
+
+    func presentErrorAlert(string: String) {
+        let errorMessage = string
+        let alert = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let alertController = UIAlertController(title: "ERROR", message: errorMessage, preferredStyle: .alert)
+        alertController.addAction(alert)
+        present(alertController, animated: true, completion: nil)
+    }
 }

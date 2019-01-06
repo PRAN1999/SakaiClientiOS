@@ -7,11 +7,14 @@
 
 import UIKit
 import SafariServices
+import MessageUI
 
 class SettingsController: UITableViewController {
 
     private let aboutURL = URL(string: "https://www.google.com")
     private let privacyURL = URL(string: "https://www.google.com")
+
+    private let developerEmail = "rutgerssakaiapp@gmail.com"
 
     @IBOutlet weak var tableHeader: UIView!
     @IBOutlet weak var versionLabel: UILabel!
@@ -21,7 +24,7 @@ class SettingsController: UITableViewController {
     @IBOutlet weak var logoCreditLabel: UILabel!
 
     enum AppInfo {
-        case about, privacy, thanks
+        case about, privacy, thanks, contact
 
         var description: String {
             switch self {
@@ -30,7 +33,9 @@ class SettingsController: UITableViewController {
             case .privacy:
                 return "Privacy Policy"
             case .thanks:
-                return "Thanks"
+                return "Thanks To"
+            case .contact:
+                return "Contact Us"
             }
         }
 
@@ -42,11 +47,13 @@ class SettingsController: UITableViewController {
                 return AppIcons.privacyIcon
             case .thanks:
                 return AppIcons.thanksIcon
+            case .contact:
+                return AppIcons.contactIcon
             }
         }
     }
 
-    let infoArr: [AppInfo] = [.about, .privacy, .thanks]
+    let infoArr: [AppInfo] = [.about, .privacy, .thanks, .contact]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +105,20 @@ class SettingsController: UITableViewController {
             let storyboard = UIStoryboard(name: "SettingsView", bundle: nil)
             let creditsController = storyboard.instantiateViewController(withIdentifier: "credits")
             navigationController?.pushViewController(creditsController, animated: true)
+        case .contact:
+            if !MFMailComposeViewController.canSendMail() {
+                presentErrorAlert(string: "Mail Services not available. Our email is \(developerEmail)")
+            } else {
+                let composeVC = MFMailComposeViewController()
+                composeVC.mailComposeDelegate = self
+
+                // Configure the fields of the interface.
+                composeVC.setToRecipients([developerEmail])
+                composeVC.setSubject("Feedback")
+
+                tabBarController?.present(composeVC, animated: true, completion: nil)
+            }
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 
@@ -112,5 +133,11 @@ class SettingsController: UITableViewController {
     @IBAction func logout(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         appDelegate?.logout()
+    }
+}
+
+extension SettingsController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        tabBarController?.dismiss(animated: true, completion: nil)
     }
 }

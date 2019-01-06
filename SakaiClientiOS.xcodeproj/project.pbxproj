@@ -53,9 +53,9 @@
 		5137DE0421DED15900FCC91C /* AppIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5137DE0321DED15900FCC91C /* AppIcons.swift */; };
 		5137DE1021DEEC8900FCC91C /* site-icons.json in Resources */ = {isa = PBXBuildFile; fileRef = 5137DE0F21DEEC8900FCC91C /* site-icons.json */; };
 		5137DE1221DF19AC00FCC91C /* IconConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5137DE1121DF19AC00FCC91C /* IconConfiguration.swift */; };
-		513E5A7A21E151B4007BFD9A /* General-Icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 513E5A7921E151B4007BFD9A /* General-Icons.ttf */; };
 		513E5A7C21E15B39007BFD9A /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E5A7B21E15B39007BFD9A /* UIButtonExtension.swift */; };
 		513E5A7E21E163C3007BFD9A /* CreditsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E5A7D21E163C3007BFD9A /* CreditsController.swift */; };
+		513E5A8021E17EA5007BFD9A /* General-Icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 513E5A7F21E17EA4007BFD9A /* General-Icons.ttf */; };
 		514B623920952B89001A716C /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623820952B89001A716C /* Parsing.swift */; };
 		514B623C209569FE001A716C /* TermHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514B623B209569FE001A716C /* TermHeader.swift */; };
 		515915452169C55900D3730E /* ReloadActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515915442169C55900D3730E /* ReloadActions.swift */; };
@@ -235,9 +235,9 @@
 		5137DE0321DED15900FCC91C /* AppIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcons.swift; sourceTree = "<group>"; };
 		5137DE0F21DEEC8900FCC91C /* site-icons.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "site-icons.json"; sourceTree = "<group>"; };
 		5137DE1121DF19AC00FCC91C /* IconConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconConfiguration.swift; sourceTree = "<group>"; };
-		513E5A7921E151B4007BFD9A /* General-Icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "General-Icons.ttf"; sourceTree = "<group>"; };
 		513E5A7B21E15B39007BFD9A /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		513E5A7D21E163C3007BFD9A /* CreditsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsController.swift; sourceTree = "<group>"; };
+		513E5A7F21E17EA4007BFD9A /* General-Icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "General-Icons.ttf"; sourceTree = "<group>"; };
 		514B623820952B89001A716C /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
 		514B623B209569FE001A716C /* TermHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermHeader.swift; sourceTree = "<group>"; };
 		515915442169C55900D3730E /* ReloadActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadActions.swift; sourceTree = "<group>"; };
@@ -486,7 +486,7 @@
 		5137DE0521DED22400FCC91C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				513E5A7921E151B4007BFD9A /* General-Icons.ttf */,
+				513E5A7F21E17EA4007BFD9A /* General-Icons.ttf */,
 				51EF2BCB21E0535B003CAA57 /* iOS-Icons.ttf */,
 				5137DE0F21DEEC8900FCC91C /* site-icons.json */,
 			);
@@ -887,7 +887,7 @@
 				5137DE1021DEEC8900FCC91C /* site-icons.json in Resources */,
 				DE059A001DFD93B200D19D17 /* Assets.xcassets in Resources */,
 				5113C13920928718001929DA /* AssignmentView.storyboard in Resources */,
-				513E5A7A21E151B4007BFD9A /* General-Icons.ttf in Resources */,
+				513E5A8021E17EA5007BFD9A /* General-Icons.ttf in Resources */,
 				5113C12920927F28001929DA /* HomeView.storyboard in Resources */,
 				DE0599FE1DFD93B200D19D17 /* Main.storyboard in Resources */,
 				51D5EA1821504CB800D7B85C /* Login.storyboard in Resources */,
