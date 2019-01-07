@@ -20,7 +20,8 @@ class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>,
         self.init(provider: SiteDataProvider(),
                   fetcher: SiteDataFetcher(
                              cacheUpdateService: SakaiService.shared,
-                             networkService: RequestManager.shared),
+                             networkService: RequestManager.shared
+                           ),
                   tableView: tableView)
     }
     

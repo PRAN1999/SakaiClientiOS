@@ -48,14 +48,11 @@ public extension NetworkSource {
                     // when loading data (Dispatch Groups) so it possible
                     // both delegate methods will execute
                     if err != nil {
-                        self?.delegate?
-                            .networkSourceFailedToLoadData(self,
-                                                           withError: err!)
+                        self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
                     }
                     if let response = res {
                         self?.populateDataSource(with: response)
-                        self?.delegate?
-                            .networkSourceSuccessfullyLoadedData(self)
+                        self?.delegate?.networkSourceSuccessfullyLoadedData(self)
                     }
                 }
             }

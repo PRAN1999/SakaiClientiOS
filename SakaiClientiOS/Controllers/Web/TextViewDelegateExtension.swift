@@ -23,16 +23,12 @@ extension UIViewController: UITextViewDelegate {
             let webController = WebController()
             webController.setURL(url: URL)
             self.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(webController,
-                                                     animated: true)
+            navigationController?.pushViewController(webController, animated: true)
             self.hidesBottomBarWhenPushed = false
             return false
         } else {
-            let safariController = SFSafariViewController
-                .defaultSafariController(url: URL)
-            tabBarController?.present(safariController,
-                                      animated: true,
-                                      completion: nil)
+            let safariController = SFSafariViewController.defaultSafariController(url: URL)
+            tabBarController?.present(safariController, animated: true, completion: nil)
             return false
         }
     }

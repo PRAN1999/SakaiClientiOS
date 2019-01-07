@@ -11,13 +11,9 @@ protocol NetworkService {
 
     typealias DecodableResponse<T> = (T?, SakaiError?) -> Void
 
-    func makeEndpointRequest<T: Decodable>(
-        request: SakaiRequest<T>,
-        completion: @escaping DecodableResponse<T>
-    )
+    func makeEndpointRequest<T: Decodable>(request: SakaiRequest<T>,
+                                           completion: @escaping DecodableResponse<T>)
 
-    func makeEndpointRequestWithoutCache<T: Decodable>(
-        request: SakaiRequest<T>,
-        completion: @escaping DecodableResponse<T>
-    )
+    func makeEndpointRequestWithoutCache<T: Decodable>(request: SakaiRequest<T>,
+                                                       completion: @escaping DecodableResponse<T>)
 }

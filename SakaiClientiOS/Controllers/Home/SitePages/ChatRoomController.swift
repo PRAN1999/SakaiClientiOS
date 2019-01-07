@@ -61,16 +61,18 @@ class ChatRoomController: UIViewController, SitePageController {
         view.backgroundColor = Palette.main.primaryBackgroundColor
         title = "Chat Room"
 
-        NotificationCenter.default
-            .addObserver(self,
-                         selector: #selector(handleKeyboardNotification(notification:)),
-                         name: .UIKeyboardWillShow,
-                         object: nil)
-        NotificationCenter.default
-            .addObserver(self,
-                         selector: #selector(handleKeyboardNotification(notification:)),
-                         name: .UIKeyboardWillHide,
-                         object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleKeyboardNotification(notification:)),
+            name: .UIKeyboardWillShow,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleKeyboardNotification(notification:)),
+            name: .UIKeyboardWillHide,
+            object: nil
+        )
 
         indicator = LoadingIndicator(view: view)
         indicator.startAnimating()
@@ -86,18 +88,17 @@ class ChatRoomController: UIViewController, SitePageController {
         webView.backgroundColor = Palette.main.primaryBackgroundColor
         view.addSubview(chatRoomView)
         chatRoomView.constrainToEdges(of: view)
-        chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) {
-            (self) in
+        chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()
         }
-        chatRoomView.messageBar.sendButton
-            .addTarget(self,
-                       action: #selector(handleSubmit),
-                       for: .touchUpInside)
+        chatRoomView.messageBar.sendButton.addTarget(
+            self,
+            action: #selector(handleSubmit),
+            for: .touchUpInside
+        )
         guard let url = URL(string: siteUrl) else {
             return
         }
-
         setInput(enabled: false)
 
         // Force the webView to be static and unable to be zoomed so that
@@ -115,10 +116,10 @@ class ChatRoomController: UIViewController, SitePageController {
         guard let userInfo = notification.userInfo else {
             return
         }
-        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]
-            as? NSValue else {
+        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
                 return
         }
+        
         // If the keyboard is showing, the messagebar needs to travel up
         // with it and if it is hidden, the messagebar should slide back
         // down. Additionally, if the keyboard is going to show, the chat
@@ -134,6 +135,7 @@ class ChatRoomController: UIViewController, SitePageController {
                        animations: { [weak self] in
             self?.view.layoutIfNeeded()
         }, completion: nil)
+
         if isKeyboardShowing {
             updateChatOnKeyboardNotification()
         }

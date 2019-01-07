@@ -13,13 +13,11 @@ class NativeWebViewScrollViewDelegate: NSObject, UIScrollViewDelegate {
     // MARK: - Shared delegate
     static let shared = NativeWebViewScrollViewDelegate()
 
-    func scrollViewWillBeginZooming(_ scrollView: UIScrollView,
-                                    with view: UIView?) {
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         scrollView.pinchGestureRecognizer?.isEnabled = false
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.contentOffset = CGPoint(x: 0,
-                                           y: scrollView.contentOffset.y)
+        scrollView.contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y)
     }
 }

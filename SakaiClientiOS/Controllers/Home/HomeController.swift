@@ -12,8 +12,7 @@ import ReusableSource
 /// initial screen for the app.
 class HomeController: UITableViewController {
 
-    private lazy var siteTableManager
-        = SiteTableManager(tableView: tableView)
+    private lazy var siteTableManager = SiteTableManager(tableView: tableView)
 
     private var launchedInBackground = false
 
@@ -31,13 +30,11 @@ class HomeController: UITableViewController {
         disableTabs()
         siteTableManager.selectedAt.delegate(to: self) {
             (self, indexPath) -> Void in
-            guard let site = self.siteTableManager.item(at: indexPath)
-                else {
+            guard let site = self.siteTableManager.item(at: indexPath) else {
                 return
             }
             let classController = ClassController(pages: site.pages)
-            self.navigationController?.pushViewController(classController,
-                                                          animated: true)
+            self.navigationController?.pushViewController(classController, animated: true)
         }
         siteTableManager.delegate = self
 
@@ -49,19 +46,17 @@ class HomeController: UITableViewController {
         // the app. So when a reload request is initiated, it will actually
         // trigger 'reloadHome', and the HomeController will in turn trigger
         // the default 'reload' for all other controllers
-        NotificationCenter.default
-            .removeObserver(self,
-                            name: Notification.Name(
-                                rawValue: ReloadActions.reload.rawValue
-                            ),
-                            object: nil)
-        NotificationCenter.default
-            .addObserver(self,
-                         selector: #selector(loadData),
-                         name: Notification.Name(
-                            rawValue: ReloadActions.reloadHome.rawValue
-                         ),
-                         object: nil)
+        NotificationCenter.default.removeObserver(
+            self,
+            name: Notification.Name(rawValue: ReloadActions.reload.rawValue),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(loadData),
+            name: Notification.Name(rawValue: ReloadActions.reloadHome.rawValue),
+            object: nil
+        )
 
         if UIApplication.shared.applicationState == .background {
             // Do not try and load the screen while in the background. Wait
@@ -105,13 +100,16 @@ class HomeController: UITableViewController {
 
     private func performLoginFlow() {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        guard let navController = storyboard
-            .instantiateViewController(withIdentifier: "loginNavigation")
-            as? UINavigationController else {
-            return
+        guard
+            let navController = storyboard
+                .instantiateViewController(withIdentifier: "loginNavigation")
+                as? UINavigationController
+            else {
+                return
         }
-        guard let loginController = navController.viewControllers.first
-            as? LoginController else {
+        guard
+            let loginController = navController.viewControllers.first as? LoginController
+            else {
             return
         }
         loginController.onLogin = { [weak self] in
@@ -120,9 +118,7 @@ class HomeController: UITableViewController {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             [weak self] in
-            self?.tabBarController?.present(navController,
-                                            animated: true,
-                                            completion: nil)
+            self?.tabBarController?.present(navController, animated: true, completion: nil)
         }
     }
     
@@ -171,9 +167,7 @@ extension HomeController: NetworkSourceDelegate {
         // the newest data
         enableTabs()
         NotificationCenter.default
-            .post(name: Notification
-                        .Name(rawValue: ReloadActions.reload.rawValue),
-                  object: nil)
+            .post(name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
     }
 }
 

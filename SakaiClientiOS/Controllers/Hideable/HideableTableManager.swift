@@ -12,8 +12,7 @@ import ReusableSource
 /// for hideable Term-based sections. Creates toggles on section headers in
 /// tableView to hide/show data
 class HideableTableManager
-    <Provider: HideableDataProvider,
-    Cell: UITableViewCell & ConfigurableCell>
+    <Provider: HideableDataProvider, Cell: UITableViewCell & ConfigurableCell>
     : ReusableTableManager<Provider, Cell>, UIGestureRecognizerDelegate
     where Provider.T == Cell.T {
     
@@ -21,22 +20,19 @@ class HideableTableManager
     
     override func setup() {
         super.setup()
-        tableView
-            .register(TermHeader.self,
-                      forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
-        tableView
-            .register(UITableViewCell.self,
-                      forCellReuseIdentifier: String(describing: UITableViewCell.self))
+        tableView.register(TermHeader.self,
+                           forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+        tableView.register(UITableViewCell.self,
+                           forCellReuseIdentifier: String(describing: UITableViewCell.self))
     }
     
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if provider.isEmpty(section: indexPath.section) {
-            let cell = tableView
-                .dequeueReusableCell(
+            let cell = tableView.dequeueReusableCell(
                     withIdentifier: String(describing: UITableViewCell.self),
                     for: indexPath
-                )
+            )
             cell.textLabel?.text = "Looks like there's nothing here"
             cell.backgroundColor = Palette.main.primaryBackgroundColor
             cell.textLabel?.textColor = Palette.main.secondaryTextColor
@@ -52,11 +48,12 @@ class HideableTableManager
     
     override func tableView(_ tableView: UITableView,
                             viewForHeaderInSection section: Int) -> UIView? {
-        guard let view = tableView
-            .dequeueReusableHeaderFooterView(
+        guard
+            let view = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: TermHeader.reuseIdentifier
-            ) as? TermHeader else {
-            fatalError("Not a Table Header View")
+            ) as? TermHeader
+            else {
+            return nil
         }
         view.tag = section
         view.setImage(isHidden: provider.isHidden(section: section))
@@ -80,8 +77,7 @@ class HideableTableManager
             return
         }
 
-        provider.toggleHidden(for: section,
-                              to: !provider.isHidden(section: section))
+        provider.toggleHidden(for: section, to: !provider.isHidden(section: section))
         reloadData(for: section)
     }
 }

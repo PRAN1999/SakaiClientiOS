@@ -12,8 +12,7 @@ import UIKit
 /// conformance for added flexibility managing collectionView
 open class ReusableCollectionManager
     <Provider: DataProvider, Cell: UICollectionViewCell & ConfigurableCell>
-    : ReusableCollectionDataSource<Provider, Cell>,
-    UICollectionViewDelegateFlowLayout
+    : ReusableCollectionDataSource<Provider, Cell>, UICollectionViewDelegateFlowLayout
     where Provider.T == Cell.T {
     
     public var selectedAt = Delegated<IndexPath, Void>()
@@ -41,8 +40,7 @@ open class ReusableCollectionManager
     }
 
     open func collectionView(_ collectionView: UICollectionView,
-                             shouldHighlightItemAt indexPath: IndexPath)
-        -> Bool {
+                             shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     

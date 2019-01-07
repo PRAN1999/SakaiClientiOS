@@ -77,8 +77,7 @@ class WebController: UIViewController {
             guard let url = url, url.absoluteString.contains("http") else {
                 return
             }
-            let safariController = SFSafariViewController
-                .defaultSafariController(url: url)
+            let safariController = SFSafariViewController.defaultSafariController(url: url)
             self?.shouldLoad = false
             self?.tabBarController?.present(safariController,
                                             animated: true,
@@ -156,11 +155,9 @@ class WebController: UIViewController {
         if shouldLoad && didInitialize {
             loadURL(urlOpt: url)
         }
-        navigationController?
-            .navigationBar.tintColor = Palette.main.toolBarColor
+        navigationController?.navigationBar.tintColor = Palette.main.toolBarColor
         navigationController?.setToolbarHidden(false, animated: true)
-        navigationController?
-            .interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -170,11 +167,9 @@ class WebController: UIViewController {
                 .setValue(Int(UIInterfaceOrientation.portrait.rawValue),
                           forKey: "orientation")
         }
-        navigationController?
-            .navigationBar.tintColor = Palette.main.navigationTintColor
+        navigationController?.navigationBar.tintColor = Palette.main.navigationTintColor
         navigationController?.setToolbarHidden(true, animated: true)
-        navigationController?
-            .interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -240,33 +235,31 @@ class WebController: UIViewController {
 extension WebController: WKUIDelegate, WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
-                 decisionHandler: @escaping (WKNavigationActionPolicy)
-        -> Void) {
-            guard let url = navigationAction.request.url else {
-                decisionHandler(.cancel)
-                return
-            }
-            if !url.absoluteString.contains("https") {
-                decisionHandler(.cancel)
-                openInSafari?(url)
-                return
-            }
-            if url.absoluteString != self.url?.absoluteString {
-                shouldLoad = true
-            }
-            decisionHandler(.allow)
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.cancel)
+            return
+        }
+        if !url.absoluteString.contains("https") {
+            decisionHandler(.cancel)
+            openInSafari?(url)
+            return
+        }
+        if url.absoluteString != self.url?.absoluteString {
+            shouldLoad = true
+        }
+        decisionHandler(.allow)
     }
 
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationResponse: WKNavigationResponse,
-                 decisionHandler: @escaping (WKNavigationResponsePolicy)
-        -> Void) {
-            decisionHandler(.allow)
+                 decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        decisionHandler(.allow)
     }
 
     func webView(_ webView: WKWebView,
                  didStartProvisionalNavigation navigation: WKNavigation!) {
-            progressView.isHidden = false
+        progressView.isHidden = false
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -308,23 +301,20 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
 
 fileprivate extension WebController {
     func setupNavBar() {
-        navigationItem.leftBarButtonItem
-            = UIBarButtonItem(barButtonSystemItem: .done,
-                              target: self,
-                              action: #selector(pop))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                           target: self,
+                                                           action: #selector(pop))
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.rightBarButtonItem
-            = UIBarButtonItem(barButtonSystemItem: .refresh,
-                              target: self,
-                              action: #selector(loadWebview))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
+                                                            target: self,
+                                                            action: #selector(loadWebview))
     }
 
     /// Attach progress bar to navigation bar frame to track webView loads
     func setupProgressBar() {
         navigationController?.navigationBar.addSubview(progressView)
         guard
-            let navigationBarBounds = navigationController?
-                                        .navigationBar.bounds else {
+            let navigationBarBounds = navigationController?.navigationBar.bounds else {
             return
         }
         progressView.frame = CGRect(x: 0,

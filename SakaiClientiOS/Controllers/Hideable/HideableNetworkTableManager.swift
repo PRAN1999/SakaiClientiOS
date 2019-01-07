@@ -13,9 +13,11 @@ import ReusableSource
 /// section, it will function as it would for a HideableTableManager and
 /// will toggle the section's visibility
 class HideableNetworkTableManager
-    <Provider: HideableNetworkDataProvider,
-    Cell: UITableViewCell & ConfigurableCell,
-    Fetcher: HideableDataFetcher>
+    <
+        Provider: HideableNetworkDataProvider,
+        Cell: UITableViewCell & ConfigurableCell,
+        Fetcher: HideableDataFetcher
+    >
     : HideableTableManager<Provider, Cell>, HideableNetworkSource
     where Provider.T == Cell.T, Provider.V == Fetcher.T {
 
@@ -30,8 +32,7 @@ class HideableNetworkTableManager
     
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
-        return provider
-            .numberOfItemsForHideableNetworkSection(section: section)
+        return provider.numberOfItemsForHideableNetworkSection(section: section)
     }
     
     /// If the section has not been loaded, load the tapped section,
@@ -55,10 +56,8 @@ class HideableNetworkTableManager
     }
 
     func handleSectionLoad(forSection section: Int) {
-        provider.toggleLoaded(for: section,
-                              to: !provider.hasLoaded(section: section))
-        provider.toggleHidden(for: section,
-                              to: !provider.isHidden(section: section))
+        provider.toggleLoaded(for: section, to: !provider.hasLoaded(section: section))
+        provider.toggleHidden(for: section, to: !provider.isHidden(section: section))
     }
 
     func populateDataSource(with payload: Fetcher.T,

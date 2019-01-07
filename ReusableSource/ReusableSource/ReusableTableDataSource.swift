@@ -36,8 +36,7 @@ open class ReusableTableDataSource
     open func setup() {
         tableView.dataSource = self
         
-        tableView.register(Cell.self,
-                           forCellReuseIdentifier: Cell.reuseIdentifier)
+        tableView.register(Cell.self, forCellReuseIdentifier: Cell.reuseIdentifier)
     }
     
     open func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,9 +54,8 @@ open class ReusableTableDataSource
     open func tableView(_ tableView: UITableView,
                         cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
-        guard let cell = tableView
-            .dequeueReusableCell(withIdentifier: Cell.reuseIdentifier,
-                                 for: indexPath) as? Cell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier,
+                                                       for: indexPath) as? Cell else {
             return UITableViewCell()
         }
         let item = provider.item(at: indexPath)

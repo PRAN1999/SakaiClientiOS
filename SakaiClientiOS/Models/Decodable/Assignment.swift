@@ -38,15 +38,11 @@ extension Assignment: Decodable {
         let siteTitle = SakaiService.shared.siteTitleMap[siteId]
         let status = assignmentElement.status
         let resubmissionAllowed = assignmentElement.resubmissionAllowed
-        guard let assignmentsUrl = SakaiService.shared.siteAssignmentToolMap[siteId]
-            else {
-                throw SakaiError.parseError(
-                    "Could not find associated Assignment page for Site"
-                )
+        guard let assignmentsUrl = SakaiService.shared.siteAssignmentToolMap[siteId] else {
+            throw SakaiError.parseError("Could not find associated Assignment page for Site")
         }
         let siteURL = assignmentsUrl +
-            "?assignmentReference=\(assignmentElement.reference)" +
-            "&sakai_action=doView_submission"
+            "?assignmentReference=\(assignmentElement.reference)&sakai_action=doView_submission"
         let maxPoints = assignmentElement.maxPoints
         let currentGrade: String? = nil
         let attachments = assignmentElement.attachments

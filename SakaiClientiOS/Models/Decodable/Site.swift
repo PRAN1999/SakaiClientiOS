@@ -38,15 +38,10 @@ extension Site: Decodable {
             }
             let subjectCodeSplits = courseCodeSplits[0].split(separator: ":")
             guard subjectCodeSplits.count > 3 else {
-                throw SakaiError.parseError(
-                    "Could not find subject code for course"
-                )
+                throw SakaiError.parseError("Could not find subject code for course")
             }
-            guard let subjectCodeParsed = Int(String(subjectCodeSplits[3]))
-                else {
-                    throw SakaiError.parseError(
-                        "Could not convert subject code into number"
-                    )
+            guard let subjectCodeParsed = Int(String(subjectCodeSplits[3])) else {
+                throw SakaiError.parseError("Could not convert subject code into number")
             }
             subjectCode = subjectCodeParsed
         }

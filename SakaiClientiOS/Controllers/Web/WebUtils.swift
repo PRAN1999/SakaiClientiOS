@@ -46,10 +46,8 @@ extension WKWebView {
 extension SFSafariViewController {
     static func defaultSafariController(url: URL) -> SFSafariViewController {
         let safariController = SFSafariViewController(url: url)
-        safariController
-            .preferredBarTintColor = Palette.main.primaryBackgroundColor
-        safariController
-            .preferredControlTintColor = Palette.main.primaryTextColor
+        safariController.preferredBarTintColor = Palette.main.primaryBackgroundColor
+        safariController.preferredControlTintColor = Palette.main.primaryTextColor
         return safariController
     }
 }

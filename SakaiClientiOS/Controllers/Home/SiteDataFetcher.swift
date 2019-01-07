@@ -24,8 +24,7 @@ class SiteDataFetcher: DataFetcher {
     func loadData(completion: @escaping ([[Site]]?, Error?) -> Void) {
         let request = SakaiRequest<SiteCollection>(endpoint: .sites,
                                                    method: .get)
-        networkService.makeEndpointRequest(request: request) {
-            [weak self] data, err in
+        networkService.makeEndpointRequest(request: request) { [weak self] data, err in
             guard err == nil, let data = data else {
                 completion(nil, err)
                 return
@@ -33,14 +32,13 @@ class SiteDataFetcher: DataFetcher {
 
             let siteList = data.siteCollection
             siteList.forEach { site in
-                self?.cacheUpdateService.updateSiteTerm(siteId: site.id,
-                                                        term: site.term)
-                self?.cacheUpdateService.updateSiteTitle(siteId: site.id,
-                                                         title: site.title)
+                self?.cacheUpdateService.updateSiteTerm(siteId: site.id, term: site.term)
+                self?.cacheUpdateService.updateSiteTitle(siteId: site.id, title: site.title)
                 if let code = site.subjectCode {
-                    self?.cacheUpdateService
-                        .updateSiteSubjectCode(siteId: site.id,
-                                               subjectCode: code)
+                    self?.cacheUpdateService.updateSiteSubjectCode(
+                        siteId: site.id,
+                        subjectCode: code
+                    )
                 }
             }
             // Split the site list by Term

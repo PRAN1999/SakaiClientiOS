@@ -26,8 +26,7 @@ class ClassController: UITableViewController {
         tableView.tableFooterView = UIView()
         title = "Pages"
         tableView.backgroundColor = Palette.main.primaryBackgroundColor
-        tableView.register(SiteCell.self,
-                           forCellReuseIdentifier: SiteCell.reuseIdentifier)
+        tableView.register(SiteCell.self, forCellReuseIdentifier: SiteCell.reuseIdentifier)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "",
                                                            style: .plain,
                                                            target: nil,
@@ -54,15 +53,13 @@ class ClassController: UITableViewController {
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
-        guard let cell = tableView
-            .dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier,
-                                 for: indexPath) as? SiteCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier,
+                                                       for: indexPath) as? SiteCell else {
             return UITableViewCell()
         }
         let page: SitePage = pages[indexPath.row]
         cell.titleLabel.text = page.title
-        cell.iconLabel.font = UIFont(name: AppIcons.generalIconFont,
-                                     size: 30.0)
+        cell.iconLabel.font = UIFont(name: AppIcons.generalIconFont, size: 30.0)
 
         switch page.pageType {
         case .gradebook:

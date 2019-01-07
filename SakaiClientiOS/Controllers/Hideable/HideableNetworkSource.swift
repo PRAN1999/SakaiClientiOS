@@ -47,15 +47,12 @@ extension HideableNetworkSource {
                     completion?()
                     self?.handleSectionLoad(forSection: section)
                     if err != nil {
-                        self?.delegate?
-                            .networkSourceFailedToLoadData(self,
-                                                           withError: err!)
+                        self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
                     }
                     if let response = res {
                         self?.populateDataSource(with: response,
                                                  forSection: section)
-                        self?.delegate?
-                            .networkSourceSuccessfullyLoadedData(self)
+                        self?.delegate?.networkSourceSuccessfullyLoadedData(self)
                     }
                 }
             }

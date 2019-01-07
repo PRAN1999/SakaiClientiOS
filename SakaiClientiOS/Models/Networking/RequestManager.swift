@@ -41,15 +41,11 @@ class RequestManager {
             .responseJSON { response in
                 if let error = response.error {
                     completion(nil, SakaiError
-                        .networkError(error.localizedDescription,
-                                      response.response?.statusCode))
+                        .networkError(error.localizedDescription, response.response?.statusCode))
                     return
                 }
                 guard let data = response.data else {
-                    completion(nil,
-                               SakaiError.parseError(
-                                "Server failed to return any data")
-                    )
+                    completion(nil, SakaiError.parseError("Server failed to return any data"))
                     return
                 }
                 completion(data, nil)
@@ -66,17 +62,12 @@ class RequestManager {
             .validate()
             .responseJSON { response in
                 if let error = response.error  {
-                    completion(nil,
-                               SakaiError
-                                .networkError(error.localizedDescription,
-                                              response.response?.statusCode))
+                    completion(nil, SakaiError.networkError(error.localizedDescription,
+                                                            response.response?.statusCode))
                     return
                 }
                 guard let data = response.data else {
-                    completion(nil,
-                               SakaiError.parseError(
-                                "Server failed to return any data")
-                    )
+                    completion(nil, SakaiError.parseError("Server failed to return any data"))
                     return
                 }
                 completion(data, nil)
@@ -114,9 +105,8 @@ extension RequestManager: NetworkService {
         completion: @escaping DecodableResponse<T>) {
             let url = request.endpoint.getEndpoint()
             let method = request.method
-            makeRequest(url: url,
-                        method: method,
-                        parameters: request.parameters) { data, err in
+            makeRequest(url: url, method: method, parameters: request.parameters) {
+                data, err in
                 guard err == nil, let data = data else {
                     completion(nil, err)
                     return
@@ -129,8 +119,7 @@ extension RequestManager: NetworkService {
                     let decoded = try decoder.decode(T.self, from: data)
                     completion(decoded, nil)
                 } catch let error {
-                    completion(nil,
-                               SakaiError.parseError(error.localizedDescription))
+                    completion(nil, SakaiError.parseError(error.localizedDescription))
                 }
             }
     }
@@ -140,9 +129,8 @@ extension RequestManager: NetworkService {
         completion: @escaping (T?, SakaiError?) -> Void) {
             let url = request.endpoint.getEndpoint()
             let method = request.method
-            makeRequestWithoutCache(url: url,
-                                    method: method,
-                                    parameters: request.parameters) { data, err in
+            makeRequestWithoutCache(url: url, method: method, parameters: request.parameters) {
+                data, err in
                 guard err == nil, let data = data else {
                     completion(nil, err)
                     return
@@ -155,8 +143,7 @@ extension RequestManager: NetworkService {
                     let decoded = try decoder.decode(T.self, from: data)
                     completion(decoded, nil)
                 } catch let error {
-                    completion(nil,
-                               SakaiError.parseError(error.localizedDescription))
+                    completion(nil, SakaiError.parseError(error.localizedDescription))
                 }
             }
     }
@@ -174,10 +161,10 @@ extension RequestManager: LoginService {
 
     func loadCookiesFromUserDefaults() -> Bool {
         guard
-            let cookieArray = UserDefaults.standard
-            .array(forKey: RequestManager.savedCookiesKey)
-            as? [[HTTPCookiePropertyKey: Any]]
-            else { return false }
+            let cookieArray = UserDefaults.standard.array(forKey: RequestManager.savedCookiesKey)
+            as? [[HTTPCookiePropertyKey: Any]] else {
+                return false
+        }
         for properties in cookieArray {
             guard let cookie = HTTPCookie(properties: properties) else {
                 continue
@@ -211,7 +198,9 @@ extension RequestManager: LoginService {
     }
 
     func clearCookies() {
-        guard let cookies = session.configuration.httpCookieStorage?.cookies else {
+        guard
+            let cookies = session.configuration.httpCookieStorage?.cookies
+            else {
             return
         }
         for cookie in cookies {
@@ -222,7 +211,8 @@ extension RequestManager: LoginService {
         UserDefaults.standard.set(nil, forKey: RequestManager.savedCookiesKey)
     }
 
-    func validateLoggedInStatus(onSuccess: @escaping () -> Void, onFailure: @escaping (SakaiError?) -> Void) {
+    func validateLoggedInStatus(onSuccess: @escaping () -> Void,
+                                onFailure: @escaping (SakaiError?) -> Void) {
         let url = SakaiEndpoint.session.getEndpoint()
         makeRequestWithoutCache(url: url, method: .get) { [weak self] (data, err) in
             let decoder = JSONDecoder()
@@ -242,7 +232,8 @@ extension RequestManager: LoginService {
 }
 
 extension RequestManager: DownloadService {
-    func downloadToDocuments(url: URL, completion: @escaping (_ fileDestination: URL?) -> Void) {
+    func downloadToDocuments(url: URL,
+                             completion: @escaping (_ fileDestination: URL?) -> Void) {
         let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
         Alamofire.download(URLRequest(url: url), to: destination).response(queue: DispatchQueue.global(qos: .utility)) { res in
             DispatchQueue.main.async {

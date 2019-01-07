@@ -36,8 +36,7 @@ open class ReusableCollectionDataSource
     /// Cell class with the collectionView
     open func setup() {
         collectionView.dataSource = self
-        collectionView.register(Cell.self,
-                        forCellWithReuseIdentifier: Cell.reuseIdentifier)
+        collectionView.register(Cell.self, forCellWithReuseIdentifier: Cell.reuseIdentifier)
     }
     
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -53,11 +52,11 @@ open class ReusableCollectionDataSource
     /// UICollectionViewCell making use of DataProvider and ConfigurableCell
     /// methods
     open func collectionView(_ collectionView: UICollectionView,
-                             cellForItemAt indexPath: IndexPath)
-        -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: Cell.reuseIdentifier,
-            for: indexPath) as? Cell
+                             cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: Cell.reuseIdentifier,
+                for: indexPath) as? Cell
             else {
             return UICollectionViewCell()
         }
