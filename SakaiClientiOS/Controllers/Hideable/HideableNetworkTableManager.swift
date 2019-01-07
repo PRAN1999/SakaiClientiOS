@@ -7,11 +7,17 @@
 
 import ReusableSource
 
-/// A base HideableNetworkSource implementation that integrates section data load with UI interaction.
-/// If a section has not been loaded, it will be loaded and then data will be shown. If data has been
-/// loaded for that section, it will function as it would for a HideableTableManager and will toggle
-/// whether or not data is shown or hidden
-class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: UITableViewCell & ConfigurableCell, Fetcher: HideableDataFetcher> : HideableTableManager<Provider, Cell>, HideableNetworkSource where Provider.T == Cell.T, Provider.V == Fetcher.T {
+/// A base HideableNetworkSource implementation that integrates section
+/// data load with UI interaction. If a section has not been loaded, it will
+/// be loaded and then data will be shown. If data has been loaded for that
+/// section, it will function as it would for a HideableTableManager and
+/// will toggle the section's visibility
+class HideableNetworkTableManager
+    <Provider: HideableNetworkDataProvider,
+    Cell: UITableViewCell & ConfigurableCell,
+    Fetcher: HideableDataFetcher>
+    : HideableTableManager<Provider, Cell>, HideableNetworkSource
+    where Provider.T == Cell.T, Provider.V == Fetcher.T {
 
     weak var delegate: NetworkSourceDelegate?
 
@@ -22,12 +28,14 @@ class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: U
         super.init(provider: provider, tableView: tableView)
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return provider.numberOfItemsForHideableNetworkSection(section: section)
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
+        return provider
+            .numberOfItemsForHideableNetworkSection(section: section)
     }
     
-    /// If the section has not been loaded, load the tapped section, otherwise use the default
-    /// toggle in HideableTableManager
+    /// If the section has not been loaded, load the tapped section,
+    /// otherwise use the default toggle in HideableTableManager
     ///
     /// - Parameter sender: the tapped header view
     @objc override func handleTap(sender: UITapGestureRecognizer) {
@@ -47,11 +55,14 @@ class HideableNetworkTableManager<Provider: HideableNetworkDataProvider, Cell: U
     }
 
     func handleSectionLoad(forSection section: Int) {
-        provider.toggleLoaded(for: section, to: !provider.hasLoaded(section: section))
-        provider.toggleHidden(for: section, to: !provider.isHidden(section: section))
+        provider.toggleLoaded(for: section,
+                              to: !provider.hasLoaded(section: section))
+        provider.toggleHidden(for: section,
+                              to: !provider.isHidden(section: section))
     }
 
-    func populateDataSource(with payload: Fetcher.T, forSection section: Int) {
+    func populateDataSource(with payload: Fetcher.T,
+                            forSection section: Int) {
         provider.loadItems(payload: payload, for: section)
         reloadData(for: section)
     }

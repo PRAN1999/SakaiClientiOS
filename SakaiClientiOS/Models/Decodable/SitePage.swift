@@ -16,11 +16,14 @@ struct SitePage {
     private static let defaultString: String      = "None"
 
     enum PageType {
-        case gradebook, assignments, chatRoom, defaultPage, announcements, resources
+        case gradebook, assignments, chatRoom
+        case defaultPage, announcements, resources
     }
 
-    /// A map to provide native interfaces for common site pages shared by most classes
-    private static let mapPages: [String: (PageType, SitePageController.Type)] = [
+    /// A map to provide native interfaces for common site pages shared by
+    /// most classes
+    private static let mapPages: [String: (PageType, SitePageController.Type)]
+        = [
         assignmentsString:  (.assignments, SiteAssignmentController.self),
         gradebookString:    (.gradebook, SiteGradebookController.self),
         chatRoomString:     (.chatRoom, ChatRoomController.self),
@@ -53,7 +56,12 @@ extension SitePage: Decodable {
         if pageType == .assignments {
             SakaiService.shared.setAssignmentToolUrl(url: url, siteId: siteId)
         }
-        self.init(id: id, title: title, siteId: siteId, siteType: siteType, pageType: pageType, url: url)
+        self.init(id: id,
+                  title: title,
+                  siteId: siteId,
+                  siteType: siteType,
+                  pageType: pageType,
+                  url: url)
     }
 
     init(from serializedSitePage: PersistedSitePage) {
@@ -70,6 +78,11 @@ extension SitePage: Decodable {
         if pageType == .assignments {
             SakaiService.shared.setAssignmentToolUrl(url: url, siteId: siteId)
         }
-        self.init(id: id, title: title, siteId: siteId, siteType: siteType, pageType: pageType, url: url)
+        self.init(id: id,
+                  title: title,
+                  siteId: siteId,
+                  siteType: siteType,
+                  pageType: pageType,
+                  url: url)
     }
 }

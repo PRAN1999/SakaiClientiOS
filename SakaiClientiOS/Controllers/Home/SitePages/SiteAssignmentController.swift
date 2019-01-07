@@ -13,7 +13,9 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
     private let siteId: String
     private let siteUrl: String
 
-    private lazy var siteAssignmentCollectionManager = SiteAssignmentCollectionManager(collectionView: collectionView!, siteId: siteId)
+    private lazy var siteAssignmentCollectionManager =
+        SiteAssignmentCollectionManager(collectionView: collectionView!,
+                                        siteId: siteId)
 
     required init(siteId: String, siteUrl: String, pageTitle: String) {
         self.siteId = siteId
@@ -33,12 +35,16 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
         super.viewDidLoad()
         title = "Assignments"
 
-        siteAssignmentCollectionManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
+        siteAssignmentCollectionManager.selectedAt.delegate(to: self) {
+            (self, indexPath) -> Void in
             let assignments = self.siteAssignmentCollectionManager.provider.items
-            let pages = PagesController(assignments: assignments, start: indexPath.row)
+            let pages = PagesController(assignments: assignments,
+                                        start: indexPath.row)
             pages.delegate = self.siteAssignmentCollectionManager
-            self.siteAssignmentCollectionManager.selectedCell?.flip { [weak self] in
-                self?.navigationController?.pushViewController(pages, animated: true)
+            self.siteAssignmentCollectionManager.selectedCell?.flip {
+                [weak self] in
+                self?.navigationController?.pushViewController(pages,
+                                                               animated: true)
             }
         }
 

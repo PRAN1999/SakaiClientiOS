@@ -7,13 +7,7 @@
 
 import UIKit
 
-/// A container navigation controller for a WebController
-///
-/// Used to circumvent the WebKit error where attempting to select a file
-/// for input results in the dismiss method being called twice
 class WebViewNavigationController: UINavigationController {
-
-    private weak var documentPicker: UIDocumentPickerViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()

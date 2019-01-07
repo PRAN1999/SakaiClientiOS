@@ -25,7 +25,8 @@ struct SiteGradeItems: Decodable {
             throw SakaiError.parseError("No Site Title Found")
         }
         
-        let rawGradeItems = try container.decode([RawGradeItem].self, forKey: .gradeItems)
+        let rawGradeItems = try container.decode([RawGradeItem].self,
+                                                 forKey: .gradeItems)
         var gradeItems = [GradeItem]()
         for rawGradeItem in rawGradeItems {
             let gradeItem = GradeItem(grade: rawGradeItem.grade,

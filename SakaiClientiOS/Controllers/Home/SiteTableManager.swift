@@ -8,7 +8,9 @@
 import UIKit
 import ReusableSource
 
-class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>, NetworkSource {
+class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>,
+                        NetworkSource {
+
     weak var delegate: NetworkSourceDelegate?
     typealias Fetcher = SiteDataFetcher
     
@@ -16,8 +18,9 @@ class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>, Networ
     
     convenience init(tableView: UITableView) {
         self.init(provider: SiteDataProvider(),
-                  fetcher: SiteDataFetcher(cacheUpdateService: SakaiService.shared,
-                                           networkService: RequestManager.shared),
+                  fetcher: SiteDataFetcher(
+                             cacheUpdateService: SakaiService.shared,
+                             networkService: RequestManager.shared),
                   tableView: tableView)
     }
     

@@ -8,21 +8,35 @@
 import UIKit
 import ReusableSource
 
-/// A ReusableTableManager extension to manage a data source and UI delegate for hideable
-/// Term-based sections. Creates toggles on section headers in tableView to hide/show data
-class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell & ConfigurableCell> : ReusableTableManager<Provider, Cell>, UIGestureRecognizerDelegate where Provider.T == Cell.T {
+/// A ReusableTableManager extension to manage a data source and UI delegate
+/// for hideable Term-based sections. Creates toggles on section headers in
+/// tableView to hide/show data
+class HideableTableManager
+    <Provider: HideableDataProvider,
+    Cell: UITableViewCell & ConfigurableCell>
+    : ReusableTableManager<Provider, Cell>, UIGestureRecognizerDelegate
+    where Provider.T == Cell.T {
     
     let tableHeaderHeight: CGFloat = 50.0
     
     override func setup() {
         super.setup()
-        tableView.register(TermHeader.self, forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
+        tableView
+            .register(TermHeader.self,
+                      forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
+        tableView
+            .register(UITableViewCell.self,
+                      forCellReuseIdentifier: String(describing: UITableViewCell.self))
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if provider.isEmpty(section: indexPath.section) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            let cell = tableView
+                .dequeueReusableCell(
+                    withIdentifier: String(describing: UITableViewCell.self),
+                    for: indexPath
+                )
             cell.textLabel?.text = "Looks like there's nothing here"
             cell.backgroundColor = Palette.main.primaryBackgroundColor
             cell.textLabel?.textColor = Palette.main.secondaryTextColor
@@ -31,12 +45,17 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
         return super.tableView(tableView, cellForRowAt: indexPath)
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
         return provider.numberOfItemsForHideableSection(section: section)
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TermHeader.reuseIdentifier) as? TermHeader else {
+    override func tableView(_ tableView: UITableView,
+                            viewForHeaderInSection section: Int) -> UIView? {
+        guard let view = tableView
+            .dequeueReusableHeaderFooterView(
+                withIdentifier: TermHeader.reuseIdentifier
+            ) as? TermHeader else {
             fatalError("Not a Table Header View")
         }
         view.tag = section
@@ -47,8 +66,10 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
         return view
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tableHeaderHeight
+    override func tableView(_ tableView: UITableView,
+                            heightForHeaderInSection section: Int)
+        -> CGFloat {
+            return tableHeaderHeight
     }
     
     /// Show and hide Term sections based on taps
@@ -59,7 +80,8 @@ class HideableTableManager<Provider: HideableDataProvider, Cell: UITableViewCell
             return
         }
 
-        provider.toggleHidden(for: section, to: !provider.isHidden(section: section))
+        provider.toggleHidden(for: section,
+                              to: !provider.isHidden(section: section))
         reloadData(for: section)
     }
 }

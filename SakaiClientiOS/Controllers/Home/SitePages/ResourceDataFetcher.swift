@@ -19,7 +19,10 @@ class ResourceDataFetcher: DataFetcher {
     }
     
     func loadData(completion: @escaping ([ResourceNode]?, Error?) -> Void) {
-        let request = SakaiRequest<ResourceCollection>(endpoint: .siteResources(siteId), method: .get)
+        let request = SakaiRequest<ResourceCollection>(
+                endpoint: .siteResources(siteId),
+                method: .get
+        )
         networkService.makeEndpointRequest(request: request) { data, err in
             guard err == nil, let data = data else {
                 completion(nil, err)

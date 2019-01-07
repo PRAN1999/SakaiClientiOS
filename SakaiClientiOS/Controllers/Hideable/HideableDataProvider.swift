@@ -8,7 +8,8 @@
 import ReusableSource
 
 /// A DataProvider to populate and manage data for a HideableTableManager.
-/// In other words, it can show and hide data as needed for specific sections
+/// In other words, it can provide data as needed based on the data's
+/// visibility
 protocol HideableDataProvider: class, DataProvider {
 
     var terms: [Term] { get set }

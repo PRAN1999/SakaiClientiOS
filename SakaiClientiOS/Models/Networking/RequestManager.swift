@@ -9,13 +9,15 @@ import Foundation
 import Alamofire
 import WebKit
 
-/// A singleton instance around an Alamofire Session to manage all HTTP requests and WKWebView URL loads
-/// made by the app by ensuring the user is logged in with every request.
+/// A singleton instance around an Alamofire Session to manage all HTTP
+/// requests and WKWebView URL loads made by the app by ensuring the user
+/// is logged in with every request.
 class RequestManager {
 
     static let shared = RequestManager()
-
     static let savedCookiesKey = "savedCookies"
+
+    typealias ResponseCompletion = (_ data: Data?,_ err: SakaiError?) -> Void
     
     private let portalURL = URL(string: "https://sakai.rutgers.edu/portal")
 
@@ -29,32 +31,52 @@ class RequestManager {
 
     private init() {}
 
-    private func makeRequest(url: String, method: HTTPMethod, parameters: Parameters? = nil,
-                     completion: @escaping (_ data: Data?, _ err: SakaiError?) -> Void) {
+    private func makeRequest(url: String,
+                             method: HTTPMethod,
+                             parameters: Parameters? = nil,
+                             completion: @escaping ResponseCompletion) {
         Alamofire.SessionManager.default
-            .request(url, method: method, parameters: parameters).validate().responseJSON { response in
+            .request(url, method: method, parameters: parameters)
+            .validate()
+            .responseJSON { response in
                 if let error = response.error {
-                    completion(nil, SakaiError.networkError(error.localizedDescription, response.response?.statusCode))
+                    completion(nil, SakaiError
+                        .networkError(error.localizedDescription,
+                                      response.response?.statusCode))
                     return
                 }
                 guard let data = response.data else {
-                    completion(nil, SakaiError.parseError("Server failed to return any data"))
+                    completion(nil,
+                               SakaiError.parseError(
+                                "Server failed to return any data")
+                    )
                     return
                 }
                 completion(data, nil)
         }
     }
 
-    private func makeRequestWithoutCache(url: String, method: HTTPMethod, parameters: Parameters? = nil,
-                                 completion: @escaping (_ data: Data?, _ err: SakaiError?) -> Void) {
-        Alamofire.SessionManager.default.requestWithoutCache(url, method: .get).validate()
+    private func makeRequestWithoutCache(
+        url: String,
+        method: HTTPMethod,
+        parameters: Parameters? = nil,
+        completion: @escaping ResponseCompletion) {
+        Alamofire.SessionManager.default
+            .requestWithoutCache(url, method: method, parameters: parameters)
+            .validate()
             .responseJSON { response in
                 if let error = response.error  {
-                    completion(nil, SakaiError.networkError(error.localizedDescription, response.response?.statusCode))
+                    completion(nil,
+                               SakaiError
+                                .networkError(error.localizedDescription,
+                                              response.response?.statusCode))
                     return
                 }
                 guard let data = response.data else {
-                    completion(nil, SakaiError.parseError("Server failed to return any data"))
+                    completion(nil,
+                               SakaiError.parseError(
+                                "Server failed to return any data")
+                    )
                     return
                 }
                 completion(data, nil)
@@ -76,55 +98,67 @@ class RequestManager {
     func refreshCookies() {
         if let url = portalURL {
             Alamofire.SessionManager.default
-                .request(url).response(queue: DispatchQueue.global(qos: .background))
+                .request(url)
+                .response(queue: DispatchQueue.global(qos: .background))
                 { [weak self] res in
-                self?.loadCookiesIntoUserDefaults()
+                    self?.loadCookiesIntoUserDefaults()
             }
         }
     }
 }
 
 extension RequestManager: NetworkService {
-    func makeEndpointRequest<T: Decodable>(request: SakaiRequest<T>, completion: @escaping (T?, SakaiError?) -> Void) {
-        let url = request.endpoint.getEndpoint()
-        let method = request.method
-        makeRequest(url: url, method: method, parameters: request.parameters) { data, err in
-            guard err == nil, let data = data else {
-                completion(nil, err)
-                return
-            }
 
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .millisecondsSince1970
+    func makeEndpointRequest<T: Decodable>(
+        request: SakaiRequest<T>,
+        completion: @escaping DecodableResponse<T>) {
+            let url = request.endpoint.getEndpoint()
+            let method = request.method
+            makeRequest(url: url,
+                        method: method,
+                        parameters: request.parameters) { data, err in
+                guard err == nil, let data = data else {
+                    completion(nil, err)
+                    return
+                }
 
-            do {
-                let decoded = try decoder.decode(T.self, from: data)
-                completion(decoded, nil)
-            } catch let error {
-                completion(nil, SakaiError.parseError(error.localizedDescription))
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .millisecondsSince1970
+
+                do {
+                    let decoded = try decoder.decode(T.self, from: data)
+                    completion(decoded, nil)
+                } catch let error {
+                    completion(nil,
+                               SakaiError.parseError(error.localizedDescription))
+                }
             }
-        }
     }
 
-    func makeEndpointRequestWithoutCache<T: Decodable>(request: SakaiRequest<T>, completion: @escaping (T?, SakaiError?) -> Void) {
-        let url = request.endpoint.getEndpoint()
-        let method = request.method
-        makeRequestWithoutCache(url: url, method: method, parameters: request.parameters) { data, err in
-            guard err == nil, let data = data else {
-                completion(nil, err)
-                return
-            }
+    func makeEndpointRequestWithoutCache<T: Decodable>(
+        request: SakaiRequest<T>,
+        completion: @escaping (T?, SakaiError?) -> Void) {
+            let url = request.endpoint.getEndpoint()
+            let method = request.method
+            makeRequestWithoutCache(url: url,
+                                    method: method,
+                                    parameters: request.parameters) { data, err in
+                guard err == nil, let data = data else {
+                    completion(nil, err)
+                    return
+                }
 
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .millisecondsSince1970
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .millisecondsSince1970
 
-            do {
-                let decoded = try decoder.decode(T.self, from: data)
-                completion(decoded, nil)
-            } catch let error {
-                completion(nil, SakaiError.parseError(error.localizedDescription))
+                do {
+                    let decoded = try decoder.decode(T.self, from: data)
+                    completion(decoded, nil)
+                } catch let error {
+                    completion(nil,
+                               SakaiError.parseError(error.localizedDescription))
+                }
             }
-        }
     }
 }
 
@@ -139,7 +173,11 @@ extension RequestManager: LoginService {
     }
 
     func loadCookiesFromUserDefaults() -> Bool {
-        guard let cookieArray = UserDefaults.standard.array(forKey: RequestManager.savedCookiesKey) as? [[HTTPCookiePropertyKey: Any]] else { return false }
+        guard
+            let cookieArray = UserDefaults.standard
+            .array(forKey: RequestManager.savedCookiesKey)
+            as? [[HTTPCookiePropertyKey: Any]]
+            else { return false }
         for properties in cookieArray {
             guard let cookie = HTTPCookie(properties: properties) else {
                 continue
@@ -151,8 +189,10 @@ extension RequestManager: LoginService {
     }
 
     func loadCookiesIntoUserDefaults() {
-        guard let cookies = session.configuration.httpCookieStorage?.cookies else {
-            return
+        guard
+            let cookies = session.configuration.httpCookieStorage?.cookies
+            else {
+                return
         }
         var arr: [[HTTPCookiePropertyKey: Any]] = []
         for cookie in cookies {
@@ -225,23 +265,27 @@ extension RequestManager: WebService {
 
 extension Alamofire.SessionManager {
 
-    /// Makes Alamofire request without caching any cookies, headers, or results
+    /// Makes Alamofire request without caching any cookies, headers,
+    /// or results
     @discardableResult
     open func requestWithoutCache(
         _ url: URLConvertible,
         method: HTTPMethod = .get,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: HTTPHeaders? = nil)// also you can add URLRequest.CachePolicy here as parameter
+        headers: HTTPHeaders? = nil)
         -> DataRequest {
         do {
-            var urlRequest = try URLRequest(url: url, method: method, headers: headers)
-            urlRequest.cachePolicy = .reloadIgnoringCacheData // <<== Cache disabled
-            let encodedURLRequest = try encoding.encode(urlRequest, with: parameters)
+            var urlRequest = try URLRequest(url: url,
+                                            method: method,
+                                            headers: headers)
+            urlRequest.cachePolicy = .reloadIgnoringCacheData
+            let encodedURLRequest = try encoding.encode(urlRequest,
+                                                        with: parameters)
             return request(encodedURLRequest)
         } catch {
             print(error)
-            return request(URLRequest(url: URL(string: "http://example.com/wrong_request")!))
+            return request(URLRequest(url: URL(string: "http://www.google.com")!))
         }
     }
 }

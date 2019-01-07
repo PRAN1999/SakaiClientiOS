@@ -8,6 +8,7 @@
 import Foundation
 import ReusableSource
 
+/// Manage Site information according to Term
 class SiteDataProvider : HideableDataProvider {
     
     typealias T = Site
@@ -19,7 +20,6 @@ class SiteDataProvider : HideableDataProvider {
     private var sites: [[Site]] = []
     private lazy var filteredSites = sites
     
-    // MARK: - DataProvider
     func numberOfSections() -> Int {
         return filteredSites.count
     }
@@ -47,6 +47,7 @@ class SiteDataProvider : HideableDataProvider {
             terms.append(payload[index][0].term)
             isHidden.append(true)
         }
+        // By default show the classes in the most recent Term
         isHidden[0] = false
         sites = payload
         filteredSites = sites

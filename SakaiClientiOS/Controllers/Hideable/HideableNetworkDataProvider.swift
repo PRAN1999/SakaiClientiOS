@@ -13,12 +13,14 @@ import ReusableSource
 protocol HideableNetworkDataProvider: HideableDataProvider {
     
     var hasLoaded: [Bool] { get set }
+    
+    /// Allows access to global Term map so data can be requested by Term
     var termService: TermService { get }
     
     /// Load data into the data source for the specified section
     ///
-    /// Use this method after retrieving data with a DataFetcher to load data
-    /// into the data source
+    /// Use this method after retrieving data with a DataFetcher to load
+    /// data into the data source
     ///
     /// - Parameters:
     ///   - payload: the fetched data

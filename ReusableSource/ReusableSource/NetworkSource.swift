@@ -44,6 +44,9 @@ public extension NetworkSource {
             self?.fetcher.loadData() { res, err in
                 DispatchQueue.main.async {
                     callback?()
+                    // It is possible to encounter both failures and success
+                    // when loading data (Dispatch Groups) so it possible
+                    // both delegate methods will execute
                     if err != nil {
                         self?.delegate?
                             .networkSourceFailedToLoadData(self,
@@ -51,7 +54,6 @@ public extension NetworkSource {
                     }
                     if let response = res {
                         self?.populateDataSource(with: response)
-
                         self?.delegate?
                             .networkSourceSuccessfullyLoadedData(self)
                     }
