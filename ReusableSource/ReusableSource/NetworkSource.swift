@@ -8,13 +8,16 @@
 
 import Foundation
 
-/// An abstraction for a network-based data source used to retrieve network data and populate a data source
+/// An abstraction for a network-based data source used to retrieve
+/// network data and populate a data source
 public protocol NetworkSource: class {
 
-    /// The DataFetcher implementation type associated with the NetworkSource
+    /// The DataFetcher implementation type associated with the
+    /// NetworkSource
     associatedtype Fetcher : DataFetcher
 
-    /// The delegate for the NetworkSource. MAKE SURE to mark it weak in implementation
+    /// The delegate for the NetworkSource. MAKE SURE to mark it weak in
+    /// implementation
     var delegate: NetworkSourceDelegate? { get set }
     
     /// An DataFetcher object used to retrieve data using HTTP requests
@@ -28,7 +31,8 @@ public protocol NetworkSource: class {
     /// - Parameter payload: data to load
     func populateDataSource(with payload: Fetcher.T)
 
-    /// Fetch data using a data fetcher and load it into the associated data source
+    /// Fetch data using a data fetcher and load it into the associated
+    /// data source
     func loadDataSource()
 }
 
@@ -41,11 +45,15 @@ public extension NetworkSource {
                 DispatchQueue.main.async {
                     callback?()
                     if err != nil {
-                        self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
+                        self?.delegate?
+                            .networkSourceFailedToLoadData(self,
+                                                           withError: err!)
                     }
                     if let response = res {
                         self?.populateDataSource(with: response)
-                        self?.delegate?.networkSourceSuccessfullyLoadedData(self)
+
+                        self?.delegate?
+                            .networkSourceSuccessfullyLoadedData(self)
                     }
                 }
             }
@@ -54,7 +62,8 @@ public extension NetworkSource {
 }
 
 // MARK: - ReusableSource default impl.
-public extension NetworkSource where Self: ReusableSource, Self.Provider.V == Self.Fetcher.T {
+public extension NetworkSource where Self: ReusableSource,
+                                     Self.Provider.V == Self.Fetcher.T {
     func prepareDataSourceForLoad() {
         resetValues()
         reloadData()
