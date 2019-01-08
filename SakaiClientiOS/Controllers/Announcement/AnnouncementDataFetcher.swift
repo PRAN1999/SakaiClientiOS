@@ -7,6 +7,13 @@
 
 import ReusableSource
 
+/// Fetch Announcement Data and maintain offset and limit internally for
+/// feed. Can optionally have a siteId set in order to fetch data for
+/// a single Site's announcements
+///
+/// Retrieve Announcement feed data and maintain state so subsequent calls
+/// to loadData retrieve the next section of the feed - in order to simulate
+/// RSS feed
 class AnnouncementDataFetcher: DataFetcher {
     
     private static let requestLimit = 35
@@ -17,8 +24,8 @@ class AnnouncementDataFetcher: DataFetcher {
 
     private var offset = 0
     private(set) var moreLoads = true
-    private var cachedResults: [Announcement]?
 
+    private var cachedResults: [Announcement]?
     private let networkService: NetworkService
 
     var siteId: String?
@@ -38,6 +45,23 @@ class AnnouncementDataFetcher: DataFetcher {
         }
     }
 
+    /// Fetches data in a stateful manner. Will parse cache if available
+    /// and otherwise makes network request to retrieve all Announcement
+    /// data
+    ///
+    /// The Sakai API is not built for retrieving Announcement data in a
+    /// feed format. Instead it allows results to be fetched according
+    /// to the maximum number of results and the number of days to
+    /// travel back. Since there doesn't seem to be an enormous
+    /// performance benefit to only requesting a few announcements at a
+    /// time over requesting a huge amount, the network request is only
+    /// made once and the results are cached. The most expensive
+    /// operation with decoding Announcements is converting the html to
+    /// attributedString so whenever a section of Announcements is
+    /// fetched using loadData, only the Annoucements in that section
+    /// will have the attributedContent set.
+    ///
+    /// See retriveAnnouncementSection for more details.
     private func fetchData(completion: @escaping ([Announcement]?, Bool, SakaiError?) -> Void) {
         let limit = AnnouncementDataFetcher.requestLimit
         let offset = self.offset
@@ -52,9 +76,12 @@ class AnnouncementDataFetcher: DataFetcher {
             return
         }
 
-        var endpoint = SakaiEndpoint.announcements(AnnouncementDataFetcher.announcementLimit, AnnouncementDataFetcher.daysBack)
+        var endpoint = SakaiEndpoint.announcements(AnnouncementDataFetcher.announcementLimit,
+                                                   AnnouncementDataFetcher.daysBack)
         if let id = siteId {
-            endpoint = .siteAnnouncements(id, AnnouncementDataFetcher.announcementLimit, AnnouncementDataFetcher.daysBack)
+            endpoint = .siteAnnouncements(id,
+                                          AnnouncementDataFetcher.announcementLimit,
+                                          AnnouncementDataFetcher.daysBack)
         }
         let request = SakaiRequest<AnnouncementCollection>(endpoint: endpoint, method: .get)
 
@@ -86,6 +113,7 @@ class AnnouncementDataFetcher: DataFetcher {
         var start = offset
         var count = 0
         while count < limit && start < announcements.count {
+            // Most expensive operation
             announcements[start].setAttributedContent()
             announcementList.append(announcements[start])
             start += 1

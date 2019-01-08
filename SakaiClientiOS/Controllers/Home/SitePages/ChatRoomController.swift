@@ -207,6 +207,8 @@ class ChatRoomController: UIViewController, SitePageController {
     }
 }
 
+// MARK: WKUIDelegate && WKNavigationDelegate Extension
+
 extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
 
     /// Remove all elements from the HTML except for the chat room and

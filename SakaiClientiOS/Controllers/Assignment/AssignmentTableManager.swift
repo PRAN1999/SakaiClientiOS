@@ -9,15 +9,23 @@ import ReusableSource
 
 /// A data source and delegate for the Assignments tab
 ///
-/// The AssignmentTableManager controls the Assignments for different classes and different Terms.
-/// Whether split by class or term, each cell in the tableView will contain a collection of classes
-/// associated with that class or Term.
+/// The AssignmentTableManager controls the Assignments for different
+/// classes and different Terms. Whether split by class or term, each cell
+/// in the tableView will contain a collection of classes associated with
+/// that class or Term. The Assignments can be scrolled horizontally
 class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
 
+    // Since the collectionView within each cell contains the actual
+    // Assignment data, the collectionView selection needs to be delegated
     var selectedAssignmentAt = Delegated<(IndexPath, Int), Void>()
+
     weak var textViewDelegate: UITextViewDelegate?
 
+    // Keep a reference to the collectionViewManager when a cell in a
+    // collectionView is selected so that the frame of the cell can be
+    // used for transition animation
     private(set) var selectedManager: AssignmentCollectionManager?
+
     private var oldIndexPath: IndexPath?
     
     convenience init(tableView: UITableView) {
@@ -29,7 +37,8 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
     
     override func setup() {
         super.setup()
-        tableView.register(AssignmentTitleCell.self, forCellReuseIdentifier: AssignmentTitleCell.reuseIdentifier)
+        tableView.register(AssignmentTitleCell.self,
+                           forCellReuseIdentifier: AssignmentTitleCell.reuseIdentifier)
         tableView.allowsSelection = true
         tableView.sectionHeaderHeight = 0.0;
         tableView.sectionFooterHeight = 0.0;
@@ -40,8 +49,10 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if provider.isCollapsed(at: indexPath) {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: AssignmentTitleCell.reuseIdentifier, for: indexPath) as? AssignmentTitleCell else {
-                fatalError("Cannot dequeue cell")
+            guard let cell = tableView
+                .dequeueReusableCell(withIdentifier: AssignmentTitleCell.reuseIdentifier,
+                                     for: indexPath) as? AssignmentTitleCell else {
+                return UITableViewCell()
             }
             if let item = provider.item(at: indexPath) {
                 cell.configure(item, at: indexPath)
@@ -89,6 +100,9 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
             tableView.deselectRow(at: indexPath, animated: true)
             return
         }
+        // Ensure only one tableView cell can be expanded at a time. This
+        // improves UI performance and improves focus on Assignments being
+        // scrolled
         var arr: [IndexPath] = [indexPath]
         if let old = oldIndexPath {
             if old == indexPath {

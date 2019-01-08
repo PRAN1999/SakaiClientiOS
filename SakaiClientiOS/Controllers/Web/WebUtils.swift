@@ -13,7 +13,7 @@ extension WKWebView {
     /// Returns a webview with Sakai authentication cookies inserted into
     /// configuration so Sakai links can be loaded.
     ///
-    /// Due to a bug with WKWebsiteDataStore.shared where cookies from
+    /// Due to a bug with WKWebsiteDataStore.default() where cookies from
     /// HTTPCookieStorage are not automatically inserted into the store
     /// and cookies set manually don't seem to to persist, a non-persistent
     /// data store must be created and configured for every WKWebView shown

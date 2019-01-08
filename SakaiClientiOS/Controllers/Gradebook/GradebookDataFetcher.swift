@@ -8,7 +8,8 @@
 import Foundation
 import ReusableSource
 
-/// The data fetcher for the Gradebook tab. Fetches gradebook data by Term as requested
+/// The data fetcher for the Gradebook tab. Fetches gradebook data by Term
+/// by making multiple requests to the siteId's associated with that Term
 class GradebookDataFetcher : HideableDataFetcher {
     typealias T = [[GradeItem]]
 
@@ -30,7 +31,8 @@ class GradebookDataFetcher : HideableDataFetcher {
         var errors: [SakaiError] = []
         for site in sites {
             group.enter()
-            let request = SakaiRequest<SiteGradeItems>(endpoint: .siteGradebook(site), method: .get)
+            let request = SakaiRequest<SiteGradeItems>(endpoint: .siteGradebook(site),
+                                                       method: .get)
             networkService.makeEndpointRequest(request: request) { data, err in
                 if let err = err {
                     switch err {

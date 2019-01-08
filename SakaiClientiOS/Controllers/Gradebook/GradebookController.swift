@@ -12,7 +12,8 @@ import ReusableSource
 class GradebookController: UITableViewController {
     
     /// Abstract Gradebook data management and delegate
-    private lazy var gradebookTableManager: GradebookTableManager = GradebookTableManager(tableView: tableView)
+    private lazy var gradebookTableManager: GradebookTableManager
+        = GradebookTableManager(tableView: tableView)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +27,16 @@ class GradebookController: UITableViewController {
     }
 }
 
+//MARK: LoadableController Extension
+
 extension GradebookController: LoadableController {
     @objc func loadData() {
         gradebookTableManager.hideHeaderCell()
         gradebookTableManager.loadDataSourceWithoutCache()
     }
 }
+
+//MARK: NetworkSourceDelegate Extension
 
 extension GradebookController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {

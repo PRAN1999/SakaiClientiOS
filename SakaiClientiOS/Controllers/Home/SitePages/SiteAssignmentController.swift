@@ -8,6 +8,7 @@
 import ReusableSource
 import UIKit
 
+/// A View Controller for a single Site's Assignments
 class SiteAssignmentController: UICollectionViewController, SitePageController {
     
     private let siteId: String
@@ -28,7 +29,8 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
     }
     
     override func loadView() {
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: LandscapeHorizontalLayout())
+        collectionView = UICollectionView(frame: .zero,
+                                          collectionViewLayout: LandscapeHorizontalLayout())
     }
 
     override func viewDidLoad() {
@@ -41,6 +43,11 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
             let pages = PagesController(assignments: assignments,
                                         start: indexPath.row)
             pages.delegate = self.siteAssignmentCollectionManager
+
+            // The UIView flip animation does not accurately perform in the
+            // AnimationController, so the animation will take place in two
+            // stages. First the cell will be flipped and on completion, the
+            // actual ViewController transition will be kicked off
             self.siteAssignmentCollectionManager.selectedCell?.flip {
                 [weak self] in
                 self?.navigationController?.pushViewController(pages,
@@ -58,9 +65,13 @@ class SiteAssignmentController: UICollectionViewController, SitePageController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        // If transitioning back from a PagesController, the cell used for
+        // the animation transition needs to be flip to complete the effect
         siteAssignmentCollectionManager.flipIfNecessary()
     }
 }
+
+//MARK: LoadableController Extension
 
 extension SiteAssignmentController: LoadableController {
     @objc func loadData() {
@@ -68,7 +79,11 @@ extension SiteAssignmentController: LoadableController {
     }
 }
 
+//MARK: NetworkSourceDelegate Extension
+
 extension SiteAssignmentController: NetworkSourceDelegate {}
+
+//MARK: Animatable Extension
 
 extension SiteAssignmentController: Animatable {
     var containerView: UIView? {

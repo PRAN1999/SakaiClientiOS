@@ -64,9 +64,8 @@ class HideableTableManager
     }
     
     override func tableView(_ tableView: UITableView,
-                            heightForHeaderInSection section: Int)
-        -> CGFloat {
-            return tableHeaderHeight
+                            heightForHeaderInSection section: Int) -> CGFloat {
+        return tableHeaderHeight
     }
     
     /// Show and hide Term sections based on taps

@@ -7,6 +7,7 @@
 
 import ReusableSource
 
+/// Fetch and construct ResourceTree for a Site
 class ResourceDataFetcher: DataFetcher {
     typealias T = [ResourceNode]
     
@@ -29,6 +30,9 @@ class ResourceDataFetcher: DataFetcher {
                 return
             }
 
+            // Sakai's resource tree is represented as a flattened tree in
+            // JSON data so it needs to be mapped back to an actual Tree
+            // structure in memory using the ResourceNode.
             let resourceCollection = data.contentCollection
             let tree = ResourceNode(data: resourceCollection)
             completion(tree.children, err)

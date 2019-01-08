@@ -35,8 +35,7 @@ class RequestManager {
                              method: HTTPMethod,
                              parameters: Parameters? = nil,
                              completion: @escaping ResponseCompletion) {
-        Alamofire.SessionManager.default
-            .request(url, method: method, parameters: parameters)
+        Alamofire.SessionManager.default.request(url, method: method, parameters: parameters)
             .validate()
             .responseJSON { response in
                 if let error = response.error {

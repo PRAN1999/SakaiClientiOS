@@ -12,7 +12,8 @@ class SiteGradebookController: UITableViewController, SitePageController {
     private let siteId: String
     private let siteUrl: String
 
-    private lazy var siteGradebookTableDataSource = SiteGradebookTableDataSource(tableView: tableView, siteId: siteId)
+    private lazy var siteGradebookTableDataSource
+        = SiteGradebookTableDataSource(tableView: tableView, siteId: siteId)
 
     required init(siteId: String, siteUrl: String, pageTitle: String) {
         self.siteId = siteId
@@ -38,10 +39,14 @@ class SiteGradebookController: UITableViewController, SitePageController {
     }
 }
 
+//MARK: LoadableController Extension
+
 extension SiteGradebookController: LoadableController {
     @objc func loadData() {
         siteGradebookTableDataSource.loadDataSourceWithoutCache()
     }
 }
+
+//MARK: NetworkSourceDelegate Extension
 
 extension SiteGradebookController: NetworkSourceDelegate {}

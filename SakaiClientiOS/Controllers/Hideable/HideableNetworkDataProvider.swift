@@ -10,6 +10,10 @@ import ReusableSource
 /// A DataProvider to be used in conjunction with a HideableNetworkSource
 /// that provides information on which sections have loaded and the ability
 /// to load data into a specific section
+///
+/// A HideableNetworkDataProvider assumes the global Term map is available
+/// and requires access to a TermService in order to correctly manage Term
+/// sections
 protocol HideableNetworkDataProvider: HideableDataProvider {
     
     var hasLoaded: [Bool] { get set }

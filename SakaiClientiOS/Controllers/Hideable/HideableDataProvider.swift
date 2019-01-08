@@ -9,7 +9,11 @@ import ReusableSource
 
 /// A DataProvider to populate and manage data for a HideableTableManager.
 /// In other words, it can provide data as needed based on the data's
-/// visibility
+/// visibility.
+///
+/// A HideableDataProvider allows Sakai data to be broken into Term-based
+/// sections. However, it does not assume the terms already exist, like
+/// HideableNetworkDataProvider
 protocol HideableDataProvider: class, DataProvider {
 
     var terms: [Term] { get set }

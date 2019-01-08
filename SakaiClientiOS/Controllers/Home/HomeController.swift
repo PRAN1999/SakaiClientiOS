@@ -141,11 +141,15 @@ class HomeController: UITableViewController {
     }
 }
 
+//MARK: LoadableController Extension
+
 extension HomeController: LoadableController {
     @objc func loadData() {
         siteTableManager.loadDataSourceWithoutCache()
     }
 }
+
+//MARK: NetworkSourceDelegate Extension
 
 extension HomeController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source)
@@ -170,6 +174,8 @@ extension HomeController: NetworkSourceDelegate {
             .post(name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
     }
 }
+
+// MARK: UINavigationControllerDelegate Extension
 
 extension HomeController: UINavigationControllerDelegate {
     func navigationController

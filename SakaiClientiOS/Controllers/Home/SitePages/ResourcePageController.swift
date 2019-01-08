@@ -9,12 +9,14 @@ import ReusableSource
 import RATreeView
 import SafariServices
 
-/// Manages the screen for the Resources page of a certain Site
+/// Manages the screen for the Resources page of a certain Site using a
+/// RATreeView. Presents WebController or SFSafariViewController for
+/// different Resources
 class ResourcePageController: UIViewController, SitePageController {
     
     private let treeView: RATreeView = RATreeView(frame: .zero)
-    private lazy var resourceTreeManager
-        = ResourceTreeManager(treeView: treeView, siteId: siteId)
+    private lazy var resourceTreeManager = ResourceTreeManager(treeView: treeView,
+                                                               siteId: siteId)
 
     private let siteId: String
     private let siteUrl: String
@@ -61,10 +63,14 @@ class ResourcePageController: UIViewController, SitePageController {
     }
 }
 
+//MARK: LoadableController Extension
+
 extension ResourcePageController: LoadableController {
     @objc func loadData() {
         resourceTreeManager.loadDataSourceWithoutCache()
     }
 }
+
+//MARK: NetworkSourceDelegate Extension
 
 extension ResourcePageController: NetworkSourceDelegate {}

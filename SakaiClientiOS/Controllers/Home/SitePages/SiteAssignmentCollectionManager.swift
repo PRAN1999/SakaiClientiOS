@@ -7,6 +7,7 @@
 
 import ReusableSource
 
+/// Manage Assignment Collection for a specific Site
 class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSource {
     typealias Fetcher = SiteAssignmentDataFetcher
     
@@ -14,17 +15,13 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     weak var delegate: NetworkSourceDelegate?
 
     override var scrollPosition: UICollectionViewScrollPosition {
-        if UIDevice.current.orientation == .landscapeRight ||
-            UIDevice.current.orientation == .landscapeLeft {
-            return .centeredHorizontally
-        } else {
-            return .centeredVertically
-        }
+        return .centeredVertically
     }
     
     convenience init(collectionView: UICollectionView, siteId: String) {
         let provider = SingleSectionDataProvider<Assignment>()
-        let fetcher = SiteAssignmentDataFetcher(siteId: siteId, networkService: RequestManager.shared)
+        let fetcher = SiteAssignmentDataFetcher(siteId: siteId,
+                                                networkService: RequestManager.shared)
         self.init(provider: provider, fetcher: fetcher, collectionView: collectionView)
     }
 
@@ -46,15 +43,4 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
         let size: CGSize = CGSize(width: width, height: height)
         return size
     }
-
-//    override func pageControllerDidRotate(_ pageController: PagesController, at index: Int) {
-//        let layout = collectionView.collectionViewLayout as? LandscapeHorizontalLayout
-//        if UIDevice.current.orientation == .portrait {
-//            layout?.scrollDirection = .vertical
-//            layout?.invalidateLayout()
-//        } else {
-//            layout?.scrollDirection = .horizontal
-//            layout?.invalidateLayout()
-//        }
-//    }
 }

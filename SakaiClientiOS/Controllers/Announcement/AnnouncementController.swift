@@ -8,6 +8,7 @@
 import UIKit
 import ReusableSource
 
+/// ViewController for user's entire Announcement feed
 class AnnouncementController: UITableViewController {
     
     private(set) lazy var announcementTableManager = AnnouncementTableManager(tableView: tableView)
@@ -27,10 +28,14 @@ class AnnouncementController: UITableViewController {
     }
 }
 
+//MARK: LoadableController Extension
+
 extension AnnouncementController: LoadableController {
     @objc func loadData() {
         announcementTableManager.loadDataSourceWithoutCache()
     }
 }
+
+//MARK: NetworkSourceDelegate Extension
 
 extension AnnouncementController: NetworkSourceDelegate {}

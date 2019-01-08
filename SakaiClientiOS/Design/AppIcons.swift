@@ -38,8 +38,7 @@ final class AppIcons {
         var codeToIcon: [Int: String] = [:]
 
         if let filepath =
-            Bundle.main.path(forResource: AppIcons.siteIconsFile,
-                                           ofType: "json") {
+            Bundle.main.path(forResource: AppIcons.siteIconsFile, ofType: "json") {
             do {
                 let url = URL(fileURLWithPath: filepath)
                 let data = try Data(contentsOf: url)

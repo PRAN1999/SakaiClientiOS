@@ -8,8 +8,8 @@
 import UIKit
 import ReusableSource
 
-class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>,
-                        NetworkSource {
+/// Manage Term-based Site data
+class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>, NetworkSource {
 
     weak var delegate: NetworkSourceDelegate?
     typealias Fetcher = SiteDataFetcher
