@@ -42,11 +42,12 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
         cell.pageViewTap.addTarget(self, action: #selector(handleIndexTap(sender:)))
     }
     
-    /// Since textViews do not natively register taps, a custom recognizer was added to record
-    /// taps on the textView within the UICollectionViewCell and the indexPath of the cell that
-    /// was tapped.
+    /// Since textViews do not natively register taps, a custom recognizer
+    /// was added to record taps on the textView within the Cell and the
+    /// indexPath of the cell that was tapped.
     ///
-    /// - Parameter sender: the custom tap recognizer added to an Assignment cell
+    /// - Parameter sender: the custom tap recognizer added to an Assignment
+    ///                     cell
     @objc private func handleIndexTap(sender: Any) {
         guard let recognizer = sender as? IndexRecognizer else {
             return
@@ -79,12 +80,9 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
         selectedCell = nil
         transitionIndex = nil
     }
-
-//    func pageControllerDidRotate(_ pageController: PagesController, at index: Int) {
-//        collectionView.collectionViewLayout.invalidateLayout()
-//        self.pageController(pageController, didMoveToIndex: index)
-//    }
 }
+
+// MARK: PageDelegate Extension
 
 extension AssignmentCollectionManager: PageDelegate {
 

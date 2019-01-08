@@ -7,7 +7,10 @@
 
 import ReusableSource
 
-/// Fetch Assignments data for the Assignments tab
+/// Fetch Assignments data by Term
+///
+/// Uses term service to retrieve siteId's of different Terms and make
+/// multiple requests to collect data.
 class AssignmentDataFetcher: HideableDataFetcher {
 
     private let termService: TermService

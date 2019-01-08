@@ -46,7 +46,10 @@ class CreditsController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: UITableViewCell.self),
+            for: indexPath
+        )
         let (name, _) = credits[indexPath.row]
         cell.accessoryType = .disclosureIndicator
         cell.backgroundColor = Palette.main.primaryBackgroundColor
