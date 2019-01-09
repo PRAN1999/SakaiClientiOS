@@ -146,7 +146,7 @@ class PagesController: UIViewController {
                                              animated: true,
                                              completion: nil)
         }
-        // When popping back to PagesController, the LNPopupController
+        // When popping back to PagesController, LNPopupController
         // encounters a bug where it is entirely removed from the view
         // hierarchy and causes a black space to appear in its place.
         // Adding the views back to the tabBarController manually fixes

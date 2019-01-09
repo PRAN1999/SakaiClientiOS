@@ -15,11 +15,22 @@ import UIKit
 // MARK: - Utility methods
 
 extension LoadableController where Self: UIViewController {
-    /// Configure navigation bar with action to reload data using right bar button
+    /// Configure navigation bar with action to reload data using right bar
+    /// button
     func configureNavigationItem() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadData))
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
+                                                            target: self,
+                                                            action: #selector(loadData))
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "",
+                                                           style: .plain,
+                                                           target: nil,
+                                                           action: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(loadData),
+            name: Notification.Name(rawValue: ReloadActions.reload.rawValue),
+            object: nil
+        )
     }
 
     func addLoadingIndicator() -> (() -> Void) {

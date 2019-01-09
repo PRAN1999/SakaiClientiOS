@@ -1,24 +1,33 @@
 PODS:
   - Alamofire (4.7.2)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - Fabric (1.7.6)
   - M13Checkbox (3.2.2)
   - RATreeView (2.1.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - Crashlytics
+  - Fabric
   - M13Checkbox
   - RATreeView (~> 2.1.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Crashlytics
+    - Fabric
     - M13Checkbox
     - RATreeView
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   M13Checkbox: a8c2491cfbbca10797925fd0b9154a782bf40d89
   RATreeView: 380cde0090cfde21dc6ac29137f49d3b768fdd28
 
-PODFILE CHECKSUM: 43934b2380a4dbb30d76712765e4fbc071033c31
+PODFILE CHECKSUM: 55ea250164846ab3ab93a0edeb85c0b0df82afd7
 
 COCOAPODS: 1.6.0.beta.2

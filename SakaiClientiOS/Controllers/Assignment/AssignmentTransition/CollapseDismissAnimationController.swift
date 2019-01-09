@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// Shrink Assignment page down to size of Assignment card
 class CollapseDismissAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
 
     private let resizingDuration: TimeInterval
@@ -65,13 +66,15 @@ class CollapseDismissAnimationController: NSObject, UIViewControllerAnimatedTran
         let xDiff = destinationFrame.origin.x - originFrame.origin.x
 
         let springParams = UISpringTimingParameters(dampingRatio: 0.75)
-        let sizeAnimator = UIViewPropertyAnimator(duration: resizingDuration, timingParameters: springParams)
+        let sizeAnimator = UIViewPropertyAnimator(duration: resizingDuration,
+                                                  timingParameters: springParams)
         sizeAnimator.addAnimations {
             fromView.frame.size = destinationFrame.size
             fromView.layoutIfNeeded()
 
             fromView.transform = CGAffineTransform(translationX: 0, y: yDiff)
-            fromView.transform = fromView.transform.concatenating(CGAffineTransform(translationX: xDiff, y: 0))
+            fromView.transform = fromView.transform
+                .concatenating(CGAffineTransform(translationX: xDiff, y: 0))
         }
 
         // Call the animation delegate
