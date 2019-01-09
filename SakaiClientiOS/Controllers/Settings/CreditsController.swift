@@ -15,6 +15,7 @@ class CreditsController: UITableViewController {
     @IBOutlet weak var footerView: UIView!
 
     let credits: [(String, URL?)] = [
+        ("Rutgers Sakai", URL(string: "https://sakai.rutgers.edu/direct/describe")),
         ("Icons8", URL(string: "https://www.icons8.com")),
         ("Logomakr", URL(string: "https://www.LogoMakr.com/")),
         ("Alamofire", URL(string: "https://github.com/Alamofire/Alamofire")),

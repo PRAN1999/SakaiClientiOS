@@ -17,7 +17,7 @@ import SafariServices
 /// be opened in SFSafariViewController instead
 class WebController: UIViewController {
 
-    var webView: WKWebView!
+    private var webView: WKWebView!
 
     private let progressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .default)
@@ -48,7 +48,8 @@ class WebController: UIViewController {
                                                     target: nil,
                                                     action: nil)
     private let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
-                                             target: nil, action: nil)
+                                             target: nil,
+                                             action: nil)
     private let actionController = UIAlertController(title: nil,
                                                      message: nil,
                                                      preferredStyle: .actionSheet)

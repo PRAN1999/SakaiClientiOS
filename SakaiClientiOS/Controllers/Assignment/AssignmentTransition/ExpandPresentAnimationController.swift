@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// Animate from Assignment Card to full-screen Assignment page
 class ExpandPresentAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
 
     private let resizingDuration: TimeInterval
@@ -16,7 +17,8 @@ class ExpandPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
         self.resizingDuration = resizingDuration
     }
 
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?)
+        -> TimeInterval {
         return resizingDuration
     }
 
@@ -60,14 +62,16 @@ class ExpandPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
         let xDiff = destinationFrame.origin.x - originFrame.origin.x
 
         let springParams = UISpringTimingParameters(dampingRatio: 0.75)
-        let sizeAnimator = UIViewPropertyAnimator(duration: duration, timingParameters: springParams)
+        let sizeAnimator = UIViewPropertyAnimator(duration: duration,
+                                                  timingParameters: springParams)
         sizeAnimator.addAnimations {
             // Animate the size of the Detail View
             toView.frame.size = destinationFrame.size
             toView.layoutIfNeeded()
 
             toView.transform = CGAffineTransform(translationX: 0, y: yDiff)
-            toView.transform = toView.transform.concatenating(CGAffineTransform(translationX: xDiff, y: 0))
+            toView.transform = toView.transform
+                .concatenating(CGAffineTransform(translationX: xDiff, y: 0))
         }
 
         let completionHandler: (UIViewAnimatingPosition) -> Void = { _ in

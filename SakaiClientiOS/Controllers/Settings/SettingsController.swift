@@ -8,6 +8,7 @@
 import UIKit
 import SafariServices
 import MessageUI
+import Crashlytics
 
 class SettingsController: UITableViewController {
 
@@ -134,6 +135,7 @@ class SettingsController: UITableViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         appDelegate?.logout()
     }
+
 }
 
 extension SettingsController: MFMailComposeViewControllerDelegate {

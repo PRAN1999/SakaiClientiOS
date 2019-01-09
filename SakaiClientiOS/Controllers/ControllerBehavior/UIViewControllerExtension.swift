@@ -17,16 +17,15 @@ extension UIViewController {
     /// - Parameter error: the error to show
     func presentErrorAlert(error: Error) {
         let errorMessage = error.localizedDescription
-        let alert = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        let alertController = UIAlertController(title: "ERROR", message: errorMessage, preferredStyle: .alert)
-        alertController.addAction(alert)
-        present(alertController, animated: true, completion: nil)
+        presentErrorAlert(string: errorMessage)
     }
 
     func presentErrorAlert(string: String) {
         let errorMessage = string
         let alert = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        let alertController = UIAlertController(title: "ERROR", message: errorMessage, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "ERROR",
+                                                message: errorMessage,
+                                                preferredStyle: .alert)
         alertController.addAction(alert)
         present(alertController, animated: true, completion: nil)
     }

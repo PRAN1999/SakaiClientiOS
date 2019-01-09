@@ -9,4 +9,6 @@ target 'SakaiClientiOS' do
   pod 'Alamofire', '~> 4.7'
   pod 'RATreeView', '~> 2.1.2'
   pod 'M13Checkbox'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end

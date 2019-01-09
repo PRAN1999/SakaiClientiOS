@@ -184,12 +184,17 @@ extension AssignmentPageView {
         instructions.addAttribute(.font,
                                   value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
                                   range: instructionRange)
-        instructions.addAttribute(.foregroundColor, value: Palette.main.secondaryTextColor, range: instructionRange)
-
+        instructions.addAttribute(.foregroundColor,
+                                  value: Palette.main.secondaryTextColor,
+                                  range: instructionRange)
         let description = NSMutableAttributedString(string: "Instructions: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
-        description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
-        description.addAttribute(.foregroundColor, value: Palette.main.primaryTextColor, range: descriptionRange)
+        description.addAttribute(.font,
+                                 value: UIFont.boldSystemFont(ofSize: 18.0),
+                                 range: descriptionRange)
+        description.addAttribute(.foregroundColor,
+                                 value: Palette.main.primaryTextColor,
+                                 range: descriptionRange)
         description.append(instructions)
         return description
     }

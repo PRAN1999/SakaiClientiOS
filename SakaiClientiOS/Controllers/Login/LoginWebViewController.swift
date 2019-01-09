@@ -99,10 +99,10 @@ class LoginWebViewController: WebController {
                     UserDefaults.standard.set(self?.loginService.cookieArray, forKey: RequestManager.savedCookiesKey)
                 },
                 onFailure: { [weak self] err in
-                    let store = self?.webView.configuration.websiteDataStore.httpCookieStore
-                    store?.getAllCookies({ cookies in
+                    let store = webView.configuration.websiteDataStore.httpCookieStore
+                    store.getAllCookies({ cookies in
                         cookies.forEach { cookie in
-                            store?.delete(cookie, completionHandler: nil)
+                            store.delete(cookie, completionHandler: nil)
                         }
                     })
                     self?.loginService.clearCookies()
