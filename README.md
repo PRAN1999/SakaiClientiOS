@@ -17,7 +17,10 @@ Run the following commands:
         
 This should open the project in XCode. If you do not see "SakaiClientiOS" as a target in the top left of the screen, click on the target list and then click "New Scheme". Then add "SakaiClientiOS" as a target.
 
-If you would like to hook up your own Crashlytics account to the app, in the project root, add a file named config.txt and configure it according to config-example.txt. 
+If you would like to hook up your own Crashlytics account to the app, in the project root, add a file named config.txt and configure it according to config-example.txt like so:
+
+    <FabricApiKey>
+    <FabricBuildSecretKey>
 
 In order to disable Crashlytics, you can go into Build Phases for the SakaiClientiOS Target and delete the 'Crashlytics' Run Script. Then, go into SakaiClientiOS/AppDelegate.swift and comment out the line:
 
