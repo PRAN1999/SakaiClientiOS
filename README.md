@@ -9,7 +9,7 @@ Beta Testing
 ## Setting up Dev Environment
 If you'd like to compile and run the source code yourself, you can do so on any Mac machine. The dependencies are included in the repo, however the API Key and Build Secret for Crashlytics are not included in the repo. If you would like to hook up your own Crashlytics account to the app, in the project root, add a file names config.txt and configure it according to config-example.txt. 
 
-Otherwise, go into SakaiClientiOS/AppDelegate.swift and comment out the line:
+In order to disable Crashlytics, you can go into Build Phases for the SakaiClientiOS Target and delete the 'Crashlytics' Run Script. Then, go into SakaiClientiOS/AppDelegate.swift and comment out the line:
 
     Fabric.with([Crashlytics.self])
 
