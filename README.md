@@ -7,7 +7,13 @@ This repo is for a mobile client for Rutgers Sakai on iOS (Android: https://gith
 Beta Testing
 
 ## Setting up Dev Environment
-If you'd like to compile and run the source code yourself, you can do so on any Mac machine. The dependencies are included in the repo, so you should be able to compile without issue. Run the following commands:
+If you'd like to compile and run the source code yourself, you can do so on any Mac machine. The dependencies are included in the repo, however the API Key and Build Secret for Crashlytics are not included in the repo. If you would like to hook up your own Crashlytics account to the app, in the project root, add a file names config.txt and configure it according to config-example.txt. 
+
+Otherwise, go into SakaiClientiOS/AppDelegate.swift and comment out the line:
+
+    Fabric.with([Crashlytics.self])
+
+Then, run the following commands:
 
     git clone https://github.com/PRAN1999/SakaiClientiOS.git
     cd SakaiClientiOS
