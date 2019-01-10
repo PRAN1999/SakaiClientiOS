@@ -12,8 +12,8 @@ import Crashlytics
 
 class SettingsController: UITableViewController {
 
-    private let aboutURL = URL(string: "https://www.google.com")
-    private let privacyURL = URL(string: "https://www.google.com")
+    private let aboutURL = URL(string: "https://rutgerssakai.github.io/SakaiMobile/")
+    private let privacyURL = URL(string: "https://rutgerssakai.github.io/SakaiMobile/privacy.html")
 
     private let developerEmail = "rutgerssakaiapp@gmail.com"
 

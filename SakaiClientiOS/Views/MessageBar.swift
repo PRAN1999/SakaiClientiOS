@@ -14,8 +14,8 @@ class MessageBar: UIView {
         let inputField: ChatTextView = UIView.defaultAutoLayoutView()
         inputField.isScrollEnabled = false
         inputField.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        inputField.textColor = Palette.main.highlightColor
-        inputField.tintColor = Palette.main.highlightColor
+        inputField.textColor = Palette.main.primaryTextColor
+        inputField.tintColor = Palette.main.primaryTextColor
         inputField.font = UIFont.systemFont(ofSize: 16)
         inputField.backgroundColor = Palette.main.secondaryBackgroundColor
         inputField.layer.cornerRadius = 5
@@ -52,8 +52,6 @@ class MessageBar: UIView {
     }
 
     private func setConstraints() {
-        let margins = layoutMarginsGuide
-
         inputField.constrainToMargins(of: self, onSides: [.left, .top, .bottom])
         inputField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor,
                                              constant: -5.0).isActive = true

@@ -175,20 +175,25 @@ extension AssignmentPageView {
         }
     }
 
-    private func getInstructionsString(attributedText: NSAttributedString?) -> NSMutableAttributedString? {
+    private func getInstructionsString
+        (attributedText: NSAttributedString?) -> NSMutableAttributedString? {
+
         guard let text = attributedText else {
             return nil
         }
         let instructions = NSMutableAttributedString(attributedString: text)
         let instructionRange = NSRange(location: 0, length: instructions.string.count)
+
         instructions.addAttribute(.font,
                                   value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
                                   range: instructionRange)
         instructions.addAttribute(.foregroundColor,
                                   value: Palette.main.secondaryTextColor,
                                   range: instructionRange)
+
         let description = NSMutableAttributedString(string: "Instructions: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
+
         description.addAttribute(.font,
                                  value: UIFont.boldSystemFont(ofSize: 18.0),
                                  range: descriptionRange)
@@ -199,13 +204,16 @@ extension AssignmentPageView {
         return description
     }
 
-    private func getAttachmentsString(resources: [NSAttributedString]?) -> NSMutableAttributedString? {
+    private func getAttachmentsString(
+        resources: [NSAttributedString]?) -> NSMutableAttributedString? {
+
         guard let attachments = resources else {
-            print("here?")
             return nil
         }
+
         let description = NSMutableAttributedString(string: "\n\n\nAttachments: \n\n")
         let descriptionRange = NSRange(location: 0, length: description.string.count)
+        
         description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
         description.addAttribute(.foregroundColor, value: Palette.main.primaryTextColor, range: descriptionRange)
 
