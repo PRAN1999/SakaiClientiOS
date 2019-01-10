@@ -78,6 +78,7 @@ class ChatRoomController: UIViewController, SitePageController {
         indicator.startAnimating()
 
         WKWebView.authorizedWebView(webService: webService) { [weak self] webView in
+            webView.isHidden = true
             self?.chatRoomView = ChatRoomView(webView: webView)
             self?.setup()
         }
@@ -87,6 +88,7 @@ class ChatRoomController: UIViewController, SitePageController {
         chatRoomView.backgroundColor = Palette.main.primaryBackgroundColor
         webView.backgroundColor = Palette.main.primaryBackgroundColor
         view.addSubview(chatRoomView)
+        view.bringSubview(toFront: indicator)
         chatRoomView.constrainToEdges(of: view)
         chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
             self.handleSubmit()
@@ -214,34 +216,45 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
     /// Remove all elements from the HTML except for the chat room and
     /// retrieve chat room information from JavaScript local variables
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+
+        let group = DispatchGroup()
+
+        group.enter()
         webView.evaluateJavaScript("currentChatChannelId") {
             [weak self] (data, err) in
             guard let id = data as? String else {
                 return
             }
             self?.chatChannelId = id
-            if self?.csrftoken != nil {
-                self?.setInput(enabled: true)
-                self?.indicator.stopAnimating()
-            }
+            group.leave()
         }
 
+        group.enter()
         webView.evaluateJavaScript("""
             var csrftoken = document.getElementById('topForm:csrftoken').value;
-            var selectedElement = document.querySelector('#Monitor');
-            document.body.innerHTML = selectedElement.innerHTML;
+            var monitor = document.querySelector('#Monitor');
+            document.body.innerHTML = monitor.innerHTML;
+
+            $('body').css({'background': 'white'});
+            $('.chatList').css({'padding': '0em'});
+            $("<style type='text/css'> li { list-style: none; border: 1px grey solid; padding: 6px; margin: 8px 12px; border-radius: 6px; box-shadow:-3px 3px 3px lightgrey; }</style>").appendTo("head");
+
+            // Returns the csrf token
             csrftoken;
             """, completionHandler: { [weak self] (data, err) in
-            guard let token = data as? String else {
-                return
+                guard let token = data as? String else {
+                    return
+                }
+                self?.csrftoken = token
+                self?.scrollToBottom()
+                group.leave()
             }
-            self?.csrftoken = token
-            self?.scrollToBottom()
-            
-            if self?.chatChannelId != nil {
-                self?.setInput(enabled: true)
-                self?.indicator.stopAnimating()
-            }
-        })
+        )
+
+        group.notify(queue: .main, work: DispatchWorkItem(block: { [weak self] in
+            self?.setInput(enabled: true)
+            self?.indicator.stopAnimating()
+            webView.isHidden = false
+        }))
     }
 }

@@ -40,7 +40,9 @@ class HideableNetworkTableManager
     ///
     /// - Parameter sender: the tapped header view
     @objc override func handleTap(sender: UITapGestureRecognizer) {
-        let section = (sender.view?.tag)!
+        guard let section = sender.view?.tag else {
+            return
+        }
         guard let view = sender.view as? TermHeader else {
             return
         }

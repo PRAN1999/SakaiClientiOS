@@ -177,6 +177,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController)
                             -> UIViewController? {
+                                
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
