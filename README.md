@@ -1,7 +1,7 @@
 # SakaiClientiOS
 
 ## About
-This repo is for a mobile client for Rutgers Sakai on iOS (Android: https://github.com/SChakravorti21/SakaiClientAndroid). Currently in progress.
+This repo is for a mobile client for Rutgers Sakai on iOS (Android: https://github.com/SChakravorti21/SakaiClientAndroid). Under active development.
 
 ## Current App Status: 
 Available for Download: https://itunes.apple.com/us/app/rutgers-sakai-mobile/id1435278106?mt=8
