@@ -933,7 +933,7 @@
 		};
 		51EBE83421E57E9C00E95300 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -948,7 +948,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "FabricApiKey=$(sed -n '1p' < config.txt)\nFabricSecretKey=$(sed -n '2p' < config.txt)\n\nINFO_PLIST=\"$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH\"\n/usr/libexec/PlistBuddy -c \"Set :Fabric:APIKey $FabricApiKey\" \"$INFO_PLIST\"\n\n\"${PODS_ROOT}/Fabric/run\" $FabricApiKey $FabricSecretKey\n";
+			shellScript = "FabricApiKey=$(sed -n '1p' < config.txt)\nFabricSecretKey=$(sed -n '2p' < config.txt)\n\nif [ ! -z $FabricApiKey ]\nthen\n    INFO_PLIST=\"$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH\"\n    /usr/libexec/PlistBuddy -c \"Set :Fabric:APIKey $FabricApiKey\" \"$INFO_PLIST\"\n    \n    \"${PODS_ROOT}/Fabric/run\" $FabricApiKey $FabricSecretKey\nelse\n    echo \"Not running fabric\"\nfi\n";
 		};
 		6A6FC538D6CEF5FCC7295502 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
