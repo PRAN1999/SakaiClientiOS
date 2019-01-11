@@ -82,17 +82,22 @@ class ClassController: UITableViewController {
     override func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath) {
         let page = pages[indexPath.row]
-        let sitePage = page.siteType.init(siteId: page.siteId,
-                                          siteUrl: page.url,
-                                          pageTitle: page.title)
-        
-        guard let controller = sitePage as? UIViewController else {
-            return
-        }
-
-        if controller is DefaultController ||
-           controller is ChatRoomController {
+        let controller: UIViewController
+        switch page.pageType {
+        case .gradebook:
+            controller = SiteGradebookController(siteId: page.siteId)
+        case .assignments:
+            controller = SiteAssignmentController(siteId: page.siteId)
+        case .chatRoom:
+            controller = ChatRoomController(siteId: page.siteId, siteUrl: page.url)
             hidesBottomBarWhenPushed = true
+        case .defaultPage:
+            controller = DefaultController(siteUrl: page.url, pageTitle: page.title)
+            hidesBottomBarWhenPushed = true
+        case .announcements:
+            controller = SiteAnnouncementController(siteId: page.siteId)
+        case .resources:
+            controller = ResourcePageController(siteId: page.siteId)
         }
         navigationController?.pushViewController(controller, animated: true)
         hidesBottomBarWhenPushed = false

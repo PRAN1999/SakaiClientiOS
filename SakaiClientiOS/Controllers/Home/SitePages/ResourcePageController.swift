@@ -12,18 +12,16 @@ import SafariServices
 /// Manages the screen for the Resources page of a certain Site using a
 /// RATreeView. Presents WebController or SFSafariViewController for
 /// different Resources
-class ResourcePageController: UIViewController, SitePageController {
+class ResourcePageController: UIViewController {
     
     private let treeView: RATreeView = RATreeView(frame: .zero)
     private lazy var resourceTreeManager = ResourceTreeManager(treeView: treeView,
                                                                siteId: siteId)
 
     private let siteId: String
-    private let siteUrl: String
 
-    required init(siteId: String, siteUrl: String, pageTitle: String) {
+    required init(siteId: String) {
         self.siteId = siteId
-        self.siteUrl = siteUrl
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -40,20 +38,16 @@ class ResourcePageController: UIViewController, SitePageController {
         view.addSubview(treeView)
         treeView.constrainToEdges(of: view)
 
-        resourceTreeManager.didSelectResource.delegate(to: self) {
-            (self, url) -> Void in
+        resourceTreeManager.didSelectResource.delegate(to: self) { (self, url) -> Void in
             if url.absoluteString.contains("sakai.rutgers.edu") {
                 let webController = WebController()
                 webController.setURL(url: url)
                 self.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(webController,
-                                                              animated: true)
+                self.navigationController?.pushViewController(webController, animated: true)
                 self.hidesBottomBarWhenPushed = false
             } else {
                 let safariController = SFSafariViewController(url: url)
-                self.tabBarController?.present(safariController,
-                                               animated: true,
-                                               completion: nil)
+                self.tabBarController?.present(safariController, animated: true, completion: nil)
             }
         }
         resourceTreeManager.delegate = self

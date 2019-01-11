@@ -20,22 +20,21 @@ struct SitePage {
         case defaultPage, announcements, resources
     }
 
-    /// A map to provide native interfaces for common site pages shared by
-    /// most classes
-    private static let mapPages: [String: (PageType, SitePageController.Type)]
+    /// A map to determine if a page has native support or should be
+    /// opened in a webview
+    private static let mapPages: [String: PageType]
         = [
-        assignmentsString:  (.assignments, SiteAssignmentController.self),
-        gradebookString:    (.gradebook, SiteGradebookController.self),
-        chatRoomString:     (.chatRoom, ChatRoomController.self),
-        defaultString:      (.defaultPage, DefaultController.self),
-        resourcesString:    (.resources, ResourcePageController.self),
-        announcementString: (.announcements, SiteAnnouncementController.self)
+        assignmentsString:  .assignments,
+        gradebookString:    .gradebook,
+        chatRoomString:     .chatRoom,
+        defaultString:      .defaultPage,
+        resourcesString:    .resources,
+        announcementString: .announcements
     ]
 
     let id: String
     let title: String
     let siteId: String
-    let siteType: SitePageController.Type
     let pageType: PageType
     let url: String
 }
@@ -47,11 +46,9 @@ extension SitePage: Decodable {
         let title = sitePageElement.title
         let siteId = sitePageElement.siteId
         let url = sitePageElement.url
-        var siteType: SitePageController.Type = DefaultController.self
         var pageType = PageType.defaultPage
-        if let (page, type) = SitePage.mapPages[title] {
-            siteType = type
-            pageType = page
+        if let type = SitePage.mapPages[title] {
+            pageType = type
         }
         if pageType == .assignments {
             SakaiService.shared.setAssignmentToolUrl(url: url, siteId: siteId)
@@ -59,7 +56,6 @@ extension SitePage: Decodable {
         self.init(id: id,
                   title: title,
                   siteId: siteId,
-                  siteType: siteType,
                   pageType: pageType,
                   url: url)
     }
@@ -69,11 +65,9 @@ extension SitePage: Decodable {
         let title = serializedSitePage.title
         let siteId = serializedSitePage.siteId
         let url = serializedSitePage.url
-        var siteType: SitePageController.Type = DefaultController.self
         var pageType = PageType.defaultPage
-        if let (page, type) = SitePage.mapPages[title] {
-            siteType = type
-            pageType = page
+        if let type = SitePage.mapPages[title] {
+            pageType = type
         }
         if pageType == .assignments {
             SakaiService.shared.setAssignmentToolUrl(url: url, siteId: siteId)
@@ -81,7 +75,6 @@ extension SitePage: Decodable {
         self.init(id: id,
                   title: title,
                   siteId: siteId,
-                  siteType: siteType,
                   pageType: pageType,
                   url: url)
     }

@@ -158,6 +158,7 @@
 		51DEE56D210527BC008E709D /* HideableTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE56C210527BC008E709D /* HideableTableManager.swift */; };
 		51EBE83321E5461F00E95300 /* SakaiHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EBE83221E5461F00E95300 /* SakaiHTTPMethod.swift */; };
 		51EBE83A21E6A36500E95300 /* TipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EBE83921E6A36500E95300 /* TipController.swift */; };
+		51EBE83C21E8334000E95300 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EBE83B21E8334000E95300 /* ChatService.swift */; };
 		51EF2BC621DF4234003CAA57 /* GradebookHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EF2BC521DF4234003CAA57 /* GradebookHeaderCell.swift */; };
 		51EF2BC821DF5B5E003CAA57 /* InsetUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EF2BC721DF5B5E003CAA57 /* InsetUILabel.swift */; };
 		51EF2BCC21E0535B003CAA57 /* iOS-Icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 51EF2BCB21E0535B003CAA57 /* iOS-Icons.ttf */; };
@@ -347,6 +348,7 @@
 		51DEE56C210527BC008E709D /* HideableTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableTableManager.swift; sourceTree = "<group>"; };
 		51EBE83221E5461F00E95300 /* SakaiHTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakaiHTTPMethod.swift; sourceTree = "<group>"; };
 		51EBE83921E6A36500E95300 /* TipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipController.swift; sourceTree = "<group>"; };
+		51EBE83B21E8334000E95300 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		51EF2BC521DF4234003CAA57 /* GradebookHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradebookHeaderCell.swift; sourceTree = "<group>"; };
 		51EF2BC721DF5B5E003CAA57 /* InsetUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetUILabel.swift; sourceTree = "<group>"; };
 		51EF2BCB21E0535B003CAA57 /* iOS-Icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iOS-Icons.ttf"; sourceTree = "<group>"; };
@@ -621,6 +623,7 @@
 			isa = PBXGroup;
 			children = (
 				5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */,
+				51EBE83B21E8334000E95300 /* ChatService.swift */,
 				512748BC210D29A400A5A74E /* ResourcePageController.swift */,
 				512748C0210D75D700A5A74E /* ResourceTreeManager.swift */,
 				512748C2210D7B9C00A5A74E /* ResourceDataFetcher.swift */,
@@ -1111,6 +1114,7 @@
 				51910EE121DC91470079021C /* Palette.swift in Sources */,
 				51DEE56D210527BC008E709D /* HideableTableManager.swift in Sources */,
 				51DEE55B21016B0D008E709D /* TappableTextView.swift in Sources */,
+				51EBE83C21E8334000E95300 /* ChatService.swift in Sources */,
 				5137DE0421DED15900FCC91C /* AppIcons.swift in Sources */,
 				518903AE2108154E00C551AE /* SiteAssignmentDataFetcher.swift in Sources */,
 				511114B920D881450077F872 /* PageView.swift in Sources */,

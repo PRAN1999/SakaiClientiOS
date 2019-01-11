@@ -8,26 +8,22 @@
 import UIKit
 
 /// Open non-native SitePages in a WebView
-class DefaultController: WebController, SitePageController {
-    
-    private let siteId: String
+class DefaultController: WebController {
+
     private let siteUrl: String
     private let pageTitle: String
     
-    required convenience init(siteId: String, siteUrl: String, pageTitle: String) {
-        self.init(siteId: siteId,
-                  siteUrl: siteUrl,
+    required convenience init(siteUrl: String, pageTitle: String) {
+        self.init(siteUrl: siteUrl,
                   pageTitle: pageTitle,
                   downloadService: RequestManager.shared,
                   webService: RequestManager.shared)
     }
 
-    init(siteId: String,
-         siteUrl: String,
+    init(siteUrl: String,
          pageTitle: String,
          downloadService: DownloadService,
          webService: WebService) {
-        self.siteId = siteId
         self.siteUrl = siteUrl
         self.pageTitle = pageTitle
         super.init(downloadService: downloadService, webService: webService)
