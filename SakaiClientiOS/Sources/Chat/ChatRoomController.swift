@@ -202,6 +202,9 @@ class ChatRoomController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        if isMovingFromParentViewController && UIDevice.current.userInterfaceIdiom == .phone {
+            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        }
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         view.setNeedsLayout()
     }
@@ -273,3 +276,5 @@ extension ChatRoomController: NavigationAnimatable {
         return nil
     }
 }
+
+extension ChatRoomController: Rotatable {}
