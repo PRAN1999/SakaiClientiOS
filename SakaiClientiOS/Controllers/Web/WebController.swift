@@ -18,6 +18,7 @@ import SafariServices
 class WebController: UIViewController {
 
     private var webView: WKWebView!
+    private var edgeInteractionController: LeftEdgeInteractionController!
 
     private let progressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .default)
@@ -77,7 +78,7 @@ class WebController: UIViewController {
     }
 
     /// Manage dismissing action for webView
-    lazy var dismissWebView: (() -> Void) = { [weak self] in
+    @objc lazy var dismissWebView: (() -> Void) = { [weak self] in
         self?.navigationController?.popViewController(animated: true)
     }
 
@@ -115,11 +116,7 @@ class WebController: UIViewController {
                 webView.constrainToEdges(of: view)
             }
 
-            // Normal pop recognizer is buggy with WKWebView
-            let swipeRight = UISwipeGestureRecognizer(target: self,
-                                                      action: #selector(self?.dismissWebController))
-            swipeRight.direction = .right
-            webView.addGestureRecognizer(swipeRight)
+            self?.edgeInteractionController = LeftEdgeInteractionController(view: webView, in: self)
 
             if let target = self {
                 webView.addObserver(target,
@@ -156,6 +153,9 @@ class WebController: UIViewController {
         if shouldLoad && didInitialize {
             loadURL(urlOpt: url)
         }
+        if webView != nil {
+            webView.scrollView.isScrollEnabled = true
+        }
         navigationController?.navigationBar.tintColor = Palette.main.toolBarColor
         navigationController?.setToolbarHidden(false, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -163,6 +163,9 @@ class WebController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        if webView != nil {
+            webView.scrollView.isScrollEnabled = false
+        }
         if isMovingFromParentViewController {
             UIDevice.current
                 .setValue(Int(UIInterfaceOrientation.portrait.rawValue),
@@ -251,9 +254,6 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
             decisionHandler(.cancel)
             openInSafari(url)
             return
-        }
-        if url.absoluteString != self.url?.absoluteString {
-            shouldLoad = true
         }
         decisionHandler(.allow)
     }
@@ -389,6 +389,7 @@ extension WebController {
     }
 
     @objc func loadWebview() {
+        shouldLoad = true
         loadURL(urlOpt: url)
     }
 
@@ -402,3 +403,16 @@ extension WebController {
 }
 
 extension WebController: Rotatable {}
+
+extension WebController: NavigationAnimatable {
+    func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if edgeInteractionController.edge?.state == .began {
+            return SystemPopAnimator(duration: 0.5, interactionController: edgeInteractionController)
+        }
+        return nil
+    }
+
+    func animationControllerForPush(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+}

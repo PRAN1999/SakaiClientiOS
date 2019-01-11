@@ -96,3 +96,16 @@ extension SiteAssignmentController: Animatable {
         return siteAssignmentCollectionManager.selectedCellFrame
     }
 }
+
+extension SiteAssignmentController: NavigationAnimatable {
+    func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+
+    func animationControllerForPush(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if controller is PagesController {
+            return ExpandPresentAnimationController(resizingDuration: 0.5)
+        }
+        return nil
+    }
+}

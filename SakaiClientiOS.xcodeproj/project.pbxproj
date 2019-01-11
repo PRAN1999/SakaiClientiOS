@@ -42,7 +42,6 @@
 		512748C9210E600200A5A74E /* ResourceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512748C8210E600200A5A74E /* ResourceNode.swift */; };
 		5128310F21D03DF800DB8DA8 /* CheckBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128310E21D03DF800DB8DA8 /* CheckBoxCell.swift */; };
 		5128311421D0847D00DB8DA8 /* ExpandPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311321D0847D00DB8DA8 /* ExpandPresentAnimationController.swift */; };
-		5128311621D14C3E00DB8DA8 /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311521D14C3E00DB8DA8 /* AnimationHelper.swift */; };
 		5128311B21D1607400DB8DA8 /* Animatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311A21D1607400DB8DA8 /* Animatable.swift */; };
 		5128311D21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311C21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift */; };
 		5129956821CCDB1C00BED3E5 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */; };
@@ -101,6 +100,10 @@
 		518903BD210AAE1F00C551AE /* LoadableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903BC210AAE1F00C551AE /* LoadableController.swift */; };
 		518903C1210AB39500C551AE /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903C0210AB39500C551AE /* UIViewControllerExtension.swift */; };
 		518903C3210AC3B200C551AE /* ResourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903C2210AC3B200C551AE /* ResourceItem.swift */; };
+		518988D121E8633500F8E400 /* NavigationAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518988D021E8633500F8E400 /* NavigationAnimatable.swift */; };
+		518988D521E8673300F8E400 /* SystemPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518988D421E8673300F8E400 /* SystemPopAnimator.swift */; };
+		518988D921E869C300F8E400 /* Interactable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518988D821E869C300F8E400 /* Interactable.swift */; };
+		518988DC21E86DA500F8E400 /* LeftEdgeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518988DB21E86DA500F8E400 /* LeftEdgeInteractionController.swift */; };
 		518AC341213756E000037087 /* SakaiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518AC340213756E000037087 /* SakaiError.swift */; };
 		518AC34E2137840300037087 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518AC34D2137840300037087 /* LoadingIndicator.swift */; };
 		518AC35021379DC100037087 /* NetworkSourceDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518AC34F21379DC100037087 /* NetworkSourceDelegateExtension.swift */; };
@@ -229,7 +232,6 @@
 		512748C8210E600200A5A74E /* ResourceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceNode.swift; sourceTree = "<group>"; };
 		5128310E21D03DF800DB8DA8 /* CheckBoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxCell.swift; sourceTree = "<group>"; };
 		5128311321D0847D00DB8DA8 /* ExpandPresentAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandPresentAnimationController.swift; sourceTree = "<group>"; };
-		5128311521D14C3E00DB8DA8 /* AnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
 		5128311A21D1607400DB8DA8 /* Animatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animatable.swift; sourceTree = "<group>"; };
 		5128311C21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseDismissAnimationController.swift; sourceTree = "<group>"; };
 		5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -289,6 +291,10 @@
 		518903BC210AAE1F00C551AE /* LoadableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableController.swift; sourceTree = "<group>"; };
 		518903C0210AB39500C551AE /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		518903C2210AC3B200C551AE /* ResourceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceItem.swift; sourceTree = "<group>"; };
+		518988D021E8633500F8E400 /* NavigationAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAnimatable.swift; sourceTree = "<group>"; };
+		518988D421E8673300F8E400 /* SystemPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPopAnimator.swift; sourceTree = "<group>"; };
+		518988D821E869C300F8E400 /* Interactable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactable.swift; sourceTree = "<group>"; };
+		518988DB21E86DA500F8E400 /* LeftEdgeInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftEdgeInteractionController.swift; sourceTree = "<group>"; };
 		518AC340213756E000037087 /* SakaiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakaiError.swift; sourceTree = "<group>"; };
 		518AC34D2137840300037087 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		518AC34F21379DC100037087 /* NetworkSourceDelegateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSourceDelegateExtension.swift; sourceTree = "<group>"; };
@@ -477,8 +483,9 @@
 		5128311721D15C5E00DB8DA8 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				5128311521D14C3E00DB8DA8 /* AnimationHelper.swift */,
 				5128311A21D1607400DB8DA8 /* Animatable.swift */,
+				518988D021E8633500F8E400 /* NavigationAnimatable.swift */,
+				518988D821E869C300F8E400 /* Interactable.swift */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -600,6 +607,7 @@
 		51835041211E9A49008F2CF2 /* Web */ = {
 			isa = PBXGroup;
 			children = (
+				518988DA21E86D8E00F8E400 /* WebTransition */,
 				511114AB20D6CD440077F872 /* WebController.swift */,
 				51835042211E9A75008F2CF2 /* WebNavigationController.swift */,
 				5197E6BC2134317F0019DCC9 /* TextViewDelegateExtension.swift */,
@@ -617,6 +625,15 @@
 				515915442169C55900D3730E /* ReloadActions.swift */,
 			);
 			path = ControllerBehavior;
+			sourceTree = "<group>";
+		};
+		518988DA21E86D8E00F8E400 /* WebTransition */ = {
+			isa = PBXGroup;
+			children = (
+				518988DB21E86DA500F8E400 /* LeftEdgeInteractionController.swift */,
+				518988D421E8673300F8E400 /* SystemPopAnimator.swift */,
+			);
+			path = WebTransition;
 			sourceTree = "<group>";
 		};
 		518CFCAA20B4E64500D5AE8F /* SitePages */ = {
@@ -1083,11 +1100,14 @@
 				518903B221092E5600C551AE /* SakaiService.swift in Sources */,
 				5197E6BB213396DD0019DCC9 /* ChatRoomController.swift in Sources */,
 				518CFCAC20B4E68200D5AE8F /* SiteGradebookController.swift in Sources */,
+				518988DC21E86DA500F8E400 /* LeftEdgeInteractionController.swift in Sources */,
 				5197E6CB2134E8D80019DCC9 /* ChatTextView.swift in Sources */,
 				51C9791920F83D3300191DD6 /* GradebookDataFetcher.swift in Sources */,
 				5113C133209286D9001929DA /* GradebookController.swift in Sources */,
 				51C9791520F81A3E00191DD6 /* GradebookDataProvider.swift in Sources */,
 				51EBE83321E5461F00E95300 /* SakaiHTTPMethod.swift in Sources */,
+				518988D521E8673300F8E400 /* SystemPopAnimator.swift in Sources */,
+				518988D921E869C300F8E400 /* Interactable.swift in Sources */,
 				51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */,
 				515915452169C55900D3730E /* ReloadActions.swift in Sources */,
 				51DEE54020FEFB41008E709D /* SiteTableManager.swift in Sources */,
@@ -1100,7 +1120,6 @@
 				51A472DC20F9C13000CC95F0 /* AssignmentTableDataProvider.swift in Sources */,
 				513E5A7E21E163C3007BFD9A /* CreditsController.swift in Sources */,
 				518903BD210AAE1F00C551AE /* LoadableController.swift in Sources */,
-				5128311621D14C3E00DB8DA8 /* AnimationHelper.swift in Sources */,
 				517B614C21D8CED800BF5BD8 /* AnnouncementElement.swift in Sources */,
 				51D5EA1321504A2300D7B85C /* LoginWebViewController.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,
@@ -1127,6 +1146,7 @@
 				DE0599F91DFD93B200D19D17 /* AppDelegate.swift in Sources */,
 				511114BD20DDF8DF0077F872 /* AssignmentPageView.swift in Sources */,
 				51C4B7FA20A9247C00DD6696 /* DefaultController.swift in Sources */,
+				518988D121E8633500F8E400 /* NavigationAnimatable.swift in Sources */,
 				51DEE53020FC250A008E709D /* AnnouncementDataProvider.swift in Sources */,
 				51DEE551210041A5008E709D /* SiteGradebookDataFetcher.swift in Sources */,
 				51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */,
