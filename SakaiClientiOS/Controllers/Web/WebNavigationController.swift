@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Used to contain webView when being presented from popup
 class WebViewNavigationController: UINavigationController {
 
     override func viewDidLoad() {

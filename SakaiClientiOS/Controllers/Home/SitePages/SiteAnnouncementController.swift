@@ -8,16 +8,14 @@
 import ReusableSource
 
 /// View controller for Site Announcements feed
-class SiteAnnouncementController: UITableViewController, SitePageController {
+class SiteAnnouncementController: UITableViewController {
 
     private let siteId: String
-    private let siteUrl: String
 
     private lazy var announcementTableManager = AnnouncementTableManager(tableView: tableView)
 
-    required init(siteId: String, siteUrl: String, pageTitle: String) {
+    required init(siteId: String) {
         self.siteId = siteId
-        self.siteUrl = siteUrl
         super.init(nibName: nil, bundle: nil)
     }
 

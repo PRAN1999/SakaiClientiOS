@@ -13,7 +13,7 @@ import WebKit
 /// a real chat application. By executing JavaScript to modify the webview,
 /// this screen allows users to see and post messages to the Sakai chat
 /// with a mobile interface
-class ChatRoomController: UIViewController, SitePageController {
+class ChatRoomController: UIViewController {
 
     private var chatRoomView: ChatRoomView!
     private var indicator: LoadingIndicator!
@@ -29,10 +29,10 @@ class ChatRoomController: UIViewController, SitePageController {
 
     private let networkService: NetworkService
     private let webService: WebService
+    private let chatService: ChatService
 
     required convenience init(siteId: String,
-                              siteUrl: String,
-                              pageTitle: String) {
+                              siteUrl: String) {
         let networkService = RequestManager.shared
         let webService = RequestManager.shared
         self.init(siteId: siteId,
@@ -49,6 +49,7 @@ class ChatRoomController: UIViewController, SitePageController {
         self.siteUrl = siteUrl
         self.networkService = networkService
         self.webService = webService
+        self.chatService = ChatService(networkService: networkService)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -90,18 +91,16 @@ class ChatRoomController: UIViewController, SitePageController {
         view.addSubview(chatRoomView)
         view.bringSubview(toFront: indicator)
         chatRoomView.constrainToEdges(of: view)
-        chatRoomView.messageBar.inputField.chatDelegate.delegate(to: self) { (self) in
-            self.handleSubmit()
-        }
+
         chatRoomView.messageBar.sendButton.addTarget(
             self,
             action: #selector(handleSubmit),
             for: .touchUpInside
         )
+        setInput(enabled: false)
         guard let url = URL(string: siteUrl) else {
             return
         }
-        setInput(enabled: false)
 
         // Force the webView to be static and unable to be zoomed so that
         // it behaves more like a native UI element
@@ -128,8 +127,7 @@ class ChatRoomController: UIViewController, SitePageController {
         // needs to scroll down to the latest messages.
         let cgRect = keyboardFrame.cgRectValue
         let isKeyboardShowing = notification.name == .UIKeyboardWillShow
-        chatRoomView.bottomConstraint
-            .constant = isKeyboardShowing ? -cgRect.height : 0
+        chatRoomView.bottomConstraint.constant = isKeyboardShowing ? -cgRect.height : 0
 
         UIView.animate(withDuration: 0,
                        delay: 0,
@@ -174,31 +172,12 @@ class ChatRoomController: UIViewController, SitePageController {
         guard text != "" else {
             return
         }
-        submitMessage(text)
-        chatRoomView.messageBar.inputField.text = nil
-    }
-    
-    private func submitMessage(_ text: String) {
-        guard
-            let csrftoken = csrftoken,
-            let chatChannelId = chatChannelId
-            else {
-                return
-        }
-        let parameters = [
-            "body": text,
-            "chatChannelId": chatChannelId,
-            "csrftoken": csrftoken
-        ]
-        // The Response to the POST request is not something that can be
-        // decoded, so an UndefinedResponse struct is used
-        let request = SakaiRequest<UndefinedResponse>(endpoint: .newChat,
-                                                      method: .post,
-                                                      parameters: parameters)
-        networkService.makeEndpointRequest(request: request) {
-            [weak self] res, err in
+        chatService.submitMessage(text: text,
+                                  channelId: chatChannelId,
+                                  csrf: csrftoken) { [weak self] in
             self?.updateMonitor()
         }
+        chatRoomView.messageBar.inputField.text = ""
     }
     
     private func updateMonitor() {
@@ -223,6 +202,8 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
         webView.evaluateJavaScript("currentChatChannelId") {
             [weak self] (data, err) in
             guard let id = data as? String else {
+                self?.presentErrorAlert(string: "Unable to load chat")
+                group.leave()
                 return
             }
             self?.chatChannelId = id
@@ -237,12 +218,14 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
 
             $('body').css({'background': 'white'});
             $('.chatList').css({'padding': '0em'});
-            $("<style type='text/css'> li { list-style: none; border: 1px grey solid; padding: 6px; margin: 8px 12px; border-radius: 6px; box-shadow:-3px 3px 3px lightgrey; }</style>").appendTo("head");
+            $("<style type='text/css'> li { list-style: none; border: 1px grey solid; padding: 6px; margin: 8px 12px; border-radius: 6px; box-shadow:-3px 3px 3px lightgrey; } </style>").appendTo("head");
 
             // Returns the csrf token
             csrftoken;
             """, completionHandler: { [weak self] (data, err) in
                 guard let token = data as? String else {
+                    self?.presentErrorAlert(string: "Unable to load chat")
+                    group.leave()
                     return
                 }
                 self?.csrftoken = token

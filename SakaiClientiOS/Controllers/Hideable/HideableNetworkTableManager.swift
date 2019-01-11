@@ -13,11 +13,7 @@ import ReusableSource
 /// section, it will function as it would for a HideableTableManager and
 /// will toggle the section's visibility
 class HideableNetworkTableManager
-    <
-        Provider: HideableNetworkDataProvider,
-        Cell: UITableViewCell & ConfigurableCell,
-        Fetcher: HideableDataFetcher
-    >
+    <Provider: HideableNetworkDataProvider, Cell: UITableViewCell & ConfigurableCell, Fetcher: HideableDataFetcher>
     : HideableTableManager<Provider, Cell>, HideableNetworkSource
     where Provider.T == Cell.T, Provider.V == Fetcher.T {
 

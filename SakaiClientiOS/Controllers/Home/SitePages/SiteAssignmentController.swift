@@ -9,18 +9,16 @@ import ReusableSource
 import UIKit
 
 /// A View Controller for a single Site's Assignments
-class SiteAssignmentController: UICollectionViewController, SitePageController {
+class SiteAssignmentController: UICollectionViewController {
     
     private let siteId: String
-    private let siteUrl: String
 
     private lazy var siteAssignmentCollectionManager =
         SiteAssignmentCollectionManager(collectionView: collectionView!,
                                         siteId: siteId)
 
-    required init(siteId: String, siteUrl: String, pageTitle: String) {
+    required init(siteId: String) {
         self.siteId = siteId
-        self.siteUrl = siteUrl
         super.init(nibName: nil, bundle: nil)
     }
 

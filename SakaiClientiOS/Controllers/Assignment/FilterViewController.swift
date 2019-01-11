@@ -16,7 +16,13 @@ class FilterViewController: UIViewController {
 
     var selectedIndex = 0
 
+    /// Callback for when a filter has been chosen and should be applied. It
+    /// is possible onSet will be called with the same filter that was
+    /// already set. It is the presenter's responsibility to handle that
+    /// appropriately
     var onSet: ((Int) -> Void)?
+
+    /// When a new filter should not be applied
     var onCancel: (() -> Void)?
 
     var filters: [String] = []

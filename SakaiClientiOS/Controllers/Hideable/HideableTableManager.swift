@@ -48,13 +48,11 @@ class HideableTableManager
     
     override func tableView(_ tableView: UITableView,
                             viewForHeaderInSection section: Int) -> UIView? {
-        guard
-            let view = tableView.dequeueReusableHeaderFooterView(
-                withIdentifier: TermHeader.reuseIdentifier
-            ) as? TermHeader
-            else {
-            return nil
+        guard let view = tableView
+            .dequeueReusableHeaderFooterView(withIdentifier: TermHeader.reuseIdentifier) as? TermHeader else {
+                return nil
         }
+        
         view.tag = section
         view.setImage(isHidden: provider.isHidden(section: section))
         view.titleLabel.text = provider.getTerm(for: section)?.getTitle()

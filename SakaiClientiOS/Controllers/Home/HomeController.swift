@@ -28,8 +28,7 @@ class HomeController: UITableViewController {
         // Ensure the rest of the app is locked until the source of truth
         // is loaded
         disableTabs()
-        siteTableManager.selectedAt.delegate(to: self) {
-            (self, indexPath) -> Void in
+        siteTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             guard let site = self.siteTableManager.item(at: indexPath) else {
                 return
             }

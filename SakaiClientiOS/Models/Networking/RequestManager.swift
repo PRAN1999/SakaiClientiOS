@@ -234,7 +234,9 @@ extension RequestManager: DownloadService {
     func downloadToDocuments(url: URL,
                              completion: @escaping (_ fileDestination: URL?) -> Void) {
         let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
-        Alamofire.download(URLRequest(url: url), to: destination).response(queue: DispatchQueue.global(qos: .utility)) { res in
+        Alamofire.download(URLRequest(url: url), to: destination)
+            .response(queue: DispatchQueue.global(qos: .utility)) { res in
+                
             DispatchQueue.main.async {
                 completion(res.destinationURL)
             }

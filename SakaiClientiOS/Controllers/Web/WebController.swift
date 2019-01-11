@@ -59,13 +59,27 @@ class WebController: UIViewController {
     private var didInitialize = false
 
     var shouldLoad = true
+
+    // Determines wheter action button to download and open in safari should
+    // be displayed
     var allowsOptions = true
 
     /// Manage SFSafariViewController presentation for non-Sakai URL
-    var openInSafari: ((URL?) -> Void)?
+    lazy var openInSafari: ((URL?) -> Void) = { [weak self] url in
+        guard let url = url, url.absoluteString.contains("http") else {
+            return
+        }
+        let safariController = SFSafariViewController.defaultSafariController(url: url)
+        self?.shouldLoad = false
+        self?.tabBarController?.present(safariController,
+                                        animated: true,
+                                        completion: nil)
+    }
 
     /// Manage dismissing action for webView
-    var dismissWebView: (() -> Void)?
+    lazy var dismissWebView: (() -> Void) = { [weak self] in
+        self?.navigationController?.popViewController(animated: true)
+    }
 
     private let downloadService: DownloadService
     private let webService: WebService
@@ -74,19 +88,6 @@ class WebController: UIViewController {
         self.downloadService = downloadService
         self.webService = webService
         super.init(nibName: nil, bundle: nil)
-        openInSafari = { [weak self] url in
-            guard let url = url, url.absoluteString.contains("http") else {
-                return
-            }
-            let safariController = SFSafariViewController.defaultSafariController(url: url)
-            self?.shouldLoad = false
-            self?.tabBarController?.present(safariController,
-                                            animated: true,
-                                            completion: nil)
-        }
-        dismissWebView = { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
-        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -106,8 +107,7 @@ class WebController: UIViewController {
     }
 
     override func viewDidLoad() {
-        WKWebView.authorizedWebView(webService: webService) {
-            [weak self] webView in
+        WKWebView.authorizedWebView(webService: webService) { [weak self] webView in
             webView.uiDelegate = self
             webView.navigationDelegate = self
             if let view = self?.view {
@@ -117,7 +117,7 @@ class WebController: UIViewController {
 
             // Normal pop recognizer is buggy with WKWebView
             let swipeRight = UISwipeGestureRecognizer(target: self,
-                                                      action: #selector(self?.pop))
+                                                      action: #selector(self?.dismissWebController))
             swipeRight.direction = .right
             webView.addGestureRecognizer(swipeRight)
 
@@ -173,7 +173,8 @@ class WebController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
         view.setNeedsLayout()
         super.viewWillTransition(to: size, with: coordinator)
     }
@@ -194,7 +195,8 @@ class WebController: UIViewController {
     }
 
     /// Download from URL and present DocumentInteractionController to act
-    /// on downloaded file
+    /// on downloaded file. While file is being downloaded, lock the UI
+    /// to prevent leaving the screen until the callback has returned.
     ///
     /// Prevents leaving ViewController until Download has called back -
     /// for success or failure
@@ -205,27 +207,31 @@ class WebController: UIViewController {
         }
         interactionButton.isEnabled = false
         navigationItem.leftBarButtonItem?.isEnabled = false
+        webView.isHidden = true
         let indicator = LoadingIndicator(view: self.view)
         indicator.startAnimating()
-        downloadService.downloadToDocuments(url: url) {
-            [weak self] fileUrl in
+
+        let didComplete = { [weak self] in
+            self?.webView.isHidden = false
+            self?.navigationItem.leftBarButtonItem?.isEnabled = true
+            self?.interactionButton.isEnabled = true
+        }
+
+        downloadService.downloadToDocuments(url: url) { [weak self] fileUrl in
             indicator.stopAnimating()
             indicator.removeFromSuperview()
             guard let fileUrl = fileUrl else {
-                self?.navigationItem.leftBarButtonItem?.isEnabled = true
+                didComplete()
                 return
             }
             guard let button = self?.interactionButton else {
-                self?.navigationItem.leftBarButtonItem?.isEnabled = true
+                didComplete()
                 return
             }
-            self?.interactionController
-                = UIDocumentInteractionController(url: fileUrl)
+            self?.interactionController = UIDocumentInteractionController(url: fileUrl)
             DispatchQueue.main.async {
-                self?.interactionController?
-                    .presentOpenInMenu(from: button, animated: true)
-                self?.interactionButton.isEnabled = true
-                self?.navigationItem.leftBarButtonItem?.isEnabled = true
+                self?.interactionController?.presentOpenInMenu(from: button, animated: true)
+                didComplete()
             }
         }
     }
@@ -243,7 +249,7 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
         }
         if !url.absoluteString.contains("https") {
             decisionHandler(.cancel)
-            openInSafari?(url)
+            openInSafari(url)
             return
         }
         if url.absoluteString != self.url?.absoluteString {
@@ -304,7 +310,7 @@ fileprivate extension WebController {
     func setupNavBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                            target: self,
-                                                           action: #selector(pop))
+                                                           action: #selector(dismissWebController))
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
                                                             target: self,
@@ -356,7 +362,7 @@ fileprivate extension WebController {
         let safariAction = UIAlertAction(title: "Open in Safari",
                                          style: .default,
                                          handler: { [weak self] (_) in
-            self?.openInSafari?(self?.url)
+            self?.openInSafari(self?.url)
         })
         let cancelAction = UIAlertAction(title: "Cancel",
                                          style: .cancel,
@@ -386,8 +392,8 @@ extension WebController {
         loadURL(urlOpt: url)
     }
 
-    @objc func pop() {
-        dismissWebView?()
+    @objc func dismissWebController() {
+        dismissWebView()
     }
 
     @objc func presentDownloadOption() {
