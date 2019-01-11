@@ -19,7 +19,6 @@ class AssignmentController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.delegate = self
         assignmentsTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             self.assignmentsTableManager.toggleSite(at: indexPath)
         }
@@ -114,14 +113,15 @@ extension AssignmentController: Animatable {
     }
 }
 
-extension AssignmentController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if fromVC is AssignmentController && toVC is PagesController {
+extension AssignmentController: NavigationAnimatable {
+    func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+
+    func animationControllerForPush(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if controller is PagesController {
             return ExpandPresentAnimationController(resizingDuration: 0.5)
-        } else if toVC is AssignmentController && fromVC is PagesController {
-            return CollapseDismissAnimationController(resizingDuration: 0.5)
-        } else {
-            return nil
         }
+        return nil
     }
 }

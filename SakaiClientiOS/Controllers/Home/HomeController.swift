@@ -22,8 +22,6 @@ class HomeController: UITableViewController {
         super.viewDidLoad()
 
         title = "Classes"
-        navigationController?.delegate = self
-        navigationController?.interactivePopGestureRecognizer?.delegate = nil
 
         // Ensure the rest of the app is locked until the source of truth
         // is loaded
@@ -171,24 +169,5 @@ extension HomeController: NetworkSourceDelegate {
         enableTabs()
         NotificationCenter.default
             .post(name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
-    }
-}
-
-// MARK: UINavigationControllerDelegate Extension
-
-extension HomeController: UINavigationControllerDelegate {
-    func navigationController (_ navigationController: UINavigationController,
-                               animationControllerFor operation: UINavigationControllerOperation,
-                               from fromVC: UIViewController,
-                               to toVC: UIViewController)
-        -> UIViewControllerAnimatedTransitioning? {
-
-            if fromVC is SiteAssignmentController && operation == .push {
-                return ExpandPresentAnimationController(resizingDuration: 0.5)
-            } else if toVC is SiteAssignmentController && operation == .pop {
-                return CollapseDismissAnimationController(resizingDuration: 0.5)
-            } else {
-                return nil
-            }
     }
 }

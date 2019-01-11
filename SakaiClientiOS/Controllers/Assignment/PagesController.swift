@@ -257,3 +257,16 @@ extension PagesController: Animatable {
         childView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
+
+extension PagesController: NavigationAnimatable {
+    func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if controller is AssignmentController || controller is SiteAssignmentController {
+            return CollapseDismissAnimationController(resizingDuration: 0.5)
+        }
+        return nil
+    }
+
+    func animationControllerForPush(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+}
