@@ -36,16 +36,16 @@ class ChatRoomView: UIView {
     }
 
     private func setConstraints() {
+
         let margins = layoutMarginsGuide
 
         webView.constrainToEdges(of: self, onSides: [.top, .left, .right])
         webView.bottomAnchor.constraint(equalTo: messageBar.topAnchor).isActive = true
 
         messageBar.constrainToEdges(of: self, onSides: [.left, .right])
-        messageBar.heightAnchor.constraint(greaterThanOrEqualTo: margins.heightAnchor,
-                                           multiplier: 0.1)
+        messageBar.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
 
-        bottomConstraint = messageBar.bottomAnchor.constraint(equalTo: bottomAnchor)
-        addConstraint(bottomConstraint)
+        bottomConstraint = messageBar.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
+        bottomConstraint.isActive = true
     }
 }

@@ -16,6 +16,7 @@ import WebKit
 class ChatRoomController: UIViewController {
 
     private var chatRoomView: ChatRoomView!
+    private var edgeInteractionController: LeftEdgeInteractionController!
     private var indicator: LoadingIndicator!
     private var webView: WKWebView {
         return chatRoomView.webView
@@ -102,6 +103,8 @@ class ChatRoomController: UIViewController {
             return
         }
 
+        self.edgeInteractionController = LeftEdgeInteractionController(view: chatRoomView, in: self)
+
         // Force the webView to be static and unable to be zoomed so that
         // it behaves more like a native UI element
         webView.contentMode = .scaleToFill
@@ -186,6 +189,20 @@ class ChatRoomController: UIViewController {
             self?.scrollToBottom()
         }
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // For some reason, when using the custom swip to go back, the
+        // message bar disappears if the transition is started and cancelled
+        // It may have something to do with the tabbar but forcing the view
+        // to layout lets the message bar reappear after a cancelled transition
+        view.setNeedsLayout()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.setNeedsLayout()
+    }
 }
 
 // MARK: WKUIDelegate && WKNavigationDelegate Extension
@@ -239,5 +256,18 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
             self?.indicator.stopAnimating()
             webView.isHidden = false
         }))
+    }
+}
+
+extension ChatRoomController: NavigationAnimatable {
+    func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if edgeInteractionController.edge?.state == .began {
+            return SystemPopAnimator(duration: 0.5, interactionController: edgeInteractionController)
+        }
+        return nil
+    }
+
+    func animationControllerForPush(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
     }
 }
