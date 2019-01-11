@@ -718,18 +718,21 @@
 			path = ReusableExtensions;
 			sourceTree = "<group>";
 		};
-		51C2D15A20C47FA000E4C901 /* Controllers */ = {
+		51C2D15A20C47FA000E4C901 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				DE059A011DFD93B200D19D17 /* LaunchScreen.storyboard */,
 				DE0599FC1DFD93B200D19D17 /* Main.storyboard */,
+				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
 				5110C08421DAD1B600579D31 /* TabController.swift */,
 				51910EDB21DC902A0079021C /* NavigationController.swift */,
+				513E5A8521E282F5007BFD9A /* Rotatable.swift */,
 				5113C12620927D5A001929DA /* Home */,
 				5113C12720927D6C001929DA /* Announcement */,
 				5113C12420927D44001929DA /* Gradebook */,
 				5113C12320927D19001929DA /* Assignment */,
 				5137DDFE21DEC61800FCC91C /* Settings */,
+				51910EDD21DC90B30079021C /* Design */,
 				51D5EA1621504A3900D7B85C /* Login */,
 				51835041211E9A49008F2CF2 /* Web */,
 				51C9790D20F6FDCE00191DD6 /* Hideable */,
@@ -737,8 +740,10 @@
 				518903BB210AADEA00C551AE /* ControllerBehavior */,
 				51A472CF20F99F8D00CC95F0 /* ReusableExtensions */,
 				5193356920ED6CF200469FD4 /* Searchable */,
+				5113C13A209298FF001929DA /* Models */,
+				514B623A209569AF001A716C /* Views */,
 			);
-			path = Controllers;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		51C9790D20F6FDCE00191DD6 /* Hideable */ = {
@@ -802,13 +807,8 @@
 				5118956421194D0500BD86D1 /* SakaiClientiOS.entitlements */,
 				DE0599FF1DFD93B200D19D17 /* Assets.xcassets */,
 				DE059A041DFD93B200D19D17 /* Info.plist */,
-				DE0599F81DFD93B200D19D17 /* AppDelegate.swift */,
-				513E5A8521E282F5007BFD9A /* Rotatable.swift */,
 				5137DE0521DED22400FCC91C /* Resources */,
-				51910EDD21DC90B30079021C /* Design */,
-				51C2D15A20C47FA000E4C901 /* Controllers */,
-				514B623A209569AF001A716C /* Views */,
-				5113C13A209298FF001929DA /* Models */,
+				51C2D15A20C47FA000E4C901 /* Sources */,
 			);
 			path = SakaiClientiOS;
 			sourceTree = "<group>";
