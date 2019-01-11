@@ -85,9 +85,8 @@ class GradebookTableManager:
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var direction: Direction = .up
 
-        if scrollView.contentOffset.y == lastContentOffset {
-            hideHeaderCell()
-            return
+        if scrollView.contentOffset.y > lastContentOffset {
+            direction = .down
         }
         lastContentOffset = scrollView.contentOffset.y
 
