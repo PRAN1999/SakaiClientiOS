@@ -95,7 +95,6 @@
 		518903A52106C35900C551AE /* HideableNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */; };
 		518903AC2108151C00C551AE /* AssignmentCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903AB2108151C00C551AE /* AssignmentCollectionManager.swift */; };
 		518903AE2108154E00C551AE /* SiteAssignmentDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903AD2108154E00C551AE /* SiteAssignmentDataFetcher.swift */; };
-		518903B021081ABF00C551AE /* SitePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903AF21081ABF00C551AE /* SitePageController.swift */; };
 		518903B221092E5600C551AE /* SakaiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903B121092E5500C551AE /* SakaiService.swift */; };
 		518903BD210AAE1F00C551AE /* LoadableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903BC210AAE1F00C551AE /* LoadableController.swift */; };
 		518903C1210AB39500C551AE /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903C0210AB39500C551AE /* UIViewControllerExtension.swift */; };
@@ -286,7 +285,6 @@
 		518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkDataProvider.swift; sourceTree = "<group>"; };
 		518903AB2108151C00C551AE /* AssignmentCollectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentCollectionManager.swift; sourceTree = "<group>"; };
 		518903AD2108154E00C551AE /* SiteAssignmentDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentDataFetcher.swift; sourceTree = "<group>"; };
-		518903AF21081ABF00C551AE /* SitePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitePageController.swift; sourceTree = "<group>"; };
 		518903B121092E5500C551AE /* SakaiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SakaiService.swift; sourceTree = "<group>"; };
 		518903BC210AAE1F00C551AE /* LoadableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableController.swift; sourceTree = "<group>"; };
 		518903C0210AB39500C551AE /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -413,6 +411,9 @@
 				511114B620D752260077F872 /* AssignmentPageController.swift */,
 				5110C08221DAA73C00579D31 /* SubmitPopupBarController.swift */,
 				5126915421CEEE09004B20E7 /* FilterViewController.swift */,
+				51DEE5682103D41F008E709D /* SiteAssignmentController.swift */,
+				5182CBCB213845F500D45952 /* SiteAssignmentCollectionManager.swift */,
+				518903AD2108154E00C551AE /* SiteAssignmentDataFetcher.swift */,
 				5128311221D0844300DB8DA8 /* AssignmentTransition */,
 			);
 			path = Assignment;
@@ -426,6 +427,9 @@
 				5182CBCD2138464900D45952 /* GradebookTableManager.swift */,
 				51C9791420F81A3E00191DD6 /* GradebookDataProvider.swift */,
 				51C9791820F83D3300191DD6 /* GradebookDataFetcher.swift */,
+				518CFCAB20B4E68200D5AE8F /* SiteGradebookController.swift */,
+				51DEE54E210041A4008E709D /* SiteGradebookTableDataSource.swift */,
+				51DEE54F210041A4008E709D /* SiteGradebookDataFetcher.swift */,
 			);
 			path = Gradebook;
 			sourceTree = "<group>";
@@ -439,7 +443,6 @@
 				51DEE53F20FEFB41008E709D /* SiteTableManager.swift */,
 				51C9791620F82C0E00191DD6 /* SiteDataProvider.swift */,
 				51C9791120F708B200191DD6 /* SiteDataFetcher.swift */,
-				518CFCAA20B4E64500D5AE8F /* SitePages */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				51DEE52F20FC250A008E709D /* AnnouncementDataProvider.swift */,
 				51DEE53120FC2639008E709D /* AnnouncementDataFetcher.swift */,
 				5193357120F2FC1D00469FD4 /* AnnouncementPageController.swift */,
+				51DEE55D21017CB8008E709D /* SiteAnnouncementController.swift */,
 			);
 			path = Announcement;
 			sourceTree = "<group>";
@@ -528,6 +532,25 @@
 				513E5A7B21E15B39007BFD9A /* UIButtonExtension.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		515165EF21E9574600873EC6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				512748BC210D29A400A5A74E /* ResourcePageController.swift */,
+				512748C0210D75D700A5A74E /* ResourceTreeManager.swift */,
+				512748C2210D7B9C00A5A74E /* ResourceDataFetcher.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		515165F021E9576C00873EC6 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				51EBE83B21E8334000E95300 /* ChatService.swift */,
+				5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		51591546216A836C00D3730E /* Persistence */ = {
@@ -613,6 +636,7 @@
 				5197E6BC2134317F0019DCC9 /* TextViewDelegateExtension.swift */,
 				5197E6CE2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift */,
 				51C2EC4021B4D7920000BA47 /* WebUtils.swift */,
+				51C4B7F920A9247C00DD6696 /* DefaultController.swift */,
 			);
 			path = Web;
 			sourceTree = "<group>";
@@ -634,27 +658,6 @@
 				518988D421E8673300F8E400 /* SystemPopAnimator.swift */,
 			);
 			path = WebTransition;
-			sourceTree = "<group>";
-		};
-		518CFCAA20B4E64500D5AE8F /* SitePages */ = {
-			isa = PBXGroup;
-			children = (
-				5197E6BA213396DD0019DCC9 /* ChatRoomController.swift */,
-				51EBE83B21E8334000E95300 /* ChatService.swift */,
-				512748BC210D29A400A5A74E /* ResourcePageController.swift */,
-				512748C0210D75D700A5A74E /* ResourceTreeManager.swift */,
-				512748C2210D7B9C00A5A74E /* ResourceDataFetcher.swift */,
-				51DEE5682103D41F008E709D /* SiteAssignmentController.swift */,
-				5182CBCB213845F500D45952 /* SiteAssignmentCollectionManager.swift */,
-				518903AD2108154E00C551AE /* SiteAssignmentDataFetcher.swift */,
-				51DEE55D21017CB8008E709D /* SiteAnnouncementController.swift */,
-				51DEE54F210041A4008E709D /* SiteGradebookDataFetcher.swift */,
-				51DEE54E210041A4008E709D /* SiteGradebookTableDataSource.swift */,
-				518CFCAB20B4E68200D5AE8F /* SiteGradebookController.swift */,
-				51C4B7F920A9247C00DD6696 /* DefaultController.swift */,
-				518903AF21081ABF00C551AE /* SitePageController.swift */,
-			);
-			path = SitePages;
 			sourceTree = "<group>";
 		};
 		518D4868213B7E0A004294EF /* Reusable */ = {
@@ -731,6 +734,8 @@
 				5113C12720927D6C001929DA /* Announcement */,
 				5113C12420927D44001929DA /* Gradebook */,
 				5113C12320927D19001929DA /* Assignment */,
+				515165EF21E9574600873EC6 /* Resources */,
+				515165F021E9576C00873EC6 /* Chat */,
 				5137DDFE21DEC61800FCC91C /* Settings */,
 				51910EDD21DC90B30079021C /* Design */,
 				51D5EA1621504A3900D7B85C /* Login */,
@@ -1116,7 +1121,6 @@
 				51D5EA1521504A3300D7B85C /* LoginController.swift in Sources */,
 				513E5A8621E282F5007BFD9A /* Rotatable.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeController.swift in Sources */,
-				518903B021081ABF00C551AE /* SitePageController.swift in Sources */,
 				51A472DC20F9C13000CC95F0 /* AssignmentTableDataProvider.swift in Sources */,
 				513E5A7E21E163C3007BFD9A /* CreditsController.swift in Sources */,
 				518903BD210AAE1F00C551AE /* LoadableController.swift in Sources */,

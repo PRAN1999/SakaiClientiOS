@@ -31,10 +31,7 @@ class ClassController: UITableViewController {
                                                            style: .plain,
                                                            target: nil,
                                                            action: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        clearsSelectionOnViewWillAppear = true
     }
 
     override func didReceiveMemoryWarning() {

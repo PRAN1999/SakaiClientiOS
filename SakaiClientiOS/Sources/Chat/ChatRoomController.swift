@@ -192,6 +192,7 @@ class ChatRoomController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         // For some reason, when using the custom swip to go back, the
         // message bar disappears if the transition is started and cancelled
         // It may have something to do with the tabbar but forcing the view
@@ -201,6 +202,7 @@ class ChatRoomController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         view.setNeedsLayout()
     }
 }

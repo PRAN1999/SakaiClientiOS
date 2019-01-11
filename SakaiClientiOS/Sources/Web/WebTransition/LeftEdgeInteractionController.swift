@@ -38,8 +38,12 @@ class LeftEdgeInteractionController: UIPercentDrivenInteractiveTransition {
 
         switch gesture.state {
         case .began:
+            if inProgress {
+                return
+            }
             self.inProgress = true
             if let navigationController = viewController.navigationController {
+                print("starting")
                 navigationController.popViewController(animated: true)
                 return
             }
@@ -54,7 +58,12 @@ class LeftEdgeInteractionController: UIPercentDrivenInteractiveTransition {
 
             let velocity = gesture.velocity(in: gesture.view)
 
-            if percent > 0.5 || velocity.x > 0 {
+            if velocity.x < -2 {
+                self.cancel()
+                break
+            }
+
+            if percent > 0.5 || velocity.x > 10 {
                 self.finish()
             }
             else {
