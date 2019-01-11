@@ -12,12 +12,12 @@ import WebKit
 class LeftEdgeInteractionController: UIPercentDrivenInteractiveTransition {
 
     var inProgress = false
-    var edge: UIScreenEdgePanGestureRecognizer?
+    private(set) var edge: UIScreenEdgePanGestureRecognizer?
 
     private var shouldCompleteTransition = false
-    private weak var viewController: UIViewController?
+    private weak var viewController: UIViewController!
 
-    init(view: UIView, in controller: UIViewController?) {
+    init(view: UIView, in controller: UIViewController) {
         super.init()
         viewController = controller
         self.setupGestureRecognizer(in: view)
@@ -39,11 +39,11 @@ class LeftEdgeInteractionController: UIPercentDrivenInteractiveTransition {
         switch gesture.state {
         case .began:
             self.inProgress = true
-            if let navigationController = viewController?.navigationController {
+            if let navigationController = viewController.navigationController {
                 navigationController.popViewController(animated: true)
                 return
             }
-            viewController?.dismiss(animated: true, completion: nil)
+            viewController.dismiss(animated: true, completion: nil)
         case .changed:
             self.update(percent)
         case .cancelled:

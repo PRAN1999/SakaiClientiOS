@@ -55,8 +55,7 @@ class MessageBar: UIView {
         inputField.constrainToMargins(of: self, onSides: [.left, .top, .bottom])
         inputField.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor,
                                              constant: -5.0).isActive = true
-        inputField.widthAnchor.constraint(equalTo: widthAnchor,
-                                          multiplier: 0.80).isActive = true
+        sendButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 50.0).isActive = true
 
         sendButton.constrainToMargins(of: self, onSides: [.top, .bottom])
         sendButton.trailingAnchor.constraint(equalTo: trailingAnchor,

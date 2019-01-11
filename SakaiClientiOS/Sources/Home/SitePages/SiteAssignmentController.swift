@@ -28,7 +28,7 @@ class SiteAssignmentController: UICollectionViewController {
     
     override func loadView() {
         collectionView = UICollectionView(frame: .zero,
-                                          collectionViewLayout: LandscapeHorizontalLayout())
+                                          collectionViewLayout: UICollectionViewFlowLayout())
     }
 
     override func viewDidLoad() {

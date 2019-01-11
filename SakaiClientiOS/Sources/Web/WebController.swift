@@ -116,13 +116,12 @@ class WebController: UIViewController {
                 webView.constrainToEdges(of: view)
             }
 
-            self?.edgeInteractionController = LeftEdgeInteractionController(view: webView, in: self)
-
             if let target = self {
                 webView.addObserver(target,
                                     forKeyPath: #keyPath(WKWebView.estimatedProgress),
                                     options: .new,
                                     context: nil)
+                target.edgeInteractionController = LeftEdgeInteractionController(view: webView, in: target)
             }
 
             webView.allowsBackForwardNavigationGestures = false
@@ -166,10 +165,8 @@ class WebController: UIViewController {
         if webView != nil {
             webView.scrollView.isScrollEnabled = false
         }
-        if isMovingFromParentViewController {
-            UIDevice.current
-                .setValue(Int(UIInterfaceOrientation.portrait.rawValue),
-                          forKey: "orientation")
+        if isMovingFromParentViewController && UIDevice.current.userInterfaceIdiom == .phone {
+            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
         navigationController?.navigationBar.tintColor = Palette.main.navigationTintColor
         navigationController?.setToolbarHidden(true, animated: true)
@@ -398,6 +395,8 @@ extension WebController {
     }
 
     @objc func presentDownloadOption() {
+        actionController.popoverPresentationController?.barButtonItem = interactionButton
+        actionController.popoverPresentationController?.sourceView = view
         present(actionController, animated: true, completion: nil)
     }
 }

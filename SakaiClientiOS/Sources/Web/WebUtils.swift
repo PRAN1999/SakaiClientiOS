@@ -10,8 +10,9 @@ import WebKit
 import SafariServices
 
 extension WKWebView {
-    /// Returns a webview with Sakai authentication cookies inserted into
-    /// configuration so Sakai links can be loaded.
+    /// Creates a webview with Sakai authentication cookies inserted into
+    /// configuration so Sakai links can be loaded and passes newly
+    /// configured webview into completion handler.
     ///
     /// Due to a bug with WKWebsiteDataStore.default() where cookies from
     /// HTTPCookieStorage are not automatically inserted into the store

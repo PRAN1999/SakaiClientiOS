@@ -57,13 +57,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication,
-                     supportedInterfaceOrientationsFor window: UIWindow?)
-        -> UIInterfaceOrientationMask {
-            if let _ = self.topViewControllerForRoot(window?.rootViewController) as? Rotatable {
-                return .allButUpsideDown
-            }
-            // Only allow portrait (standard behaviour)
-            return .portrait
+                     supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return .all
+        }
+
+        if let _ = self.topViewControllerForRoot(window?.rootViewController) as? Rotatable {
+            return .allButUpsideDown
+        }
+        // Only allow portrait (standard behaviour)
+        return .portrait
     }
 
     private func topViewControllerForRoot(_ rootViewController: UIViewController?)
