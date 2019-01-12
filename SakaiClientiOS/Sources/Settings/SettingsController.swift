@@ -15,6 +15,9 @@ class SettingsController: UITableViewController {
     private let aboutURL = URL(string: "https://rutgerssakai.github.io/SakaiMobile/")
     private let privacyURL = URL(string: "https://rutgerssakai.github.io/SakaiMobile/privacy.html")
 
+    private let appID = 1435278106
+    private lazy var rateUrl = "https://itunes.apple.com/us/app/rutgers-sakai-mobile/id\(appID)?mt=8&action=write-review"
+
     private let developerEmail = "rutgerssakaiapp@gmail.com"
 
     @IBOutlet weak var tableHeader: UIView!
@@ -25,7 +28,7 @@ class SettingsController: UITableViewController {
     @IBOutlet weak var logoCreditLabel: UILabel!
 
     enum AppInfo {
-        case about, privacy, thanks, contact
+        case about, privacy, thanks, contact, rate
 
         var description: String {
             switch self {
@@ -37,6 +40,8 @@ class SettingsController: UITableViewController {
                 return "Thanks To"
             case .contact:
                 return "Contact Us"
+            case .rate:
+                return "Rate Rutgers Sakai Mobile"
             }
         }
 
@@ -50,11 +55,13 @@ class SettingsController: UITableViewController {
                 return AppIcons.thanksIcon
             case .contact:
                 return AppIcons.contactIcon
+            case .rate:
+                return AppIcons.rateIcon
             }
         }
     }
 
-    let infoArr: [AppInfo] = [.about, .privacy, .thanks, .contact]
+    let infoArr: [AppInfo] = [.about, .privacy, .thanks, .contact, .rate]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +125,13 @@ class SettingsController: UITableViewController {
                 composeVC.setSubject("Feedback")
 
                 tabBarController?.present(composeVC, animated: true, completion: nil)
+            }
+            tableView.deselectRow(at: indexPath, animated: true)
+        case .rate:
+            if let url = URL(string: rateUrl), UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                presentErrorAlert(string: "Cannot leave rating at this time. Please go directly to the App Store")
             }
             tableView.deselectRow(at: indexPath, animated: true)
         }
