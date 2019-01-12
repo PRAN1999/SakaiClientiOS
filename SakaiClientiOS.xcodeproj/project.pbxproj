@@ -222,6 +222,7 @@
 		5113C13D2092D8F1001929DA /* SiteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteCell.swift; sourceTree = "<group>"; };
 		5118956421194D0500BD86D1 /* SakaiClientiOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SakaiClientiOS.entitlements; sourceTree = "<group>"; };
 		511D7579208DAA9600371998 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		512183CA21E98FE2008BD3D1 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoDataView.swift; path = ../../../../ReusableSource/ReusableSource/NoDataView.swift; sourceTree = "<group>"; };
 		5126915421CEEE09004B20E7 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		512748BC210D29A400A5A74E /* ResourcePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcePageController.swift; sourceTree = "<group>"; };
 		512748BE210D3A8700A5A74E /* ResourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCell.swift; sourceTree = "<group>"; };
@@ -668,6 +669,7 @@
 				511114B820D881450077F872 /* PageView.swift */,
 				518AC34D2137840300037087 /* LoadingIndicator.swift */,
 				51EF2BC721DF5B5E003CAA57 /* InsetUILabel.swift */,
+				512183CA21E98FE2008BD3D1 /* NoDataView.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";

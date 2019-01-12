@@ -18,7 +18,7 @@ open class ReusableCollectionDataSource
     
     public let provider: Provider
     public let collectionView: UICollectionView
-    
+
     /// Initialize the DataSource and setup the managed UICollectionView
     ///
     /// - Parameters:

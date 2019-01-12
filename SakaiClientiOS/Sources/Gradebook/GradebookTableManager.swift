@@ -80,6 +80,9 @@ class GradebookTableManager:
     override func reloadData(for section: Int) {
         super.reloadData(for: section)
         scrollViewDidScroll(tableView)
+        if headerCell.frame.minY > tableView.contentOffset.y {
+            hideHeaderCell()
+        }
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -109,6 +112,7 @@ class GradebookTableManager:
         // Retrieve the indexPath at the calculated point in order to
         // determine where to place the header cell as the user scrolls
         guard let topIndex = tableView.indexPathForRow(at: point) else {
+            hideHeaderCell()
             return
         }
 
@@ -240,5 +244,8 @@ class GradebookTableManager:
         let row = provider.getHeaderRowForSubsection(section: section, subsection: subsection)
         let indexPath = IndexPath(row: row, section: section)
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        if headerCell.frame.minY > tableView.contentOffset.y {
+            hideHeaderCell()
+        }
     }
 }

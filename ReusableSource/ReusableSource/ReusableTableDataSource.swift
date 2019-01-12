@@ -52,8 +52,7 @@ open class ReusableTableDataSource
     /// UITableViewCell making use of DataProvider and ConfigurableCell
     /// methods
     open func tableView(_ tableView: UITableView,
-                        cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
+                        cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier,
                                                        for: indexPath) as? Cell else {
             return UITableViewCell()
