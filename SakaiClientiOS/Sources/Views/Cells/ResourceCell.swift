@@ -80,7 +80,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
     private func setConstraints() {
         leftBorder.constrainToMargins(of: contentView, onSides: [.left, .top, .bottom])
         leftBorder.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
-        leftBorder.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.015).isActive = true
+        leftBorder.widthAnchor.constraint(equalToConstant: 7.0).isActive = true
 
         titleLabel.constrainToMargins(of: contentView, onSides: [.top, .bottom])
         titleLabel.trailingAnchor.constraint(equalTo: sizeLabel.leadingAnchor).isActive = true

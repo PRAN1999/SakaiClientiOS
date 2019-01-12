@@ -8,9 +8,17 @@
 import UIKit
 import LNPopupController
 
+/// The root tab bar controller for the application
 class TabController: UITabBarController, UITabBarControllerDelegate {
 
+    /// Whenever presenting a popup bar, this value should be set to inform
+    /// the tabBarController that it is currently presenting a popup
     weak var popupController: UIViewController?
+
+    /// Determines if the popup should be opened when a view controller is
+    /// presenting the popup bar.
+    ///
+    /// See PagesController
     var shouldOpenPopup = false
 
     var isMovingToNewTabFromPages = false

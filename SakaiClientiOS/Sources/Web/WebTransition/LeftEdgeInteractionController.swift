@@ -43,7 +43,6 @@ class LeftEdgeInteractionController: UIPercentDrivenInteractiveTransition {
             }
             self.inProgress = true
             if let navigationController = viewController.navigationController {
-                print("starting")
                 navigationController.popViewController(animated: true)
                 return
             }

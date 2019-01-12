@@ -41,7 +41,7 @@ final class AppIcons {
             Bundle.main.path(forResource: AppIcons.siteIconsFile, ofType: "json") {
             do {
                 let url = URL(fileURLWithPath: filepath)
-                let data = try Data(contentsOf: url)
+                let data = try Data(contentsOf: url, options: .uncached)
                 let decoder = JSONDecoder()
                 let iconConfig = try decoder.decode(IconConfiguration.self,
                                                     from: data)

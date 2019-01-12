@@ -12,25 +12,29 @@ class LoadingIndicator: UIActivityIndicatorView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-        self.color = Palette.main.activityIndicatorColor
-        self.backgroundColor = UIColor.clear
-        self.hidesWhenStopped = true
+        activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        color = Palette.main.activityIndicatorColor
+        backgroundColor = UIColor.clear
+        hidesWhenStopped = true
+        translatesAutoresizingMaskIntoConstraints = false
     }
 
-    /// Instantiates an ActivityIndicatorView and then adds it to the center of a superview
+    /// Instantiates an ActivityIndicatorView and then adds it to the center
+    /// of a superview
     ///
     /// - Parameters:
     ///   - frame: the frame for the Indicator
     ///   - view: the view to which the loading indicator should be added
     convenience init(frame: CGRect, view: UIView) {
         self.init(frame: frame)
-        self.center = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2 - 80)
         view.addSubview(self)
+        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -60).isActive = true
         view.bringSubview(toFront: self)
     }
 
-    /// Instantiates ActivityIndicatorView in a 100 x 100 square and adds to center of superview
+    /// Instantiates ActivityIndicatorView in a 100 x 100 square and adds to
+    /// center of superview
     ///
     /// - Parameter view: the view to which the indicator should be added
     convenience init(view: UIView) {

@@ -7,6 +7,8 @@
 
 import UIKit
 
+/// The Navigation Controller subclass for all navigation controllers in the
+/// app
 class NavigationController: UINavigationController {
 
     override func viewDidLoad() {
@@ -32,6 +34,9 @@ extension NavigationController: UINavigationControllerDelegate {
                               animationControllerFor operation: UINavigationControllerOperation,
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        // Use NavigationAnimatable protocol to allow ViewControllers to define
+        // their own transitions while preserving existing transition for
+        // all other controllers in the stack
         if let origin = fromVC as? NavigationAnimatable {
             switch operation {
             case .none:
@@ -47,6 +52,8 @@ extension NavigationController: UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController,
                               interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        // Allow different animations to define their interaction status if
+        // needed using Interactable protocol
         if let interactable = animationController as? Interactable {
             return interactable.interactionController
         }
@@ -56,6 +63,9 @@ extension NavigationController: UINavigationControllerDelegate {
 
 extension NavigationController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        // Determines if "swipe-to-go-back" gesture recognizer should start
+        // By manually setting UINavigationControllerDelegate, pop gesture
+        // recognizer is disabled so this enables it again.
         return viewControllers.count > 1
     }
 }

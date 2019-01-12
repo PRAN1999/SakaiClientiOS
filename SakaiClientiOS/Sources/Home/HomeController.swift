@@ -9,11 +9,14 @@ import UIKit
 import ReusableSource
 
 /// The controller for the root ViewController of the 'Home' tab and the
-/// initial screen for the app.
+/// initial screen for the app. The HomeController loads Site data for the
+/// user which acts as a source of truth for the rest of the app
 class HomeController: UITableViewController {
 
+    /// The UI delegate and data source for the tableView
     private lazy var siteTableManager = SiteTableManager(tableView: tableView)
 
+    /// Determines if app was woken up to perform a background fetch
     private var launchedInBackground = false
 
     var loginService: LoginService?
