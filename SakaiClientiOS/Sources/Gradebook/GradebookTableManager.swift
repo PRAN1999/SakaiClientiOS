@@ -240,5 +240,8 @@ class GradebookTableManager:
         let row = provider.getHeaderRowForSubsection(section: section, subsection: subsection)
         let indexPath = IndexPath(row: row, section: section)
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        if indexPath.section == 0 && indexPath.row == 0 {
+            hideHeaderCell()
+        }
     }
 }
