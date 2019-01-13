@@ -33,6 +33,7 @@ class SiteAssignmentController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "Assignments"
 
         siteAssignmentCollectionManager.selectedAt.delegate(to: self) {

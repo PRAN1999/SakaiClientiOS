@@ -60,6 +60,7 @@ class ChatRoomController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = Palette.main.primaryBackgroundColor
         title = "Chat Room"
 
@@ -192,6 +193,9 @@ class ChatRoomController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if chatRoomView != nil {
+            webView.scrollView.isScrollEnabled = true
+        }
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         // For some reason, when using the custom swip to go back, the
         // message bar disappears if the transition is started and cancelled
@@ -202,11 +206,19 @@ class ChatRoomController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        if chatRoomView != nil {
+            webView.scrollView.isScrollEnabled = false
+        }
         if isMovingFromParentViewController && UIDevice.current.userInterfaceIdiom == .phone {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         view.setNeedsLayout()
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        scrollToBottom()
     }
 }
 

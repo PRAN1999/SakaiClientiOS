@@ -13,7 +13,7 @@ class DefaultController: WebController {
     private let siteUrl: String
     private let pageTitle: String
     
-    required convenience init(siteUrl: String, pageTitle: String) {
+    convenience init(siteUrl: String, pageTitle: String) {
         self.init(siteUrl: siteUrl,
                   pageTitle: pageTitle,
                   downloadService: RequestManager.shared,

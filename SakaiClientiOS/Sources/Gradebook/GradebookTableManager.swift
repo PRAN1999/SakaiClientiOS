@@ -197,10 +197,11 @@ class GradebookTableManager:
     }
 
     private func getSiteTitleCell(tableView: UITableView, indexPath: IndexPath, subsection: Int) -> UITableViewCell {
-        guard let cell = tableView
-            .dequeueReusableCell(withIdentifier: GradebookHeaderCell.reuseIdentifier,
-                                 for: indexPath) as? GradebookHeaderCell else {
-            return UITableViewCell()
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: GradebookHeaderCell.reuseIdentifier,
+                                                     for: indexPath) as? GradebookHeaderCell
+            else {
+                return UITableViewCell()
         }
 
         let title = provider.getSubsectionTitle(section: indexPath.section, subsection: subsection)
@@ -234,6 +235,7 @@ class GradebookTableManager:
         // Allows for collapsing and expanding of subsections
         provider.toggleCollapsed(section: section, subsection: subsection)
         let indexPaths = provider.indexPaths(section: section, subsection: subsection)
+        
         tableView.beginUpdates()
         if provider.isCollapsed(section: section, subsection: subsection) {
             tableView.deleteRows(at: indexPaths, with: .automatic)
@@ -241,6 +243,7 @@ class GradebookTableManager:
             tableView.insertRows(at: indexPaths, with: .automatic)
         }
         tableView.endUpdates()
+
         let row = provider.getHeaderRowForSubsection(section: section, subsection: subsection)
         let indexPath = IndexPath(row: row, section: section)
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)

@@ -20,7 +20,6 @@ class LoginController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = Palette.main.primaryBackgroundColor
 
         netIdButton.round()

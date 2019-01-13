@@ -29,6 +29,7 @@ class FilterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         roundView(view: popupView)
 
         tableView.register(CheckBoxCell.self, forCellReuseIdentifier: CheckBoxCell.reuseIdentifier)

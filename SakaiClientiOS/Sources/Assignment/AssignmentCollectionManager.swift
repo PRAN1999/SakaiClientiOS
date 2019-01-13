@@ -84,7 +84,7 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
 
 // MARK: PageDelegate Extension
 
-extension AssignmentCollectionManager: PageDelegate {
+extension AssignmentCollectionManager: PagesControllerDelegate {
 
     func pageController(_ pageController: PagesController, didMoveToIndex index: Int) {
         selectedCell?.flip(withDirection: .toFront, animated: false, completion: {})

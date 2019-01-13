@@ -8,7 +8,6 @@
 import UIKit
 import SafariServices
 import MessageUI
-import Crashlytics
 
 class SettingsController: UITableViewController {
 
@@ -27,41 +26,7 @@ class SettingsController: UITableViewController {
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var logoCreditLabel: UILabel!
 
-    enum AppInfo {
-        case about, privacy, thanks, contact, rate
-
-        var description: String {
-            switch self {
-            case .about:
-                return "About"
-            case .privacy:
-                return "Privacy Policy"
-            case .thanks:
-                return "Thanks To"
-            case .contact:
-                return "Contact Us"
-            case .rate:
-                return "Rate Rutgers Sakai Mobile"
-            }
-        }
-
-        var icon: String {
-            switch self {
-            case .about:
-                return AppIcons.infoIcon
-            case .privacy:
-                return AppIcons.privacyIcon
-            case .thanks:
-                return AppIcons.thanksIcon
-            case .contact:
-                return AppIcons.contactIcon
-            case .rate:
-                return AppIcons.rateIcon
-            }
-        }
-    }
-
-    let infoArr: [AppInfo] = [.about, .privacy, .thanks, .contact, .rate]
+    let infoArr = AppSettings.allCases
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,7 +118,9 @@ class SettingsController: UITableViewController {
 }
 
 extension SettingsController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult,
+                               error: Error?) {
         tabBarController?.dismiss(animated: true, completion: nil)
     }
 }

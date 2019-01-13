@@ -50,9 +50,6 @@ extension SitePage: Decodable {
         if let type = SitePage.mapPages[title] {
             pageType = type
         }
-        if pageType == .assignments {
-            SakaiService.shared.setAssignmentToolUrl(url: url, siteId: siteId)
-        }
         self.init(id: id,
                   title: title,
                   siteId: siteId,

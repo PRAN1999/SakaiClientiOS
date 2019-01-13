@@ -21,7 +21,7 @@ class LoginWebViewController: WebController {
     init(loginUrl: String, loginService: LoginService, downloadService: DownloadService, webService: WebService) {
         self.loginUrl = loginUrl
         self.loginService = loginService
-        super.init(downloadService: downloadService, webService: webService)
+        super.init(downloadService: downloadService, webService: webService, allowsOptions: false)
     }
 
     convenience init(loginUrl: String) {
@@ -47,7 +47,6 @@ class LoginWebViewController: WebController {
     override func viewDidLoad() {
         RequestManager.shared.resetCache()
         setURL(url: URL(string: loginUrl))
-        allowsOptions = false
         super.viewDidLoad()
     }
 

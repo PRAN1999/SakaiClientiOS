@@ -31,6 +31,7 @@ class ResourcePageController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = Palette.main.primaryBackgroundColor
         self.title = "Resources"
         treeView.treeFooterView = UIView()

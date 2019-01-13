@@ -102,15 +102,14 @@ class HomeController: UITableViewController {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard
             let navController = storyboard
-                .instantiateViewController(withIdentifier: "loginNavigation")
-                as? UINavigationController
+                .instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController
             else {
                 return
         }
         guard
             let loginController = navController.viewControllers.first as? LoginController
             else {
-            return
+                return
         }
         loginController.onLogin = { [weak self] in
             self?.loadData()

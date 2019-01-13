@@ -160,8 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard
-            let navController = storyboard
-                .instantiateViewController(withIdentifier: "loginNavigation")
+            let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation")
                 as? UINavigationController
             else {
                 return
@@ -192,8 +191,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func clearDocumentsDirectory() {
         do {
             guard
-                let documentsUrl =  FileManager.default.urls(for: .documentDirectory,
-                                                             in: .userDomainMask).first
+                let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
                 else {
                     return
             }

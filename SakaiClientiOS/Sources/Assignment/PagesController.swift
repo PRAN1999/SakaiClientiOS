@@ -19,33 +19,25 @@ class PagesController: UIViewController {
         pageControl.pageIndicatorTintColor = Palette.main.pageIndicatorTintColor
         return pageControl
     }()
-
     private let pageControlView = UIView()
-    private let pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    private let pageController = UIPageViewController(transitionStyle: .scroll,
+                                                      navigationOrientation: .horizontal,
+                                                      options: nil)
 
     // Even when the current Assignment changes, the popup controller
     // instance will be the same but the popup URL will change
-    private let webController: WebController = {
-        let webController = WebController()
-        webController.allowsOptions = false
-        return webController
-    }()
-    
-    private lazy var popupController
-        = WebViewNavigationController(rootViewController: webController)
+    private let webController = WebController(allowsOptions: false)
+    private lazy var popupController = WebViewNavigationController(rootViewController: webController)
     private let submitPopupBarController = SubmitPopupBarController()
 
-    private var pendingIndex: Int? = 0
-
+    private var pendingIndex: Int?
     private var pages: [UIViewController?]
     private let assignments: [Assignment]
     private let start: Int
 
     private var bottomConstraint, topConstraint: NSLayoutConstraint?
 
-    private var orientation: UIDeviceOrientation?
-
-    weak var delegate: PageDelegate?
+    weak var delegate: PagesControllerDelegate?
 
     init(assignments: [Assignment], start: Int) {
         self.assignments = assignments
@@ -65,12 +57,13 @@ class PagesController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        orientation = UIDevice.current.orientation
+
         guard let pageView = pageController.view else {
             return
         }
         view.addSubview(pageView)
         pageView.constrainToEdges(of: view, onSides: [.left, .right])
+
         let margins = view.layoutMarginsGuide
         // Keep track of bottom and top margins so they can be readjusted,
         // when transitioning away from screen
@@ -80,7 +73,7 @@ class PagesController: UIViewController {
 
         // Configure the LNPopupController instance
         setPopupURL(viewControllerIndex: start)
-        webController.dismissWebView = { [weak self] in
+        webController.dismissAction = { [weak self] in
             self?.tabBarController?.closePopup(animated: true, completion: nil)
         }
 
@@ -93,10 +86,7 @@ class PagesController: UIViewController {
         guard let startPage = pages[start] else {
             return
         }
-        pageController.setViewControllers([startPage],
-                                          direction: .forward,
-                                          animated: false,
-                                          completion: nil)
+        pageController.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
         pageController.dataSource = self
         pageController.delegate = self
 
@@ -124,18 +114,21 @@ class PagesController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+
         guard let tabBarController = tabBarController as? TabController else {
             return
         }
         tabBarController.popupController = popupController
+
         if tabBarController.shouldOpenPopup {
             // If the user is trying to submit, presenting the Document
             // Picker or Image Picker will dismiss the popup due to a
             // WebKit bug. So, the popup should be reopened once the picker
             // has dismissed and should not reload the page to save any
             // potential submission
-            webController.shouldLoad = false
+            webController.setNeedsLoad(to: false)
             tabBarController.presentPopupBar(withContentViewController: popupController,
                                              openPopup: true,
                                              animated: true,
@@ -157,7 +150,9 @@ class PagesController: UIViewController {
 }
 
 extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
+
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
@@ -175,8 +170,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
     }
     
     func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerAfter viewController: UIViewController)
-                            -> UIViewController? {
+                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
                                 
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
@@ -197,6 +191,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             willTransitionTo pendingViewControllers: [UIViewController]) {
+
         pendingIndex = pages.index(of: pendingViewControllers.first)
     }
     
@@ -204,11 +199,10 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
                             didFinishAnimating finished: Bool,
                             previousViewControllers: [UIViewController],
                             transitionCompleted completed: Bool) {
-        if completed {
-            if let index = pendingIndex {
-                pageControl.currentPage = index
-                delegate?.pageController(self, didMoveToIndex: index)
-            }
+
+        if completed, let index = pendingIndex {
+            pageControl.currentPage = index
+            delegate?.pageController(self, didMoveToIndex: index)
         }
     }
 
@@ -226,7 +220,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
         }
         webController.title = assignment.title
         webController.setURL(url: url)
-        webController.shouldLoad = true
+        webController.setNeedsLoad(to: true)
     }
 }
 

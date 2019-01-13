@@ -41,10 +41,6 @@ class SakaiService {
         siteSubjectCode = [:]
         termMap = []
     }
-
-    func setAssignmentToolUrl(url: String, siteId: String) {
-        siteAssignmentToolMap.updateValue(url, forKey: siteId)
-    }
 }
 
 extension SakaiService: TermService {}
@@ -64,5 +60,9 @@ extension SakaiService: CacheUpdateService {
 
     func appendTermMap(map: (Term, [String])) {
         termMap.append(map)
+    }
+
+    func setAssignmentToolUrl(url: String, siteId: String) {
+        siteAssignmentToolMap.updateValue(url, forKey: siteId)
     }
 }

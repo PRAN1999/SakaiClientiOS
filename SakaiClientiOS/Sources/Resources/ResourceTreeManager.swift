@@ -17,7 +17,6 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     weak var delegate: NetworkSourceDelegate?
 
     private var resources: [ResourceNode] = []
-
     private let treeView: RATreeView
 
     /// The callback for selection of an individual Resource link

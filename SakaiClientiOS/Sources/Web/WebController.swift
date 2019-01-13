@@ -17,53 +17,53 @@ import SafariServices
 /// be opened in SFSafariViewController instead
 class WebController: UIViewController {
 
-    private var webView: WKWebView!
-    private var edgeInteractionController: LeftEdgeInteractionController!
-
-    private let progressView: UIProgressView = {
+    private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .default)
         progressView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         progressView.tintColor = Palette.main.highlightColor
+
+        navigationController?.navigationBar.addSubview(progressView)
+        guard let navigationBarBounds = navigationController?.navigationBar.bounds else {
+            return progressView
+        }
+        let height = navigationBarBounds.size.height
+        let width = navigationBarBounds.size.width
+        progressView.frame = CGRect(x: 0, y: height - 2, width: width, height: 15)
         return progressView
     }()
 
-    private let backButton: UIBarButtonItem = {
-        let backButtonImage = UIImage(named: "back_button")
-        let backButton = UIBarButtonItem(image: backButtonImage,
-                                         style: .plain,
-                                         target: nil,
-                                         action: nil)
-        return backButton
+    private lazy var toolBarArray: [UIBarButtonItem] = {
+        let backImage = UIImage(named: "back_button")
+        let back = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(goBack))
+
+        let forwardImage = UIImage(named: "forward_button")
+        let forward = UIBarButtonItem(image: forwardImage, style: .plain, target: self, action: #selector(goForward))
+
+        let action = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentActions))
+        let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        var arr = [back, flex, forward, flex, flex, flex]
+        if allowsOptions {
+            arr.append(action)
+        }
+        return arr
     }()
 
-    private let forwardButton: UIBarButtonItem = {
-        let forwardButtonImage = UIImage(named: "forward_button")
-        let forwardButton = UIBarButtonItem(image: forwardButtonImage,
-                                            style: .plain,
-                                            target: nil,
-                                            action: nil)
-        return forwardButton
+    private lazy var actionController: UIAlertController = {
+        let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let downloadAction = UIAlertAction(title: "Download", style: .default) { [weak self] (_) in
+            self?.downloadAndPresentInteractionController(url: self?.url)
+        }
+        let safariAction = UIAlertAction(title: "Open in Safari", style: .default) { [weak self] (_) in
+            self?.openInSafari(self?.url)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        actionController.addAction(downloadAction)
+        actionController.addAction(safariAction)
+        actionController.addAction(cancelAction)
+        return actionController
     }()
-
-    private let interactionButton = UIBarButtonItem(barButtonSystemItem: .action,
-                                                    target: nil,
-                                                    action: nil)
-    private let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
-                                             target: nil,
-                                             action: nil)
-    private let actionController = UIAlertController(title: nil,
-                                                     message: nil,
-                                                     preferredStyle: .actionSheet)
-    private var interactionController: UIDocumentInteractionController?
-
-    private var url: URL?
-    private var didInitialize = false
-
-    var shouldLoad = true
-
-    // Determines wheter action button to download and open in safari should
-    // be displayed
-    var allowsOptions = true
 
     /// Manage SFSafariViewController presentation for non-Sakai URL
     lazy var openInSafari: ((URL?) -> Void) = { [weak self] url in
@@ -72,20 +72,28 @@ class WebController: UIViewController {
         }
         let safariController = SFSafariViewController.defaultSafariController(url: url)
         self?.shouldLoad = false
-        self?.tabBarController?.present(safariController,
-                                        animated: true,
-                                        completion: nil)
+        self?.tabBarController?.present(safariController, animated: true, completion: nil)
     }
 
     /// Manage dismissing action for webView
-    @objc lazy var dismissWebView: (() -> Void) = { [weak self] in
+    lazy var dismissAction: (() -> Void) = { [weak self] in
         self?.navigationController?.popViewController(animated: true)
     }
 
+    private var webView: WKWebView!
+    private var edgeInteractionController: LeftEdgeInteractionController!
+    private var interactionController: UIDocumentInteractionController?
+
+    private var url: URL?
+    private var didInitialize = false
+    private var shouldLoad = true
+
     private let downloadService: DownloadService
     private let webService: WebService
+    private let allowsOptions: Bool
 
-    init(downloadService: DownloadService, webService: WebService) {
+    init(downloadService: DownloadService, webService: WebService, allowsOptions: Bool = true) {
+        self.allowsOptions = allowsOptions
         self.downloadService = downloadService
         self.webService = webService
         super.init(nibName: nil, bundle: nil)
@@ -95,9 +103,10 @@ class WebController: UIViewController {
         fatalError("init(:coder) is not supported")
     }
 
-    convenience init() {
+    convenience init(allowsOptions: Bool = true) {
         self.init(downloadService: RequestManager.shared,
-                  webService: RequestManager.shared)
+                  webService: RequestManager.shared,
+                  allowsOptions: allowsOptions)
     }
 
     deinit {
@@ -117,25 +126,25 @@ class WebController: UIViewController {
             }
 
             if let target = self {
-                webView.addObserver(target,
-                                    forKeyPath: #keyPath(WKWebView.estimatedProgress),
-                                    options: .new,
-                                    context: nil)
+                let keypath = #keyPath(WKWebView.estimatedProgress)
+                webView.addObserver(target, forKeyPath: keypath, options: .new, context: nil)
                 target.edgeInteractionController = LeftEdgeInteractionController(view: webView, in: target)
             }
 
             webView.allowsBackForwardNavigationGestures = false
-
             self?.webView = webView
             self?.loadURL(urlOpt: self?.url)
             self?.didInitialize = true
         }
 
         super.viewDidLoad()
-        setupProgressBar()
-        setupNavBar()
-        setupToolbar()
-        setupActionSheet()
+
+        setToolbarItems(toolBarArray, animated: true)
+
+        navigationItem.leftBarButtonItem
+            = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissController))
+        navigationItem.rightBarButtonItem
+            = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadWebview))
     }
 
     override func observeValue(forKeyPath keyPath: String?,
@@ -173,12 +182,6 @@ class WebController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
-    override func viewWillTransition(to size: CGSize,
-                                     with coordinator: UIViewControllerTransitionCoordinator) {
-        view.setNeedsLayout()
-        super.viewWillTransition(to: size, with: coordinator)
-    }
-
     func loadURL(urlOpt: URL?) {
         guard let url = urlOpt else {
             return
@@ -190,10 +193,16 @@ class WebController: UIViewController {
         shouldLoad = false
     }
 
+    func setNeedsLoad(to flag: Bool) {
+        self.shouldLoad = flag
+    }
+
     func setURL(url: URL?) {
         self.url = url
     }
+}
 
+extension WebController {
     /// Download from URL and present DocumentInteractionController to act
     /// on downloaded file. While file is being downloaded, lock the UI
     /// to prevent leaving the screen until the callback has returned.
@@ -201,20 +210,23 @@ class WebController: UIViewController {
     /// Prevents leaving ViewController until Download has called back -
     /// for success or failure
     /// - Parameter url: the URL to download from
-    func downloadAndPresentInteractionController(url: URL?) {
+    private func downloadAndPresentInteractionController(url: URL?) {
         guard let url = url else {
             return
         }
-        interactionButton.isEnabled = false
+
+        let interactionButton = toolBarArray.last
+        interactionButton?.isEnabled = false
         navigationItem.leftBarButtonItem?.isEnabled = false
         webView.isHidden = true
+
         let indicator = LoadingIndicator(view: self.view)
         indicator.startAnimating()
 
         let didComplete = { [weak self] in
             self?.webView.isHidden = false
             self?.navigationItem.leftBarButtonItem?.isEnabled = true
-            self?.interactionButton.isEnabled = true
+            interactionButton?.isEnabled = true
         }
 
         downloadService.downloadToDocuments(url: url) { [weak self] fileUrl in
@@ -224,7 +236,7 @@ class WebController: UIViewController {
                 didComplete()
                 return
             }
-            guard let button = self?.interactionButton else {
+            guard let button = interactionButton else {
                 didComplete()
                 return
             }
@@ -243,6 +255,7 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
         guard let url = navigationAction.request.url else {
             decisionHandler(.cancel)
             return
@@ -258,6 +271,7 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationResponse: WKNavigationResponse,
                  decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+
         decisionHandler(.allow)
     }
 
@@ -267,15 +281,9 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.progressView.isHidden = true
         }
-        // Prevent 3D-touch peek and show due to WebKit bug where view
-        // controller is dismissed twice
-        webView.evaluateJavaScript(
-            "document.body.style.webkitTouchCallout='none';"
-        )
 
         // Remove distracting and unintuitive HTML elements from Sakai
         // interface. This includes scrolling navigation bar and other
@@ -301,103 +309,37 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
     }
 }
 
-// MARK: View setup and controller configuration
-
-fileprivate extension WebController {
-    func setupNavBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
-                                                           target: self,
-                                                           action: #selector(dismissWebController))
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
-                                                            target: self,
-                                                            action: #selector(loadWebview))
-    }
-
-    /// Attach progress bar to navigation bar frame to track webView loads
-    func setupProgressBar() {
-        navigationController?.navigationBar.addSubview(progressView)
-        guard
-            let navigationBarBounds = navigationController?.navigationBar.bounds else {
-            return
-        }
-        progressView.frame = CGRect(x: 0,
-                                    y: navigationBarBounds.size.height - 2,
-                                    width: navigationBarBounds.size.width,
-                                    height: 15)
-    }
-
-    /// Configure navigation toolbar with webView action buttons
-    func setupToolbar() {
-        backButton.target = self;
-        backButton.action = #selector(goBack)
-        forwardButton.target = self;
-        forwardButton.action = #selector(goForward)
-        interactionButton.target = self;
-        interactionButton.action = #selector(presentDownloadOption)
-
-        var arr: [UIBarButtonItem] = [backButton,
-                                      flexButton,
-                                      forwardButton,
-                                      flexButton,
-                                      flexButton,
-                                      flexButton]
-        if allowsOptions {
-            arr.append(interactionButton)
-        }
-        setToolbarItems(arr, animated: true)
-    }
-
-    /// Configure action sheet to present Download and Open in Safari option
-    /// for a file/URL
-    func setupActionSheet() {
-        let downloadAction = UIAlertAction(title: "Download",
-                                           style: .default) {
-                                            [weak self] (_) in
-            self?.downloadAndPresentInteractionController(url: self?.url)
-        }
-        let safariAction = UIAlertAction(title: "Open in Safari",
-                                         style: .default,
-                                         handler: { [weak self] (_) in
-            self?.openInSafari(self?.url)
-        })
-        let cancelAction = UIAlertAction(title: "Cancel",
-                                         style: .cancel,
-                                         handler: nil)
-        actionController.addAction(downloadAction)
-        actionController.addAction(safariAction)
-        actionController.addAction(cancelAction)
-    }
-}
-
 // MARK: Selector actions
 
 extension WebController {
-    @objc func goBack() {
+    @objc private func goBack() {
         if webView.canGoBack {
             webView.goBack()
         }
     }
 
-    @objc func goForward() {
+    @objc private func goForward() {
         if webView.canGoForward {
             webView.goForward()
         }
     }
 
+    @objc private func dismissController() {
+        dismissAction()
+    }
+
+    @objc private func presentActions() {
+        guard let actionButton = toolBarArray.last else {
+            return
+        }
+        actionController.popoverPresentationController?.barButtonItem = actionButton
+        actionController.popoverPresentationController?.sourceView = view
+        present(actionController, animated: true, completion: nil)
+    }
+
     @objc func loadWebview() {
         shouldLoad = true
         loadURL(urlOpt: url)
-    }
-
-    @objc func dismissWebController() {
-        dismissWebView()
-    }
-
-    @objc func presentDownloadOption() {
-        actionController.popoverPresentationController?.barButtonItem = interactionButton
-        actionController.popoverPresentationController?.sourceView = view
-        present(actionController, animated: true, completion: nil)
     }
 }
 

@@ -14,4 +14,5 @@ protocol CacheUpdateService {
     func updateSiteTerm(siteId: String, term: Term)
     func updateSiteSubjectCode(siteId: String, subjectCode: Int)
     func appendTermMap(map: (Term, [String]))
+    func setAssignmentToolUrl(url: String, siteId: String)
 }

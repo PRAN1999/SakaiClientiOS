@@ -21,9 +21,9 @@ class RequestManager {
     
     private let portalURL = URL(string: "https://sakai.rutgers.edu/portal")
 
-    private var _processPool = WKProcessPool()
-    private var _userId: String?
-    private var _cookieArray: [[HTTPCookiePropertyKey: Any]] = []
+    private(set) var processPool = WKProcessPool()
+    private(set) var userId: String?
+    private(set) var cookieArray: [[HTTPCookiePropertyKey: Any]] = []
 
     private var session: URLSession {
         return Alamofire.SessionManager.default.session
@@ -80,8 +80,8 @@ class RequestManager {
 
     func reset() {
         resetCache()
-        _processPool = WKProcessPool()
-        _userId = nil
+        processPool = WKProcessPool()
+        userId = nil
         clearCookies()
     }
 
@@ -150,14 +150,6 @@ extension RequestManager: NetworkService {
 
 extension RequestManager: LoginService {
 
-    var userId: String? {
-        return _userId
-    }
-
-    var cookieArray: [[HTTPCookiePropertyKey : Any]] {
-        return _cookieArray
-    }
-
     func loadCookiesFromUserDefaults() -> Bool {
         guard
             let cookieArray = UserDefaults.standard.array(forKey: RequestManager.savedCookiesKey)
@@ -192,7 +184,7 @@ extension RequestManager: LoginService {
     func addCookie(cookie: HTTPCookie) {
         session.configuration.httpCookieStorage?.setCookie(cookie)
         if let properties = cookie.properties {
-            _cookieArray.append(properties)
+            cookieArray.append(properties)
         }
     }
 
@@ -206,7 +198,7 @@ extension RequestManager: LoginService {
             session.configuration.httpCookieStorage?.deleteCookie(cookie)
             HTTPCookieStorage.shared.deleteCookie(cookie)
         }
-        _cookieArray = []
+        cookieArray = []
         UserDefaults.standard.set(nil, forKey: RequestManager.savedCookiesKey)
     }
 
@@ -221,7 +213,7 @@ extension RequestManager: LoginService {
             }
             do {
                 let session = try decoder.decode(UserSession.self, from: data)
-                self?._userId = session.userEid
+                self?.userId = session.userEid
                 onSuccess()
             } catch let decodingError {
                 onFailure(SakaiError.parseError(decodingError.localizedDescription))
@@ -245,11 +237,6 @@ extension RequestManager: DownloadService {
 }
 
 extension RequestManager: WebService {
-
-    var processPool: WKProcessPool {
-        return _processPool
-    }
-
     var cookies: [HTTPCookie]? {
         return session.configuration.httpCookieStorage?.cookies
     }

@@ -13,7 +13,8 @@ import ReusableSource
 /// classes and different Terms. Whether split by class or term, each cell
 /// in the tableView will contain a collection of classes associated with
 /// that class or Term. The Assignments can be scrolled horizontally
-class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
+class AssignmentTableManager:
+    HideableNetworkTableManager<AssignmentTableDataProvider, AssignmentTableCell, AssignmentDataFetcher> {
 
     // Since the collectionView within each cell contains the actual
     // Assignment data, the collectionView selection needs to be delegated
@@ -100,6 +101,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
             tableView.deselectRow(at: indexPath, animated: true)
             return
         }
+
         // Ensure only one tableView cell can be expanded at a time. This
         // improves UI performance and improves focus on Assignments being
         // scrolled
@@ -119,6 +121,7 @@ class AssignmentTableManager: HideableNetworkTableManager<AssignmentTableDataPro
         }
         provider.toggleCollapsed(at: indexPath)
         tableView.reloadRows(at: arr, with: .automatic)
+
         if provider.isCollapsed(at: indexPath) {
             tableView.scrollToRow(at: indexPath, at: .none, animated: true)
         } else {

@@ -35,7 +35,7 @@ extension NavigationController: UINavigationControllerDelegate {
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         // Use NavigationAnimatable protocol to allow ViewControllers to define
-        // their own transitions while preserving existing transition for
+        // their own transitions while preserving existing transitions for
         // all other controllers in the stack
         if let origin = fromVC as? NavigationAnimatable {
             switch operation {

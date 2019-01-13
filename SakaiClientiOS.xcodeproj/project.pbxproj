@@ -32,6 +32,7 @@
 		5113C13920928718001929DA /* AssignmentView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5113C13820928718001929DA /* AssignmentView.storyboard */; };
 		5113C13E2092D8F1001929DA /* SiteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5113C13D2092D8F1001929DA /* SiteCell.swift */; };
 		511D757A208DAA9600371998 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D7579208DAA9600371998 /* HomeController.swift */; };
+		512183D121EA1AF3008BD3D1 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512183D021EA1AF3008BD3D1 /* AppSettings.swift */; };
 		5126915521CEEE09004B20E7 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5126915421CEEE09004B20E7 /* FilterViewController.swift */; };
 		512748BD210D29A400A5A74E /* ResourcePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512748BC210D29A400A5A74E /* ResourcePageController.swift */; };
 		512748BF210D3A8700A5A74E /* ResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512748BE210D3A8700A5A74E /* ResourceCell.swift */; };
@@ -46,7 +47,7 @@
 		5128311D21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311C21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift */; };
 		5129956821CCDB1C00BED3E5 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */; };
 		5129956A21CCEAE600BED3E5 /* CellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5129956921CCEAE600BED3E5 /* CellExtension.swift */; };
-		512ED7BC21D2762C002AC99A /* PageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ED7BB21D2762C002AC99A /* PageDelegate.swift */; };
+		512ED7BC21D2762C002AC99A /* PageControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ED7BB21D2762C002AC99A /* PageControllerDelegate.swift */; };
 		5137DE0021DEC63A00FCC91C /* SettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5137DDFF21DEC63A00FCC91C /* SettingsView.storyboard */; };
 		5137DE0221DEC66F00FCC91C /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5137DE0121DEC66F00FCC91C /* SettingsController.swift */; };
 		5137DE0421DED15900FCC91C /* AppIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5137DE0321DED15900FCC91C /* AppIcons.swift */; };
@@ -223,6 +224,7 @@
 		5118956421194D0500BD86D1 /* SakaiClientiOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SakaiClientiOS.entitlements; sourceTree = "<group>"; };
 		511D7579208DAA9600371998 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		512183CA21E98FE2008BD3D1 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoDataView.swift; path = ../../../../ReusableSource/ReusableSource/NoDataView.swift; sourceTree = "<group>"; };
+		512183D021EA1AF3008BD3D1 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		5126915421CEEE09004B20E7 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		512748BC210D29A400A5A74E /* ResourcePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcePageController.swift; sourceTree = "<group>"; };
 		512748BE210D3A8700A5A74E /* ResourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCell.swift; sourceTree = "<group>"; };
@@ -235,7 +237,7 @@
 		5128311C21D18B9600DB8DA8 /* CollapseDismissAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseDismissAnimationController.swift; sourceTree = "<group>"; };
 		5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		5129956921CCEAE600BED3E5 /* CellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellExtension.swift; sourceTree = "<group>"; };
-		512ED7BB21D2762C002AC99A /* PageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDelegate.swift; sourceTree = "<group>"; };
+		512ED7BB21D2762C002AC99A /* PageControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControllerDelegate.swift; sourceTree = "<group>"; };
 		5137DDFF21DEC63A00FCC91C /* SettingsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsView.storyboard; sourceTree = "<group>"; };
 		5137DE0121DEC66F00FCC91C /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		5137DE0321DED15900FCC91C /* AppIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcons.swift; sourceTree = "<group>"; };
@@ -405,7 +407,7 @@
 				51A472DB20F9C13000CC95F0 /* AssignmentTableDataProvider.swift */,
 				51A472DF20F9C15700CC95F0 /* AssignmentDataFetcher.swift */,
 				518903AB2108151C00C551AE /* AssignmentCollectionManager.swift */,
-				512ED7BB21D2762C002AC99A /* PageDelegate.swift */,
+				512ED7BB21D2762C002AC99A /* PageControllerDelegate.swift */,
 				511114B420D74D570077F872 /* PagesController.swift */,
 				511114B620D752260077F872 /* AssignmentPageController.swift */,
 				5110C08221DAA73C00579D31 /* SubmitPopupBarController.swift */,
@@ -497,6 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				5137DDFF21DEC63A00FCC91C /* SettingsView.storyboard */,
+				512183D021EA1AF3008BD3D1 /* AppSettings.swift */,
 				5137DE0121DEC66F00FCC91C /* SettingsController.swift */,
 				513E5A7D21E163C3007BFD9A /* CreditsController.swift */,
 				51EBE83921E6A36500E95300 /* TipController.swift */,
@@ -1040,6 +1043,7 @@
 				5110C08321DAA73C00579D31 /* SubmitPopupBarController.swift in Sources */,
 				51910ED621DC5D810079021C /* LoginService.swift in Sources */,
 				5182CBDD2139DAA700D45952 /* SiteCollection.swift in Sources */,
+				512183D121EA1AF3008BD3D1 /* AppSettings.swift in Sources */,
 				51DEE54220FEFB68008E709D /* AnnouncementTableManager.swift in Sources */,
 				51910ED421DC4A4F0079021C /* UndefinedResponse.swift in Sources */,
 				517B614421D89D8F00BF5BD8 /* SakaiRequest.swift in Sources */,
@@ -1115,7 +1119,7 @@
 				51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */,
 				515915452169C55900D3730E /* ReloadActions.swift in Sources */,
 				51DEE54020FEFB41008E709D /* SiteTableManager.swift in Sources */,
-				512ED7BC21D2762C002AC99A /* PageDelegate.swift in Sources */,
+				512ED7BC21D2762C002AC99A /* PageControllerDelegate.swift in Sources */,
 				518903AC2108151C00C551AE /* AssignmentCollectionManager.swift in Sources */,
 				51D5EA1521504A3300D7B85C /* LoginController.swift in Sources */,
 				513E5A8621E282F5007BFD9A /* Rotatable.swift in Sources */,

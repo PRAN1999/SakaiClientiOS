@@ -40,6 +40,9 @@ class SiteDataFetcher: DataFetcher {
                         subjectCode: code
                     )
                 }
+                if let page = site.pages.first(where: { page -> Bool in page.pageType == .assignments }) {
+                    self?.cacheUpdateService.setAssignmentToolUrl(url: page.url, siteId: page.siteId)
+                }
             }
             // Split the site list by Term
             let sectionList = Term.splitByTerms(listToSort: siteList)
