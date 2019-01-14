@@ -11,4 +11,6 @@ target 'SakaiClientiOS' do
   pod 'M13Checkbox'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'RichEditorView'
+
 end
