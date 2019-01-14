@@ -103,6 +103,7 @@ class PagesController: UIViewController {
         guard let tabBarController = tabBarController as? TabController else {
             return
         }
+        tabBarController.popupController = nil
         // If a new tab is selected, the UITabBarController will handle
         // presentation and dismissal of the popup bar
         if tabBarController.isMovingToNewTabFromPages {
@@ -122,23 +123,9 @@ class PagesController: UIViewController {
         }
         tabBarController.popupController = popupController
 
-        if tabBarController.shouldOpenPopup {
-            // If the user is trying to submit, presenting the Document
-            // Picker or Image Picker will dismiss the popup due to a
-            // WebKit bug. So, the popup should be reopened once the picker
-            // has dismissed and should not reload the page to save any
-            // potential submission
-            webController.setNeedsLoad(to: false)
-            tabBarController.presentPopupBar(withContentViewController: popupController,
-                                             openPopup: true,
-                                             animated: true,
-                                             completion: nil)
-            tabBarController.shouldOpenPopup = false
-        } else {
-            tabBarController.presentPopupBar(withContentViewController: popupController,
-                                             animated: true,
-                                             completion: nil)
-        }
+        tabBarController.presentPopupBar(withContentViewController: popupController,
+                                         animated: true,
+                                         completion: nil)
         // When popping back to PagesController, LNPopupController
         // encounters a bug where it is entirely removed from the view
         // hierarchy and causes a black space to appear in its place.

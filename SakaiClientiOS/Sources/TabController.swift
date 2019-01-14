@@ -15,12 +15,6 @@ class TabController: UITabBarController, UITabBarControllerDelegate {
     /// the tabBarController that it is currently presenting a popup
     weak var popupController: UIViewController?
 
-    /// Determines if the popup should be opened when a view controller is
-    /// presenting the popup bar.
-    ///
-    /// See PagesController
-    var shouldOpenPopup = false
-
     var isMovingToNewTabFromPages = false
 
     override func viewDidLoad() {
@@ -37,19 +31,24 @@ class TabController: UITabBarController, UITabBarControllerDelegate {
     override func present(_ viewControllerToPresent: UIViewController,
                           animated flag: Bool,
                           completion: (() -> Void)? = nil) {
-        if popupController != nil &&
-            (viewControllerToPresent is UIDocumentPickerViewController ||
-            viewControllerToPresent is UIImagePickerController) {
-            // If a Document or Image Picker is being shown, a WebKit bug
-            // will cause the popupController to be closed. So, once a
-            // document or image has been selected, the popup controller
-            // should reopen once the picker controller is dismissed. This
-            // property will be used in PagesController
-            shouldOpenPopup = true
+
+        if let picker = viewControllerToPresent as? UIImagePickerController, picker.sourceType == .camera {
+            presentErrorAlert(string: "Taking a picture with the Camera is not supported for upload")
+            picker.delegate?.imagePickerControllerDidCancel?(picker)
+            return
         }
-        super.present(viewControllerToPresent,
-                      animated: flag,
-                      completion: completion)
+
+        if popupController != nil && isPicker(viewControllerToPresent) {
+            let visible = (popupController as? UINavigationController)?.visibleViewController
+            visible?.present(viewControllerToPresent, animated: true, completion: nil)
+            return
+        }
+        super.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+
+    private func isPicker(_ viewController: UIViewController) -> Bool {
+        return viewController is UIDocumentPickerViewController ||
+               viewController is UIImagePickerController
     }
 
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {

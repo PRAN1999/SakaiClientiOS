@@ -20,6 +20,7 @@ enum SakaiEndpoint {
     case announcements(Int, Int), siteAnnouncements(String, Int, Int)
     case siteGradebook(String), siteAssignments(String), siteResources(String)
 
+
     func getEndpoint() -> String {
         switch self {
         case .sites:

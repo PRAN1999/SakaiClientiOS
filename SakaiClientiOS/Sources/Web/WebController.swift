@@ -34,10 +34,10 @@ class WebController: UIViewController {
 
     private lazy var toolBarArray: [UIBarButtonItem] = {
         let backImage = UIImage(named: "back_button")
-        let back = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(goBack))
+        let back = UIBarButtonItem(image: backImage, style: .plain, target: webView, action: #selector(webView.goBack))
 
         let forwardImage = UIImage(named: "forward_button")
-        let forward = UIBarButtonItem(image: forwardImage, style: .plain, target: self, action: #selector(goForward))
+        let forward = UIBarButtonItem(image: forwardImage, style: .plain, target: webView, action: #selector(webView.goForward))
 
         let action = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentActions))
         let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -135,16 +135,16 @@ class WebController: UIViewController {
             self?.webView = webView
             self?.loadURL(urlOpt: self?.url)
             self?.didInitialize = true
+
+            self?.setToolbarItems(self?.toolBarArray, animated: true)
+
+            self?.navigationItem.leftBarButtonItem
+                = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self?.dismissController))
+            self?.navigationItem.rightBarButtonItem
+                = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self?.loadWebview))
         }
 
         super.viewDidLoad()
-
-        setToolbarItems(toolBarArray, animated: true)
-
-        navigationItem.leftBarButtonItem
-            = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissController))
-        navigationItem.rightBarButtonItem
-            = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadWebview))
     }
 
     override func observeValue(forKeyPath keyPath: String?,
@@ -256,6 +256,7 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 
+
         guard let url = navigationAction.request.url else {
             decisionHandler(.cancel)
             return
@@ -293,8 +294,6 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
             $('.Mrphs-siteHierarchy').remove();
             $('#toolMenuWrap').remove();
             $('#skipNav').remove();
-            var selectedElement = document.querySelector('#content');
-            document.body.innerHTML = selectedElement.innerHTML;
         """)
     }
 
@@ -312,17 +311,6 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
 // MARK: Selector actions
 
 extension WebController {
-    @objc private func goBack() {
-        if webView.canGoBack {
-            webView.goBack()
-        }
-    }
-
-    @objc private func goForward() {
-        if webView.canGoForward {
-            webView.goForward()
-        }
-    }
 
     @objc private func dismissController() {
         dismissAction()
