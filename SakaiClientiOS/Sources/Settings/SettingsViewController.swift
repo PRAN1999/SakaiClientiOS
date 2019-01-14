@@ -1,5 +1,5 @@
 //
-//  SettingsController.swift
+//  SettingsViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 1/3/19.
@@ -9,7 +9,7 @@ import UIKit
 import SafariServices
 import MessageUI
 
-class SettingsController: UITableViewController {
+class SettingsViewController: UITableViewController {
 
     private let aboutURL = URL(string: "https://rutgerssakai.github.io/SakaiMobile/")
     private let privacyURL = URL(string: "https://rutgerssakai.github.io/SakaiMobile/privacy.html")
@@ -117,7 +117,7 @@ class SettingsController: UITableViewController {
 
 }
 
-extension SettingsController: MFMailComposeViewControllerDelegate {
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController,
                                didFinishWith result: MFMailComposeResult,
                                error: Error?) {

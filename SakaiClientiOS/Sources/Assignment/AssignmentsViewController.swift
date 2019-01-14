@@ -1,5 +1,5 @@
 //
-//  AssignmentController.swift
+//  AssignmentsViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 4/26/18.
@@ -9,7 +9,7 @@ import UIKit
 import ReusableSource
 
 /// The root ViewController for the all Assignments tab and navigation hierarchy
-class AssignmentController: UITableViewController {
+class AssignmentsViewController: UITableViewController {
     
     /// Abstract the Assignment data management to a dedicated TableViewManager
     private lazy var assignmentsTableManager = AssignmentTableManager(tableView: tableView)
@@ -28,7 +28,7 @@ class AssignmentController: UITableViewController {
             guard let assignments = self.assignmentsTableManager.item(at: indexPath) else {
                 return
             }
-            let pages = PagesController(assignments: assignments, start: row)
+            let pages = AssignmentPagesViewController(assignments: assignments, start: row)
             pages.delegate = self.assignmentsTableManager.selectedManager
             // The UIView flip animation does not accurately behave in the
             // AnimationController, so the animation will take place in two
@@ -83,7 +83,7 @@ class AssignmentController: UITableViewController {
 
 //MARK: LoadableController Extension
 
-extension AssignmentController: LoadableController {
+extension AssignmentsViewController: LoadableController {
     @objc func loadData() {
         assignmentsTableManager.loadDataSourceWithoutCache()
     }
@@ -91,7 +91,7 @@ extension AssignmentController: LoadableController {
 
 //MARK: NetworkSourceDelegate Extension
 
-extension AssignmentController: NetworkSourceDelegate {
+extension AssignmentsViewController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         assignmentsTableManager.reset()
         sortedIndex = 0
@@ -99,7 +99,7 @@ extension AssignmentController: NetworkSourceDelegate {
     }
 }
 
-extension AssignmentController: Animatable {
+extension AssignmentsViewController: Animatable {
     var containerView: UIView? {
         return assignmentsTableManager.selectedManager?.collectionView
     }
@@ -113,13 +113,13 @@ extension AssignmentController: Animatable {
     }
 }
 
-extension AssignmentController: NavigationAnimatable {
+extension AssignmentsViewController: NavigationAnimatable {
     func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return nil
     }
 
     func animationControllerForPush(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if controller is PagesController {
+        if controller is AssignmentPagesViewController {
             return ExpandPresentAnimationController(resizingDuration: 0.5)
         }
         return nil

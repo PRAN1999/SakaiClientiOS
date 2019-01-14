@@ -9,7 +9,7 @@ import ReusableSource
 import UIKit
 
 /// A View Controller for a single Site's Assignments
-class SiteAssignmentController: UICollectionViewController {
+class SiteAssignmentsViewController: UICollectionViewController {
     
     private let siteId: String
 
@@ -39,7 +39,7 @@ class SiteAssignmentController: UICollectionViewController {
         siteAssignmentCollectionManager.selectedAt.delegate(to: self) {
             (self, indexPath) -> Void in
             let assignments = self.siteAssignmentCollectionManager.provider.items
-            let pages = PagesController(assignments: assignments,
+            let pages = AssignmentPagesViewController(assignments: assignments,
                                         start: indexPath.row)
             pages.delegate = self.siteAssignmentCollectionManager
 
@@ -72,7 +72,7 @@ class SiteAssignmentController: UICollectionViewController {
 
 //MARK: LoadableController Extension
 
-extension SiteAssignmentController: LoadableController {
+extension SiteAssignmentsViewController: LoadableController {
     @objc func loadData() {
         siteAssignmentCollectionManager.loadDataSourceWithoutCache()
     }
@@ -80,11 +80,11 @@ extension SiteAssignmentController: LoadableController {
 
 //MARK: NetworkSourceDelegate Extension
 
-extension SiteAssignmentController: NetworkSourceDelegate {}
+extension SiteAssignmentsViewController: NetworkSourceDelegate {}
 
 //MARK: Animatable Extension
 
-extension SiteAssignmentController: Animatable {
+extension SiteAssignmentsViewController: Animatable {
     var containerView: UIView? {
         return collectionView
     }
@@ -98,13 +98,13 @@ extension SiteAssignmentController: Animatable {
     }
 }
 
-extension SiteAssignmentController: NavigationAnimatable {
+extension SiteAssignmentsViewController: NavigationAnimatable {
     func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return nil
     }
 
     func animationControllerForPush(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if controller is PagesController {
+        if controller is AssignmentPagesViewController {
             return ExpandPresentAnimationController(resizingDuration: 0.5)
         }
         return nil

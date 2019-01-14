@@ -8,7 +8,7 @@
 import UIKit
 
 /// Open non-native SitePages in a WebView
-class DefaultController: WebController {
+class DefaultSitePageViewController: WebViewController {
 
     private let siteUrl: String
     private let pageTitle: String

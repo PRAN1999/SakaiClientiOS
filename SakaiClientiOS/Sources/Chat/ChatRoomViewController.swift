@@ -1,5 +1,5 @@
 //
-//  ChatRoomController.swift
+//  ChatRoomViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 8/26/18.
@@ -9,11 +9,11 @@ import Foundation
 import WebKit
 
 /// Since API's are not easily available for Sakai's chat room interface,
-/// the ChatRoomController manages a webView and a message bar to simulate
+/// the ChatRoomViewController manages a webView and a message bar to simulate
 /// a real chat application. By executing JavaScript to modify the webview,
 /// this screen allows users to see and post messages to the Sakai chat
 /// with a mobile interface
-class ChatRoomController: UIViewController {
+class ChatRoomViewController: UIViewController {
 
     private var chatRoomView: ChatRoomView!
     private var edgeInteractionController: LeftEdgeInteractionController!
@@ -224,7 +224,7 @@ class ChatRoomController: UIViewController {
 
 // MARK: WKUIDelegate && WKNavigationDelegate Extension
 
-extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
+extension ChatRoomViewController: WKUIDelegate, WKNavigationDelegate {
 
     /// Remove all elements from the HTML except for the chat room and
     /// retrieve chat room information from JavaScript local variables
@@ -276,7 +276,7 @@ extension ChatRoomController: WKUIDelegate, WKNavigationDelegate {
     }
 }
 
-extension ChatRoomController: NavigationAnimatable {
+extension ChatRoomViewController: NavigationAnimatable {
     func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if edgeInteractionController.edge?.state == .began {
             return SystemPopAnimator(duration: 0.5, interactionController: edgeInteractionController)
@@ -289,4 +289,4 @@ extension ChatRoomController: NavigationAnimatable {
     }
 }
 
-extension ChatRoomController: Rotatable {}
+extension ChatRoomViewController: Rotatable {}

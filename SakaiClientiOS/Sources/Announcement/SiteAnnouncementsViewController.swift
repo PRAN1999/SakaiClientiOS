@@ -1,5 +1,5 @@
 //
-//  SiteAnnouncementController.swift
+//  SiteAnnouncementsViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/19/18.
@@ -8,7 +8,7 @@
 import ReusableSource
 
 /// View controller for Site Announcements feed
-class SiteAnnouncementController: UITableViewController {
+class SiteAnnouncementsViewController: UITableViewController {
 
     private let siteId: String
 
@@ -35,7 +35,7 @@ class SiteAnnouncementController: UITableViewController {
             guard let announcement = self.announcementTableManager.item(at: indexPath) else {
                 return
             }
-            let announcementPage = AnnouncementPageController(announcement: announcement)
+            let announcementPage = AnnouncementPageViewController(announcement: announcement)
             self.navigationController?.pushViewController(announcementPage, animated: true)
         }
         announcementTableManager.delegate = self
@@ -53,7 +53,7 @@ class SiteAnnouncementController: UITableViewController {
 
 //MARK: LoadableController Extension
 
-extension SiteAnnouncementController: LoadableController {
+extension SiteAnnouncementsViewController: LoadableController {
     @objc func loadData() {
         announcementTableManager.loadDataSourceWithoutCache()
     }
@@ -61,4 +61,4 @@ extension SiteAnnouncementController: LoadableController {
 
 //MARK: NetworkSourceDelegate Extension
 
-extension SiteAnnouncementController: NetworkSourceDelegate {}
+extension SiteAnnouncementsViewController: NetworkSourceDelegate {}

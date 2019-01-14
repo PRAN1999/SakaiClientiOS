@@ -1,5 +1,5 @@
 //
-//  SiteGradebookPageController.swift
+//  SiteGradebookViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 5/22/18.
@@ -7,7 +7,7 @@
 
 import ReusableSource
 
-class SiteGradebookController: UITableViewController {
+class SiteGradebookViewController: UITableViewController {
     
     private let siteId: String
 
@@ -39,7 +39,7 @@ class SiteGradebookController: UITableViewController {
 
 //MARK: LoadableController Extension
 
-extension SiteGradebookController: LoadableController {
+extension SiteGradebookViewController: LoadableController {
     @objc func loadData() {
         siteGradebookTableDataSource.loadDataSourceWithoutCache()
     }
@@ -47,4 +47,4 @@ extension SiteGradebookController: LoadableController {
 
 //MARK: NetworkSourceDelegate Extension
 
-extension SiteGradebookController: NetworkSourceDelegate {}
+extension SiteGradebookViewController: NetworkSourceDelegate {}

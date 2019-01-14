@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let root = window?.rootViewController as? UITabBarController
         root?.childViewControllers.forEach { child in
             let nav = child as? UINavigationController
-            if let home = nav?.viewControllers.first as? HomeController {
+            if let home = nav?.viewControllers.first as? HomeViewController {
                 home.loginService = RequestManager.shared
             }
         }
@@ -166,7 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
         }
         guard
-            let loginController = navController.viewControllers.first as? LoginController
+            let loginController = navController.viewControllers.first as? LoginViewController
             else {
                 return
         }

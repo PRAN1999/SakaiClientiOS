@@ -1,5 +1,5 @@
 //
-//  PageDelegate.swift
+//  AssignmentPagesViewControllerDelegate.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 12/25/18.
@@ -15,6 +15,6 @@ import UIKit
 /// This is primarily used to sync the collection view in the previous
 /// screen with the UIPageController, so the transition back occurs in
 /// context
-protocol PagesControllerDelegate: class {
-    func pageController(_ pageController: PagesController, didMoveToIndex index: Int)
+protocol AssignmentPagesViewControllerDelegate: class {
+    func pageController(_ pageController: AssignmentPagesViewController, didMoveToIndex index: Int)
 }

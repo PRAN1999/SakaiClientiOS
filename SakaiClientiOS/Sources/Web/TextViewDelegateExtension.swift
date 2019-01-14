@@ -16,11 +16,11 @@ extension UIViewController: UITextViewDelegate {
     public func textView(_ textView: UITextView,
                          shouldInteractWith URL: URL,
                          in characterRange: NSRange) -> Bool {
-        // For any Sakai url, open URL in custom WebController so
+        // For any Sakai url, open URL in custom WebViewController so
         // authentication state can be shared through cookies. Otherwise
         // open the link in a SFSafariViewController
         if URL.absoluteString.contains("sakai.rutgers.edu") {
-            let webController = WebController()
+            let webController = WebViewController()
             webController.setURL(url: URL)
             self.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(webController, animated: true)

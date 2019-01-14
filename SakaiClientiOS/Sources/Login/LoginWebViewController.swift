@@ -10,7 +10,7 @@ import WebKit
 import ReusableSource
 
 /// A view controller allowing users to login to CAS and/or Sakai
-class LoginWebViewController: WebController {
+class LoginWebViewController: WebViewController {
 
     /// Callback to execute once user has been authenticated
     var onLogin: (() -> Void)?

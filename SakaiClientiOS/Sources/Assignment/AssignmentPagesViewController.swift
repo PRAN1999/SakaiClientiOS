@@ -1,5 +1,5 @@
 //
-//  PagesController.swift
+//  AssignmentPagesViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 6/17/18.
@@ -11,7 +11,7 @@ import SafariServices
 
 /// The container view controller allowing pagination between multiple
 /// Assignments
-class PagesController: UIViewController {
+class AssignmentPagesViewController: UIViewController {
 
     private let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
@@ -26,9 +26,9 @@ class PagesController: UIViewController {
 
     // Even when the current Assignment changes, the popup controller
     // instance will be the same but the popup URL will change
-    private let webController = WebController(allowsOptions: false)
+    private let webController = WebViewController(allowsOptions: false)
     private lazy var popupController = WebViewNavigationController(rootViewController: webController)
-    private let submitPopupBarController = SubmitPopupBarController()
+    private let submitPopupBarController = SubmitPopupBarViewController()
 
     private var pendingIndex: Int?
     private var pages: [UIViewController?]
@@ -37,7 +37,7 @@ class PagesController: UIViewController {
 
     private var bottomConstraint, topConstraint: NSLayoutConstraint?
 
-    weak var delegate: PagesControllerDelegate?
+    weak var delegate: AssignmentPagesViewControllerDelegate?
 
     init(assignments: [Assignment], start: Int) {
         self.assignments = assignments
@@ -100,7 +100,7 @@ class PagesController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setToolbarHidden(true, animated: false)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
-        guard let tabBarController = tabBarController as? TabController else {
+        guard let tabBarController = tabBarController as? TabsController else {
             return
         }
         tabBarController.popupController = nil
@@ -118,7 +118,7 @@ class PagesController: UIViewController {
 
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
 
-        guard let tabBarController = tabBarController as? TabController else {
+        guard let tabBarController = tabBarController as? TabsController else {
             return
         }
         tabBarController.popupController = popupController
@@ -136,7 +136,7 @@ class PagesController: UIViewController {
     }
 }
 
-extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
@@ -194,7 +194,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
     }
 
     private func setPage(assignment: Assignment, index: Int) {
-        let page = AssignmentPageController(assignment: assignment)
+        let page = AssignmentPageViewController(assignment: assignment)
         page.textViewDelegate = self
         page.scrollViewDelegate = self
         pages[index] = page
@@ -213,7 +213,7 @@ extension PagesController: UIPageViewControllerDataSource, UIPageViewControllerD
 
 // MARK: Animatable Extension
 
-extension PagesController: Animatable {
+extension AssignmentPagesViewController: Animatable {
     var containerView: UIView? {
         return view
     }
@@ -239,9 +239,9 @@ extension PagesController: Animatable {
     }
 }
 
-extension PagesController: NavigationAnimatable {
+extension AssignmentPagesViewController: NavigationAnimatable {
     func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if controller is AssignmentController || controller is SiteAssignmentController {
+        if controller is AssignmentsViewController || controller is SiteAssignmentsViewController {
             return CollapseDismissAnimationController(resizingDuration: 0.5)
         }
         return nil

@@ -1,5 +1,5 @@
 //
-//  WebController.swift
+//  WebViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 6/17/18.
@@ -15,7 +15,7 @@ import SafariServices
 /// Should be used across app to display any web page or content needing
 /// Sakai authentication cookies to access URL. Any insecure HTTP URL will
 /// be opened in SFSafariViewController instead
-class WebController: UIViewController {
+class WebViewController: UIViewController {
 
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .default)
@@ -202,7 +202,7 @@ class WebController: UIViewController {
     }
 }
 
-extension WebController {
+extension WebViewController {
     /// Download from URL and present DocumentInteractionController to act
     /// on downloaded file. While file is being downloaded, lock the UI
     /// to prevent leaving the screen until the callback has returned.
@@ -251,7 +251,7 @@ extension WebController {
 
 // MARK: WKUIDelegate and WKNavigationDelegate
 
-extension WebController: WKUIDelegate, WKNavigationDelegate {
+extension WebViewController: WKUIDelegate, WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -310,7 +310,7 @@ extension WebController: WKUIDelegate, WKNavigationDelegate {
 
 // MARK: Selector actions
 
-extension WebController {
+extension WebViewController {
 
     @objc private func dismissController() {
         dismissAction()
@@ -331,9 +331,9 @@ extension WebController {
     }
 }
 
-extension WebController: Rotatable {}
+extension WebViewController: Rotatable {}
 
-extension WebController: NavigationAnimatable {
+extension WebViewController: NavigationAnimatable {
     func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if edgeInteractionController.edge?.state == .began {
             return SystemPopAnimator(duration: 0.5, interactionController: edgeInteractionController)

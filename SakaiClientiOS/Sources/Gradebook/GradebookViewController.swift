@@ -1,5 +1,5 @@
 //
-//  GradebookController.swift
+//  GradebookViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 4/26/18.
@@ -9,7 +9,7 @@ import UIKit
 import ReusableSource
 
 /// The view controller for the main Gradebook tab
-class GradebookController: UITableViewController {
+class GradebookViewController: UITableViewController {
     
     /// Abstract Gradebook data management and delegate
     private lazy var gradebookTableManager: GradebookTableManager
@@ -29,7 +29,7 @@ class GradebookController: UITableViewController {
 
 //MARK: LoadableController Extension
 
-extension GradebookController: LoadableController {
+extension GradebookViewController: LoadableController {
     @objc func loadData() {
         gradebookTableManager.hideHeaderCell()
         gradebookTableManager.loadDataSourceWithoutCache()
@@ -38,7 +38,7 @@ extension GradebookController: LoadableController {
 
 //MARK: NetworkSourceDelegate Extension
 
-extension GradebookController: NetworkSourceDelegate {
+extension GradebookViewController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
         //gradebookTableManager.hideHeaderCell()
         return self.addLoadingIndicator()

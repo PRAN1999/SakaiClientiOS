@@ -8,7 +8,7 @@
 import UIKit
 
 /// Display a full page Assignment view
-class AssignmentPageController: UIViewController {
+class AssignmentPageViewController: UIViewController {
 
     private let assignment: Assignment
     private var pageView: PageView<AssignmentPageView> = PageView(frame: .zero)

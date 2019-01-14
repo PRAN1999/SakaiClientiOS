@@ -84,9 +84,9 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
 
 // MARK: PageDelegate Extension
 
-extension AssignmentCollectionManager: PagesControllerDelegate {
+extension AssignmentCollectionManager: AssignmentPagesViewControllerDelegate {
 
-    func pageController(_ pageController: PagesController, didMoveToIndex index: Int) {
+    func pageController(_ pageController: AssignmentPagesViewController, didMoveToIndex index: Int) {
         selectedCell?.flip(withDirection: .toFront, animated: false, completion: {})
         selectedCell = nil
         let indexPath = IndexPath(row: index, section: 0)

@@ -1,5 +1,5 @@
 //
-//  ResourcePageController.swift
+//  ResourcePageViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/28/18.
@@ -10,9 +10,9 @@ import RATreeView
 import SafariServices
 
 /// Manages the screen for the Resources page of a certain Site using a
-/// RATreeView. Presents WebController or SFSafariViewController for
+/// RATreeView. Presents WebViewController or SFSafariViewController for
 /// different Resources
-class ResourcePageController: UIViewController {
+class ResourcePageViewController: UIViewController {
     
     private let treeView: RATreeView = RATreeView(frame: .zero)
     private lazy var resourceTreeManager = ResourceTreeManager(treeView: treeView,
@@ -41,7 +41,7 @@ class ResourcePageController: UIViewController {
 
         resourceTreeManager.didSelectResource.delegate(to: self) { (self, url) -> Void in
             if url.absoluteString.contains("sakai.rutgers.edu") {
-                let webController = WebController()
+                let webController = WebViewController()
                 webController.setURL(url: url)
                 self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(webController, animated: true)
@@ -60,7 +60,7 @@ class ResourcePageController: UIViewController {
 
 //MARK: LoadableController Extension
 
-extension ResourcePageController: LoadableController {
+extension ResourcePageViewController: LoadableController {
     @objc func loadData() {
         resourceTreeManager.loadDataSourceWithoutCache()
     }
@@ -68,4 +68,4 @@ extension ResourcePageController: LoadableController {
 
 //MARK: NetworkSourceDelegate Extension
 
-extension ResourcePageController: NetworkSourceDelegate {}
+extension ResourcePageViewController: NetworkSourceDelegate {}

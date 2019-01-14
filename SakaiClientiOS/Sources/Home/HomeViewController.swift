@@ -1,5 +1,5 @@
 //
-//  HomeController.swift
+//  HomeViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 4/23/18.
@@ -11,7 +11,7 @@ import ReusableSource
 /// The controller for the root ViewController of the 'Home' tab and the
 /// initial screen for the app. The HomeController loads Site data for the
 /// user which acts as a source of truth for the rest of the app
-class HomeController: UITableViewController {
+class HomeViewController: UITableViewController {
 
     /// The UI delegate and data source for the tableView
     private lazy var siteTableManager = SiteTableManager(tableView: tableView)
@@ -33,7 +33,7 @@ class HomeController: UITableViewController {
             guard let site = self.siteTableManager.item(at: indexPath) else {
                 return
             }
-            let classController = ClassController(pages: site.pages)
+            let classController = ClassViewController(pages: site.pages)
             self.navigationController?.pushViewController(classController, animated: true)
         }
         siteTableManager.delegate = self
@@ -107,7 +107,7 @@ class HomeController: UITableViewController {
                 return
         }
         guard
-            let loginController = navController.viewControllers.first as? LoginController
+            let loginController = navController.viewControllers.first as? LoginViewController
             else {
                 return
         }
@@ -142,7 +142,7 @@ class HomeController: UITableViewController {
 
 //MARK: LoadableController Extension
 
-extension HomeController: LoadableController {
+extension HomeViewController: LoadableController {
     @objc func loadData() {
         siteTableManager.loadDataSourceWithoutCache()
     }
@@ -150,7 +150,7 @@ extension HomeController: LoadableController {
 
 //MARK: NetworkSourceDelegate Extension
 
-extension HomeController: NetworkSourceDelegate {
+extension HomeViewController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source)
         -> (() -> Void)?
         where Source : NetworkSource {

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// A landing page for login with NetId or with Email
-class LoginController: UIViewController {
+class LoginViewController: UIViewController {
 
     @IBOutlet private weak var netIdButton: UIButton!
     @IBOutlet private weak var emailButton: UIButton!

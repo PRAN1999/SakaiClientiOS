@@ -1,5 +1,5 @@
 //
-//  AnnouncementPageController.swift
+//  AnnouncementPageViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 7/8/18.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AnnouncementPageController: UIViewController {
+class AnnouncementPageViewController: UIViewController {
     
     var announcementPageView: PageView<AnnouncementPageView> = PageView(frame: .zero)
     

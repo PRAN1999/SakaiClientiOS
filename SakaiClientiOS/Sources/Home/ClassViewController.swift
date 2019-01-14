@@ -1,5 +1,5 @@
 //
-//  ClassController.swift
+//  ClassViewController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 5/11/18.
@@ -8,7 +8,7 @@
 import UIKit
 
 /// Displays the SitePages for a Site
-class ClassController: UITableViewController {
+class ClassViewController: UITableViewController {
 
     private let pages: [SitePage]
 
@@ -82,19 +82,19 @@ class ClassController: UITableViewController {
         let controller: UIViewController
         switch page.pageType {
         case .gradebook:
-            controller = SiteGradebookController(siteId: page.siteId)
+            controller = SiteGradebookViewController(siteId: page.siteId)
         case .assignments:
-            controller = SiteAssignmentController(siteId: page.siteId)
+            controller = SiteAssignmentsViewController(siteId: page.siteId)
         case .chatRoom:
-            controller = ChatRoomController(siteId: page.siteId, siteUrl: page.url)
+            controller = ChatRoomViewController(siteId: page.siteId, siteUrl: page.url)
             hidesBottomBarWhenPushed = true
         case .defaultPage:
-            controller = DefaultController(siteUrl: page.url, pageTitle: page.title)
+            controller = DefaultSitePageViewController(siteUrl: page.url, pageTitle: page.title)
             hidesBottomBarWhenPushed = true
         case .announcements:
-            controller = SiteAnnouncementController(siteId: page.siteId)
+            controller = SiteAnnouncementsViewController(siteId: page.siteId)
         case .resources:
-            controller = ResourcePageController(siteId: page.siteId)
+            controller = ResourcePageViewController(siteId: page.siteId)
         }
         navigationController?.pushViewController(controller, animated: true)
         hidesBottomBarWhenPushed = false

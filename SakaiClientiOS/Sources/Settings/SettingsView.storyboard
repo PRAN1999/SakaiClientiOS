@@ -9,29 +9,29 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Settings Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="ItQ-N2-sq0">
             <objects>
-                <tableViewController id="waG-Dd-f3F" customClass="SettingsController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="waG-Dd-f3F" customClass="SettingsViewController" customModule="SakaiClientiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4Q2-bQ-vsN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="4Jo-cH-k77" userLabel="Table Header">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="4Jo-cH-k77" userLabel="Table Header">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="22x-zn-mjg">
-                                    <rect key="frame" x="0.0" y="0.0" width="157.5" height="103"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="157.5" height="170"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gw3-tq-8Bd">
-                                    <rect key="frame" x="162.5" y="41" width="94" height="21"/>
+                                    <rect key="frame" x="162.5" y="74.5" width="94" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logo made with Logomakr.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTD-E6-f9n">
-                                    <rect key="frame" x="87" y="103" width="201.5" height="17"/>
+                                    <rect key="frame" x="87" y="170" width="201.5" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -49,12 +49,12 @@
                                 <constraint firstAttribute="bottom" secondItem="LTD-E6-f9n" secondAttribute="bottom" constant="15" id="tr1-BD-OSi"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="ewX-Eq-8Sm">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="ewX-Eq-8Sm">
                             <rect key="frame" x="0.0" y="207" width="375" height="119"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bR-Ta-Dzb">
-                                    <rect key="frame" x="47" y="39" width="281" height="60"/>
+                                    <rect key="frame" x="47" y="106" width="281" height="60"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="60" id="mh6-Bm-buP"/>
                                     </constraints>
@@ -108,12 +108,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="19S-Xo-I6L">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="19S-Xo-I6L">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks so much to..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zno-lp-Uca">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="151"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -127,7 +127,7 @@
                                 <constraint firstItem="Zno-lp-Uca" firstAttribute="height" secondItem="19S-Xo-I6L" secondAttribute="height" id="sHC-V1-HM2"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="svv-bN-epM">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="svv-bN-epM">
                             <rect key="frame" x="0.0" y="156" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -165,12 +165,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="a2N-Yv-cNP">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="a2N-Yv-cNP">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhV-99-D4A">
-                                    <rect key="frame" x="8" y="8" width="359" height="174"/>
+                                    <rect key="frame" x="8" y="8" width="359" height="241"/>
                                     <string key="text">If you're really enjoying Rutgers Sakai, feel free to leave a tip to support the developer. No obligation necessary of course, and Rutgers Sakai will remain free no matter what.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                     <nil key="textColor"/>

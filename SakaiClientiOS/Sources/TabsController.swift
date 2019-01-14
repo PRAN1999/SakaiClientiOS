@@ -1,5 +1,5 @@
 //
-//  TabController.swift
+//  TabsController.swift
 //  SakaiClientiOS
 //
 //  Created by Pranay Neelagiri on 12/31/18.
@@ -9,7 +9,7 @@ import UIKit
 import LNPopupController
 
 /// The root tab bar controller for the application
-class TabController: UITabBarController, UITabBarControllerDelegate {
+class TabsController: UITabBarController, UITabBarControllerDelegate {
 
     /// Whenever presenting a popup bar, this value should be set to inform
     /// the tabBarController that it is currently presenting a popup
@@ -59,7 +59,7 @@ class TabController: UITabBarController, UITabBarControllerDelegate {
         }
         let toNav = viewControllers?[itemIndex] as? UINavigationController
         if index == itemIndex &&
-            fromNav?.viewControllers.first is HomeController {
+            fromNav?.viewControllers.first is HomeViewController {
             // The PagesController is the only screen in the app that will
             // present a popup bar. It can be accessed through the Home or
             // Assignment tabs. If a user taps on Home to return to the root
@@ -71,13 +71,13 @@ class TabController: UITabBarController, UITabBarControllerDelegate {
             fromNav?.popToRootViewController(animated: true)
             fromNav?.interactivePopGestureRecognizer?.isEnabled = true
         } else if index != itemIndex &&
-            fromNav?.viewControllers.last is PagesController {
+            fromNav?.viewControllers.last is AssignmentPagesViewController {
             // If the user is moving from a PagesController to another tab
             // (i.e. Assignments tab to Gradebook), the popup bar's behavior
             // will be defined here and not in viewWillDisappear of the
             // PagesController instance, where this flag is used.
             isMovingToNewTabFromPages = true
-            if toNav?.viewControllers.last is PagesController {
+            if toNav?.viewControllers.last is AssignmentPagesViewController {
                 // If the tab being switched to also is presenting a
                 // PagesController, the popup bar should NOT be dismissed
                 return
