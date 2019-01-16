@@ -20,14 +20,17 @@ class AssignmentPagesViewController: UIViewController {
         return pageControl
     }()
     private let pageControlView = UIView()
-    private let pageController = UIPageViewController(transitionStyle: .scroll,
-                                                      navigationOrientation: .horizontal,
-                                                      options: nil)
+    private let pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
 
     // Even when the current Assignment changes, the popup controller
     // instance will be the same but the popup URL will change
     private let webController = WebViewController(allowsOptions: false)
-    private lazy var popupController = WebViewNavigationController(rootViewController: webController)
+    private let editorController = RichTextEditorViewController()
+    private lazy var containerController
+        = SegmentedContainerViewController(segments: [("Web", webController), ("Editor", editorController)])
+
+    private lazy var popupController = WebViewNavigationController(rootViewController: containerController)
+    
     private let submitPopupBarController = SubmitPopupBarViewController()
 
     private var pendingIndex: Int?
@@ -45,10 +48,6 @@ class AssignmentPagesViewController: UIViewController {
         pages = [UIViewController?](repeating: nil, count: assignments.count)
         super.init(nibName: nil, bundle: nil)
         setPage(assignment: assignments[start], index: start)
-    }
-
-    override func loadView() {
-        view = UIView()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -76,9 +75,16 @@ class AssignmentPagesViewController: UIViewController {
         webController.dismissAction = { [weak self] in
             self?.tabBarController?.closePopup(animated: true, completion: nil)
         }
+        editorController.dismissAction = { [weak self] in
+            self?.tabBarController?.closePopup(animated: true, completion: nil)
+        }
+
+        editorController.delegate = webController
+        editorController.needsTitleField = false
 
         tabBarController?.popupInteractionStyle = .default
         tabBarController?.popupBar.backgroundStyle = .regular
+        tabBarController?.popupContentView.popupCloseButtonStyle = .none
         tabBarController?.popupBar.customBarViewController = submitPopupBarController
 
         submitPopupBarController.titleLabel.text = "DRAG TO SUBMIT"
@@ -103,14 +109,13 @@ class AssignmentPagesViewController: UIViewController {
         guard let tabBarController = tabBarController as? TabsController else {
             return
         }
-        tabBarController.popupController = nil
-        // If a new tab is selected, the UITabBarController will handle
-        // presentation and dismissal of the popup bar
-        if tabBarController.isMovingToNewTabFromPages {
-            tabBarController.isMovingToNewTabFromPages = false
+
+        let isNavigationPushing = navigationController?.viewControllers.last != self
+
+        if isMovingFromParentViewController || isNavigationPushing {
+            tabBarController.dismissPopupBar(animated: true, completion: nil)
             return
         }
-        tabBarController.dismissPopupBar(animated: true, completion: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -121,18 +126,23 @@ class AssignmentPagesViewController: UIViewController {
         guard let tabBarController = tabBarController as? TabsController else {
             return
         }
-        tabBarController.popupController = popupController
 
-        tabBarController.presentPopupBar(withContentViewController: popupController,
-                                         animated: true,
-                                         completion: nil)
-        // When popping back to PagesController, LNPopupController
-        // encounters a bug where it is entirely removed from the view
-        // hierarchy and causes a black space to appear in its place.
-        // Adding the views back to the tabBarController manually fixes
-        // the bug.
-        tabBarController.view.addSubview(tabBarController.popupBar)
-        tabBarController.view.addSubview(tabBarController.popupContentView)
+        if tabBarController.popupPresentationState == .hidden ||
+           tabBarController.popupPresentationState == .closed {
+
+            tabBarController.presentPopupBar(withContentViewController: popupController,
+                                             animated: true,
+                                             completion: nil)
+
+            // When popping back to PagesController, LNPopupController
+            // encounters a bug where it is entirely removed from the view
+            // hierarchy and causes a black space to appear in its place.
+            // Adding the views back to the tabBarController manually fixes
+            // the bug.
+            tabBarController.view.addSubview(tabBarController.popupBar)
+            tabBarController.view.addSubview(tabBarController.popupContentView)
+            tabBarController.popupContentView.popupCloseButtonStyle = .none
+        }
     }
 }
 
@@ -143,7 +153,6 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
-        setPopupURL(viewControllerIndex: viewControllerIndex)
 
         let previousIndex = viewControllerIndex - 1
         guard previousIndex >= 0 else {
@@ -162,7 +171,6 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
         guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
-        setPopupURL(viewControllerIndex: viewControllerIndex)
 
         let nextIndex = viewControllerIndex + 1
         let assignmentsCount = assignments.count
@@ -190,6 +198,7 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
         if completed, let index = pendingIndex {
             pageControl.currentPage = index
             delegate?.pageController(self, didMoveToIndex: index)
+            setPopupURL(viewControllerIndex: index)
         }
     }
 
@@ -208,6 +217,9 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
         webController.title = assignment.title
         webController.setURL(url: url)
         webController.setNeedsLoad(to: true)
+        let instructions = PageView.getInstructionsString(attributedText: assignment.attributedInstructions)
+        editorController.attributedContext = instructions
+        editorController.html = ""
     }
 }
 

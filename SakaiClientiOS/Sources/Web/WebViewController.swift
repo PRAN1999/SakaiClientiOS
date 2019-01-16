@@ -34,10 +34,10 @@ class WebViewController: UIViewController {
 
     private lazy var toolBarArray: [UIBarButtonItem] = {
         let backImage = UIImage(named: "back_button")
-        let back = UIBarButtonItem(image: backImage, style: .plain, target: webView, action: #selector(webView.goBack))
+        let back = UIBarButtonItem(image: backImage, style: .plain, target: webView, action: #selector(webView?.goBack))
 
         let forwardImage = UIImage(named: "forward_button")
-        let forward = UIBarButtonItem(image: forwardImage, style: .plain, target: webView, action: #selector(webView.goForward))
+        let forward = UIBarButtonItem(image: forwardImage, style: .plain, target: webView, action: #selector(webView?.goForward))
 
         let action = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentActions))
         let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -55,7 +55,7 @@ class WebViewController: UIViewController {
             self?.downloadAndPresentInteractionController(url: self?.url)
         }
         let safariAction = UIAlertAction(title: "Open in Safari", style: .default) { [weak self] (_) in
-            self?.openInSafari(self?.url)
+            self?.openInSafari?(self?.url)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 
@@ -66,7 +66,7 @@ class WebViewController: UIViewController {
     }()
 
     /// Manage SFSafariViewController presentation for non-Sakai URL
-    lazy var openInSafari: ((URL?) -> Void) = { [weak self] url in
+    lazy var openInSafari: ((URL?) -> Void)? = { [weak self] url in
         guard let url = url, url.absoluteString.contains("http") else {
             return
         }
@@ -76,17 +76,19 @@ class WebViewController: UIViewController {
     }
 
     /// Manage dismissing action for webView
-    lazy var dismissAction: (() -> Void) = { [weak self] in
+    lazy var dismissAction: (() -> Void)? = { [weak self] in
         self?.navigationController?.popViewController(animated: true)
     }
 
-    private var webView: WKWebView!
-    private var edgeInteractionController: LeftEdgeInteractionController!
+    private var webView: WKWebView?
+    private var edgeInteractionController: LeftEdgeInteractionController?
     private var interactionController: UIDocumentInteractionController?
 
-    private var url: URL?
+    private var oldNavigationTintColor = Palette.main.navigationTintColor
     private var didInitialize = false
     private var shouldLoad = true
+    
+    private var url: URL?
 
     private let downloadService: DownloadService
     private let webService: WebService
@@ -110,10 +112,8 @@ class WebViewController: UIViewController {
     }
 
     deinit {
-        if webView != nil {
-            webView.removeObserver(self, forKeyPath: "estimatedProgress")
-            progressView.removeFromSuperview()
-        }
+        webView?.removeObserver(self, forKeyPath: "estimatedProgress")
+        progressView.removeFromSuperview()
     }
 
     override func viewDidLoad() {
@@ -136,23 +136,24 @@ class WebViewController: UIViewController {
             self?.loadURL(urlOpt: self?.url)
             self?.didInitialize = true
 
-            self?.setToolbarItems(self?.toolBarArray, animated: true)
-
-            self?.navigationItem.leftBarButtonItem
-                = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self?.dismissController))
-            self?.navigationItem.rightBarButtonItem
-                = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self?.loadWebview))
         }
 
         super.viewDidLoad()
+
+        setToolbarItems(toolBarArray, animated: true)
+
+        navigationItem.rightBarButtonItem
+            = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadWebview))
+        navigationItem.leftBarButtonItem
+            = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissController))
     }
 
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
                                change: [NSKeyValueChangeKey: Any]?,
                                context: UnsafeMutableRawPointer?) {
-        if keyPath == "estimatedProgress" {
-            progressView.progress = Float(webView.estimatedProgress)
+        if keyPath == "estimatedProgress", let progress = webView?.estimatedProgress {
+            progressView.progress = Float(progress)
         }
     }
 
@@ -161,8 +162,8 @@ class WebViewController: UIViewController {
         if shouldLoad && didInitialize {
             loadURL(urlOpt: url)
         }
-        if webView != nil {
-            webView.scrollView.isScrollEnabled = true
+        if let color = navigationController?.navigationBar.tintColor {
+            oldNavigationTintColor = color
         }
         navigationController?.navigationBar.tintColor = Palette.main.toolBarColor
         navigationController?.setToolbarHidden(false, animated: true)
@@ -171,25 +172,19 @@ class WebViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if webView != nil {
-            webView.scrollView.isScrollEnabled = false
-        }
         if isMovingFromParentViewController && UIDevice.current.userInterfaceIdiom == .phone {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
-        navigationController?.navigationBar.tintColor = Palette.main.navigationTintColor
+        navigationController?.navigationBar.tintColor = oldNavigationTintColor
         navigationController?.setToolbarHidden(true, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
     func loadURL(urlOpt: URL?) {
-        guard let url = urlOpt else {
+        guard let url = urlOpt, shouldLoad else {
             return
         }
-        if !shouldLoad {
-            return
-        }
-        webView.load(URLRequest(url: url))
+        webView?.load(URLRequest(url: url))
         shouldLoad = false
     }
 
@@ -218,13 +213,13 @@ extension WebViewController {
         let interactionButton = toolBarArray.last
         interactionButton?.isEnabled = false
         navigationItem.leftBarButtonItem?.isEnabled = false
-        webView.isHidden = true
+        webView?.isHidden = true
 
         let indicator = LoadingIndicator(view: self.view)
         indicator.startAnimating()
 
         let didComplete = { [weak self] in
-            self?.webView.isHidden = false
+            self?.webView?.isHidden = false
             self?.navigationItem.leftBarButtonItem?.isEnabled = true
             interactionButton?.isEnabled = true
         }
@@ -256,14 +251,13 @@ extension WebViewController: WKUIDelegate, WKNavigationDelegate {
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 
-
         guard let url = navigationAction.request.url else {
             decisionHandler(.cancel)
             return
         }
         if !url.absoluteString.contains("https") {
             decisionHandler(.cancel)
-            openInSafari(url)
+            openInSafari?(url)
             return
         }
         decisionHandler(.allow)
@@ -301,6 +295,7 @@ extension WebViewController: WKUIDelegate, WKNavigationDelegate {
                  createWebViewWith configuration: WKWebViewConfiguration,
                  for navigationAction: WKNavigationAction,
                  windowFeatures: WKWindowFeatures) -> WKWebView? {
+
         if navigationAction.targetFrame == nil {
             webView.load(navigationAction.request)
         }
@@ -313,7 +308,7 @@ extension WebViewController: WKUIDelegate, WKNavigationDelegate {
 extension WebViewController {
 
     @objc private func dismissController() {
-        dismissAction()
+        dismissAction?()
     }
 
     @objc private func presentActions() {
@@ -335,8 +330,8 @@ extension WebViewController: Rotatable {}
 
 extension WebViewController: NavigationAnimatable {
     func animationControllerForPop(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if edgeInteractionController.edge?.state == .began {
-            return SystemPopAnimator(duration: 0.5, interactionController: edgeInteractionController)
+        if let edgeController = edgeInteractionController, edgeController.edge?.state == .began {
+            return SystemPopAnimator(duration: 0.5, interactionController: edgeController)
         }
         return nil
     }
@@ -345,3 +340,5 @@ extension WebViewController: NavigationAnimatable {
         return nil
     }
 }
+
+extension WebViewController: RichTextEditorViewControllerDelegate {}

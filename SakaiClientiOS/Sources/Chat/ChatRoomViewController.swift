@@ -17,7 +17,8 @@ class ChatRoomViewController: UIViewController {
 
     private var chatRoomView: ChatRoomView!
     private var edgeInteractionController: LeftEdgeInteractionController!
-    private var indicator: LoadingIndicator!
+    
+    private lazy var indicator = LoadingIndicator(view: view)
     private var webView: WKWebView {
         return chatRoomView.webView
     }
@@ -32,20 +33,13 @@ class ChatRoomViewController: UIViewController {
     private let webService: WebService
     private let chatService: ChatService
 
-    required convenience init(siteId: String,
-                              siteUrl: String) {
+    required convenience init(siteId: String, siteUrl: String) {
         let networkService = RequestManager.shared
         let webService = RequestManager.shared
-        self.init(siteId: siteId,
-                  siteUrl: siteUrl,
-                  networkService: networkService,
-                  webService: webService)
+        self.init(siteId: siteId, siteUrl: siteUrl, networkService: networkService, webService: webService)
     }
 
-    init(siteId: String,
-         siteUrl: String,
-         networkService: NetworkService,
-         webService: WebService) {
+    init(siteId: String, siteUrl: String, networkService: NetworkService, webService: WebService) {
         self.siteId = siteId
         self.siteUrl = siteUrl
         self.networkService = networkService
@@ -64,19 +58,6 @@ class ChatRoomViewController: UIViewController {
         view.backgroundColor = Palette.main.primaryBackgroundColor
         title = "Chat Room"
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleKeyboardNotification(notification:)),
-            name: .UIKeyboardWillShow,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleKeyboardNotification(notification:)),
-            name: .UIKeyboardWillHide,
-            object: nil
-        )
-
         indicator = LoadingIndicator(view: view)
         indicator.startAnimating()
 
@@ -90,6 +71,7 @@ class ChatRoomViewController: UIViewController {
     private func setup() {
         chatRoomView.backgroundColor = Palette.main.primaryBackgroundColor
         webView.backgroundColor = Palette.main.primaryBackgroundColor
+
         view.addSubview(chatRoomView)
         view.bringSubview(toFront: indicator)
         chatRoomView.constrainToEdges(of: view)
@@ -100,11 +82,9 @@ class ChatRoomViewController: UIViewController {
             for: .touchUpInside
         )
         setInput(enabled: false)
-        guard let url = URL(string: siteUrl) else {
-            return
-        }
+        chatRoomView.addKeyboardObservers()
 
-        self.edgeInteractionController = LeftEdgeInteractionController(view: chatRoomView, in: self)
+        edgeInteractionController = LeftEdgeInteractionController(view: chatRoomView, in: self)
 
         // Force the webView to be static and unable to be zoomed so that
         // it behaves more like a native UI element
@@ -114,54 +94,10 @@ class ChatRoomViewController: UIViewController {
         webView.scrollView.showsHorizontalScrollIndicator = false
         webView.uiDelegate = self
         webView.navigationDelegate = self
-        webView.load(URLRequest(url: url))
-    }
-    
-    @objc private func handleKeyboardNotification(notification: Notification) {
-        guard let userInfo = notification.userInfo else {
+        guard let url = URL(string: siteUrl) else {
             return
         }
-        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
-                return
-        }
-        
-        // If the keyboard is showing, the messagebar needs to travel up
-        // with it and if it is hidden, the messagebar should slide back
-        // down. Additionally, if the keyboard is going to show, the chat
-        // needs to scroll down to the latest messages.
-        let cgRect = keyboardFrame.cgRectValue
-        let isKeyboardShowing = notification.name == .UIKeyboardWillShow
-        chatRoomView.bottomConstraint.constant = isKeyboardShowing ? -cgRect.height : 0
-
-        UIView.animate(withDuration: 0,
-                       delay: 0,
-                       options: UIViewAnimationOptions.curveEaseIn,
-                       animations: { [weak self] in
-            self?.view.layoutIfNeeded()
-        }, completion: nil)
-
-        if isKeyboardShowing {
-            updateChatOnKeyboardNotification()
-        }
-    }
-    
-    @objc private func scrollToBottom() {
-        webView.evaluateJavaScript(
-            "$('html, body').animate({scrollTop:document.body.offsetHeight}, 400);",
-            completionHandler: nil)
-    }
-    
-    private func updateChatOnKeyboardNotification() {
-        webView.evaluateJavaScript(
-        "document.body.scrollTop == document.body.offsetHeight") {
-            [weak self] (data, err) in
-            guard let isAtBottom = data as? Bool else {
-                return
-            }
-            if !isAtBottom {
-                self?.scrollToBottom()
-            }
-        }
+        webView.load(URLRequest(url: url))
     }
     
     private func setInput(enabled: Bool) {
@@ -176,26 +112,20 @@ class ChatRoomViewController: UIViewController {
         guard text != "" else {
             return
         }
-        chatService.submitMessage(text: text,
-                                  channelId: chatChannelId,
-                                  csrf: csrftoken) { [weak self] in
+        chatService.submitMessage(text: text, channelId: chatChannelId, csrf: csrftoken) { [weak self] in
             self?.updateMonitor()
         }
         chatRoomView.messageBar.inputField.text = ""
     }
     
     private func updateMonitor() {
-        webView.evaluateJavaScript("updateNow();") {
-            [weak self] (data, err) in
-            self?.scrollToBottom()
+        webView.evaluateJavaScript("updateNow();") { [weak self] (data, err) in
+            self?.webView.scrollToBottom()
         }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if chatRoomView != nil {
-            webView.scrollView.isScrollEnabled = true
-        }
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         // For some reason, when using the custom swip to go back, the
         // message bar disappears if the transition is started and cancelled
@@ -206,9 +136,6 @@ class ChatRoomViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if chatRoomView != nil {
-            webView.scrollView.isScrollEnabled = false
-        }
         if isMovingFromParentViewController && UIDevice.current.userInterfaceIdiom == .phone {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
@@ -218,7 +145,7 @@ class ChatRoomViewController: UIViewController {
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        scrollToBottom()
+        webView.scrollToBottom()
     }
 }
 
@@ -263,7 +190,6 @@ extension ChatRoomViewController: WKUIDelegate, WKNavigationDelegate {
                     return
                 }
                 self?.csrftoken = token
-                self?.scrollToBottom()
                 group.leave()
             }
         )
@@ -271,6 +197,7 @@ extension ChatRoomViewController: WKUIDelegate, WKNavigationDelegate {
         group.notify(queue: .main, work: DispatchWorkItem(block: { [weak self] in
             self?.setInput(enabled: true)
             self?.indicator.stopAnimating()
+            self?.webView.scrollToBottom()
             webView.isHidden = false
         }))
     }

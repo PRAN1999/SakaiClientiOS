@@ -35,6 +35,11 @@
 		512748C4210D842E00A5A74E /* ReusableSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51A472E120F9C59E00CC95F0 /* ReusableSource.framework */; };
 		512748C5210D842E00A5A74E /* ReusableSource.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 51A472E120F9C59E00CC95F0 /* ReusableSource.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		512748C9210E600200A5A74E /* ResourceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512748C8210E600200A5A74E /* ResourceNode.swift */; };
+		5128054521EE2387008AB78D /* RichTextSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128054421EE2387008AB78D /* RichTextSubmissionView.swift */; };
+		5128054721EE3AD6008AB78D /* KeyboardUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128054621EE3AD6008AB78D /* KeyboardUpdater.swift */; };
+		5128054921EE646B008AB78D /* InsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128054821EE646B008AB78D /* InsetTextField.swift */; };
+		5128054B21EED650008AB78D /* RichTextEditorViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128054A21EED650008AB78D /* RichTextEditorViewControllerDelegate.swift */; };
+		5128054F21EEE24C008AB78D /* SegmentedContainerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128054E21EEE24C008AB78D /* SegmentedContainerViewControllerDelegate.swift */; };
 		5128310F21D03DF800DB8DA8 /* CheckBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128310E21D03DF800DB8DA8 /* CheckBoxCell.swift */; };
 		5128311421D0847D00DB8DA8 /* ExpandPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311321D0847D00DB8DA8 /* ExpandPresentAnimationController.swift */; };
 		5128311B21D1607400DB8DA8 /* Animatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128311A21D1607400DB8DA8 /* Animatable.swift */; };
@@ -123,7 +128,6 @@
 		51A472DC20F9C13000CC95F0 /* AssignmentTableDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472DB20F9C13000CC95F0 /* AssignmentTableDataProvider.swift */; };
 		51A472E020F9C15700CC95F0 /* AssignmentDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A472DF20F9C15700CC95F0 /* AssignmentDataFetcher.swift */; };
 		51A4731420FA7F4500CC95F0 /* NetworkSourceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A4731320FA7F4500CC95F0 /* NetworkSourceExtension.swift */; };
-		51BDA07E21EC57FC006B3B03 /* CustomSubmitContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDA07D21EC57FC006B3B03 /* CustomSubmitContainerController.swift */; };
 		51BDA08021EC767C006B3B03 /* AnnouncementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDA07F21EC767C006B3B03 /* AnnouncementsViewController.swift */; };
 		51BDA08221EC76F2006B3B03 /* SiteAnnouncementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDA08121EC76F2006B3B03 /* SiteAnnouncementsViewController.swift */; };
 		51BDA08421EC779F006B3B03 /* AssignmentPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDA08321EC779F006B3B03 /* AssignmentPagesViewController.swift */; };
@@ -133,6 +137,8 @@
 		51BDA08C21EC78FC006B3B03 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDA08B21EC78FC006B3B03 /* SettingsViewController.swift */; };
 		51BDA08E21EC7995006B3B03 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDA08D21EC7995006B3B03 /* LoginViewController.swift */; };
 		51BDA09021EC7ACE006B3B03 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDA08F21EC7ACE006B3B03 /* WebViewController.swift */; };
+		51BDA09321EC7CFF006B3B03 /* SegmentedContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDA09221EC7CFF006B3B03 /* SegmentedContainerViewController.swift */; };
+		51BDA09721ECD185006B3B03 /* RichTextEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDA09621ECD185006B3B03 /* RichTextEditorViewController.swift */; };
 		51C2EC4121B4D7920000BA47 /* WebUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2EC4021B4D7920000BA47 /* WebUtils.swift */; };
 		51C4B7EA20A6555C00DD6696 /* SitePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7E920A6555C00DD6696 /* SitePage.swift */; };
 		51C4B7EC20A660FA00DD6696 /* ClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4B7EB20A660FA00DD6696 /* ClassViewController.swift */; };
@@ -225,6 +231,11 @@
 		512748C0210D75D700A5A74E /* ResourceTreeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTreeManager.swift; sourceTree = "<group>"; };
 		512748C2210D7B9C00A5A74E /* ResourceDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDataFetcher.swift; sourceTree = "<group>"; };
 		512748C8210E600200A5A74E /* ResourceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceNode.swift; sourceTree = "<group>"; };
+		5128054421EE2387008AB78D /* RichTextSubmissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextSubmissionView.swift; sourceTree = "<group>"; };
+		5128054621EE3AD6008AB78D /* KeyboardUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardUpdater.swift; sourceTree = "<group>"; };
+		5128054821EE646B008AB78D /* InsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetTextField.swift; sourceTree = "<group>"; };
+		5128054A21EED650008AB78D /* RichTextEditorViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextEditorViewControllerDelegate.swift; sourceTree = "<group>"; };
+		5128054E21EEE24C008AB78D /* SegmentedContainerViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedContainerViewControllerDelegate.swift; sourceTree = "<group>"; };
 		5128310E21D03DF800DB8DA8 /* CheckBoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxCell.swift; sourceTree = "<group>"; };
 		5128311321D0847D00DB8DA8 /* ExpandPresentAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandPresentAnimationController.swift; sourceTree = "<group>"; };
 		5128311A21D1607400DB8DA8 /* Animatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animatable.swift; sourceTree = "<group>"; };
@@ -315,7 +326,6 @@
 		51A472DF20F9C15700CC95F0 /* AssignmentDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDataFetcher.swift; sourceTree = "<group>"; };
 		51A472E120F9C59E00CC95F0 /* ReusableSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ReusableSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51A4731320FA7F4500CC95F0 /* NetworkSourceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSourceExtension.swift; sourceTree = "<group>"; };
-		51BDA07D21EC57FC006B3B03 /* CustomSubmitContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSubmitContainerController.swift; sourceTree = "<group>"; };
 		51BDA07F21EC767C006B3B03 /* AnnouncementsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementsViewController.swift; sourceTree = "<group>"; };
 		51BDA08121EC76F2006B3B03 /* SiteAnnouncementsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteAnnouncementsViewController.swift; sourceTree = "<group>"; };
 		51BDA08321EC779F006B3B03 /* AssignmentPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentPagesViewController.swift; sourceTree = "<group>"; };
@@ -325,6 +335,8 @@
 		51BDA08B21EC78FC006B3B03 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		51BDA08D21EC7995006B3B03 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		51BDA08F21EC7ACE006B3B03 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		51BDA09221EC7CFF006B3B03 /* SegmentedContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedContainerViewController.swift; sourceTree = "<group>"; };
+		51BDA09621ECD185006B3B03 /* RichTextEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextEditorViewController.swift; sourceTree = "<group>"; };
 		51C2EC4021B4D7920000BA47 /* WebUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUtils.swift; sourceTree = "<group>"; };
 		51C4B7E920A6555C00DD6696 /* SitePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitePage.swift; sourceTree = "<group>"; };
 		51C4B7EB20A660FA00DD6696 /* ClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassViewController.swift; sourceTree = "<group>"; };
@@ -411,11 +423,11 @@
 				51BDA08321EC779F006B3B03 /* AssignmentPagesViewController.swift */,
 				512ED7BB21D2762C002AC99A /* AssignmentPagesViewControllerDelegate.swift */,
 				51BDA08521EC7829006B3B03 /* AssignmentPageViewController.swift */,
-				5110C08221DAA73C00579D31 /* SubmitPopupBarViewController.swift */,
 				5126915421CEEE09004B20E7 /* FilterViewController.swift */,
 				51DEE5682103D41F008E709D /* SiteAssignmentsViewController.swift */,
 				5182CBCB213845F500D45952 /* SiteAssignmentCollectionManager.swift */,
 				518903AD2108154E00C551AE /* SiteAssignmentDataFetcher.swift */,
+				5110C08221DAA73C00579D31 /* SubmitPopupBarViewController.swift */,
 				5128311221D0844300DB8DA8 /* AssignmentTransition */,
 			);
 			path = Assignment;
@@ -533,6 +545,7 @@
 				5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */,
 				5129956921CCEAE600BED3E5 /* CellExtension.swift */,
 				513E5A7B21E15B39007BFD9A /* UIButtonExtension.swift */,
+				5128054621EE3AD6008AB78D /* KeyboardUpdater.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -673,6 +686,8 @@
 				511114B820D881450077F872 /* PageView.swift */,
 				518AC34D2137840300037087 /* LoadingIndicator.swift */,
 				51EF2BC721DF5B5E003CAA57 /* InsetUILabel.swift */,
+				5128054421EE2387008AB78D /* RichTextSubmissionView.swift */,
+				5128054821EE646B008AB78D /* InsetTextField.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -723,12 +738,22 @@
 			path = ReusableExtensions;
 			sourceTree = "<group>";
 		};
-		51BDA07C21EC579F006B3B03 /* CustomSubmit */ = {
+		51BDA09121EC7CD3006B3B03 /* SegmentedContainer */ = {
 			isa = PBXGroup;
 			children = (
-				51BDA07D21EC57FC006B3B03 /* CustomSubmitContainerController.swift */,
+				51BDA09221EC7CFF006B3B03 /* SegmentedContainerViewController.swift */,
+				5128054E21EEE24C008AB78D /* SegmentedContainerViewControllerDelegate.swift */,
 			);
-			path = CustomSubmit;
+			path = SegmentedContainer;
+			sourceTree = "<group>";
+		};
+		51BDA09821ECDA07006B3B03 /* RichTextEditor */ = {
+			isa = PBXGroup;
+			children = (
+				51BDA09621ECD185006B3B03 /* RichTextEditorViewController.swift */,
+				5128054A21EED650008AB78D /* RichTextEditorViewControllerDelegate.swift */,
+			);
+			path = RichTextEditor;
 			sourceTree = "<group>";
 		};
 		51C2D15A20C47FA000E4C901 /* Sources */ = {
@@ -749,8 +774,9 @@
 				5137DDFE21DEC61800FCC91C /* Settings */,
 				51910EDD21DC90B30079021C /* Design */,
 				51D5EA1621504A3900D7B85C /* Login */,
+				51BDA09121EC7CD3006B3B03 /* SegmentedContainer */,
+				51BDA09821ECDA07006B3B03 /* RichTextEditor */,
 				51835041211E9A49008F2CF2 /* Web */,
-				51BDA07C21EC579F006B3B03 /* CustomSubmit */,
 				51C9790D20F6FDCE00191DD6 /* Hideable */,
 				5128311721D15C5E00DB8DA8 /* Animation */,
 				518903BB210AADEA00C551AE /* ControllerBehavior */,
@@ -1056,6 +1082,8 @@
 				51DEE54220FEFB68008E709D /* AnnouncementTableManager.swift in Sources */,
 				51910ED421DC4A4F0079021C /* UndefinedResponse.swift in Sources */,
 				517B614421D89D8F00BF5BD8 /* SakaiRequest.swift in Sources */,
+				5128054521EE2387008AB78D /* RichTextSubmissionView.swift in Sources */,
+				51BDA09721ECD185006B3B03 /* RichTextEditorViewController.swift in Sources */,
 				5128310F21D03DF800DB8DA8 /* CheckBoxCell.swift in Sources */,
 				512748C9210E600200A5A74E /* ResourceNode.swift in Sources */,
 				5182CBCC213845F500D45952 /* SiteAssignmentCollectionManager.swift in Sources */,
@@ -1076,7 +1104,9 @@
 				511114A220CDCABD0077F872 /* HorizontalLayout.swift in Sources */,
 				51910ED821DC614F0079021C /* DownloadService.swift in Sources */,
 				517B614A21D8CE7900BF5BD8 /* AssignmentElement.swift in Sources */,
+				5128054721EE3AD6008AB78D /* KeyboardUpdater.swift in Sources */,
 				511114A820D0C0D20077F872 /* IconLabel.swift in Sources */,
+				5128054F21EEE24C008AB78D /* SegmentedContainerViewControllerDelegate.swift in Sources */,
 				5193357220F2FC1D00469FD4 /* AnnouncementPageViewController.swift in Sources */,
 				51C9791220F708B200191DD6 /* SiteDataFetcher.swift in Sources */,
 				513E5A7C21E15B39007BFD9A /* UIButtonExtension.swift in Sources */,
@@ -1110,6 +1140,7 @@
 				5128311421D0847D00DB8DA8 /* ExpandPresentAnimationController.swift in Sources */,
 				51DEE53620FC3D76008E709D /* SearchableDataSource.swift in Sources */,
 				5110C08521DAD1B600579D31 /* TabsController.swift in Sources */,
+				5128054921EE646B008AB78D /* InsetTextField.swift in Sources */,
 				518AC341213756E000037087 /* SakaiError.swift in Sources */,
 				51910ECE21DC3E380079021C /* CacheUpdateService.swift in Sources */,
 				514B623920952B89001A716C /* Parsing.swift in Sources */,
@@ -1132,7 +1163,6 @@
 				512ED7BC21D2762C002AC99A /* AssignmentPagesViewControllerDelegate.swift in Sources */,
 				518903AC2108151C00C551AE /* AssignmentCollectionManager.swift in Sources */,
 				513E5A8621E282F5007BFD9A /* Rotatable.swift in Sources */,
-				51BDA07E21EC57FC006B3B03 /* CustomSubmitContainerController.swift in Sources */,
 				511D757A208DAA9600371998 /* HomeViewController.swift in Sources */,
 				51A472DC20F9C13000CC95F0 /* AssignmentTableDataProvider.swift in Sources */,
 				513E5A7E21E163C3007BFD9A /* CreditsController.swift in Sources */,
@@ -1158,6 +1188,7 @@
 				51DEE550210041A5008E709D /* SiteGradebookTableDataSource.swift in Sources */,
 				5182CBF4213A1CAE00D45952 /* AttachmentElement.swift in Sources */,
 				5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */,
+				5128054B21EED650008AB78D /* RichTextEditorViewControllerDelegate.swift in Sources */,
 				5182CBDA2139B02000D45952 /* Site.swift in Sources */,
 				515D12112194923200048D2C /* UIViewExtension.swift in Sources */,
 				51BDA08621EC7829006B3B03 /* AssignmentPageViewController.swift in Sources */,
@@ -1167,6 +1198,7 @@
 				51C4B7FA20A9247C00DD6696 /* DefaultSitePageViewController.swift in Sources */,
 				518988D121E8633500F8E400 /* NavigationAnimatable.swift in Sources */,
 				51DEE53020FC250A008E709D /* AnnouncementDataProvider.swift in Sources */,
+				51BDA09321EC7CFF006B3B03 /* SegmentedContainerViewController.swift in Sources */,
 				51DEE551210041A5008E709D /* SiteGradebookDataFetcher.swift in Sources */,
 				51C4B7F420A8BBF800DD6696 /* GradebookCell.swift in Sources */,
 				517B614821D8CE4F00BF5BD8 /* ResourceItemElement.swift in Sources */,

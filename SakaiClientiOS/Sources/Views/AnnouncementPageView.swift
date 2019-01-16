@@ -143,35 +143,9 @@ extension AnnouncementPageView {
                              value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
                              range: contentRange)
         content.addAttribute(.foregroundColor, value: Palette.main.secondaryTextColor, range: contentRange)
-        if let attachmentString = getAttachments(resources: resources) {
+        if let attachmentString = PageView.getAttachmentsString(resources: resources) {
             content.append(attachmentString)
         }
         messageView.attributedText = content
-    }
-
-    private func getAttachments(resources: [NSAttributedString]?) -> NSAttributedString? {
-        guard let attachments = resources else {
-            return nil
-        }
-        guard attachments.count > 0 else {
-            return nil
-        }
-        let description = NSMutableAttributedString(string: "\n\nAttachments: \n\n")
-        let descriptionRange = NSRange(location: 0, length: description.string.count)
-        description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
-        description.addAttribute(.foregroundColor, value: Palette.main.primaryTextColor, range: descriptionRange)
-
-        for attachment in attachments {
-            let mutableAttachment = NSMutableAttributedString(attributedString: attachment)
-            let mutableAttachmentRange = NSRange(location: 0, length: mutableAttachment.string.count)
-            mutableAttachment.addAttribute(.font,
-                                           value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
-                                           range: mutableAttachmentRange)
-            description.append(mutableAttachment)
-            let spaceString = "\n\n"
-            description.append(NSAttributedString(string: spaceString))
-        }
-
-        return description
     }
 }

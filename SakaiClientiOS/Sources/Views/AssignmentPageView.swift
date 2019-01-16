@@ -159,13 +159,13 @@ extension AssignmentPageView {
             statusLabel.iconText = AppIcons.statusOpenIcon
         }
         dueLabel.setKeyVal(key: "Due:", val: assignment.dueTimeString)
-        guard let instructions = getInstructionsString(attributedText: assignment.attributedInstructions) else {
+        guard let instructions = PageView.getInstructionsString(attributedText: assignment.attributedInstructions) else {
             return
         }
         let resourceStrings = assignment.attachments?.map({ (attachment) -> NSAttributedString in
             return attachment.toAttributedString()
         })
-        if let attachments = getAttachmentsString(resources: resourceStrings) {
+        if let attachments = PageView.getAttachmentsString(resources: resourceStrings) {
             instructions.append(attachments)
         }
         instructionView.attributedText = instructions
@@ -173,61 +173,6 @@ extension AssignmentPageView {
         if let code = assignment.subjectCode {
             classLabel.iconText = AppIcons.codeToIcon[code]
         }
-    }
-
-    private func getInstructionsString
-        (attributedText: NSAttributedString?) -> NSMutableAttributedString? {
-
-        guard let text = attributedText else {
-            return nil
-        }
-        let instructions = NSMutableAttributedString(attributedString: text)
-        let instructionRange = NSRange(location: 0, length: instructions.string.count)
-
-        instructions.addAttribute(.font,
-                                  value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
-                                  range: instructionRange)
-        instructions.addAttribute(.foregroundColor,
-                                  value: Palette.main.secondaryTextColor,
-                                  range: instructionRange)
-
-        let description = NSMutableAttributedString(string: "Instructions: \n\n")
-        let descriptionRange = NSRange(location: 0, length: description.string.count)
-
-        description.addAttribute(.font,
-                                 value: UIFont.boldSystemFont(ofSize: 18.0),
-                                 range: descriptionRange)
-        description.addAttribute(.foregroundColor,
-                                 value: Palette.main.primaryTextColor,
-                                 range: descriptionRange)
-        description.append(instructions)
-        return description
-    }
-
-    private func getAttachmentsString(
-        resources: [NSAttributedString]?) -> NSMutableAttributedString? {
-
-        guard let attachments = resources else {
-            return nil
-        }
-
-        let description = NSMutableAttributedString(string: "\n\n\nAttachments: \n\n")
-        let descriptionRange = NSRange(location: 0, length: description.string.count)
-        
-        description.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18.0), range: descriptionRange)
-        description.addAttribute(.foregroundColor, value: Palette.main.primaryTextColor, range: descriptionRange)
-
-        for attachment in attachments {
-            let mutableAttachment = NSMutableAttributedString(attributedString: attachment)
-            let mutableAttachmentRange = NSRange(location: 0, length: mutableAttachment.string.count)
-            mutableAttachment.addAttribute(.font,
-                                           value: UIFont.systemFont(ofSize: 16.0, weight: .regular),
-                                           range: mutableAttachmentRange)
-            description.append(mutableAttachment)
-            let spaceString = "\n\n"
-            description.append(NSAttributedString(string: spaceString))
-        }
-        return description
     }
 }
 

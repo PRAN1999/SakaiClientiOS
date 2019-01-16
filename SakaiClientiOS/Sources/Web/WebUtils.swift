@@ -42,6 +42,13 @@ extension WKWebView {
             completion(webView)
         }
     }
+
+    @objc func scrollToBottom() {
+        evaluateJavaScript(
+            "$('html, body').animate({scrollTop:document.body.offsetHeight}, 400);",
+            completionHandler: nil
+        )
+    }
 }
 
 extension SFSafariViewController {

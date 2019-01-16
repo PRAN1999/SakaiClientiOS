@@ -11,7 +11,7 @@ import UIKit
 class AssignmentPageViewController: UIViewController {
 
     private let assignment: Assignment
-    private var pageView: PageView<AssignmentPageView> = PageView(frame: .zero)
+    let pageView: PageView<AssignmentPageView> = PageView(frame: .zero)
     
     weak var textViewDelegate: UITextViewDelegate?
     weak var scrollViewDelegate: UIScrollViewDelegate?

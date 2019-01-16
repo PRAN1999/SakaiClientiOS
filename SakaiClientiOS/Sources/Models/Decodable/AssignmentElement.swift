@@ -18,6 +18,7 @@ struct AssignmentElement: Decodable {
     let reference: String
     let maxPoints: String?
     let attachments: [AttachmentElement]?
+    let submissionType: String
 
     enum CodingKeys: String, CodingKey {
         case title, dueTimeString, dueTime, instructions
@@ -27,6 +28,7 @@ struct AssignmentElement: Decodable {
         case resubmissionAllowed = "allowResubmission"
         case maxPoints = "gradeScaleMaxPoints"
         case attachments
+        case submissionType
     }
 }
 

@@ -15,7 +15,10 @@ class ChatRoomView: UIView {
 
     let messageBar: MessageBar = UIView.defaultAutoLayoutView()
 
-    var bottomConstraint: NSLayoutConstraint!
+    lazy var bottomConstraint: NSLayoutConstraint = {
+        let margins = layoutMarginsGuide
+        return messageBar.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
+    }()
 
     init(webView: WKWebView) {
         self.webView = webView
@@ -36,16 +39,22 @@ class ChatRoomView: UIView {
     }
 
     private func setConstraints() {
-
-        let margins = layoutMarginsGuide
-
         webView.constrainToEdges(of: self, onSides: [.top, .left, .right])
         webView.bottomAnchor.constraint(equalTo: messageBar.topAnchor).isActive = true
 
         messageBar.constrainToEdges(of: self, onSides: [.left, .right])
         messageBar.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
 
-        bottomConstraint = messageBar.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
         bottomConstraint.isActive = true
+    }
+}
+
+extension ChatRoomView: KeyboardUpdatable {
+    func handleKeyboardNotification(notification: Notification) {
+        self._handleKeyboardNotification(notification: notification)
+        let isKeyboardShowing = notification.name == .UIKeyboardWillShow
+        if isKeyboardShowing {
+            webView.scrollToBottom()
+        }
     }
 }
