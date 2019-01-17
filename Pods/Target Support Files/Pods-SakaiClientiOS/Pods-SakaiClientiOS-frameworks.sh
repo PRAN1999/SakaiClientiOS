@@ -154,15 +154,21 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Gridicons/Gridicons.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RichEditorView/RichEditorView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/WordPress-Aztec-iOS/Aztec.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/WordPress-Editor-iOS/WordPressEditor.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Gridicons/Gridicons.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RichEditorView/RichEditorView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/WordPress-Aztec-iOS/Aztec.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/WordPress-Editor-iOS/WordPressEditor.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

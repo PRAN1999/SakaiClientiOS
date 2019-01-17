@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Free up documents and url cache to keep app footprint light
         URLCache.shared.removeAllCachedResponses()
-        clearDocumentsDirectory()
+        //clearDocumentsDirectory()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

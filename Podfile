@@ -11,6 +11,9 @@ target 'SakaiClientiOS' do
   pod 'M13Checkbox'
   pod 'Fabric'
   pod 'Crashlytics'
-  pod 'RichEditorView'
+  pod 'WordPress-Aztec-iOS'
+  pod 'WordPress-Editor-iOS'
+  pod 'Gridicons', :podspec => 'https://raw.github.com/Automattic/Gridicons-iOS/develop/Gridicons.podspec'
+  pod 'Toast-Swift', '~> 4.0.0'
 
 end

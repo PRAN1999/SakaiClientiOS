@@ -36,6 +36,8 @@ extension WKWebView {
                 dispatchGroup.leave()
             }
         }
+        let contentController = WKUserContentController()
+        configuration.userContentController = contentController
         dispatchGroup.notify(queue: .main) {
             configuration.websiteDataStore = dataStore
             let webView = WKWebView(frame: .zero, configuration: configuration)

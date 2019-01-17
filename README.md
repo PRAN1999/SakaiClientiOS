@@ -47,3 +47,9 @@ If there are any issues with building the project, try reinstalling the CocoaPod
     pod install
       
 from your root directory in Terminal. If issues persist after that, shoot us an email at rutgerssakaiapp@gmail.com and we'll do our best to help you out.
+
+## Contributing
+As an open-sourced app, the Rutgers Sakai App team welcomes pull requests for features and bugs. A CONTRIBUTING.md guide will be published soon.
+
+## LICENSE
+SakaiClientiOS is licensed under the GPL v3.0 license. See [LICENSE.md](https://github.com/PRAN1999/SakaiClientiOS/blob/master/LICENSE)

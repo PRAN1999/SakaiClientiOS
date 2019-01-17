@@ -9,6 +9,20 @@ import Foundation
 
 /// The model for an Assignment item
 struct Assignment: TermSortable, SiteSortable {
+
+    enum Status {
+        case open, closed
+
+        var descriptor: String {
+            switch self {
+            case .closed:
+                return "Closed"
+            case .open:
+                return "Open"
+            }
+        }
+    }
+
     let title: String
     let dueTimeString: String
     let dueDate: Date
@@ -17,11 +31,12 @@ struct Assignment: TermSortable, SiteSortable {
     let term: Term
     let siteId: String
     let siteTitle: String?
-    let status: String?
+    let status: Status
     let maxPoints: String?
     let currentGrade: String?
     let resubmissionAllowed: Bool?
     let attachments: [AttachmentElement]?
+    let allowsInlineSubmission: Bool
     let siteURL: String
     let subjectCode: Int?
 }
@@ -36,7 +51,7 @@ extension Assignment: Decodable {
         let attributedInstructions = instructions?.htmlAttributedString
         let siteId = assignmentElement.siteId
         let siteTitle = SakaiService.shared.siteTitleMap[siteId]
-        let status = assignmentElement.status
+        let status = assignmentElement.status == Status.open.descriptor ? Status.open : Status.closed
         let resubmissionAllowed = assignmentElement.resubmissionAllowed
         guard let assignmentsUrl = SakaiService.shared.siteAssignmentToolMap[siteId] else {
             throw SakaiError.parseError("Could not find associated Assignment page for Site")
@@ -46,6 +61,7 @@ extension Assignment: Decodable {
         let maxPoints = assignmentElement.maxPoints
         let currentGrade: String? = nil
         let attachments = assignmentElement.attachments
+        let allowsInlineSubmission = assignmentElement.submissionType.contains("Inline")
         guard let term = SakaiService.shared.siteTermMap[siteId] else {
             throw SakaiError.parseError("Could not find valid Term")
         }
@@ -63,6 +79,7 @@ extension Assignment: Decodable {
                   currentGrade: currentGrade,
                   resubmissionAllowed: resubmissionAllowed,
                   attachments: attachments,
+                  allowsInlineSubmission: allowsInlineSubmission,
                   siteURL: siteURL,
                   subjectCode: code)
     }

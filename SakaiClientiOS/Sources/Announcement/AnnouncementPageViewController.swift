@@ -34,3 +34,11 @@ class AnnouncementPageViewController: UIViewController {
         navigationController?.isNavigationBarHidden = false
     }
 }
+
+extension AnnouncementPageViewController: UITextViewDelegate {
+    public func textView(_ textView: UITextView,
+                         shouldInteractWith URL: URL,
+                         in characterRange: NSRange) -> Bool {
+        return defaultTextViewURLInteraction(URL: URL)
+    }
+}
