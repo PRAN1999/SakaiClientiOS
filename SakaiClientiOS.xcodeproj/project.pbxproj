@@ -64,6 +64,8 @@
 		51591572216AE6C100D3730E /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51591571216AE6C100D3730E /* PersistenceManager.swift */; };
 		515D12112194923200048D2C /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515D12102194923200048D2C /* UIViewExtension.swift */; };
 		515D12132194C59D00048D2C /* AssignmentTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515D12122194C59D00048D2C /* AssignmentTitleCell.swift */; };
+		5170DBF321F0BCE200BBB781 /* FormattingIdentifierExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5170DBF221F0BCE200BBB781 /* FormattingIdentifierExtension.swift */; };
+		5170DBF521F0BE1D00BBB781 /* FormatBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5170DBF421F0BE1D00BBB781 /* FormatBarController.swift */; };
 		517201C4218B6C0F00754533 /* SakaiClientiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517201C3218B6C0F00754533 /* SakaiClientiOSTests.swift */; };
 		517B614421D89D8F00BF5BD8 /* SakaiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517B614321D89D8F00BF5BD8 /* SakaiRequest.swift */; };
 		517B614821D8CE4F00BF5BD8 /* ResourceItemElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517B614721D8CE4F00BF5BD8 /* ResourceItemElement.swift */; };
@@ -88,7 +90,6 @@
 		5182CBF2213A1B0000D45952 /* AssignmentCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBF1213A1B0000D45952 /* AssignmentCollection.swift */; };
 		5182CBF4213A1CAE00D45952 /* AttachmentElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBF3213A1CAE00D45952 /* AttachmentElement.swift */; };
 		5182CBF6213A24FA00D45952 /* ResourceCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBF5213A24FA00D45952 /* ResourceCollection.swift */; };
-		51835043211E9A75008F2CF2 /* WebNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51835042211E9A75008F2CF2 /* WebNavigationController.swift */; };
 		518903A12106BAE500C551AE /* HideableNetworkSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A02106BAE500C551AE /* HideableNetworkSource.swift */; };
 		518903A52106C35900C551AE /* HideableNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */; };
 		518903AC2108151C00C551AE /* AssignmentCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518903AB2108151C00C551AE /* AssignmentCollectionManager.swift */; };
@@ -260,6 +261,8 @@
 		51591571216AE6C100D3730E /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		515D12102194923200048D2C /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		515D12122194C59D00048D2C /* AssignmentTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTitleCell.swift; sourceTree = "<group>"; };
+		5170DBF221F0BCE200BBB781 /* FormattingIdentifierExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattingIdentifierExtension.swift; sourceTree = "<group>"; };
+		5170DBF421F0BE1D00BBB781 /* FormatBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatBarController.swift; sourceTree = "<group>"; };
 		517201C1218B6C0F00754533 /* SakaiClientiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SakaiClientiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		517201C3218B6C0F00754533 /* SakaiClientiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakaiClientiOSTests.swift; sourceTree = "<group>"; };
 		517201C5218B6C0F00754533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -285,7 +288,6 @@
 		5182CBF1213A1B0000D45952 /* AssignmentCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCollection.swift; sourceTree = "<group>"; };
 		5182CBF3213A1CAE00D45952 /* AttachmentElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentElement.swift; sourceTree = "<group>"; };
 		5182CBF5213A24FA00D45952 /* ResourceCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCollection.swift; sourceTree = "<group>"; };
-		51835042211E9A75008F2CF2 /* WebNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebNavigationController.swift; sourceTree = "<group>"; };
 		518903A02106BAE500C551AE /* HideableNetworkSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkSource.swift; sourceTree = "<group>"; };
 		518903A42106C35900C551AE /* HideableNetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideableNetworkDataProvider.swift; sourceTree = "<group>"; };
 		518903AB2108151C00C551AE /* AssignmentCollectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentCollectionManager.swift; sourceTree = "<group>"; };
@@ -482,7 +484,6 @@
 				51591546216A836C00D3730E /* Persistence */,
 				5182CBD22139A48200D45952 /* Decodable */,
 				5182CBD12139A46100D45952 /* Networking */,
-				514B623820952B89001A716C /* Parsing.swift */,
 				518296D520A631CC00EAD645 /* Term.swift */,
 				512748C8210E600200A5A74E /* ResourceNode.swift */,
 			);
@@ -534,13 +535,8 @@
 			isa = PBXGroup;
 			children = (
 				518D4869213B7E33004294EF /* Cells */,
-				518D4868213B7E0A004294EF /* Reusable */,
-				514B623B209569FE001A716C /* TermHeader.swift */,
-				511114BC20DDF8DF0077F872 /* AssignmentPageView.swift */,
-				5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */,
-				5197E6C2213498550019DCC9 /* MessageBar.swift */,
-				5197E6C421349AE00019DCC9 /* ChatRoomView.swift */,
-				5197E6CA2134E8D80019DCC9 /* ChatTextView.swift */,
+				518D4868213B7E0A004294EF /* Custom */,
+				514B623820952B89001A716C /* Parsing.swift */,
 				515D12102194923200048D2C /* UIViewExtension.swift */,
 				5129956721CCDB1C00BED3E5 /* UIColorExtension.swift */,
 				5129956921CCEAE600BED3E5 /* CellExtension.swift */,
@@ -648,7 +644,6 @@
 			children = (
 				518988DA21E86D8E00F8E400 /* WebTransition */,
 				51BDA08F21EC7ACE006B3B03 /* WebViewController.swift */,
-				51835042211E9A75008F2CF2 /* WebNavigationController.swift */,
 				5197E6BC2134317F0019DCC9 /* TextViewDelegateExtension.swift */,
 				5197E6CE2136485D0019DCC9 /* NativeWebViewScrollDelegate.swift */,
 				51C2EC4021B4D7920000BA47 /* WebUtils.swift */,
@@ -676,7 +671,7 @@
 			path = WebTransition;
 			sourceTree = "<group>";
 		};
-		518D4868213B7E0A004294EF /* Reusable */ = {
+		518D4868213B7E0A004294EF /* Custom */ = {
 			isa = PBXGroup;
 			children = (
 				511114A120CDCABD0077F872 /* HorizontalLayout.swift */,
@@ -688,8 +683,14 @@
 				51EF2BC721DF5B5E003CAA57 /* InsetUILabel.swift */,
 				5128054421EE2387008AB78D /* RichTextSubmissionView.swift */,
 				5128054821EE646B008AB78D /* InsetTextField.swift */,
+				514B623B209569FE001A716C /* TermHeader.swift */,
+				5197E6C2213498550019DCC9 /* MessageBar.swift */,
+				511114BC20DDF8DF0077F872 /* AssignmentPageView.swift */,
+				5193356F20F2FB3300469FD4 /* AnnouncementPageView.swift */,
+				5197E6C421349AE00019DCC9 /* ChatRoomView.swift */,
+				5197E6CA2134E8D80019DCC9 /* ChatTextView.swift */,
 			);
-			path = Reusable;
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		518D4869213B7E33004294EF /* Cells */ = {
@@ -752,6 +753,8 @@
 			children = (
 				51BDA09621ECD185006B3B03 /* RichTextEditorViewController.swift */,
 				5128054A21EED650008AB78D /* RichTextEditorViewControllerDelegate.swift */,
+				5170DBF421F0BE1D00BBB781 /* FormatBarController.swift */,
+				5170DBF221F0BCE200BBB781 /* FormattingIdentifierExtension.swift */,
 			);
 			path = RichTextEditor;
 			sourceTree = "<group>";
@@ -1017,16 +1020,22 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Gridicons/Gridicons.framework",
 				"${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework",
 				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
-				"${BUILT_PRODUCTS_DIR}/RichEditorView/RichEditorView.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/WordPress-Aztec-iOS/Aztec.framework",
+				"${BUILT_PRODUCTS_DIR}/WordPress-Editor-iOS/WordPressEditor.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gridicons.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13Checkbox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RichEditorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Aztec.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WordPressEditor.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1098,7 +1107,6 @@
 				5197E6BD2134317F0019DCC9 /* TextViewDelegateExtension.swift in Sources */,
 				51BDA08421EC779F006B3B03 /* AssignmentPagesViewController.swift in Sources */,
 				51910EDF21DC910F0079021C /* Theme.swift in Sources */,
-				51835043211E9A75008F2CF2 /* WebNavigationController.swift in Sources */,
 				518AC34E2137840300037087 /* LoadingIndicator.swift in Sources */,
 				518903C3210AC3B200C551AE /* ResourceItem.swift in Sources */,
 				511114A220CDCABD0077F872 /* HorizontalLayout.swift in Sources */,
@@ -1106,6 +1114,7 @@
 				517B614A21D8CE7900BF5BD8 /* AssignmentElement.swift in Sources */,
 				5128054721EE3AD6008AB78D /* KeyboardUpdater.swift in Sources */,
 				511114A820D0C0D20077F872 /* IconLabel.swift in Sources */,
+				5170DBF321F0BCE200BBB781 /* FormattingIdentifierExtension.swift in Sources */,
 				5128054F21EEE24C008AB78D /* SegmentedContainerViewControllerDelegate.swift in Sources */,
 				5193357220F2FC1D00469FD4 /* AnnouncementPageViewController.swift in Sources */,
 				51C9791220F708B200191DD6 /* SiteDataFetcher.swift in Sources */,
@@ -1168,6 +1177,7 @@
 				513E5A7E21E163C3007BFD9A /* CreditsController.swift in Sources */,
 				518903BD210AAE1F00C551AE /* LoadableController.swift in Sources */,
 				517B614C21D8CED800BF5BD8 /* AnnouncementElement.swift in Sources */,
+				5170DBF521F0BE1D00BBB781 /* FormatBarController.swift in Sources */,
 				51BDA08221EC76F2006B3B03 /* SiteAnnouncementsViewController.swift in Sources */,
 				51D5EA1321504A2300D7B85C /* LoginWebViewController.swift in Sources */,
 				51C4B7F820A8CAC400DD6696 /* GradeItem.swift in Sources */,

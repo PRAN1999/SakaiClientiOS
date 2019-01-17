@@ -21,7 +21,11 @@ class CreditsController: UITableViewController {
         ("Alamofire", URL(string: "https://github.com/Alamofire/Alamofire")),
         ("RATreeView", URL(string: "https://github.com/Augustyniak/RATreeView")),
         ("M13Checkbox", URL(string: "https://github.com/Marxon13/M13Checkbox")),
-        ("LNPopupController", URL(string: "https://github.com/LeoNatan/LNPopupController"))
+        ("LNPopupController", URL(string: "https://github.com/LeoNatan/LNPopupController")),
+        ("Fabric", URL(string: "https://get.fabric.io")),
+        ("Wordpress-Aztec", URL(string: "https://github.com/wordpress-mobile/AztecEditor-iOS")),
+        ("Gridicons", URL(string: "https://github.com/Automattic/Gridicons-iOS")),
+        ("Toast-Swift", URL(string: "https://github.com/scalessec/Toast-Swift"))
     ]
 
     override func viewDidLoad() {

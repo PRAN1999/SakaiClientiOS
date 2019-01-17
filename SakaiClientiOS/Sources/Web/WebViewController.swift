@@ -80,7 +80,9 @@ class WebViewController: UIViewController {
         self?.navigationController?.popViewController(animated: true)
     }
 
-    private var webView: WKWebView?
+    var onWebViewLoad: (() -> Void)?
+
+    private(set) var webView: WKWebView?
     private var edgeInteractionController: LeftEdgeInteractionController?
     private var interactionController: UIDocumentInteractionController?
 
@@ -94,7 +96,9 @@ class WebViewController: UIViewController {
     private let webService: WebService
     private let allowsOptions: Bool
 
-    init(downloadService: DownloadService, webService: WebService, allowsOptions: Bool = true) {
+    init(downloadService: DownloadService,
+         webService: WebService,
+         allowsOptions: Bool = true) {
         self.allowsOptions = allowsOptions
         self.downloadService = downloadService
         self.webService = webService
@@ -135,7 +139,6 @@ class WebViewController: UIViewController {
             self?.webView = webView
             self?.loadURL(urlOpt: self?.url)
             self?.didInitialize = true
-
         }
 
         super.viewDidLoad()
@@ -289,6 +292,8 @@ extension WebViewController: WKUIDelegate, WKNavigationDelegate {
             $('#toolMenuWrap').remove();
             $('#skipNav').remove();
         """)
+
+        onWebViewLoad?()
     }
 
     func webView(_ webView: WKWebView,
@@ -340,5 +345,3 @@ extension WebViewController: NavigationAnimatable {
         return nil
     }
 }
-
-extension WebViewController: RichTextEditorViewControllerDelegate {}

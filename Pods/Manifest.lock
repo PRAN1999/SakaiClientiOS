@@ -1,19 +1,26 @@
 PODS:
-  - Alamofire (4.7.2)
-  - Crashlytics (3.10.1):
-    - Fabric (~> 1.7.5)
-  - Fabric (1.7.6)
-  - M13Checkbox (3.2.2)
+  - Alamofire (4.8.1)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
+  - Gridicons (0.18)
+  - M13Checkbox (3.3.2)
   - RATreeView (2.1.2)
-  - RichEditorView (5.0.0)
+  - Toast-Swift (4.0.1)
+  - WordPress-Aztec-iOS (1.4.1)
+  - WordPress-Editor-iOS (1.4.1):
+    - WordPress-Aztec-iOS (= 1.4.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - Crashlytics
   - Fabric
+  - Gridicons (from `https://raw.github.com/Automattic/Gridicons-iOS/develop/Gridicons.podspec`)
   - M13Checkbox
   - RATreeView (~> 2.1.2)
-  - RichEditorView
+  - Toast-Swift (~> 4.0.0)
+  - WordPress-Aztec-iOS
+  - WordPress-Editor-iOS
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -22,16 +29,25 @@ SPEC REPOS:
     - Fabric
     - M13Checkbox
     - RATreeView
-    - RichEditorView
+    - Toast-Swift
+    - WordPress-Aztec-iOS
+    - WordPress-Editor-iOS
+
+EXTERNAL SOURCES:
+  Gridicons:
+    :podspec: https://raw.github.com/Automattic/Gridicons-iOS/develop/Gridicons.podspec
 
 SPEC CHECKSUMS:
-  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
-  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
-  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
-  M13Checkbox: a8c2491cfbbca10797925fd0b9154a782bf40d89
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  Gridicons: 04261236382e9c62c62c9a104f2f532c1bdf6a78
+  M13Checkbox: d75dca81d61c9903e7f091f32b35a3254bc97dce
   RATreeView: 380cde0090cfde21dc6ac29137f49d3b768fdd28
-  RichEditorView: 1bbb07b87ca2d479ac29a6877014b38b8df233ef
+  Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
+  WordPress-Aztec-iOS: 383ea61afd3f96ef4d0c7e3f1ab8e7a362f5cd67
+  WordPress-Editor-iOS: 617116ef6b454ff11eed2cbdeafc6cf78a54aec2
 
-PODFILE CHECKSUM: a67f092eb48d40da9d261e07298c171a3d342eff
+PODFILE CHECKSUM: 88fde80c033529143cdbf13c7516e2593a343971
 
 COCOAPODS: 1.6.0.beta.2

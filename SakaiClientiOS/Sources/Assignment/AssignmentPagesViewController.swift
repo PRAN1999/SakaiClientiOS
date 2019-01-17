@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 import LNPopupController
 import SafariServices
 
@@ -29,7 +30,7 @@ class AssignmentPagesViewController: UIViewController {
     private lazy var containerController
         = SegmentedContainerViewController(segments: [("Web", webController), ("Editor", editorController)])
 
-    private lazy var popupController = WebViewNavigationController(rootViewController: containerController)
+    private lazy var popupController = NavigationController(rootViewController: containerController)
     
     private let submitPopupBarController = SubmitPopupBarViewController()
 
@@ -71,15 +72,38 @@ class AssignmentPagesViewController: UIViewController {
         topConstraint?.isActive = true; bottomConstraint?.isActive = true
 
         // Configure the LNPopupController instance
-        setPopupURL(viewControllerIndex: start)
+        configurePopup(viewControllerIndex: start)
         webController.dismissAction = { [weak self] in
             self?.tabBarController?.closePopup(animated: true, completion: nil)
+        }
+        webController.onWebViewLoad = { [weak self] in
+            self?.webView?.evaluateJavaScript("""
+                    CKEDITOR.instances['Assignment.view_submission_text'].destroy();
+                    CKEDITOR.replace('Assignment.view_submission_text', {
+                        allowedContent : true,
+                        toolbar: [
+                                ['Source', '-', 'Bold', 'Italic', 'Underline', '-', 'Link',
+                                 'Unlink', '-', 'NumberedList','BulletedList', 'Blockquote']
+                        ],
+                    });
+                    var p = $('#addSubmissionForm');
+                    if (p == undefined) {
+                        p = document.body;
+                    }
+                    var offset = p.offset();
+                    $('body').scrollTop(offset.top);
+                """,
+                completionHandler: { data, err in
+                    DispatchQueue.main.async {
+                        self?.editorController.loadHTML()
+                    }
+            })
         }
         editorController.dismissAction = { [weak self] in
             self?.tabBarController?.closePopup(animated: true, completion: nil)
         }
 
-        editorController.delegate = webController
+        editorController.delegate = self
         editorController.needsTitleField = false
 
         tabBarController?.popupInteractionStyle = .default
@@ -92,7 +116,10 @@ class AssignmentPagesViewController: UIViewController {
         guard let startPage = pages[start] else {
             return
         }
-        pageController.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
+        pageController.setViewControllers([startPage],
+                                          direction: .forward,
+                                          animated: false,
+                                          completion: nil)
         pageController.dataSource = self
         pageController.delegate = self
 
@@ -196,9 +223,13 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
                             transitionCompleted completed: Bool) {
 
         if completed, let index = pendingIndex {
-            pageControl.currentPage = index
-            delegate?.pageController(self, didMoveToIndex: index)
-            setPopupURL(viewControllerIndex: index)
+            DispatchQueue.main.async { [weak self] in
+                self?.pageControl.currentPage = index
+                if let target = self {
+                    target.delegate?.pageController(target, didMoveToIndex: index)
+                }
+                self?.configurePopup(viewControllerIndex: index)
+            }
         }
     }
 
@@ -209,7 +240,7 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
         pages[index] = page
     }
 
-    private func setPopupURL(viewControllerIndex: Int) {
+    private func configurePopup(viewControllerIndex: Int) {
         let assignment = assignments[viewControllerIndex]
         guard let url = URL(string: assignment.siteURL) else {
             return
@@ -217,9 +248,17 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
         webController.title = assignment.title
         webController.setURL(url: url)
         webController.setNeedsLoad(to: true)
+
         let instructions = PageView.getInstructionsString(attributedText: assignment.attributedInstructions)
         editorController.attributedContext = instructions
         editorController.html = ""
+
+        containerController.selectTab(at: 0)
+        if assignment.status == .closed || !assignment.allowsInlineSubmission {
+            containerController.disableTab(at: 1)
+        } else {
+            containerController.enableTab(at: 1)
+        }
     }
 }
 
@@ -261,5 +300,55 @@ extension AssignmentPagesViewController: NavigationAnimatable {
 
     func animationControllerForPush(to controller: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return nil
+    }
+}
+
+extension AssignmentPagesViewController: UITextViewDelegate {
+    public func textView(_ textView: UITextView,
+                         shouldInteractWith URL: URL,
+                         in characterRange: NSRange) -> Bool {
+        return defaultTextViewURLInteraction(URL: URL)
+    }
+}
+
+extension AssignmentPagesViewController: RichTextEditorViewControllerDelegate {
+    var webView: WKWebView? {
+        return webController.webView
+    }
+
+    func editorController(_ editorController: RichTextEditorViewController,
+                          shouldSaveBody html: String?,
+                          didSucceed: @escaping (Bool) -> Void) {
+        guard let html = html else {
+            didSucceed(false)
+            return
+        }
+        webView?.evaluateJavaScript(
+            """
+                CKEDITOR.instances['Assignment.view_submission_text'].setData(`
+                    \(html)
+                `);
+            """,
+            completionHandler: { _, err in
+                if let err = err {
+                    print(err)
+                    didSucceed(false)
+                } else {
+                    didSucceed(true)
+                }
+        })
+    }
+
+    func editorController(_ editorController: RichTextEditorViewController,
+                          loadTextWithResult result: @escaping (String?) -> Void) {
+        webView?.evaluateJavaScript(
+            """
+                var data = CKEDITOR.instances['Assignment.view_submission_text'].getData();
+                CKEDITOR.instances['Assignment.view_submission_text'].resetDirty();
+                data;
+            """,
+            completionHandler: { data, _ in
+                result(data as? String)
+        })
     }
 }

@@ -19,6 +19,8 @@ class SegmentedContainerViewController: UIViewController {
     private let controllers: [UIViewController]
     private var selectedIndex: Int
 
+    weak var delegate: SegmentedContainerViewControllerDelegate?
+
     init(segments: [(String?, UIViewController)], withSelectedIndex index: Int = 0) {
         var controllers: [UIViewController] = []
         for (index, (title, controller)) in segments.enumerated() {
@@ -37,6 +39,13 @@ class SegmentedContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.tintColor = Palette.main.toolBarColor
+        navigationController?.navigationBar.barTintColor = Palette.main.navigationBackgroundColor
+        navigationController?.navigationBar.barStyle = Palette.main.barStyle
+        navigationController?.toolbar.tintColor = Palette.main.toolBarColor
+        navigationController?.toolbar.barStyle = Palette.main.barStyle
+        navigationController?.toolbar.barTintColor = Palette.main.tabBarBackgroundColor
+
         navigationItem.titleView = segmentedControl
         segmentedControl.addTarget(self, action: #selector(selectionDidChange(sender:)), for: .valueChanged)
 
@@ -48,23 +57,23 @@ class SegmentedContainerViewController: UIViewController {
             startIndex = selectedIndex
         }
 
-        let startViewController = controllers[startIndex]
         segmentedControl.selectedSegmentIndex = startIndex
-        add(asChildViewController: startViewController)
+        selectedIndex = startIndex
     }
 
     func disableTab(at index: Int) {
-        guard index >= 0 && index < controllers.count else {
-            return
-        }
         segmentedControl.setEnabled(false, forSegmentAt: index)
     }
 
     func enableTab(at index: Int) {
-        guard index >= 0 && index < controllers.count else {
-            return
-        }
         segmentedControl.setEnabled(true, forSegmentAt: index)
+    }
+
+    func selectTab(at index: Int) {
+        if segmentedControl.isEnabledForSegment(at: index) {
+            segmentedControl.selectedSegmentIndex = index
+            updateView(forSelectionAt: index)
+        }
     }
 
     @objc private func selectionDidChange(sender: UISegmentedControl) {
@@ -80,7 +89,10 @@ class SegmentedContainerViewController: UIViewController {
         let oldViewController = controllers[selectedIndex]
         let newViewController = controllers[index]
 
+        delegate?.segmentedContainer?(self, willHideController: oldViewController, atIndex: selectedIndex)
         remove(asChildViewController: oldViewController)
+
+        delegate?.segmentedContainer?(self, willShowController: newViewController, atIndex: index)
         add(asChildViewController: newViewController)
 
         selectedIndex = index
