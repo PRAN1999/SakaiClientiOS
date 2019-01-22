@@ -29,8 +29,7 @@ class TabsController: UITabBarController, UITabBarControllerDelegate {
             return
         }
         let toNav = viewControllers?[itemIndex] as? UINavigationController
-        if index == itemIndex &&
-            fromNav?.viewControllers.first is HomeViewController {
+        if index == itemIndex && fromNav?.viewControllers.first is HomeViewController {
             // The PagesController is the only screen in the app that will
             // present a popup bar. It can be accessed through the Home or
             // Assignment tabs. If a user taps on Home to return to the root
@@ -41,9 +40,7 @@ class TabsController: UITabBarController, UITabBarControllerDelegate {
             dismissPopupBar(animated: true, completion: nil)
             fromNav?.popToRootViewController(animated: true)
             fromNav?.interactivePopGestureRecognizer?.isEnabled = true
-        } else if index != itemIndex &&
-            fromNav?.viewControllers.last is AssignmentPagesViewController {
-
+        } else if index != itemIndex && fromNav?.viewControllers.last is AssignmentPagesViewController {
             if toNav?.viewControllers.last is AssignmentPagesViewController {
                 // If the tab being switched to also is presenting a
                 // PagesController, the popup bar should NOT be dismissed

@@ -7,14 +7,18 @@
 
 import ReusableSource
 
-/// Manage Announcement Feed
+/// Manage the TableView that presents Announcement Feed
+///
+/// Since the Announcements are presented as a feed of information, more
+/// Announcements will be requested as the user scrolls down the UITableView
+/// giving an endless scroll UI experiences
 class AnnouncementTableManager:
     ReusableTableManager<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
     typealias Fetcher = AnnouncementDataFetcher
 
     let fetcher: AnnouncementDataFetcher
 
-    private(set) var isLoading = false
+    private var isLoading = false
     weak var delegate: NetworkSourceDelegate?
     
     convenience init(tableView: UITableView) {
@@ -33,6 +37,7 @@ class AnnouncementTableManager:
         tableView.tableFooterView = UIView()
         tableView.sectionHeaderHeight = 0.0;
         tableView.sectionFooterHeight = 0.0;
+
         tableView.backgroundColor = Palette.main.primaryBackgroundColor
         tableView.separatorColor = Palette.main.tableViewSeparatorColor
         tableView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
@@ -57,6 +62,7 @@ class AnnouncementTableManager:
         provider.resetValues()
     }
 
+    /// Retrieve more Announcements from the fetcher and reload the TableView
     private func loadMoreData() {
         let frame = CGRect(x: CGFloat(0),
                            y: CGFloat(0),
@@ -72,24 +78,28 @@ class AnnouncementTableManager:
         let oldFooter = tableView.tableFooterView
         tableView.tableFooterView = spinner
         tableView.tableFooterView?.isHidden = false
+
+        // It's possible the fetcher will not kick off a network request
+        // due to it caching the announcement response. In that case, it will be
+        // converting the cached Announcement objects' html to text before
+        // calling back. In that case, those operations should not occur on
+        // the main thread as they are quite expensive.
         DispatchQueue.global().async { [weak self] in
             self?.fetcher.loadData(completion: { announcements, err in
                 // Reload data on the main queue
                 DispatchQueue.main.async {
                     spinner.stopAnimating()
                     self?.tableView.tableFooterView = oldFooter
+                    self?.isLoading = false
                     guard err == nil else {
                         self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
-                        self?.isLoading = false
                         return
                     }
                     guard let items = announcements else {
-                        self?.isLoading = false
                         return
                     }
                     self?.loadItems(payload: items)
                     self?.reloadData()
-                    self?.isLoading = false
                 }
             })
         }

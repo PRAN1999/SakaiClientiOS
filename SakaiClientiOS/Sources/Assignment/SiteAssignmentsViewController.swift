@@ -39,18 +39,15 @@ class SiteAssignmentsViewController: UICollectionViewController {
         siteAssignmentCollectionManager.selectedAt.delegate(to: self) {
             (self, indexPath) -> Void in
             let assignments = self.siteAssignmentCollectionManager.provider.items
-            let pages = AssignmentPagesViewController(assignments: assignments,
-                                        start: indexPath.row)
+            let pages = AssignmentPagesViewController(assignments: assignments, start: indexPath.row)
             pages.delegate = self.siteAssignmentCollectionManager
 
             // The UIView flip animation does not accurately perform in the
             // AnimationController, so the animation will take place in two
             // stages. First the cell will be flipped and on completion, the
             // actual ViewController transition will be kicked off
-            self.siteAssignmentCollectionManager.selectedCell?.flip {
-                [weak self] in
-                self?.navigationController?.pushViewController(pages,
-                                                               animated: true)
+            self.siteAssignmentCollectionManager.selectedCell?.flip { [weak self] in
+                self?.navigationController?.pushViewController(pages, animated: true)
             }
         }
 

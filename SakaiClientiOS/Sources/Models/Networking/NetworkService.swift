@@ -8,7 +8,6 @@
 import Foundation
 
 protocol NetworkService {
-
     typealias DecodableResponse<T: Decodable> = (T?, SakaiError?) -> Void
 
     func makeEndpointRequest

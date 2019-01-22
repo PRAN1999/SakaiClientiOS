@@ -21,27 +21,36 @@ class AssignmentPagesViewController: UIViewController {
         return pageControl
     }()
     private let pageControlView = UIView()
-    private let pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    private let pageController = UIPageViewController(transitionStyle: .scroll,
+                                                      navigationOrientation: .horizontal, options: nil)
 
-    // Even when the current Assignment changes, the popup controller
-    // instance will be the same but the popup URL will change
     private let webController = WebViewController(allowsOptions: false)
+    /// A Rich Text editor in order to allow inline submission for Assignments
     private let editorController = RichTextEditorViewController()
     private lazy var containerController
         = SegmentedContainerViewController(segments: [("Web", webController), ("Editor", editorController)])
 
+    // Even when the current Assignment changes, the popup controller
+    // instance will be the same but the popup URL will change.
     private lazy var popupController = NavigationController(rootViewController: containerController)
-    
+
+    // The popup bar instance to hide/show Assignment submission option
     private let submitPopupBarController = SubmitPopupBarViewController()
 
+    /// If the pageController begins to animate, the index it will reach if the
+    /// animation completes
     private var pendingIndex: Int?
+
+    /// Managed array of ViewControllers for pagesController. There will
+    /// be one for each Assignment injected
     private var pages: [UIViewController?]
-    private let assignments: [Assignment]
-    private let start: Int
 
     private var bottomConstraint, topConstraint: NSLayoutConstraint?
 
     weak var delegate: AssignmentPagesViewControllerDelegate?
+
+    private let assignments: [Assignment]
+    private let start: Int
 
     init(assignments: [Assignment], start: Int) {
         self.assignments = assignments
@@ -71,12 +80,16 @@ class AssignmentPagesViewController: UIViewController {
         bottomConstraint = pageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
         topConstraint?.isActive = true; bottomConstraint?.isActive = true
 
-        // Configure the LNPopupController instance
+        // Configure the LNPopupController instance with the starting index
         configurePopup(viewControllerIndex: start)
+
         webController.dismissAction = { [weak self] in
             self?.tabBarController?.closePopup(animated: true, completion: nil)
         }
         webController.onWebViewLoad = { [weak self] in
+            // Following JavaScript modifies in-browser editor in order to
+            // make it easier to work with for native RichTextEditorViewController
+            // and scrolls to bring submission form into view in the webView
             self?.webView?.evaluateJavaScript("""
                     CKEDITOR.instances['Assignment.view_submission_text'].destroy();
                     CKEDITOR.replace('Assignment.view_submission_text', {
@@ -99,6 +112,7 @@ class AssignmentPagesViewController: UIViewController {
                     }
             })
         }
+
         editorController.dismissAction = { [weak self] in
             self?.tabBarController?.closePopup(animated: true, completion: nil)
         }
@@ -106,6 +120,7 @@ class AssignmentPagesViewController: UIViewController {
         editorController.delegate = self
         editorController.needsTitleField = false
 
+        // Popup bar will be presented on outermost container (tabBarController)
         tabBarController?.popupInteractionStyle = .default
         tabBarController?.popupBar.backgroundStyle = .regular
         tabBarController?.popupContentView.popupCloseButtonStyle = .none
@@ -116,15 +131,14 @@ class AssignmentPagesViewController: UIViewController {
         guard let startPage = pages[start] else {
             return
         }
-        pageController.setViewControllers([startPage],
-                                          direction: .forward,
-                                          animated: false,
-                                          completion: nil)
+
+        pageController.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
         pageController.dataSource = self
         pageController.delegate = self
 
         pageControl.numberOfPages = assignments.count
         pageControl.currentPage = start
+
         pageControlView.addSubview(pageControl)
         navigationItem.titleView = pageControlView
     }
@@ -132,6 +146,9 @@ class AssignmentPagesViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setToolbarHidden(true, animated: false)
+
+        // re-enable the pop recognizer for all other view controllers on
+        // the navigation stack
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
         guard let tabBarController = tabBarController as? TabsController else {
             return
@@ -148,6 +165,8 @@ class AssignmentPagesViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        // disable the pop recognizer so it doesn't interfere with the paging
+        // gestures
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
 
         guard let tabBarController = tabBarController as? TabsController else {
@@ -163,7 +182,7 @@ class AssignmentPagesViewController: UIViewController {
                                              animated: true,
                                              completion: nil)
 
-            // When popping back to PagesController, LNPopupController
+            // When popping back to PagesController, LNPopupController occasionally
             // encounters a bug where it is entirely removed from the view
             // hierarchy and causes a black space to appear in its place.
             // Adding the views back to the tabBarController manually fixes
@@ -176,6 +195,7 @@ class AssignmentPagesViewController: UIViewController {
 }
 
 extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
@@ -224,10 +244,13 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
                             previousViewControllers: [UIViewController],
                             transitionCompleted completed: Bool) {
 
+        // If the animation completed, the pageControl should update to reflect
+        // animation
         if completed, let index = pendingIndex {
             DispatchQueue.main.async { [weak self] in
                 self?.pageControl.currentPage = index
                 if let target = self {
+                    // Used to update collectionView in previous ViewController
                     target.delegate?.pageController(target, didMoveToIndex: index)
                 }
                 self?.configurePopup(viewControllerIndex: index)
@@ -235,6 +258,14 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
         }
     }
 
+    /// Configure an AssignmentPageViewController for an assignment. Called
+    /// only once for each Assignment and then the same controller will be
+    /// reused as the user pages by being assigned to the corresponding index
+    /// location in the pages array
+    ///
+    /// - Parameters:
+    ///   - assignment: the assignment model to inject into the ViewController
+    ///   - index: the index of the assignment in the assignments array
     private func setPage(assignment: Assignment, index: Int) {
         let page = AssignmentPageViewController(assignment: assignment)
         page.textViewDelegate = self

@@ -27,6 +27,7 @@ extension WKWebView {
                                   completion: @escaping (WKWebView) -> Void) {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = webService.processPool
+
         let dataStore = WKWebsiteDataStore.nonPersistent()
         let dispatchGroup = DispatchGroup()
         let cookies = webService.cookies ?? []
@@ -36,13 +37,15 @@ extension WKWebView {
                 dispatchGroup.leave()
             }
         }
-        let contentController = WKUserContentController()
-        configuration.userContentController = contentController
+
         dispatchGroup.notify(queue: .main) {
             configuration.websiteDataStore = dataStore
             let webView = WKWebView(frame: .zero, configuration: configuration)
             completion(webView)
         }
+
+        let contentController = WKUserContentController()
+        configuration.userContentController = contentController
     }
 
     @objc func scrollToBottom() {

@@ -23,10 +23,11 @@ Available for Download: https://itunes.apple.com/us/app/rutgers-sakai-mobile/id1
     <li>See all your Announcements as an email feed</li>
     <li>Page through your Assignments and submit from the app</li>
     <li>Easily flip through and download your resources</li>
+    <li>Use the native inline submission editor to easily edit your Assignment submissions</li>
 </ul>
 
 ## Setting up Dev Environment
-If you'd like to compile and run the source code yourself, you can do so on any Mac machine. The dependencies are included in the repo, however the API Key and Build Secret for Crashlytics are not. While you may add your own Crashlytics credentials, you can also leave the repo the way it is and still have a successful build.
+If you'd like to compile and run the source code yourself, you can do so on any Mac machine. The dependencies are included in the repo, however the API Key and Build Secret for Fabric are not. While you may add your own Fabric credentials, you can also leave the repo the way it is and still have a successful build.
 
 Run the following commands:
 
@@ -36,7 +37,7 @@ Run the following commands:
         
 This should open the project in XCode. If you do not see "SakaiClientiOS" as a target in the top left of the screen, click on the target list and then click "New Scheme". Then add "SakaiClientiOS" as a target and run Cmd-B to build the target.
 
-If you would like to hook up your own Crashlytics account to the app, in the project root, add a file named config.txt and configure it according to config-example.txt like so:
+If you would like to hook up your own Fabric account to the app, in the project root, add a file named config.txt and configure it according to config-example.txt like so:
 
     <FabricApiKey>
     <FabricBuildSecretKey>

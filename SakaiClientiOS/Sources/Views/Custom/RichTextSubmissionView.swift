@@ -34,10 +34,13 @@ class RichTextSubmissionView: UIView {
             defaultFont: Constants.defaultContentFont,
             defaultHTMLFont: defaultHTMLFont,
             defaultParagraphStyle: .default,
-            defaultMissingImage: Constants.defaultMissingImage)
+            defaultMissingImage: Constants.defaultMissingImage
+        )
 
         editorView.clipsToBounds = false
         editorView.translatesAutoresizingMaskIntoConstraints = false
+
+        editorView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
 
         return editorView
     }()
@@ -84,10 +87,10 @@ class RichTextSubmissionView: UIView {
 
     private func setConstraints() {
         titleField.constrainToEdges(of: self, onSides: [.left, .right, .top])
-        titleField.bottomAnchor.constraint(equalTo: editorView.topAnchor, constant: -10.0).isActive = true
+        titleField.bottomAnchor.constraint(equalTo: editorView.topAnchor).isActive = true
 
         editorView.constrainToMargins(of: self, onSides: [.left, .right])
-        editorView.bottomAnchor.constraint(equalTo: contextView.topAnchor, constant: -10.0).isActive = true
+        editorView.bottomAnchor.constraint(equalTo: contextView.topAnchor).isActive = true
 
         contextView.constrainToEdges(of: self, onSides: [.left, .right])
         contextView.heightAnchor.constraint(equalToConstant: 120.0).isActive = true

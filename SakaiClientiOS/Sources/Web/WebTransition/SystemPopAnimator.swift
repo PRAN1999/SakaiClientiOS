@@ -41,14 +41,11 @@ class SystemPopAnimator: NSObject, UIViewControllerAnimatedTransitioning, Intera
             toViewController.view.frame = originFrame
         }
 
-        UIView.animate(withDuration: self.transitionDuration(using: transitionContext),
-                       delay: 0,
-                       options: [.curveEaseOut],
-                       animations: animations) { _ in
+        UIView.animate(withDuration: self.transitionDuration(using: transitionContext), delay: 0,
+                       options: [.curveEaseOut], animations: animations) { _ in
 
-                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
-
     }
 }
 

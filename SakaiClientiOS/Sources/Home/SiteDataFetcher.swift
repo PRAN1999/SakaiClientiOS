@@ -44,7 +44,8 @@ class SiteDataFetcher: DataFetcher {
                     self?.cacheUpdateService.setAssignmentToolUrl(url: page.url, siteId: page.siteId)
                 }
             }
-            // Split the site list by Term
+            // Split the site list by Term. Since each Site has a Term, the resulting
+            // 2D-array is guaranteed to not have any empty sub-arrays
             let sectionList = Term.splitByTerms(listToSort: siteList)
             let listMap = sectionList.map {
                 ($0[0].term, $0.map { $0.id })

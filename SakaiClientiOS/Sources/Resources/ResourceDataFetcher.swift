@@ -24,6 +24,7 @@ class ResourceDataFetcher: DataFetcher {
                 endpoint: .siteResources(siteId),
                 method: .get
         )
+        print(request.endpoint.getEndpoint())
         networkService.makeEndpointRequest(request: request) { data, err in
             guard err == nil, let data = data else {
                 completion(nil, err)

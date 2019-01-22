@@ -89,10 +89,15 @@ extension AssignmentCollectionManager: AssignmentPagesViewControllerDelegate {
     func pageController(_ pageController: AssignmentPagesViewController, didMoveToIndex index: Int) {
         selectedCell?.flip(withDirection: .toFront, animated: false, completion: {})
         selectedCell = nil
+        guard index < provider.items.count && index > 0 else {
+            return
+        }
+
         let indexPath = IndexPath(row: index, section: 0)
         let attributes = collectionView.layoutAttributesForItem(at: indexPath)
         selectedCellFrame = attributes?.frame
         transitionIndex = index
+        
         collectionView.scrollToItem(at: indexPath, at: scrollPosition, animated: false)
     }
 }

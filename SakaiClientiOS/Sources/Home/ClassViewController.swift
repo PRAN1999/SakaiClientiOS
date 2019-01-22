@@ -7,7 +7,8 @@
 
 import UIKit
 
-/// Displays the SitePages for a Site
+/// A ViewController to display the SitePages for a Site and display the correct
+/// ViewController for each SitePage when selected
 class ClassViewController: UITableViewController {
 
     private let pages: [SitePage]
@@ -48,16 +49,19 @@ class ClassViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView,
-                            cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier,
                                                      for: indexPath) as? SiteCell else {
             return UITableViewCell()
         }
+
         let page: SitePage = pages[indexPath.row]
         cell.titleLabel.text = page.title
         cell.iconLabel.font = UIFont(name: AppIcons.generalIconFont, size: 30.0)
+
+        // If a SitePage type has native support, the appropriate icon will be
+        // shown. Otherwise, the icon will be empty next to the page name
 
         switch page.pageType {
         case .gradebook:

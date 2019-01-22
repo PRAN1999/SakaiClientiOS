@@ -16,12 +16,23 @@ import ReusableSource
 /// HideableNetworkDataProvider
 protocol HideableDataProvider: class, DataProvider {
 
+    /// The list of academic semesters the student has attended. May include
+    /// non-official Terms like "General", which are not tied to any specific
+    /// semester. For HideableNetworkDataProvider, the terms are pulled from
+    /// a TermService and will never include a non-official Term
     var terms: [Term] { get set }
+
+    /// Every element in array corresponds to element in terms array and determines
+    /// if that section is hidden or closed
     var isHidden: [Bool] { get set }
 
     func getTerm(for section: Int) -> Term?
     func isHidden(section: Int) -> Bool
+
+    /// When reloading data, this data allows the Term configuration for the
+    /// ReusableSource to be reset
     func resetTerms()
+
     func toggleHidden(for section: Int, to newVal: Bool)
 }
 

@@ -22,6 +22,7 @@ struct ResourceItem {
 
     let author: String?
     let title: String?
+    let level: Int
     let type: ContentType
     let url: String?
     let numChildren: Int
@@ -34,6 +35,9 @@ extension ResourceItem: Decodable {
         let size = resourceItemElement.size
         let author = resourceItemElement.author
         let title = resourceItemElement.title
+        let container = resourceItemElement.container
+        let splitContainer = container.split(separator: "/")
+        let level = splitContainer.count - 3
         let url = resourceItemElement.url
         let numChildren = resourceItemElement.numChildren != nil ? resourceItemElement.numChildren! : 0
         let type = (typeString == "collection" && size != nil) ?
@@ -41,6 +45,7 @@ extension ResourceItem: Decodable {
 
         self.init(author: author,
                   title: title,
+                  level: level,
                   type: type,
                   url: url,
                   numChildren: numChildren)

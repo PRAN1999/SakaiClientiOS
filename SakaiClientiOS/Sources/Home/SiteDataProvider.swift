@@ -18,6 +18,8 @@ class SiteDataProvider : HideableDataProvider {
     var isHidden: [Bool] = []
     
     private var sites: [[Site]] = []
+
+    /// Used so search will have data source to filter on
     private lazy var filteredSites = sites
     
     func numberOfSections() -> Int {
@@ -39,11 +41,15 @@ class SiteDataProvider : HideableDataProvider {
     }
     
     func loadItems(payload: [[Site]]) {
+        // The payload is assumed to be a Term-split 2D-array of Sites.
         if payload.count == 0 {
             return
         }
         
         for index in 0..<payload.count {
+            if payload[index].count < 1 {
+                continue
+            }
             terms.append(payload[index][0].term)
             isHidden.append(true)
         }

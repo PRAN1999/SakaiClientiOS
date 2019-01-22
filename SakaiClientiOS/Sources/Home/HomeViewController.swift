@@ -27,7 +27,8 @@ class HomeViewController: UITableViewController {
         title = "Classes"
 
         // Ensure the rest of the app is locked until the source of truth
-        // is loaded
+        // is loaded. This allows the necessary Site data to be stored in the
+        // cache before any other data fetchers use it to build other models
         disableTabs()
         siteTableManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             guard let site = self.siteTableManager.item(at: indexPath) else {
@@ -77,16 +78,22 @@ class HomeViewController: UITableViewController {
         }
     }
 
+    /// Try and load cookies from UserDefaults and validate them before
+    /// loading data for Home. If no cookies are present or they are invalid,
+    /// the login workflow is triggered
     private func authenticateAndLoad() {
         guard let loginService = loginService else {
             return
         }
+
         if loginService.loadCookiesFromUserDefaults() {
             let callback = addLoadingIndicator()
+
             loginService.validateLoggedInStatus(
                 onSuccess: { [weak self] in
                     callback()
                     self?.loadData()
+
                 }, onFailure: { [weak self] err in
                     callback()
                     self?.performLoginFlow()
@@ -98,15 +105,12 @@ class HomeViewController: UITableViewController {
         performLoginFlow()
     }
 
+    /// Performs similar login flow as AppDelegate.logout() but configured to
+    /// reload data for HomeController once the user has successfully logged in
     private func performLoginFlow() {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard
-            let navController = storyboard
-                .instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController
-            else {
-                return
-        }
-        guard
+            let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController,
             let loginController = navController.viewControllers.first as? LoginViewController
             else {
                 return
@@ -115,6 +119,7 @@ class HomeViewController: UITableViewController {
             self?.loadData()
             self?.tabBarController?.dismiss(animated: true, completion: nil)
         }
+        // Use asyncAfter to avoid unbalanced transition calls
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             [weak self] in
             self?.tabBarController?.present(navController, animated: true, completion: nil)
@@ -122,8 +127,7 @@ class HomeViewController: UITableViewController {
     }
     
     private func disableTabs() {
-        let items = tabBarController?.tabBar.items
-        if let arr = items {
+        if let arr = tabBarController?.tabBar.items {
             for index in 1..<arr.count {
                 arr[index].isEnabled = false
             }
@@ -131,8 +135,7 @@ class HomeViewController: UITableViewController {
     }
     
     private func enableTabs() {
-        let items = tabBarController?.tabBar.items
-        if let arr = items {
+        if let arr = tabBarController?.tabBar.items {
             for index in 1..<arr.count {
                 arr[index].isEnabled = true
             }
@@ -169,7 +172,6 @@ extension HomeViewController: NetworkSourceDelegate {
         // so all other screens in the app should be refreshed to present
         // the newest data
         enableTabs()
-        NotificationCenter.default
-            .post(name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: ReloadActions.reload.rawValue), object: nil)
     }
 }

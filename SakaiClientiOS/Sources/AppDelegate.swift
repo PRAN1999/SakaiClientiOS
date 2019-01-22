@@ -151,21 +151,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func logout() {
         RequestManager.shared.reset()
         SakaiService.shared.reset()
+
+        // The root controller is guaranteed to be a UITabBarController
         let rootController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController
         rootController?.dismiss(animated: false, completion: nil)
         rootController?.selectedIndex = 0
+
         let navigationControllers = rootController?.viewControllers as? [UINavigationController]
         navigationControllers?.forEach { nav in
             nav.popToRootViewController(animated: false)
         }
+
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard
-            let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation")
-                as? UINavigationController
-            else {
-                return
-        }
-        guard
+            let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController,
             let loginController = navController.viewControllers.first as? LoginViewController
             else {
                 return
@@ -188,6 +187,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
 
+    /// Flush the documents directory of downloaded documents and files to keep
+    /// app footprint light
     private func clearDocumentsDirectory() {
         do {
             guard

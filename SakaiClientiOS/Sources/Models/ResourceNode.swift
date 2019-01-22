@@ -30,8 +30,9 @@ class ResourceNode {
             return
         }
         let subTree = Array(data[1..<data.count])
-        let children = ResourceNode.constructTree(data: subTree,
-                                                  numChildren: root.numChildren)
+        let (_, children) = ResourceNode.constructTree(data: subTree,
+                                                  numChildren: root.numChildren,
+                                                  onLevel: 0)
         self.init(root, children)
     }
 
@@ -44,34 +45,42 @@ class ResourceNode {
     ///                  data array
     ///
     /// - Returns: An array of child ResourceNode's
-    static func constructTree(data: [ResourceItem], numChildren: Int) -> [ResourceNode] {
+    static func constructTree(data: [ResourceItem], numChildren: Int, onLevel: Int) -> (Int, [ResourceNode]) {
         guard data.count > 0 else {
-            return []
+            return (0, [])
         }
         var tree = [ResourceNode]()
         var index = 0
         for _ in 0..<numChildren {
             guard index < data.count else {
-                continue
+                break
             }
             let nodeItem = data[index]
             var node: ResourceNode?
             switch nodeItem.type {
             case .collection(let size):
-                guard size > 0, index + size < data.count else {
+                guard nodeItem.level == onLevel else {
+                    return (index, tree)
+                }
+                guard index + 1 < data.count else {
+                    node = ResourceNode(nodeItem, [])
                     break
                 }
+
+                let start = index + 1
+                let end = min(index + size, data.count - 1)
                 // Create an array slice of all the children of the
                 // collection based on the size of the collection
-                let childrenItems = Array(data[index+1...index+size])
+                let childrenItems = Array(data[start...end])
 
                 // Recursively construct the child subtrees based on the
                 // number of direct children in the collection and the
                 // children data slice
-                let children = constructTree(data: childrenItems,
-                                             numChildren: nodeItem.numChildren)
+                let (subtreeSize, children) = constructTree(data: childrenItems,
+                                             numChildren: nodeItem.numChildren,
+                                             onLevel: nodeItem.level + 1)
                 node = ResourceNode(nodeItem, children)
-                index += size
+                index += subtreeSize
                 break
             case .resource:
                 node = ResourceNode(nodeItem, [])
@@ -82,6 +91,6 @@ class ResourceNode {
                 tree.append(n)
             }
         }
-        return tree
+        return (data.count, tree)
     }
 }
