@@ -28,7 +28,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
                                      blue: 36.0 / 255.0,
                                      alpha: 1.0)
 
-    typealias T = ResourceItem
+    typealias T = ResourceNode
 
     let titleLabel: InsetUILabel = {
         let titleLabel: InsetUILabel = UIView.defaultAutoLayoutView()
@@ -92,16 +92,17 @@ class ResourceCell: UITableViewCell, ReusableCell {
         spaceView.constrainToMargins(of: contentView, onSides: [.right, .top, .bottom])
     }
 
-    func configure(_ item: ResourceItem, at level: Int, isExpanded: Bool) {
-        titleLabel.titleLabel.text = item.title
+    func configure(_ item: ResourceNode, at level: Int, isExpanded: Bool) {
+        let resource = item.resourceItem
+        titleLabel.titleLabel.text = resource.title
         leftBorder.backgroundColor = getColor(for: level)
         let left = CGFloat(level == 0 ? 0 : level * 20 + 10)
         contentView.layoutMargins.left = left
-        switch item.type {
+        switch resource.type {
         case .collection:
             selectionStyle = .none
             accessoryType = .none
-            sizeLabel.text = String(item.numChildren)
+            sizeLabel.text = String(item.children.count)
             sizeLabel.isHidden = false
             if isExpanded {
                 sizeLabel.backgroundColor = getColor(for: level)

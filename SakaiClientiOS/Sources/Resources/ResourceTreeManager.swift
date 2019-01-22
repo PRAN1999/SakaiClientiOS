@@ -12,6 +12,7 @@ import ReusableSource
 /// Every cell in the TreeView is configured with a ResourceItem that
 /// represents a folder or an individual resource file in the Tree
 class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, NetworkSource {
+
     typealias Fetcher = ResourceDataFetcher
 
     weak var delegate: NetworkSourceDelegate?
@@ -63,6 +64,7 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     }
     
     func treeView(_ treeView: RATreeView, cellForItem item: Any?) -> UITableViewCell {
+
         guard
             let cell = treeView
                 .dequeueReusableCell(withIdentifier: ResourceCell.reuseIdentifier) as? ResourceCell
@@ -73,8 +75,9 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
         guard let item = item as? ResourceNode else {
             return UITableViewCell()
         }
+
         let isExpanded = treeView.isCell(forItemExpanded: item)
-        cell.configure(item.resourceItem,
+        cell.configure(item,
                        at: treeView.levelForCell(forItem: item),
                        isExpanded: isExpanded)
         return cell
@@ -88,9 +91,11 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     
     func treeView(_ treeView: RATreeView, didSelectRowForItem item: Any) {
         guard let resource = item as? ResourceNode else {
+            treeView.deselectRow(forItem: item, animated: true)
             return
         }
         guard let cell = treeView.cell(forItem: item) as? ResourceCell else {
+            treeView.deselectRow(forItem: item, animated: true)
             return
         }
         let level = treeView.level(for: cell)
@@ -98,7 +103,7 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
         
         switch(resource.resourceItem.type) {
         case .collection:
-            cell.configure(resource.resourceItem, at: level, isExpanded: isExpanded)
+            cell.configure(resource, at: level, isExpanded: isExpanded)
             return
         case .resource:
             treeView.deselectRow(forItem: item, animated: false)
