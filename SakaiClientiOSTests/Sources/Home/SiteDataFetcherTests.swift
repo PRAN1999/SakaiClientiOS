@@ -31,7 +31,7 @@ class SiteDataFetcherTests: XCTestCase {
     }
 
     func test_loadData_withSuccessfulNetworkRequest_shouldSplitSitesAndUpdateCache() {
-        guard let data = Bundle.main.data(forResource: "sites", ofType: "json") else {
+        guard let data = Bundle(for: type(of: self)).data(forResource: "sites", ofType: "json") else {
             return
         }
         let decoder = JSONDecoder()
@@ -40,12 +40,12 @@ class SiteDataFetcherTests: XCTestCase {
             return
         }
 
-        mockNetworkService.response = siteCollection.siteCollection
+        mockNetworkService.response = siteCollection
 
-        underTest.loadData { [weak self] data, err in
+        underTest.loadData { [weak self] _data, err in
             XCTAssertNil(err, "Err should be nil")
 
-            guard let data = data else {
+            guard let data = _data else {
                 XCTFail("Response should not be nil")
                 return
             }
@@ -60,8 +60,6 @@ class SiteDataFetcherTests: XCTestCase {
                     termMapIndex += 1
                 }
             }
-
-            
         }
     }
 }

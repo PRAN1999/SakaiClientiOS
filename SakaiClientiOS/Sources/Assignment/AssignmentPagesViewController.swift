@@ -92,6 +92,12 @@ class AssignmentPagesViewController: UIViewController {
             // and scrolls to bring submission form into view in the webView
             self?.webView?.evaluateJavaScript("""
                     CKEDITOR.instances['Assignment.view_submission_text'].destroy();
+                    var p = $('#addSubmissionForm');
+                    if (p == undefined) {
+                        p = document.body;
+                    }
+                    var offset = p.offset();
+                    $('body').scrollTop(offset.top);
                     CKEDITOR.replace('Assignment.view_submission_text', {
                         allowedContent : true,
                         toolbar: [
@@ -99,12 +105,6 @@ class AssignmentPagesViewController: UIViewController {
                                  'Unlink', '-', 'NumberedList','BulletedList', 'Blockquote']
                         ],
                     });
-                    var p = $('#addSubmissionForm');
-                    if (p == undefined) {
-                        p = document.body;
-                    }
-                    var offset = p.offset();
-                    $('body').scrollTop(offset.top);
                 """,
                 completionHandler: { data, err in
                     DispatchQueue.main.async {

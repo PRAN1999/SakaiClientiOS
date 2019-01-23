@@ -56,12 +56,13 @@ class ResourceNode {
                 break
             }
             let nodeItem = data[index]
-            var node: ResourceNode?
+            let node: ResourceNode
+            guard nodeItem.level == onLevel else {
+                return (index, tree)
+            }
+            
             switch nodeItem.type {
             case .collection(let size):
-                guard nodeItem.level == onLevel else {
-                    return (index, tree)
-                }
                 guard index + 1 < data.count else {
                     node = ResourceNode(nodeItem, [])
                     break
@@ -87,9 +88,7 @@ class ResourceNode {
                 break
             }
             index += 1
-            if let n = node {
-                tree.append(n)
-            }
+            tree.append(node)
         }
         return (data.count, tree)
     }
