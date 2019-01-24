@@ -89,7 +89,7 @@ extension AssignmentCollectionManager: AssignmentPagesViewControllerDelegate {
     func pageController(_ pageController: AssignmentPagesViewController, didMoveToIndex index: Int) {
         selectedCell?.flip(withDirection: .toFront, animated: false, completion: {})
         selectedCell = nil
-        guard index < provider.items.count && index > 0 else {
+        guard index < provider.items.count && index >= 0 else {
             return
         }
 

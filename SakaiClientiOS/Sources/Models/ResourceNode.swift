@@ -63,13 +63,14 @@ class ResourceNode {
             
             switch nodeItem.type {
             case .collection(let size):
-                guard index + 1 < data.count else {
+                guard index + 1 < data.count, size > 0 else {
                     node = ResourceNode(nodeItem, [])
                     break
                 }
 
                 let start = index + 1
                 let end = min(index + size, data.count - 1)
+                
                 // Create an array slice of all the children of the
                 // collection based on the size of the collection
                 let childrenItems = Array(data[start...end])
