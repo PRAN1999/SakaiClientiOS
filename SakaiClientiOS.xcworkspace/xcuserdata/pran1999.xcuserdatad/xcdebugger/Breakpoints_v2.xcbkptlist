@@ -74,11 +74,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SakaiClientiOS/Sources/Gradebook/SiteGradebookTableManager.swift"
-            timestampString = "571296800.496299"
+            timestampString = "571297327.4603209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
-            endingLineNumber = "39">
+            endingLineNumber = "39"
+            landmarkName = "isEmpty()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -88,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReusableSource/ReusableSource/NetworkSource.swift"
-            timestampString = "571296800.49639"
+            timestampString = "571297327.46043"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
@@ -104,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReusableSource/ReusableSource/NetworkSource.swift"
-            timestampString = "571296800.496497"
+            timestampString = "571297327.460525"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -120,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReusableSource/ReusableSource/NetworkSource.swift"
-            timestampString = "571296800.496641"
+            timestampString = "571297327.460639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
