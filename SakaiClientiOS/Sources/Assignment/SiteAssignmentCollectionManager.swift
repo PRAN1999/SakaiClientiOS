@@ -43,4 +43,8 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
         let size: CGSize = CGSize(width: width, height: height)
         return size
     }
+
+    override func isEmpty() -> Bool {
+        return provider.items.count == 0
+    }
 }

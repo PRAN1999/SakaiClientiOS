@@ -164,7 +164,7 @@
 		51DEE53C20FEFAF2008E709D /* AssignmentTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE53B20FEFAF2008E709D /* AssignmentTableManager.swift */; };
 		51DEE54020FEFB41008E709D /* SiteTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE53F20FEFB41008E709D /* SiteTableManager.swift */; };
 		51DEE54220FEFB68008E709D /* AnnouncementTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE54120FEFB67008E709D /* AnnouncementTableManager.swift */; };
-		51DEE550210041A5008E709D /* SiteGradebookTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE54E210041A4008E709D /* SiteGradebookTableDataSource.swift */; };
+		51DEE550210041A5008E709D /* SiteGradebookTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE54E210041A4008E709D /* SiteGradebookTableManager.swift */; };
 		51DEE551210041A5008E709D /* SiteGradebookDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE54F210041A4008E709D /* SiteGradebookDataFetcher.swift */; };
 		51DEE55B21016B0D008E709D /* TappableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE55A21016B0D008E709D /* TappableTextView.swift */; };
 		51DEE5692103D41F008E709D /* SiteAssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DEE5682103D41F008E709D /* SiteAssignmentsViewController.swift */; };
@@ -368,7 +368,7 @@
 		51DEE53B20FEFAF2008E709D /* AssignmentTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableManager.swift; sourceTree = "<group>"; };
 		51DEE53F20FEFB41008E709D /* SiteTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteTableManager.swift; sourceTree = "<group>"; };
 		51DEE54120FEFB67008E709D /* AnnouncementTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementTableManager.swift; sourceTree = "<group>"; };
-		51DEE54E210041A4008E709D /* SiteGradebookTableDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteGradebookTableDataSource.swift; sourceTree = "<group>"; };
+		51DEE54E210041A4008E709D /* SiteGradebookTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteGradebookTableManager.swift; sourceTree = "<group>"; };
 		51DEE54F210041A4008E709D /* SiteGradebookDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteGradebookDataFetcher.swift; sourceTree = "<group>"; };
 		51DEE55A21016B0D008E709D /* TappableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableTextView.swift; sourceTree = "<group>"; };
 		51DEE5682103D41F008E709D /* SiteAssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteAssignmentsViewController.swift; sourceTree = "<group>"; };
@@ -452,7 +452,7 @@
 				51C9791420F81A3E00191DD6 /* GradebookDataProvider.swift */,
 				51C9791820F83D3300191DD6 /* GradebookDataFetcher.swift */,
 				518CFCAB20B4E68200D5AE8F /* SiteGradebookViewController.swift */,
-				51DEE54E210041A4008E709D /* SiteGradebookTableDataSource.swift */,
+				51DEE54E210041A4008E709D /* SiteGradebookTableManager.swift */,
 				51DEE54F210041A4008E709D /* SiteGradebookDataFetcher.swift */,
 			);
 			path = Gradebook;
@@ -1250,7 +1250,7 @@
 				518903AE2108154E00C551AE /* SiteAssignmentDataFetcher.swift in Sources */,
 				511114B920D881450077F872 /* PageView.swift in Sources */,
 				517B615221D8CF4F00BF5BD8 /* SiteElement.swift in Sources */,
-				51DEE550210041A5008E709D /* SiteGradebookTableDataSource.swift in Sources */,
+				51DEE550210041A5008E709D /* SiteGradebookTableManager.swift in Sources */,
 				5182CBF4213A1CAE00D45952 /* AttachmentElement.swift in Sources */,
 				5193357020F2FB3300469FD4 /* AnnouncementPageView.swift in Sources */,
 				5128054B21EED650008AB78D /* RichTextEditorViewControllerDelegate.swift in Sources */,

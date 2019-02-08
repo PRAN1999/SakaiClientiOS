@@ -72,6 +72,10 @@ open class ReusableTableDataSource
     open func reloadData() {
         tableView.reloadData()
     }
+
+    open func reloadDataWithEmptyCheck() {
+        reloadData()
+    }
     
     open func reloadData(for section: Int) {
         tableView.reloadSections([section], with: .automatic)
@@ -88,5 +92,9 @@ open class ReusableTableDataSource
     open func configureBehavior(for cell: Cell, at indexPath: IndexPath) {
         //Override and implement
         return
+    }
+
+    open func isEmpty() -> Bool {
+        return provider.numberOfSections() == 0
     }
 }

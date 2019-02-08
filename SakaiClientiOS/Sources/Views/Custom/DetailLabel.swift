@@ -74,8 +74,6 @@ class DetailLabel: UILabel {
     }
 
     private func setConstraints() {
-        let margins = self.layoutMarginsGuide
-
         iconLabel.constrainToMargin(of: self, onSide: .left)
         iconLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
 
@@ -83,7 +81,6 @@ class DetailLabel: UILabel {
         titleLabel.leadingAnchor.constraint(equalTo: iconLabel.trailingAnchor,
                                             constant: 5.0).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: detailLabel.leadingAnchor).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 0.5)
 
         detailLabel.constrainToMargins(of: self, onSides: [.right, .top, .bottom])
     }

@@ -23,6 +23,12 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     convenience init(collectionView: UICollectionView) {
         self.init(provider: SingleSectionDataProvider<Assignment>(), collectionView: collectionView)
     }
+
+    override func setup() {
+        super.setup()
+        emptyView.backgroundColor = Palette.main.primaryBackgroundColor
+        emptyView.textColor = Palette.main.secondaryTextColor
+    }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = min(collectionView.bounds.width / 2.25, AssignmentCell.cellWidth)

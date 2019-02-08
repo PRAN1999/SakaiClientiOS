@@ -41,6 +41,9 @@ class AnnouncementTableManager:
         tableView.backgroundColor = Palette.main.primaryBackgroundColor
         tableView.separatorColor = Palette.main.tableViewSeparatorColor
         tableView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
+
+        emptyView.backgroundColor = Palette.main.primaryBackgroundColor
+        emptyView.textColor = Palette.main.secondaryTextColor
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,6 +106,10 @@ class AnnouncementTableManager:
                 }
             })
         }
+    }
+
+    override func isEmpty() -> Bool {
+        return provider.items.count == 0
     }
 }
 

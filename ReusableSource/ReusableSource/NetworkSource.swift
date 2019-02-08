@@ -70,6 +70,6 @@ public extension NetworkSource where Self: ReusableSource,
 
     func populateDataSource(with payload: Fetcher.T) {
         loadItems(payload: payload)
-        reloadData()
+        reloadDataWithEmptyCheck()
     }
 }

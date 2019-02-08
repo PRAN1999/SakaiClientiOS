@@ -6,11 +6,14 @@ import UIKit
 import CoreData
 import Fabric
 import Crashlytics
+import StoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+
+    private let counterKey = "counter"
 
     func application(
         _ application: UIApplication,
@@ -29,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 home.loginService = RequestManager.shared
             }
         }
+
         return true
     }
 
@@ -58,6 +62,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self?.logout()
             }
         })
+
+        var counter = UserDefaults.standard.integer(forKey: counterKey)
+        if counter % 20 == 0 && counter != 0 {
+            SKStoreReviewController.requestReview()
+        }
+        counter += 1
+        UserDefaults.standard.set(counter, forKey: counterKey)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

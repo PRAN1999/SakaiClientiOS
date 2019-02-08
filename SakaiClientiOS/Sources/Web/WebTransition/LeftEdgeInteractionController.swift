@@ -64,8 +64,7 @@ class LeftEdgeInteractionController: UIPercentDrivenInteractiveTransition {
 
             if percent > 0.5 || velocity.x > 10 {
                 self.finish()
-            }
-            else {
+            } else {
                 self.cancel()
             }
         default:

@@ -68,15 +68,19 @@ open class ReusableCollectionDataSource
         return cell
     }
     
-    public func reloadData() {
+    open func reloadData() {
         collectionView.reloadData()
     }
     
-    public func reloadData(for section: Int) {
+    open func reloadData(for section: Int) {
         collectionView.reloadSections([section])
     }
+
+    open func reloadDataWithEmptyCheck() {
+        reloadData()
+    }
     
-    public func loadItems(payload: Provider.V) {
+    open func loadItems(payload: Provider.V) {
         provider.loadItems(payload: payload)
     }
     
@@ -87,5 +91,9 @@ open class ReusableCollectionDataSource
     open func configureBehavior(for cell: Cell, at indexPath: IndexPath) {
         //Override and implement
         return
+    }
+
+    open func isEmpty() -> Bool {
+        return provider.numberOfSections() == 0
     }
 }

@@ -21,6 +21,7 @@ class MockNetworkService: NetworkService {
                 return
             }
             completion(response, error)
+            return
         }
         completion(nil, error)
     }

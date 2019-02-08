@@ -20,6 +20,15 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     private var resources: [ResourceNode] = []
     private let treeView: RATreeView
 
+    private let emptyView: UILabel = {
+        let label = UILabel()
+        label.textColor = Palette.main.secondaryTextColor
+        label.backgroundColor = Palette.main.primaryBackgroundColor
+        label.textAlignment = .center
+        label.text = "Looks like there's nothing here"
+        return label
+    }()
+
     /// The callback for selection of an individual Resource link
     var didSelectResource = Delegated<URL, Void>()
     let fetcher: ResourceDataFetcher
@@ -125,5 +134,16 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
     func populateDataSource(with payload: [ResourceNode]) {
         resources = payload
         treeView.reloadData()
+        if resources.count == 0 {
+            let frame = CGRect(x: 0, y: 0, width: treeView.bounds.width, height: 75)
+            emptyView.frame = frame
+            treeView.addSubview(emptyView)
+            treeView.treeHeaderView = emptyView
+        } else {
+            emptyView.removeFromSuperview()
+            var frame = CGRect.zero
+            frame.size.height = .leastNormalMagnitude
+            treeView.treeHeaderView = UIView(frame: frame)
+        }
     }
 }

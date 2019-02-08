@@ -7,8 +7,8 @@
 
 import ReusableSource
 
-class SiteGradebookTableDataSource:
-    ReusableTableDataSource<SingleSectionDataProvider<GradeItem>, GradebookCell>, NetworkSource {
+class SiteGradebookTableManager:
+    ReusableTableManager<SingleSectionDataProvider<GradeItem>, GradebookCell>, NetworkSource {
 
     typealias Fetcher = SiteGradebookDataFetcher
     
@@ -30,6 +30,12 @@ class SiteGradebookTableDataSource:
     
     override func setup() {
         super.setup()
+        emptyView.backgroundColor = Palette.main.primaryBackgroundColor
+        emptyView.textColor = Palette.main.secondaryTextColor
         tableView.allowsSelection = false
+    }
+
+    override func isEmpty() -> Bool {
+        return provider.items.count == 0
     }
 }

@@ -27,6 +27,8 @@ public protocol ReusableSource: class {
     /// A wrapper to reload the data for the managed tableView or
     /// collectionView
     func reloadData()
+
+    func reloadDataWithEmptyCheck()
     
     /// A wrapper for the managed tableView/collectionView reload methods
     /// at a specific section
@@ -46,4 +48,6 @@ public protocol ReusableSource: class {
     ///   - cell: The cell dequeued of type Cell.self
     ///   - indexPath: The indexPath for the cell being dequeued
     func configureBehavior(for cell: Cell, at indexPath: IndexPath)
+
+    func isEmpty() -> Bool
 }

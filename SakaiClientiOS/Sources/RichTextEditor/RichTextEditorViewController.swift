@@ -132,6 +132,10 @@ class RichTextEditorViewController: UIViewController {
                 return
             }
             self?.html = html
+            guard let endPosition = self?.richTextView.endOfDocument else {
+                return
+            }
+            self?.richTextView.selectedTextRange = self?.richTextView.textRange(from: endPosition, to: endPosition)
         })
     }
 

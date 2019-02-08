@@ -79,8 +79,8 @@ class ResourceNode {
                 // number of direct children in the collection and the
                 // children data slice
                 let (subtreeSize, children) = constructTree(data: childrenItems,
-                                             numChildren: nodeItem.numChildren,
-                                             onLevel: nodeItem.level + 1)
+                                                            numChildren: nodeItem.numChildren,
+                                                            onLevel: nodeItem.level + 1)
                 node = ResourceNode(nodeItem, children)
                 index += subtreeSize
                 break

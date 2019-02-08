@@ -37,11 +37,15 @@ class AnnouncementDataFetcher: DataFetcher {
     func loadData(completion: @escaping ([Announcement]?, Error?) -> Void) {
         fetchData() { [weak self] announcementList, moreLoads, err in
             self?.moreLoads = moreLoads
+            let res: [Announcement]
             if let list = announcementList {
                 self?.offset += list.count
+                res = list
+            } else {
+                res = []
             }
 
-            completion(announcementList, err)
+            completion(res, err)
         }
     }
 

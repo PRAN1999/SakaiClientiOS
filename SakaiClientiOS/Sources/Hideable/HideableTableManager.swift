@@ -24,6 +24,8 @@ class HideableTableManager
                            forHeaderFooterViewReuseIdentifier: TermHeader.reuseIdentifier)
         tableView.register(UITableViewCell.self,
                            forCellReuseIdentifier: String(describing: UITableViewCell.self))
+        emptyView.backgroundColor = Palette.main.primaryBackgroundColor
+        emptyView.textColor = Palette.main.secondaryTextColor
     }
     
     override func tableView(_ tableView: UITableView,

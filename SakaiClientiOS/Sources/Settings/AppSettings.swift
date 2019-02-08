@@ -37,8 +37,6 @@ enum AppSettings: CaseIterable {
             return AppIcons.contactIcon
         case .rate:
             return AppIcons.rateIcon
-        default:
-            return nil
         }
     }
 }

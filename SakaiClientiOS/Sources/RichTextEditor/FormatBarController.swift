@@ -332,9 +332,11 @@ class FormatBarController: NSObject {
 
         })
 
-        let insertAction = UIAlertAction(title:insertButtonTitle,
-                                         style:UIAlertActionStyle.default,
-                                         handler:{ [weak self] action in
+        let insertAction = UIAlertAction(title: insertButtonTitle,
+                                         style: UIAlertActionStyle.default,
+                                         handler: {
+                                            [weak self] action in
+
                                             self?.linkAlertController = nil
                                             self?.richTextView.becomeFirstResponder()
                                             guard let textFields = alertController.textFields else {

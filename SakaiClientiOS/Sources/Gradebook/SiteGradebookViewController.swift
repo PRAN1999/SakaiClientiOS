@@ -11,8 +11,8 @@ class SiteGradebookViewController: UITableViewController {
     
     private let siteId: String
 
-    private lazy var siteGradebookTableDataSource
-        = SiteGradebookTableDataSource(tableView: tableView, siteId: siteId)
+    private lazy var siteGradebookManager
+        = SiteGradebookTableManager(tableView: tableView, siteId: siteId)
 
     required init(siteId: String) {
         self.siteId = siteId
@@ -31,9 +31,9 @@ class SiteGradebookViewController: UITableViewController {
         tableView.separatorColor = Palette.main.tableViewSeparatorColor
         tableView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
         
-        siteGradebookTableDataSource.delegate = self
+        siteGradebookManager.delegate = self
         configureNavigationItem()
-        siteGradebookTableDataSource.loadDataSource()
+        siteGradebookManager.loadDataSource()
     }
 }
 
@@ -41,7 +41,7 @@ class SiteGradebookViewController: UITableViewController {
 
 extension SiteGradebookViewController: LoadableController {
     @objc func loadData() {
-        siteGradebookTableDataSource.loadDataSourceWithoutCache()
+        siteGradebookManager.loadDataSourceWithoutCache()
     }
 }
 

@@ -62,7 +62,7 @@ class SiteAssignmentsViewController: UICollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // If transitioning back from a PagesController, the cell used for
-        // the animation transition needs to be flip to complete the effect
+        // the animation transition needs to be flipped to complete the effect
         siteAssignmentCollectionManager.flipIfNecessary()
     }
 }

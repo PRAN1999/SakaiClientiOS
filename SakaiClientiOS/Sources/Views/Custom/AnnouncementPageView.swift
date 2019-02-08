@@ -51,6 +51,7 @@ class AnnouncementPageView: UIScrollView {
         dateLabel.backgroundColor = Palette.main.primaryBackgroundColor
         dateLabel.textColor = Palette.main.secondaryTextColor
         dateLabel.adjustsFontSizeToFitWidth = true
+        dateLabel.minimumScaleFactor = 0.5
         return dateLabel
     }()
 
@@ -94,19 +95,19 @@ class AnnouncementPageView: UIScrollView {
         authorLabel.constrainToEdge(of: contentView, onSide: .left)
         authorLabel.bottomAnchor.constraint(equalTo: messageView.topAnchor).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: dateIcon.leadingAnchor).isActive = true
-//        authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor,
-//                                           multiplier: 0.72).isActive = true
+        authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor,
+                                           multiplier: 0.76).isActive = true
 
         dateIcon.topAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
         dateIcon.bottomAnchor.constraint(equalTo: authorLabel.bottomAnchor).isActive = true
         dateIcon.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor,
                                            constant: -5.0).isActive = true
-        dateIcon.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        //dateIcon.widthAnchor.constraint(equalToConstant: 30).isActive = true
 
         dateLabel.constrainToMargin(of: contentView, onSide: .right)
         dateLabel.topAnchor.constraint(equalTo: authorLabel.topAnchor).isActive = true
         dateLabel.bottomAnchor.constraint(equalTo: authorLabel.bottomAnchor).isActive = true
-        dateLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 60).isActive = true
+        //dateLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 60).isActive = true
 
         messageView.constrainToMargins(of: contentView, onSides: [.left, .right, .bottom])
     }

@@ -16,12 +16,36 @@ open class ReusableCollectionManager
     where Provider.T == Cell.T {
     
     public var selectedAt = Delegated<IndexPath, Void>()
+
+    public let emptyView: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "Looks like there's nothing here..."
+        return label
+    }()
+    open var emptyViewHeight: CGFloat {
+        return 75
+    }
     
     /// Assign dataSource and delegate of collectionView to and register
     /// Cell.self with collectionView
     open override func setup() {
         super.setup()
         collectionView.delegate = self
+    }
+
+    open override func reloadData() {
+        super.reloadData()
+    }
+
+    open override func reloadDataWithEmptyCheck() {
+        reloadData()
+        if isEmpty() {
+            emptyView.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: emptyViewHeight)
+            collectionView.addSubview(emptyView)
+        } else {
+            emptyView.removeFromSuperview()
+        }
     }
     
     // MARK: Delegate methods
