@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5103FDF820E862DD009F8BF4 /* Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5103FDF720E862DD009F8BF4 /* Announcement.swift */; };
 		5103FDFA20E86676009F8BF4 /* AnnouncementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */; };
-		5110C08321DAA73C00579D31 /* SubmitPopupBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5110C08221DAA73C00579D31 /* SubmitPopupBarViewController.swift */; };
 		5110C08521DAD1B600579D31 /* TabsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5110C08421DAD1B600579D31 /* TabsController.swift */; };
 		5111149A20CD89D20077F872 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149920CD89D20077F872 /* Assignment.swift */; };
 		5111149C20CD97110077F872 /* AssignmentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111149B20CD97110077F872 /* AssignmentTableCell.swift */; };
@@ -78,8 +77,6 @@
 		517B614E21D8CF0800BF5BD8 /* SiteGradeItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517B614D21D8CF0800BF5BD8 /* SiteGradeItems.swift */; };
 		517B615021D8CF3000BF5BD8 /* RawGradeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517B614F21D8CF3000BF5BD8 /* RawGradeItem.swift */; };
 		517B615221D8CF4F00BF5BD8 /* SiteElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517B615121D8CF4F00BF5BD8 /* SiteElement.swift */; };
-		517B615A21D9E5D000BF5BD8 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; };
-		517B615B21D9E5D000BF5BD8 /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 517F378420E019D900B21D5A /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		518296D620A631CC00EAD645 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518296D520A631CC00EAD645 /* Term.swift */; };
 		5182CBCA21383ECF00D45952 /* HideableNetworkTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBC921383ECF00D45952 /* HideableNetworkTableManager.swift */; };
 		5182CBCC213845F500D45952 /* SiteAssignmentCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182CBCB213845F500D45952 /* SiteAssignmentCollectionManager.swift */; };
@@ -201,7 +198,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				512748C5210D842E00A5A74E /* ReusableSource.framework in Embed Frameworks */,
-				517B615B21D9E5D000BF5BD8 /* LNPopupController.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,7 +207,6 @@
 /* Begin PBXFileReference section */
 		5103FDF720E862DD009F8BF4 /* Announcement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Announcement.swift; sourceTree = "<group>"; };
 		5103FDF920E86676009F8BF4 /* AnnouncementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementCell.swift; sourceTree = "<group>"; };
-		5110C08221DAA73C00579D31 /* SubmitPopupBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPopupBarViewController.swift; sourceTree = "<group>"; };
 		5110C08421DAD1B600579D31 /* TabsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		5111149920CD89D20077F872 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		5111149B20CD97110077F872 /* AssignmentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTableCell.swift; sourceTree = "<group>"; };
@@ -405,7 +400,6 @@
 			files = (
 				512748C4210D842E00A5A74E /* ReusableSource.framework in Frameworks */,
 				644E9699E1AEBCEE350ADB9B /* Pods_SakaiClientiOS.framework in Frameworks */,
-				517B615A21D9E5D000BF5BD8 /* LNPopupController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +431,6 @@
 				51DEE5682103D41F008E709D /* SiteAssignmentsViewController.swift */,
 				5182CBCB213845F500D45952 /* SiteAssignmentCollectionManager.swift */,
 				518903AD2108154E00C551AE /* SiteAssignmentDataFetcher.swift */,
-				5110C08221DAA73C00579D31 /* SubmitPopupBarViewController.swift */,
 				5128311221D0844300DB8DA8 /* AssignmentTransition */,
 			);
 			path = Assignment;
@@ -1139,7 +1132,6 @@
 				5159154F216ADED400D3730E /* PersistedSitePage.swift in Sources */,
 				51C2EC4121B4D7920000BA47 /* WebUtils.swift in Sources */,
 				51DEE5692103D41F008E709D /* SiteAssignmentsViewController.swift in Sources */,
-				5110C08321DAA73C00579D31 /* SubmitPopupBarViewController.swift in Sources */,
 				51910ED621DC5D810079021C /* LoginService.swift in Sources */,
 				5182CBDD2139DAA700D45952 /* SiteCollection.swift in Sources */,
 				512183D121EA1AF3008BD3D1 /* AppSettings.swift in Sources */,

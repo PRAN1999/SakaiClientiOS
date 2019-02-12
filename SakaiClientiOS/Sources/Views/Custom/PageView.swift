@@ -27,8 +27,8 @@ class PageView<PageType: UIScrollView>: UIView {
     }
 
     private func setConstraints() {
-        scrollView.constrainToMargins(of: self, onSides: [.top, .bottom])
-        scrollView.constrainToEdges(of: self, onSides: [.left, .right])
+        //scrollView.constrainToMargins(of: self, onSides: [.top, .bottom])
+        scrollView.constrainToEdges(of: self, onSides: [.top, .bottom, .left, .right])
     }
 
     static func getInstructionsString(attributedText: NSAttributedString?) -> NSMutableAttributedString? {

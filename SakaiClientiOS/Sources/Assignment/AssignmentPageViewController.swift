@@ -11,6 +11,7 @@ import UIKit
 class AssignmentPageViewController: UIViewController {
 
     private let assignment: Assignment
+
     let pageView: PageView<AssignmentPageView> = PageView(frame: .zero)
     
     weak var textViewDelegate: UITextViewDelegate?
@@ -25,15 +26,20 @@ class AssignmentPageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
-        view = pageView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
 
         pageView.scrollView.configure(assignment: assignment)
         pageView.scrollView.delegate = scrollViewDelegate
         pageView.scrollView.instructionView.delegate = textViewDelegate
+    }
+
+    private func setupView() {
+        view.backgroundColor = Palette.main.primaryBackgroundColor
+
+        view.addSubview(pageView)
+
+        pageView.constrainToEdges(of: view)
     }
 }
