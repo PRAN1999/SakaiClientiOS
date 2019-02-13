@@ -133,9 +133,11 @@ class AssignmentPagesViewController: UIViewController {
             // Following JavaScript modifies in-browser editor in order to
             // make it easier to work with for native RichTextEditorViewController
             // and scrolls to bring submission form into view in the webView
-            webController.webView?.evaluateJavaScript(webController.sakaiCKEditorJavascript) { data, err in
-                DispatchQueue.main.async {
-                    editorController.loadHTML()
+            webController.webView?.evaluateJavaScript(webController.ckeditorDestroyScript) { data, err in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    webController.webView?.evaluateJavaScript(webController.ckeditorReplaceScript) { data, err in
+                        editorController.loadHTML()
+                    }
                 }
             }
         }

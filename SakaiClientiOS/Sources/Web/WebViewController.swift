@@ -288,9 +288,9 @@ extension WebViewController: WKUIDelegate, WKNavigationDelegate {
             $('.Mrphs-siteHierarchy').remove();
             $('#toolMenuWrap').remove();
             $('#skipNav').remove();
-        """)
-
-        onWebViewLoad?()
+        """) { [weak self] _, _ in
+            self?.onWebViewLoad?()
+        }
     }
 
     func webView(_ webView: WKWebView,
@@ -345,7 +345,7 @@ extension WebViewController: NavigationAnimatable {
 
 extension WebViewController: RichTextEditorViewControllerDelegate {
 
-    var sakaiCKEditorJavascript: String {
+    var ckeditorDestroyScript: String {
         return """
             CKEDITOR.instances['Assignment.view_submission_text'].destroy();
             var p = $('#addSubmissionForm');
@@ -354,6 +354,11 @@ extension WebViewController: RichTextEditorViewControllerDelegate {
             }
             var offset = p.offset();
             $('body').scrollTop(offset.top);
+        """
+    }
+
+    var ckeditorReplaceScript: String {
+        return """
             CKEDITOR.replace('Assignment.view_submission_text', {
                 allowedContent : true,
                 toolbar: [
@@ -378,8 +383,7 @@ extension WebViewController: RichTextEditorViewControllerDelegate {
             `);
             """,
             completionHandler: { _, err in
-                if let err = err {
-                    print(err)
+                if err != nil {
                     didSucceed(false)
                 } else {
                     didSucceed(true)
@@ -395,7 +399,7 @@ extension WebViewController: RichTextEditorViewControllerDelegate {
                 CKEDITOR.instances['Assignment.view_submission_text'].resetDirty();
                 data;
             """,
-            completionHandler: { data, _ in
+            completionHandler: { data, err in
                 result(data as? String)
         })
     }
