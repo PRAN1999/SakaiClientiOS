@@ -262,7 +262,8 @@ class FormatBarController: NSObject {
         let target = richTextView.linkTarget(forRange: richTextView.selectedRange)
         linkTitle = richTextView.attributedText.attributedSubstring(from: linkRange).string
         let allowTextEdit = !richTextView.attributedText.containsAttachments(in: linkRange)
-        showLinkDialog(forURL: linkURL, text: linkTitle, target: target, range: linkRange, allowTextEdit: allowTextEdit)
+        showLinkDialog(forURL: linkURL,
+                       text: linkTitle, target: target, range: linkRange, allowTextEdit: allowTextEdit)
     }
 
     func showLinkDialog(forURL url: URL?, text: String?, target: String?, range: NSRange, allowTextEdit: Bool = true) {

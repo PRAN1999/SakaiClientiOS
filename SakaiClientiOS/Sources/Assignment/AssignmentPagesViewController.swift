@@ -160,9 +160,6 @@ class AssignmentPagesViewController: UIViewController {
             [("Web", webController), ("Editor", editorController)]
         )
         containerController.selectTab(at: 0)
-        if assignment.status == .closed {
-            containerController.disableTab(at: 1)
-        }
 
         let navVC = NavigationController(rootViewController: containerController)
 

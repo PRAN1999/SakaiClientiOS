@@ -21,7 +21,7 @@ extension String {
     static func getDateString(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale.current
-        formatter.dateFormat = "MM-dd-yyyy"
+        formatter.dateFormat = "M/d/yy"
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
 
@@ -37,9 +37,14 @@ extension String {
         var dateComponent = DateComponents()
         dateComponent.day = -7
         let current = Date()
-        if let weekAgo = calendar.date(byAdding: dateComponent, to: current) {
+        if
+            let weekAgo = calendar.date(byAdding: dateComponent, to: current),
+            let yearAgo = calendar.date(byAdding: .year, value: -1, to: current) {
             if date > weekAgo {
                 return getDayString(weekday: calendar.component(.weekday, from: date))
+            } else if date > yearAgo {
+                formatter.dateFormat = "MMM d"
+                return formatter.string(from: date)
             }
         }
         return formatter.string(from: date)
