@@ -30,6 +30,7 @@ class AssignmentPagesViewController: UIViewController {
         let image = UIImage(named: "submit-button")?.withRenderingMode(.alwaysTemplate)
         button.setImage(image, for: UIControlState.normal)
         button.tintColor = Palette.main.primaryTextColor
+        button.alpha = 0.75
         return button
     }()
 
@@ -144,7 +145,6 @@ class AssignmentPagesViewController: UIViewController {
 
         editorController.dismissAction = webController.dismissAction
         editorController.delegate = webController
-        editorController.needsTitleField = false
 
         let assignment = assignments[pageControl.currentPage]
         guard let url = URL(string: assignment.siteURL) else {
@@ -154,14 +154,16 @@ class AssignmentPagesViewController: UIViewController {
         webController.setURL(url: url)
         webController.setNeedsLoad(to: true)
 
-        let instructions = PageView.getInstructionsString(attributedText: assignment.attributedInstructions)
-        editorController.attributedContext = instructions
         editorController.html = ""
 
         let containerController = SegmentedContainerViewController(segments:
             [("Web", webController), ("Editor", editorController)]
         )
         containerController.selectTab(at: 0)
+        if assignment.status == .closed {
+            containerController.disableTab(at: 1)
+        }
+
         let navVC = NavigationController(rootViewController: containerController)
 
         tabBarController?.present(navVC, animated: true, completion: nil)

@@ -23,11 +23,11 @@ class PageView<PageType: UIScrollView>: UIView {
     }
 
     private func setupView() {
+        scrollView.alwaysBounceVertical = true
         addSubview(scrollView)
     }
 
     private func setConstraints() {
-        //scrollView.constrainToMargins(of: self, onSides: [.top, .bottom])
         scrollView.constrainToEdges(of: self, onSides: [.top, .bottom, .left, .right])
     }
 
