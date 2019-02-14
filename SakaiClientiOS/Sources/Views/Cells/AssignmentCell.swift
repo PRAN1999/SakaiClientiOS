@@ -62,6 +62,7 @@ class AssignmentCell: UICollectionViewCell, ConfigurableCell {
         descLabel.isSelectable = true
         descLabel.backgroundColor = Palette.main.tertiaryBackgroundColor
         descLabel.textContainerInset = UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
+        descLabel.alwaysBounceVertical = true
         return descLabel
     }()
 

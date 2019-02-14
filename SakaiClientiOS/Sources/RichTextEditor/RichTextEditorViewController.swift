@@ -20,6 +20,7 @@ class RichTextEditorViewController: UIViewController {
         let richTextView = editor.editorView.richTextView
 
         editor.editorView.htmlTextView.delegate = self
+        editor.editorView.htmlTextView.keyboardDismissMode = .interactive
         
         richTextView.delegate = self
         richTextView.formattingDelegate = self
@@ -42,27 +43,14 @@ class RichTextEditorViewController: UIViewController {
         return editorView.editorView.richTextView
     }
 
-    private lazy var formatBarController = FormatBarController(editorView: editorView.editorView, presenter: self)
+    private lazy var formatBarController = FormatBarController(editorView: editorView.editorView,
+                                                               presenter: self)
 
     private var formatBar: Aztec.FormatBar {
         return formatBarController.formatBar
     }
 
     weak var delegate: RichTextEditorViewControllerDelegate?
-
-    var placeholderText: String? {
-        didSet {
-            editorView.setTitlePlaceholder(text: placeholderText)
-        }
-    }
-
-    var submissionTitle: String? {
-        get {
-            return editorView.titleField.text
-        } set {
-            editorView.titleField.text = newValue
-        }
-    }
 
     var html: String? {
         get {
@@ -75,24 +63,12 @@ class RichTextEditorViewController: UIViewController {
         }
     }
 
-    var attributedContext: NSAttributedString? {
-        get {
-            return editorView.contextView.attributedText
-        } set {
-            editorView.setContext(withAttributedText: newValue)
-        }
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
 
-    var needsTitleField: Bool = true {
-        didSet {
-            editorView.setNeedsTitle(to: needsTitleField)
-        }
-    }
-
-    var needsContext: Bool = true {
-        didSet {
-            editorView.setNeedsContext(to: needsContext)
-        }
+    override var inputAccessoryView: UIView? {
+        return formatBar
     }
 
     var dismissAction: (() -> Void)?
@@ -118,6 +94,7 @@ class RichTextEditorViewController: UIViewController {
         view.addSubview(editorView)
         editorView.constrainToMargins(of: view, onSides: [.top, .bottom])
         editorView.constrainToEdges(of: view, onSides: [.left, .right])
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -145,8 +122,7 @@ class RichTextEditorViewController: UIViewController {
 
     @objc private func syncContent() {
         navigationItem.rightBarButtonItem?.isEnabled = false
-        editorView.editorView.richTextView.endEditing(true)
-        editorView.titleField.endEditing(true)
+        richTextView.endEditing(true)
         let group = DispatchGroup()
         var error = false
         group.enter()
@@ -158,21 +134,12 @@ class RichTextEditorViewController: UIViewController {
             group.leave()
         })
 
-        group.enter()
-        if let _ = delegate?.editorController?(self, shouldSaveTitle: submissionTitle, didSucceed: { flag in
-            if !flag {
-                error = true
-            }
-            group.leave()
-        }) {
-            // Do Nothing
-        } else {
-            group.leave()
-        }
-
         let makeToast: (String) -> Void = { [weak self] msg in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self?.view.makeToast(msg)
+                guard let center = self?.view.center else {
+                    return
+                }
+                self?.view.makeToast(msg, point: center, title: nil, image: nil, completion: nil)
             })
         }
 

@@ -12,10 +12,6 @@ import Foundation
                                          loadTextWithResult result: @escaping (String?) -> Void)
 
     @objc func editorController(_ editorController: RichTextEditorViewController,
-                                         shouldSaveBody html: String?,
-                                         didSucceed: @escaping (Bool) -> Void)
-
-    @objc optional func editorController(_ editorController: RichTextEditorViewController,
-                                         shouldSaveTitle title: String?,
-                                         didSucceed: @escaping (Bool) -> Void)
+                                  shouldSaveBody html: String?,
+                                  didSucceed: @escaping (Bool) -> Void)
 }

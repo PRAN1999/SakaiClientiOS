@@ -7,7 +7,6 @@
 
 import UIKit
 import WebKit
-import LNPopupController
 import SafariServices
 
 /// The container view controller allowing pagination between multiple
@@ -24,18 +23,16 @@ class AssignmentPagesViewController: UIViewController {
     private let pageController = UIPageViewController(transitionStyle: .scroll,
                                                       navigationOrientation: .horizontal, options: nil)
 
-    private let webController = WebViewController(allowsOptions: false)
-    /// A Rich Text editor in order to allow inline submission for Assignments
-    private let editorController = RichTextEditorViewController()
-    private lazy var containerController
-        = SegmentedContainerViewController(segments: [("Web", webController), ("Editor", editorController)])
-
-    // Even when the current Assignment changes, the popup controller
-    // instance will be the same but the popup URL will change.
-    private lazy var popupController = NavigationController(rootViewController: containerController)
-
-    // The popup bar instance to hide/show Assignment submission option
-    private let submitPopupBarController = SubmitPopupBarViewController()
+    let submitButton: UIButton = {
+        let button: UIButton = UIView.defaultAutoLayoutView()
+        button.backgroundColor = Palette.main.highlightColor
+        button.titleLabel?.textColor = Palette.main.primaryTextColor
+        let image = UIImage(named: "submit-button")?.withRenderingMode(.alwaysTemplate)
+        button.setImage(image, for: UIControlState.normal)
+        button.tintColor = Palette.main.primaryTextColor
+        button.alpha = 0.75
+        return button
+    }()
 
     /// If the pageController begins to animate, the index it will reach if the
     /// animation completes
@@ -67,6 +64,10 @@ class AssignmentPagesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
+    }
+
+    private func setupView() {
         guard let pageView = pageController.view else {
             return
         }
@@ -80,59 +81,21 @@ class AssignmentPagesViewController: UIViewController {
         bottomConstraint = pageView.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
         topConstraint?.isActive = true; bottomConstraint?.isActive = true
 
-        // Configure the LNPopupController instance with the starting index
-        configurePopup(viewControllerIndex: start)
+        let buttonSize: CGFloat = 65
+        view.addSubview(submitButton)
+        submitButton.constrainToMargins(of: view, onSides: [.right])
+        submitButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -5.0).isActive = true
+        submitButton.heightAnchor.constraint(equalToConstant: buttonSize).isActive = true
+        submitButton.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
+        submitButton.layer.cornerRadius = buttonSize / 2
 
-        webController.dismissAction = { [weak self] in
-            self?.tabBarController?.closePopup(animated: true, completion: nil)
-        }
-        webController.onWebViewLoad = { [weak self] in
-            // Following JavaScript modifies in-browser editor in order to
-            // make it easier to work with for native RichTextEditorViewController
-            // and scrolls to bring submission form into view in the webView
-            self?.webView?.evaluateJavaScript("""
-                    CKEDITOR.instances['Assignment.view_submission_text'].destroy();
-                    var p = $('#addSubmissionForm');
-                    if (p == undefined) {
-                        p = document.body;
-                    }
-                    var offset = p.offset();
-                    $('body').scrollTop(offset.top);
-                    CKEDITOR.replace('Assignment.view_submission_text', {
-                        allowedContent : true,
-                        toolbar: [
-                                ['Source', '-', 'Bold', 'Italic', 'Underline', '-', 'Link',
-                                 'Unlink', '-', 'NumberedList','BulletedList', 'Blockquote']
-                        ],
-                    });
-                """,
-                completionHandler: { data, err in
-                    DispatchQueue.main.async {
-                        self?.editorController.loadHTML()
-                    }
-            })
-        }
-
-        editorController.dismissAction = { [weak self] in
-            self?.tabBarController?.closePopup(animated: true, completion: nil)
-        }
-
-        editorController.delegate = self
-        editorController.needsTitleField = false
-
-        // Popup bar will be presented on outermost container (tabBarController)
-        tabBarController?.popupInteractionStyle = .default
-        tabBarController?.popupBar.backgroundStyle = .regular
-        tabBarController?.popupContentView.popupCloseButtonStyle = .none
-        tabBarController?.popupBar.customBarViewController = submitPopupBarController
-
-        submitPopupBarController.titleLabel.text = "DRAG TO SUBMIT"
+        submitButton.addTarget(self, action: #selector(presentSubmissionView), for: .touchUpInside)
 
         guard let startPage = pages[start] else {
             return
         }
-
-        pageController.setViewControllers([startPage], direction: .forward, animated: false, completion: nil)
+        pageController.setViewControllers([startPage],
+                                          direction: .forward, animated: false, completion: nil)
         pageController.dataSource = self
         pageController.delegate = self
 
@@ -150,52 +113,64 @@ class AssignmentPagesViewController: UIViewController {
         // re-enable the pop recognizer for all other view controllers on
         // the navigation stack
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
-        guard let tabBarController = tabBarController as? TabsController else {
-            return
-        }
-
-        let isNavigationPushing = navigationController?.viewControllers.last != self
-
-        if isMovingFromParentViewController || isNavigationPushing {
-            tabBarController.dismissPopupBar(animated: true, completion: nil)
-            return
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         // disable the pop recognizer so it doesn't interfere with the paging
         // gestures
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+    }
 
-        guard let tabBarController = tabBarController as? TabsController else {
+    @objc private func presentSubmissionView() {
+        let webController = WebViewController(allowsOptions: false)
+        /// A Rich Text editor in order to allow inline submission for Assignments
+        let editorController = RichTextEditorViewController()
+
+        webController.dismissAction = { [weak self] in
+            self?.tabBarController?.dismiss(animated: true, completion: nil)
+        }
+        webController.onWebViewLoad = {
+            // Following JavaScript modifies in-browser editor in order to
+            // make it easier to work with for native RichTextEditorViewController
+            // and scrolls to bring submission form into view in the webView
+            webController.webView?.evaluateJavaScript(webController.ckeditorDestroyScript) { data, err in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    webController.webView?.evaluateJavaScript(webController.ckeditorReplaceScript) { data, err in
+                        editorController.loadHTML()
+                    }
+                }
+            }
+        }
+
+        editorController.dismissAction = webController.dismissAction
+        editorController.delegate = webController
+
+        let assignment = assignments[pageControl.currentPage]
+        guard let url = URL(string: assignment.siteURL) else {
             return
         }
+        webController.title = assignment.title
+        webController.setURL(url: url)
+        webController.setNeedsLoad(to: true)
 
-        if tabBarController.popupPresentationState == .hidden ||
-           tabBarController.popupPresentationState == .closed {
+        editorController.html = ""
 
-            containerController.selectTab(at: 0)
-
-            tabBarController.presentPopupBar(withContentViewController: popupController,
-                                             animated: true,
-                                             completion: nil)
-
-            // When popping back to PagesController, LNPopupController occasionally
-            // encounters a bug where it is entirely removed from the view
-            // hierarchy and causes a black space to appear in its place.
-            // Adding the views back to the tabBarController manually fixes
-            // the bug.
-            tabBarController.view.addSubview(tabBarController.popupBar)
-            tabBarController.view.addSubview(tabBarController.popupContentView)
-            tabBarController.popupContentView.popupCloseButtonStyle = .none
+        let containerController = SegmentedContainerViewController(segments:
+            [("Web", webController), ("Editor", editorController)]
+        )
+        containerController.selectTab(at: 0)
+        if assignment.status == .closed {
+            containerController.disableTab(at: 1)
         }
+
+        let navVC = NavigationController(rootViewController: containerController)
+
+        tabBarController?.present(navVC, animated: true, completion: nil)
     }
 }
 
 extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
@@ -253,7 +228,6 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
                     // Used to update collectionView in previous ViewController
                     target.delegate?.pageController(target, didMoveToIndex: index)
                 }
-                self?.configurePopup(viewControllerIndex: index)
             }
         }
     }
@@ -271,27 +245,6 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
         page.textViewDelegate = self
         page.scrollViewDelegate = self
         pages[index] = page
-    }
-
-    private func configurePopup(viewControllerIndex: Int) {
-        let assignment = assignments[viewControllerIndex]
-        guard let url = URL(string: assignment.siteURL) else {
-            return
-        }
-        webController.title = assignment.title
-        webController.setURL(url: url)
-        webController.setNeedsLoad(to: true)
-
-        let instructions = PageView.getInstructionsString(attributedText: assignment.attributedInstructions)
-        editorController.attributedContext = instructions
-        editorController.html = ""
-
-        containerController.selectTab(at: 0)
-        if assignment.status == .closed || !assignment.allowsInlineSubmission {
-            containerController.disableTab(at: 1)
-        } else {
-            containerController.enableTab(at: 1)
-        }
     }
 }
 
@@ -311,6 +264,9 @@ extension AssignmentPagesViewController: Animatable {
         childView?.layer.borderWidth = 0.5
         childView?.layer.borderColor = Palette.main.borderColor.cgColor
         childView?.layoutIfNeeded()
+
+        submitButton.removeFromSuperview()
+        view.layoutIfNeeded()
 
         topConstraint?.isActive = false
         bottomConstraint?.isActive = false
@@ -341,47 +297,5 @@ extension AssignmentPagesViewController: UITextViewDelegate {
                          shouldInteractWith URL: URL,
                          in characterRange: NSRange) -> Bool {
         return defaultTextViewURLInteraction(URL: URL)
-    }
-}
-
-extension AssignmentPagesViewController: RichTextEditorViewControllerDelegate {
-    var webView: WKWebView? {
-        return webController.webView
-    }
-
-    func editorController(_ editorController: RichTextEditorViewController,
-                          shouldSaveBody html: String?,
-                          didSucceed: @escaping (Bool) -> Void) {
-        guard let html = html else {
-            didSucceed(false)
-            return
-        }
-        webView?.evaluateJavaScript(
-            """
-                CKEDITOR.instances['Assignment.view_submission_text'].setData(`
-                    \(html)
-                `);
-            """,
-            completionHandler: { _, err in
-                if let err = err {
-                    print(err)
-                    didSucceed(false)
-                } else {
-                    didSucceed(true)
-                }
-        })
-    }
-
-    func editorController(_ editorController: RichTextEditorViewController,
-                          loadTextWithResult result: @escaping (String?) -> Void) {
-        webView?.evaluateJavaScript(
-            """
-                var data = CKEDITOR.instances['Assignment.view_submission_text'].getData();
-                CKEDITOR.instances['Assignment.view_submission_text'].resetDirty();
-                data;
-            """,
-            completionHandler: { data, _ in
-                result(data as? String)
-        })
     }
 }
