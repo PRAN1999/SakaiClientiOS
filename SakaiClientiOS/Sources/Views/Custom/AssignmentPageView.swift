@@ -159,7 +159,8 @@ extension AssignmentPageView {
             statusLabel.iconText = AppIcons.statusOpenIcon
         }
         dueLabel.setKeyVal(key: "Due:", val: assignment.dueTimeString)
-        guard let instructions = PageView.getInstructionsString(attributedText: assignment.attributedInstructions) else {
+        guard let instructions = PageView.getInstructionsString(attributedText: assignment.attributedInstructions)
+            else {
             return
         }
         let resourceStrings = assignment.attachments?.map({ (attachment) -> NSAttributedString in
@@ -175,4 +176,3 @@ extension AssignmentPageView {
         }
     }
 }
-

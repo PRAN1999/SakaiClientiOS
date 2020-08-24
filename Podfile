@@ -6,14 +6,12 @@ target 'SakaiClientiOS' do
   use_frameworks!
 
   # Pods for SakaiClientiOS
-  pod 'Alamofire', '~> 4.7'
-  pod 'RATreeView', '~> 2.1.2'
+  pod 'Alamofire'
+  pod 'RATreeView', :git => 'https://github.com/PRAN1999/RATreeView'
   pod 'M13Checkbox'
-  pod 'Fabric'
-  pod 'Crashlytics'
   pod 'WordPress-Aztec-iOS'
   pod 'WordPress-Editor-iOS'
   pod 'Gridicons', :podspec => 'https://raw.github.com/Automattic/Gridicons-iOS/develop/Gridicons.podspec'
-  pod 'Toast-Swift', '~> 4.0.0'
+  pod 'Toast-Swift'
 
 end

@@ -8,7 +8,6 @@
 import UIKit
 import ReusableSource
 
-
 // MARK: - Utility methods
 
 extension UIViewController {

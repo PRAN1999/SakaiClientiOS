@@ -12,7 +12,7 @@ class LoadingIndicator: UIActivityIndicatorView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        style = UIActivityIndicatorView.Style.whiteLarge
         color = Palette.main.activityIndicatorColor
         backgroundColor = UIColor.clear
         hidesWhenStopped = true
@@ -30,7 +30,7 @@ class LoadingIndicator: UIActivityIndicatorView {
         view.addSubview(self)
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -60).isActive = true
-        view.bringSubview(toFront: self)
+        view.bringSubviewToFront(self)
     }
 
     /// Instantiates ActivityIndicatorView in a 100 x 100 square and adds to

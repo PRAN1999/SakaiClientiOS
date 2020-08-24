@@ -7,9 +7,8 @@
 
 import ReusableSource
 
-class SiteGradebookTableManager:
-    ReusableTableManager<SingleSectionDataProvider<GradeItem>, GradebookCell>, NetworkSource {
-
+class SiteGradebookTableManager: ReusableTableManager<SingleSectionDataProvider<GradeItem>, GradebookCell>,
+                                 NetworkSource {
     typealias Fetcher = SiteGradebookDataFetcher
     
     let fetcher: SiteGradebookDataFetcher

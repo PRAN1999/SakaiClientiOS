@@ -10,7 +10,7 @@ import ReusableSource
 
 /// The data fetcher for the Gradebook tab. Fetches gradebook data by Term
 /// by making multiple requests to the siteId's associated with that Term
-class GradebookDataFetcher : HideableDataFetcher {
+class GradebookDataFetcher: HideableDataFetcher {
     typealias T = [[GradeItem]]
 
     private let termService: TermService

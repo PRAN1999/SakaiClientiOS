@@ -34,14 +34,16 @@ class AssignmentsViewController: UITableViewController {
             // AnimationController, so the animation will take place in two
             // stages. First the cell will be flipped and on completion, the
             // actual ViewController transition will be kicked off
-            self.assignmentsTableManager.selectedManager?.selectedCell?.flip() { [weak self] in
+            self.assignmentsTableManager.selectedManager?.selectedCell?.flip { [weak self] in
                 self?.navigationController?.pushViewController(pages, animated: true)
             }
         }
         assignmentsTableManager.textViewDelegate = self
         assignmentsTableManager.delegate = self
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(presentFilter))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(presentFilter)
+        )
 
         configureNavigationItem()
         loadData()
@@ -60,7 +62,9 @@ class AssignmentsViewController: UITableViewController {
 
     @objc func presentFilter() {
         let storyboard = UIStoryboard(name: "AssignmentView", bundle: nil)
-        guard let filterController = storyboard.instantiateViewController(withIdentifier: "filter") as? FilterViewController else {
+        guard
+            let filterController = storyboard.instantiateViewController(withIdentifier: "filter")
+                as? FilterViewController else {
             return
         }
         filterController.selectedIndex = sortedIndex
@@ -81,7 +85,7 @@ class AssignmentsViewController: UITableViewController {
     }
 }
 
-//MARK: LoadableController Extension
+// MARK: LoadableController Extension
 
 extension AssignmentsViewController: LoadableController {
     @objc func loadData() {
@@ -89,10 +93,12 @@ extension AssignmentsViewController: LoadableController {
     }
 }
 
-//MARK: NetworkSourceDelegate Extension
+// MARK: NetworkSourceDelegate Extension
 
 extension AssignmentsViewController: NetworkSourceDelegate {
-    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
+    func networkSourceWillBeginLoadingData<Source>(
+        _ networkSource: Source
+    ) -> (() -> Void)? where Source: NetworkSource {
         assignmentsTableManager.reset()
         sortedIndex = 0
         return addLoadingIndicator()

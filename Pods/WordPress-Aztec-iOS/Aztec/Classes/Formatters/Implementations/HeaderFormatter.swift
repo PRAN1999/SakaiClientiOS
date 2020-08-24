@@ -19,7 +19,7 @@ open class HeaderFormatter: ParagraphAttributeFormatter {
 
     // MARK: - Overwriten Methods
 
-    public func apply(to attributes: [NSAttributedStringKey: Any], andStore representation: HTMLRepresentation?) -> [NSAttributedStringKey: Any] {
+    public func apply(to attributes: [NSAttributedString.Key: Any], andStore representation: HTMLRepresentation?) -> [NSAttributedString.Key: Any] {
         guard let font = attributes[.font] as? UIFont else {
             return attributes
         }
@@ -41,14 +41,18 @@ open class HeaderFormatter: ParagraphAttributeFormatter {
         var resultingAttributes = attributes
         
         let newDescriptor = font.fontDescriptor.addingAttributes([.size: targetFontSize])
-        
+        var newFont = UIFont(descriptor: newDescriptor, size: targetFontSize)
+        if Configuration.headersWithBoldTrait {
+            newFont = newFont.modifyTraits(.traitBold, enable: true)
+        }
+
         resultingAttributes[.paragraphStyle] = newParagraphStyle
-        resultingAttributes[.font] = UIFont(descriptor: newDescriptor, size: targetFontSize)
-        
+        resultingAttributes[.font] = newFont
+        resultingAttributes[.headingRepresentation] = headerLevel.rawValue
         return resultingAttributes
     }
 
-    func remove(from attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any] {
+    func remove(from attributes: [NSAttributedString.Key: Any]) -> [NSAttributedString.Key: Any] {
         guard let paragraphStyle = attributes[.paragraphStyle] as? ParagraphStyle,
             let header = paragraphStyle.headers.last,
             header.level != .none
@@ -64,17 +68,28 @@ open class HeaderFormatter: ParagraphAttributeFormatter {
         resultingAttributes[.paragraphStyle] = newParagraphStyle
 
         if let font = attributes[.font] as? UIFont {
-            resultingAttributes[.font] = font.withSize(CGFloat(header.defaultFontSize))
+            var newFont = font.withSize(CGFloat(header.defaultFontSize))
+            if Configuration.headersWithBoldTrait {
+                newFont = newFont.modifyTraits(.traitBold, enable: false)
+                if attributes[.shadow] != nil {
+                    resultingAttributes.removeValue(forKey: .shadow)
+                    resultingAttributes.removeValue(forKey: .kern)
+                    newFont = newFont.modifyTraits(.traitBold, enable: true)
+                }
+            }
+            resultingAttributes[.font] = newFont
         }
-
+        resultingAttributes[.headingRepresentation] = nil
         return resultingAttributes
     }
 
-    func present(in attributes: [NSAttributedStringKey: Any]) -> Bool {
+    func present(in attributes: [NSAttributedString.Key: Any]) -> Bool {
         guard let paragraphStyle = attributes[.paragraphStyle] as? ParagraphStyle else {
             return false
         }
-
+        if headerLevel == .none {
+            return paragraphStyle.headerLevel != 0
+        }
         return paragraphStyle.headerLevel != 0 && paragraphStyle.headerLevel == headerLevel.rawValue
     }
 }
@@ -84,7 +99,7 @@ open class HeaderFormatter: ParagraphAttributeFormatter {
 //
 private extension HeaderFormatter {
 
-    func defaultFontSize(from attributes: [NSAttributedStringKey: Any]) -> Float? {
+    func defaultFontSize(from attributes: [NSAttributedString.Key: Any]) -> Float? {
         if let paragraphStyle = attributes[.paragraphStyle] as? ParagraphStyle,
             let lastHeader = paragraphStyle.headers.last
         {

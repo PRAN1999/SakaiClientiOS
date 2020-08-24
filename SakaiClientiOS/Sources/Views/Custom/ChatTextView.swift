@@ -10,7 +10,6 @@ import ReusableSource
 
 /// Intercept enter events on the keyboard and provide custom functionality
 class ChatTextView: UITextView {
-    var chatDelegate = Delegated<Void, Void>()
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
@@ -24,9 +23,6 @@ class ChatTextView: UITextView {
 
 extension ChatTextView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            chatDelegate.call()
-        }
         return true
     }
 }

@@ -51,7 +51,7 @@ class ChatRoomViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,7 +73,7 @@ class ChatRoomViewController: UIViewController {
         webView.backgroundColor = Palette.main.primaryBackgroundColor
 
         view.addSubview(chatRoomView)
-        view.bringSubview(toFront: indicator)
+        view.bringSubviewToFront(indicator)
         chatRoomView.constrainToEdges(of: view)
 
         chatRoomView.messageBar.sendButton.addTarget(
@@ -99,12 +99,12 @@ class ChatRoomViewController: UIViewController {
         }
         webView.load(URLRequest(url: url))
     }
-    
+
     private func setInput(enabled: Bool) {
         chatRoomView.messageBar.inputField.isEditable = enabled
         chatRoomView.messageBar.sendButton.isEnabled = enabled
     }
-    
+
     @objc private func handleSubmit() {
         guard let text = chatRoomView.messageBar.inputField.text else {
             return
@@ -117,9 +117,9 @@ class ChatRoomViewController: UIViewController {
         }
         chatRoomView.messageBar.inputField.text = ""
     }
-    
+
     private func updateMonitor() {
-        webView.evaluateJavaScript("updateNow();") { [weak self] (data, err) in
+        webView.evaluateJavaScript("updateNow();") { [weak self] (_, _) in
             self?.webView.scrollToBottom()
         }
     }
@@ -136,7 +136,7 @@ class ChatRoomViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if isMovingFromParentViewController && UIDevice.current.userInterfaceIdiom == .phone {
+        if isMovingFromParent && UIDevice.current.userInterfaceIdiom == .phone {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
@@ -160,8 +160,7 @@ extension ChatRoomViewController: WKUIDelegate, WKNavigationDelegate {
         let group = DispatchGroup()
 
         group.enter()
-        webView.evaluateJavaScript("currentChatChannelId") {
-            [weak self] (data, err) in
+        webView.evaluateJavaScript("currentChatChannelId") { [weak self] (data, _) in
             guard let id = data as? String else {
                 self?.presentErrorAlert(string: "Unable to load chat")
                 group.leave()
@@ -172,6 +171,10 @@ extension ChatRoomViewController: WKUIDelegate, WKNavigationDelegate {
         }
 
         group.enter()
+        let css = """
+        { list-style: none; border: 1px grey solid; padding: 6px; margin: 8px 12px; border-radius: 6px; \
+        box-shadow:-3px 3px 3px lightgrey; }
+        """
         webView.evaluateJavaScript("""
             var csrftoken = document.getElementById('topForm:csrftoken').value;
             var monitor = document.querySelector('#Monitor');
@@ -179,11 +182,11 @@ extension ChatRoomViewController: WKUIDelegate, WKNavigationDelegate {
 
             $('body').css({'background': 'white'});
             $('.chatList').css({'padding': '0em'});
-            $("<style type='text/css'> li { list-style: none; border: 1px grey solid; padding: 6px; margin: 8px 12px; border-radius: 6px; box-shadow:-3px 3px 3px lightgrey; } </style>").appendTo("head");
+            $("<style type='text/css'> li \(css) </style>").appendTo("head");
 
             // Returns the csrf token
             csrftoken;
-            """, completionHandler: { [weak self] (data, err) in
+            """, completionHandler: { [weak self] (data, _) in
                 guard let token = data as? String else {
                     self?.presentErrorAlert(string: "Unable to load chat")
                     group.leave()

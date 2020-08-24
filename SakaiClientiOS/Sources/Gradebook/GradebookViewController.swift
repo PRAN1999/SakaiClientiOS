@@ -27,7 +27,7 @@ class GradebookViewController: UITableViewController {
     }
 }
 
-//MARK: LoadableController Extension
+// MARK: LoadableController Extension
 
 extension GradebookViewController: LoadableController {
     @objc func loadData() {
@@ -36,10 +36,11 @@ extension GradebookViewController: LoadableController {
     }
 }
 
-//MARK: NetworkSourceDelegate Extension
+// MARK: NetworkSourceDelegate Extension
 
 extension GradebookViewController: NetworkSourceDelegate {
-    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source) -> (() -> Void)? where Source : NetworkSource {
+    func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source)
+        -> (() -> Void)? where Source: NetworkSource {
         //gradebookTableManager.hideHeaderCell()
         return self.addLoadingIndicator()
     }

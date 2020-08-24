@@ -6,7 +6,6 @@
 //  Copyright © 2018 Pranay Neelagiri. All rights reserved.
 //
 
-
 /// A protocol to define any class element that needs to identified
 /// by a standard reuse identifier, usually for UITableViewCell and
 /// UICollectionViewCell

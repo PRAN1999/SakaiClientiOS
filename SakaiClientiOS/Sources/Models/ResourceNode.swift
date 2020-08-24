@@ -83,10 +83,8 @@ class ResourceNode {
                                                             onLevel: nodeItem.level + 1)
                 node = ResourceNode(nodeItem, children)
                 index += subtreeSize
-                break
             case .resource:
                 node = ResourceNode(nodeItem, [])
-                break
             }
             index += 1
             tree.append(node)

@@ -36,8 +36,7 @@ class SiteAssignmentsViewController: UICollectionViewController {
         
         title = "Assignments"
 
-        siteAssignmentCollectionManager.selectedAt.delegate(to: self) {
-            (self, indexPath) -> Void in
+        siteAssignmentCollectionManager.selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             let assignments = self.siteAssignmentCollectionManager.provider.items
             let pages = AssignmentPagesViewController(assignments: assignments, start: indexPath.row)
             pages.delegate = self.siteAssignmentCollectionManager
@@ -67,7 +66,7 @@ class SiteAssignmentsViewController: UICollectionViewController {
     }
 }
 
-//MARK: LoadableController Extension
+// MARK: LoadableController Extension
 
 extension SiteAssignmentsViewController: LoadableController {
     @objc func loadData() {
@@ -75,11 +74,11 @@ extension SiteAssignmentsViewController: LoadableController {
     }
 }
 
-//MARK: NetworkSourceDelegate Extension
+// MARK: NetworkSourceDelegate Extension
 
 extension SiteAssignmentsViewController: NetworkSourceDelegate {}
 
-//MARK: Animatable Extension
+// MARK: Animatable Extension
 
 extension SiteAssignmentsViewController: Animatable {
     var containerView: UIView? {

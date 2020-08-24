@@ -33,7 +33,7 @@ struct ChatService {
         let request = SakaiRequest<UndefinedResponse>(endpoint: .newChat,
                                                       method: .post,
                                                       parameters: parameters)
-        networkService.makeEndpointRequest(request: request) { res, err in
+        networkService.makeEndpointRequest(request: request) { _, _ in
             completion()
         }
     }

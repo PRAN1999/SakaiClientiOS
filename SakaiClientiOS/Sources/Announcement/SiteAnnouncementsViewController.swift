@@ -51,7 +51,7 @@ class SiteAnnouncementsViewController: UITableViewController {
     }
 }
 
-//MARK: LoadableController Extension
+// MARK: LoadableController Extension
 
 extension SiteAnnouncementsViewController: LoadableController {
     @objc func loadData() {
@@ -59,6 +59,6 @@ extension SiteAnnouncementsViewController: LoadableController {
     }
 }
 
-//MARK: NetworkSourceDelegate Extension
+// MARK: NetworkSourceDelegate Extension
 
 extension SiteAnnouncementsViewController: NetworkSourceDelegate {}

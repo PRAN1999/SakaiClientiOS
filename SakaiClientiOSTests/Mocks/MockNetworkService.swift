@@ -14,7 +14,7 @@ class MockNetworkService: NetworkService {
     var error: SakaiError?
 
     func makeEndpointRequest<T>(request: SakaiRequest<T>,
-                                completion: @escaping (T?, SakaiError?) -> Void) where T : Decodable {
+                                completion: @escaping (T?, SakaiError?) -> Void) where T: Decodable {
         if let response = response {
             guard let response = response as? T else {
                 XCTFail("Response for Mock object is of the wrong type")
@@ -26,7 +26,10 @@ class MockNetworkService: NetworkService {
         completion(nil, error)
     }
 
-    func makeEndpointRequestWithoutCache<T>(request: SakaiRequest<T>, completion: @escaping (T?, SakaiError?) -> Void) where T : Decodable {
+    func makeEndpointRequestWithoutCache<T>(
+        request: SakaiRequest<T>,
+        completion: @escaping (T?, SakaiError?) -> Void) where T: Decodable {
+        
         makeEndpointRequest(request: request, completion: completion)
     }
 }

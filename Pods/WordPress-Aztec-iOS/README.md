@@ -4,7 +4,7 @@
 <img width=200px height=200px src="RepoAssets/aztec.png" alt="Aztec's Logo'"/>
 </p>
 
-[![Travis](https://travis-ci.org/wordpress-mobile/AztecEditor-iOS.svg?branch=develop)](https://travis-ci.org/wordpress-mobile/AztecEditor-iOS)
+[![CircleCI](https://circleci.com/gh/wordpress-mobile/AztecEditor-iOS.svg?style=svg)](https://circleci.com/gh/wordpress-mobile/AztecEditor-iOS)
 [![Version](https://img.shields.io/cocoapods/v/WordPress-Aztec-iOS.svg?style=flat)](http://cocoapods.org/pods/WordPress-Aztec-iOS)
 [![License](https://img.shields.io/cocoapods/l/WordPress-Aztec-iOS.svg?style=flat)](http://cocoapods.org/pods/WordPress-Aztec-iOS)
 [![Platform](https://img.shields.io/cocoapods/p/WordPress-Aztec-iOS.svg?style=flat)](http://cocoapods.org/pods/WordPress-Aztec-iOS)
@@ -82,6 +82,14 @@ let textView = Aztec.TextView(
     defaultParagraphStyle: ParagraphStyle = ParagraphStyle.default,
     defaultMissingImage: UIImage) {
 ```
+
+## Contributing
+
+Read our [Contributing Guide](CONTRIBUTING.md) to learn about reporting issues, contributing code, and more ways to contribute.
+
+## Getting in Touch
+
+If you have questions about getting setup or just want to say hi, join the [WordPress Slack](https://chat.wordpress.org) and drop a message on the `#mobile` channel.
 
 ## License
 

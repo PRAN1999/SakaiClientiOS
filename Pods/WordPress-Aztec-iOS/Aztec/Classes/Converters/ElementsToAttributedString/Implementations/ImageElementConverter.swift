@@ -11,12 +11,12 @@ class ImageElementConverter: AttachmentElementConverter {
     
     func convert(
         _ element: ElementNode,
-        inheriting attributes: [NSAttributedStringKey: Any],
+        inheriting attributes: [NSAttributedString.Key: Any],
         contentSerializer serialize: ContentSerializer) -> (attachment: ImageAttachment, string: NSAttributedString) {
         
         let attachment = self.attachment(for: element)
         let intrinsicRepresentation = NSAttributedString(attachment: attachment, attributes: attributes)
-        let serialization = serialize(element, intrinsicRepresentation, attributes)
+        let serialization = serialize(element, intrinsicRepresentation, attributes, false)
         
         return (attachment, serialization)
     }

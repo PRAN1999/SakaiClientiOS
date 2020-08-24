@@ -37,7 +37,9 @@ class SystemPopAnimator: NSObject, UIViewControllerAnimatedTransitioning, Intera
         let animations = {
             let offset = fromViewController.view.frame.minY
             let originFrame = fromViewController.view.frame
-            fromViewController.view.frame = containerView.bounds.offsetBy(dx: containerView.frame.size.width, dy: offset)
+            fromViewController.view.frame = containerView.bounds.offsetBy(
+                dx: containerView.frame.size.width, dy: offset
+            )
             toViewController.view.frame = originFrame
         }
 
@@ -48,4 +50,3 @@ class SystemPopAnimator: NSObject, UIViewControllerAnimatedTransitioning, Intera
         }
     }
 }
-

@@ -20,13 +20,13 @@ extension KeyboardUpdatable where Self: UIView {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleKeyboardNotification(notification:)),
-            name: .UIKeyboardWillShow,
+            name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleKeyboardNotification(notification:)),
-            name: .UIKeyboardWillHide,
+            name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
     }
@@ -35,7 +35,7 @@ extension KeyboardUpdatable where Self: UIView {
         guard let userInfo = notification.userInfo else {
             return
         }
-        guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+        guard let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
 
@@ -44,11 +44,15 @@ extension KeyboardUpdatable where Self: UIView {
         // down. Additionally, if the keyboard is going to show, the chat
         // needs to scroll down to the latest messages.
         let cgRect = keyboardFrame.cgRectValue
-        let isKeyboardShowing = notification.name == .UIKeyboardWillShow
+        let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
         bottomConstraint.constant = isKeyboardShowing ? -cgRect.height : 0
 
-        UIView.animate(withDuration: 0, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: { [weak self] in
-            self?.layoutIfNeeded()
-        }, completion: nil)
+        UIView.animate(
+            withDuration: 0, delay: 0, options: UIView.AnimationOptions.curveEaseIn,
+            animations: { [weak self] in
+                self?.layoutIfNeeded()
+            },
+            completion: nil
+        )
     }
 }

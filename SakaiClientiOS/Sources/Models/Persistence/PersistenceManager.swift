@@ -21,6 +21,5 @@ class PersistenceManager {
     }
 
     private init() {}
-
     
 }

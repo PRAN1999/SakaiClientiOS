@@ -14,14 +14,14 @@ public protocol NetworkSource: class {
 
     /// The DataFetcher implementation type associated with the
     /// NetworkSource
-    associatedtype Fetcher : DataFetcher
+    associatedtype Fetcher: DataFetcher
 
     /// The delegate for the NetworkSource. MAKE SURE to mark it weak in
     /// implementation
     var delegate: NetworkSourceDelegate? { get set }
     
     /// An DataFetcher object used to retrieve data using HTTP requests
-    var fetcher : Fetcher { get }
+    var fetcher: Fetcher { get }
 
     /// Executed before fetching and loading data
     func prepareDataSourceForLoad()
@@ -41,7 +41,7 @@ public extension NetworkSource {
         prepareDataSourceForLoad()
         let callback = delegate?.networkSourceWillBeginLoadingData(self)
         DispatchQueue.global().async { [weak self] in
-            self?.fetcher.loadData() { res, err in
+            self?.fetcher.loadData { res, err in
                 DispatchQueue.main.async {
                     callback?()
                     // It is possible to encounter both failures and success

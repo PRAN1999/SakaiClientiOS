@@ -94,7 +94,7 @@ class HomeViewController: UITableViewController {
                     callback()
                     self?.loadData()
 
-                }, onFailure: { [weak self] err in
+                }, onFailure: { [weak self] _ in
                     callback()
                     self?.performLoginFlow()
                 }
@@ -110,7 +110,8 @@ class HomeViewController: UITableViewController {
     private func performLoginFlow() {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard
-            let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController,
+            let navController = storyboard
+                .instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController,
             let loginController = navController.viewControllers.first as? LoginViewController
             else {
                 return
@@ -143,7 +144,7 @@ class HomeViewController: UITableViewController {
     }
 }
 
-//MARK: LoadableController Extension
+// MARK: LoadableController Extension
 
 extension HomeViewController: LoadableController {
     @objc func loadData() {
@@ -151,12 +152,12 @@ extension HomeViewController: LoadableController {
     }
 }
 
-//MARK: NetworkSourceDelegate Extension
+// MARK: NetworkSourceDelegate Extension
 
 extension HomeViewController: NetworkSourceDelegate {
     func networkSourceWillBeginLoadingData<Source>(_ networkSource: Source)
         -> (() -> Void)?
-        where Source : NetworkSource {
+        where Source: NetworkSource {
             // Since every time the HomeController is loaded, the source of
             // truth is set, the rest of the app needs to be locked while
             // data is refreshed and the current source of truth needs to
@@ -167,7 +168,7 @@ extension HomeViewController: NetworkSourceDelegate {
     }
 
     func networkSourceSuccessfullyLoadedData<Source>
-        (_ networkSource: Source?) where Source : NetworkSource {
+        (_ networkSource: Source?) where Source: NetworkSource {
         // If the reload was successful, the source of truth was updated,
         // so all other screens in the app should be refreshed to present
         // the newest data

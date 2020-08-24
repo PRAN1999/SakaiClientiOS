@@ -30,7 +30,7 @@ extension Site: Decodable {
         let description = siteElement.description
         let pages = siteElement.sitePages
         let term = Term(toParse: siteElement.props.termEid)
-        var subjectCode: Int? = nil
+        var subjectCode: Int?
         if let groupId = siteElement.providerGroupId {
             let courseCodeSplits = groupId.split(separator: "+")
             guard courseCodeSplits.count > 0 else {

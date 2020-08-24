@@ -57,7 +57,7 @@ class ResourceCell: UITableViewCell, ReusableCell {
 
     var needsSizeLabel = false
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
         setConstraints()
@@ -109,12 +109,10 @@ class ResourceCell: UITableViewCell, ReusableCell {
             } else {
                 sizeLabel.backgroundColor = Palette.main.secondaryBackgroundColor
             }
-            break
         case .resource:
             selectionStyle = .default
             accessoryType = .disclosureIndicator
             sizeLabel.isHidden = true
-            break
         }
         layoutSubviews()
     }

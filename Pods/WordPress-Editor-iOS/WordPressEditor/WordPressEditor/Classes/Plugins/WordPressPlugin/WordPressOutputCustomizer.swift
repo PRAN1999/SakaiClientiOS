@@ -18,6 +18,11 @@ open class WordPressOutputCustomizer: PluginOutputCustomizer {
         VideoShortcodeProcessor.wordPressVideoPostProcessor,
         RemovePProcessor(),
         ])
+
+    private let gutenbergOutputHTMLProcessor = PipelineProcessor([
+        VideoShortcodeProcessor.videoPressPostProcessor,
+        VideoShortcodeProcessor.wordPressVideoPostProcessor,
+        ])
     
     // MARK: - Gutenberg
     
@@ -37,7 +42,7 @@ open class WordPressOutputCustomizer: PluginOutputCustomizer {
     
     open func process(html: String) -> String {
         guard !isGutenbergContent(html) else {
-            return html
+            return gutenbergOutputHTMLProcessor.process(html)
         }
         
         return calypsoOutputHTMLProcessor.process(html)
@@ -47,7 +52,7 @@ open class WordPressOutputCustomizer: PluginOutputCustomizer {
         gutenbergOutputHTMLTreeProcessor.process(htmlTree)
     }
     
-    open func convert(_ attachment: NSTextAttachment, attributes: [NSAttributedStringKey : Any]) -> [Node]? {
+    open func convert(_ attachment: NSTextAttachment, attributes: [NSAttributedString.Key : Any]) -> [Node]? {
         for converter in attachmentToElementConverters {
             if let element = converter.convert(attachment, attributes: attributes) {
                 return element

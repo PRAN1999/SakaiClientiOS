@@ -34,7 +34,7 @@ open class ReusableTableManager<
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.estimatedRowHeight = 44
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
     }
 
     open override func numberOfSections(in tableView: UITableView) -> Int {

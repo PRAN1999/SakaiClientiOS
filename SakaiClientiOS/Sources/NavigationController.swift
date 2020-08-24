@@ -30,7 +30,7 @@ class NavigationController: UINavigationController {
 
 extension NavigationController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController,
-                              animationControllerFor operation: UINavigationControllerOperation,
+                              animationControllerFor operation: UINavigationController.Operation,
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         // Use NavigationAnimatable protocol to allow ViewControllers to define
@@ -50,7 +50,8 @@ extension NavigationController: UINavigationControllerDelegate {
     }
 
     func navigationController(_ navigationController: UINavigationController,
-                              interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+                              interactionControllerFor animationController: UIViewControllerAnimatedTransitioning
+    ) -> UIViewControllerInteractiveTransitioning? {
         // Allow different animations to define their interaction status if
         // needed by using Interactable protocol
         if let interactable = animationController as? Interactable {

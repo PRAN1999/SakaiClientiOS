@@ -121,7 +121,7 @@ class GradebookDataProvider: HideableNetworkDataProvider {
                 classCount = 1
             }
             startRow -= classCount
-            if(startRow >= 0) {
+            if startRow >= 0 {
                 subsection += 1
             }
         }

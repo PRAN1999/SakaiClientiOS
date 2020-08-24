@@ -98,7 +98,7 @@ class TermHeader: UITableViewHeaderFooterView, UIGestureRecognizerDelegate, Reus
 
     /// Change the image of the header on tap to indicate a collapsed or expanded section
     ///
-    /// - Parameter isHidden: A variable to determine which image should be shown based on whether the section is hidden or open
+    /// - Parameter isHidden: A variable to determine which image should be shown
     func setImage(isHidden: Bool) {
         imageLabel.layer.removeAllAnimations()
         if isHidden {

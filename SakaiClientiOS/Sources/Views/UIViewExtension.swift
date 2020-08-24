@@ -94,24 +94,22 @@ extension UIView {
         case .left:
             border.constrainToEdges(of: self, onSides: [.top, .bottom, .left])
             border.widthAnchor.constraint(equalToConstant: thickness).isActive = true
-            break
         case .right:
             border.constrainToEdges(of: self, onSides: [.top, .bottom, .right])
             border.widthAnchor.constraint(equalToConstant: thickness).isActive = true
-            break
         case .top:
             border.constrainToEdges(of: self, onSides: [.top, .left, .right])
             border.heightAnchor.constraint(equalToConstant: thickness).isActive = true
-            break
         case .bottom:
             border.constrainToEdges(of: self, onSides: [.bottom, .left, .right])
             border.heightAnchor.constraint(equalToConstant: thickness).isActive = true
-            break
         }
-        bringSubview(toFront: border)
+        bringSubviewToFront(border)
     }
 
-    func addBorder(toSide side: ViewSide, withColor color: UIColor, andTransparency alpha: CGFloat, andThickness thickness: CGFloat) {
+    func addBorder(
+        toSide side: ViewSide, withColor color: UIColor, andTransparency alpha: CGFloat, andThickness thickness: CGFloat
+    ) {
         addBorder(toSide: side, withColor: color.color(withTransparency: alpha), andThickness: thickness)
     }
 }

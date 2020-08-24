@@ -58,7 +58,7 @@ class ResourcePageViewController: UIViewController {
     }
 }
 
-//MARK: LoadableController Extension
+// MARK: LoadableController Extension
 
 extension ResourcePageViewController: LoadableController {
     @objc func loadData() {
@@ -66,6 +66,6 @@ extension ResourcePageViewController: LoadableController {
     }
 }
 
-//MARK: NetworkSourceDelegate Extension
+// MARK: NetworkSourceDelegate Extension
 
 extension ResourcePageViewController: NetworkSourceDelegate {}

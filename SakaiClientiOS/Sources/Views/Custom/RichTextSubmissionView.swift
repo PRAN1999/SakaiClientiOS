@@ -14,7 +14,7 @@ class RichTextSubmissionView: UIView {
     struct Constants {
         static let defaultContentFont   = UIFont.systemFont(ofSize: 16)
         static let defaultHtmlFont      = UIFont.systemFont(ofSize: 24)
-        static let defaultMissingImage  = Gridicon.iconOfType(.image)
+        static let defaultMissingImage  = UIImage.gridicon(.image)
         static let formatBarIconSize    = CGSize(width: 20.0, height: 30.0)
         static let headers              = [Header.HeaderType.none, .h1, .h2, .h3, .h4, .h5, .h6]
         static let lists                = [TextList.Style.unordered, .ordered]

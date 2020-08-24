@@ -28,7 +28,7 @@ class AnnouncementsViewController: UITableViewController {
     }
 }
 
-//MARK: LoadableController Extension
+// MARK: LoadableController Extension
 
 extension AnnouncementsViewController: LoadableController {
     @objc func loadData() {
@@ -36,6 +36,6 @@ extension AnnouncementsViewController: LoadableController {
     }
 }
 
-//MARK: NetworkSourceDelegate Extension
+// MARK: NetworkSourceDelegate Extension
 
 extension AnnouncementsViewController: NetworkSourceDelegate {}

@@ -36,7 +36,7 @@ class FilterViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 45
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.reloadData()
         tableView.tableFooterView = UIView()
     }

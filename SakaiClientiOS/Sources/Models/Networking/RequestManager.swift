@@ -17,7 +17,7 @@ class RequestManager {
     static let shared = RequestManager()
     static let savedCookiesKey = "savedCookies"
 
-    typealias ResponseCompletion = (_ data: Data?,_ err: SakaiError?) -> Void
+    typealias ResponseCompletion = (_ data: Data?, _ err: SakaiError?) -> Void
     
     private let portalURL = URL(string: "https://sakai.rutgers.edu/portal")
 
@@ -26,7 +26,7 @@ class RequestManager {
     private(set) var cookieArray: [[HTTPCookiePropertyKey: Any]] = []
 
     private var session: URLSession {
-        return Alamofire.SessionManager.default.session
+        return Alamofire.Session.default.session
     }
 
     private init() {}
@@ -35,7 +35,7 @@ class RequestManager {
                              method: HTTPMethod,
                              parameters: Parameters? = nil,
                              completion: @escaping ResponseCompletion) {
-        Alamofire.SessionManager.default.request(url, method: method, parameters: parameters)
+        Alamofire.Session.default.request(url, method: method, parameters: parameters)
             .validate()
             .responseJSON { response in
                 if let error = response.error {
@@ -56,11 +56,11 @@ class RequestManager {
         method: HTTPMethod,
         parameters: Parameters? = nil,
         completion: @escaping ResponseCompletion) {
-        Alamofire.SessionManager.default
+        Alamofire.Session.default
             .requestWithoutCache(url, method: method, parameters: parameters)
             .validate()
             .responseJSON { response in
-                if let error = response.error  {
+                if let error = response.error {
                     completion(nil, SakaiError.networkError(error.localizedDescription,
                                                             response.response?.statusCode))
                     return
@@ -87,10 +87,9 @@ class RequestManager {
 
     func refreshCookies() {
         if let url = portalURL {
-            Alamofire.SessionManager.default
+            Alamofire.Session.default
                 .request(url)
-                .response(queue: DispatchQueue.global(qos: .background))
-                { [weak self] res in
+                .response(queue: DispatchQueue.global(qos: .background)) { [weak self] _ in
                     self?.loadCookiesIntoUserDefaults()
             }
         }
@@ -104,8 +103,7 @@ extension RequestManager: NetworkService {
         completion: @escaping DecodableResponse<T>) {
             let url = request.endpoint.getEndpoint()
             let method = request.method
-            makeRequest(url: url, method: method, parameters: request.parameters) {
-                data, err in
+            makeRequest(url: url, method: method, parameters: request.parameters) { data, err in
                 guard err == nil, let data = data else {
                     completion(nil, err)
                     return
@@ -128,8 +126,7 @@ extension RequestManager: NetworkService {
         completion: @escaping (T?, SakaiError?) -> Void) {
             let url = request.endpoint.getEndpoint()
             let method = request.method
-            makeRequestWithoutCache(url: url, method: method, parameters: request.parameters) {
-                data, err in
+            makeRequestWithoutCache(url: url, method: method, parameters: request.parameters) { data, err in
                 guard err == nil, let data = data else {
                     completion(nil, err)
                     return
@@ -226,11 +223,11 @@ extension RequestManager: DownloadService {
     func downloadToDocuments(url: URL,
                              completion: @escaping (_ fileDestination: URL?) -> Void) {
         let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
-        Alamofire.download(URLRequest(url: url), to: destination)
+        Alamofire.AF.download(URLRequest(url: url), to: destination)
             .response(queue: DispatchQueue.global(qos: .utility)) { res in
                 
             DispatchQueue.main.async {
-                completion(res.destinationURL)
+                completion(res.fileURL)
             }
         }
     }
@@ -242,7 +239,7 @@ extension RequestManager: WebService {
     }
 }
 
-extension Alamofire.SessionManager {
+extension Alamofire.Session {
 
     /// Makes Alamofire request without caching any cookies, headers,
     /// or results

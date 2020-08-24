@@ -52,7 +52,7 @@ class ChatRoomView: UIView {
 extension ChatRoomView: KeyboardUpdatable {
     func handleKeyboardNotification(notification: Notification) {
         self._handleKeyboardNotification(notification: notification)
-        let isKeyboardShowing = notification.name == .UIKeyboardWillShow
+        let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
         if isKeyboardShowing {
             webView.scrollToBottom()
         }

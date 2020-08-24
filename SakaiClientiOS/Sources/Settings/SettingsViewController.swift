@@ -15,7 +15,9 @@ class SettingsViewController: UITableViewController {
     private let privacyURL = URL(string: "https://rutgerssakai.github.io/SakaiMobile/privacy.html")
 
     private let appID = 1435278106
-    private lazy var rateUrl = "https://itunes.apple.com/us/app/rutgers-sakai-mobile/id\(appID)?mt=8&action=write-review"
+    private lazy var rateUrl = """
+    https://itunes.apple.com/us/app/rutgers-sakai-mobile/id\(appID)?mt=8&action=write-review
+    """
 
     private let developerEmail = "rutgerssakaiapp@gmail.com"
 
@@ -57,7 +59,9 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath) as? SiteCell else {
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: SiteCell.reuseIdentifier, for: indexPath)
+                as? SiteCell else {
             return UITableViewCell()
         }
         let info = infoArr[indexPath.row]
@@ -94,7 +98,10 @@ class SettingsViewController: UITableViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         case .rate:
             if let url = URL(string: rateUrl), UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(
+                    url,
+                    options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil
+                )
             } else {
                 presentErrorAlert(string: "Cannot leave rating at this time. Please go directly to the App Store")
             }
@@ -123,4 +130,15 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
                                error: Error?) {
         tabBarController?.dismiss(animated: true, completion: nil)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+private func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(
+    _ input: [String: Any]
+) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(
+        uniqueKeysWithValues: input.map { key, value in
+            (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)
+        }
+    )
 }

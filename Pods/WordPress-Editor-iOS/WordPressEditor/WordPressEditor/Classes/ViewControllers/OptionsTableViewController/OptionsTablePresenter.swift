@@ -58,7 +58,7 @@ public class OptionsTablePresenter: NSObject {
         optionsViewController.popoverPresentationController?.permittedArrowDirections = [.down]
         optionsViewController.popoverPresentationController?.sourceView = barItem
         optionsViewController.popoverPresentationController?.sourceRect = barItem.bounds
-        optionsViewController.popoverPresentationController?.backgroundColor = .white
+        optionsViewController.popoverPresentationController?.backgroundColor = optionsViewController.cellBackgroundColor
         optionsViewController.popoverPresentationController?.delegate = self
         
         presentingViewController.present(optionsViewController, animated: true, completion: completion)
@@ -70,7 +70,7 @@ public class OptionsTablePresenter: NSObject {
         
         let inputViewController = UIInputViewController(nibName: nil, bundle: nil)
         
-        inputViewController.addChildViewController(optionsViewController)
+        inputViewController.addChild(optionsViewController)
         inputViewController.view.addSubview(optionsViewController.view)
         
         let frame = calculateOptionsInputViewControllerFrame()
@@ -122,11 +122,11 @@ public class OptionsTablePresenter: NSObject {
 //
 extension OptionsTablePresenter: UIPopoverPresentationControllerDelegate {
     
-    private func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+    public func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
     
-    private func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+    public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         if optionsTableViewController != nil {
             optionsTableViewController = nil
         }

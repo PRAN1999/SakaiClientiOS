@@ -37,7 +37,7 @@ class SiteGradebookViewController: UITableViewController {
     }
 }
 
-//MARK: LoadableController Extension
+// MARK: LoadableController Extension
 
 extension SiteGradebookViewController: LoadableController {
     @objc func loadData() {
@@ -45,6 +45,6 @@ extension SiteGradebookViewController: LoadableController {
     }
 }
 
-//MARK: NetworkSourceDelegate Extension
+// MARK: NetworkSourceDelegate Extension
 
 extension SiteGradebookViewController: NetworkSourceDelegate {}

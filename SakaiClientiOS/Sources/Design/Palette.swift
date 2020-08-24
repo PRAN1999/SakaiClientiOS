@@ -21,7 +21,7 @@ class Palette {
     let barStyle: UIBarStyle
     let highlightColor: UIColor // Main accent color for app
     let tableViewSeparatorColor: UIColor
-    let scrollViewIndicatorStyle: UIScrollViewIndicatorStyle
+    let scrollViewIndicatorStyle: UIScrollView.IndicatorStyle
 
     let primaryTextColor: UIColor // Used for icons, Term Headers...
     let secondaryTextColor: UIColor // Used for everything else
@@ -32,7 +32,7 @@ class Palette {
 
     let activityIndicatorColor: UIColor
     let borderColor: UIColor
-    let blurStyle: UIBlurEffectStyle
+    let blurStyle: UIBlurEffect.Style
 
     let linkColor: UIColor
     let pageIndicatorTintColor: UIColor
@@ -48,7 +48,7 @@ class Palette {
         barStyle: UIBarStyle,
         highlightColor: UIColor,
         tableViewSeparatorColor: UIColor,
-        scrollViewIndicatorStyle: UIScrollViewIndicatorStyle,
+        scrollViewIndicatorStyle: UIScrollView.IndicatorStyle,
         primaryTextColor: UIColor,
         secondaryTextColor: UIColor,
         primaryBackgroundColor: UIColor,
@@ -56,7 +56,7 @@ class Palette {
         tertiaryBackgroundColor: UIColor,
         activityIndicatorColor: UIColor,
         borderColor: UIColor,
-        blurStyle: UIBlurEffectStyle,
+        blurStyle: UIBlurEffect.Style,
         linkColor: UIColor,
         pageIndicatorTintColor: UIColor
         ) {

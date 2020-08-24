@@ -8,6 +8,8 @@ open class HTMLParser {
         case NoRootNode = "No root node"
     }
 
+    var shouldCollapseSpaces: Bool = true
+
     /// Public initializer
     ///
     public init() { }
@@ -43,12 +45,16 @@ open class HTMLParser {
         //
         htmlHandleOmittedElem(0)
 
+        var parserOptions = HTML_PARSE_RECOVER.rawValue | HTML_PARSE_NODEFDTD.rawValue | HTML_PARSE_NOERROR.rawValue | HTML_PARSE_NOWARNING.rawValue | HTML_PARSE_NOIMPLIED.rawValue
+        if shouldCollapseSpaces {
+            parserOptions = parserOptions | HTML_PARSE_NOBLANKS.rawValue
+        }
         let document = htmlCtxtReadMemory(parserContext,
                                           htmlPtr,
                                           Int32(wrappedHTML.lengthOfBytes(using: String.Encoding.utf8)),
                                           "",
                                           "UTF-8",
-                                          Int32(HTML_PARSE_RECOVER.rawValue | HTML_PARSE_NODEFDTD.rawValue | HTML_PARSE_NOERROR.rawValue | HTML_PARSE_NOWARNING.rawValue | HTML_PARSE_NOIMPLIED.rawValue | HTML_PARSE_NOBLANKS.rawValue))
+                                          Int32(parserOptions))
         
         defer {
             xmlFreeDoc(document)
@@ -71,7 +77,7 @@ open class HTMLParser {
 
         let rootNodePtr = xmlDocGetRootElement(document)
         let nodeConverter = InNodeConverter()
-
+        nodeConverter.shouldCollapseSpaces = shouldCollapseSpaces
         guard let rootNode = rootNodePtr?.pointee,
             let node = nodeConverter.convert(rootNode) as? RootNode else {
                 return RootNode(children: [TextNode(text: "")])

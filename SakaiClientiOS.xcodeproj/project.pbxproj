@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -276,7 +276,6 @@
 		517B614D21D8CF0800BF5BD8 /* SiteGradeItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteGradeItems.swift; sourceTree = "<group>"; };
 		517B614F21D8CF3000BF5BD8 /* RawGradeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawGradeItem.swift; sourceTree = "<group>"; };
 		517B615121D8CF4F00BF5BD8 /* SiteElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteElement.swift; sourceTree = "<group>"; };
-		517F378420E019D900B21D5A /* LNPopupController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		518296D520A631CC00EAD645 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		5182CBC921383ECF00D45952 /* HideableNetworkTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideableNetworkTableManager.swift; sourceTree = "<group>"; };
 		5182CBCB213845F500D45952 /* SiteAssignmentCollectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteAssignmentCollectionManager.swift; sourceTree = "<group>"; };
@@ -865,7 +864,6 @@
 			children = (
 				51A472E120F9C59E00CC95F0 /* ReusableSource.framework */,
 				51C9794320F994FF00191DD6 /* SakaiClientiOS */,
-				517F378420E019D900B21D5A /* LNPopupController.framework */,
 				CD5AA811018CA7A1A3A0456C /* Pods_SakaiClientiOS.framework */,
 			);
 			name = Frameworks;
@@ -929,6 +927,7 @@
 			buildConfigurationList = DE059A071DFD93B200D19D17 /* Build configuration list for PBXNativeTarget "SakaiClientiOS" */;
 			buildPhases = (
 				7C207D1E2854408B5D1CD4D2 /* [CP] Check Pods Manifest.lock */,
+				51815A4C24F46F3100AF0AA1 /* ShellScript */,
 				DE0599F11DFD93B100D19D17 /* Sources */,
 				DE0599F21DFD93B100D19D17 /* Frameworks */,
 				DE0599F31DFD93B100D19D17 /* Resources */,
@@ -953,7 +952,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					517201C0218B6C0F00754533 = {
@@ -962,6 +961,7 @@
 					};
 					DE0599F41DFD93B100D19D17 = {
 						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 1160;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.SafariKeychain = {
@@ -973,7 +973,7 @@
 			};
 			buildConfigurationList = DE0599F01DFD93B100D19D17 /* Build configuration list for PBXProject "SakaiClientiOS" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -1057,30 +1057,34 @@
 			shellPath = /bin/sh;
 			shellScript = "PLIST=\"${INFOPLIST_FILE}\"\nPLB=/usr/libexec/PlistBuddy\nLAST_NUMBER=$($PLB -c \"Print CFBundleVersion\" \"$PLIST\")\nNEW_VERSION=$(($LAST_NUMBER + 1))\n$PLB -c \"Set :CFBundleVersion $NEW_VERSION\" \"$PLIST\"\n";
 		};
+		51815A4C24F46F3100AF0AA1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		6A6FC538D6CEF5FCC7295502 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Gridicons/Gridicons.framework",
-				"${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework",
-				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
-				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
-				"${BUILT_PRODUCTS_DIR}/WordPress-Aztec-iOS/Aztec.framework",
-				"${BUILT_PRODUCTS_DIR}/WordPress-Editor-iOS/WordPressEditor.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gridicons.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13Checkbox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Aztec.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WordPressEditor.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1388,20 +1392,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1441,20 +1455,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1501,7 +1525,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.PRN.sakai-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1524,7 +1548,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.PRN.sakai-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

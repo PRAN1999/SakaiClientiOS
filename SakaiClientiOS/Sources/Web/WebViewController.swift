@@ -37,7 +37,9 @@ class WebViewController: UIViewController {
         let back = UIBarButtonItem(image: backImage, style: .plain, target: webView, action: #selector(webView?.goBack))
 
         let forwardImage = UIImage(named: "forward_button")
-        let forward = UIBarButtonItem(image: forwardImage, style: .plain, target: webView, action: #selector(webView?.goForward))
+        let forward = UIBarButtonItem(
+            image: forwardImage, style: .plain, target: webView, action: #selector(webView?.goForward)
+        )
 
         let action = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(presentActions))
         let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -172,7 +174,7 @@ class WebViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if isMovingFromParentViewController && UIDevice.current.userInterfaceIdiom == .phone {
+        if isMovingFromParent && UIDevice.current.userInterfaceIdiom == .phone {
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
         navigationController?.navigationBar.tintColor = oldNavigationTintColor
@@ -399,7 +401,7 @@ extension WebViewController: RichTextEditorViewControllerDelegate {
                 CKEDITOR.instances['Assignment.view_submission_text'].resetDirty();
                 data;
             """,
-            completionHandler: { data, err in
+            completionHandler: { data, _ in
                 result(data as? String)
         })
     }

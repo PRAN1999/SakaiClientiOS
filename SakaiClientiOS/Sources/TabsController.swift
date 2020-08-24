@@ -24,7 +24,7 @@ class TabsController: UITabBarController, UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         let fromNav = selectedViewController as? UINavigationController
         let index = selectedIndex
-        guard let itemIndex = tabBar.items?.index(of: item) else {
+        guard let itemIndex = tabBar.items?.firstIndex(of: item) else {
             return
         }
         if index == itemIndex && fromNav?.viewControllers.first is HomeViewController {

@@ -1,0 +1,8 @@
+${PODS_ROOT}/Target Support Files/Pods-SakaiClientiOS/Pods-SakaiClientiOS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Gridicons/Gridicons.framework
+${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework
+${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework
+${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework
+${BUILT_PRODUCTS_DIR}/WordPress-Aztec-iOS/Aztec.framework
+${BUILT_PRODUCTS_DIR}/WordPress-Editor-iOS/WordPressEditor.framework

@@ -1,6 +1,6 @@
 import UIKit
 
-extension Dictionary where Key == NSAttributedStringKey, Value == Any {
+extension Dictionary where Key == NSAttributedString.Key, Value == Any {
     
     // MARK: - ParagraphStyle interactions
     
@@ -27,7 +27,7 @@ extension Dictionary where Key == NSAttributedStringKey, Value == Any {
     ///
     /// - Returns: the final string attributes.
     ///
-    func appending(_ property: ParagraphProperty) -> [NSAttributedStringKey:Any] {
+    func appending(_ property: ParagraphProperty) -> [NSAttributedString.Key:Any] {
         let finalParagraphStyle = paragraphStyle()
         finalParagraphStyle.appendProperty(property)
         
@@ -35,5 +35,22 @@ extension Dictionary where Key == NSAttributedStringKey, Value == Any {
         finalAttributes[.paragraphStyle] = finalParagraphStyle
         
         return finalAttributes
+    }
+    
+    /// Use this method to retrieve an `ElementNode` obtained from the specified key.
+    ///
+    /// - Parameters:
+    ///     - key: the key to retrieve the element representation from the attributed string.
+    ///
+    /// - Returns: the requested element, or `nil` if there's no stored representation for it.
+    ///
+    func storedElement(for key: NSAttributedString.Key) -> ElementNode? {
+        if let representation = self[key] as? HTMLRepresentation,
+            case let .element(representationElement) = representation.kind {
+            
+            return representationElement.toElementNode()
+        }
+        
+        return nil
     }
 }

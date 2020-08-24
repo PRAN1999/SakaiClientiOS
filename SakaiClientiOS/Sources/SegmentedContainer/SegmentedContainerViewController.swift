@@ -99,7 +99,7 @@ class SegmentedContainerViewController: UIViewController {
     }
 
     private func add(asChildViewController viewController: UIViewController) {
-        addChildViewController(viewController)
+        addChild(viewController)
 
         // Add Child View as Subview
         view.addSubview(viewController.view)
@@ -109,7 +109,7 @@ class SegmentedContainerViewController: UIViewController {
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         // Notify Child View Controller
-        viewController.didMove(toParentViewController: self)
+        viewController.didMove(toParent: self)
 
         navigationItem.leftBarButtonItems = viewController.navigationItem.leftBarButtonItems
         navigationItem.rightBarButtonItems = viewController.navigationItem.rightBarButtonItems
@@ -118,12 +118,12 @@ class SegmentedContainerViewController: UIViewController {
     }
 
     private func remove(asChildViewController viewController: UIViewController) {
-        viewController.willMove(toParentViewController: nil)
+        viewController.willMove(toParent: nil)
 
         // Remove Child View From Superview
         viewController.view.removeFromSuperview()
 
         // Notify Child View Controller
-        viewController.removeFromParentViewController()
+        viewController.removeFromParent()
     }
 }

@@ -24,11 +24,11 @@ struct SitePage {
     /// opened in a webview
     private static let mapPages: [String: PageType]
         = [
-        assignmentsString:  .assignments,
-        gradebookString:    .gradebook,
-        chatRoomString:     .chatRoom,
-        defaultString:      .defaultPage,
-        resourcesString:    .resources,
+        assignmentsString: .assignments,
+        gradebookString: .gradebook,
+        chatRoomString: .chatRoom,
+        defaultString: .defaultPage,
+        resourcesString: .resources,
         announcementString: .announcements
     ]
 

@@ -31,7 +31,7 @@ class RichTextEditorViewController: UIViewController {
             GutenpackAttachmentRenderer(),
             SpecialTagAttachmentRenderer(),
             CommentAttachmentRenderer(font: RichTextSubmissionView.Constants.defaultContentFont),
-            HTMLAttachmentRenderer(font: RichTextSubmissionView.Constants.defaultHtmlFont),
+            HTMLAttachmentRenderer(font: RichTextSubmissionView.Constants.defaultHtmlFont)
         ]
         for provider in providers {
             richTextView.registerAttachmentImageProvider(provider)
@@ -153,8 +153,6 @@ class RichTextEditorViewController: UIViewController {
     }
 }
 
-    
-
 extension RichTextEditorViewController: FormatBarDelegate {
     func formatBarTouchesBegan(_ formatBar: FormatBar) {
         return
@@ -172,7 +170,10 @@ extension RichTextEditorViewController: TextViewFormattingDelegate {
 }
 
 extension RichTextEditorViewController: TextViewAttachmentDelegate {
-    func textView(_ textView: TextView, attachment: NSTextAttachment, imageAt url: URL, onSuccess success: @escaping (UIImage) -> Void, onFailure failure: @escaping () -> Void) {
+    func textView(_ textView: TextView,
+                  attachment: NSTextAttachment,
+                  imageAt url: URL,
+                  onSuccess success: @escaping (UIImage) -> Void, onFailure failure: @escaping () -> Void) {
         return
     }
 
@@ -217,9 +218,11 @@ extension RichTextEditorViewController: UITextViewDelegate {
         return true
     }
 
-    func textView(_ textView: UITextView,
-                         shouldInteractWith URL: URL,
-                         in characterRange: NSRange) -> Bool {
+    func textView(
+        _ textView: UITextView,
+        shouldInteractWith URL: URL,
+        in characterRange: NSRange
+    ) -> Bool {
         if !URL.absoluteString.contains("http") {
             return true
         }

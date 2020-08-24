@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /// A protocol for any UITableViewCell or UICollectionViewCell subclass
 /// to configure its views according to a model object at an indexPath
 public protocol ConfigurableCell: ReusableCell {

@@ -7,6 +7,8 @@ public class TextNode: Node {
 
     let contents: String
 
+    var shouldCollapseSpaces: Bool = true
+
     // MARK: - CustomReflectable
     
     override public var customMirror: Mirror {
@@ -53,8 +55,9 @@ public class TextNode: Node {
 
     // MARK - Hashable
 
-    override public var hashValue: Int {
-        return name.hashValue ^ contents.hashValue
+    override public func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(contents)
     }
 
     // MARK: - Equatable
@@ -91,10 +94,15 @@ extension TextNode {
         // U+000A, which is non-breaking space.  We need to maintain it.
         //
         let whitespace = CharacterSet.whitespacesAndNewlines
-        let whitespaceToKeep = CharacterSet(charactersIn: String(.nonBreakingSpace))
+        var whitespaceToKeep = CharacterSet(charactersIn: String(.nonBreakingSpace)+String(.lineSeparator))
+        if ( !shouldCollapseSpaces ) {
+            whitespaceToKeep.insert(charactersIn: String(.space))
+        }
         let whitespaceToRemove = whitespace.subtracting(whitespaceToKeep)
-        
         let trimmedText = text.trimmingCharacters(in: whitespaceToRemove)
+        if ( !shouldCollapseSpaces ) {
+            return trimmedText
+        }
         var singleSpaceText = trimmedText
         let doubleSpace = "  "
         let singleSpace = " "

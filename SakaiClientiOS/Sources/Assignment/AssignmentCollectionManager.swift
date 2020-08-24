@@ -16,7 +16,7 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
     private(set) var selectedCellFrame: CGRect?
     private var transitionIndex: Int?
 
-    var scrollPosition: UICollectionViewScrollPosition {
+    var scrollPosition: UICollectionView.ScrollPosition {
         return .centeredHorizontally
     }
     
@@ -30,7 +30,11 @@ class AssignmentCollectionManager: ReusableCollectionManager<SingleSectionDataPr
         emptyView.textColor = Palette.main.secondaryTextColor
     }
     
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         let width = min(collectionView.bounds.width / 2.25, AssignmentCell.cellWidth)
         let size: CGSize = CGSize(width: width, height: AssignmentCell.cellHeight)
         return size

@@ -35,8 +35,8 @@ class SiteTableManager: HideableTableManager<SiteDataProvider, SiteCell>, Networ
     override func setup() {
         super.setup()
         // Remove trailing and leading spaces at top and bottom of UITableView
-        tableView.sectionHeaderHeight = 0.0;
-        tableView.sectionFooterHeight = 0.0;
+        tableView.sectionHeaderHeight = 0.0
+        tableView.sectionFooterHeight = 0.0
         
         tableView.backgroundColor = Palette.main.primaryBackgroundColor
         tableView.separatorColor = Palette.main.tableViewSeparatorColor

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A0E54870257123BF2CE5DBF89F3FCB53"
+               BlueprintIdentifier = "490DBC07EB5806FEB36057AF998CEC04"
+               BuildableName = "Gridicons.framework"
                BlueprintName = "Gridicons"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Gridicons.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

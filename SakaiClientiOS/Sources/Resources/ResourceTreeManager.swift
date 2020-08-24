@@ -110,7 +110,7 @@ class ResourceTreeManager: NSObject, RATreeViewDataSource, RATreeViewDelegate, N
         let level = treeView.level(for: cell)
         let isExpanded = !treeView.isCellExpanded(cell)
         
-        switch(resource.resourceItem.type) {
+        switch resource.resourceItem.type {
         case .collection:
             cell.configure(resource, at: level, isExpanded: isExpanded)
             return

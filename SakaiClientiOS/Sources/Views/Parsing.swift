@@ -76,7 +76,7 @@ extension NSAttributedString {
     var html: String {
         do {
             let oldData = try data(from: NSRange(location: 0, length: length),
-                                   documentAttributes: [NSAttributedString.DocumentAttributeKey.documentType : NSAttributedString.DocumentType.html])
+                                   documentAttributes: [DocumentAttributeKey.documentType: DocumentType.html])
 
             //Convert the UTF-8 data to a string, display it in the text view
             //Original HTML Old String

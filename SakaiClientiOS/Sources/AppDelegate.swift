@@ -4,8 +4,6 @@
 
 import UIKit
 import CoreData
-import Fabric
-import Crashlytics
 import StoreKit
 
 @UIApplicationMain
@@ -17,16 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
-        Fabric.with([Crashlytics.self])
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         UIApplication.shared.setMinimumBackgroundFetchInterval(900)
 
         // Inject the loginService into the HomeController so it can perform
         // a login flow if necessary
         let root = window?.rootViewController as? UITabBarController
-        root?.childViewControllers.forEach { child in
+        root?.children.forEach { child in
             let nav = child as? UINavigationController
             if let home = nav?.viewControllers.first as? HomeViewController {
                 home.loginService = RequestManager.shared
@@ -83,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // If any ViewControllers conform to Rotatable, they will be allowed
         // to rotate
-        if let _ = self.topViewControllerForRoot(window?.rootViewController) as? Rotatable {
+        if self.topViewControllerForRoot(window?.rootViewController) as? Rotatable != nil {
             return .allButUpsideDown
         }
         // Only allow portrait (standard behaviour)
@@ -100,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// - Returns: the current top-level controller for the root
     private func topViewControllerForRoot(_ rootViewController: UIViewController?)
         -> UIViewController? {
-        if (rootViewController == nil) { return nil }
+        if rootViewController == nil { return nil }
         if let selected = (rootViewController as? UITabBarController)?.selectedViewController {
             return topViewControllerForRoot(selected)
         } else if
@@ -121,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          store to fail.
          */
         let container = NSPersistentContainer(name: "Temp")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 print(error)
             }
@@ -143,17 +139,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(
+        _ application: UIApplication,
+        performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // Refresh the cookies if they are available and load them into
         // User Defaults to keep the session alive
         if RequestManager.shared.loadCookiesFromUserDefaults() {
             RequestManager.shared.validateLoggedInStatus(onSuccess: {
                 RequestManager.shared.refreshCookies()
                 completionHandler(.newData)
-            }) { err in
+            }, onFailure: { _ in
                 UserDefaults.standard.set(nil, forKey: RequestManager.savedCookiesKey)
                 completionHandler(.failed)
-            }
+            })
         } else {
             completionHandler(.noData)
         }
@@ -175,7 +173,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard
-            let navController = storyboard.instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController,
+            let navController = storyboard
+                .instantiateViewController(withIdentifier: "loginNavigation") as? UINavigationController,
             let loginController = navController.viewControllers.first as? LoginViewController
             else {
                 return
@@ -213,10 +212,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 try FileManager.default.removeItem(atPath: fileUrl.path)
             }
         } catch let err {
-            // TODO handle appropriately
             print(err)
             return
         }
     }
 }
-

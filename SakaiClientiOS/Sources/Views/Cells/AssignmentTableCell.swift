@@ -45,7 +45,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
     private(set) lazy var manager: AssignmentCollectionManager
                                 = AssignmentCollectionManager(collectionView: collectionView)
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
         setConstraints()
@@ -77,7 +77,7 @@ class AssignmentTableCell: UITableViewCell, ConfigurableCell {
         collectionView.constrainToEdges(of: contentView, onSides: [.left, .right])
         collectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor,
                                                constant: -10.0).isActive = true
-        collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: AssignmentCell.cellHeight + 20)
+        // collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: AssignmentCell.cellHeight + 20)
 
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 

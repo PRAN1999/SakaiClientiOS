@@ -7,14 +7,14 @@
 
 import ReusableSource
 
-/// A base HideableNetworkSource implementation that integrates section
+/// A base NetworkSource implementation that integrates section
 /// data load with UI interaction. If a section has not been loaded, it will
 /// be loaded and then data will be shown. If data has been loaded for that
 /// section, it will function as it would for a HideableTableManager and
 /// will toggle the section's visibility
 class HideableNetworkTableManager
     <Provider: HideableNetworkDataProvider, Cell: UITableViewCell & ConfigurableCell, Fetcher: HideableDataFetcher>
-    : HideableTableManager<Provider, Cell>, HideableNetworkSource
+    : HideableTableManager<Provider, Cell>, NetworkSource
     where Provider.T == Cell.T, Provider.V == Fetcher.T {
 
     weak var delegate: NetworkSourceDelegate?
@@ -53,20 +53,55 @@ class HideableNetworkTableManager
         }
     }
 
+    /// Loads data for the specified Term into the data source
+    ///
+    /// - Parameters:
+    ///   - payload: the data to load
+    ///   - section: the Term or section for the payload
+    /// - Returns: No return value
     func handleSectionLoad(forSection section: Int) {
         provider.toggleLoaded(for: section, to: !provider.hasLoaded(section: section))
         provider.toggleHidden(for: section, to: !provider.isHidden(section: section))
     }
 
+    /// Load data for a specific section or Term
+    ///
+    /// - Parameters:
+    ///   - section: the section to load data for
+    ///   - completion: callback to execute when request is finished,
+    ///                 regardless of success or failure
     func populateDataSource(with payload: Fetcher.T,
                             forSection section: Int) {
         provider.loadItems(payload: payload, for: section)
         reloadData(for: section)
     }
 
+    /// Once section data has been returned from the network request,
+    /// perform some action whether or not data load was successful
+    ///
+    /// - Parameter section: the section being loaded
     func loadDataSource() {
         let callback = self.delegate?.networkSourceWillBeginLoadingData(self)
         prepareDataSourceForLoad()
         loadDataSource(for: 0, completion: callback)
+    }
+
+    func loadDataSource(for section: Int, completion: (() -> Void)?) {
+        DispatchQueue.global().async { [weak self] in
+            self?.fetcher.loadData(for: section) { res, err in
+                DispatchQueue.main.async {
+                    completion?()
+                    self?.handleSectionLoad(forSection: section)
+                    if err != nil {
+                        self?.delegate?.networkSourceFailedToLoadData(self, withError: err!)
+                    }
+                    if let response = res {
+                        self?.populateDataSource(with: response,
+                                                 forSection: section)
+                        self?.delegate?.networkSourceSuccessfullyLoadedData(self)
+                    }
+                }
+            }
+        }
     }
 }

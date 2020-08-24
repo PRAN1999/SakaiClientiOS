@@ -20,7 +20,7 @@ enum SakaiEndpoint {
     case announcements(Int, Int), siteAnnouncements(String, Int, Int)
     case siteGradebook(String), siteAssignments(String), siteResources(String)
 
-
+    // swiftlint:disable cyclomatic_complexity
     func getEndpoint() -> String {
         switch self {
         case .sites:

@@ -11,8 +11,7 @@ import ReusableSource
 /// An abstraction to manage the data source and delegate for the Gradebook
 /// tab. Divides grades by Term and further subdivides by class. Also
 /// manages sticky header for site context while scrolling grades
-class GradebookTableManager:
-    HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
+class GradebookTableManager: HideableNetworkTableManager<GradebookDataProvider, GradebookCell, GradebookDataFetcher> {
 
     private enum Direction {
         case up, down
@@ -35,8 +34,8 @@ class GradebookTableManager:
         super.setup()
         tableView.register(GradebookHeaderCell.self,
                            forCellReuseIdentifier: GradebookHeaderCell.reuseIdentifier)
-        tableView.sectionHeaderHeight = 0.0;
-        tableView.sectionFooterHeight = 0.0;
+        tableView.sectionHeaderHeight = 0.0
+        tableView.sectionFooterHeight = 0.0
         selectedAt.delegate(to: self) { (self, indexPath) -> Void in
             self.tableView.deselectRow(at: indexPath, animated: true)
             if self.provider.isEmpty(section: indexPath.section) {
@@ -84,7 +83,8 @@ class GradebookTableManager:
             hideHeaderCell()
         }
     }
-    
+
+    // swiftlint:disable cyclomatic_complexity function_body_length
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var direction: Direction = .up
 
@@ -217,7 +217,7 @@ class GradebookTableManager:
         let code = provider.getSubjectCode(section: section, subsection: subsection)
         headerCell.configure(title: title, subjectCode: code)
         headerCell.setFrameAndMakeVisible(frame: frame)
-        tableView.bringSubview(toFront: headerCell)
+        tableView.bringSubviewToFront(headerCell)
         // Store the section and subsection being represented for the header
         // This will be used to correctly collapse and expand for taps on
         // the header cell

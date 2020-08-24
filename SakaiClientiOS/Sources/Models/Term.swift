@@ -145,7 +145,7 @@ extension Term: Comparable {
 
     static func == (lhs: Term, rhs: Term) -> Bool {
         guard let lYear = lhs.year, let lTerm = lhs.termInt else {
-            guard let _ = rhs.year, let _ = rhs.termInt else {
+            guard rhs.year != nil, rhs.termInt != nil else {
                 return true
             }
             return false

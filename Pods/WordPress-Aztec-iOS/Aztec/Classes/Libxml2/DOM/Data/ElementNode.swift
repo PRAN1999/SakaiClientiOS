@@ -38,18 +38,10 @@ public class ElementNode: Node {
 
     // MARK: - Hashable
 
-    override public var hashValue: Int {
-        var hash = name.hashValue
-
-        for attribute in attributes {
-            hash ^= attribute.hashValue
-        }
-
-        for child in children {
-            hash ^= child.hashValue
-        }
-
-        return hash
+    override public func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(attributes)
+        hasher.combine(children)
     }
 
 
@@ -123,7 +115,7 @@ public class ElementNode: Node {
     private func updateParentForChildren() {
         for child in children where child.parent !== self {
             if let oldParent = child.parent,
-                let childIndex = oldParent.children.index(where: { child === $0 }) {
+                let childIndex = oldParent.children.firstIndex(where: { child === $0 }) {
                 
                 oldParent.children.remove(at: childIndex)
             }
@@ -136,7 +128,7 @@ public class ElementNode: Node {
     
     override func needsClosingParagraphSeparator() -> Bool {
         return (!hasChildren())
-            && (hasAttributes() || !isLastInTree())
+            && (canBeLastInTree() || !isLastInTree())
             && (isBlockLevel() || hasRightBlockLevelSibling() || isLastInAncestorEndingInBlockLevelSeparation())
     }
 
@@ -258,6 +250,14 @@ public class ElementNode: Node {
         return false
     }
 
+    /// Check if the node can be the last one in a tree
+    ///
+    /// - Returns: Returns `true` if it can be the last one, false otherwise.
+    ///
+    func canBeLastInTree() -> Bool {
+        return hasAttributes() || isBlockLevel()
+    }
+
     /// Find out if this is a block-level element.
     ///
     /// - Returns: `true` if this is a block-level element.  `false` otherwise.
@@ -275,7 +275,7 @@ public class ElementNode: Node {
     }
 
     public func isNodeType(_ type: Element) -> Bool {
-        return type.equivalentNames.contains(name.lowercased())
+        return type.equivalentNames.contains(Element(name))
     }
     
     func hasChildren() -> Bool {
@@ -349,7 +349,7 @@ public class ElementNode: Node {
     /// - Returns: the index of the specified child node.
     ///
     func indexOf(childNode: Node) -> Int {
-        guard let index = children.index(where: { childNode === $0 } ) else {
+        guard let index = children.firstIndex(where: { childNode === $0 } ) else {
             fatalError("Broken parent-child relationship found.")
         }
         

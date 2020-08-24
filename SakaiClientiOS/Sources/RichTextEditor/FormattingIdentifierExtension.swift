@@ -13,7 +13,7 @@ extension FormattingIdentifier {
 
     var iconImage: UIImage {
 
-        switch(self) {
+        switch self {
         case .media:
             return gridicon(.addOutline)
         case .p:
@@ -61,11 +61,11 @@ extension FormattingIdentifier {
 
     private func gridicon(_ gridiconType: GridiconType) -> UIImage {
         let size = RichTextSubmissionView.Constants.formatBarIconSize
-        return Gridicon.iconOfType(gridiconType, withSize: size)
+        return UIImage.gridicon(gridiconType, size: size)
     }
 
     var accessibilityIdentifier: String {
-        switch(self) {
+        switch self {
         case .media:
             return "formatToolbarInsertMedia"
         case .p:
@@ -111,8 +111,9 @@ extension FormattingIdentifier {
         }
     }
 
+    // swiftlint:disable all
     var accessibilityLabel: String {
-        switch(self) {
+        switch self {
         case .media:
             return NSLocalizedString("Insert media", comment: "Accessibility label for insert media button on formatting toolbar.")
         case .p:
@@ -136,9 +137,9 @@ extension FormattingIdentifier {
         case .horizontalruler:
             return NSLocalizedString("Insert Horizontal Ruler", comment: "Accessibility label for insert horizontal ruler button on formatting toolbar.")
         case .sourcecode:
-            return NSLocalizedString("HTML", comment:"Accessibility label for HTML button on formatting toolbar.")
+            return NSLocalizedString("HTML", comment: "Accessibility label for HTML button on formatting toolbar.")
         case .more:
-            return NSLocalizedString("More", comment:"Accessibility label for the More button on formatting toolbar.")
+            return NSLocalizedString("More", comment: "Accessibility label for the More button on formatting toolbar.")
         case .header1:
             return NSLocalizedString("Heading 1", comment: "Accessibility label for selecting h1 paragraph style button on the formatting toolbar.")
         case .header2:
@@ -156,7 +157,6 @@ extension FormattingIdentifier {
         default:
             return ""
         }
-
+    // swiftlint:enable all
     }
 }
-

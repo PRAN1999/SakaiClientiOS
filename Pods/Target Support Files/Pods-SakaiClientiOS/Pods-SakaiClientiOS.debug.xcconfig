@@ -1,11 +1,12 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire" "${PODS_CONFIGURATION_BUILD_DIR}/Gridicons" "${PODS_CONFIGURATION_BUILD_DIR}/M13Checkbox" "${PODS_CONFIGURATION_BUILD_DIR}/RATreeView" "${PODS_CONFIGURATION_BUILD_DIR}/Toast-Swift" "${PODS_CONFIGURATION_BUILD_DIR}/WordPress-Aztec-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/WordPress-Editor-iOS" "${PODS_ROOT}/Crashlytics/iOS" "${PODS_ROOT}/Fabric/iOS"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire" "${PODS_CONFIGURATION_BUILD_DIR}/Gridicons" "${PODS_CONFIGURATION_BUILD_DIR}/M13Checkbox" "${PODS_CONFIGURATION_BUILD_DIR}/RATreeView" "${PODS_CONFIGURATION_BUILD_DIR}/Toast-Swift" "${PODS_CONFIGURATION_BUILD_DIR}/WordPress-Aztec-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/WordPress-Editor-iOS"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Gridicons/Gridicons.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/M13Checkbox/M13Checkbox.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RATreeView/RATreeView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Toast-Swift/Toast_Swift.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/WordPress-Aztec-iOS/Aztec.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/WordPress-Editor-iOS/WordPressEditor.framework/Headers" /usr/include/libxml2
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"xml2" -l"z" -framework "Alamofire" -framework "Aztec" -framework "CoreGraphics" -framework "Crashlytics" -framework "Fabric" -framework "Foundation" -framework "Gridicons" -framework "M13Checkbox" -framework "QuartzCore" -framework "RATreeView" -framework "Security" -framework "SystemConfiguration" -framework "Toast_Swift" -framework "UIKit" -framework "WordPressEditor"
+OTHER_LDFLAGS = $(inherited) -l"xml2" -framework "Alamofire" -framework "Aztec" -framework "CFNetwork" -framework "CoreGraphics" -framework "Foundation" -framework "Gridicons" -framework "M13Checkbox" -framework "QuartzCore" -framework "RATreeView" -framework "Toast_Swift" -framework "UIKit" -framework "WordPressEditor"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
+USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

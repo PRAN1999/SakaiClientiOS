@@ -100,7 +100,7 @@
   switch (tableViewStyle) {
     case UITableViewStylePlain:
       return RATreeViewStylePlain;
-    case UITableViewStyleGrouped:
+    default:
       return RATreeViewStyleGrouped;
   }
 }

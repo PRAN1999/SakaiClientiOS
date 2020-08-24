@@ -12,8 +12,7 @@ import ReusableSource
 /// Since the Announcements are presented as a feed of information, more
 /// Announcements will be requested as the user scrolls down the UITableView
 /// giving an endless scroll UI experiences
-class AnnouncementTableManager:
-    ReusableTableManager<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
+class AnnouncementTableManager: ReusableTableManager<AnnouncementDataProvider, AnnouncementCell>, NetworkSource {
     typealias Fetcher = AnnouncementDataFetcher
 
     let fetcher: AnnouncementDataFetcher
@@ -35,8 +34,8 @@ class AnnouncementTableManager:
     override func setup() {
         super.setup()
         tableView.tableFooterView = UIView()
-        tableView.sectionHeaderHeight = 0.0;
-        tableView.sectionFooterHeight = 0.0;
+        tableView.sectionHeaderHeight = 0.0
+        tableView.sectionFooterHeight = 0.0
 
         tableView.backgroundColor = Palette.main.primaryBackgroundColor
         tableView.separatorColor = Palette.main.tableViewSeparatorColor
@@ -72,7 +71,7 @@ class AnnouncementTableManager:
                            width: tableView.bounds.width,
                            height: CGFloat(70))
         let spinner = LoadingIndicator(frame: frame)
-        spinner.activityIndicatorViewStyle = .white
+        spinner.style = .white
         spinner.startAnimating()
         spinner.hidesWhenStopped = true
 

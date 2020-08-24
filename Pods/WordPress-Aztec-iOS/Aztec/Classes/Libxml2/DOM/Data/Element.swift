@@ -19,7 +19,7 @@ public struct Element: RawRepresentable, Hashable {
     ///
     /// Ref. http://w3c.github.io/html/syntax.html#void-elements
     ///
-    public static var voidElements: [Element] = [.area, .base, .br, .col, .embed, .hr, .img, .input, .link, .meta, .param, .source, .track, .wbr]
+    public static var voidElements: [Element] = [.area, .base, .br, .col, .embed, .hr, .img, .input, .link, .meta, .param, .source, .track, .wbr, .source]
     
     /// This should hardly be anything other than .pre, but has been made customizable anyway.
     ///
@@ -30,7 +30,7 @@ public struct Element: RawRepresentable, Hashable {
     public static var mergeableBlockLevelElements = Set<Element>([.blockquote, .div, .figure, .figcaption, .h1, .h2, .h3, .h4, .h5, .h6, .hr, .li, .ol, .ul, .p, .pre])
 
     /// List of style HTML elements that can be merged together when they are sibling to each other
-    public static var mergeableStyleElements = Set<Element>([.i, .em, .b, .strong, .strike, .u, .code, .cite])
+    public static var mergeableStyleElements = Set<Element>([.i, .em, .b, .strong, .strike, .u, .code, .cite, .a, .sup, .sub])
 
     /// List of block level elements that can be merged but only when they have a single children that is also mergeable
     ///
@@ -43,7 +43,7 @@ public struct Element: RawRepresentable, Hashable {
     }
     
     public init(_ rawValue: RawValue) {
-        self.rawValue = rawValue
+        self.rawValue = rawValue.lowercased()
     }
     
     public func isBlockLevel() -> Bool {
@@ -106,6 +106,8 @@ extension Element {
     public static let span = Element("span")
     public static let strike = Element("strike")
     public static let strong = Element("strong")
+    public static let sub = Element("sub")
+    public static let sup = Element("sup")
     public static let table = Element("table")
     public static let tbody = Element("tbody")
     public static let td = Element("td")
@@ -127,20 +129,18 @@ extension Element {
         return Element(name).isBlockLevel()
     }
 
-    var equivalentNames: [String] {
-        get {
-            switch self {
-            case .h1: return [self.rawValue]
-            case .strong: return [self.rawValue, Element.b.rawValue]
-            case .em: return [self.rawValue, Element.i.rawValue]
-            case .b: return [self.rawValue, Element.strong.rawValue]
-            case .i: return [self.rawValue, Element.em.rawValue]
-            case .s: return [self.rawValue, Element.strike.rawValue, Element.del.rawValue]
-            case .del: return [self.rawValue, Element.strike.rawValue, Element.s.rawValue]
-            case .strike: return [self.rawValue, Element.del.rawValue, Element.s.rawValue]
-            default:
-                return [self.rawValue]
-            }
+    var equivalentNames: [Element] {
+        switch self {
+        case .h1: return [self]
+        case .strong: return [self, Element.b]
+        case .em: return [self, Element.i]
+        case .b: return [self, Element.strong]
+        case .i: return [self, Element.em]
+        case .s: return [self, Element.strike, Element.del]
+        case .del: return [self, Element.strike, Element.s]
+        case .strike: return [self, Element.del, Element.s]
+        default:
+            return [self]
         }
     }    
 }

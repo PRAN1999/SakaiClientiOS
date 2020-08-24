@@ -19,7 +19,8 @@ class AttributedStringSerializer {
         .figure: FigureElementConverter(),
         .hr: HRElementConverter(),
         .img: ImageElementConverter(),
-        .video: VideoElementConverter()
+        .video: VideoElementConverter(),
+        .li: LIElementConverter()
     ]
     
     // MARK: - Attributes Converter
@@ -28,6 +29,7 @@ class AttributedStringSerializer {
         BoldElementAttributesConverter(),
         ItalicElementAttributesConverter(),
         UnderlineElementAttributesConverter(),
+        ForegroundColorElementAttributesConverter(),
         ]
     )
     
@@ -48,7 +50,7 @@ class AttributedStringSerializer {
     ///
     /// - Returns: the requested attributed string.
     ///
-    func serialize(_ node: Node, defaultAttributes: [NSAttributedStringKey: Any] = [:]) -> NSAttributedString {
+    func serialize(_ node: Node, defaultAttributes: [NSAttributedString.Key: Any] = [:]) -> NSAttributedString {
         return serialize(node, inheriting: defaultAttributes)
     }
 
@@ -60,7 +62,7 @@ class AttributedStringSerializer {
     ///
     /// - Returns: the converted node as an `NSAttributedString`.
     ///
-    func serialize(_ node: Node, inheriting attributes: [NSAttributedStringKey: Any]) -> NSAttributedString {
+    func serialize(_ node: Node, inheriting attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
         switch node {
         case let textNode as TextNode:
             return serialize(textNode, inheriting: attributes)
@@ -81,7 +83,7 @@ class AttributedStringSerializer {
     ///
     /// - Returns: the converted node as an `NSAttributedString`.
     ///
-    fileprivate func serialize(_ node: TextNode, inheriting attributes: [NSAttributedStringKey: Any]) -> NSAttributedString {
+    fileprivate func serialize(_ node: TextNode, inheriting attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
 
         let text = node.sanitizedText()
         
@@ -106,7 +108,7 @@ class AttributedStringSerializer {
     ///
     /// - Returns: the converted node as an `NSAttributedString`.
     ///
-    fileprivate func serialize(_ node: CommentNode, inheriting attributes: [NSAttributedStringKey: Any]) -> NSAttributedString {
+    fileprivate func serialize(_ node: CommentNode, inheriting attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
         let attachment = CommentAttachment()
         attachment.text = node.comment
 
@@ -127,7 +129,7 @@ class AttributedStringSerializer {
     ///
     /// - Returns: the converted node as an `NSAttributedString`.
     ///
-    fileprivate func serialize(_ element: ElementNode, inheriting attributes: [NSAttributedStringKey: Any]) -> NSAttributedString {
+    fileprivate func serialize(_ element: ElementNode, inheriting attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
 
         let content = NSMutableAttributedString()
         let attributes = attributesConverter.convert(element.attributes, inheriting: attributes)
@@ -142,7 +144,7 @@ class AttributedStringSerializer {
 
     // MARK: - Paragraph Separator
 
-    private func appendParagraphSeparator(to string: NSAttributedString, inheriting inheritedAttributes: [NSAttributedStringKey: Any]) -> NSAttributedString {
+    private func appendParagraphSeparator(to string: NSAttributedString, inheriting inheritedAttributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
 
         let stringWithSeparator = NSMutableAttributedString(attributedString: string)
 
@@ -158,15 +160,19 @@ class AttributedStringSerializer {
     //
     private(set) lazy var genericElementConverter = GenericElementConverter()
     
-    lazy var contentSerializer: ElementConverter.ContentSerializer = { [unowned self] (elementNode, intrinsicRepresentation, attributes) in
+    lazy var contentSerializer: ElementConverter.ContentSerializer = { [unowned self] (elementNode, intrinsicRepresentation, attributes, intrinsicRepresentationBeforeChildren) in
         let content = NSMutableAttributedString()
-        
+
+        if let intrinsicRepresentation = intrinsicRepresentation, intrinsicRepresentationBeforeChildren {
+            content.append(intrinsicRepresentation)
+        }
+
         for child in elementNode.children {
             let nodeString = self.serialize(child, inheriting: attributes)
             content.append(nodeString)
         }
         
-        if let intrinsicRepresentation = intrinsicRepresentation {
+        if let intrinsicRepresentation = intrinsicRepresentation, !intrinsicRepresentationBeforeChildren {
             content.append(intrinsicRepresentation)
         }
         
@@ -175,32 +181,6 @@ class AttributedStringSerializer {
         }
         
         return content
-    }
-
-    // MARK: - Formatter Maps
-
-    public lazy var attributeFormattersMap: [String: AttributeFormatter] = {
-        return [:]
-    }()
-
-    public let styleToFormattersMap: [String: (AttributeFormatter, (String)->Any?)] = [
-        "color": (ColorFormatter(), {(value) in return UIColor(hexString: value)}),
-        "text-decoration": (UnderlineFormatter(), { (value) in return value == "underline" ? NSUnderlineStyle.styleSingle.rawValue : nil})
-    ]
-
-    func parseStyle(style: String) -> [String: String] {
-        var stylesDictionary = [String: String]()
-        let styleAttributes = style.components(separatedBy: ";")
-        for sytleAttribute in styleAttributes {
-            let keyValue = sytleAttribute.components(separatedBy: ":")
-            guard keyValue.count == 2,
-                  let key = keyValue.first?.trimmingCharacters(in: CharacterSet.whitespaces),
-                  let value = keyValue.last?.trimmingCharacters(in: CharacterSet.whitespaces) else {
-                continue
-            }
-            stylesDictionary[key] = value
-        }
-        return stylesDictionary
     }
 }
 

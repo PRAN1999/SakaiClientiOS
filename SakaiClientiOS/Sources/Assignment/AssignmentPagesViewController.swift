@@ -28,7 +28,7 @@ class AssignmentPagesViewController: UIViewController {
         button.backgroundColor = Palette.main.highlightColor
         button.titleLabel?.textColor = Palette.main.primaryTextColor
         let image = UIImage(named: "submit-button")?.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: UIControlState.normal)
+        button.setImage(image, for: UIControl.State.normal)
         button.tintColor = Palette.main.primaryTextColor
         button.alpha = 0.75
         return button
@@ -112,14 +112,14 @@ class AssignmentPagesViewController: UIViewController {
 
         // re-enable the pop recognizer for all other view controllers on
         // the navigation stack
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true;
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // disable the pop recognizer so it doesn't interfere with the paging
         // gestures
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
 
     @objc private func presentSubmissionView() {
@@ -134,9 +134,9 @@ class AssignmentPagesViewController: UIViewController {
             // Following JavaScript modifies in-browser editor in order to
             // make it easier to work with for native RichTextEditorViewController
             // and scrolls to bring submission form into view in the webView
-            webController.webView?.evaluateJavaScript(webController.ckeditorDestroyScript) { data, err in
+            webController.webView?.evaluateJavaScript(webController.ckeditorDestroyScript) { _, _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                    webController.webView?.evaluateJavaScript(webController.ckeditorReplaceScript) { data, err in
+                    webController.webView?.evaluateJavaScript(webController.ckeditorReplaceScript) { _, _ in
                         editorController.loadHTML()
                     }
                 }
@@ -171,7 +171,7 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
-        guard let viewControllerIndex = pages.index(of: viewController) else {
+        guard let viewControllerIndex = pages.firstIndex(of: viewController) else {
             return nil
         }
 
@@ -189,7 +189,7 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
                                 
-        guard let viewControllerIndex = pages.index(of: viewController) else {
+        guard let viewControllerIndex = pages.firstIndex(of: viewController) else {
             return nil
         }
 
@@ -208,7 +208,7 @@ extension AssignmentPagesViewController: UIPageViewControllerDataSource, UIPageV
     func pageViewController(_ pageViewController: UIPageViewController,
                             willTransitionTo pendingViewControllers: [UIViewController]) {
 
-        pendingIndex = pages.index(of: pendingViewControllers.first)
+        pendingIndex = pages.firstIndex(of: pendingViewControllers.first)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController,

@@ -14,7 +14,7 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     let fetcher: SiteAssignmentDataFetcher
     weak var delegate: NetworkSourceDelegate?
 
-    override var scrollPosition: UICollectionViewScrollPosition {
+    override var scrollPosition: UICollectionView.ScrollPosition {
         return .centeredVertically
     }
     
@@ -33,11 +33,15 @@ class SiteAssignmentCollectionManager: AssignmentCollectionManager, NetworkSourc
     override func setup() {
         super.setup()
         collectionView.backgroundColor = Palette.main.primaryBackgroundColor
-        collectionView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10)
+        collectionView.contentInset = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.indicatorStyle = Palette.main.scrollViewIndicatorStyle
     }
     
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         let height: CGFloat = AssignmentCell.cellHeight
         let width: CGFloat = min(collectionView.bounds.width / 2.25, AssignmentCell.cellWidth)
         let size: CGSize = CGSize(width: width, height: height)

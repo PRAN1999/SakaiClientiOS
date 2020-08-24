@@ -97,7 +97,7 @@ class LoginWebViewController: WebViewController {
                     self?.onLogin?()
                     UserDefaults.standard.set(self?.loginService.cookieArray, forKey: RequestManager.savedCookiesKey)
                 },
-                onFailure: { [weak self] err in
+                onFailure: { [weak self] _ in
                     let store = webView.configuration.websiteDataStore.httpCookieStore
                     store.getAllCookies({ cookies in
                         cookies.forEach { cookie in

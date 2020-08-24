@@ -198,7 +198,7 @@
 				TargetAttributes = {
 					51A472F920F9C9E700CC95F0 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1160;
 					};
 					51D82FB622028ECF0053ABAF = {
 						CreatedOnToolsVersion = 10.1;
@@ -211,6 +211,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 51A472F020F9C9E700CC95F0;
 			productRefGroup = 51A472FB20F9C9E700CC95F0 /* Products */;
@@ -424,7 +425,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -451,7 +452,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = PN.ReusableSource;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

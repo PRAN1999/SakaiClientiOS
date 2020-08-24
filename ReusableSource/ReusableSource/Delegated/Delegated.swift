@@ -12,8 +12,9 @@ public struct Delegated<Input, Output> {
     
     public init() { }
     
-    public mutating func delegate<Target : AnyObject>(to target: Target,
-                                                      with callback: @escaping (Target, Input) -> Output) {
+    public mutating func delegate<Target: AnyObject>(
+        to target: Target,
+        with callback: @escaping (Target, Input) -> Output) {
         self.callback = { [weak target] input in
             guard let target = target else {
                 return nil
@@ -45,8 +46,9 @@ public struct Delegated<Input, Output> {
 
 extension Delegated {
     
-    public mutating func stronglyDelegate<Target : AnyObject>(to target: Target,
-                                                              with callback: @escaping (Target, Input) -> Output) {
+    public mutating func stronglyDelegate<Target: AnyObject>(
+        to target: Target,
+        with callback: @escaping (Target, Input) -> Output) {
         self.callback = { input in
             return callback(target, input)
         }
@@ -64,14 +66,16 @@ extension Delegated {
 
 extension Delegated where Input == Void {
     
-    public mutating func delegate<Target : AnyObject>(to target: Target,
-                                                      with callback: @escaping (Target) -> Output) {
-        self.delegate(to: target, with: { target, voidInput in callback(target) })
+    public mutating func delegate<Target: AnyObject>(
+        to target: Target,
+        with callback: @escaping (Target) -> Output) {
+        self.delegate(to: target, with: { target, _ in callback(target) })
     }
     
-    public mutating func stronglyDelegate<Target : AnyObject>(to target: Target,
-                                                              with callback: @escaping (Target) -> Output) {
-        self.stronglyDelegate(to: target, with: { target, voidInput in callback(target) })
+    public mutating func stronglyDelegate<Target: AnyObject>(
+        to target: Target,
+        with callback: @escaping (Target) -> Output) {
+        self.stronglyDelegate(to: target, with: { target, _ in callback(target) })
     }
     
 }

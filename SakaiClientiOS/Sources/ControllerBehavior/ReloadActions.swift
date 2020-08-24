@@ -20,6 +20,6 @@ import Foundation
 /// - reloadHome: refresh the Site list (HomeController) and therefore
 ///               update the source of truth mappings as well
 enum ReloadActions: String {
-    case reload = "reload" 
-    case reloadHome = "reloadHome"
+    case reload
+    case reloadHome
 }

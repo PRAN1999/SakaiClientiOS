@@ -8,14 +8,14 @@ public extension Array where Element == ShortcodeAttribute {
         }
     }
     
-    public mutating func set(_ value: String, forKey key: String) {
+    mutating func set(_ value: String, forKey key: String) {
         set(.string(value), forKey: key)
     }
     
-    public mutating func set(_ value: ShortcodeAttribute.Value, forKey key: String) {
+    mutating func set(_ value: ShortcodeAttribute.Value, forKey key: String) {
         let newAttribute = ShortcodeAttribute(key: key, value: value)
         
-        guard let attributeIndex = index(where: { $0.key == key }) else {
+        guard let attributeIndex = firstIndex(where: { $0.key == key }) else {
             append(newAttribute)
             return
         }
@@ -23,8 +23,8 @@ public extension Array where Element == ShortcodeAttribute {
         self[attributeIndex] = newAttribute
     }
     
-    public mutating func remove(key: String) {
-        guard let attributeIndex = index(where: { $0.key == key }) else {
+    mutating func remove(key: String) {
+        guard let attributeIndex = firstIndex(where: { $0.key == key }) else {
             return
         }
         

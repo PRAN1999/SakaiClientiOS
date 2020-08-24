@@ -9,7 +9,7 @@ import Foundation
 import ReusableSource
 
 /// Manage Site information according to Term
-class SiteDataProvider : HideableDataProvider {
+class SiteDataProvider: HideableDataProvider {
     
     typealias T = Site
     typealias V = [[Site]]

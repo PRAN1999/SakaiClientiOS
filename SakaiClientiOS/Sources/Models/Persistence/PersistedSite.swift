@@ -23,7 +23,13 @@ import CoreData
         self.siteDescription = site.description
         self.subjectCode = site.subjectCode != nil ? site.subjectCode! : -1
         for page in site.pages {
-            let persistedPage = PersistedSitePage(from: page, entity: NSEntityDescription.entity(forEntityName: "PersistedSitePage", in: context)!, insertInto: context)
+            let persistedPage = PersistedSitePage(
+                from: page,
+                entity: NSEntityDescription.entity(
+                    forEntityName: "PersistedSitePage",
+                    in: context)!,
+                insertInto: context
+            )
             self.sitePages.append(persistedPage)
         }
     }

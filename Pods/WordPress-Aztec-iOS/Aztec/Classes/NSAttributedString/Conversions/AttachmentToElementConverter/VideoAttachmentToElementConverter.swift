@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class VideoAttachmentToElementConverter: AttachmentToElementConverter {
-    func convert(_ attachment: VideoAttachment, attributes: [NSAttributedStringKey : Any]) -> [Node] {
+    func convert(_ attachment: VideoAttachment, attributes: [NSAttributedString.Key : Any]) -> [Node] {
         let element: ElementNode
         
         if let representation = attributes[.videoHtmlRepresentation] as? HTMLRepresentation,
@@ -24,7 +24,9 @@ class VideoAttachmentToElementConverter: AttachmentToElementConverter {
         for attribute in attachment.extraAttributes {
             element.updateAttribute(named: attribute.name, value: attribute.value)
         }
-        
+
+        element.children = element.children + videoSourceElements(from: attachment)
+
         return [element]
     }
     
@@ -47,5 +49,24 @@ class VideoAttachmentToElementConverter: AttachmentToElementConverter {
         }
         
         return Attribute(name: "poster", value: .string(poster))
+    }
+
+    /// Extracts the Video source elements from a VideoAttachment Instance.
+    ///
+    private func videoSourceElements(from attachment: VideoAttachment) -> [Node] {
+        var nodes = [Node]()
+        for source in attachment.sources {
+            var attributes = [Attribute]()
+            if let src = source.src {
+                let sourceAttribute = Attribute(type: .src, value: .string(src))
+                attributes.append(sourceAttribute)
+            }
+            if let type = source.type {
+                let typeAttribute = Attribute(name: "type", value: .string(type))
+                attributes.append(typeAttribute)
+            }
+            nodes.append(ElementNode(type: .source, attributes: attributes, children: []))
+        }
+        return nodes
     }
 }
