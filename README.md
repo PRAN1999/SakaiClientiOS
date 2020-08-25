@@ -27,7 +27,7 @@ Available for Download: https://itunes.apple.com/us/app/rutgers-sakai-mobile/id1
 </ul>
 
 ## Setting up Dev Environment
-If you'd like to compile and run the source code yourself, you can do so on any Mac machine. The dependencies are included in the repo, however the API Key and Build Secret for Fabric are not. While you may add your own Fabric credentials, you can also leave the repo the way it is and still have a successful build.
+If you'd like to compile and run the source code yourself, you can do so on any Mac machine. The dependencies are already included in the repo.
 
 Run the following commands:
 
